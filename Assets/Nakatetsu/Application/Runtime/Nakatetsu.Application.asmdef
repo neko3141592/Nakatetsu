@@ -1,0 +1,21 @@
+{
+    "name": "Nakatetsu.Application",
+    "rootNamespace": "Nakatetsu.Application",
+    "references": [
+        "Nakatetsu.Core",
+        "Nakatetsu.Track",
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Tims",
+        "Nakatetsu.Train.Presentation",
+        "Nakatetsu.World"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

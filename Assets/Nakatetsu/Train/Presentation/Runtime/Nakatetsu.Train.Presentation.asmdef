@@ -1,0 +1,18 @@
+{
+    "name": "Nakatetsu.Train.Presentation",
+    "rootNamespace": "Nakatetsu.Train.Presentation",
+    "references": [
+        "Nakatetsu.Core",
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Tims"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
