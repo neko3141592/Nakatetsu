@@ -16,7 +16,6 @@ MonoBehaviour:
     displayName: Straight 100m
     guideLineId: SandboxStraight100m
     lengthM: 100
-    gaugeM: 1.067
     originPosition: {x: 0, y: 0, z: 0}
     originRotation: {x: 0, y: 0, z: 0, w: 1}
     horizontalSegments:
@@ -25,4 +24,3 @@ MonoBehaviour:
       trackCurveType: 0
       radiusM: 500
     verticalSegments: []
-    cantSegments: []

@@ -28,13 +28,4 @@ namespace Nakatetsu.Track.GuideLine
         public float startGradientPermille;
         public float endGradientPermille;
     }
-
-    [Serializable]
-    public class TrackCantSegment
-    {
-        public float startDistanceM;
-        public float lengthM = 100f;
-        public float startCantMm;
-        public float endCantMm;
-    }
 }

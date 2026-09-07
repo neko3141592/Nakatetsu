@@ -134,40 +134,5 @@ namespace Nakatetsu.Track.GuideLine
 
             return lastPassedSegment != null ? lastPassedSegment.endGradientPermille : 0f;
         }
-
-        public static float GetCantMmAt(List<TrackCantSegment> segments, float distanceOnEdgeM)
-        {
-            if (segments == null || segments.Count == 0)
-            {
-                return 0f;
-            }
-
-            TrackCantSegment lastPassedSegment = null;
-            for (int i = 0; i < segments.Count; i++)
-            {
-                TrackCantSegment segment = segments[i];
-                if (segment == null || segment.lengthM <= MinSegmentLengthM)
-                {
-                    continue;
-                }
-
-                float segmentStartM = Mathf.Max(0f, segment.startDistanceM);
-                float segmentEndM = segmentStartM + Mathf.Max(0f, segment.lengthM);
-                if (distanceOnEdgeM < segmentStartM)
-                {
-                    break;
-                }
-
-                if (distanceOnEdgeM <= segmentEndM)
-                {
-                    float t = Mathf.Clamp01((distanceOnEdgeM - segmentStartM) / segment.lengthM);
-                    return Mathf.Lerp(segment.startCantMm, segment.endCantMm, t);
-                }
-
-                lastPassedSegment = segment;
-            }
-
-            return lastPassedSegment != null ? lastPassedSegment.endCantMm : 0f;
-        }
     }
 }

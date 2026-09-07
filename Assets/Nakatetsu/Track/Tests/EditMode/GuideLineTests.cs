@@ -73,20 +73,17 @@ namespace Nakatetsu.Track.Tests
         }
 
         [Test]
-        public void GradientAndCantUseLegacyUnitsAndOrientation()
+        public void GradientProducesPitchWithoutRoll()
         {
             var line = Straight();
             line.verticalSegments.Add(new TrackVerticalSegment
             { lengthM = 100, startGradientPermille = 20, endGradientPermille = 20 });
-            line.cantSegments.Add(new TrackCantSegment
-            { lengthM = 100, startCantMm = 100, endCantMm = 100 });
+            line.originRotation = Quaternion.Euler(0, 0, 30);
             Assert.That(GuideLineCalculator.TryEvaluate(line, 50, out var sample), Is.True);
             Assert.That(sample.Position.y, Is.EqualTo(1).Within(0.0001));
             Assert.That(sample.GradientPermille, Is.EqualTo(20));
-            Assert.That(sample.CantMm, Is.EqualTo(100));
             Assert.That(sample.Tangent.y, Is.GreaterThan(0));
-            var expected = Quaternion.Euler(-Mathf.Atan(.02f) * Mathf.Rad2Deg, 0,
-                Mathf.Atan2(.1f, line.gaugeM) * Mathf.Rad2Deg);
+            var expected = Quaternion.Euler(-Mathf.Atan(.02f) * Mathf.Rad2Deg, 0, 0);
             Assert.That(Quaternion.Angle(sample.Rotation, expected), Is.LessThan(0.001f));
         }
 

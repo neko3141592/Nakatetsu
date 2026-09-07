@@ -18,13 +18,12 @@ namespace Nakatetsu.Track.GuideLine
             if (!TryResolveNativeGeometryPose(definition, distance, out Vector3 position,
                 out Vector3 tangent, out Quaternion rotation)) return false;
             float gradient = GuideLineProfileCalculator.GetGradientPermilleAt(definition.verticalSegments, distance);
-            float cant = GuideLineProfileCalculator.GetCantMmAt(definition.cantSegments, distance);
             if (!IsFinite(position.x) || !IsFinite(position.y) || !IsFinite(position.z) ||
                 !IsFinite(tangent.x) || !IsFinite(tangent.y) || !IsFinite(tangent.z) ||
                 !IsFinite(rotation.x) || !IsFinite(rotation.y) || !IsFinite(rotation.z) || !IsFinite(rotation.w) ||
-                !IsFinite(gradient) || !IsFinite(cant)) return false;
+                !IsFinite(gradient)) return false;
 
-            sample = new GuideLineSample(distance, position, tangent, rotation, gradient, cant);
+            sample = new GuideLineSample(distance, position, tangent, rotation, gradient);
             return true;
         }
 
@@ -116,9 +115,7 @@ namespace Nakatetsu.Track.GuideLine
             position.y = geometry.originPosition.y + heightM;
 
             float pitchDegree = -Mathf.Atan(currentPermille / 1000f) * Mathf.Rad2Deg;
-            float cantMm = GuideLineProfileCalculator.GetCantMmAt(geometry.cantSegments, distanceM);
-            float rollDegree = Mathf.Atan2(cantMm / 1000f, Mathf.Max(0.001f, geometry.gaugeM)) * Mathf.Rad2Deg;
-            rotation = currentRot * Quaternion.Euler(pitchDegree, 0f, rollDegree);
+            rotation = currentRot * Quaternion.Euler(pitchDegree, 0f, 0f);
             tangent = rotation * Vector3.forward;
             return true;
         }
