@@ -30,7 +30,20 @@ Runtimeは `Assets/Nakatetsu/Track/Runtime/GuideLine/`。既存の `Nakatetsu.Tr
 | `GuideLineAsset.cs` | 定義をInspectorで編集・保存するScriptableObject |
 | `GuideLinePreview.cs` | Sceneビューで基準線と指定地点の向きを描く確認用コンポーネント |
 
-計算に可変状態が不要なので、空のContextは追加していない。Definitionが固定入力、Sampleが出力で、Calculatorは状態を持たない。PreviewがUnityの描画接続を担当し、計算側からシーンやControllerを参照しない。
+Definitionが固定入力、Sampleが出力で、Calculatorは状態を持たない。PreviewがUnityの描画接続を担当し、計算側からシーンやControllerを参照しない。
+
+## segment開始情報の保存（2026-09-08）
+
+`GuideLineContext.Workspace`へ、水平segmentの開始・終了距離、開始位置・水平姿勢と、勾配segmentの開始・終了距離、開始高さを保持できるようにした。各項目は元のsegmentIndexを保持する。高さは原点からの相対値、水平位置のYは原点のYで、勾配は別に扱う。
+
+```csharp
+var context = new GuideLineContext();
+GuideLineCompiler.Rebuild(guideLine.Definition, context);
+```
+
+読み込み時・定義編集後に明示的に呼ぶ。Rebuildは前回の内容を消して各区間を順に計算し直す。null定義ならキャッシュを空にする。入力には従来どおり距離順の有効な区間を使う。
+
+今回は保存処理だけを追加した。Assetへの永続化、自動再構築、共有Contextの管理、既存TryEvaluateでキャッシュを使う処理は追加していない。位置評価の高速化は、次にこのキャッシュを利用する評価処理を接続してから有効になる。
 
 ## 使用例
 

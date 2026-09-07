@@ -175,7 +175,7 @@ namespace Nakatetsu.Track.GuideLine
             return true;
         }
 
-        private static void CalculateHorizontal(
+        internal static void CalculateHorizontal(
             TrackCurveType type,
             float localDistanceM,
             float segmentLengthM,
@@ -201,7 +201,7 @@ namespace Nakatetsu.Track.GuideLine
             }
         }
 
-        private static Quaternion GetPlanRotation(Quaternion worldRotation)
+        internal static Quaternion GetPlanRotation(Quaternion worldRotation)
         {
             Vector3 forwardXZ = worldRotation * Vector3.forward;
             forwardXZ.y = 0f;
