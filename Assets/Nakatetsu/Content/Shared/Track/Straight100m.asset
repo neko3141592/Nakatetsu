@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867e6fab413b4b9cb8875a007ce199af, type: 3}
+  m_Name: Straight100m
+  m_EditorClassIdentifier:
+  definition:
+    displayName: Straight 100m
+    guideLineId: SandboxStraight100m
+    lengthM: 100
+    gaugeM: 1.067
+    originPosition: {x: 0, y: 0, z: 0}
+    originRotation: {x: 0, y: 0, z: 0, w: 1}
+    horizontalSegments:
+    - startDistanceM: 0
+      lengthM: 100
+      trackCurveType: 0
+      radiusM: 500
+    verticalSegments: []
+    cantSegments: []
