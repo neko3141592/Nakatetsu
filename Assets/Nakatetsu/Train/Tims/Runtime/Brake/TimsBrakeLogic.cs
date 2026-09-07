@@ -89,7 +89,7 @@ namespace Nakatetsu.Train.Tims.Brake
 
             CalculateAirBrakeForces(context);
             UpdateBrakeForceCommands(context);
-        }
+        }       
 
         private static void CalculateTargetCarBrakeForcesN(TimsBrakeContext context, float targetBrakeForceN)
         {
