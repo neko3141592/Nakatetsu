@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Consist.CarDefinitionAsset
   carId: 
   displayName: 
-  carType: 1
+  carType: 0
   lengthM: 20
   bogieCenterDistanceM: 0
-  emptyMassKg: 0
-  passengerCapacity: 0
+  emptyMassKg: 28000
+  passengerCapacity: 150
   tractionEquipmentPrefab: {fileID: 0}
   brakeEquipmentPrefab: {fileID: 0}
