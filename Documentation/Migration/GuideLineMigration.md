@@ -18,7 +18,7 @@ GuideLineから `cantSegments`、`TrackCantSegment`、`CantMm`、カント補間
 
 ## ファイルと役割
 
-Runtimeは `Assets/Nakatetsu/Track/Runtime/GuideLine/`。既存の `Nakatetsu.Track.asmdef` を使用する。
+現在のスクリプトは `Assets/Nakatetsu/Track/Geometry/Scripts/`、テストは `Assets/Nakatetsu/Track/Geometry/Tests/`。既存の `Nakatetsu.Track.asmdef` を使用する。
 
 | ファイル | 内容 |
 | --- | --- |
@@ -63,7 +63,7 @@ Assetを使わない場合は `GuideLineCalculator.TryEvaluate(definition, dista
 
 ## Unityで確認する手順
 
-1. `Assets/Nakatetsu/Content/Shared/Track/Straight100m.asset` を選ぶ。原点からZ方向へ100mの直線を用意済み。
+1. `Assets/Nakatetsu/Track/Geometry/Data/Straight100m.asset` を選ぶ。原点からZ方向へ100mの直線を用意済み。
 2. 確認用の空GameObjectを作り、`GuideLinePreview` を追加する。
 3. `Guide Line`へこのアセットを割り当てる。
 4. SceneビューのGizmosを有効にする。再生しなくても確認できる。

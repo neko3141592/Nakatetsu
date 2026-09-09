@@ -6,6 +6,9 @@
 
 ## 現在の主要構成
 
+2026-09-10に、`Assets/Nakatetsu` 以下をファイル種別先行から機能先行へ再編した。
+`Runtime` や `Presentation` を単なる置き場として使わず、責務を確定できるアセットは機能の末端にある `Scripts`、`Prefabs`、`Data`、`Sprites`、`Tests` へ置く。
+
 ```text
 Nakatetsu/
 ├── Assets/
@@ -15,13 +18,32 @@ Nakatetsu/
 │   │   ├── Core/
 │   │   │   └── Runtime/
 │   │   ├── Track/
-│   │   │   └── Runtime/
+│   │   │   └── Geometry/
+│   │   │       ├── Scripts/
+│   │   │       ├── Data/
+│   │   │       └── Tests/
 │   │   ├── Train/
-│   │   │   ├── Runtime/
+│   │   │   ├── Consist/
+│   │   │   │   ├── Scripts/
+│   │   │   │   └── Series1000/Data/
+│   │   │   ├── Equipment/Scripts/
+│   │   │   ├── Operation/
+│   │   │   │   ├── Scripts/
+│   │   │   │   ├── Prefabs/
+│   │   │   │   └── Tests/
 │   │   │   ├── Tims/
-│   │   │   │   └── Runtime/
-│   │   │   └── Presentation/
-│   │   │       └── Runtime/
+│   │   │   │   ├── Brake/{Scripts,Tests}/
+│   │   │   │   ├── Bus/{Scripts,Tests}/
+│   │   │   │   ├── Communication/{Scripts,Tests}/
+│   │   │   │   ├── Configuration/Scripts/
+│   │   │   │   ├── MasterController/Scripts/
+│   │   │   │   ├── Notch/{Scripts,Tests}/
+│   │   │   │   ├── Traction/{Scripts,Tests}/
+│   │   │   │   ├── Shared/Scripts/
+│   │   │   │   └── Display/
+│   │   │   │       ├── Indicators/{Scripts,Prefabs}/
+│   │   │   │       ├── Notch/{Scripts,Prefabs}/
+│   │   │   │       └── SpeedMeter/{Scripts,Sprites,Documentation}/
 │   │   ├── World/
 │   │   │   └── Runtime/
 │   │   ├── Content/
@@ -47,9 +69,10 @@ Nakatetsu/
 | `Assets/Nakatetsu/Application` | 起動、シーン遷移、各モジュールの生成と接続、アプリ全体のUI |
 | `Assets/Nakatetsu/Core` | 単位、共通の小さなデータ型、外部依存の少ないインターフェース |
 | `Assets/Nakatetsu/Track` | 線形、線路グラフ、経路、閉塞、連動、駅設備、地上ATC |
-| `Assets/Nakatetsu/Train/Runtime` | 編成、運動、ブレーキ、力行、運転操作、車上ATC |
-| `Assets/Nakatetsu/Train/Tims` | 共通TIMSバス、制御、ロジック、表示基盤 |
-| `Assets/Nakatetsu/Train/Presentation` | 運転台の計器、音、アニメーションなどの表示・演出機構 |
+| `Assets/Nakatetsu/Train/Consist` | 編成定義と車種別の編成データ |
+| `Assets/Nakatetsu/Train/Equipment` | 車両機器の生成と割り当て |
+| `Assets/Nakatetsu/Train/Operation` | 運転操作と主幹制御器 |
+| `Assets/Nakatetsu/Train/Tims` | TIMSの通信、バス、ノッチ、ブレーキ、力行、表示 |
 | `Assets/Nakatetsu/World` | 沿線生成、カメラ、Floating Origin、ストリーミング |
 | `Assets/Nakatetsu/Content` | 具体的な路線・車両のデータ、モデル、マテリアル、音声、Prefab |
 | `Assets/Nakatetsu/Settings` | 自作機能のプロジェクト共通設定アセット |
@@ -62,28 +85,37 @@ Nakatetsu/
 | `ProjectSettings` | Unityプロジェクト全体の設定 |
 
 `Core` に、単に複数機能で使うという理由だけで車両やTIMS固有の型を集めない。
-既存の設定アセットは、この構成整理のためだけに移動しない。
+責務を特定できない既存の設定アセットは推測で移動しない。
 
 ## コードの配置
 
-機能・ドメインを上位に置き、その中を必要に応じて分ける。
+機能・ドメインを上位に置き、ファイル種別は機能階層の末端に置く。
 
-- `Runtime`：ゲーム実行時に使用するコード。各モジュールのasmdefを置く。
-- `Editor`：Inspector拡張や制作ツール。必要になったら専用のEditor用asmdefとともに追加する。
-- `Tests/EditMode`：計算・データ検証などのテスト。
-- `Tests/PlayMode`：起動、シーン読み込み、Unity上の動作を確認するテスト。
+- `Scripts`：C#コード。
+- `Prefabs`：その機能のPrefab。
+- `Data`：ScriptableObject、設定、定義データ。
+- `Sprites`、`Materials`、`Audio`：その機能で使う各アセット。
+- `Tests`：その機能を検証するテスト。EditMode/PlayModeの区別はasmdefで表現し、必要がなければ `Tests/EditMode` のような中間階層を作らない。
+- `Editor`：Unityが要求するEditor専用コード。必要な場合だけ機能配下に置く。
+
+禁止例は `Tims/Scripts/Communication`。正しくは `Tims/Communication/Scripts` とする。同様に `Consist/Data/Series1000` ではなく `Consist/Series1000/Data` とする。
 
 機能を移植した後の配置例：
 
 ```text
-Assets/Nakatetsu/Train/Runtime/Brake/
-├── Controllers/
-├── Logic/
-└── Context/
+Assets/Nakatetsu/Train/Brake/
+├── Scripts/
+├── Prefabs/
+├── Data/
+└── Tests/
 ```
 
 ControllerはUnityとの接続、Logicは計算・判定、Contextは状態・入力・設定・出力・作業領域を担当する。
-ファイルが少ないうちは同じ機能フォルダへ置き、空の下位フォルダを大量に作らない。
+これらはファイル種別ではないため、ファイルが少ないうちは `Scripts` 内でさらに分割しない。存在しない種類の空フォルダも作らない。
+
+## Assembly Definition
+
+今回の移動ではasmdefの名前、参照、namespace、クラス名を変更していない。`Nakatetsu.Train.asmdef` と `Nakatetsu.Train.Tims.asmdef` は、それぞれの機能ツリーを包含できる機能ルートに置く。TIMSのテストは機能別の `Tests` に分散するが、`asmref` で既存の `Nakatetsu.Train.Tims.Tests.EditMode` を参照し、Assembly境界を維持する。
 
 ## 必要になったら追加する構成
 
@@ -92,20 +124,19 @@ ControllerはUnityとの接続、Logicは計算・判定、Contextは状態・�
 ```text
 Assets/Nakatetsu/
 ├── Simulation/
-│   └── Runtime/
-│       ├── Service/              # 運行・停車駅の順序
-│       └── StationStop/          # 停車判定
-└── Content/
-    ├── Routes/
-    │   └── NtLine/               # NT線固有のデータ・シーン・Prefab
-    ├── Vehicles/
-    │   └── Series1000/
-    │       └── Tims/             # 1000系固有のTIMS画面・設定
-    └── Shared/                   # 複数路線・車両で共用する素材
+│   ├── Service/Scripts/          # 運行・停車駅の順序
+│   └── StationStop/Scripts/      # 停車判定
+├── Track/
+│   └── NtLine/{Data,Prefabs}/    # NT線固有の線路データ
+├── Station/
+│   └── NT01/{Data,Models,Prefabs}/
+└── Train/
+    └── Tims/
+        └── Series1000/{Data,Sprites}/ # 1000系固有のTIMS画面・設定
 ```
 
-定義を表すC#の型は担当モジュールへ、具体的な定義アセットは `Content` へ置く。
-例えば `CarDefinition.cs` は `Train/Runtime/Consist`、1000系の定義 `.asset` は `Content/Vehicles/Series1000` に置く。
+定義を表すC#の型は担当機能の `Scripts` へ、具体的な定義アセットはその機能・車種の `Data` へ置く。
+例えば `CarDefinitionAsset.cs` は `Train/Consist/Scripts`、1000系の定義 `.asset` は `Train/Consist/Series1000/Data` に置く。
 
 起動・開発確認用シーンは、まず以下の2ファイルでよい。
 
@@ -150,11 +181,11 @@ Documentation/
 | --- | --- |
 | 駅の参考写真・寸法資料・配線図PDF | `Documentation/References/Routes/NtLine/Stations/NT01` |
 | 自作の駅モデルの制作元 | `SourceAssets/Routes/NtLine/Stations/NT01` |
-| Unityで使う駅モデル・Prefab・駅データ | `Assets/Nakatetsu/Content/Routes/NtLine/Stations/NT01` |
+| Unityで使う駅モデル・Prefab・駅データ | `Assets/Nakatetsu/Station/NT01/{Models,Prefabs,Data}` |
 | 1000系の車両モデルの制作元 | `SourceAssets/Vehicles/Series1000/Models` |
-| Unityで使う1000系のモデル | `Assets/Nakatetsu/Content/Vehicles/Series1000/Models` |
+| Unityで使う1000系のモデル | `Assets/Nakatetsu/Train/Consist/Series1000/Models` |
 | 共通TIMS画像の制作元 | `SourceAssets/Train/Tims/Graphics` |
-| 共通TIMS画像の書き出し先 | `Assets/Nakatetsu/Train/Tims/Art` |
+| 共通TIMS速度計画像の書き出し先 | `Assets/Nakatetsu/Train/Tims/Display/SpeedMeter/Sprites` |
 
 `.blend`、`.ai`、`.psd` などの制作元はAssets外へ置く。
 制作元と書き出し先の基本名をそろえ、履歴はGitで管理する。

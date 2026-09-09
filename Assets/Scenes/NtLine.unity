@@ -796,6 +796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1441256091}
+  - component: {fileID: 1441256092}
   m_Layer: 0
   m_Name: Equipments
   m_TagString: Untagged
@@ -820,6 +821,21 @@ Transform:
   - {fileID: 1179489451}
   m_Father: {fileID: 853003941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1441256092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441256090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152f9fb4620a43f5a687569446ffff65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.TrainEquipmentBuilder
+  consistDefinition: {fileID: 0}
+  carsRoot: {fileID: 0}
+  buildOnAwake: 1
 --- !u!1 &1527475200
 GameObject:
   m_ObjectHideFlags: 0

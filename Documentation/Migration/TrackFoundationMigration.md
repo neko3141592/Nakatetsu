@@ -32,7 +32,7 @@
 | 新プロジェクト | `/Users/yudai/Documents/Unity/Nakatetsu` |
 | 旧HEAD | `0913d6eeb74f4743664b3603de2564110fe86b07` |
 | 新側の調査時ブランチ | `migration/Tims`。線路用ブランチへの切り替えはこの作業では行っていない |
-| 新側のTrack | `Assets/Nakatetsu/Track/Runtime/Nakatetsu.Track.asmdef` があり、線路のC#実装はまだない |
+| 新側のTrack | `Assets/Nakatetsu/Track/Geometry/Scripts/Nakatetsu.Track.asmdef` とGuideLine実装がある |
 | 新側の車両定義 | `CarDefinitionAsset` と `ConsistDefinitionAsset` がある |
 | TIMS | Logic・Contextと、編成両数からLocalBusを作る通信Controllerがある |
 
@@ -145,34 +145,26 @@ JSONのGeometryの `name` がRuntimeの `geometryId` になる。空なら `GEO_
 ```text
 Assets/Nakatetsu/
 ├── Track/
-│   ├── Runtime/
-│   │   ├── Geometry/       # 線形の定義、評価、距離変換表
-│   │   ├── Graph/          # Node、Edge、グラフデータ、検索、検証
-│   │   ├── Route/          # 経路追跡、位置の移動
-│   │   ├── Configuration/  # TrackGraphAsset
-│   │   ├── Block/          # 当初はBlockSection等の定義だけ
-│   │   └── Interlocking/  # 当初は分岐の定義・状態だけ
-│   ├── Editor/
-│   │   └── Import/         # JSON DTO、コンパイル、読み込み、Inspector
-│   └── Tests/EditMode/
+│   ├── Geometry/{Scripts,Data,Tests}/
+│   ├── Graph/{Scripts,Data,Tests}/
+│   ├── Route/{Scripts,Data,Tests}/
+│   ├── Block/{Scripts,Data,Tests}/
+│   └── Interlocking/{Scripts,Data,Tests}/
 ├── Train/
-│   ├── Runtime/
-│   │   ├── Consist/        # 現在の定義、編成の寸法・オフセット計算
-│   │   └── Track/          # TrainTrackContext、Logic、Controller
-│   └── Presentation/Runtime/Track/  # 車体への姿勢反映
-├── Application/Runtime/Sandbox/    # 仮速度の入力、初期化・接続
-├── World/Runtime/Track/            # 後段のレール・架線等の生成
-└── Content/Routes/NtLine/Track/
-    ├── Source/             # 旧形式のTrack.json
-    ├── Schemas/            # 相対パスを合わせたスキーマ
-    └── Definitions/        # 再生成したTrackGraph.asset
+│   ├── Consist/Scripts/             # 現在の定義、編成の寸法・オフセット計算
+│   └── TrackPosition/Scripts/       # TrainTrackContext、Logic、Controller、車体姿勢反映
+├── Application/Sandbox/Scripts/     # 仮速度の入力、初期化・接続
+├── World/Track/Scripts/             # 後段のレール・架線等の生成
+└── Track/NtLine/
+    ├── Import/Data/                 # 旧形式のTrack.jsonとスキーマ
+    └── Graph/Data/                  # 再生成したTrackGraph.asset
 
 Assets/Scenes/Sandbox/TrackSandbox.unity
 ```
 
 namespaceは `Nakatetsu.Track.Geometry`、`.Graph`、`.Route`、`.Configuration`、`Nakatetsu.Train.Track`、`Nakatetsu.Train.Presentation.Track` など。Runtimeはnamespaceに入れない。Editorのインポート処理は `Nakatetsu.Track.Editor.Import` とする。
 
-既存のRuntime asmdefを使い、Geometry等のフォルダごとには分割しない。Editor追加時にEditor専用asmdefを作り、Trackを参照させる。テストも専用asmdefとする。
+既存のasmdef名と参照は維持する。Editor追加時は対象機能の末端にEditor専用フォルダとasmdefを置き、Trackを参照させる。テストも機能ごとの末端にある `Tests` へ置く。
 
 現在の参照方向を維持する。
 
@@ -191,24 +183,24 @@ Track.Editor → Track
 
 | 旧ファイル・機能 | 新しい置き場所／処理 | 段階 |
 | --- | --- | --- |
-| `Track/Geometry/TrackCurveDefinitions.cs`、`TrackGeometry.cs` | `Track/Runtime/Geometry`。データ型を保持 | A |
+| `Track/Geometry/TrackCurveDefinitions.cs`、`TrackGeometry.cs` | `Track/Geometry/Scripts`。データ型を保持 | A |
 | `TrackGradientCalculator.cs` | 同上。単位・境界の計算を保持 | A・Dで検証 |
 | `TrackOffsetSegment.cs`、`TrackOffsetCalculator.cs` | 同上。Segment内の計算を必要に応じCalculatorへ抽出 | A・D |
 | `TrackOffsetDistanceMap.cs`、Builder | 同上。末端補間・生成条件を保持 | A・D |
 | `TrackRuntimeResolver.cs` | 同上。まず計算を保持し、純粋なグラフデータを引数にする | A |
-| `Track/Graph/TrackNode.cs`、`TrackEdge.cs`、`EdgeTravelDirection.cs` | `Track/Runtime/Graph` | A |
+| `Track/Graph/TrackNode.cs`、`TrackEdge.cs`、`EdgeTravelDirection.cs` | `Track/Graph/Scripts` | A |
 | `TrackGraph.cs` | `Graph/TrackGraphData.cs`、検索用`TrackGraphContext.cs`、`TrackGraphValidator.cs`、`Configuration/TrackGraphAsset.cs`へ責務分割 | A・D |
-| `TrackGraphTraversal.cs` | `Track/Runtime/Route`。Controller探索を除去 | C・E |
-| `Track/Route/TrackRouteTracer.cs`、`TrackTraceSegment.cs` | `Track/Runtime/Route`。追跡距離と終了理由を返す | C |
-| `Track/Block/BlockDefinition.cs` | `Track/Runtime/Block`。`BlockSection`等のデータだけ先行可能 | A・D |
-| `Track/Interlocking/Turnout/TurnoutDefinition.cs`、`TurnoutConnection.cs` | `Track/Runtime/Interlocking`。定義と可変状態を分離 | D・E |
-| `Serialization/Json/TrackLayoutJson.cs`とTrack系コンパイラー・Loader | `Track/Editor/Import`。読み込みとデータ変換を分離 | D |
-| `Editor/Track/TrackGraphEditor.cs` | `Track/Editor/Import`。成功時のみAsset保存 | D |
-| `Train/Track/TrainTrackContext.cs`、Resolver | `Train/Runtime/Track`。Context・Logicへ抽出 | B・C |
-| `Train/Track/CarTrackOutput.cs` | `Train/Runtime/Track`。各車の有効性を追加 | B・C |
-| `Train/Consist/TrainConsistResolver.cs` | `Train/Runtime/Consist`。現在の定義から寸法Inputを作る | C |
-| `Train/Consist/TrainCar.cs`のTransform反映 | `Train/Presentation/Runtime/Track` | B |
-| `Track/Scenery/*` | `World/Runtime`へ段階的に移す | F以降 |
+| `TrackGraphTraversal.cs` | `Track/Route/Scripts`。Controller探索を除去 | C・E |
+| `Track/Route/TrackRouteTracer.cs`、`TrackTraceSegment.cs` | `Track/Route/Scripts`。追跡距離と終了理由を返す | C |
+| `Track/Block/BlockDefinition.cs` | `Track/Block/Data`。`BlockSection`等のデータだけ先行可能 | A・D |
+| `Track/Interlocking/Turnout/TurnoutDefinition.cs`、`TurnoutConnection.cs` | `Track/Interlocking/Turnout/Data`。定義と可変状態を分離 | D・E |
+| `Serialization/Json/TrackLayoutJson.cs`とTrack系コンパイラー・Loader | `Track/Import/Editor`。読み込みとデータ変換を分離 | D |
+| `Editor/Track/TrackGraphEditor.cs` | `Track/Import/Editor`。成功時のみAsset保存 | D |
+| `Train/Track/TrainTrackContext.cs`、Resolver | `Train/Track/Scripts`。Context・Logicへ抽出 | B・C |
+| `Train/Track/CarTrackOutput.cs` | `Train/Track/Scripts`。各車の有効性を追加 | B・C |
+| `Train/Consist/TrainConsistResolver.cs` | `Train/Consist/Scripts`。現在の定義から寸法Inputを作る | C |
+| `Train/Consist/TrainCar.cs`のTransform反映 | `Train/Track/Visuals/Scripts` | B |
+| `Track/Scenery/*` | `World/Scenery/Scripts`へ段階的に移す | F以降 |
 
 上記の新しいファイル名は提案。`TrackRuntimeResolver`のような意味の通る名前を、統一のためだけにすべてLogicへ改名する必要はない。
 
