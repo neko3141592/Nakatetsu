@@ -16,14 +16,8 @@ namespace Nakatetsu.Train.Operation
         [SerializeField] private ReverserPosition initialReverserPosition = ReverserPosition.Neutral;
         [SerializeField] private bool inputEnabledOnAwake = true;
 
-        [Header("Keyboard input")]
-        [SerializeField] private bool acceptKeyboardInput = true;
-        [SerializeField, Min(0.01f)] private float notchStepIntervalSeconds = 0.15f;
-
         private readonly MasterControllerContext context = new();
         private TrainEquipmentAssignment equipmentAssignment;
-        private float nextNeutralStepTimeSeconds;
-        private float nextBrakeStepTimeSeconds;
 
         public event Action StateChanged;
 
@@ -47,16 +41,6 @@ namespace Nakatetsu.Train.Operation
             ResolveEquipmentAssignment();
             ApplySerializedSettings();
             MasterControllerLogic.Initialize(context, initialReverserPosition, inputEnabledOnAwake);
-        }
-
-        private void Update()
-        {
-            if (!acceptKeyboardInput || !IsInputEnabled)
-            {
-                return;
-            }
-
-            HandleKeyboardInput();
         }
 
         public void ConfigureLimits(
@@ -139,80 +123,11 @@ namespace Nakatetsu.Train.Operation
             ChangeState(() => MasterControllerLogic.StepTowardServiceMaxBrake(context));
         }
 
-        private void HandleKeyboardInput()
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                MoveOneStepTowardBrake();
-            }
-
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                MoveOneStepTowardPower();
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                nextNeutralStepTimeSeconds = 0f;
-            }
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                nextBrakeStepTimeSeconds = 0f;
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow) && CanRepeatStep(ref nextNeutralStepTimeSeconds))
-            {
-                StepTowardNeutral();
-            }
-
-            if (Input.GetKey(KeyCode.RightArrow) && CanRepeatStep(ref nextBrakeStepTimeSeconds))
-            {
-                StepTowardServiceMaxBrake();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SetEmergencyBrake();
-            }
-
-            if (PowerPosition > 0)
-            {
-                return;
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                SetReverserPosition(ReverserPosition.Forward);
-            }
-            else if (Input.GetKeyDown(KeyCode.N))
-            {
-                SetReverserPosition(ReverserPosition.Neutral);
-            }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                SetReverserPosition(ReverserPosition.Reverse);
-            }
-        }
-
-        private bool CanRepeatStep(ref float nextStepTimeSeconds)
-        {
-            if (Time.time < nextStepTimeSeconds)
-            {
-                return false;
-            }
-
-            nextStepTimeSeconds = Time.time + notchStepIntervalSeconds;
-            return true;
-        }
-
         private void ApplySerializedSettings()
         {
             maxPowerPosition = Mathf.Max(1, maxPowerPosition);
             maxServiceBrakePosition = Mathf.Max(1, maxServiceBrakePosition);
             emergencyBrakePosition = Mathf.Max(maxServiceBrakePosition + 1, emergencyBrakePosition);
-            notchStepIntervalSeconds = Mathf.Max(0.01f, notchStepIntervalSeconds);
-
             MasterControllerLogic.ConfigureLimits(
                 context,
                 maxPowerPosition,
@@ -244,8 +159,6 @@ namespace Nakatetsu.Train.Operation
             maxPowerPosition = Mathf.Max(1, maxPowerPosition);
             maxServiceBrakePosition = Mathf.Max(1, maxServiceBrakePosition);
             emergencyBrakePosition = Mathf.Max(maxServiceBrakePosition + 1, emergencyBrakePosition);
-            notchStepIntervalSeconds = Mathf.Max(0.01f, notchStepIntervalSeconds);
-
             if (Application.isPlaying)
             {
                 ApplySerializedSettings();
