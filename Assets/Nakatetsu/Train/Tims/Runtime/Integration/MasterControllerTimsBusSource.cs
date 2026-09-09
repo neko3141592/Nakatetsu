@@ -26,12 +26,10 @@ namespace Nakatetsu.Train.Tims.Integration
 
         [SerializeField] private MasterController masterController;
         [SerializeField] private TrainEquipmentAssignment equipmentAssignment;
-        [SerializeField, Min(0.001f)] private float transmissionIntervalSeconds = 0.05f;
 
         public int AssignedCarIndex => ResolveEquipmentAssignment()
             ? equipmentAssignment.AssignedCarIndex
             : -1;
-        public float TransmissionIntervalSeconds => Mathf.Max(0.001f, transmissionIntervalSeconds);
         public MasterController MasterController => masterController;
 
         private void Awake()
@@ -78,7 +76,6 @@ namespace Nakatetsu.Train.Tims.Integration
 
         private void OnValidate()
         {
-            transmissionIntervalSeconds = Mathf.Max(0.001f, transmissionIntervalSeconds);
             ResolveMasterController();
             ResolveEquipmentAssignment();
         }
