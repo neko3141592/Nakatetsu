@@ -28,6 +28,7 @@ namespace Nakatetsu.Train.Consist
 
         public GameObject tractionEquipmentPrefab;
         public GameObject brakeEquipmentPrefab;
+        public GameObject masterControllerPrefab;
 
     }
 }
