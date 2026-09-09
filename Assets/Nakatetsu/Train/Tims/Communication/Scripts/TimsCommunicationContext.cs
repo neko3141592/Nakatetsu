@@ -29,7 +29,6 @@ namespace Nakatetsu.Train.Tims.Communication
 
     public sealed class TimsCommunicationInput
     {
-        public float timeSeconds;
         public readonly List<TimsTransmissionInput> sources = new();
     }
 
@@ -37,17 +36,15 @@ namespace Nakatetsu.Train.Tims.Communication
     {
         public int sourceId;
         public int carIndex;
-        public float transmissionIntervalSeconds;
     }
 
     public sealed class TimsCommunicationOutput
     {
-        public readonly List<int> dueSourceIds = new();
+        public readonly List<int> availableSourceIds = new();
     }
 
     public sealed class TimsCommunicationWorkspace
     {
-        public readonly Dictionary<int, float> nextTransmissionTimesSeconds = new();
         internal readonly HashSet<int> sourceIds = new();
     }
 }

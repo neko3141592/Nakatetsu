@@ -2,7 +2,7 @@
 
 ## 対象と移植元
 
-- 対象：通信タイミング、ノッチ決定、ブレーキ配分、力行力と定速状態の計算。
+- 対象：通信元の検証・値収集、ノッチ決定、ブレーキ配分、力行力と定速状態の計算。
 - 移植元：`/Users/yudai/TD-ATC/Assets/Scripts/Train/Ntims` の作業ツリー。
 - 読み取り時のHEAD：`0913d6eeb74f4743664b3603de2564110fe86b07`。
 - 移植元には未追跡ファイルがあるため、HEADだけでは同じソースを再現できない。読み取り時の各C#ファイルのSHA-256を `TimsSourceHashes.json` に記録した。
@@ -20,7 +20,7 @@ MonoBehaviour、車両Controller、Prefab、ScriptableObject、シーンは移�
 | `Assets/Nakatetsu/Train/Tims` 以下の機能 | namespace | 内容 |
 | --- | --- | --- |
 | `Bus` | `Nakatetsu.Train.Tims.Bus` | 値・キー・型・バス状態 |
-| `Communication` | `Nakatetsu.Train.Tims.Communication` | 通信Context・送信時刻判定・各車の値の収集 |
+| `Communication` | `Nakatetsu.Train.Tims.Communication` | 通信Context・送信元検証・各車の値の収集 |
 | `Notch` | `Nakatetsu.Train.Tims.Notch` | 運転台選択・手動/ATCノッチの統合・方向判定 |
 | `Brake` | `Nakatetsu.Train.Tims.Brake` | ブレーキ目標・最低空気圧・回生/空気ブレーキ配分 |
 | `Traction` | `Nakatetsu.Train.Tims.Traction` | 定加速/定出力・BCインターロック・定速状態・VVVF配分 |
@@ -34,7 +34,6 @@ MonoBehaviour、車両Controller、Prefab、ScriptableObject、シーンは移�
 
 | 移植元 | 新側 |
 | --- | --- |
-| `TimsController` の送信時刻判定・スケジュール | `TimsCommunicationLogic` |
 | `TimsController` の `CollectFloatFromCars` | 同名の純粋なデータ収集メソッド |
 | Controller/端末のState・Workspace | `TimsCommunicationContext.cs` 内の専用データ型 |
 | `TimsNotchController` の運転台選択・方向・ノッチ決定・表示文字列 | `TimsNotchLogic` |
@@ -70,12 +69,9 @@ TimsBrakeLogic.Calculate(context);
 
 - `State.terminals` に各車の純粋な端末Stateを、車両順に用意する。未接続の車両位置はnullで保持できる。
 - 有効な端末の `carIndex` は編成内で一意にする。
-- `Input.sources` に送信元の一意な整数ID、車両インデックス、送信間隔を渡す。IDは登録中に変えない。
-- `Input.timeSeconds` は呼び出し側から渡す現在時刻。Logic内で `Time.time` を参照しない。
-- `Calculate` は今回送信可能な `Output.dueSourceIds` を返すだけで、通信自体は実行しない。
-- 呼び出し側が送信に成功した後で `MarkTransmitted(context, sourceId)` を呼ぶ。失敗時は次回も送信候補になる。
-- 送信元を再登録したときは `ResetSchedule` を呼ぶ。旧 `RefreshDataSources` と同じく送信時刻をリセットする。
-- 最低送信間隔は旧実装と同じ0.001秒。
+- `Input.sources` に送信元の一意な整数IDと車両インデックスを渡す。IDは登録中に変えない。
+- `Calculate` は端末へ書き込み可能な `Output.availableSourceIds` を毎回返す。通信自体は呼び出し側が実行する。
+- TIMS内では送信周期を管理しない。必要な更新周期は呼び出し側の更新ループが決める。
 - `CollectFloatFromCars` は、値と取得成否を車両順に返す。質量未取得時の車両定義からの補完は呼び出し側で行う。
 
 既存 `ITimsBusSource.WriteTimsBus` は、未移植の `TimsCarTerminal` の代わりに `TimsBusState localBus` を受け取るように変更した。
