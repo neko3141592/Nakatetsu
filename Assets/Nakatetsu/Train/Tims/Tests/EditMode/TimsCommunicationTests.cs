@@ -11,50 +11,38 @@ namespace Nakatetsu.Train.Tims.Tests
 {
     public sealed class TimsCommunicationTests
     {
-        private static TimsCommunicationContext Create(float interval = 0.05f)
+        private static TimsCommunicationContext Create()
         {
             var context = new TimsCommunicationContext();
             context.State.terminals.Add(new TimsCarTerminalState { carIndex = 0 });
             context.Input.sources.Add(new TimsTransmissionInput
-                { sourceId = 7, carIndex = 0, transmissionIntervalSeconds = interval });
+                { sourceId = 7, carIndex = 0 });
             return context;
         }
 
         [Test]
-        public void FirstSendIsImmediateAndOnlySuccessfulSendAdvancesSchedule()
+        public void AvailableSourcesAreReturnedOnEveryCalculation()
         {
             var context = Create();
             TimsCommunicationLogic.Calculate(context);
-            Assert.That(context.Output.dueSourceIds, Is.EqualTo(new[] { 7 }));
+            Assert.That(context.Output.availableSourceIds, Is.EqualTo(new[] { 7 }));
             TimsCommunicationLogic.Calculate(context);
-            Assert.That(context.Output.dueSourceIds.Count, Is.EqualTo(1));
-            TimsCommunicationLogic.MarkTransmitted(context, 7);
-            context.Input.timeSeconds = 0.049f;
-            TimsCommunicationLogic.Calculate(context);
-            Assert.That(context.Output.dueSourceIds.Count, Is.Zero);
-            context.Input.timeSeconds = 0.05f;
-            TimsCommunicationLogic.Calculate(context);
-            Assert.That(context.Output.dueSourceIds, Is.EqualTo(new[] { 7 }));
+            Assert.That(context.Output.availableSourceIds, Is.EqualTo(new[] { 7 }));
         }
 
         [Test]
-        public void MinimumIntervalAndResetMatchLegacySchedule()
-        {
-            var context = Create(-1f);
-            TimsCommunicationLogic.MarkTransmitted(context, 7);
-            Assert.That(context.Workspace.nextTransmissionTimesSeconds[7], Is.EqualTo(0.001f));
-            TimsCommunicationLogic.ResetSchedule(context);
-            TimsCommunicationLogic.Calculate(context);
-            Assert.That(context.Output.dueSourceIds.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void MissingTerminalIsSkippedAndDuplicateSourceIdsAreRejected()
+        public void MissingTerminalIsSkipped()
         {
             var context = Create();
             context.State.terminals.Clear();
             TimsCommunicationLogic.Calculate(context);
-            Assert.That(context.Output.dueSourceIds.Count, Is.Zero);
+            Assert.That(context.Output.availableSourceIds, Is.Empty);
+        }
+
+        [Test]
+        public void DuplicateSourceIdsAreRejected()
+        {
+            var context = Create();
             context.Input.sources.Add(context.Input.sources[0]);
             Assert.Throws<ArgumentException>(() => TimsCommunicationLogic.Calculate(context));
         }
