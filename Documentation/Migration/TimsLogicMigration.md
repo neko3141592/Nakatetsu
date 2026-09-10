@@ -17,14 +17,14 @@ MonoBehaviour、車両Controller、Prefab、ScriptableObject、シーンは移�
 すべて既存の `Nakatetsu.Train.Tims` アセンブリ内に置く。
 移植した実装はUnityEngine・車両アセンブリへの型参照を持たず、値の入出力だけで実行できる。
 
-| Runtime以下 | namespace | 内容 |
+| `Assets/Nakatetsu/Train/Tims` 以下の機能 | namespace | 内容 |
 | --- | --- | --- |
 | `Bus` | `Nakatetsu.Train.Tims.Bus` | 値・キー・型・バス状態 |
 | `Communication` | `Nakatetsu.Train.Tims.Communication` | 通信Context・送信元検証・各車の値の収集 |
 | `Notch` | `Nakatetsu.Train.Tims.Notch` | 運転台選択・手動/ATCノッチの統合・方向判定 |
 | `Brake` | `Nakatetsu.Train.Tims.Brake` | ブレーキ目標・最低空気圧・回生/空気ブレーキ配分 |
 | `Traction` | `Nakatetsu.Train.Tims.Traction` | 定加速/定出力・BCインターロック・定速状態・VVVF配分 |
-| `Internal` | `Nakatetsu.Train.Tims.Internal` | 純粋なClampと旧Mathf.Approximately相当の内部ヘルパー |
+| `Shared/Scripts` | `Nakatetsu.Train.Tims.Internal` | 純粋なClampと旧Mathf.Approximately相当の内部ヘルパー |
 
 各機能の `Context.cs` に、その機能専用のInput・Settings・Output・State・Workspaceをまとめた。
 フレーム間の状態を必要としないノッチなどには空のStateを追加していない。
@@ -129,7 +129,7 @@ TimsBrakeLogic.Calculate(context);
 - 元のノッチ・ブレーキ・力行Controllerのメソッドを実行する一時比較ハーネスで、同じ入力を各300ステップ、合計900ステップ与え、旧計算結果との一致を確認。Unityオブジェクト・アセット評価はテスト用の代替を使用しており、シーン上の更新順や実アセットとの接続を確認したものではない。
 - Unityテストに使ったC#ソースと新側のC#ソースが一致すること、および記録した旧TIMSソースのハッシュが作業後も変わっていないことを確認。
 
-テストは `Assets/Nakatetsu/Train/Tims/Tests/EditMode` に配置した。
+テストは `Assets/Nakatetsu/Train/Tims/<機能>/Tests` に配置した。各機能の `Tests` はasmrefにより同じ `Nakatetsu.Train.Tims.Tests.EditMode` Assemblyへ所属する。
 新側をUnityで開いてコンパイル完了後、Test RunnerのEditModeで `Nakatetsu.Train.Tims.Tests` を実行できる。
 
 次の段階は、Controller側でのアセット値の取得・タグのデコード・Logicへの入力・Outputの反映を接続すること。
