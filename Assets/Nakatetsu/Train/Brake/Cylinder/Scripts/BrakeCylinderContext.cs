@@ -2,6 +2,12 @@ using System;
 
 namespace Nakatetsu.Train.Brake.Cylinder
 {
+    public sealed class BrakeCylinderInput
+    {
+        public float targetPressureKPa;
+        public float deltaTimeSeconds;
+    }
+
     [Serializable]
     public sealed class BrakeCylinderState
     {
@@ -18,9 +24,16 @@ namespace Nakatetsu.Train.Brake.Cylinder
         public float mechanicalEfficiency = 0.9f;
     }
 
+    public sealed class BrakeCylinderOutput
+    {
+        public float actualForceN;
+    }
+
     public sealed class BrakeCylinderContext
     {
+        public BrakeCylinderInput Input { get; } = new();
         public BrakeCylinderSettings Settings { get; } = new();
         public BrakeCylinderState State { get; } = new();
+        public BrakeCylinderOutput Output { get; } = new();
     }
 }

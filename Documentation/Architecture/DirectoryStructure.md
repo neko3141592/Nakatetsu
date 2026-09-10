@@ -23,6 +23,9 @@ Nakatetsu/
 │   │   │       ├── Data/
 │   │   │       └── Tests/
 │   │   ├── Train/
+│   │   │   ├── Brake/
+│   │   │   │   ├── Cylinder/{Scripts,Data,Tests}/
+│   │   │   │   └── ControlDevice/{Scripts,Tests}/
 │   │   │   ├── Consist/
 │   │   │   │   ├── Scripts/
 │   │   │   │   └── Series1000/Data/
@@ -69,6 +72,7 @@ Nakatetsu/
 | `Assets/Nakatetsu/Application` | 起動、シーン遷移、各モジュールの生成と接続、アプリ全体のUI |
 | `Assets/Nakatetsu/Core` | 単位、共通の小さなデータ型、外部依存の少ないインターフェース |
 | `Assets/Nakatetsu/Track` | 線形、線路グラフ、経路、閉塞、連動、駅設備、地上ATC |
+| `Assets/Nakatetsu/Train/Brake` | ブレーキシリンダー、ブレーキ制御装置などの基礎ブレーキ機器 |
 | `Assets/Nakatetsu/Train/Consist` | 編成定義と車種別の編成データ |
 | `Assets/Nakatetsu/Train/Equipment` | 車両機器の生成と割り当て |
 | `Assets/Nakatetsu/Train/Operation` | 運転操作と主幹制御器 |
