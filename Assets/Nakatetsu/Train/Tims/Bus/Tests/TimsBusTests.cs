@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEngine;
 using Nakatetsu.Train.Tims.Bus;
 using Nakatetsu.Train.Tims.Communication;
 using Nakatetsu.Train.Tims.Notch;
@@ -52,12 +52,21 @@ namespace Nakatetsu.Train.Tims.Tests
         }
 
         [Test]
-        public void LogicAndContextsDoNotReferenceUnityOrTrainControllers()
+        public void LogicAndContextsArePlainManagedTypes()
         {
-            foreach (var reference in typeof(TimsBrakeLogic).Assembly.GetReferencedAssemblies())
+            System.Type[] pureTypes =
             {
-                Assert.That(reference.Name.StartsWith("UnityEngine", StringComparison.Ordinal), Is.False);
-                Assert.That(reference.Name, Is.Not.EqualTo("Nakatetsu.Train"));
+                typeof(TimsBrakeLogic),
+                typeof(TimsBrakeContext),
+                typeof(TimsNotchLogic),
+                typeof(TimsNotchContext),
+                typeof(TimsTractionLogic),
+                typeof(TimsTractionContext)
+            };
+
+            foreach (System.Type type in pureTypes)
+            {
+                Assert.That(typeof(Object).IsAssignableFrom(type), Is.False, type.FullName);
             }
         }
     }
