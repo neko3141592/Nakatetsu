@@ -5,7 +5,6 @@ using UnityEngine;
 using Nakatetsu.Train.Brake.ControlDevice;
 using Nakatetsu.Train.Brake.Cylinder;
 using Nakatetsu.Train.Equipment;
-using Nakatetsu.Train.Tims.Bus;
 using Nakatetsu.Train.Tims.Communication;
 using Nakatetsu.Train.Tims.Notch;
 using Nakatetsu.Train.Tims.Brake;
@@ -18,6 +17,12 @@ namespace Nakatetsu.Train.Tims.Tests
         private static TimsBrakeContext Create()
         {
             var c = new TimsBrakeContext();
+            Configure(c);
+            return c;
+        }
+
+        private static void Configure(TimsBrakeContext c)
+        {
             c.Input.canReleaseEmergencyBrake = true;
             c.Input.brakeStep = 1;
             c.Settings.brakeTargetDecelerationsMps2.Add(1f);
@@ -26,7 +31,6 @@ namespace Nakatetsu.Train.Tims.Tests
                 airCapN = 100000f, airForcePerKPa = 100f, maxBCPressureKPa = 300f });
             c.Input.cars.Add(new TimsBrakeCarInput { massKg = 20000f, isTrailerCar = true,
                 airCapN = 100000f, airForcePerKPa = 100f, maxBCPressureKPa = 300f });
-            return c;
         }
 
         [Test]
@@ -70,33 +74,58 @@ namespace Nakatetsu.Train.Tims.Tests
         [Test]
         public void CalculatedAirBrakeForcesArePublishedToMasterBus()
         {
-            var context = Create();
-            var masterBus = new TimsBusState();
+            var timsObject = new GameObject("TIMS");
+            try
+            {
+                TimsCommunicationController communicationController =
+                    timsObject.AddComponent<TimsCommunicationController>();
+                TimsBrakeController brakeController =
+                    timsObject.AddComponent<TimsBrakeController>();
+                brakeController.Configure(communicationController);
+                Configure(brakeController.Context);
 
-            TimsBrakeLogic.CalculateAndPublish(context, masterBus);
-
-            Assert.That(masterBus.TryGetFloatArray(
-                TimsBrakeBus.TargetAirBrakeForcesNKey,
-                out float[] targetAirBrakeForcesN), Is.True);
-            Assert.That(targetAirBrakeForcesN, Is.EqualTo(new[] { 40000f, 20000f }));
+                Assert.That(brakeController.CalculateAndPublish(), Is.True);
+                Assert.That(brakeController.TryGetTargetAirBrakeForceN(
+                    0,
+                    out float firstCarForceN), Is.True);
+                Assert.That(brakeController.TryGetTargetAirBrakeForceN(
+                    1,
+                    out float secondCarForceN), Is.True);
+                Assert.That(firstCarForceN, Is.EqualTo(40000f));
+                Assert.That(secondCarForceN, Is.EqualTo(20000f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(timsObject);
+            }
         }
 
         [Test]
         public void MissingCommandsRemovePreviousBrakeForceFromMasterBus()
         {
-            var context = Create();
-            var masterBus = new TimsBusState();
-            TimsBrakeLogic.CalculateAndPublish(context, masterBus);
+            var timsObject = new GameObject("TIMS");
+            try
+            {
+                TimsCommunicationController communicationController =
+                    timsObject.AddComponent<TimsCommunicationController>();
+                TimsBrakeController brakeController =
+                    timsObject.AddComponent<TimsBrakeController>();
+                brakeController.Configure(communicationController);
+                Configure(brakeController.Context);
+                brakeController.CalculateAndPublish();
 
-            context.Input.canReleaseEmergencyBrake = false;
-            TimsBrakeLogic.CalculateAndPublish(context, masterBus);
+                brakeController.Context.Input.canReleaseEmergencyBrake = false;
+                brakeController.CalculateAndPublish();
 
-            Assert.That(masterBus.TryGetFloatArray(
-                TimsBrakeBus.TargetAirBrakeForcesNKey,
-                out _), Is.False);
-            Assert.That(masterBus.TryGetBool(
-                TimsBrakeBus.IsEmergencyKey,
-                out bool isEmergency) && isEmergency, Is.True);
+                Assert.That(brakeController.TryGetTargetAirBrakeForceN(0, out _), Is.False);
+                Assert.That(communicationController.MasterBus.TryGetBool(
+                    TimsBrakeController.IsEmergencyKey,
+                    out bool isEmergency) && isEmergency, Is.True);
+            }
+            finally
+            {
+                Object.DestroyImmediate(timsObject);
+            }
         }
 
         [Test]
@@ -108,6 +137,13 @@ namespace Nakatetsu.Train.Tims.Tests
             {
                 TimsCommunicationController communicationController =
                     communicationObject.AddComponent<TimsCommunicationController>();
+                TimsBrakeController timsBrakeController =
+                    communicationObject.AddComponent<TimsBrakeController>();
+                timsBrakeController.Configure(communicationController);
+                Configure(timsBrakeController.Context);
+                timsBrakeController.Context.Input.cars[0].massKg = 9000f;
+                timsBrakeController.Context.Input.cars[1].massKg = 4500f;
+                timsBrakeController.CalculateAndPublish();
                 TrainEquipmentAssignment assignment =
                     brakeObject.AddComponent<TrainEquipmentAssignment>();
                 assignment.AssignCarIndex(1);
@@ -120,10 +156,7 @@ namespace Nakatetsu.Train.Tims.Tests
 
                 BrakeControlDeviceTimsAdapter adapter =
                     brakeObject.AddComponent<BrakeControlDeviceTimsAdapter>();
-                adapter.Configure(communicationController);
-                communicationController.MasterBus.SetFloatArray(
-                    TimsBrakeBus.TargetAirBrakeForcesNKey,
-                    new[] { 1000f, 4500f });
+                adapter.Configure(timsBrakeController);
 
                 Assert.That(adapter.ReadAndApply(2f), Is.True);
                 Assert.That(brakeControlDevice.TargetBrakeForceN, Is.EqualTo(4500f));

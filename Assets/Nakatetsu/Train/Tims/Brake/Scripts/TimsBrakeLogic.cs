@@ -1,20 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Nakatetsu.Train.Tims.Bus;
 using Nakatetsu.Train.Tims.Internal;
 
 namespace Nakatetsu.Train.Tims.Brake
 {
     public static class TimsBrakeLogic
     {
-        public static void CalculateAndPublish(
-            TimsBrakeContext context,
-            TimsBusState masterBus)
-        {
-            Calculate(context);
-            TimsBrakeBus.Publish(masterBus, context.Output);
-        }
-
         public static void Calculate(TimsBrakeContext context)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));

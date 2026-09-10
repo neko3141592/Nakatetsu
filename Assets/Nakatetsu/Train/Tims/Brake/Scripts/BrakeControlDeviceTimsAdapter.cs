@@ -1,7 +1,6 @@
 using UnityEngine;
 using Nakatetsu.Train.Brake.ControlDevice;
 using Nakatetsu.Train.Equipment;
-using Nakatetsu.Train.Tims.Communication;
 
 namespace Nakatetsu.Train.Tims.Brake
 {
@@ -10,7 +9,7 @@ namespace Nakatetsu.Train.Tims.Brake
     [RequireComponent(typeof(TrainEquipmentAssignment))]
     public sealed class BrakeControlDeviceTimsAdapter : MonoBehaviour
     {
-        [SerializeField] private TimsCommunicationController communicationController;
+        [SerializeField] private TimsBrakeController timsBrakeController;
         [SerializeField] private BrakeControlDevice brakeControlDevice;
         [SerializeField] private TrainEquipmentAssignment equipmentAssignment;
 
@@ -24,22 +23,21 @@ namespace Nakatetsu.Train.Tims.Brake
             ReadAndApply(Time.deltaTime);
         }
 
-        public void Configure(TimsCommunicationController controller)
+        public void Configure(TimsBrakeController controller)
         {
-            communicationController = controller;
+            timsBrakeController = controller;
             ResolveLocalReferences();
         }
 
         public bool ReadAndApply(float deltaTimeSeconds)
         {
-            if (!ResolveLocalReferences() || communicationController == null)
+            if (!ResolveLocalReferences() || timsBrakeController == null)
             {
                 return false;
             }
 
             int carIndex = equipmentAssignment.AssignedCarIndex;
-            if (!TimsBrakeBus.TryGetTargetAirBrakeForceN(
-                communicationController.MasterBus,
+            if (!timsBrakeController.TryGetTargetAirBrakeForceN(
                 carIndex,
                 out float targetAirBrakeForceN))
             {
