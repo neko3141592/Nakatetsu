@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEngine;
+using Nakatetsu.Train.Brake.ControlDevice;
+using Nakatetsu.Train.Brake.Cylinder;
+using Nakatetsu.Train.Equipment;
 using Nakatetsu.Train.Tims.Bus;
 using Nakatetsu.Train.Tims.Communication;
 using Nakatetsu.Train.Tims.Notch;
@@ -60,6 +64,75 @@ namespace Nakatetsu.Train.Tims.Tests
             {
                 Assert.That(command.targetAirForceN, Is.Zero);
                 Assert.That(command.targetRegenForceN, Is.Zero);
+            }
+        }
+
+        [Test]
+        public void CalculatedAirBrakeForcesArePublishedToMasterBus()
+        {
+            var context = Create();
+            var masterBus = new TimsBusState();
+
+            TimsBrakeLogic.CalculateAndPublish(context, masterBus);
+
+            Assert.That(masterBus.TryGetFloatArray(
+                TimsBrakeBus.TargetAirBrakeForcesNKey,
+                out float[] targetAirBrakeForcesN), Is.True);
+            Assert.That(targetAirBrakeForcesN, Is.EqualTo(new[] { 40000f, 20000f }));
+        }
+
+        [Test]
+        public void MissingCommandsRemovePreviousBrakeForceFromMasterBus()
+        {
+            var context = Create();
+            var masterBus = new TimsBusState();
+            TimsBrakeLogic.CalculateAndPublish(context, masterBus);
+
+            context.Input.canReleaseEmergencyBrake = false;
+            TimsBrakeLogic.CalculateAndPublish(context, masterBus);
+
+            Assert.That(masterBus.TryGetFloatArray(
+                TimsBrakeBus.TargetAirBrakeForcesNKey,
+                out _), Is.False);
+            Assert.That(masterBus.TryGetBool(
+                TimsBrakeBus.IsEmergencyKey,
+                out bool isEmergency) && isEmergency, Is.True);
+        }
+
+        [Test]
+        public void AdapterReadsAssignedCarsBrakeForceFromMasterBus()
+        {
+            var communicationObject = new GameObject("TIMS");
+            var brakeObject = new GameObject("Brake Control Device");
+            try
+            {
+                TimsCommunicationController communicationController =
+                    communicationObject.AddComponent<TimsCommunicationController>();
+                TrainEquipmentAssignment assignment =
+                    brakeObject.AddComponent<TrainEquipmentAssignment>();
+                assignment.AssignCarIndex(1);
+                BrakeControlDevice brakeControlDevice =
+                    brakeObject.AddComponent<BrakeControlDevice>();
+                var cylinderObject = new GameObject("Brake Cylinder");
+                cylinderObject.transform.SetParent(brakeObject.transform, false);
+                cylinderObject.AddComponent<BrakeCylinder>();
+                brakeControlDevice.RefreshBrakeCylinders();
+
+                BrakeControlDeviceTimsAdapter adapter =
+                    brakeObject.AddComponent<BrakeControlDeviceTimsAdapter>();
+                adapter.Configure(communicationController);
+                communicationController.MasterBus.SetFloatArray(
+                    TimsBrakeBus.TargetAirBrakeForcesNKey,
+                    new[] { 1000f, 4500f });
+
+                Assert.That(adapter.ReadAndApply(2f), Is.True);
+                Assert.That(brakeControlDevice.TargetBrakeForceN, Is.EqualTo(4500f));
+                Assert.That(brakeControlDevice.ActualBrakeForceN, Is.EqualTo(4500f));
+            }
+            finally
+            {
+                Object.DestroyImmediate(communicationObject);
+                Object.DestroyImmediate(brakeObject);
             }
         }
 

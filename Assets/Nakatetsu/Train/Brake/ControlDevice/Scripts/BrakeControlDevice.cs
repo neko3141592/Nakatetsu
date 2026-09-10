@@ -7,7 +7,6 @@ namespace Nakatetsu.Train.Brake.ControlDevice
     [DisallowMultipleComponent]
     public sealed class BrakeControlDevice : MonoBehaviour
     {
-        [SerializeField, Min(0f)] private float temporaryTargetBrakeForceN = 50000f;
         [SerializeField] private List<BrakeCylinder> brakeCylinders = new();
 
         private readonly BrakeControlDeviceContext context = new();
@@ -33,12 +32,6 @@ namespace Nakatetsu.Train.Brake.ControlDevice
         private void Awake()
         {
             RefreshBrakeCylinders();
-            SetTargetBrakeForceN(temporaryTargetBrakeForceN);
-        }
-
-        private void Update()
-        {
-            Step(targetBrakeForceN, Time.deltaTime);
         }
 
         public void SetTargetBrakeForceN(float value)
@@ -100,7 +93,6 @@ namespace Nakatetsu.Train.Brake.ControlDevice
 
         private void OnValidate()
         {
-            temporaryTargetBrakeForceN = Mathf.Max(0f, temporaryTargetBrakeForceN);
             RefreshBrakeCylinders();
         }
     }

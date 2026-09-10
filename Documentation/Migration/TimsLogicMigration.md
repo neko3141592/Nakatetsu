@@ -98,6 +98,9 @@ TimsBrakeLogic.Calculate(context);
 - `regenForceN` はN。旧タグ `BrakeSystem/RegenForcekN` から受け取る場合は1000倍して入力する。
 - 減速度テーブルは `Settings.brakeTargetDecelerationsMps2`。旧アセットのkm/h/sから移す場合は3.6で割る。
 - BC圧、空制上限、圧力あたりの力などは、呼び出し側がタグからデコードして渡す。
+- `CalculateAndPublish` は計算後、各車の `targetAirForceN` を車両順の `Brake.TargetAirBrakeForcesN` 配列としてMaster Busへ書く。
+- 各車の `BrakeControlDeviceTimsAdapter` は `TrainEquipmentAssignment.AssignedCarIndex` に対応する力をMaster Busから読み、物理側の `BrakeControlDevice` へ渡す。
+- `hasCommands = false` の場合は新しい空制指令を公開せず、Master Bus上の配列を削除する。
 
 ### 力行
 
@@ -132,5 +135,5 @@ TimsBrakeLogic.Calculate(context);
 テストは `Assets/Nakatetsu/Train/Tims/<機能>/Tests` に配置した。各機能の `Tests` はasmrefにより同じ `Nakatetsu.Train.Tims.Tests.EditMode` Assemblyへ所属する。
 新側をUnityで開いてコンパイル完了後、Test RunnerのEditModeで `Nakatetsu.Train.Tims.Tests` を実行できる。
 
-次の段階は、Controller側でのアセット値の取得・タグのデコード・Logicへの入力・Outputの反映を接続すること。
-今回の完了範囲はContext・Logicであり、TIMSをシーン内で動かす接続はまだ実装していない。
+次の段階は、Controller側でのアセット値の取得・タグのデコードと、ノッチ・力行Outputの反映を接続すること。
+ブレーキOutputから物理ブレーキへの接続は追加したが、`TimsBrakeContext.Input` の収集とシーン・Prefabへの配置はまだ実装していない。
