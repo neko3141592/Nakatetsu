@@ -19,6 +19,7 @@ MonoBehaviour:
   bogieCenterDistanceM: 16
   emptyMassKg: 29000
   passengerCapacity: 150
+  driveDefinition: {fileID: 11400000, guid: c3987347a3b7e46f389133356ffa6bca, type: 2}
   tractionEquipmentPrefab: {fileID: 0}
   brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
   masterControllerPrefab: {fileID: 7306635846304263880, guid: 57eec8538a44430b9cd850ab6b98fd41, type: 3}

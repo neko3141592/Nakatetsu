@@ -18,34 +18,24 @@ namespace Nakatetsu.Train.Tims.Brake
             ResolveLocalReferences();
         }
 
-        private void Update()
-        {
-            ReadAndApply(Time.deltaTime);
-        }
-
         public void Configure(TimsBrakeController controller)
         {
             timsBrakeController = controller;
             ResolveLocalReferences();
         }
 
-        public bool ReadAndApply(float deltaTimeSeconds)
+        public bool TryReadTargetAirBrakeForceN(out float targetAirBrakeForceN)
         {
+            targetAirBrakeForceN = 0f;
             if (!ResolveLocalReferences() || timsBrakeController == null)
             {
                 return false;
             }
 
             int carIndex = equipmentAssignment.AssignedCarIndex;
-            if (!timsBrakeController.TryGetTargetAirBrakeForceN(
+            return timsBrakeController.TryGetTargetAirBrakeForceN(
                 carIndex,
-                out float targetAirBrakeForceN))
-            {
-                return false;
-            }
-
-            brakeControlDevice.Step(targetAirBrakeForceN, deltaTimeSeconds);
-            return true;
+                out targetAirBrakeForceN);
         }
 
         private bool ResolveLocalReferences()

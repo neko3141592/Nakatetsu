@@ -4,26 +4,30 @@ using UnityEngine;
 using Nakatetsu.Train.Brake.ControlDevice;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Operation;
+using Nakatetsu.Train.Traction;
 
 namespace Nakatetsu.Train.Equipment
 {
     [DisallowMultipleComponent]
     public sealed class TrainEquipmentBuilder : MonoBehaviour
     {
-        [SerializeField] private ConsistDefinitionAsset consistDefinition;
+        [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private Transform carsRoot;
         [SerializeField] private GameObject brakeEquipmentPrefab;
         [SerializeField] private bool buildOnAwake = true;
 
         private readonly List<TrainCarEquipmentInstances> carEquipments = new();
 
-        public ConsistDefinitionAsset ConsistDefinition => consistDefinition;
+        public TrainRoot TrainRoot => trainRoot;
+        public ConsistDefinitionAsset ConsistDefinition =>
+            trainRoot != null ? trainRoot.ConsistDefinition : null;
         public Transform CarsRoot => carsRoot;
         public GameObject BrakeEquipmentPrefab => brakeEquipmentPrefab;
         public IReadOnlyList<TrainCarEquipmentInstances> CarEquipments => carEquipments;
 
         private void Awake()
         {
+            ResolveTrainRoot();
             if (buildOnAwake)
             {
                 Build();
@@ -31,11 +35,11 @@ namespace Nakatetsu.Train.Equipment
         }
 
         public void Configure(
-            ConsistDefinitionAsset definition,
+            TrainRoot owner,
             Transform explicitCarsRoot = null,
             GameObject defaultBrakeEquipmentPrefab = null)
         {
-            consistDefinition = definition;
+            trainRoot = owner;
             carsRoot = explicitCarsRoot;
             if (defaultBrakeEquipmentPrefab != null)
             {
@@ -45,6 +49,7 @@ namespace Nakatetsu.Train.Equipment
 
         public bool Build()
         {
+            ResolveTrainRoot();
             if (!ValidateDefinitions())
             {
                 return false;
@@ -53,6 +58,7 @@ namespace Nakatetsu.Train.Equipment
             ResolveCarsRoot();
             ClearGeneratedEquipment();
 
+            ConsistDefinitionAsset consistDefinition = ConsistDefinition;
             for (int carIndex = 0; carIndex < consistDefinition.CarCount; carIndex++)
             {
                 CarDefinitionAsset carDefinition = consistDefinition.cars[carIndex];
@@ -107,6 +113,7 @@ namespace Nakatetsu.Train.Equipment
 
         private bool ValidateDefinitions()
         {
+            ConsistDefinitionAsset consistDefinition = ConsistDefinition;
             if (consistDefinition == null)
             {
                 Debug.LogWarning($"{nameof(TrainEquipmentBuilder)}: Consist Definitionが設定されていません。", this);
@@ -134,6 +141,16 @@ namespace Nakatetsu.Train.Equipment
                     return false;
                 }
 
+                GameObject tractionPrefab = carDefinition.tractionEquipmentPrefab;
+                if (tractionPrefab != null &&
+                    tractionPrefab.GetComponentInChildren<ITractionEquipment>(true) == null)
+                {
+                    Debug.LogError(
+                        $"{nameof(TrainEquipmentBuilder)}: Car {carIndex + 1}のTraction Equipment Prefabに{nameof(ITractionEquipment)}実装がありません。",
+                        tractionPrefab);
+                    return false;
+                }
+
                 GameObject brakePrefab = ResolveBrakeEquipmentPrefab(carDefinition);
                 if (brakePrefab != null &&
                     brakePrefab.GetComponentInChildren<BrakeControlDevice>(true) == null)
@@ -146,6 +163,16 @@ namespace Nakatetsu.Train.Equipment
             }
 
             return true;
+        }
+
+        private bool ResolveTrainRoot()
+        {
+            if (trainRoot == null)
+            {
+                trainRoot = GetComponentInParent<TrainRoot>(true);
+            }
+
+            return trainRoot != null;
         }
 
         private GameObject ResolveBrakeEquipmentPrefab(CarDefinitionAsset carDefinition)
