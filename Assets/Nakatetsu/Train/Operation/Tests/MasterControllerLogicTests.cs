@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
+using Nakatetsu.Train.Brake.ControlDevice;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment;
 using Nakatetsu.Train.Operation;
@@ -113,12 +114,11 @@ namespace Nakatetsu.Train.Tests
                 masterControllerPrefab = new GameObject("MasterController");
                 masterControllerPrefab.AddComponent<MasterController>();
                 brakePrefab = new GameObject("BrakeEquipment");
+                brakePrefab.AddComponent<BrakeControlDevice>();
 
                 cabDefinition = ScriptableObject.CreateInstance<CarDefinitionAsset>();
                 cabDefinition.masterControllerPrefab = masterControllerPrefab;
-                cabDefinition.brakeEquipmentPrefab = brakePrefab;
                 trailerDefinition = ScriptableObject.CreateInstance<CarDefinitionAsset>();
-                trailerDefinition.brakeEquipmentPrefab = brakePrefab;
 
                 consistDefinition = ScriptableObject.CreateInstance<ConsistDefinitionAsset>();
                 consistDefinition.cars.Add(cabDefinition);
@@ -126,25 +126,25 @@ namespace Nakatetsu.Train.Tests
 
                 TrainEquipmentBuilder builder =
                     equipmentsObject.AddComponent<TrainEquipmentBuilder>();
-                builder.Configure(consistDefinition);
+                builder.Configure(consistDefinition, defaultBrakeEquipmentPrefab: brakePrefab);
 
                 Assert.That(builder.Build(), Is.True);
                 Assert.That(equipmentsObject.transform.Find("Common/TIMS"), Is.Not.Null);
-                Assert.That(equipmentsObject.transform.Find("Cars/Car 1/MasterController"), Is.Not.Null);
-                Assert.That(equipmentsObject.transform.Find("Cars/Car 2/BrakeEquipment"), Is.Not.Null);
+                Assert.That(equipmentsObject.transform.Find("Cars/Car_1/MasterController"), Is.Not.Null);
+                Assert.That(equipmentsObject.transform.Find("Cars/Car_2/BrakeEquipment"), Is.Not.Null);
 
                 TrainEquipmentAssignment[] assignments =
                     equipmentsObject.GetComponentsInChildren<TrainEquipmentAssignment>(true);
                 Assert.That(assignments.Length, Is.EqualTo(3));
                 Assert.That(
                     equipmentsObject.transform
-                        .Find("Cars/Car 1/MasterController")
+                        .Find("Cars/Car_1/MasterController")
                         .GetComponent<TrainEquipmentAssignment>()
                         .AssignedCarIndex,
                     Is.Zero);
                 Assert.That(
                     equipmentsObject.transform
-                        .Find("Cars/Car 2/BrakeEquipment")
+                        .Find("Cars/Car_2/BrakeEquipment")
                         .GetComponent<TrainEquipmentAssignment>()
                         .AssignedCarIndex,
                     Is.EqualTo(1));
