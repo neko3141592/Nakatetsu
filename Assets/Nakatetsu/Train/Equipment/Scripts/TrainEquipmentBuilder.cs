@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Nakatetsu.Train.Brake.ControlDevice;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Operation;
 
@@ -11,12 +12,14 @@ namespace Nakatetsu.Train.Equipment
     {
         [SerializeField] private ConsistDefinitionAsset consistDefinition;
         [SerializeField] private Transform carsRoot;
+        [SerializeField] private GameObject brakeEquipmentPrefab;
         [SerializeField] private bool buildOnAwake = true;
 
         private readonly List<TrainCarEquipmentInstances> carEquipments = new();
 
         public ConsistDefinitionAsset ConsistDefinition => consistDefinition;
         public Transform CarsRoot => carsRoot;
+        public GameObject BrakeEquipmentPrefab => brakeEquipmentPrefab;
         public IReadOnlyList<TrainCarEquipmentInstances> CarEquipments => carEquipments;
 
         private void Awake()
@@ -27,10 +30,17 @@ namespace Nakatetsu.Train.Equipment
             }
         }
 
-        public void Configure(ConsistDefinitionAsset definition, Transform explicitCarsRoot = null)
+        public void Configure(
+            ConsistDefinitionAsset definition,
+            Transform explicitCarsRoot = null,
+            GameObject defaultBrakeEquipmentPrefab = null)
         {
             consistDefinition = definition;
             carsRoot = explicitCarsRoot;
+            if (defaultBrakeEquipmentPrefab != null)
+            {
+                brakeEquipmentPrefab = defaultBrakeEquipmentPrefab;
+            }
         }
 
         public bool Build()
@@ -46,7 +56,7 @@ namespace Nakatetsu.Train.Equipment
             for (int carIndex = 0; carIndex < consistDefinition.CarCount; carIndex++)
             {
                 CarDefinitionAsset carDefinition = consistDefinition.cars[carIndex];
-                Transform carRoot = GetOrCreateDirectChild(carsRoot, $"Car {carIndex + 1}");
+                Transform carRoot = GetOrCreateCarRoot(carsRoot, carIndex);
                 var instances = new TrainCarEquipmentInstances(carIndex, carDefinition, carRoot);
 
                 instances.MasterController = InstantiateEquipment(
@@ -58,7 +68,7 @@ namespace Nakatetsu.Train.Equipment
                     carRoot,
                     carIndex);
                 instances.BrakeEquipment = InstantiateEquipment(
-                    carDefinition.brakeEquipmentPrefab,
+                    ResolveBrakeEquipmentPrefab(carDefinition),
                     carRoot,
                     carIndex);
 
@@ -123,9 +133,40 @@ namespace Nakatetsu.Train.Equipment
                         masterControllerPrefab);
                     return false;
                 }
+
+                GameObject brakePrefab = ResolveBrakeEquipmentPrefab(carDefinition);
+                if (brakePrefab != null &&
+                    brakePrefab.GetComponentInChildren<BrakeControlDevice>(true) == null)
+                {
+                    Debug.LogError(
+                        $"{nameof(TrainEquipmentBuilder)}: Car {carIndex + 1}のBrake Equipment Prefabに{nameof(BrakeControlDevice)}がありません。",
+                        brakePrefab);
+                    return false;
+                }
             }
 
             return true;
+        }
+
+        private GameObject ResolveBrakeEquipmentPrefab(CarDefinitionAsset carDefinition)
+        {
+            return carDefinition.brakeEquipmentPrefab != null
+                ? carDefinition.brakeEquipmentPrefab
+                : brakeEquipmentPrefab;
+        }
+
+        private static Transform GetOrCreateCarRoot(Transform parent, int carIndex)
+        {
+            string carName = $"Car_{carIndex + 1}";
+            Transform child = FindDirectChild(parent, carName);
+            if (child != null)
+            {
+                return child;
+            }
+
+            // Keep scenes created with the former naming convention compatible.
+            child = FindDirectChild(parent, $"Car {carIndex + 1}");
+            return child != null ? child : GetOrCreateDirectChild(parent, carName);
         }
 
         private void ResolveCarsRoot()

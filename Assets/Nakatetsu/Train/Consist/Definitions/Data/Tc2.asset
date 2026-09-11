@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 040c0444d01224e339e513b023f1591c, type: 3}
-  m_Name: T
+  m_Name: Tc2
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Consist.CarDefinitionAsset
   carId: 
   displayName: 
-  carType: 0
+  carType: 2
   lengthM: 20
-  bogieCenterDistanceM: 0
-  emptyMassKg: 28000
+  bogieCenterDistanceM: 16
+  emptyMassKg: 29000
   passengerCapacity: 150
   tractionEquipmentPrefab: {fileID: 0}
-  brakeEquipmentPrefab: {fileID: 0}
-  masterControllerPrefab: {fileID: 0}
+  brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
+  masterControllerPrefab: {fileID: 7306635846304263880, guid: 57eec8538a44430b9cd850ab6b98fd41, type: 3}
