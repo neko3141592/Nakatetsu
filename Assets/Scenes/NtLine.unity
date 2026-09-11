@@ -833,8 +833,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152f9fb4620a43f5a687569446ffff65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.TrainEquipmentBuilder
-  consistDefinition: {fileID: 0}
+  consistDefinition: {fileID: 11400000, guid: 3ace08d44e9eb4777b4a06f99c99dca1, type: 2}
   carsRoot: {fileID: 0}
+  brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
   buildOnAwake: 1
 --- !u!1 &1527475200
 GameObject:
