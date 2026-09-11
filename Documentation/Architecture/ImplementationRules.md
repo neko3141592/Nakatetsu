@@ -66,6 +66,7 @@ Core
 ## 5. Definitionと実行時設定
 
 - ScriptableObjectのDefinition Assetは編集・保存用の定義とする。
+- `ConsistDefinitionAsset` は編成GameObjectの `TrainRoot` だけが保持する。Builder、Simulation、TIMSなどは親の `TrainRoot` から同じ定義を参照し、個別にDefinition欄を持たない。
 - LogicはDefinition Assetを直接参照せず、Controllerが値をContext.Settingsへコピーする。
 - 実行中にDefinition Assetを書き換えない。
 - 車種固有値は具体的なData Assetへ、計算方式は再利用可能なLogicへ置く。

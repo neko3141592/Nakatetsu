@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1740,6 +1740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 323239909}
   - component: {fileID: 323239908}
+  - component: {fileID: 323239910}
   m_Layer: 0
   m_Name: Tims
   m_TagString: Untagged
@@ -1759,7 +1760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ac0e9478084a7f92afdd142920b93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Nakatetsu.Train.Tims::Nakatetsu.Train.Tims.Communication.TimsCommunicationController
-  consistDefinition: {fileID: 11400000, guid: 3ace08d44e9eb4777b4a06f99c99dca1, type: 2}
+  trainRoot: {fileID: 323239910}
 --- !u!4 &323239909
 Transform:
   m_ObjectHideFlags: 0
@@ -1775,6 +1776,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323239910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323239907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c21048a2b14936bcb80fd11554fb2f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.TrainRoot
+  consistDefinition: {fileID: 11400000, guid: 3ace08d44e9eb4777b4a06f99c99dca1, type: 2}
 --- !u!1 &326087430
 GameObject:
   m_ObjectHideFlags: 0

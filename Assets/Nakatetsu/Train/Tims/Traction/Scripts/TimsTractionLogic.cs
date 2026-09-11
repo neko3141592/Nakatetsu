@@ -32,16 +32,25 @@ namespace Nakatetsu.Train.Tims.Traction
                 ClearSpeedHold(context);
                 return;
             }
+
             UpdateSpeedHold(context);
+
             float powerW = 0f;
-            foreach (var unit in input.units)
-                if (unit.isAvailable && unit.hasMotorSettings)
+
+            foreach (var unit in input.units) {
+                if (unit.isAvailable && unit.hasMotorSettings) {
                     powerW += unit.ratedMotorPowerW * unit.motorCount;
+                }
+            }
+
             output.ratedConsistPowerW = powerW;
+
             output.targetAccelerationMps2 = Math.Max(0f, context.Settings.launchAccelerationMps2);
-            output.constantAccelerationEndSpeedMps = CalculateConstantAccelerationEndSpeedMps(
-                powerW, input.consistMassKg, output.targetAccelerationMps2);
+
+            output.constantAccelerationEndSpeedMps = CalculateConstantAccelerationEndSpeedMps(powerW, input.consistMassKg, output.targetAccelerationMps2);
+
             float maxForceN;
+
             if (input.speedMps <= output.constantAccelerationEndSpeedMps)
             {
                 output.regionLabel = "Const Accel";
@@ -52,14 +61,17 @@ namespace Nakatetsu.Train.Tims.Traction
                 output.regionLabel = "Const Power";
                 maxForceN = powerW / Math.Max(0.1f, input.speedMps);
             }
+
             output.targetForceN = context.State.speedHoldMode == TimsSpeedHoldMode.Arming || input.powerNotch <= 0
                 ? 0f : maxForceN * Math.Max(0f, input.powerStepGain);
             output.isBCReleaseInterlockActive = !AreAllBCReleased(context);
+
             if (output.isBCReleaseInterlockActive)
             {
                 output.targetForceN = 0f;
                 output.regionLabel = "BC Interlock";
             }
+
             DistributeTargetForce(context, output.targetForceN);
         }
 
@@ -108,14 +120,23 @@ namespace Nakatetsu.Train.Tims.Traction
         private static void DistributeTargetForce(TimsTractionContext context, float totalForceN)
         {
             var output = context.Output;
+
             output.hasForceCommand = true;
             output.activeVvvfCount = 0;
+            
             foreach (var unit in context.Input.units)
-                if (unit.isAvailable) output.activeVvvfCount++;
+            {
+                if (unit.isAvailable) {
+                    output.activeVvvfCount++;
+                }
+            }
+                
             output.targetForcePerVvvfN = output.activeVvvfCount > 0 ? totalForceN / output.activeVvvfCount : 0f;
             output.unitTargetForcesN.Clear();
-            foreach (var unit in context.Input.units)
+
+            foreach (var unit in context.Input.units) {
                 output.unitTargetForcesN.Add(unit.isAvailable ? output.targetForcePerVvvfN : 0f);
+            }
         }
     }
 }

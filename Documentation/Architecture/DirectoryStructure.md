@@ -29,11 +29,18 @@ Nakatetsu/
 │   │   │   ├── Consist/
 │   │   │   │   ├── Scripts/
 │   │   │   │   └── Series1000/Data/
+│   │   │   ├── Composition/Scripts/
+│   │   │   ├── Drive/{Scripts,Definitions}/
 │   │   │   ├── Equipment/Scripts/
 │   │   │   ├── Operation/
 │   │   │   │   ├── Scripts/
 │   │   │   │   ├── Prefabs/
 │   │   │   │   └── Tests/
+│   │   │   ├── Traction/
+│   │   │   │   ├── Scripts/
+│   │   │   │   ├── Electrical/Scripts/
+│   │   │   │   ├── Motor/{Scripts,Data}/
+│   │   │   │   └── Vvvf/{Scripts,Data,Prefabs}/
 │   │   │   ├── Tims/
 │   │   │   │   ├── Brake/{Scripts,Tests}/
 │   │   │   │   ├── Bus/{Scripts,Tests}/
@@ -74,8 +81,11 @@ Nakatetsu/
 | `Assets/Nakatetsu/Track` | 線形、線路グラフ、経路、閉塞、連動、駅設備、地上ATC |
 | `Assets/Nakatetsu/Train/Brake` | ブレーキシリンダー、ブレーキ制御装置などの基礎ブレーキ機器 |
 | `Assets/Nakatetsu/Train/Consist` | 編成定義と車種別の編成データ |
+| `Assets/Nakatetsu/Train/Composition` | 編成GameObjectのルートと、編成全体で共有する定義参照 |
+| `Assets/Nakatetsu/Train/Drive` | ギヤ比、車輪径、伝達効率などの駆動系定義 |
 | `Assets/Nakatetsu/Train/Equipment` | 車両機器の生成と割り当て |
 | `Assets/Nakatetsu/Train/Operation` | 運転操作と主幹制御器 |
+| `Assets/Nakatetsu/Train/Traction` | VVVF、主電動機、駆動力計算と牽引装置の共通契約 |
 | `Assets/Nakatetsu/Train/Tims` | TIMSの通信、バス、ノッチ、ブレーキ、力行、表示 |
 | `Assets/Nakatetsu/World` | 沿線生成、カメラ、Floating Origin、ストリーミング |
 | `Assets/Nakatetsu/Content` | 具体的な路線・車両のデータ、モデル、マテリアル、音声、Prefab |
