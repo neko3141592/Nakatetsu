@@ -13,7 +13,49 @@ namespace Nakatetsu.Train.Tims.Communication
 
         public TimsBusState GetLocalBus(int carIndex)
         {
-            return context.State.terminals[carIndex].localBus;
+            TryGetLocalBus(carIndex, out TimsBusState localBus);
+            return localBus;
+        }
+
+        public bool TryGetLocalBus(int carIndex, out TimsBusState localBus)
+        {
+            foreach (TimsCarTerminalState terminal in context.State.terminals)
+            {
+                if (terminal.carIndex != carIndex)
+                {
+                    continue;
+                }
+
+                localBus = terminal.localBus;
+                return localBus != null;
+            }
+
+            localBus = null;
+            return false;
+        }
+
+        public int CollectSources()
+        {
+            if (!ResolveTrainRoot())
+            {
+                return 0;
+            }
+
+            int collectedSourceCount = 0;
+            MonoBehaviour[] components = trainRoot.GetComponentsInChildren<MonoBehaviour>(true);
+            foreach (MonoBehaviour component in components)
+            {
+                if (component is not ITimsBusSource source ||
+                    !TryGetLocalBus(source.AssignedCarIndex, out TimsBusState localBus))
+                {
+                    continue;
+                }
+
+                source.WriteTimsBus(localBus);
+                collectedSourceCount++;
+            }
+
+            return collectedSourceCount;
         }
 
         private void Awake()

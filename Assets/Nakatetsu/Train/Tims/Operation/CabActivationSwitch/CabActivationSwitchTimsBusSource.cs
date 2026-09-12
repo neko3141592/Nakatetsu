@@ -9,7 +9,7 @@ namespace Nakatetsu.Train.Tims.Integration
     [RequireComponent(typeof(TrainEquipmentAssignment))]
     public sealed class CabActivationSwitchTimsBusSource : MonoBehaviour, ITimsBusSource
     {
-        private static readonly TimsTagKey SwitchPositionKey = 
+        public static readonly TimsTagKey SwitchPositionKey =
             new ("CabActivationSwitch", "Position");
 
         [SerializeField] private CabActivationSwitchController cabActivationSwitch;
