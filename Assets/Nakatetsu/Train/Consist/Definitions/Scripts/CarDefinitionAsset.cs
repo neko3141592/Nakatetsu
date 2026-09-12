@@ -36,7 +36,10 @@ namespace Nakatetsu.Train.Consist
         [Header("Equipment")]
         public GameObject tractionEquipmentPrefab;
         public GameObject brakeEquipmentPrefab;
+
+        [Header("Cab Equipment")]
         public GameObject masterControllerPrefab;
+        public GameObject cabActivationSwitchPrefab;
 
     }
 }
