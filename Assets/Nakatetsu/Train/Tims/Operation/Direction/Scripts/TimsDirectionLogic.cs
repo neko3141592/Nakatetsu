@@ -15,11 +15,13 @@ namespace Nakatetsu.Train.Tims.Operation
                 return;
             }
 
-            if (input.frontPosition == CabActivationPosition.Front && input.rearPosition == CabActivationPosition.Rear)
+            if (input.frontPosition == CabActivationPosition.Front &&
+                input.rearPosition == CabActivationPosition.Rear)
             {
                 output.activatedCabPosition = ActivatedCabPosition.Front;
             }
-            else if (input.frontPosition == CabActivationPosition.Rear && input.rearPosition == CabActivationPosition.Front)
+            else if (input.frontPosition == CabActivationPosition.Rear &&
+                     input.rearPosition == CabActivationPosition.Front)
             {
                 output.activatedCabPosition = ActivatedCabPosition.Rear;
             }

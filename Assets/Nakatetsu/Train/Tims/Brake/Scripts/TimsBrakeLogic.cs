@@ -8,18 +8,45 @@ namespace Nakatetsu.Train.Tims.Brake
     {
         public static void Calculate(TimsBrakeContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             context.Output.isEmergency = !context.Input.canReleaseEmergencyBrake;
             context.Output.hasCommands = false;
-            if (context.Output.isEmergency) return;
+
+            if (context.Output.isEmergency)
+            {
+                return;
+            }
+
             foreach (var car in context.Input.cars)
-                if (car == null) throw new ArgumentException("Each car requires an input record.");
+            {
+                if (car == null)
+                {
+                    throw new ArgumentException("Each car requires an input record.");
+                }
+            }
+
             int count = context.Input.cars.Count;
             context.Workspace.carMassesKg.Clear();
-            foreach (var car in context.Input.cars) context.Workspace.carMassesKg.Add(car.massKg);
-            while (context.Output.carCommands.Count < count) context.Output.carCommands.Add(new TimsBrakeCarCommand());
+
+            foreach (var car in context.Input.cars)
+            {
+                context.Workspace.carMassesKg.Add(car.massKg);
+            }
+
+            while (context.Output.carCommands.Count < count)
+            {
+                context.Output.carCommands.Add(new TimsBrakeCarCommand());
+            }
+
             if (context.Output.carCommands.Count > count)
+            {
                 context.Output.carCommands.RemoveRange(count, context.Output.carCommands.Count - count);
+            }
+
             context.Output.totalMassKg = GetTotalMassKg(context);
             CalculateBrakeForces(context);
             context.Output.hasCommands = true;
@@ -28,16 +55,31 @@ namespace Nakatetsu.Train.Tims.Brake
         private static float GetTotalMassKg(TimsBrakeContext context)
         {
             float total = 0f;
-            foreach (float massKg in context.Workspace.carMassesKg) total += massKg;
+            foreach (float massKg in context.Workspace.carMassesKg)
+            {
+                total += massKg;
+            }
+
             return total;
         }
+
         private static bool IsVvvfMotorCar(TimsBrakeContext context, int carIndex) => context.Input.cars[carIndex].isVvvfMotorCar;
+
         private static bool IsTrailerCar(TimsBrakeContext context, int carIndex) => context.Input.cars[carIndex].isTrailerCar;
+
         private static void EnsureFloatListSize(List<float> values, int count)
         {
-            while (values.Count < count) values.Add(0f);
-            if (values.Count > count) values.RemoveRange(count, values.Count - count);
+            while (values.Count < count)
+            {
+                values.Add(0f);
+            }
+
+            if (values.Count > count)
+            {
+                values.RemoveRange(count, values.Count - count);
+            }
         }
+
         private static void CalculateRegenPattern(TimsBrakeContext context, float remainingTargetBrakeForceN)
         {
             EnsureFloatListSize(context.Workspace.targetRegenForcesN, context.Workspace.carMassesKg.Count);
@@ -61,7 +103,9 @@ namespace Nakatetsu.Train.Tims.Brake
                     continue;
                 }
 
-                context.Workspace.targetRegenForcesN[i] = Math.Max(0f, context.Workspace.carMassesKg[i]) / regenTotalMassKg * remainingTargetBrakeForceN;
+                context.Workspace.targetRegenForcesN[i] =
+                    Math.Max(0f, context.Workspace.carMassesKg[i]) /
+                    regenTotalMassKg * remainingTargetBrakeForceN;
             }
         }
 
@@ -78,8 +122,9 @@ namespace Nakatetsu.Train.Tims.Brake
 
             context.Output.targetTotalBrakeForceN = GetTotalMassKg(context) * targetDecelerationMps2;
             float minimumAirTotalForceN = CalculateMinimumAirBrakeForces(context);
-            float remainingTargetBrakeForceN = Math.Max(0f, context.Output.targetTotalBrakeForceN - minimumAirTotalForceN);
-
+            float remainingTargetBrakeForceN = Math.Max(
+                0f,
+                context.Output.targetTotalBrakeForceN - minimumAirTotalForceN);
 
             // 回生PTN計算
             CalculateRegenPattern(context, remainingTargetBrakeForceN);
@@ -89,7 +134,7 @@ namespace Nakatetsu.Train.Tims.Brake
 
             CalculateAirBrakeForces(context);
             UpdateBrakeForceCommands(context);
-        }       
+        }
 
         private static void CalculateTargetCarBrakeForcesN(TimsBrakeContext context, float targetBrakeForceN)
         {
@@ -98,7 +143,9 @@ namespace Nakatetsu.Train.Tims.Brake
 
             for (int i = 0; i < context.Workspace.carMassesKg.Count; i++)
             {
-                context.Workspace.targetCarBrakeForcesN[i] = Math.Max(0f, context.Workspace.carMassesKg[i]) / totalMassKg * targetBrakeForceN;
+                context.Workspace.targetCarBrakeForcesN[i] =
+                    Math.Max(0f, context.Workspace.carMassesKg[i]) /
+                    totalMassKg * targetBrakeForceN;
             }
         }
 
@@ -116,8 +163,12 @@ namespace Nakatetsu.Train.Tims.Brake
             for (int i = 0; i < context.Input.cars.Count; i++)
             {
                 TimsBrakeCarInput carBrakeOutput = context.Input.cars[i];
-                float maxPressureKPa = carBrakeOutput != null ? Math.Max(0f, carBrakeOutput.maxBCPressureKPa) : 0f;
-                float forcePerKPa = carBrakeOutput != null ? Math.Max(0f, carBrakeOutput.airForcePerKPa) : 0f;
+                float maxPressureKPa = carBrakeOutput != null
+                    ? Math.Max(0f, carBrakeOutput.maxBCPressureKPa)
+                    : 0f;
+                float forcePerKPa = carBrakeOutput != null
+                    ? Math.Max(0f, carBrakeOutput.airForcePerKPa)
+                    : 0f;
                 float loadScale = minMassKg > 0f && i < context.Workspace.carMassesKg.Count
                     ? TimsMath.Clamp(Math.Max(0f, context.Workspace.carMassesKg[i]) / minMassKg, 1f, maxLoadScale)
                     : 1f;
@@ -158,7 +209,9 @@ namespace Nakatetsu.Train.Tims.Brake
             for (int i = 0; i < context.Input.cars.Count; i++)
             {
                 TimsBrakeCarInput carBrakeOutput = context.Input.cars[i];
-                float actualRegenForceN = carBrakeOutput != null ? Math.Max(0f, carBrakeOutput.regenForceN) : 0f;
+                float actualRegenForceN = carBrakeOutput != null
+                    ? Math.Max(0f, carBrakeOutput.regenForceN)
+                    : 0f;
                 float targetBrakeForceN = GetTargetCarBrakeForceN(context, i);
 
                 context.Output.actualRegenTotalForceN += actualRegenForceN;
@@ -172,12 +225,18 @@ namespace Nakatetsu.Train.Tims.Brake
                     }
                     else
                     {
-                        context.Workspace.additionalAirForcesN[i] = ClampAdditionalAirForceN(context, i, targetBrakeForceN - actualRegenForceN);
+                        context.Workspace.additionalAirForcesN[i] = ClampAdditionalAirForceN(
+                            context,
+                            i,
+                            targetBrakeForceN - actualRegenForceN);
                     }
                 }
                 else
                 {
-                    context.Workspace.additionalAirForcesN[i] = ClampAdditionalAirForceN(context, i, targetBrakeForceN);
+                    context.Workspace.additionalAirForcesN[i] = ClampAdditionalAirForceN(
+                        context,
+                        i,
+                        targetBrakeForceN);
                 }
             }
 
@@ -194,7 +253,10 @@ namespace Nakatetsu.Train.Tims.Brake
             List<float> trailerReductionCaps = new();
             for (int i = 0; i < context.Workspace.additionalAirForcesN.Count; i++)
             {
-                trailerReductionCaps.Add(IsTrailerCar(context, i) ? context.Workspace.additionalAirForcesN[i] : 0f);
+                trailerReductionCaps.Add(
+                    IsTrailerCar(context, i)
+                        ? context.Workspace.additionalAirForcesN[i]
+                        : 0f);
             }
 
             List<float> reductions = TimsBrakeCalculator.AllocateEvenlyWithSaturation(
@@ -204,7 +266,9 @@ namespace Nakatetsu.Train.Tims.Brake
 
             for (int i = 0; i < context.Workspace.additionalAirForcesN.Count; i++)
             {
-                context.Workspace.additionalAirForcesN[i] = Math.Max(0f, context.Workspace.additionalAirForcesN[i] - reductions[i]);
+                context.Workspace.additionalAirForcesN[i] = Math.Max(
+                    0f,
+                    context.Workspace.additionalAirForcesN[i] - reductions[i]);
             }
         }
 
@@ -235,7 +299,9 @@ namespace Nakatetsu.Train.Tims.Brake
 
         private static float GetAirCapForceN(TimsBrakeContext context, int carIndex)
         {
-            if (carIndex < 0 || carIndex >= context.Input.cars.Count || context.Input.cars[carIndex] == null)
+            if (carIndex < 0 ||
+                carIndex >= context.Input.cars.Count ||
+                context.Input.cars[carIndex] == null)
             {
                 return 0f;
             }
@@ -248,9 +314,15 @@ namespace Nakatetsu.Train.Tims.Brake
             for (int i = 0; i < context.Output.carCommands.Count; i++)
             {
                 TimsBrakeCarCommand command = context.Output.carCommands[i];
-                float targetRegenForceN = i < context.Workspace.targetRegenForcesN.Count ? context.Workspace.targetRegenForcesN[i] : 0f;
-                float targetAirForceN = i < context.Workspace.additionalAirForcesN.Count ? context.Workspace.additionalAirForcesN[i] : 0f;
-                float minimumAirForceN = i < context.Workspace.minimumAirForcesN.Count ? context.Workspace.minimumAirForcesN[i] : 0f;
+                float targetRegenForceN = i < context.Workspace.targetRegenForcesN.Count
+                    ? context.Workspace.targetRegenForcesN[i]
+                    : 0f;
+                float targetAirForceN = i < context.Workspace.additionalAirForcesN.Count
+                    ? context.Workspace.additionalAirForcesN[i]
+                    : 0f;
+                float minimumAirForceN = i < context.Workspace.minimumAirForcesN.Count
+                    ? context.Workspace.minimumAirForcesN[i]
+                    : 0f;
 
                 command.targetRegenForceN = targetRegenForceN;
                 command.targetAirForceN = targetAirForceN + minimumAirForceN;

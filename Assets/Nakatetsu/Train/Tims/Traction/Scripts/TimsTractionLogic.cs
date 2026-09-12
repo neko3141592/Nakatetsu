@@ -6,10 +6,15 @@ namespace Nakatetsu.Train.Tims.Traction
     {
         public static void Calculate(TimsTractionContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             var input = context.Input;
             var output = context.Output;
             output.hasForceCommand = false;
+
             if (!input.isReady)
             {
                 output.targetForceN = 0f;
@@ -22,6 +27,7 @@ namespace Nakatetsu.Train.Tims.Traction
                 DistributeTargetForce(context, 0f);
                 return;
             }
+
             if (input.brakeStep > 0)
             {
                 output.targetForceN = 0f;
@@ -37,8 +43,10 @@ namespace Nakatetsu.Train.Tims.Traction
 
             float powerW = 0f;
 
-            foreach (var unit in input.units) {
-                if (unit.isAvailable && unit.hasMotorSettings) {
+            foreach (var unit in input.units)
+            {
+                if (unit.isAvailable && unit.hasMotorSettings)
+                {
                     powerW += unit.ratedMotorPowerW * unit.motorCount;
                 }
             }
@@ -47,7 +55,10 @@ namespace Nakatetsu.Train.Tims.Traction
 
             output.targetAccelerationMps2 = Math.Max(0f, context.Settings.launchAccelerationMps2);
 
-            output.constantAccelerationEndSpeedMps = CalculateConstantAccelerationEndSpeedMps(powerW, input.consistMassKg, output.targetAccelerationMps2);
+            output.constantAccelerationEndSpeedMps = CalculateConstantAccelerationEndSpeedMps(
+                powerW,
+                input.consistMassKg,
+                output.targetAccelerationMps2);
 
             float maxForceN;
 
@@ -62,8 +73,10 @@ namespace Nakatetsu.Train.Tims.Traction
                 maxForceN = powerW / Math.Max(0.1f, input.speedMps);
             }
 
-            output.targetForceN = context.State.speedHoldMode == TimsSpeedHoldMode.Arming || input.powerNotch <= 0
-                ? 0f : maxForceN * Math.Max(0f, input.powerStepGain);
+            output.targetForceN = context.State.speedHoldMode == TimsSpeedHoldMode.Arming ||
+                input.powerNotch <= 0
+                    ? 0f
+                    : maxForceN * Math.Max(0f, input.powerStepGain);
             output.isBCReleaseInterlockActive = !AreAllBCReleased(context);
 
             if (output.isBCReleaseInterlockActive)
@@ -75,16 +88,25 @@ namespace Nakatetsu.Train.Tims.Traction
             DistributeTargetForce(context, output.targetForceN);
         }
 
-        public static float CalculateConstantAccelerationEndSpeedMps(float ratedConsistPowerW,
-            float massKg, float targetAccelerationMps2) =>
-            Math.Max(0f, ratedConsistPowerW) / (Math.Max(1f, massKg) * Math.Max(0.01f, targetAccelerationMps2));
+        public static float CalculateConstantAccelerationEndSpeedMps(
+            float ratedConsistPowerW,
+            float massKg,
+            float targetAccelerationMps2) =>
+            Math.Max(0f, ratedConsistPowerW) /
+            (Math.Max(1f, massKg) * Math.Max(0.01f, targetAccelerationMps2));
 
         private static void UpdateSpeedHold(TimsTractionContext context)
         {
             var state = context.State;
             var input = context.Input;
-            if (state.speedHoldMode == TimsSpeedHoldMode.Off) return;
-            if (input.manualPowerNotch != 2 || input.manualBrakeNotch > 0 || input.atcBrakeNotch > 0)
+            if (state.speedHoldMode == TimsSpeedHoldMode.Off)
+            {
+                return;
+            }
+
+            if (input.manualPowerNotch != 2 ||
+                input.manualBrakeNotch > 0 ||
+                input.atcBrakeNotch > 0)
             {
                 ClearSpeedHold(context);
                 return;
@@ -109,11 +131,24 @@ namespace Nakatetsu.Train.Tims.Traction
 
         private static bool AreAllBCReleased(TimsTractionContext context)
         {
-            if (context.Input.isGradientStart) return true;
+            if (context.Input.isGradientStart)
+            {
+                return true;
+            }
+
             if (context.Input.carBCPressuresKPa.Count == 0)
+            {
                 return context.Input.currentBCPressureKPa < context.Settings.bcReleaseThresholdKPa;
+            }
+
             foreach (float pressureKPa in context.Input.carBCPressuresKPa)
-                if (pressureKPa >= context.Settings.bcReleaseThresholdKPa) return false;
+            {
+                if (pressureKPa >= context.Settings.bcReleaseThresholdKPa)
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -123,19 +158,26 @@ namespace Nakatetsu.Train.Tims.Traction
 
             output.hasForceCommand = true;
             output.activeVvvfCount = 0;
-            
+
             foreach (var unit in context.Input.units)
             {
-                if (unit.isAvailable) {
+                if (unit.isAvailable)
+                {
                     output.activeVvvfCount++;
                 }
             }
-                
-            output.targetForcePerVvvfN = output.activeVvvfCount > 0 ? totalForceN / output.activeVvvfCount : 0f;
+
+            output.targetForcePerVvvfN = output.activeVvvfCount > 0
+                ? totalForceN / output.activeVvvfCount
+                : 0f;
             output.unitTargetForcesN.Clear();
 
-            foreach (var unit in context.Input.units) {
-                output.unitTargetForcesN.Add(unit.isAvailable ? output.targetForcePerVvvfN : 0f);
+            foreach (var unit in context.Input.units)
+            {
+                output.unitTargetForcesN.Add(
+                    unit.isAvailable
+                        ? output.targetForcePerVvvfN
+                        : 0f);
             }
         }
     }
