@@ -1,5 +1,5 @@
 using UnityEngine;
-using Nakatetsu.Train.Drive;
+using Nakatetsu.Train.Equipment.Traction.Drive;
 
 namespace Nakatetsu.Train.Consist
 {

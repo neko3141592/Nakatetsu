@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03ac0e9478084a7f92afdd142920b93a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Nakatetsu.Train.Tims::Nakatetsu.Train.Tims.Communication.TimsCommunicationController
+  m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Communication.TimsCommunicationController
   trainRoot: {fileID: 323239910}
 --- !u!4 &323239909
 Transform:

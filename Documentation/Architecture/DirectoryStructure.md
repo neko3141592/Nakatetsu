@@ -6,7 +6,7 @@
 
 ## 現在の主要構成
 
-2026-09-10に、`Assets/Nakatetsu` 以下をファイル種別先行から機能先行へ再編した。
+2026-09-13に、`Assets/Nakatetsu/Train` 以下の車両機器を `Equipment` 配下へ再編した。
 `Runtime` や `Presentation` を単なる置き場として使わず、責務を確定できるアセットは機能の末端にある `Scripts`、`Prefabs`、`Data`、`Sprites`、`Tests` へ置く。
 
 ```text
@@ -23,37 +23,38 @@ Nakatetsu/
 │   │   │       ├── Data/
 │   │   │       └── Tests/
 │   │   ├── Train/
-│   │   │   ├── Brake/
-│   │   │   │   ├── Cylinder/{Scripts,Data,Tests}/
-│   │   │   │   └── ControlDevice/{Scripts,Tests}/
-│   │   │   ├── Consist/
-│   │   │   │   ├── Scripts/
-│   │   │   │   └── Series1000/Data/
 │   │   │   ├── Composition/Scripts/
-│   │   │   ├── Drive/{Scripts,Definitions}/
-│   │   │   ├── Equipment/Scripts/
-│   │   │   ├── Operation/
-│   │   │   │   ├── Scripts/
-│   │   │   │   ├── Prefabs/
-│   │   │   │   └── Tests/
-│   │   │   ├── Traction/
-│   │   │   │   ├── Scripts/
-│   │   │   │   ├── Electrical/Scripts/
-│   │   │   │   ├── Motor/{Scripts,Data}/
-│   │   │   │   └── Vvvf/{Scripts,Data,Prefabs}/
-│   │   │   ├── Tims/
-│   │   │   │   ├── Brake/{Scripts,Tests}/
-│   │   │   │   ├── Bus/{Scripts,Tests}/
-│   │   │   │   ├── Communication/{Scripts,Tests}/
-│   │   │   │   ├── Configuration/Scripts/
-│   │   │   │   ├── MasterController/Scripts/
-│   │   │   │   ├── Notch/{Scripts,Tests}/
-│   │   │   │   ├── Traction/{Scripts,Tests}/
+│   │   │   ├── Consist/Definitions/{Scripts,Data}/
+│   │   │   ├── Equipment/
 │   │   │   │   ├── Shared/Scripts/
-│   │   │   │   └── Display/
-│   │   │   │       ├── Indicators/{Scripts,Prefabs}/
-│   │   │   │       ├── Notch/{Scripts,Prefabs}/
-│   │   │   │       └── SpeedMeter/{Scripts,Sprites,Documentation}/
+│   │   │   │   ├── Brake/
+│   │   │   │   │   ├── Cylinder/{Scripts,Data,Prefabs,Tests}/
+│   │   │   │   │   └── ControlDevice/{Scripts,Tests}/
+│   │   │   │   ├── LoadWeightDevice/Scripts/
+│   │   │   │   ├── Operation/
+│   │   │   │   │   ├── CabActivationSwitch/{Scripts,Prefabs}/
+│   │   │   │   │   ├── MasterController/{Scripts,Prefabs,Tests}/
+│   │   │   │   │   └── Switches/{Scripts,Tests}/
+│   │   │   │   ├── Traction/
+│   │   │   │   │   ├── Scripts/
+│   │   │   │   │   ├── Drive/{Scripts,Definitions}/
+│   │   │   │   │   ├── Electrical/Scripts/
+│   │   │   │   │   ├── Motor/{Scripts,Data}/
+│   │   │   │   │   └── Vvvf/{Scripts,Data,Prefabs}/
+│   │   │   │   └── Tims/
+│   │   │   │       ├── Brake/{Scripts,Tests}/
+│   │   │   │       ├── Bus/{Scripts,Tests}/
+│   │   │   │       ├── Communication/{Scripts,Tests}/
+│   │   │   │       ├── Configuration/{Scripts,Data}/
+│   │   │   │       ├── Notch/{Scripts,Tests}/
+│   │   │   │       ├── Operation/
+│   │   │   │       ├── Traction/{Scripts,Tests}/
+│   │   │   │       ├── Shared/Scripts/
+│   │   │   │       └── Display/
+│   │   │   │           ├── Indicators/{Scripts,Prefabs}/
+│   │   │   │           ├── Notch/{Scripts,Prefabs}/
+│   │   │   │           └── SpeedMeter/{Scripts,Sprites,Documentation}/
+│   │   │   └── Simulation/Orchestration/Scripts/
 │   │   ├── World/
 │   │   │   └── Runtime/
 │   │   ├── Content/
@@ -79,14 +80,16 @@ Nakatetsu/
 | `Assets/Nakatetsu/Application` | 起動、シーン遷移、各モジュールの生成と接続、アプリ全体のUI |
 | `Assets/Nakatetsu/Core` | 単位、共通の小さなデータ型、外部依存の少ないインターフェース |
 | `Assets/Nakatetsu/Track` | 線形、線路グラフ、経路、閉塞、連動、駅設備、地上ATC |
-| `Assets/Nakatetsu/Train/Brake` | ブレーキシリンダー、ブレーキ制御装置などの基礎ブレーキ機器 |
 | `Assets/Nakatetsu/Train/Consist` | 編成定義と車種別の編成データ |
 | `Assets/Nakatetsu/Train/Composition` | 編成GameObjectのルートと、編成全体で共有する定義参照 |
-| `Assets/Nakatetsu/Train/Drive` | ギヤ比、車輪径、伝達効率などの駆動系定義 |
-| `Assets/Nakatetsu/Train/Equipment` | 車両機器の生成と割り当て |
-| `Assets/Nakatetsu/Train/Operation` | 運転操作と主幹制御器 |
-| `Assets/Nakatetsu/Train/Traction` | VVVF、主電動機、駆動力計算と牽引装置の共通契約 |
-| `Assets/Nakatetsu/Train/Tims` | TIMSの通信、バス、ノッチ、ブレーキ、力行、表示 |
+| `Assets/Nakatetsu/Train/Equipment` | ブレーキ・運転操作・牽引装置などの車両機器 |
+| `Assets/Nakatetsu/Train/Equipment/Shared` | 車両機器の生成・車両Index割り当てに使う共通コード |
+| `Assets/Nakatetsu/Train/Equipment/Brake` | ブレーキシリンダー、ブレーキ制御装置などの基礎ブレーキ機器 |
+| `Assets/Nakatetsu/Train/Equipment/Operation` | 運転台スイッチ、主幹制御器などの運転操作機器 |
+| `Assets/Nakatetsu/Train/Equipment/Traction` | VVVF、主電動機、駆動力計算と牽引装置の共通契約 |
+| `Assets/Nakatetsu/Train/Equipment/Traction/Drive` | ギヤ比、車輪径、伝達効率などの駆動系定義 |
+| `Assets/Nakatetsu/Train/Simulation/Orchestration` | 編成全体の時間進行と装置Stepの呼び出し順を統括 |
+| `Assets/Nakatetsu/Train/Equipment/Tims` | TIMSの通信、バス、ノッチ、ブレーキ、力行、表示 |
 | `Assets/Nakatetsu/World` | 沿線生成、カメラ、Floating Origin、ストリーミング |
 | `Assets/Nakatetsu/Content` | 具体的な路線・車両のデータ、モデル、マテリアル、音声、Prefab |
 | `Assets/Nakatetsu/Settings` | 自作機能のプロジェクト共通設定アセット |
@@ -117,7 +120,7 @@ Nakatetsu/
 機能を移植した後の配置例：
 
 ```text
-Assets/Nakatetsu/Train/Brake/
+Assets/Nakatetsu/Train/Equipment/Brake/
 ├── Scripts/
 ├── Prefabs/
 ├── Data/
@@ -129,7 +132,7 @@ ControllerはUnityとの接続、Logicは計算・判定、Contextは状態・�
 
 ## Assembly Definition
 
-今回の移動ではasmdefの名前、参照、namespace、クラス名を変更していない。`Nakatetsu.Train.asmdef` と `Nakatetsu.Train.Tims.asmdef` は、それぞれの機能ツリーを包含できる機能ルートに置く。TIMSのテストは機能別の `Tests` に分散するが、`asmref` で既存の `Nakatetsu.Train.Tims.Tests.EditMode` を参照し、Assembly境界を維持する。
+`Nakatetsu.Train.asmdef` と `Nakatetsu.Train.Equipment.Tims.asmdef` は、それぞれの機能ツリーを包含できる機能ルートに置く。TIMSは `Equipment` 配下でも独立Assemblyとし、テストは機能別の `Tests` に分散させ、`asmref` で `Nakatetsu.Train.Equipment.Tims.Tests.EditMode` を参照する。
 
 ## 必要になったら追加する構成
 
@@ -199,7 +202,7 @@ Documentation/
 | 1000系の車両モデルの制作元 | `SourceAssets/Vehicles/Series1000/Models` |
 | Unityで使う1000系のモデル | `Assets/Nakatetsu/Train/Consist/Series1000/Models` |
 | 共通TIMS画像の制作元 | `SourceAssets/Train/Tims/Graphics` |
-| 共通TIMS速度計画像の書き出し先 | `Assets/Nakatetsu/Train/Tims/Display/SpeedMeter/Sprites` |
+| 共通TIMS速度計画像の書き出し先 | `Assets/Nakatetsu/Train/Equipment/Tims/Display/SpeedMeter/Sprites` |
 
 `.blend`、`.ai`、`.psd` などの制作元はAssets外へ置く。
 制作元と書き出し先の基本名をそろえ、履歴はGitで管理する。
