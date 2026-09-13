@@ -1,0 +1,15 @@
+{
+    "name": "Nakatetsu.Train.Equipment.Tims.Tests.EditMode",
+    "rootNamespace": "Nakatetsu.Train.Equipment.Tims.Tests",
+    "references": [
+        "Nakatetsu.Train.Equipment.Tims",
+        "Nakatetsu.Train"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "autoReferenced": false
+}

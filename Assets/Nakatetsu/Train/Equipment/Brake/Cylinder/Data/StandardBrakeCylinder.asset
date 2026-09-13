@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8abafe9bcb847c1b5481c96d5f1e5ed, type: 3}
+  m_Name: StandardBrakeCylinder
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.Brake.Cylinder.BrakeCylinderDefinitionAsset
+  maximumPressureKPa: 500
+  applyRateKPaPerSecond: 250
+  releaseRateKPaPerSecond: 350
+  pistonAreaM2: 0.01
+  mechanicalEfficiency: 0.9

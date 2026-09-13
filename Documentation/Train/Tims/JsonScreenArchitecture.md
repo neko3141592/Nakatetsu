@@ -19,7 +19,7 @@
 
 - `Assets/Scenes/Prototype/Tims.unity` にはScreen Space - CameraのuGUI Canvas、`GraphicRaycaster`、`CanvasScaler`があり、基準解像度は既に1536 x 1024である。
 - 同シーンのUIは背景、Image、`NotchCell` Prefabなどを直接配置した試作段階であり、ページ管理や定義ローダーはまだない。
-- `Assets/Nakatetsu/Train/Tims/Display/Indicators/Prefabs/BoolIndicator.prefab` と、同機能の `Scripts/TimsBoolIndicator.cs` があり、部品をPrefab化する方向は既に始まっている。
+- `Assets/Nakatetsu/Train/Equipment/Tims/Display/Indicators/Prefabs/BoolIndicator.prefab` と、同機能の `Scripts/TimsBoolIndicator.cs` があり、部品をPrefab化する方向は既に始まっている。
 - `CircularGaugeScale` はuGUIの `MaskableGraphic` として実装されている。今後のメーター部品もuGUIで揃えると再利用できる。
 - Noto Sans JPのTextMesh Proフォント資産が用意されている。
 
@@ -320,7 +320,7 @@ commandごとにC#側のポリシーで次を指定する。
 既存の配置規則に合わせ、共通の型・実装と車種固有の定義を分ける。
 
 ```text
-Assets/Nakatetsu/Train/Tims/
+Assets/Nakatetsu/Train/Equipment/Tims/
 ├── Bus/{Scripts,Tests}/
 ├── Screens/
 │   ├── Definitions/{Scripts,Data,Tests}/
@@ -332,14 +332,14 @@ Assets/Nakatetsu/Train/Tims/
 └── Display/
     └── Components/{Scripts,Prefabs,Tests}/
 
-Assets/Nakatetsu/Train/Tims/Series1000/
+Assets/Nakatetsu/Train/Equipment/Tims/Series1000/
 ├── Screens/Data/                    # 画面JSON
 ├── Catalogs/Data/                   # Screen/asset registry asset
 ├── Themes/Data/                     # 色、font、variant
 └── Graphics/Sprites/                # 車種固有画像
 ```
 
-既存のTIMS表示は `Train/Tims/Display` に集約し、`Indicators`、`Notch`、`SpeedMeter` の各機能を先に置いてから `Scripts`、`Prefabs`、`Sprites` に分ける。表示コードは既存の `Nakatetsu.Train.Presentation` Assemblyを維持し、TIMSの制御Assemblyと分離する。
+既存のTIMS表示は `Train/Equipment/Tims/Display` に集約し、`Indicators`、`Notch`、`SpeedMeter` の各機能を先に置いてから `Scripts`、`Prefabs`、`Sprites` に分ける。表示コードは既存の `Nakatetsu.Train.Presentation` Assemblyを維持し、TIMSの制御Assemblyと分離する。
 
 Newtonsoft.Jsonを使う場合は `Packages/manifest.json` に `"com.unity.nuget.newtonsoft-json": "3.2.1"` を直接追加する。`JsonUtility` だけで実装する場合、辞書や多態的actionの扱いが煩雑になるため、この仕様ではNewtonsoft.Json + 明示的DTO + 厳格validatorを推奨する。
 

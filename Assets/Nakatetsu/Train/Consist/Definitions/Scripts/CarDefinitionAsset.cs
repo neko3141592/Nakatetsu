@@ -1,5 +1,5 @@
 using UnityEngine;
-using Nakatetsu.Train.Drive;
+using Nakatetsu.Train.Equipment.Traction.Drive;
 
 namespace Nakatetsu.Train.Consist
 {
@@ -36,7 +36,10 @@ namespace Nakatetsu.Train.Consist
         [Header("Equipment")]
         public GameObject tractionEquipmentPrefab;
         public GameObject brakeEquipmentPrefab;
+
+        [Header("Cab Equipment")]
         public GameObject masterControllerPrefab;
+        public GameObject cabActivationSwitchPrefab;
 
     }
 }
