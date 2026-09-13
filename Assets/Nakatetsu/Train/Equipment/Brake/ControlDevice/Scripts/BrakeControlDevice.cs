@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Nakatetsu.Train.Equipment.Brake.Cylinder;
+using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
 
 namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
 {
     [DisallowMultipleComponent]
-    public sealed class BrakeControlDevice : MonoBehaviour
+    public sealed class BrakeControlDevice : MonoBehaviour, ISimulationController
     {
         [SerializeField] private List<BrakeCylinder> brakeCylinders = new();
 
@@ -41,12 +42,19 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
             targetBrakeForceN = Mathf.Max(0f, value);
         }
 
-        public void Step(float deltaTimeSeconds)
+        public void CollectInput()
         {
             ReadTargetBrakeForce();
             PopulateInput();
-            BrakeControlDeviceLogic.Calculate(context);
+        }
 
+        public void Calculate(float deltaTimeSeconds)
+        {
+            BrakeControlDeviceLogic.Calculate(context);
+        }
+
+        public void ApplyOutput(float deltaTimeSeconds)
+        {
             foreach (BrakeCylinder cylinder in brakeCylinders)
             {
                 if (cylinder != null)

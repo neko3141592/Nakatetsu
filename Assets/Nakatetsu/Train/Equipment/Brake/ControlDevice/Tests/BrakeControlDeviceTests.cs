@@ -36,7 +36,9 @@ namespace Nakatetsu.Train.Tests
 
                 device.RefreshBrakeCylinders();
                 device.SetTargetBrakeForceN(4500f);
-                device.Step(1f);
+                device.CollectInput();
+                device.Calculate(1f);
+                device.ApplyOutput(1f);
 
                 Assert.That(device.BrakeCylinders.Count, Is.EqualTo(2));
                 Assert.That(device.TargetPressureKPa, Is.EqualTo(250f));
