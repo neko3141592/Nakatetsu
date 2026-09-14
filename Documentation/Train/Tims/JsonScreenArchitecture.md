@@ -1,5 +1,7 @@
 # TIMS JSON画面・コンポーネント設計案
 
+前後運転台に各3画面を配置する場合のHost・Camera・RenderTexture・入力の分離は、[6画面の描画設計案](MultiDisplayRendering.md) を参照する。本書のページ定義は共有し、NavigatorとViewStateは物理画面ごとに生成する。
+
 ## 1. 目的と結論
 
 本書は、TIMSの表示部品を再利用可能にし、次の機能を安全に実装するための設計方針を定める。
@@ -27,7 +29,7 @@
 
 - `TimsBusState` は `TimsTagKey(DeviceName, ItemName)` をキーに、Bool、Int、Float、Stringと各種配列を保持する。型付きの `TryGet...` があるため、表示バインドの読み取り元に利用できる。
 - バスは現在、変更通知やrevisionを持たない。毎フレームすべての表示を無条件更新すると文字列生成やレイアウト更新が増えるため、表示層側に差分比較が必要である。
-- `TimsCommunicationController` は編成長に応じた端末とMasterBusを初期化するところまでで、送信元の収集、定期送信、画面との接続は未完成である。
+- `TimsCommunicationController` は編成長に応じた端末とMasterBusを初期化し、`CollectSources()` で各 `ITimsBusSource` の値をLocalBusへ収集する。画面への接続と受信鮮度の管理は未実装である（2026-09-15、main `9a2691c` 時点）。
 - ノッチ、ブレーキ、力行はContext/LogicとしてUIから分離されている。この分離を維持し、UIボタンからLogicや車両コンポーネントを直接呼ばないことが重要である。
 - JSONライブラリのNewtonsoft.Json 3.2.1はパッケージロック上では推移依存として存在するが、`manifest.json` の直接依存ではない。実装時に利用するなら直接依存として固定する。
 
@@ -223,7 +225,7 @@ public interface ITimsReadModel
 - bus tag: device + item
 - expected type
 
-`TimsBusState` には最終更新時刻がないため、最初はAdapterがsnapshotを比較してrevisionと時刻を管理する。通信基盤を完成させる段階で、`TimsBusState` 自体にrevisionまたは変更イベントを追加すると効率がよい。配列は現在getterでcloneされるため、毎フレームの全配列pollingは避ける。
+`TimsBusState` には最終受信時刻がないため、最初はAdapterがsnapshotを比較して表示差分用のrevisionを管理する。ただし、値の変更時刻は受信時刻の代わりにはならない。同値を受信し続ける場合もあるので、上記契約の `updatedAtSeconds` を鮮度判定に使うなら受信時刻として定義し、取得できない状態も表現できる契約へ拡張する。受信時刻／sequenceが未実装の間は鮮度不明とし、`staleAfterMs` 判定を有効にしない。通信基盤を完成させる段階で受信情報と変更通知を追加する。配列は現在getterでcloneされるため、毎フレームの全配列pollingは避ける。
 
 ### 6.2 一方向を基本にする
 
