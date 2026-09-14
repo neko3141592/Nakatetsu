@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace Nakatetsu.Train.Equipment.Tims.Configuration
 {
@@ -8,7 +9,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Configuration
     public class TimsSettingsAsset : ScriptableObject
     {
         [Header("Notch")]
-        [Min(1)] public int powerStepCount = 5;
+        [FormerlySerializedAs("powerStepCount")]
+        [Min(1)] public int powerNotchCount = 4;
 
         [Header("Traction")]
         public AnimationCurve[] powerCurves;
@@ -16,7 +18,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Configuration
 
         [Header("Brake")]
         public List<float> brakeTargetDecelerationsKmhPerSec = new();
-        [Min(1)] public int brakeStepCount = 7;
+        [FormerlySerializedAs("brakeStepCount")]
+        [Min(1)] public int brakeNotchCount = 7;
+        [FormerlySerializedAs("masterControllerBrakePosition")]
+        [Min(2)] public int masterControllerEmergencyBrakeNotchPosition = 8;
         [Min(1)] public int brakeSubstepCount = 4;
 
         [Min(0f)] public float minimumServiceBrakePressureKPa = 40f;
@@ -24,9 +29,12 @@ namespace Nakatetsu.Train.Equipment.Tims.Configuration
 
         private void OnValidate()
         {
-            powerStepCount = Mathf.Max(1, powerStepCount);
+            powerNotchCount = Mathf.Max(1, powerNotchCount);
             launchAccelerationKmhPerSec = Mathf.Max(0f, launchAccelerationKmhPerSec);
-            brakeStepCount = Mathf.Max(1, brakeStepCount);
+            brakeNotchCount = Mathf.Max(1, brakeNotchCount);
+            masterControllerEmergencyBrakeNotchPosition = Mathf.Max(
+                brakeNotchCount + 1,
+                masterControllerEmergencyBrakeNotchPosition);
             brakeSubstepCount = Mathf.Max(1, brakeSubstepCount);
             minimumServiceBrakePressureKPa = Mathf.Max(0f, minimumServiceBrakePressureKPa);
             minimumServiceBrakePressureLoadScaleMax = Mathf.Max(1f, minimumServiceBrakePressureLoadScaleMax);

@@ -1,4 +1,4 @@
-using System;
+using UnityEngine;
 
 namespace Nakatetsu.Train.Equipment.Tims.Notch
 {
@@ -6,72 +6,153 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
     {
         public static void Calculate(TimsNotchContext context)
         {
-            if (context == null)
+            // 非常や入力欠落で計算を抜けても、前回の出力を残さない。
+            context.Output.resolvedBrakeStep = 0;
+            context.Output.manualBrakeStepLabel = "B0-0";
+
+            ResolveBrakeNotch(context);
+            ResolvePowerNotch(context);
+
+            context.Output.brakeStepLabel = TimsNotchCalculator.FormatBrakeNotchStep(
+                context.Output.resolvedBrakeStep,
+                context.Settings.brakeSubstepCount);
+            context.Output.resolvedNotchLabel = context.Output.isEmergencyBrakeRequested ? "EB" :
+                context.Output.resolvedBrakeStep > 0 ? context.Output.brakeStepLabel :
+                context.Output.resolvedPowerNotch > 0 ? $"P{context.Output.resolvedPowerNotch}" : "N";
+        }
+
+
+        private static void ResolveBrakeNotch(TimsNotchContext context)
+        {
+
+            //　有効運転台がない場合は非常
+            if (context.Input.cabActivationPosition == Equipment.Operation.CabActivationSwitch.CabActivationPosition.Off ||
+                context.Input.carInputs.Count == 0)
             {
-                throw new ArgumentNullException(nameof(context));
+                context.Output.isEmergencyBrakeRequested = true;
+                return;
             }
 
-            var input = context.Input;
-            var output = context.Output;
-            int count = input.cars.Count;
-            output.activatedCabIndex = -1;
-
-            if (count > 0 && input.cars[0].hasSelection && input.cars[count - 1].hasSelection)
+            TimsCabInput cabInput = null;
+            if (context.Input.cabActivationPosition == Equipment.Operation.CabActivationSwitch.CabActivationPosition.Front)
             {
-                var front = input.cars[0].selection;
-                var rear = input.cars[count - 1].selection;
-
-                if (front == TimsCabSelection.Forward && rear == TimsCabSelection.Reverse)
+                if (context.Input.carInputs[0] != null)
                 {
-                    output.activatedCabIndex = 0;
+                    cabInput = context.Input.carInputs[0];
                 }
-                else if (front == TimsCabSelection.Reverse && rear == TimsCabSelection.Forward)
+            } else
+            {
+                if (context.Input.carInputs[^1] != null)
                 {
-                    output.activatedCabIndex = count - 1;
+                    cabInput = context.Input.carInputs[^1];
                 }
             }
 
-            output.isEmergencyBrakeRequested = output.activatedCabIndex < 0;
-            output.manualPowerNotch = 0;
-            output.manualBrakeStep = 0;
-            output.atcBrakeStep = input.isReady ? Math.Max(0, input.atcBrakeStep) : 0;
-            output.reverserPosition = TimsReverserPosition.Neutral;
-            int substeps = Math.Max(1, context.Settings.brakeSubstepCount);
-            if (input.isReady && output.activatedCabIndex >= 0)
+            // 有効運転台からの入力がない場合には非常
+            if (cabInput == null)
             {
-                var cab = input.cars[output.activatedCabIndex];
-                output.manualPowerNotch = cab.powerNotch;
-                if (cab.brakeNotch > 0)
-                {
-                    TimsNotchCalculator.ToContinuousBrakeNotch(
-                        cab.brakeNotch,
-                        0,
-                        substeps,
-                        out int step);
-                    output.manualBrakeStep = Math.Max(0, step);
-                }
-
-                output.reverserPosition = cab.reverserPosition;
+                context.Output.isEmergencyBrakeRequested = true;
+                return;
             }
 
-            int cabSign = output.activatedCabIndex == 0 ? 1 :
-                output.activatedCabIndex >= 0 && output.activatedCabIndex == count - 1 ? -1 : 0;
-            int reverserSign = output.reverserPosition == TimsReverserPosition.Forward ? 1 :
-                output.reverserPosition == TimsReverserPosition.Reverse ? -1 : 0;
-            output.consistForceSign = cabSign * reverserSign;
-            output.resolvedBrakeStep = Math.Max(output.manualBrakeStep, output.atcBrakeStep);
-            output.resolvedPowerNotch = output.resolvedBrakeStep > 0 ? 0 : output.manualPowerNotch;
-            output.manualBrakeStepLabel = TimsNotchCalculator.FormatBrakeStepLabel(
-                output.manualBrakeStep,
-                substeps);
-            output.atcBrakeStepLabel = TimsNotchCalculator.FormatBrakeStepLabel(
-                output.atcBrakeStep,
-                substeps);
-            output.brakeStepLabel = TimsNotchCalculator.FormatBrakeStepLabel(
-                output.resolvedBrakeStep,
-                substeps);
-            output.resolvedNotchLabel = output.resolvedBrakeStep > 0 ? output.brakeStepLabel :
-                output.resolvedPowerNotch > 0 ? $"P{output.resolvedPowerNotch}" : "N";
+            // 入力が非常ブレーキの場合は非常
+            if (
+                context.Input.isAtcEmergency ||
+                cabInput.brakeNotch >= context.Settings.masterControllerEmergencyBrakeNotchPosition
+            )
+            {
+                context.Output.isEmergencyBrakeRequested = true;
+                return;
+            }
+
+
+            TimsNotchCalculator.ToBrakeStep(
+                cabInput.brakeNotch,
+                0,
+                context.Settings.brakeSubstepCount,
+                out int manualBrakeStep
+            );
+
+            context.Output.manualBrakeStepLabel = TimsNotchCalculator.FormatBrakeNotchStep(
+                manualBrakeStep,
+                context.Settings.brakeSubstepCount);
+
+            // 入力されたBrakeStepの最大値
+            int maxInputBrakeStep = Mathf.Max(context.Input.atcBrakeStep, manualBrakeStep);
+
+            // 許可されたBrakeStepの最大値
+            TimsNotchCalculator.ToBrakeStep(
+                context.Settings.brakeNotchCount,
+                0,
+                context.Settings.brakeSubstepCount,
+                out int maxBrakeStep
+            );
+
+            // 入力されたBrakeStepが最大BrakeStepを超えてる場合は非常
+            if (maxInputBrakeStep > maxBrakeStep)
+            {
+                context.Output.isEmergencyBrakeRequested = true;
+                return;
+            }
+
+            context.Output.isEmergencyBrakeRequested = false;
+            context.Output.resolvedBrakeStep = maxInputBrakeStep;
+
+        }
+
+        private static void ResolvePowerNotch(TimsNotchContext context)
+        {
+            // 前回の力行ノッチを残さないよう、力行なしで初期化する。
+            context.Output.resolvedPowerNotch = 0;
+
+            // 有効運転台がない場合は力行しない。
+            if (context.Input.cabActivationPosition == Equipment.Operation.CabActivationSwitch.CabActivationPosition.Off ||
+                context.Input.carInputs.Count == 0)
+            {
+                return;
+            }
+
+            TimsCabInput cabInput = null;
+            if (context.Input.cabActivationPosition == Equipment.Operation.CabActivationSwitch.CabActivationPosition.Front)
+            {
+                if (context.Input.carInputs[0] != null)
+                {
+                    cabInput = context.Input.carInputs[0];
+                }
+            } else
+            {
+                if (context.Input.carInputs[^1] != null)
+                {
+                    cabInput = context.Input.carInputs[^1];
+                }
+            }
+
+            // 有効運転台からの入力がない場合は力行しない。
+            if (cabInput == null)
+            {
+                return;
+            }
+
+            // 非常ブレーキまたはブレーキ要求がある場合は力行しない。
+            if (context.Output.isEmergencyBrakeRequested ||
+                context.Input.isAtcEmergency ||
+                cabInput.brakeNotch > 0 ||
+                context.Input.atcBrakeStep > 0 ||
+                context.Input.tascBrakeStep > 0 ||
+                context.Output.resolvedBrakeStep > 0)
+            {
+                return;
+            }
+
+            // 手動とATOの力行ノッチのうち、大きい方を採用する。
+            // ATOはまだ実装されていないので、手動だけ採用
+            int maxInputPowerNotch = cabInput.powerNotch;
+
+            // 設定された力行段数の範囲に収める。
+            context.Output.resolvedPowerNotch = Mathf.Clamp(
+                maxInputPowerNotch,
+                0,
+                context.Settings.powerNotchCount);
         }
     }
 }

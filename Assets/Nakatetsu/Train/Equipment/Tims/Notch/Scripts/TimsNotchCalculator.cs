@@ -1,37 +1,46 @@
 using System;
-using System.Collections.Generic;
-using Nakatetsu.Train.Equipment.Tims.Internal;
 
 namespace Nakatetsu.Train.Equipment.Tims.Notch
 {
     public static class TimsNotchCalculator
     {
-        public static void ToContinuousBrakeNotch (int discreteBrakeNotch, int subStep, int subStepCount, out int continuousBrakeNotch)
+        public static void ToBrakeStep(
+            int brakeNotch,
+            int notchStep,
+            int notchStepCount,
+            out int brakeStep)
         {
-            continuousBrakeNotch = (discreteBrakeNotch - 1) * subStepCount + subStep + 1;
+            // 通常ノッチとノッチ内の刻みから連続したブレーキStepへ変換する。
+            brakeStep = (brakeNotch - 1) * notchStepCount + notchStep + 1;
         }
 
-        public static void ToSubStepBrakeNotch (int continuousBrakeNotch, int subStepCount, out int discreteBrakeNotch, out int subStep)
+        public static void ToBrakeNotchStep(
+            int brakeStep,
+            int notchStepCount,
+            out int brakeNotch,
+            out int notchStep)
         {
-            discreteBrakeNotch = ((continuousBrakeNotch - 1) / subStepCount) + 1;
-            subStep = (continuousBrakeNotch - 1) % subStepCount;
+            // 連続したブレーキStepを通常ノッチとノッチ内の刻みに分解する。
+            brakeNotch = ((brakeStep - 1) / notchStepCount) + 1;
+            notchStep = (brakeStep - 1) % notchStepCount;
         }
 
-        public static string FormatBrakeStepLabel(int continuousBrakeNotch, int subStepCount)
+        public static string FormatBrakeNotchStep(int brakeStep, int notchStepCount)
         {
-            if (continuousBrakeNotch <= 0)
+            // 連続したブレーキStepをB1-1形式のNotchStep表記へ変換する。
+            if (brakeStep <= 0)
             {
                 return "B0-0";
             }
 
-            ToSubStepBrakeNotch(
-                continuousBrakeNotch,
-                Math.Max(1, subStepCount),
-                out int discreteBrakeNotch,
-                out int subStep
+            ToBrakeNotchStep(
+                brakeStep,
+                Math.Max(1, notchStepCount),
+                out int brakeNotch,
+                out int notchStep
             );
 
-            return $"B{discreteBrakeNotch}-{subStep}";
+            return $"B{brakeNotch}-{notchStep}";
         }
     }
 }
