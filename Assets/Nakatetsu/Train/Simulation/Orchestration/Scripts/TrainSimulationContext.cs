@@ -27,7 +27,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
     }
     public sealed class TrainSimulationContext
     {
-        public TrainSimulationInput Input { get; }
-        public TrainSimulationOutput Output { get; }
+        public TrainSimulationInput Input { get; } = new();
+        public TrainSimulationOutput Output { get; } = new();
     }
 }

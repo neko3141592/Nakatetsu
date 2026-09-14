@@ -54,7 +54,9 @@ Nakatetsu/
 │   │   │   │           ├── Indicators/{Scripts,Prefabs}/
 │   │   │   │           ├── Notch/{Scripts,Prefabs}/
 │   │   │   │           └── SpeedMeter/{Scripts,Sprites,Documentation}/
-│   │   │   └── Simulation/Orchestration/Scripts/
+│   │   │   └── Simulation/
+│   │   │       ├── Orchestration/{Interfaces,Scripts}/
+│   │   │       └── Physics/
 │   │   ├── World/
 │   │   │   └── Runtime/
 │   │   ├── Content/
@@ -88,7 +90,7 @@ Nakatetsu/
 | `Assets/Nakatetsu/Train/Equipment/Operation` | 運転台スイッチ、主幹制御器などの運転操作機器 |
 | `Assets/Nakatetsu/Train/Equipment/Traction` | VVVF、主電動機、駆動力計算と牽引装置の共通契約 |
 | `Assets/Nakatetsu/Train/Equipment/Traction/Drive` | ギヤ比、車輪径、伝達効率などの駆動系定義 |
-| `Assets/Nakatetsu/Train/Simulation/Orchestration` | 編成全体の時間進行と装置Stepの呼び出し順を統括 |
+| `Assets/Nakatetsu/Train/Simulation/Orchestration` | 編成全体の時間進行とControllerの入力収集・計算・出力反映の順序を統括 |
 | `Assets/Nakatetsu/Train/Equipment/Tims` | TIMSの通信、バス、ノッチ、ブレーキ、力行、表示 |
 | `Assets/Nakatetsu/World` | 沿線生成、カメラ、Floating Origin、ストリーミング |
 | `Assets/Nakatetsu/Content` | 具体的な路線・車両のデータ、モデル、マテリアル、音声、Prefab |

@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Nakatetsu.Train.Equipment.Traction.Drive;
 using Nakatetsu.Train.Equipment.Traction.Motor;
+using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
 
 namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 {
     [DisallowMultipleComponent]
-    public sealed class VvvfController : MonoBehaviour, ITractionEquipment
+    public sealed class VvvfController : MonoBehaviour, ITractionEquipment, ISimulationController
     {
         [Header("Definitions")]
         [SerializeField] private VvvfDefinitionAsset definition;
@@ -24,6 +25,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
         private float totalMotorCurrentRmsA;
         private float totalMotorOutputPowerW;
         private ITractionCommandSource tractionCommandSource;
+        private bool hasCalculatedOutput;
 
         public VvvfDefinitionAsset Definition => definition;
         public TrainDriveDefinition DriveDefinition => driveDefinition;
@@ -79,9 +81,14 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             context.Input.vehicleSpeedMps = value;
         }
 
-        public void Step(float deltaTimeSeconds)
+        public void CollectInput()
         {
             ReadTargetTractionForce();
+        }
+
+        public void Calculate(float deltaTimeSeconds)
+        {
+            hasCalculatedOutput = false;
             ApplyDefinition();
             MotorController representativeMotor = GetRepresentativeMotor();
             if (appliedDefinition == null || driveDefinition == null || representativeMotor == null)
@@ -92,6 +99,16 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 
             PopulateInput(representativeMotor, deltaTimeSeconds);
             VvvfLogic.Calculate(context);
+            hasCalculatedOutput = true;
+        }
+
+        public void ApplyOutput(float deltaTimeSeconds)
+        {
+            if (!hasCalculatedOutput)
+            {
+                return;
+            }
+
             StepMotors();
             AggregateMotorOutput();
         }
@@ -134,6 +151,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 
         public void ResetDrive()
         {
+            hasCalculatedOutput = false;
             context.Input.deltaTimeSeconds = 0f;
             context.Input.vehicleSpeedMps = 0f;
             context.Input.targetTractionForceN = 0f;

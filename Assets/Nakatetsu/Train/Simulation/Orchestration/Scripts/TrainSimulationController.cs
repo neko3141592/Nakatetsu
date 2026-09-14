@@ -4,13 +4,15 @@ using Nakatetsu.Train.Equipment.Brake.ControlDevice;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Traction;
-using Codice.CM.Common.Merge;
+using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Train.Simulation.Physics;
 
 namespace Nakatetsu.Train.Simulation.Orchestration
 {
     public sealed class TrainSimulationController : MonoBehaviour
     {
         [SerializeField] private TrainRoot trainRoot;
+        [SerializeField] private TrainPhysicsController physicsController;
 
         // 駆動装置
         private readonly Dictionary<int, ITractionEquipment> tractionEquipments = new();
@@ -18,15 +20,20 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         // ブレーキ装置
         private readonly Dictionary<int, BrakeControlDevice> brakeControllers = new();
 
+        private readonly TrainSimulationContext context = new();
+
         public TrainRoot TrainRoot => trainRoot;
         public ConsistDefinitionAsset ConsistDefinition =>
             trainRoot != null ? trainRoot.ConsistDefinition : null;
         public IReadOnlyDictionary<int, ITractionEquipment> TractionEquipments => tractionEquipments;
         public IReadOnlyDictionary<int, BrakeControlDevice> BrakeControllers => brakeControllers;
+        public TrainSimulationContext Context => context;
+        public TrainPhysicsController PhysicsController => physicsController;
 
         private void Awake()
         {
             ResolveTrainRoot();
+            ResolvePhysicsController();
         }
 
         private void Start()
@@ -42,12 +49,33 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             }
         }
 
+        private void ResolvePhysicsController()
+        {
+            if (physicsController == null)
+            {
+                physicsController = GetComponent<TrainPhysicsController>();
+            }
+
+            if (physicsController != null)
+            {
+                physicsController.SetInputSource(context.Input.cars);
+            }
+        }
+
         private void ResolveReferences()
         {
             tractionEquipments.Clear();
             foreach (ITractionEquipment tractionEquipment in
                      GetComponentsInChildren<ITractionEquipment>(true))
             {
+                if (tractionEquipment is not ISimulationController)
+                {
+                    Debug.LogError(
+                        $"牽引装置が{nameof(ISimulationController)}を実装していません。",
+                        tractionEquipment as Object);
+                    continue;
+                }
+
                 if (tractionEquipment is Component component)
                 {
                     RegisterEquipment(tractionEquipments, component, tractionEquipment);
@@ -90,28 +118,103 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void Update()
         {
-            float dt = Time.deltaTime;
-            Step(dt);
+            float deltaTimeSeconds = Time.deltaTime;
+            Step(deltaTimeSeconds);
         }
+
 
         private void Step(float deltaTimeSeconds)
         {
+            float signedVelocityMps = physicsController != null
+                ? physicsController.Context.State.signedVelocityMps
+                : 0f;
+
             foreach(var pair in tractionEquipments)
             {
-                int carIndex = pair.Key;
                 ITractionEquipment traction = pair.Value;
-                traction.Step(deltaTimeSeconds);
+                traction.SetVehicleSpeedMps(signedVelocityMps);
+                ((ISimulationController)traction).CollectInput();
             }
 
             foreach(var pair in brakeControllers)
             {
-                int carIndex = pair.Key;
-                BrakeControlDevice brake = pair.Value;
-
-                brake.Step(deltaTimeSeconds);
+                ISimulationController controller = pair.Value;
+                controller.CollectInput();
             }
 
-            float currentTractionForce = 0;
+            foreach(var pair in tractionEquipments)
+            {
+                ((ISimulationController)pair.Value).Calculate(deltaTimeSeconds);
+            }
+
+            foreach(var pair in brakeControllers)
+            {
+                ISimulationController controller = pair.Value;
+                controller.Calculate(deltaTimeSeconds);
+            }
+
+            foreach(var pair in tractionEquipments)
+            {
+                ((ISimulationController)pair.Value).ApplyOutput(deltaTimeSeconds);
+            }
+
+            foreach(var pair in brakeControllers)
+            {
+                ISimulationController controller = pair.Value;
+                controller.ApplyOutput(deltaTimeSeconds);
+            }
+
+            PopulateSimulationInput();
+            if (physicsController != null)
+            {
+                ISimulationController controller = physicsController;
+                controller.CollectInput();
+                controller.Calculate(deltaTimeSeconds);
+                controller.ApplyOutput(deltaTimeSeconds);
+            }
+        }
+
+        private void PopulateSimulationInput()
+        {
+            ConsistDefinitionAsset consistDefinition = ConsistDefinition;
+            int carCount = consistDefinition != null
+                ? consistDefinition.CarCount
+                : 0;
+
+            EnsureCarInputCount(carCount);
+            for (int carIndex = 0; carIndex < carCount; carIndex++)
+            {
+                TrainCarSimulationInput carInput = context.Input.cars[carIndex];
+                CarDefinitionAsset carDefinition = consistDefinition.cars[carIndex];
+
+                carInput.carIndex = carIndex;
+                carInput.massKg = carDefinition != null
+                    ? Mathf.Max(0f, carDefinition.emptyMassKg)
+                    : 0f;
+                carInput.tractionForceN =
+                    tractionEquipments.TryGetValue(carIndex, out ITractionEquipment traction)
+                        ? traction.ActualTractionForceN
+                        : 0f;
+                carInput.brakeForceN =
+                    brakeControllers.TryGetValue(carIndex, out BrakeControlDevice brake)
+                        ? brake.ActualBrakeForceN
+                        : 0f;
+            }
+        }
+        
+
+        private void EnsureCarInputCount(int carCount)
+        {
+            List<TrainCarSimulationInput> carInputs = context.Input.cars;
+            while (carInputs.Count < carCount)
+            {
+                carInputs.Add(new TrainCarSimulationInput());
+            }
+
+            if (carInputs.Count > carCount)
+            {
+                carInputs.RemoveRange(carCount, carInputs.Count - carCount);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Nakatetsu.Train.Equipment.Traction
 
         float GetRegenCapacityN(float vehicleSpeedMps);
 
-        void Step(float deltaTimeSeconds);
+        void SetVehicleSpeedMps(float value);
 
         void ResetEquipment();
     }
