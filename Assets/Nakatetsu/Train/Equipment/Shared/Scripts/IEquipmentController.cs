@@ -2,6 +2,10 @@ namespace Nakatetsu.Train.Equipment.Shared
 {
     public interface IEquipmentController
     {
-        void Step(float deltaTimeSeconds);
+        void CollectInput();
+
+        void Calculate(float deltaTimeSeconds);
+
+        void ApplyOutput(float deltaTimeSeconds);
     }
 }

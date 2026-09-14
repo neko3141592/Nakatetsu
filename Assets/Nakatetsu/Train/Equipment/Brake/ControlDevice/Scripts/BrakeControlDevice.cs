@@ -46,13 +46,6 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
             targetBrakeForceN = Mathf.Max(0f, value);
         }
 
-        public void Step(float deltaTimeSeconds)
-        {
-            CollectInput();
-            Calculate(deltaTimeSeconds);
-            ApplyOutput(deltaTimeSeconds);
-        }
-
         public void CollectInput()
         {
             ReadTargetBrakeForce();

@@ -24,22 +24,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
             ResolveReferences();
         }
 
-        public void Step(float deltaTimeSeconds)
-        {
-            // マスコン状態を入力し、無操作時間とEB出力を更新する。
-            CollectInput();
-            context.Settings.activationDelaySeconds = Mathf.Max(0f, activationDelaySeconds);
-            EbDeviceLogic.Calculate(context, deltaTimeSeconds);
-        }
-
-        public void Configure(MasterController controller, float delaySeconds)
-        {
-            // 使用するマスコンとEB作動時間を設定する。
-            masterController = controller;
-            activationDelaySeconds = Mathf.Max(0f, delaySeconds);
-        }
-
-        private void CollectInput()
+        public void CollectInput()
         {
             // 同じ車両のマスコン状態を値としてContextへコピーする。
             EbDeviceInput input = context.Input;
@@ -57,6 +42,25 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
                 reverserPosition = masterController.ReverserPosition,
                 isInputEnabled = masterController.IsInputEnabled
             };
+        }
+
+        public void Calculate(float deltaTimeSeconds)
+        {
+            // 収集済みのマスコン状態から無操作時間とEB出力を計算する。
+            context.Settings.activationDelaySeconds = Mathf.Max(0f, activationDelaySeconds);
+            EbDeviceLogic.Calculate(context, deltaTimeSeconds);
+        }
+
+        public void ApplyOutput(float deltaTimeSeconds)
+        {
+            // TIMSへのEB要求出力は接続せず、ContextのOutputだけを公開する。
+        }
+
+        public void Configure(MasterController controller, float delaySeconds)
+        {
+            // 使用するマスコンとEB作動時間を設定する。
+            masterController = controller;
+            activationDelaySeconds = Mathf.Max(0f, delaySeconds);
         }
 
         private bool ResolveReferences()

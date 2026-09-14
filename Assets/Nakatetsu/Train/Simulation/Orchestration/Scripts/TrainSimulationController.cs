@@ -158,10 +158,22 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepEquipment(float deltaTimeSeconds)
         {
-            // 全Equipmentを共通のStep経由で更新する。
+            // 全Equipmentの入力を同じ時点で収集する。
             foreach (IEquipmentController controller in equipmentControllers)
             {
-                controller.Step(deltaTimeSeconds);
+                controller.CollectInput();
+            }
+
+            // 収集済みの入力から全Equipmentの状態を計算する。
+            foreach (IEquipmentController controller in equipmentControllers)
+            {
+                controller.Calculate(deltaTimeSeconds);
+            }
+
+            // 全Equipmentの計算結果を出力へ反映する。
+            foreach (IEquipmentController controller in equipmentControllers)
+            {
+                controller.ApplyOutput(deltaTimeSeconds);
             }
         }
 

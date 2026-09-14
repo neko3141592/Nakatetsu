@@ -73,7 +73,9 @@ namespace Nakatetsu.Train.Tests
                 ebAssignment.AssignCarIndex(0);
                 EbDevice ebDevice = ebObject.AddComponent<EbDevice>();
 
-                ebDevice.Step(1f);
+                ebDevice.CollectInput();
+                ebDevice.Calculate(1f);
+                ebDevice.ApplyOutput(1f);
 
                 Assert.That(ebDevice.Context.Input.hasMasterControllerState, Is.True);
                 Assert.That(ebDevice.Context.Input.masterController.powerPosition, Is.EqualTo(2));
