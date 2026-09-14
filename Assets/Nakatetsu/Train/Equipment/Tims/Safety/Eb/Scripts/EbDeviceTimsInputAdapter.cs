@@ -4,6 +4,7 @@ using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Integration;
+using Nakatetsu.Train.Equipment.Tims.Operation;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
@@ -15,6 +16,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
     {
         [SerializeField] private TimsCommunicationController communicationController;
         [SerializeField] private TrainEquipmentAssignment equipmentAssignment;
+        private TrainRoot trainRoot;
 
         private void Awake()
         {
@@ -24,9 +26,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
 
         public bool TryReadMasterControllerInput(out EbMasterControllerInput input)
         {
-            // AssignedCarIndexに対応するLocalBusからマスコン状態を読み取る。
+            // 有効運転台はMasterBus、自車のマスコン状態はLocalBusから読み取る。
             input = default;
             if (!ResolveReferences() || !equipmentAssignment.IsAssigned ||
+                !TryReadActiveCab(out bool isActiveCab) ||
                 !communicationController.TryGetLocalBus(
                     equipmentAssignment.AssignedCarIndex,
                     out TimsBusState localBus) ||
@@ -53,7 +56,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
                 powerPosition = powerPosition,
                 brakePosition = brakePosition,
                 reverserPosition = (ReverserPosition)reverserPosition,
-                isInputEnabled = isInputEnabled
+                isInputEnabled = isInputEnabled,
+                isActiveCab = isActiveCab
             };
             return true;
         }
@@ -64,6 +68,35 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
             communicationController = controller;
         }
 
+        private bool TryReadActiveCab(out bool isActiveCab)
+        {
+            isActiveCab = false;
+            int carCount = trainRoot != null && trainRoot.ConsistDefinition != null
+                ? trainRoot.ConsistDefinition.CarCount
+                : 0;
+            int carIndex = equipmentAssignment.AssignedCarIndex;
+            if (carIndex < 0 || carIndex >= carCount ||
+                !communicationController.MasterBus.TryGetInt(
+                    TimsDirectionController.ActivatedCabPositionKey, out int rawPosition))
+            {
+                return false;
+            }
+
+            switch ((ActivatedCabPosition)rawPosition)
+            {
+                case ActivatedCabPosition.Front:
+                    isActiveCab = carIndex == 0;
+                    return true;
+                case ActivatedCabPosition.Rear:
+                    isActiveCab = carIndex == carCount - 1;
+                    return true;
+                case ActivatedCabPosition.None:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         private bool ResolveReferences()
         {
             // 自身の車両割り当てと編成内のTIMS通信Controllerを取得する。
@@ -72,14 +105,15 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
                 equipmentAssignment = GetComponent<TrainEquipmentAssignment>();
             }
 
-            if (communicationController == null)
+            if (trainRoot == null)
             {
-                TrainRoot trainRoot = GetComponentInParent<TrainRoot>(true);
-                if (trainRoot != null)
-                {
-                    communicationController =
-                        trainRoot.GetComponentInChildren<TimsCommunicationController>(true);
-                }
+                trainRoot = GetComponentInParent<TrainRoot>(true);
+            }
+
+            if (communicationController == null && trainRoot != null)
+            {
+                communicationController =
+                    trainRoot.GetComponentInChildren<TimsCommunicationController>(true);
             }
 
             return equipmentAssignment != null && communicationController != null;

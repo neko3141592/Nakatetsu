@@ -15,6 +15,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
 
         public EbDeviceContext Context => context;
         public EbDeviceOutput Output => context.Output;
+        public bool HasOutput { get; private set; }
         public bool IsEmergencyBrakeRequested => context.Output.isEmergencyBrakeRequested;
 
         private void Awake()
@@ -25,7 +26,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
 
         public void CollectInput()
         {
-            // 自車のLocalBusから取得したマスコン状態をContextへコピーする。
+            // TIMS経由の有効運転台判定と自車のマスコン状態をContextへコピーする。
             EbDeviceInput input = context.Input;
             if (ResolveInputSource() &&
                 resolvedInputSource.TryReadMasterControllerInput(out EbMasterControllerInput value))
@@ -44,11 +45,13 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
             // 収集済みのマスコン状態から無操作時間とEB出力を計算する。
             context.Settings.activationDelaySeconds = Mathf.Max(0f, activationDelaySeconds);
             EbDeviceLogic.Calculate(context, deltaTimeSeconds);
+            HasOutput = true;
         }
 
         public void ApplyOutput(float deltaTimeSeconds)
         {
-            // TIMSへのEB要求出力は接続せず、ContextのOutputだけを公開する。
+            // 計算済みOutputはTIMS側のBusSourceが次の収集時に公開する。
+            // 実際の非常ブレーキへの反映は行わない。
         }
 
         public void Configure(IEbMasterControllerInputSource inputSource, float delaySeconds)

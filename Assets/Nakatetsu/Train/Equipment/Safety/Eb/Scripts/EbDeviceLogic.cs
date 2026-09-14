@@ -17,7 +17,8 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
             EbDeviceOutput output = context.Output;
             float activationDelaySeconds = Math.Max(0f, context.Settings.activationDelaySeconds);
 
-            if (!input.hasMasterControllerState || !input.masterController.isInputEnabled)
+            if (!input.hasMasterControllerState ||
+                !input.masterController.isActiveCab || !input.masterController.isInputEnabled)
             {
                 Reset(context, activationDelaySeconds);
                 return;
