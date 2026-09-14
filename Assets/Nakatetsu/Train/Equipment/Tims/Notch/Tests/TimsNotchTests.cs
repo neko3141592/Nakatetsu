@@ -81,13 +81,25 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         [TestCase(1, 0, 1)]
         [TestCase(2, 3, 8)]
         [TestCase(7, 0, 25)]
-        public void NotchConversionRoundTrips(int notch, int substep, int expected)
+        public void BrakeNotchStepConversionRoundTrips(
+            int brakeNotch,
+            int notchStep,
+            int expectedBrakeStep)
         {
-            TimsNotchCalculator.ToContinuousBrakeNotch(notch, substep, 4, out int value);
-            Assert.That(value, Is.EqualTo(expected));
-            TimsNotchCalculator.ToSubStepBrakeNotch(value, 4, out int restored, out int fraction);
-            Assert.That(restored, Is.EqualTo(notch));
-            Assert.That(fraction, Is.EqualTo(substep));
+            TimsNotchCalculator.ToBrakeStep(
+                brakeNotch,
+                notchStep,
+                4,
+                out int brakeStep);
+            Assert.That(brakeStep, Is.EqualTo(expectedBrakeStep));
+
+            TimsNotchCalculator.ToBrakeNotchStep(
+                brakeStep,
+                4,
+                out int restoredBrakeNotch,
+                out int restoredNotchStep);
+            Assert.That(restoredBrakeNotch, Is.EqualTo(brakeNotch));
+            Assert.That(restoredNotchStep, Is.EqualTo(notchStep));
         }
     }
 }
