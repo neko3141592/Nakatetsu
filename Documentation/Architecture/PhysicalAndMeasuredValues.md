@@ -91,7 +91,7 @@ flowchart LR
 | `TimsTractionInput.currentBCPressureKPa` | シリンダ真値か圧力センサー値か不明 | `measuredBCPressureKPa` として入力する |
 | `VvvfInput.vehicleSpeedMps` | 列車物理の速度を直接受け、物理結合と制御用検出値が混在している | 物理計算用回転数と制御用測定値を分ける |
 | `TimsTractionBusSource.ActualTractionForceN` | 装置の物理出力をそのまま通信へ公開している | 実車相当の値なら推定値を公開し、真値はデバッグ用途に限定する |
-| `Train.SpeedKmh` | 表示側の読み取りはあるが、バスへ書く測定元が存在しない | 速度センサーと BusSource を追加する |
+| `Train.SpeedKmh` | SpeedSensor → LocalBus → TimsSpeedController → MasterBusの供給経路を追加済み | [速度測定の契約と更新順](../Train/Tims/SpeedMeasurement.md)を参照。初期モデルは物理速度の絶対値 |
 | `LoadWeightDevice` | Context、Logic、Controller が空 | 物理荷重の所有者にはせず、測定・推定を担当させる |
 
 `TimsBrakeController` と `TimsTractionController` の Context は現時点では外部から値を設定する

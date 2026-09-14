@@ -1,6 +1,7 @@
 using UnityEngine;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Bus;
+using Nakatetsu.Train.Equipment.Tims.Speed;
 
 namespace Nakatetsu.Train.Equipment.Tims.Communication
 {
@@ -9,6 +10,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
     {
         [SerializeField] private TrainRoot trainRoot;
         private readonly TimsCommunicationContext context = new();
+        private TimsSpeedController speedController;
 
         public TimsBusState MasterBus => context.State.masterBus;
 
@@ -63,12 +65,28 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
         {
             // 各車のTIMS送信元を対応するLocalBusへ収集する。
             CollectSources();
+            // LocalBusへの全送信が完了してから編成速度を確定する。
+            ResolveSpeedController();
+            speedController.CalculateAndPublish();
         }
 
         private void Awake()
         {
             ResolveTrainRoot();
             Initialize();
+            ResolveSpeedController();
+        }
+
+        private void ResolveSpeedController()
+        {
+            if (speedController == null)
+            {
+                speedController = GetComponent<TimsSpeedController>();
+                if (speedController == null)
+                {
+                    speedController = gameObject.AddComponent<TimsSpeedController>();
+                }
+            }
         }
 
         public void Configure(TrainRoot owner)
