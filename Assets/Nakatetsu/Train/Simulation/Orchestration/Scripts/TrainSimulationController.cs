@@ -38,17 +38,20 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void Awake()
         {
+            // 編成ルートと物理Controllerの参照を解決する。
             ResolveTrainRoot();
             ResolvePhysicsController();
         }
 
         private void Start()
         {
+            // 生成済みのEquipmentとSimulationを車両ごとに収集する。
             ResolveReferences();
         }
 
         public void ResolveReferences()
         {
+            // 編成内のEquipmentとSimulationをcarIndex別に登録し直す。
             Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
 
             tractionEquipments.Clear();
@@ -87,11 +90,13 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void Update()
         {
+            // 1フレーム分の編成シミュレーションを進める。
             Step(Time.deltaTime);
         }
 
         private void Step(float deltaTimeSeconds)
         {
+            // 測定、機器制御、物理モデル、編成物理の順に1ステップ実行する。
             float signedVelocityMps = physicsController != null
                 ? physicsController.Context.State.signedVelocityMps
                 : 0f;
@@ -112,6 +117,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void CollectPhysicalMeasurements(float signedVelocityMps)
         {
+            // 前ステップの物理値をEquipmentの測定値として渡す。
             foreach (KeyValuePair<int, ITractionEquipment> pair in tractionEquipments)
             {
                 pair.Value.SetVehicleSpeedMps(signedVelocityMps);
@@ -139,6 +145,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepEquipment(float deltaTimeSeconds)
         {
+            // 全Equipmentを入力収集、計算、出力適用の順に更新する。
             foreach (ITractionEquipment traction in tractionEquipments.Values)
             {
                 ((IEquipmentController)traction).CollectInput();
@@ -172,6 +179,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepPhysicalSimulation(float signedVelocityMps, float deltaTimeSeconds)
         {
+            // Equipmentの指令をMotor・Brake・Loadの物理モデルへ反映する。
             foreach (KeyValuePair<int, TrainMotorSimulation> pair in motorSimulations)
             {
                 if (tractionEquipments.TryGetValue(pair.Key, out ITractionEquipment traction) &&
@@ -212,6 +220,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void PopulatePhysicsInput()
         {
+            // 車両ごとの質量・駆動力・制動力を編成物理入力へまとめる。
             ConsistDefinitionAsset consist = ConsistDefinition;
             int carCount = consist != null ? consist.CarCount : 0;
             EnsureCarInputCount(carCount);
@@ -240,6 +249,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void RegisterEquipment<T>(Dictionary<int, T> destination, Component component, T value)
         {
+            // EquipmentAssignmentからcarIndexを取得して機器を登録する。
             TrainEquipmentAssignment assignment =
                 component.GetComponentInParent<TrainEquipmentAssignment>(true);
             if (assignment == null || !assignment.IsAssigned)
@@ -253,6 +263,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void RegisterSimulation<T>(Dictionary<int, T> destination, Component component, T value)
         {
+            // SimulationAssignmentからcarIndexを取得して物理モデルを登録する。
             TrainSimulationAssignment assignment =
                 component.GetComponentInParent<TrainSimulationAssignment>(true);
             if (assignment == null || !assignment.IsAssigned)
@@ -270,6 +281,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             Component component,
             T value)
         {
+            // 同じ車両への重複登録を検出しながら辞書へ追加する。
             if (!destination.TryAdd(carIndex, value))
             {
                 Debug.LogError(
@@ -280,6 +292,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void ResolveTrainRoot()
         {
+            // 未設定のTrainRootを親階層から取得する。
             if (trainRoot == null)
             {
                 trainRoot = GetComponentInParent<TrainRoot>(true);
@@ -288,6 +301,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void ResolvePhysicsController()
         {
+            // 未設定の物理Controllerを編成階層から取得する。
             if (physicsController == null)
             {
                 Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
@@ -297,6 +311,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void EnsureCarInputCount(int carCount)
         {
+            // 編成物理入力の要素数を現在の車両数に合わせる。
             List<TrainCarSimulationInput> carInputs = context.Input.cars;
             while (carInputs.Count < carCount)
             {
