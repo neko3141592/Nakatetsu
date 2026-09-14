@@ -8,6 +8,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
         public int brakePosition;
         public ReverserPosition reverserPosition;
         public bool isInputEnabled;
+        public bool isActiveCab;
     }
 
     public interface IEbMasterControllerInputSource

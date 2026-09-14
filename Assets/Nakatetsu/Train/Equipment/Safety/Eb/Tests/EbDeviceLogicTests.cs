@@ -47,6 +47,25 @@ namespace Nakatetsu.Train.Tests
             Assert.That(context.Output.inactivitySeconds, Is.Zero);
         }
 
+        [Test]
+        public void InactiveCabResetsAndDoesNotAccumulateTime()
+        {
+            EbDeviceContext context = CreateContext(10f);
+            EbDeviceLogic.Calculate(context, 10f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.True);
+
+            context.Input.masterController.isActiveCab = false;
+            EbDeviceLogic.Calculate(context, 100f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.False);
+            Assert.That(context.Output.inactivitySeconds, Is.Zero);
+            Assert.That(context.Output.remainingSeconds, Is.EqualTo(10f));
+
+            context.Input.masterController.isActiveCab = true;
+            EbDeviceLogic.Calculate(context, 1f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.False);
+            Assert.That(context.Output.inactivitySeconds, Is.EqualTo(1f));
+        }
+
         private static EbDeviceContext CreateContext(float activationDelaySeconds)
         {
             var context = new EbDeviceContext();
@@ -57,7 +76,8 @@ namespace Nakatetsu.Train.Tests
                 powerPosition = 0,
                 brakePosition = 0,
                 reverserPosition = ReverserPosition.Neutral,
-                isInputEnabled = true
+                isInputEnabled = true,
+                isActiveCab = true
             };
             return context;
         }
