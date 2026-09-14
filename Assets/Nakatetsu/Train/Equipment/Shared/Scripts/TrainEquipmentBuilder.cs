@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Nakatetsu.Train.Equipment.Brake.ControlDevice;
@@ -14,7 +13,6 @@ namespace Nakatetsu.Train.Equipment.Shared
     {
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private Transform carsRoot;
-        [SerializeField] private GameObject brakeEquipmentPrefab;
         [SerializeField] private bool buildOnAwake = true;
 
         private readonly List<TrainCarEquipmentInstances> carEquipments = new();
@@ -23,7 +21,6 @@ namespace Nakatetsu.Train.Equipment.Shared
         public ConsistDefinitionAsset ConsistDefinition =>
             trainRoot != null ? trainRoot.ConsistDefinition : null;
         public Transform CarsRoot => carsRoot;
-        public GameObject BrakeEquipmentPrefab => brakeEquipmentPrefab;
         public IReadOnlyList<TrainCarEquipmentInstances> CarEquipments => carEquipments;
 
         private void Awake()
@@ -37,15 +34,10 @@ namespace Nakatetsu.Train.Equipment.Shared
 
         public void Configure(
             TrainRoot owner,
-            Transform explicitCarsRoot = null,
-            GameObject defaultBrakeEquipmentPrefab = null)
+            Transform explicitCarsRoot = null)
         {
             trainRoot = owner;
             carsRoot = explicitCarsRoot;
-            if (defaultBrakeEquipmentPrefab != null)
-            {
-                brakeEquipmentPrefab = defaultBrakeEquipmentPrefab;
-            }
         }
 
         public bool Build()
@@ -75,7 +67,7 @@ namespace Nakatetsu.Train.Equipment.Shared
                     carRoot,
                     carIndex);
                 instances.BrakeEquipment = InstantiateEquipment(
-                    ResolveBrakeEquipmentPrefab(carDefinition),
+                    carDefinition.brakeEquipmentPrefab,
                     carRoot,
                     carIndex);
 
@@ -154,7 +146,7 @@ namespace Nakatetsu.Train.Equipment.Shared
                     return false;
                 }
 
-                GameObject brakePrefab = ResolveBrakeEquipmentPrefab(carDefinition);
+                GameObject brakePrefab = carDefinition.brakeEquipmentPrefab;
                 if (brakePrefab != null &&
                     brakePrefab.GetComponentInChildren<BrakeControlDevice>(true) == null)
                 {
@@ -176,13 +168,6 @@ namespace Nakatetsu.Train.Equipment.Shared
             }
 
             return trainRoot != null;
-        }
-
-        private GameObject ResolveBrakeEquipmentPrefab(CarDefinitionAsset carDefinition)
-        {
-            return carDefinition.brakeEquipmentPrefab != null
-                ? carDefinition.brakeEquipmentPrefab
-                : brakeEquipmentPrefab;
         }
 
         private static void ConfigureGeneratedEquipment(
