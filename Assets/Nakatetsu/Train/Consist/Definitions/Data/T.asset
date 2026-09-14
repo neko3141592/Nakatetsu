@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040c0444d01224e339e513b023f1591c, type: 3}
   m_Name: T
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Consist.CarDefinitionAsset
-  carId: 
-  displayName: 
+  carId:
+  displayName:
   carType: 0
   lengthM: 20
   bogieCenterDistanceM: 16
@@ -22,4 +22,11 @@ MonoBehaviour:
   driveDefinition: {fileID: 11400000, guid: c3987347a3b7e46f389133356ffa6bca, type: 2}
   tractionEquipmentPrefab: {fileID: 0}
   brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
+  motorDefinition: {fileID: 0}
+  motorCount: 0
+  brakeCylinderDefinition: {fileID: 11400000, guid: 8389f6ebee624835951cb11fc47fa86e, type: 2}
+  brakeCylinderCount: 4
+  motorSimulationPrefab: {fileID: 0}
+  brakeSimulationPrefab: {fileID: 100000, guid: d6659b8d35ada4445ae679e638287adc, type: 3}
+  loadSimulationPrefab: {fileID: 100000, guid: d731bba9abbc43b5935134eaf473dc62, type: 3}
   masterControllerPrefab: {fileID: 0}

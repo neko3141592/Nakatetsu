@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using Nakatetsu.Train.Equipment.Brake.ControlDevice;
-using Nakatetsu.Train.Equipment.Brake.Cylinder;
+using Nakatetsu.Train.Simulation.Brake;
 
 namespace Nakatetsu.Train.Tests
 {
@@ -23,30 +23,28 @@ namespace Nakatetsu.Train.Tests
         }
 
         [Test]
-        public void DeviceCollectsChildCylindersAndStepsAllOfThem()
+        public void DeviceCalculatesPressureFromSharedCylinderDefinition()
         {
             var root = new GameObject("BrakeControlDevice");
+            var definition = ScriptableObject.CreateInstance<BrakeCylinderDefinitionAsset>();
             try
             {
-                new GameObject("Cylinder 1").transform.SetParent(root.transform, false);
-                new GameObject("Cylinder 2").transform.SetParent(root.transform, false);
-                root.transform.GetChild(0).gameObject.AddComponent<BrakeCylinder>();
-                root.transform.GetChild(1).gameObject.AddComponent<BrakeCylinder>();
                 BrakeControlDevice device = root.AddComponent<BrakeControlDevice>();
-
-                device.RefreshBrakeCylinders();
+                device.Configure(definition, 2);
+                device.SetSimulationMeasurement(4500f, 2);
                 device.SetTargetBrakeForceN(4500f);
                 device.CollectInput();
                 device.Calculate(1f);
                 device.ApplyOutput(1f);
 
-                Assert.That(device.BrakeCylinders.Count, Is.EqualTo(2));
-                Assert.That(device.TargetPressureKPa, Is.EqualTo(250f));
+                Assert.That(device.CylinderCount, Is.EqualTo(2));
+                Assert.That(device.TargetPressureKPa, Is.EqualTo(250f).Within(0.001f));
                 Assert.That(device.ActualBrakeForceN, Is.EqualTo(4500f));
             }
             finally
             {
                 Object.DestroyImmediate(root);
+                Object.DestroyImmediate(definition);
             }
         }
 

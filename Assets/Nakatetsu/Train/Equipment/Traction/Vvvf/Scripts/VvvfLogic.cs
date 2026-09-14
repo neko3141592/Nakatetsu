@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Nakatetsu.Train.Equipment.Traction.Motor;
+using Nakatetsu.Train.Simulation.Traction.Motor;
 
 namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 {

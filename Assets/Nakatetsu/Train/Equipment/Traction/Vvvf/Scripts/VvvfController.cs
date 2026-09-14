@@ -1,61 +1,50 @@
-using System.Collections.Generic;
-using UnityEngine;
+using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Traction.Drive;
-using Nakatetsu.Train.Equipment.Traction.Motor;
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Train.Simulation.Traction.Motor;
+using UnityEngine;
 
 namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 {
     [DisallowMultipleComponent]
-    public sealed class VvvfController : MonoBehaviour, ITractionEquipment, ISimulationController
+    public sealed class VvvfController : MonoBehaviour, ITractionEquipment, IEquipmentController
     {
         [Header("Definitions")]
         [SerializeField] private VvvfDefinitionAsset definition;
         [SerializeField] private TrainDriveDefinition driveDefinition;
-
-        [Header("Child Motors (auto resolved)")]
-        [SerializeField] private List<MotorController> motors = new();
+        [SerializeField] private MotorDefinitionAsset motorDefinition;
+        [SerializeField, Min(0)] private int motorCount = 4;
 
         [Header("Unit Variation")]
         [SerializeField, Range(0.9f, 1.1f)] private float responseVariation = 1f;
 
         private readonly VvvfContext context = new();
         private VvvfDefinitionAsset appliedDefinition;
-        private float totalMotorTractionForceN;
-        private float totalMotorCurrentRmsA;
-        private float totalMotorOutputPowerW;
         private ITractionCommandSource tractionCommandSource;
-        private bool hasCalculatedOutput;
+        private float measuredMotorTorqueNm;
+        private float measuredTractionForceN;
+        private float measuredMotorCurrentRmsA;
+        private float measuredMotorOutputPowerW;
 
         public VvvfDefinitionAsset Definition => definition;
         public TrainDriveDefinition DriveDefinition => driveDefinition;
-        public IReadOnlyList<MotorController> Motors => motors;
-        public int MotorCount => CountValidMotors();
+        public MotorDefinitionAsset MotorDefinition => motorDefinition;
+        public int MotorCount => Mathf.Max(0, motorCount);
         public VvvfState State => context.State;
         public VvvfOutput Output => context.Output;
         public bool IsAvailable =>
-            definition != null && driveDefinition != null && GetRepresentativeMotor() != null;
+            definition != null && driveDefinition != null && motorDefinition != null && MotorCount > 0;
         public float TargetTractionForceN => context.Input.targetTractionForceN;
-        public float ActualTractionForceN => totalMotorTractionForceN;
-        public float TotalMotorTractionForceN => totalMotorTractionForceN;
-        public float TotalMotorCurrentRmsA => totalMotorCurrentRmsA;
-        public float TotalMotorOutputPowerW => totalMotorOutputPowerW;
-        public float RatedPowerW
-        {
-            get
-            {
-                float total = 0f;
-                foreach (MotorController motor in motors)
-                {
-                    if (motor != null) total += motor.RatedPowerW;
-                }
-                return total;
-            }
-        }
+
+        // センサーを兼ねるMVPとして、Simulationから受け取った測定値を公開する。
+        public float ActualTractionForceN => measuredTractionForceN;
+        public float TotalMotorCurrentRmsA => measuredMotorCurrentRmsA;
+        public float TotalMotorOutputPowerW => measuredMotorOutputPowerW;
+        public float RatedPowerW => motorDefinition != null
+            ? motorDefinition.Settings.ratedPowerW * MotorCount
+            : 0f;
 
         private void Awake()
         {
-            RefreshMotors();
             ResolveTractionCommandSource();
             ApplyDefinition();
             context.State.responseVariation = responseVariation;
@@ -69,6 +58,28 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             driveDefinition = newDriveDefinition;
             appliedDefinition = null;
             ApplyDefinition();
+        }
+
+        public void ConfigureMotor(
+            MotorDefinitionAsset newMotorDefinition,
+            TrainDriveDefinition newDriveDefinition,
+            int newMotorCount)
+        {
+            motorDefinition = newMotorDefinition;
+            driveDefinition = newDriveDefinition;
+            motorCount = Mathf.Max(0, newMotorCount);
+        }
+
+        public void SetMotorMeasurement(
+            float averageTorqueNm,
+            float tractionForceN,
+            float totalCurrentRmsA,
+            float totalOutputPowerW)
+        {
+            measuredMotorTorqueNm = averageTorqueNm;
+            measuredTractionForceN = tractionForceN;
+            measuredMotorCurrentRmsA = Mathf.Max(0f, totalCurrentRmsA);
+            measuredMotorOutputPowerW = totalOutputPowerW;
         }
 
         public void SetTargetTractionForceN(float value)
@@ -88,48 +99,32 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 
         public void Calculate(float deltaTimeSeconds)
         {
-            hasCalculatedOutput = false;
             ApplyDefinition();
-            MotorController representativeMotor = GetRepresentativeMotor();
-            if (appliedDefinition == null || driveDefinition == null || representativeMotor == null)
+            if (!IsAvailable)
             {
-                ResetDrive();
+                ResetControlOutput();
                 return;
             }
 
-            PopulateInput(representativeMotor, deltaTimeSeconds);
+            PopulateInput(deltaTimeSeconds);
             VvvfLogic.Calculate(context);
-            hasCalculatedOutput = true;
         }
 
         public void ApplyOutput(float deltaTimeSeconds)
         {
-            if (!hasCalculatedOutput)
-            {
-                return;
-            }
-
-            StepMotors();
-            AggregateMotorOutput();
+            // 物理モデルはTrainMotorSimulationが進める。Equipmentは指令値だけを公開する。
         }
 
         public float GetRegenCapacityN(float vehicleSpeedMps)
         {
-            if (definition == null || driveDefinition == null || MotorCount == 0) return 0f;
+            if (!IsAvailable) return 0f;
 
             VvvfSettings settings = context.Settings;
-            float totalRatedTorqueNm = 0f;
-            float totalRatedPowerW = 0f;
-            foreach (MotorController motor in motors)
-            {
-                if (motor == null) continue;
-                MotorSettings motorSettings = motor.Settings;
-                totalRatedPowerW += motorSettings.ratedPowerW;
-                totalRatedTorqueNm += MotorLogic.GetTorqueFromPowerAndRpm(
-                    motorSettings.ratedPowerW,
-                    motorSettings.ratedRpm);
-            }
-
+            MotorSettings motorSettings = motorDefinition.Settings;
+            float totalRatedTorqueNm = MotorLogic.GetTorqueFromPowerAndRpm(
+                motorSettings.ratedPowerW,
+                motorSettings.ratedRpm) * MotorCount;
+            float totalRatedPowerW = motorSettings.ratedPowerW * MotorCount;
             float torqueCapacityN = totalRatedTorqueNm * settings.regenTorqueMultiplier *
                 driveDefinition.gearRatio * driveDefinition.transmissionEfficiency /
                 Mathf.Max(0.01f, driveDefinition.wheelRadiusM);
@@ -143,41 +138,15 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             return Mathf.Max(0f, Mathf.Min(torqueCapacityN, powerCapacityN) * lowSpeedFactor);
         }
 
-        public void RefreshMotors()
-        {
-            motors.Clear();
-            motors.AddRange(GetComponentsInChildren<MotorController>(true));
-        }
-
-        public void ResetDrive()
-        {
-            hasCalculatedOutput = false;
-            context.Input.deltaTimeSeconds = 0f;
-            context.Input.vehicleSpeedMps = 0f;
-            context.Input.targetTractionForceN = 0f;
-            context.State.slipFrequencyHz = 0f;
-            context.State.voltageRatio = 0f;
-            context.State.phaseRad = 0f;
-            context.Output.Reset();
-            foreach (MotorController motor in motors)
-            {
-                if (motor != null) motor.ResetMotor();
-            }
-            totalMotorTractionForceN = 0f;
-            totalMotorCurrentRmsA = 0f;
-            totalMotorOutputPowerW = 0f;
-        }
-
         public void ResetEquipment()
         {
-            ResetDrive();
+            ResetControlOutput();
+            SetMotorMeasurement(0f, 0f, 0f, 0f);
         }
 
-        private void PopulateInput(
-            MotorController representativeMotor,
-            float deltaTimeSeconds)
+        private void PopulateInput(float deltaTimeSeconds)
         {
-            MotorSettings motorSettings = representativeMotor.Settings;
+            MotorSettings motorSettings = motorDefinition.Settings;
             VvvfInput input = context.Input;
             context.State.responseVariation = responseVariation;
             input.deltaTimeSeconds = Mathf.Max(0f, deltaTimeSeconds);
@@ -185,7 +154,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             input.gearRatio = driveDefinition.gearRatio;
             input.transmissionEfficiency = driveDefinition.transmissionEfficiency;
             input.motorCount = MotorCount;
-            input.representativeMotorTorqueNm = GetAverageMotorTorqueNm();
+            input.representativeMotorTorqueNm = measuredMotorTorqueNm;
             input.ratedMotorLineVoltageV = motorSettings.ratedLineVoltageV;
             input.ratedMotorFrequencyHz = motorSettings.ratedFrequencyHz;
             input.motorPoleCount = motorSettings.poleCount;
@@ -218,65 +187,13 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             }
         }
 
-        private void StepMotors()
+        private void ResetControlOutput()
         {
-            foreach (MotorController motor in motors)
-            {
-                if (motor == null) continue;
-                motor.Step(
-                    context.Output.lineVoltageRmsV,
-                    context.Output.frequencyHz,
-                    context.Output.motorRpm);
-            }
-        }
-
-        private void AggregateMotorOutput()
-        {
-            totalMotorTractionForceN = 0f;
-            totalMotorCurrentRmsA = 0f;
-            totalMotorOutputPowerW = 0f;
-            foreach (MotorController motor in motors)
-            {
-                if (motor == null) continue;
-                MotorOutput output = motor.Output;
-                totalMotorTractionForceN += output.motorTorqueNm *
-                    driveDefinition.gearRatio * driveDefinition.transmissionEfficiency /
-                    Mathf.Max(0.01f, driveDefinition.wheelRadiusM);
-                totalMotorCurrentRmsA += output.motorCurrentRmsA;
-                totalMotorOutputPowerW += output.motorOutputPowerW;
-            }
-        }
-
-        private MotorController GetRepresentativeMotor()
-        {
-            foreach (MotorController motor in motors)
-            {
-                if (motor != null && motor.Definition != null) return motor;
-            }
-            return null;
-        }
-
-        private float GetAverageMotorTorqueNm()
-        {
-            float totalTorqueNm = 0f;
-            int count = 0;
-            foreach (MotorController motor in motors)
-            {
-                if (motor == null) continue;
-                totalTorqueNm += motor.MotorTorqueNm;
-                count++;
-            }
-            return count > 0 ? totalTorqueNm / count : 0f;
-        }
-
-        private int CountValidMotors()
-        {
-            int count = 0;
-            foreach (MotorController motor in motors)
-            {
-                if (motor != null) count++;
-            }
-            return count;
+            context.Input.deltaTimeSeconds = 0f;
+            context.State.slipFrequencyHz = 0f;
+            context.State.voltageRatio = 0f;
+            context.State.phaseRad = 0f;
+            context.Output.Reset();
         }
 
         private void ApplyDefinition()
@@ -288,7 +205,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 
         private void OnValidate()
         {
-            RefreshMotors();
+            motorCount = Mathf.Max(0, motorCount);
             responseVariation = Mathf.Clamp(responseVariation, 0.9f, 1.1f);
             if (Application.isPlaying)
             {

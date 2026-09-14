@@ -5,6 +5,7 @@ using Nakatetsu.Train.Equipment.Brake.ControlDevice;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Operation;
 using Nakatetsu.Train.Equipment.Traction;
+using Nakatetsu.Train.Equipment.Traction.Vvvf;
 
 namespace Nakatetsu.Train.Equipment.Shared
 {
@@ -77,6 +78,8 @@ namespace Nakatetsu.Train.Equipment.Shared
                     ResolveBrakeEquipmentPrefab(carDefinition),
                     carRoot,
                     carIndex);
+
+                ConfigureGeneratedEquipment(instances, carDefinition);
 
                 carEquipments.Add(instances);
             }
@@ -180,6 +183,28 @@ namespace Nakatetsu.Train.Equipment.Shared
             return carDefinition.brakeEquipmentPrefab != null
                 ? carDefinition.brakeEquipmentPrefab
                 : brakeEquipmentPrefab;
+        }
+
+        private static void ConfigureGeneratedEquipment(
+            TrainCarEquipmentInstances instances,
+            CarDefinitionAsset carDefinition)
+        {
+            if (instances.TractionEquipment != null &&
+                instances.TractionEquipment.TryGetComponent(out VvvfController vvvf))
+            {
+                vvvf.ConfigureMotor(
+                    carDefinition.motorDefinition,
+                    carDefinition.driveDefinition,
+                    carDefinition.motorCount);
+            }
+
+            if (instances.BrakeEquipment != null &&
+                instances.BrakeEquipment.TryGetComponent(out BrakeControlDevice brake))
+            {
+                brake.Configure(
+                    carDefinition.brakeCylinderDefinition,
+                    carDefinition.brakeCylinderCount);
+            }
         }
 
         private static Transform GetOrCreateCarRoot(Transform parent, int carIndex)
