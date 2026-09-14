@@ -102,7 +102,9 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 : 0f;
 
             CollectPhysicalMeasurements(signedVelocityMps);
+
             StepEquipment(deltaTimeSeconds);
+
             StepPhysicalSimulation(signedVelocityMps, deltaTimeSeconds);
             PopulatePhysicsInput();
 
