@@ -38,6 +38,7 @@ namespace Nakatetsu.Train.Consist
         [Header("Equipment")]
         public GameObject tractionEquipmentPrefab;
         public GameObject brakeEquipmentPrefab;
+        public GameObject[] additionalEquipmentPrefabs;
 
         [Header("Physical Simulation")]
         public MotorDefinitionAsset motorDefinition;

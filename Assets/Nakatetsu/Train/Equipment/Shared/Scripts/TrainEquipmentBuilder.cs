@@ -70,6 +70,20 @@ namespace Nakatetsu.Train.Equipment.Shared
                     carDefinition.brakeEquipmentPrefab,
                     carRoot,
                     carIndex);
+                if (carDefinition.additionalEquipmentPrefabs != null)
+                {
+                    foreach (GameObject prefab in carDefinition.additionalEquipmentPrefabs)
+                    {
+                        GameObject additionalEquipment = InstantiateEquipment(
+                            prefab,
+                            carRoot,
+                            carIndex);
+                        if (additionalEquipment != null)
+                        {
+                            instances.AdditionalEquipments.Add(additionalEquipment);
+                        }
+                    }
+                }
 
                 ConfigureGeneratedEquipment(instances, carDefinition);
 
@@ -312,5 +326,6 @@ namespace Nakatetsu.Train.Equipment.Shared
         public GameObject MasterController { get; internal set; }
         public GameObject TractionEquipment { get; internal set; }
         public GameObject BrakeEquipment { get; internal set; }
+        public List<GameObject> AdditionalEquipments { get; } = new();
     }
 }

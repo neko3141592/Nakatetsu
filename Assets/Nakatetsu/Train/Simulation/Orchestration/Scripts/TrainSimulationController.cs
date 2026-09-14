@@ -18,6 +18,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TrainPhysicsController physicsController;
 
+        private readonly List<IEquipmentController> equipmentControllers = new();
         private readonly Dictionary<int, ITractionEquipment> tractionEquipments = new();
         private readonly Dictionary<int, BrakeControlDevice> brakeControllers = new();
         private readonly Dictionary<int, TrainMotorSimulation> motorSimulations = new();
@@ -28,6 +29,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public TrainRoot TrainRoot => trainRoot;
         public ConsistDefinitionAsset ConsistDefinition =>
             trainRoot != null ? trainRoot.ConsistDefinition : null;
+        public IReadOnlyList<IEquipmentController> EquipmentControllers => equipmentControllers;
         public IReadOnlyDictionary<int, ITractionEquipment> TractionEquipments => tractionEquipments;
         public IReadOnlyDictionary<int, BrakeControlDevice> BrakeControllers => brakeControllers;
         public IReadOnlyDictionary<int, TrainMotorSimulation> MotorSimulations => motorSimulations;
@@ -53,6 +55,15 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         {
             // 編成内のEquipmentとSimulationをcarIndex別に登録し直す。
             Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
+
+            equipmentControllers.Clear();
+            foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
+            {
+                if (component is IEquipmentController controller)
+                {
+                    equipmentControllers.Add(controller);
+                }
+            }
 
             tractionEquipments.Clear();
             foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
@@ -147,35 +158,10 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepEquipment(float deltaTimeSeconds)
         {
-            // 全Equipmentを入力収集、計算、出力適用の順に更新する。
-            foreach (ITractionEquipment traction in tractionEquipments.Values)
+            // 全Equipmentを共通のStep経由で更新する。
+            foreach (IEquipmentController controller in equipmentControllers)
             {
-                ((IEquipmentController)traction).CollectInput();
-            }
-
-            foreach (BrakeControlDevice brake in brakeControllers.Values)
-            {
-                brake.CollectInput();
-            }
-
-            foreach (ITractionEquipment traction in tractionEquipments.Values)
-            {
-                ((IEquipmentController)traction).Calculate(deltaTimeSeconds);
-            }
-
-            foreach (BrakeControlDevice brake in brakeControllers.Values)
-            {
-                brake.Calculate(deltaTimeSeconds);
-            }
-
-            foreach (ITractionEquipment traction in tractionEquipments.Values)
-            {
-                ((IEquipmentController)traction).ApplyOutput(deltaTimeSeconds);
-            }
-
-            foreach (BrakeControlDevice brake in brakeControllers.Values)
-            {
-                brake.ApplyOutput(deltaTimeSeconds);
+                controller.Step(deltaTimeSeconds);
             }
         }
 

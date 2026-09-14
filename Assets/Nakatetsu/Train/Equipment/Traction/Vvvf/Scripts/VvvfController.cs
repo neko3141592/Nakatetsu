@@ -92,6 +92,13 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             context.Input.vehicleSpeedMps = value;
         }
 
+        public void Step(float deltaTimeSeconds)
+        {
+            CollectInput();
+            Calculate(deltaTimeSeconds);
+            ApplyOutput(deltaTimeSeconds);
+        }
+
         public void CollectInput()
         {
             ReadTargetTractionForce();
