@@ -19,6 +19,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         [SerializeField] private TrainPhysicsController physicsController;
 
         private readonly List<IEquipmentController> equipmentControllers = new();
+        private readonly List<IEquipmentInputSourceCollector> equipmentInputSourceCollectors = new();
         private readonly Dictionary<int, ITractionEquipment> tractionEquipments = new();
         private readonly Dictionary<int, BrakeControlDevice> brakeControllers = new();
         private readonly Dictionary<int, TrainMotorSimulation> motorSimulations = new();
@@ -57,11 +58,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
 
             equipmentControllers.Clear();
+            equipmentInputSourceCollectors.Clear();
             foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
             {
                 if (component is IEquipmentController controller)
                 {
                     equipmentControllers.Add(controller);
+                }
+
+                if (component is IEquipmentInputSourceCollector collector)
+                {
+                    equipmentInputSourceCollectors.Add(collector);
                 }
             }
 
@@ -158,6 +165,12 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepEquipment(float deltaTimeSeconds)
         {
+            // TIMSなどの通信入力を各車の入力Busへ先に収集する。
+            foreach (IEquipmentInputSourceCollector collector in equipmentInputSourceCollectors)
+            {
+                collector.CollectInputSources();
+            }
+
             // 全Equipmentの入力を同じ時点で収集する。
             foreach (IEquipmentController controller in equipmentControllers)
             {

@@ -1,10 +1,11 @@
 using UnityEngine;
+using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Bus;
 
 namespace Nakatetsu.Train.Equipment.Tims.Communication
 {
 
-    public class TimsCommunicationController : MonoBehaviour
+    public class TimsCommunicationController : MonoBehaviour, IEquipmentInputSourceCollector
     {
         [SerializeField] private TrainRoot trainRoot;
         private readonly TimsCommunicationContext context = new();
@@ -56,6 +57,12 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             }
 
             return collectedSourceCount;
+        }
+
+        public void CollectInputSources()
+        {
+            // 各車のTIMS送信元を対応するLocalBusへ収集する。
+            CollectSources();
         }
 
         private void Awake()

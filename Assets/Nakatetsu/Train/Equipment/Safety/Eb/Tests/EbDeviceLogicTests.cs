@@ -1,8 +1,6 @@
 using Nakatetsu.Train.Equipment.Operation;
 using Nakatetsu.Train.Equipment.Safety.Eb;
-using Nakatetsu.Train.Equipment.Shared;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Nakatetsu.Train.Tests
 {
@@ -47,43 +45,6 @@ namespace Nakatetsu.Train.Tests
 
             Assert.That(context.Output.isEmergencyBrakeRequested, Is.False);
             Assert.That(context.Output.inactivitySeconds, Is.Zero);
-        }
-
-        [Test]
-        public void DeviceCopiesAssignedMasterControllerStateIntoInput()
-        {
-            var trainObject = new GameObject("Train");
-            var masterObject = new GameObject("MasterController");
-            var ebObject = new GameObject("EbDevice");
-            try
-            {
-                trainObject.AddComponent<TrainRoot>();
-                masterObject.transform.SetParent(trainObject.transform);
-                ebObject.transform.SetParent(trainObject.transform);
-
-                TrainEquipmentAssignment masterAssignment =
-                    masterObject.AddComponent<TrainEquipmentAssignment>();
-                masterAssignment.AssignCarIndex(0);
-                MasterController masterController = masterObject.AddComponent<MasterController>();
-                masterController.ConfigureLimits(4, 7, 8);
-                masterController.SetPowerPosition(2);
-
-                TrainEquipmentAssignment ebAssignment =
-                    ebObject.AddComponent<TrainEquipmentAssignment>();
-                ebAssignment.AssignCarIndex(0);
-                EbDevice ebDevice = ebObject.AddComponent<EbDevice>();
-
-                ebDevice.CollectInput();
-                ebDevice.Calculate(1f);
-                ebDevice.ApplyOutput(1f);
-
-                Assert.That(ebDevice.Context.Input.hasMasterControllerState, Is.True);
-                Assert.That(ebDevice.Context.Input.masterController.powerPosition, Is.EqualTo(2));
-            }
-            finally
-            {
-                Object.DestroyImmediate(trainObject);
-            }
         }
 
         private static EbDeviceContext CreateContext(float activationDelaySeconds)

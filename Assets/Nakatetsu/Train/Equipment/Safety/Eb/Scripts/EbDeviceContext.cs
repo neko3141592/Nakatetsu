@@ -10,6 +10,11 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
         public bool isInputEnabled;
     }
 
+    public interface IEbMasterControllerInputSource
+    {
+        bool TryReadMasterControllerInput(out EbMasterControllerInput input);
+    }
+
     public sealed class EbDeviceInput
     {
         public bool hasMasterControllerState;

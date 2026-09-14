@@ -1,4 +1,3 @@
-using Nakatetsu.Train.Equipment.Operation;
 using Nakatetsu.Train.Equipment.Shared;
 using UnityEngine;
 
@@ -8,11 +7,11 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
     [RequireComponent(typeof(TrainEquipmentAssignment))]
     public sealed class EbDevice : MonoBehaviour, IEquipmentController
     {
-        [SerializeField] private MasterController masterController;
+        [SerializeField] private MonoBehaviour masterControllerInputSource;
         [SerializeField, Min(0f)] private float activationDelaySeconds = 60f;
 
         private readonly EbDeviceContext context = new();
-        private TrainEquipmentAssignment equipmentAssignment;
+        private IEbMasterControllerInputSource resolvedInputSource;
 
         public EbDeviceContext Context => context;
         public EbDeviceOutput Output => context.Output;
@@ -20,28 +19,24 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
 
         private void Awake()
         {
-            // 車両割り当てとマスコンの参照を解決する。
-            ResolveReferences();
+            // TIMS経由でマスコン状態を提供する入力元を解決する。
+            ResolveInputSource();
         }
 
         public void CollectInput()
         {
-            // 同じ車両のマスコン状態を値としてContextへコピーする。
+            // 自車のLocalBusから取得したマスコン状態をContextへコピーする。
             EbDeviceInput input = context.Input;
-            input.hasMasterControllerState = ResolveMasterController();
-            if (!input.hasMasterControllerState)
+            if (ResolveInputSource() &&
+                resolvedInputSource.TryReadMasterControllerInput(out EbMasterControllerInput value))
             {
-                input.masterController = default;
+                input.hasMasterControllerState = true;
+                input.masterController = value;
                 return;
             }
 
-            input.masterController = new EbMasterControllerInput
-            {
-                powerPosition = masterController.PowerPosition,
-                brakePosition = masterController.BrakePosition,
-                reverserPosition = masterController.ReverserPosition,
-                isInputEnabled = masterController.IsInputEnabled
-            };
+            input.hasMasterControllerState = false;
+            input.masterController = default;
         }
 
         public void Calculate(float deltaTimeSeconds)
@@ -56,54 +51,34 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
             // TIMSへのEB要求出力は接続せず、ContextのOutputだけを公開する。
         }
 
-        public void Configure(MasterController controller, float delaySeconds)
+        public void Configure(IEbMasterControllerInputSource inputSource, float delaySeconds)
         {
-            // 使用するマスコンとEB作動時間を設定する。
-            masterController = controller;
+            // 使用するTIMS入力元とEB作動時間を設定する。
+            resolvedInputSource = inputSource;
+            masterControllerInputSource = inputSource as MonoBehaviour;
             activationDelaySeconds = Mathf.Max(0f, delaySeconds);
         }
 
-        private bool ResolveReferences()
+        private bool ResolveInputSource()
         {
-            // 自身の車両割り当てと対応するマスコンを検索する。
-            if (equipmentAssignment == null)
-            {
-                equipmentAssignment = GetComponent<TrainEquipmentAssignment>();
-            }
-
-            return ResolveMasterController();
-        }
-
-        private bool ResolveMasterController()
-        {
-            // 同じcarIndexが割り当てられたマスコンを編成内から取得する。
-            if (masterController != null)
+            // 同じGameObject上のTIMS入力アダプターを取得する。
+            if (resolvedInputSource != null)
             {
                 return true;
             }
 
-            if (equipmentAssignment == null)
+            if (masterControllerInputSource is IEbMasterControllerInputSource configuredSource)
             {
-                equipmentAssignment = GetComponent<TrainEquipmentAssignment>();
+                resolvedInputSource = configuredSource;
+                return true;
             }
 
-            if (equipmentAssignment == null || !equipmentAssignment.IsAssigned)
+            foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
             {
-                return false;
-            }
-
-            TrainRoot trainRoot = GetComponentInParent<TrainRoot>(true);
-            if (trainRoot == null)
-            {
-                return false;
-            }
-
-            foreach (MasterController candidate in
-                     trainRoot.GetComponentsInChildren<MasterController>(true))
-            {
-                if (candidate.AssignedCarIndex == equipmentAssignment.AssignedCarIndex)
+                if (component is IEbMasterControllerInputSource source)
                 {
-                    masterController = candidate;
+                    masterControllerInputSource = component;
+                    resolvedInputSource = source;
                     return true;
                 }
             }
@@ -113,7 +88,8 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
 
         private void OnValidate()
         {
-            // Inspectorの作動時間を0秒以上に補正する。
+            // 入力元を解決し、Inspectorの作動時間を0秒以上に補正する。
+            ResolveInputSource();
             activationDelaySeconds = Mathf.Max(0f, activationDelaySeconds);
         }
     }
