@@ -1,5 +1,7 @@
 using UnityEngine;
 using Nakatetsu.Train.Equipment.Traction.Drive;
+using Nakatetsu.Train.Simulation.Brake;
+using Nakatetsu.Train.Simulation.Traction.Motor;
 
 namespace Nakatetsu.Train.Consist
 {
@@ -36,6 +38,15 @@ namespace Nakatetsu.Train.Consist
         [Header("Equipment")]
         public GameObject tractionEquipmentPrefab;
         public GameObject brakeEquipmentPrefab;
+
+        [Header("Physical Simulation")]
+        public MotorDefinitionAsset motorDefinition;
+        [Min(0)] public int motorCount;
+        public BrakeCylinderDefinitionAsset brakeCylinderDefinition;
+        [Min(0)] public int brakeCylinderCount = 4;
+        public GameObject motorSimulationPrefab;
+        public GameObject brakeSimulationPrefab;
+        public GameObject loadSimulationPrefab;
 
         [Header("Cab Equipment")]
         public GameObject masterControllerPrefab;

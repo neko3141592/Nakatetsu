@@ -8,25 +8,19 @@ namespace Nakatetsu.Train.Simulation.Physics
     public sealed class TrainPhysicsController : MonoBehaviour, ISimulationController
     {
         private readonly TrainPhysicsContext context = new();
-        private IReadOnlyList<TrainCarSimulationInput> inputCars;
 
         public TrainPhysicsContext Context => context;
 
-        public void SetInputSource(IReadOnlyList<TrainCarSimulationInput> cars)
-        {
-            inputCars = cars;
-        }
-
-        public void CollectInput()
+        public void SetInput(IReadOnlyList<TrainCarSimulationInput> cars)
         {
             TrainPhysicsInput input = context.Input;
             input.Reset();
-            if (inputCars == null)
+            if (cars == null)
             {
                 return;
             }
 
-            foreach (TrainCarSimulationInput car in inputCars)
+            foreach (TrainCarSimulationInput car in cars)
             {
                 if (car == null)
                 {

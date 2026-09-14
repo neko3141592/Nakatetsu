@@ -1,40 +1,44 @@
-using System.Collections.Generic;
+using Nakatetsu.Train.Equipment.Shared;
+using Nakatetsu.Train.Simulation.Brake;
 using UnityEngine;
-using Nakatetsu.Train.Equipment.Brake.Cylinder;
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
 
 namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
 {
     [DisallowMultipleComponent]
-    public sealed class BrakeControlDevice : MonoBehaviour, ISimulationController
+    public sealed class BrakeControlDevice : MonoBehaviour, IEquipmentController
     {
-        [SerializeField] private List<BrakeCylinder> brakeCylinders = new();
+        [SerializeField] private BrakeCylinderDefinitionAsset cylinderDefinition;
+        [SerializeField, Min(0)] private int cylinderCount = 4;
 
         private readonly BrakeControlDeviceContext context = new();
         private float targetBrakeForceN;
+        private float measuredActualBrakeForceN;
+        private int measuredOperationalCylinderCount = -1;
         private IBrakeCommandSource brakeCommandSource;
 
-        public IReadOnlyList<BrakeCylinder> BrakeCylinders => brakeCylinders;
+        public int CylinderCount => Mathf.Max(0, cylinderCount);
         public float TargetBrakeForceN => targetBrakeForceN;
         public float TargetPressureKPa => context.Output.targetPressureKPa;
-
-        public float ActualBrakeForceN
-        {
-            get
-            {
-                float total = 0f;
-                foreach (BrakeCylinder cylinder in brakeCylinders)
-                {
-                    if (cylinder != null) total += cylinder.ActualForceN;
-                }
-                return total;
-            }
-        }
+        public float ActualBrakeForceN => measuredActualBrakeForceN;
 
         private void Awake()
         {
-            RefreshBrakeCylinders();
             ResolveBrakeCommandSource();
+        }
+
+        public void Configure(BrakeCylinderDefinitionAsset definition, int count)
+        {
+            cylinderDefinition = definition;
+            cylinderCount = Mathf.Max(0, count);
+        }
+
+        public void SetSimulationMeasurement(float actualBrakeForceN, int operationalCylinderCount)
+        {
+            measuredActualBrakeForceN = Mathf.Max(0f, actualBrakeForceN);
+            measuredOperationalCylinderCount = Mathf.Clamp(
+                operationalCylinderCount,
+                0,
+                CylinderCount);
         }
 
         public void SetTargetBrakeForceN(float value)
@@ -55,13 +59,7 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
 
         public void ApplyOutput(float deltaTimeSeconds)
         {
-            foreach (BrakeCylinder cylinder in brakeCylinders)
-            {
-                if (cylinder != null)
-                {
-                    cylinder.Step(context.Output.targetPressureKPa, deltaTimeSeconds);
-                }
-            }
+            // 物理モデルはTrainBrakeSimulationが進める。Equipmentは目標圧力だけを公開する。
         }
 
         private void ReadTargetBrakeForce()
@@ -72,9 +70,9 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
             }
 
             if (brakeCommandSource != null &&
-                brakeCommandSource.TryGetTargetBrakeForceN(out float targetBrakeForceN))
+                brakeCommandSource.TryGetTargetBrakeForceN(out float targetForceN))
             {
-                SetTargetBrakeForceN(targetBrakeForceN);
+                SetTargetBrakeForceN(targetForceN);
             }
         }
 
@@ -91,46 +89,34 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
             }
         }
 
-        public void RefreshBrakeCylinders()
-        {
-            brakeCylinders.Clear();
-            brakeCylinders.AddRange(GetComponentsInChildren<BrakeCylinder>(true));
-        }
-
         private void PopulateInput()
         {
             context.Input.targetBrakeForceN = targetBrakeForceN;
-            int inputIndex = 0;
-
-            foreach (BrakeCylinder cylinder in brakeCylinders)
+            context.Input.cylinders.Clear();
+            if (cylinderDefinition == null)
             {
-                if (cylinder == null) continue;
-
-                BrakeCylinderSettings settings = cylinder.Settings;
-                if (inputIndex >= context.Input.cylinders.Count)
-                {
-                    context.Input.cylinders.Add(new BrakeControlCylinderInput());
-                }
-
-                BrakeControlCylinderInput input = context.Input.cylinders[inputIndex];
-                input.isHealthy = cylinder.IsHealthy;
-                input.maximumPressureKPa = settings.maximumPressureKPa;
-                input.pistonAreaM2 = settings.pistonAreaM2;
-                input.mechanicalEfficiency = settings.mechanicalEfficiency;
-                inputIndex++;
+                return;
             }
 
-            if (context.Input.cylinders.Count > inputIndex)
+            BrakeCylinderSettings settings = cylinderDefinition.Settings;
+            int operationalCount = measuredOperationalCylinderCount >= 0
+                ? measuredOperationalCylinderCount
+                : CylinderCount;
+            for (int i = 0; i < CylinderCount; i++)
             {
-                context.Input.cylinders.RemoveRange(
-                    inputIndex,
-                    context.Input.cylinders.Count - inputIndex);
+                context.Input.cylinders.Add(new BrakeControlCylinderInput
+                {
+                    isHealthy = i < operationalCount,
+                    maximumPressureKPa = settings.maximumPressureKPa,
+                    pistonAreaM2 = settings.pistonAreaM2,
+                    mechanicalEfficiency = settings.mechanicalEfficiency
+                });
             }
         }
 
         private void OnValidate()
         {
-            RefreshBrakeCylinders();
+            cylinderCount = Mathf.Max(0, cylinderCount);
         }
     }
 }
