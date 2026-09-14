@@ -18,6 +18,8 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TrainPhysicsController physicsController;
 
+        private readonly List<IEquipmentController> equipmentControllers = new();
+        private readonly List<IEquipmentInputSourceCollector> equipmentInputSourceCollectors = new();
         private readonly Dictionary<int, ITractionEquipment> tractionEquipments = new();
         private readonly Dictionary<int, BrakeControlDevice> brakeControllers = new();
         private readonly Dictionary<int, TrainMotorSimulation> motorSimulations = new();
@@ -28,6 +30,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public TrainRoot TrainRoot => trainRoot;
         public ConsistDefinitionAsset ConsistDefinition =>
             trainRoot != null ? trainRoot.ConsistDefinition : null;
+        public IReadOnlyList<IEquipmentController> EquipmentControllers => equipmentControllers;
         public IReadOnlyDictionary<int, ITractionEquipment> TractionEquipments => tractionEquipments;
         public IReadOnlyDictionary<int, BrakeControlDevice> BrakeControllers => brakeControllers;
         public IReadOnlyDictionary<int, TrainMotorSimulation> MotorSimulations => motorSimulations;
@@ -53,6 +56,21 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         {
             // 編成内のEquipmentとSimulationをcarIndex別に登録し直す。
             Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
+
+            equipmentControllers.Clear();
+            equipmentInputSourceCollectors.Clear();
+            foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
+            {
+                if (component is IEquipmentController controller)
+                {
+                    equipmentControllers.Add(controller);
+                }
+
+                if (component is IEquipmentInputSourceCollector collector)
+                {
+                    equipmentInputSourceCollectors.Add(collector);
+                }
+            }
 
             tractionEquipments.Clear();
             foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
@@ -147,35 +165,28 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepEquipment(float deltaTimeSeconds)
         {
-            // 全Equipmentを入力収集、計算、出力適用の順に更新する。
-            foreach (ITractionEquipment traction in tractionEquipments.Values)
+            // TIMSなどの通信入力を各車の入力Busへ先に収集する。
+            foreach (IEquipmentInputSourceCollector collector in equipmentInputSourceCollectors)
             {
-                ((IEquipmentController)traction).CollectInput();
+                collector.CollectInputSources();
             }
 
-            foreach (BrakeControlDevice brake in brakeControllers.Values)
+            // 全Equipmentの入力を同じ時点で収集する。
+            foreach (IEquipmentController controller in equipmentControllers)
             {
-                brake.CollectInput();
+                controller.CollectInput();
             }
 
-            foreach (ITractionEquipment traction in tractionEquipments.Values)
+            // 収集済みの入力から全Equipmentの状態を計算する。
+            foreach (IEquipmentController controller in equipmentControllers)
             {
-                ((IEquipmentController)traction).Calculate(deltaTimeSeconds);
+                controller.Calculate(deltaTimeSeconds);
             }
 
-            foreach (BrakeControlDevice brake in brakeControllers.Values)
+            // 全Equipmentの計算結果を出力へ反映する。
+            foreach (IEquipmentController controller in equipmentControllers)
             {
-                brake.Calculate(deltaTimeSeconds);
-            }
-
-            foreach (ITractionEquipment traction in tractionEquipments.Values)
-            {
-                ((IEquipmentController)traction).ApplyOutput(deltaTimeSeconds);
-            }
-
-            foreach (BrakeControlDevice brake in brakeControllers.Values)
-            {
-                brake.ApplyOutput(deltaTimeSeconds);
+                controller.ApplyOutput(deltaTimeSeconds);
             }
         }
 

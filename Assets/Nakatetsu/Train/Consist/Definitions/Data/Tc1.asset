@@ -22,6 +22,8 @@ MonoBehaviour:
   driveDefinition: {fileID: 11400000, guid: c3987347a3b7e46f389133356ffa6bca, type: 2}
   tractionEquipmentPrefab: {fileID: 0}
   brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
+  additionalEquipmentPrefabs:
+  - {fileID: 100000, guid: f4bd5667ccab4e48bc6e4ae8ad184f9b, type: 3}
   motorDefinition: {fileID: 0}
   motorCount: 0
   brakeCylinderDefinition: {fileID: 11400000, guid: 8389f6ebee624835951cb11fc47fa86e, type: 2}

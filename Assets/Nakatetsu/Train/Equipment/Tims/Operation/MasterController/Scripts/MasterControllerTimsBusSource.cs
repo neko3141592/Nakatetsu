@@ -9,9 +9,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Integration
     [RequireComponent(typeof(TrainEquipmentAssignment))]
     public sealed class MasterControllerTimsBusSource : MonoBehaviour, ITimsBusSource
     {
-        private static readonly TimsTagKey PowerPositionKey =
+        public static readonly TimsTagKey PowerPositionKey =
             new("MasterController", "PowerPosition");
-        private static readonly TimsTagKey BrakePositionKey =
+        public static readonly TimsTagKey BrakePositionKey =
             new("MasterController", "BrakePosition");
         private static readonly TimsTagKey ServiceBrakePositionKey =
             new("MasterController", "ServiceBrakePosition");
@@ -21,7 +21,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Integration
             new("MasterController", "IsNeutral");
         private static readonly TimsTagKey IsEmergencyKey =
             new("MasterController", "IsEmergency");
-        private static readonly TimsTagKey IsInputEnabledKey =
+        public static readonly TimsTagKey IsInputEnabledKey =
             new("MasterController", "IsInputEnabled");
 
         [SerializeField] private MasterController masterController;
