@@ -16,9 +16,14 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
             EbDeviceState state = context.State;
             EbDeviceOutput output = context.Output;
             float activationDelaySeconds = Math.Max(0f, context.Settings.activationDelaySeconds);
+            float speedMps = input.masterController.speedMps;
+            // 前進・後退とも、既定では絶対速度5 km/h以上を走行として監視する。
+            bool isRunning = !float.IsNaN(speedMps) && !float.IsInfinity(speedMps) &&
+                Math.Abs(speedMps) >= Math.Max(0f, context.Settings.activationSpeedMps);
 
             if (!input.hasMasterControllerState ||
-                !input.masterController.isActiveCab || !input.masterController.isInputEnabled)
+                !input.masterController.isActiveCab || !input.masterController.isInputEnabled ||
+                !isRunning)
             {
                 Reset(context, activationDelaySeconds);
                 return;

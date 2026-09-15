@@ -66,6 +66,64 @@ namespace Nakatetsu.Train.Tests
             Assert.That(context.Output.inactivitySeconds, Is.EqualTo(1f));
         }
 
+        [TestCase(0f, false)]
+        [TestCase(4.999f, false)]
+        [TestCase(-4.999f, false)]
+        [TestCase(5f, true)]
+        [TestCase(-5f, true)]
+        [TestCase(30f, true)]
+        [TestCase(-30f, true)]
+        public void MonitorsOnlyAtOrAboveAbsoluteFiveKmh(float speedKmh, bool isRunning)
+        {
+            var context = CreateContext(60f);
+            context.Input.masterController.speedMps = speedKmh / 3.6f;
+            EbDeviceLogic.Calculate(context, 60f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.EqualTo(isRunning));
+            Assert.That(context.Output.inactivitySeconds, Is.EqualTo(isRunning ? 60f : 0f));
+        }
+
+        [Test]
+        public void SlowingBelowThresholdClearsRequestAndRestartCountsFromZero()
+        {
+            var context = CreateContext(60f);
+            EbDeviceLogic.Calculate(context, 60f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.True);
+
+            context.Input.masterController.speedMps = 4f / 3.6f;
+            EbDeviceLogic.Calculate(context, 120f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.False);
+            Assert.That(context.Output.inactivitySeconds, Is.Zero);
+            Assert.That(context.Output.remainingSeconds, Is.EqualTo(60f));
+
+            context.Input.masterController.speedMps = -5f / 3.6f;
+            EbDeviceLogic.Calculate(context, 1f);
+            Assert.That(context.Output.inactivitySeconds, Is.EqualTo(1f));
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.False);
+        }
+
+        [Test]
+        public void SpeedChangeAloneDoesNotCountAsMasterControllerOperation()
+        {
+            var context = CreateContext(60f);
+            EbDeviceLogic.Calculate(context, 59f);
+            context.Input.masterController.speedMps = 20f;
+            EbDeviceLogic.Calculate(context, 1f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.True);
+        }
+
+        [TestCase(float.NaN)]
+        [TestCase(float.PositiveInfinity)]
+        [TestCase(float.NegativeInfinity)]
+        public void InvalidSpeedClearsMonitoring(float speedMps)
+        {
+            var context = CreateContext(60f);
+            EbDeviceLogic.Calculate(context, 60f);
+            context.Input.masterController.speedMps = speedMps;
+            EbDeviceLogic.Calculate(context, 1f);
+            Assert.That(context.Output.isEmergencyBrakeRequested, Is.False);
+            Assert.That(context.Output.inactivitySeconds, Is.Zero);
+        }
+
         private static EbDeviceContext CreateContext(float activationDelaySeconds)
         {
             var context = new EbDeviceContext();
@@ -77,7 +135,8 @@ namespace Nakatetsu.Train.Tests
                 brakePosition = 0,
                 reverserPosition = ReverserPosition.Neutral,
                 isInputEnabled = true,
-                isActiveCab = true
+                isActiveCab = true,
+                speedMps = 10f
             };
             return context;
         }

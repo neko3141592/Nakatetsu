@@ -5,6 +5,7 @@ using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Integration;
 using Nakatetsu.Train.Equipment.Tims.Operation;
+using Nakatetsu.Train.Equipment.Tims.Speed;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
@@ -26,10 +27,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
 
         public bool TryReadMasterControllerInput(out EbMasterControllerInput input)
         {
-            // 有効運転台はMasterBus、自車のマスコン状態はLocalBusから読み取る。
+            // 有効運転台と速度はMasterBus、自車のマスコン状態はLocalBusから読み取る。
             input = default;
             if (!ResolveReferences() || !equipmentAssignment.IsAssigned ||
                 !TryReadActiveCab(out bool isActiveCab) ||
+                !communicationController.MasterBus.TryGetFloat(
+                    TimsSpeedController.SpeedMpsKey, out float speedMps) ||
+                float.IsNaN(speedMps) || float.IsInfinity(speedMps) ||
                 !communicationController.TryGetLocalBus(
                     equipmentAssignment.AssignedCarIndex,
                     out TimsBusState localBus) ||
@@ -57,7 +61,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
                 brakePosition = brakePosition,
                 reverserPosition = (ReverserPosition)reverserPosition,
                 isInputEnabled = isInputEnabled,
-                isActiveCab = isActiveCab
+                isActiveCab = isActiveCab,
+                speedMps = speedMps
             };
             return true;
         }

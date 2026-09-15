@@ -7,6 +7,7 @@ using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Integration;
 using Nakatetsu.Train.Equipment.Tims.Safety.Eb;
 using Nakatetsu.Train.Equipment.Tims.Operation;
+using Nakatetsu.Train.Equipment.Tims.Speed;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -14,11 +15,15 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
 {
     public sealed class EbDeviceTimsInputAdapterTests
     {
-        [TestCase(ActivatedCabPosition.Front, false)]
-        [TestCase(ActivatedCabPosition.Rear, true)]
-        [TestCase(ActivatedCabPosition.None, false)]
+        [TestCase(ActivatedCabPosition.Front, false, "valid")]
+        [TestCase(ActivatedCabPosition.Rear, true, "valid")]
+        [TestCase(ActivatedCabPosition.None, false, "valid")]
+        [TestCase(ActivatedCabPosition.Rear, true, "missing")]
+        [TestCase(ActivatedCabPosition.Rear, true, "wrongType")]
+        [TestCase(ActivatedCabPosition.Rear, true, "nan")]
+        [TestCase(ActivatedCabPosition.Rear, true, "infinity")]
         public void ReadsLocalMasterControllerAndMasterBusCabSelection(
-            ActivatedCabPosition activeCab, bool expectedActive)
+            ActivatedCabPosition activeCab, bool expectedActive, string speedState)
         {
             var trainObject = new GameObject("Train");
             var consistDefinition = ScriptableObject.CreateInstance<ConsistDefinitionAsset>();
@@ -57,11 +62,34 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 communicationController.CollectInputSources();
                 communicationController.MasterBus.SetInt(
                     TimsDirectionController.ActivatedCabPositionKey, (int)activeCab);
+                const float speedMps = -5f / 3.6f;
+                switch (speedState)
+                {
+                    case "valid":
+                        communicationController.MasterBus.SetFloat(TimsSpeedController.SpeedMpsKey, speedMps);
+                        break;
+                    case "wrongType":
+                        communicationController.MasterBus.SetInt(TimsSpeedController.SpeedMpsKey, 10);
+                        break;
+                    case "nan":
+                        communicationController.MasterBus.SetFloat(TimsSpeedController.SpeedMpsKey, float.NaN);
+                        break;
+                    case "infinity":
+                        communicationController.MasterBus.SetFloat(TimsSpeedController.SpeedMpsKey, float.PositiveInfinity);
+                        break;
+                }
                 ebDevice.CollectInput();
+
+                if (speedState != "valid")
+                {
+                    Assert.That(ebDevice.Context.Input.hasMasterControllerState, Is.False);
+                    return;
+                }
 
                 Assert.That(ebDevice.Context.Input.hasMasterControllerState, Is.True);
                 Assert.That(ebDevice.Context.Input.masterController.powerPosition, Is.EqualTo(3));
                 Assert.That(ebDevice.Context.Input.masterController.isActiveCab, Is.EqualTo(expectedActive));
+                Assert.That(ebDevice.Context.Input.masterController.speedMps, Is.EqualTo(speedMps));
             }
             finally
             {

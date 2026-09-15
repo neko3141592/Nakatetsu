@@ -8,6 +8,7 @@ using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Integration;
 using Nakatetsu.Train.Equipment.Tims.Safety.Eb;
 using Nakatetsu.Train.Equipment.Tims.Operation;
+using Nakatetsu.Train.Equipment.Tims.Speed;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -45,6 +46,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             // EditModeではUnityのAwakeが自動実行されないため、端末を初期化する。
             InitializeCommunication(communication);
             SetActiveCab(ActivatedCabPosition.Front);
+            // 既存の無操作監視テストは走行中の測定値を供給する。
+            communication.GetLocalBus(0).SetFloat(SpeedSensorTimsBusSource.MeasuredSpeedMpsKey, 10f);
 
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
             Assert.That(prefab, Is.Not.Null);
@@ -250,6 +253,31 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             communication.CollectInputSources();
             AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
             AssertStatus(communication.GetLocalBus(1), false, 0f, 60f);
+        }
+
+        [TestCase(0f, false)]
+        [TestCase(4.999f, false)]
+        [TestCase(5f, true)]
+        public void MasterBusSpeedControlsMonitoring(float speedKmh, bool expectedEmergency)
+        {
+            communication.GetLocalBus(0).SetFloat(
+                SpeedSensorTimsBusSource.MeasuredSpeedMpsKey, speedKmh / 3.6f);
+            StepDevices(60f);
+            communication.CollectInputSources();
+            AssertStatus(communication.GetLocalBus(0), expectedEmergency,
+                expectedEmergency ? 60f : 0f, expectedEmergency ? 0f : 60f);
+        }
+
+        [Test]
+        public void MissingSpeedClearsPreviousRequest()
+        {
+            StepDevices(60f);
+            Assert.That(devices[0].Output.isEmergencyBrakeRequested, Is.True);
+            communication.GetLocalBus(0).Remove(SpeedSensorTimsBusSource.MeasuredSpeedMpsKey);
+            StepDevices(1f);
+            communication.CollectInputSources();
+            Assert.That(devices[0].Context.Input.hasMasterControllerState, Is.False);
+            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
         }
 
         private void SetActiveCab(ActivatedCabPosition position)
