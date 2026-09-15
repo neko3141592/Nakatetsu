@@ -45,6 +45,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
 
             // 最低込め分を除いた必要ブレーキ力を計算
             CalculateRemainingTargetBrakeForce(context);
+
+            // 最低込め分を除いた必要ブレーキ力を各車の質量比で配分
+            CalculateTargetCarBrakeForces(context);
         }
 
         public static void InitializeWorkSpace(TimsBrakeContext context)
@@ -143,6 +146,24 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
             context.Workspace.remainingTargetBrakeForceN = Mathf.Max(
                 context.Workspace.targetTotalBrakeForceN - minimumAirTotalForceN,
                 0f);
+        }
+
+        public static void CalculateTargetCarBrakeForces(TimsBrakeContext context)
+        {
+            float totalMassKg = 0f;
+
+            foreach (TimsBrakeCarInput carInput in context.Input.cars)
+            {
+                totalMassKg += Mathf.Max(0f, carInput.massKg);
+            }
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                context.Workspace.targetCarBrakeForcesN[i] = totalMassKg > 0f
+                    ? context.Workspace.remainingTargetBrakeForceN *
+                      Mathf.Max(0f, context.Input.cars[i].massKg) / totalMassKg
+                    : 0f;
+            }
         }
     }
 }
