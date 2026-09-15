@@ -34,6 +34,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
         public bool IsAvailable =>
             definition != null && driveDefinition != null && motorDefinition != null && MotorCount > 0;
         public float TargetTractionForceN => context.Input.targetTractionForceN;
+        public int ForceDirectionSign { get; private set; } = 1;
 
         // センサーを兼ねるMVPとして、Simulationから受け取った測定値を公開する。
         public float ActualTractionForceN => measuredTractionForceN;
@@ -167,9 +168,20 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
                 ResolveTractionCommandSource();
             }
 
-            if (tractionCommandSource != null &&
-                tractionCommandSource.TryGetTargetTractionForceN(out float targetTractionForceN))
+            if (tractionCommandSource != null)
             {
+                if (!tractionCommandSource.TryGetTargetTractionForceN(out float targetTractionForceN))
+                    targetTractionForceN = 0f;
+                if (tractionCommandSource is ITractionDirectionSource directionSource)
+                {
+                    if (!directionSource.TryGetTractionDirection(out int direction) || direction == 0)
+                        targetTractionForceN = 0f;
+                    else if (Mathf.Abs(context.Input.vehicleSpeedMps) > 0.01f &&
+                             Mathf.Sign(context.Input.vehicleSpeedMps) != direction)
+                        targetTractionForceN = 0f; // 走行中の逆方向への力行は受け付けない。
+                    else if (targetTractionForceN > 0f)
+                        ForceDirectionSign = direction;
+                }
                 SetTargetTractionForceN(targetTractionForceN);
             }
         }

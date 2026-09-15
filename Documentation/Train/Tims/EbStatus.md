@@ -41,9 +41,9 @@ TIMS型と車両indexの解決はTIMS側Adapterに置き、EB Logicは `isActive
 
 現在のSimulationは、各ステップの冒頭でTIMS BusSourceを収集してから、全Equipmentの入力収集・計算・出力反映を行う。従ってEBの公開値は**前ステップの計算結果**であり、作動・リセットの結果は次のTIMS収集で反映される。BusSourceはEBの計算や時間進行を行わない。
 
-有効運転台の判定はEBの入力収集時にMasterBusにある値を使う。`TimsDirectionController.CalculateAndPublish()` が有効運転台タグを公開するための既存の入口であり、上位からEB入力収集前に呼ぶ必要がある。現行コードにはその自動呼び出し経路がないため、この変更だけで方向Controllerの定期実行まで接続したことにはならない。タグが未公開の環境では、前後ともEB監視を停止する。
+有効運転台の判定はEBの入力収集時にMasterBusにある値を使う。`TimsDirectionController.CalculateAndPublish()` が有効運転台タグを公開するための既存の入口であり、上位からEB入力収集前に呼ぶ必要がある。`TimsControlController` を配置した編成では、通信収集後に方向Controllerが自動実行される。タグが未公開の環境では、前後ともEB監視を停止する。
 
-今回の接続はEB入力の有効運転台判定とTIMSへの状態公開まで。実際のブレーキ、予告警報、専用リセットボタン、TIMS画面の生成は接続していない。
+`TimsControlController` は公開されたEB要求を集約し、実際の力行遮断・最大空気制動へ接続する。TIMS側は停止まで非常を保持し、原因解消後の停車＋力行Nで解除する。予告警報、専用リセットボタン、TIMS画面の生成は未接続。詳細は [ControlPipeline.md](ControlPipeline.md) を参照。
 
 ## 検証
 

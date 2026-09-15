@@ -162,6 +162,9 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
             foreach (KeyValuePair<int, BrakeControlDevice> pair in brakeControllers)
             {
+                CarDefinitionAsset car = ConsistDefinition != null ? ConsistDefinition.cars[pair.Key] : null;
+                pair.Value.SetMassMeasurement(loadSimulations.TryGetValue(pair.Key, out TrainLoadController load) && load.IsInitialized
+                    ? load.ActualTotalMassKg : car != null ? car.emptyMassKg : 0f);
                 if (brakeSimulations.TryGetValue(pair.Key, out TrainBrakeSimulation brake))
                 {
                     pair.Value.SetSimulationMeasurement(
@@ -286,7 +289,8 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 carInput.tractionForceN = motorSimulations.TryGetValue(
                     carIndex,
                     out TrainMotorSimulation motor)
-                    ? motor.ActualTractionForceN
+                    ? motor.ActualTractionForceN * (tractionEquipments.TryGetValue(carIndex, out ITractionEquipment traction) &&
+                        traction is VvvfController vvvf ? vvvf.ForceDirectionSign : 1)
                     : 0f;
                 carInput.brakeForceN = brakeSimulations.TryGetValue(
                     carIndex,

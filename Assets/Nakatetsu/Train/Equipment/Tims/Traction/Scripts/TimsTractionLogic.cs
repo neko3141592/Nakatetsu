@@ -23,7 +23,6 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
                 output.constantAccelerationEndSpeedMps = 0f;
                 output.regionLabel = "--";
                 output.isBCReleaseInterlockActive = false;
-                ClearSpeedHold(context);
                 DistributeTargetForce(context, 0f);
                 return;
             }
@@ -35,12 +34,11 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
                 output.activeVvvfCount = 0;
                 output.regionLabel = "Brake";
                 output.isBCReleaseInterlockActive = false;
-                ClearSpeedHold(context);
+                DistributeTargetForce(context, 0f);
                 return;
             }
 
-            UpdateSpeedHold(context);
-
+            // 出力
             float powerW = 0f;
 
             foreach (var unit in input.units)
@@ -73,8 +71,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
                 maxForceN = powerW / Math.Max(0.1f, input.speedMps);
             }
 
-            output.targetForceN = context.State.speedHoldMode == TimsSpeedHoldMode.Arming ||
-                input.powerNotch <= 0
+            output.targetForceN = input.powerNotch <= 0
                     ? 0f
                     : maxForceN * Math.Max(0f, input.powerStepGain);
             output.isBCReleaseInterlockActive = !AreAllBCReleased(context);
@@ -88,46 +85,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
             DistributeTargetForce(context, output.targetForceN);
         }
 
+        // m * a = P / v
         public static float CalculateConstantAccelerationEndSpeedMps(
             float ratedConsistPowerW,
             float massKg,
             float targetAccelerationMps2) =>
             Math.Max(0f, ratedConsistPowerW) /
             (Math.Max(1f, massKg) * Math.Max(0.01f, targetAccelerationMps2));
-
-        private static void UpdateSpeedHold(TimsTractionContext context)
-        {
-            var state = context.State;
-            var input = context.Input;
-            if (state.speedHoldMode == TimsSpeedHoldMode.Off)
-            {
-                return;
-            }
-
-            if (input.manualPowerNotch != 2 ||
-                input.manualBrakeNotch > 0 ||
-                input.atcBrakeNotch > 0)
-            {
-                ClearSpeedHold(context);
-                return;
-            }
-            if (state.speedHoldMode == TimsSpeedHoldMode.Arming)
-            {
-                state.speedHoldArmingTimerSeconds += Math.Max(0f, input.deltaTimeSeconds);
-                if (state.speedHoldArmingTimerSeconds >= context.Settings.speedHoldArmingSeconds)
-                {
-                    state.speedHoldTargetMps = input.speedMps;
-                    state.speedHoldMode = TimsSpeedHoldMode.Active;
-                }
-            }
-        }
-
-        private static void ClearSpeedHold(TimsTractionContext context)
-        {
-            context.State.speedHoldMode = TimsSpeedHoldMode.Off;
-            context.State.speedHoldArmingTimerSeconds = 0f;
-            context.State.speedHoldTargetMps = 0f;
-        }
 
         private static bool AreAllBCReleased(TimsTractionContext context)
         {

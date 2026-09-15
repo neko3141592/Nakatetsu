@@ -62,6 +62,10 @@ namespace Nakatetsu.Train.Equipment.Shared
                     carDefinition.masterControllerPrefab,
                     carRoot,
                     carIndex);
+                instances.CabActivationSwitch = InstantiateEquipment(
+                    carDefinition.cabActivationSwitchPrefab,
+                    carRoot,
+                    carIndex);
                 instances.TractionEquipment = InstantiateEquipment(
                     carDefinition.tractionEquipmentPrefab,
                     carRoot,
@@ -324,6 +328,7 @@ namespace Nakatetsu.Train.Equipment.Shared
         public CarDefinitionAsset Definition { get; }
         public Transform CarRoot { get; }
         public GameObject MasterController { get; internal set; }
+        public GameObject CabActivationSwitch { get; internal set; }
         public GameObject TractionEquipment { get; internal set; }
         public GameObject BrakeEquipment { get; internal set; }
         public List<GameObject> AdditionalEquipments { get; } = new();

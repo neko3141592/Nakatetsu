@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4178515714074119172}
   - component: {fileID: 4178515714074119173}
   - component: {fileID: 4178515714074119174}
+  - component: {fileID: 4178515714074119175}
   m_Layer: 0
   m_Name: BrakeEquipment
   m_TagString: Untagged
@@ -76,3 +77,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Brake.BrakeControlDeviceTimsAdapter
   communicationController: {fileID: 0}
   equipmentAssignment: {fileID: 4178515714074119173}
+--- !u!114 &4178515714074119175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789206022697535869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d73c3a1b1094dfa84da92675ab52fd1, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Brake.BrakeControlDeviceTimsBusSource
