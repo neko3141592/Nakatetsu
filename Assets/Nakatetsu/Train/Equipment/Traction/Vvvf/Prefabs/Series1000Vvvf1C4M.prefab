@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 11400000}
   - component: {fileID: 11400005}
   - component: {fileID: 11400006}
+  - component: {fileID: 11400007}
   m_Layer: 0
   m_Name: Series1000Vvvf1C4M
   m_TagString: Untagged
@@ -79,3 +80,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Traction.TimsTractionCommandAdapter
   communicationController: {fileID: 0}
   equipmentAssignment: {fileID: 11400005}
+--- !u!114 &11400007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0355a0e4804b8f87697f6589a5072a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Traction.TimsTractionBusSource

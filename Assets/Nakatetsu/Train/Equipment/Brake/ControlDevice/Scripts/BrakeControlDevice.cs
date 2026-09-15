@@ -20,6 +20,21 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
         public float TargetBrakeForceN => targetBrakeForceN;
         public float TargetPressureKPa => context.Output.targetPressureKPa;
         public float ActualBrakeForceN => measuredActualBrakeForceN;
+        // MVPの測定入力。物理モデルはSimulation側が所有する。
+        public float MeasuredMassKg { get; private set; }
+        public float ForcePerKPa => cylinderDefinition == null ? 0f :
+            cylinderDefinition.Settings.pistonAreaM2 * 1000f *
+            cylinderDefinition.Settings.mechanicalEfficiency *
+            (measuredOperationalCylinderCount >= 0 ? measuredOperationalCylinderCount : CylinderCount);
+        public float MaximumPressureKPa => cylinderDefinition != null
+            ? cylinderDefinition.Settings.maximumPressureKPa : 0f;
+        public float MaximumBrakeForceN => ForcePerKPa * MaximumPressureKPa;
+        public float MeasuredPressureKPa => ForcePerKPa > 0f ? ActualBrakeForceN / ForcePerKPa : 0f;
+
+        public void SetMassMeasurement(float massKg)
+        {
+            MeasuredMassKg = massKg;
+        }
 
         private void Awake()
         {
@@ -69,10 +84,11 @@ namespace Nakatetsu.Train.Equipment.Brake.ControlDevice
                 ResolveBrakeCommandSource();
             }
 
-            if (brakeCommandSource != null &&
-                brakeCommandSource.TryGetTargetBrakeForceN(out float targetForceN))
+            if (brakeCommandSource != null)
             {
-                SetTargetBrakeForceN(targetForceN);
+                // 通信接続済みの指令欠損は最大空気制動。手動Setterのみの利用は維持する。
+                SetTargetBrakeForceN(brakeCommandSource.TryGetTargetBrakeForceN(out float targetForceN)
+                    ? targetForceN : MaximumBrakeForceN);
             }
         }
 

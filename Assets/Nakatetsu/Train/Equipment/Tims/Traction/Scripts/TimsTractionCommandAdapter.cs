@@ -1,5 +1,7 @@
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Communication;
+using Nakatetsu.Train.Equipment.Tims.Operation;
+using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Traction;
 using UnityEngine;
 
@@ -7,7 +9,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(TrainEquipmentAssignment))]
-    public sealed class TimsTractionCommandAdapter : MonoBehaviour, ITractionCommandSource
+    public sealed class TimsTractionCommandAdapter : MonoBehaviour, ITractionCommandSource, ITractionDirectionSource
     {
         [SerializeField] private TimsCommunicationController communicationController;
         [SerializeField] private TrainEquipmentAssignment equipmentAssignment;
@@ -25,6 +27,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
                 return false;
             }
 
+            if (communicationController.MasterBus.TryGetBool(TimsBrakeController.IsEmergencyKey, out bool emergency) && emergency)
+                return true; // 非常時は明示的に力行0。
+
             if (!communicationController.MasterBus.TryGetFloatArray(
                     TimsTractionController.TargetTractionForcesNKey,
                     out float[] targetTractionForcesN))
@@ -39,7 +44,15 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
             }
 
             targetTractionForceN = targetTractionForcesN[carIndex];
-            return true;
+            return !float.IsNaN(targetTractionForceN) && !float.IsInfinity(targetTractionForceN);
+        }
+
+        public bool TryGetTractionDirection(out int directionSign)
+        {
+            directionSign = 0;
+            return ResolveReferences() && communicationController.MasterBus.TryGetInt(
+                TimsDirectionController.ConsistDirectionSignKey, out directionSign) &&
+                directionSign >= -1 && directionSign <= 1;
         }
 
         private bool ResolveReferences()

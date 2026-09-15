@@ -7,13 +7,19 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
     public sealed class TimsBrakeCarInput
     {
         public float massKg;
+
         public bool isVvvfMotorCar;
         public bool isTrailerCar;
+
+        // 実ブレーキ力
         public float regenForceN;
         public float airForceN;
         public float bcPressureKPa;
+
+        // 上限
         public float regenCapN;
         public float airCapN;
+
         public float airForcePerKPa;
         public float maxBCPressureKPa;
     }
@@ -56,11 +62,17 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
 
     public sealed class TimsBrakeWorkspace
     {
-        public readonly List<float> carMassesKg = new();
-        public readonly List<float> targetCarBrakeForcesN = new();
-        public readonly List<float> targetRegenForcesN = new();
-        public readonly List<float> additionalAirForcesN = new();
-        public readonly List<float> minimumAirForcesN = new();
+        public float targetDecelerationMps2;
+        public float targetTotalBrakeForceN;
+        public float remainingTargetBrakeForceN;
+
+        // 全車共通の最低込め圧。
+        public float minimumAirPressureKPa;
+
+        public List<float> targetCarBrakeForcesN = new();
+        public List<float> targetRegenForcesN = new();
+        public List<float> additionalAirForcesN = new();
+        public List<float> minimumAirForcesN = new();
     }
 
     public sealed class TimsBrakeContext

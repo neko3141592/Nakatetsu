@@ -15,7 +15,14 @@ MonoBehaviour:
   powerStepCount: 4
   powerCurves: []
   launchAccelerationKmhPerSec: 2.5
-  brakeTargetDecelerationsKmhPerSec: []
+  brakeTargetDecelerationsKmhPerSec:
+  - 0.5
+  - 1
+  - 1.5
+  - 2
+  - 2.5
+  - 3
+  - 3.5
   brakeStepCount: 7
   brakeSubstepCount: 4
   minimumServiceBrakePressureKPa: 40

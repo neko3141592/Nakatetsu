@@ -68,6 +68,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             // LocalBusへの全送信が完了してから編成速度を確定する。
             ResolveSpeedController();
             speedController.CalculateAndPublish();
+            // 指令処理は任意の同一GameObjectコンポーネントで有効化する。
+            if (TryGetComponent(out TimsControlController control) && control.isActiveAndEnabled)
+                control.CalculateAndPublish();
         }
 
         private void Awake()

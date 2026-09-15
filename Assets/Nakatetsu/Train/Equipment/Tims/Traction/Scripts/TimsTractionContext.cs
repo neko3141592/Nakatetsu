@@ -1,18 +1,7 @@
-using System;
 using System.Collections.Generic;
 
 namespace Nakatetsu.Train.Equipment.Tims.Traction
 {
-    public enum TimsSpeedHoldMode { Off, Arming, Active }
-
-    [Serializable]
-    public sealed class TimsTractionState
-    {
-        public TimsSpeedHoldMode speedHoldMode;
-        public float speedHoldArmingTimerSeconds;
-        public float speedHoldTargetMps;
-    }
-
     public struct TimsTractionUnitInput
     {
         public bool isAvailable;
@@ -24,14 +13,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
     public sealed class TimsTractionInput
     {
         public bool isReady;
-        public float deltaTimeSeconds;
         public float speedMps;
         public float consistMassKg;
         public int brakeStep;
         public int powerNotch;
-        public int manualPowerNotch;
-        public int manualBrakeNotch;
-        public int atcBrakeNotch;
         public bool isGradientStart;
         public float currentBCPressureKPa;
         // Sampled by the caller from the selected notch's AnimationCurve at normalized speed.
@@ -44,7 +29,6 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
     {
         public float launchAccelerationMps2 = 3f / 3.6f;
         public float bcReleaseThresholdKPa = 5f;
-        public float speedHoldArmingSeconds = 1f;
     }
 
     public sealed class TimsTractionOutput
@@ -65,7 +49,6 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
 
     public sealed class TimsTractionContext
     {
-        public TimsTractionState State { get; } = new();
         public TimsTractionInput Input { get; } = new();
         public TimsTractionSettings Settings { get; } = new();
         public TimsTractionOutput Output { get; } = new();

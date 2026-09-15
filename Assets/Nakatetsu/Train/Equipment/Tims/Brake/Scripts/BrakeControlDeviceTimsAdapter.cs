@@ -26,6 +26,12 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
                 return false;
             }
 
+            if (communicationController.MasterBus.TryGetBool(TimsBrakeController.IsEmergencyKey, out bool emergency) && emergency)
+            {
+                targetBrakeForceN = GetComponent<BrakeControlDevice>().MaximumBrakeForceN;
+                return true;
+            }
+
             if (!communicationController.MasterBus.TryGetFloatArray(
                     TimsBrakeController.TargetAirBrakeForcesNKey,
                     out float[] targetAirBrakeForcesN))
@@ -40,7 +46,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
             }
 
             targetBrakeForceN = targetAirBrakeForcesN[carIndex];
-            return true;
+            return targetBrakeForceN >= 0f && !float.IsNaN(targetBrakeForceN) && !float.IsInfinity(targetBrakeForceN);
         }
 
         private bool ResolveReferences()

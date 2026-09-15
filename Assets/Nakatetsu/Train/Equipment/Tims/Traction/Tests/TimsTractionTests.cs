@@ -58,40 +58,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         }
 
         [Test]
-        public void SpeedHoldArmsCapturesSpeedAndCancelsOnAtcBrake()
-        {
-            var c = Create(); c.Input.manualPowerNotch = 2; c.Input.speedMps = 12f;
-            c.State.speedHoldMode = TimsSpeedHoldMode.Arming;
-            c.Input.deltaTimeSeconds = 0.5f;
-            TimsTractionLogic.Calculate(c);
-            Assert.That(c.State.speedHoldMode, Is.EqualTo(TimsSpeedHoldMode.Arming));
-            Assert.That(c.Output.targetForceN, Is.Zero);
-            TimsTractionLogic.Calculate(c);
-            Assert.That(c.State.speedHoldMode, Is.EqualTo(TimsSpeedHoldMode.Active));
-            Assert.That(c.State.speedHoldTargetMps, Is.EqualTo(12f));
-            c.Input.atcBrakeNotch = 1;
-            TimsTractionLogic.Calculate(c);
-            Assert.That(c.State.speedHoldMode, Is.EqualTo(TimsSpeedHoldMode.Off));
-            Assert.That(c.State.speedHoldTargetMps, Is.Zero);
-        }
-
-        [Test]
-        public void NegativeTimeDoesNotAdvanceArming()
-        {
-            var c = Create(); c.Input.manualPowerNotch = 2;
-            c.State.speedHoldMode = TimsSpeedHoldMode.Arming;
-            c.Input.deltaTimeSeconds = -1f;
-            TimsTractionLogic.Calculate(c);
-            Assert.That(c.State.speedHoldArmingTimerSeconds, Is.Zero);
-        }
-
-        [Test]
-        public void BrakeActiveReturnsNoForceCommandAndMissingConfigDispatchesZero()
+        public void BrakeActiveAndMissingConfigBothDispatchZero()
         {
             var c = Create(); TimsTractionLogic.Calculate(c);
             c.Input.brakeStep = 1; TimsTractionLogic.Calculate(c);
-            Assert.That(c.Output.hasForceCommand, Is.False);
+            Assert.That(c.Output.hasForceCommand, Is.True);
             Assert.That(c.Output.targetForceN, Is.Zero);
+            Assert.That(c.Output.unitTargetForcesN, Is.EqualTo(new[] { 0f, 0f }));
             c.Input.isReady = false; TimsTractionLogic.Calculate(c);
             Assert.That(c.Output.hasForceCommand, Is.True);
             Assert.That(c.Output.unitTargetForcesN, Is.EqualTo(new[] { 0f, 0f }));
