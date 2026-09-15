@@ -53,7 +53,7 @@ BusSource無効化時は、自身が送信したLocalBusのタグを削除する
 
 既存 `TimsSpeedMeter` は `Train/SpeedKmh` を読むため、表示用タグはこの経路で供給される。速度不明時には既存の欠損表示になる。m/sが必要な装置は `TryGetFloat(Train/SpeedMps)` の取得成否、または `HasValidSpeed` を併せて使う。
 
-この変更は速度センサーからMasterBusへの供給経路まで。EBの停車中監視条件やATC・力行制御の入力Adapterは別の仕様であり、ここでは変更しない。VVVFへの既存の物理速度入力も本変更では置き換えていない。
+EBの入力Adapterは `Train/SpeedMps` を読み、既定では絶対速度5 km/h以上のときに無操作監視を行う。5 km/h未満や速度入力欠落時はタイマーとEB要求をリセットする。詳細は [EbStatus.md](EbStatus.md) を参照。ATC・力行制御の入力AdapterとVVVFへの既存の物理速度入力は別途接続する。
 
 検証対象は絶対値、停車と不明の区別、同じ測定ステップでの公開、センサーの二重更新防止、物理入力消失、車両別送信、センサー切替、Prefab生成、複数編成の分離。実際の画面描画・車両走行の目視確認は別途行う。
 

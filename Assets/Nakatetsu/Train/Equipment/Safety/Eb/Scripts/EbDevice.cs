@@ -9,6 +9,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
     {
         [SerializeField] private MonoBehaviour masterControllerInputSource;
         [SerializeField, Min(0f)] private float activationDelaySeconds = 60f;
+        [SerializeField, Min(0f)] private float activationSpeedMps = 5f / 3.6f;
 
         private readonly EbDeviceContext context = new();
         private IEbMasterControllerInputSource resolvedInputSource;
@@ -44,6 +45,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
         {
             // 収集済みのマスコン状態から無操作時間とEB出力を計算する。
             context.Settings.activationDelaySeconds = Mathf.Max(0f, activationDelaySeconds);
+            context.Settings.activationSpeedMps = Mathf.Max(0f, activationSpeedMps);
             EbDeviceLogic.Calculate(context, deltaTimeSeconds);
             HasOutput = true;
         }
@@ -94,6 +96,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
             // 入力元を解決し、Inspectorの作動時間を0秒以上に補正する。
             ResolveInputSource();
             activationDelaySeconds = Mathf.Max(0f, activationDelaySeconds);
+            activationSpeedMps = Mathf.Max(0f, activationSpeedMps);
         }
     }
 }

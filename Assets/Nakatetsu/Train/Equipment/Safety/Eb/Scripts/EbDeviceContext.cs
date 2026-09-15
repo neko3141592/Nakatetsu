@@ -9,6 +9,8 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
         public ReverserPosition reverserPosition;
         public bool isInputEnabled;
         public bool isActiveCab;
+
+        public float speedMps;
     }
 
     public interface IEbMasterControllerInputSource
@@ -25,6 +27,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
     public sealed class EbDeviceSettings
     {
         public float activationDelaySeconds = 60f;
+        public float activationSpeedMps = 5f / 3.6f;
     }
 
     public sealed class EbDeviceState
