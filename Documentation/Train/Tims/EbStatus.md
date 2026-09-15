@@ -1,5 +1,7 @@
 # EB装置のTIMS状態公開と有効運転台判定
 
+装置全体の送受信先と接続状況は [Bus・タグ接続一覧](BusTagMap.md) を参照。
+
 ## 入力と監視条件
 
 `EbDeviceTimsInputAdapter` は、編成のMasterBusの `Direction/ActivatedCabPosition` を読み、自車が有効運転台側かを判定する。
