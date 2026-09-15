@@ -23,6 +23,7 @@ MonoBehaviour:
   tractionEquipmentPrefab: {fileID: 0}
   brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
   additionalEquipmentPrefabs:
+  - {fileID: 100000, guid: 7d9600a607604d0d85f0aa49c225feab, type: 3}
   - {fileID: 100000, guid: f4bd5667ccab4e48bc6e4ae8ad184f9b, type: 3}
   motorDefinition: {fileID: 0}
   motorCount: 0

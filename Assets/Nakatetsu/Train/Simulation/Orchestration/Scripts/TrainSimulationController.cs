@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Brake.ControlDevice;
 using Nakatetsu.Train.Equipment.Shared;
+using Nakatetsu.Train.Equipment.SpeedMeasurement;
 using Nakatetsu.Train.Equipment.Traction;
 using Nakatetsu.Train.Equipment.Traction.Vvvf;
 using Nakatetsu.Train.Simulation.Brake;
@@ -19,6 +20,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         [SerializeField] private TrainPhysicsController physicsController;
 
         private readonly List<IEquipmentController> equipmentControllers = new();
+        private readonly Dictionary<int, SpeedSensor> speedSensors = new();
         private readonly List<IEquipmentInputSourceCollector> equipmentInputSourceCollectors = new();
         private readonly Dictionary<int, ITractionEquipment> tractionEquipments = new();
         private readonly Dictionary<int, BrakeControlDevice> brakeControllers = new();
@@ -58,10 +60,15 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
 
             equipmentControllers.Clear();
+            speedSensors.Clear();
             equipmentInputSourceCollectors.Clear();
             foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
             {
-                if (component is IEquipmentController controller)
+                if (component is SpeedSensor sensor)
+                {
+                    RegisterEquipment(speedSensors, sensor, sensor);
+                }
+                else if (component is IEquipmentController controller)
                 {
                     equipmentControllers.Add(controller);
                 }
@@ -120,6 +127,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 : 0f;
 
             CollectPhysicalMeasurements(signedVelocityMps);
+            StepSpeedSensors(deltaTimeSeconds);
 
             StepEquipment(deltaTimeSeconds);
 
@@ -187,6 +195,35 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             foreach (IEquipmentController controller in equipmentControllers)
             {
                 controller.ApplyOutput(deltaTimeSeconds);
+            }
+        }
+
+        private void StepSpeedSensors(float deltaTimeSeconds)
+        {
+            // 前ステップのPhysics Outputを全センサーへ渡し、通信収集前に測定を完了する。
+            foreach (KeyValuePair<int, SpeedSensor> pair in speedSensors)
+            {
+                SpeedSensor sensor = pair.Value;
+                if (sensor == null) continue;
+                if (physicsController != null && physicsController.isActiveAndEnabled &&
+                    ConsistDefinition != null && pair.Key < ConsistDefinition.CarCount)
+                {
+                    sensor.SetPhysicalSpeedMps(physicsController.Context.Output.signedVelocityMps);
+                }
+                else
+                {
+                    sensor.ClearPhysicalSpeed();
+                }
+                sensor.CollectInput();
+            }
+
+            foreach (SpeedSensor sensor in speedSensors.Values)
+            {
+                if (sensor != null) sensor.Calculate(deltaTimeSeconds);
+            }
+            foreach (SpeedSensor sensor in speedSensors.Values)
+            {
+                if (sensor != null) sensor.ApplyOutput(deltaTimeSeconds);
             }
         }
 
