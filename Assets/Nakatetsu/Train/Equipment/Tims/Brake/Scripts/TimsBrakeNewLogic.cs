@@ -51,6 +51,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
 
             // 最低込め分を除いた必要ブレーキ力をVVVF搭載車へ回生目標として均等配分
             CalculateTargetRegenForces(context);
+
+            // 自車の実回生力と他車の余剰回生力を差し引き、追加空制力を計算
+            CalculateAdditionalAirBrakeForces(context);
         }
 
         public static void InitializeWorkSpace(TimsBrakeContext context)
@@ -171,23 +174,55 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
 
         public static void CalculateTargetRegenForces(TimsBrakeContext context)
         {
-            // 回生能力の上限制限前の目標値を均等配分する。
-            int regenCarCount = 0;
+            List<float> regenCapsN = new();
 
             foreach (TimsBrakeCarInput carInput in context.Input.cars)
             {
-                if (carInput.isVvvfMotorCar)
-                {
-                    regenCarCount++;
-                }
+                regenCapsN.Add(carInput.isVvvfMotorCar
+                    ? Mathf.Max(0f, carInput.regenCapN)
+                    : 0f);
             }
+
+            // 上限に達した車両の残りを、余力のある車両へ均等に再配分する。
+            List<float> targetRegenForcesN = TimsBrakeCalculator.AllocateEvenlyWithSaturation(
+                regenCapsN,
+                context.Workspace.remainingTargetBrakeForceN);
 
             for (int i = 0; i < context.Input.cars.Count; i++)
             {
-                context.Workspace.targetRegenForcesN[i] =
-                    context.Input.cars[i].isVvvfMotorCar && regenCarCount > 0
-                        ? context.Workspace.remainingTargetBrakeForceN / regenCarCount
-                        : 0f;
+                context.Workspace.targetRegenForcesN[i] = targetRegenForcesN[i];
+            }
+        }
+
+        public static void CalculateAdditionalAirBrakeForces(TimsBrakeContext context)
+        {
+            float regenSurplusForceN = 0f;
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                // 回生目標ではなく、実際に出た回生力を使う。
+                float actualRegenForceN = Mathf.Max(0f, context.Input.cars[i].regenForceN);
+                float targetCarBrakeForceN = context.Workspace.targetCarBrakeForcesN[i];
+
+                context.Workspace.additionalAirForcesN[i] = Mathf.Max(
+                    targetCarBrakeForceN - actualRegenForceN,
+                    0f);
+                regenSurplusForceN += Mathf.Max(
+                    actualRegenForceN - targetCarBrakeForceN,
+                    0f);
+            }
+
+            // 他車の追加空制分を上限に、余剰回生を均等に充当する。
+            // 最低込め分のminimumAirForcesNは減らさない。
+            List<float> reductionsN = TimsBrakeCalculator.AllocateEvenlyWithSaturation(
+                context.Workspace.additionalAirForcesN,
+                regenSurplusForceN);
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                context.Workspace.additionalAirForcesN[i] = Mathf.Max(
+                    context.Workspace.additionalAirForcesN[i] - reductionsN[i],
+                    0f);
             }
         }
     }
