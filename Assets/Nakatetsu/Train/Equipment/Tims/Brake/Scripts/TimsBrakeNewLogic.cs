@@ -48,6 +48,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
 
             // 最低込め分を除いた必要ブレーキ力を各車の質量比で配分
             CalculateTargetCarBrakeForces(context);
+
+            // 最低込め分を除いた必要ブレーキ力をVVVF搭載車へ回生目標として均等配分
+            CalculateTargetRegenForces(context);
         }
 
         public static void InitializeWorkSpace(TimsBrakeContext context)
@@ -163,6 +166,28 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
                     ? context.Workspace.remainingTargetBrakeForceN *
                       Mathf.Max(0f, context.Input.cars[i].massKg) / totalMassKg
                     : 0f;
+            }
+        }
+
+        public static void CalculateTargetRegenForces(TimsBrakeContext context)
+        {
+            // 回生能力の上限制限前の目標値を均等配分する。
+            int regenCarCount = 0;
+
+            foreach (TimsBrakeCarInput carInput in context.Input.cars)
+            {
+                if (carInput.isVvvfMotorCar)
+                {
+                    regenCarCount++;
+                }
+            }
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                context.Workspace.targetRegenForcesN[i] =
+                    context.Input.cars[i].isVvvfMotorCar && regenCarCount > 0
+                        ? context.Workspace.remainingTargetBrakeForceN / regenCarCount
+                        : 0f;
             }
         }
     }
