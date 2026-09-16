@@ -1,6 +1,7 @@
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Operation;
+using Nakatetsu.Train.Equipment.Tims.Notch;
 using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Traction;
 using UnityEngine;
@@ -30,6 +31,23 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
             if (communicationController.MasterBus.TryGetBool(TimsBrakeController.IsEmergencyKey, out bool emergency) && emergency)
                 return true; // 非常時は明示的に力行0。
 
+            int carIndex = equipmentAssignment.AssignedCarIndex;
+            if (carIndex < 0) return false;
+            if (communicationController.MasterBus.TryGetInt(
+                    TimsNotchController.ResolvedBrakeStepKey, out int brakeStep) && brakeStep > 0)
+            {
+                if (!communicationController.MasterBus.TryGetFloatArray(
+                        TimsBrakeController.TargetRegenForcesNKey, out float[] regenForcesN) ||
+                    carIndex >= regenForcesN.Length)
+                    return false; // 回生指令欠損時にも力行へ戻さない。
+
+                float regenForceN = regenForcesN[carIndex];
+                if (regenForceN < 0f || float.IsNaN(regenForceN) || float.IsInfinity(regenForceN))
+                    return false;
+                targetTractionForceN = -regenForceN;
+                return true;
+            }
+
             if (!communicationController.MasterBus.TryGetFloatArray(
                     TimsTractionController.TargetTractionForcesNKey,
                     out float[] targetTractionForcesN))
@@ -37,7 +55,6 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
                 return false;
             }
 
-            int carIndex = equipmentAssignment.AssignedCarIndex;
             if (carIndex >= targetTractionForcesN.Length)
             {
                 return false;

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040c0444d01224e339e513b023f1591c, type: 3}
   m_Name: M
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Consist.CarDefinitionAsset
-  carId:
-  displayName:
+  carId: 
+  displayName: 
   carType: 1
   lengthM: 20
-  bogieCenterDistanceM: 0
-  emptyMassKg: 0
-  passengerCapacity: 0
+  bogieCenterDistanceM: 16
+  emptyMassKg: 30000
+  passengerCapacity: 150
   driveDefinition: {fileID: 11400000, guid: c3987347a3b7e46f389133356ffa6bca, type: 2}
   tractionEquipmentPrefab: {fileID: 100000, guid: a106ae0f03574bbfbd147bcbaf9eeb20, type: 3}
   brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
@@ -32,3 +32,4 @@ MonoBehaviour:
   brakeSimulationPrefab: {fileID: 100000, guid: d6659b8d35ada4445ae679e638287adc, type: 3}
   loadSimulationPrefab: {fileID: 100000, guid: d731bba9abbc43b5935134eaf473dc62, type: 3}
   masterControllerPrefab: {fileID: 0}
+  cabActivationSwitchPrefab: {fileID: 0}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Nakatetsu.Train.Equipment.Tims.Internal;
+using Nakatetsu.Train.Equipment.Tims.Notch;
+using UnityEngine;
 
 namespace Nakatetsu.Train.Equipment.Tims.Brake
 {
@@ -12,9 +13,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
             {
                 throw new ArgumentNullException(nameof(context));
             }
-
             context.Output.isEmergency = !context.Input.canReleaseEmergencyBrake;
             context.Output.hasCommands = false;
+            context.Output.carCommands.Clear();
 
             if (context.Output.isEmergency)
             {
@@ -29,298 +30,243 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
                 }
             }
 
-            int count = context.Input.cars.Count;
-            while (context.Output.carCommands.Count < count)
-            {
-                context.Output.carCommands.Add(new TimsBrakeCarCommand());
-            }
+            InitializeWorkSpace(context);
 
-            if (context.Output.carCommands.Count > count)
-            {
-                context.Output.carCommands.RemoveRange(count, context.Output.carCommands.Count - count);
-            }
+            // 必要減速度を計算
+            CalculateTargetDeceleration(context);
 
-            context.Output.totalMassKg = GetTotalMassKg(context);
-            CalculateBrakeForces(context);
-            context.Output.hasCommands = true;
+            // 必要ブレーキ力を計算
+            CalculateTargetTotalBrakeForce(context);
+
+            // 最低込め圧を込める
+            CalculateMinimumAirBrakePressure(context);
+
+            // 最低込め分を除いた必要ブレーキ力を計算
+            CalculateRemainingTargetBrakeForce(context);
+
+            // 最低込め分を除いた必要ブレーキ力を各車の質量比で配分
+            CalculateTargetCarBrakeForces(context);
+
+            // 最低込め分を除いた必要ブレーキ力をVVVF搭載車へ回生目標として均等配分
+            CalculateTargetRegenForces(context);
+
+            // 自車の実回生力と他車の余剰回生力を差し引き、追加空制力を計算
+            CalculateAdditionalAirBrakeForces(context);
+
+            // 各車の空制力をBC圧へ変換し、指令を出力する。
+            CalculateOutput(context);
         }
 
-        private static float GetTotalMassKg(TimsBrakeContext context)
+        public static void InitializeWorkSpace(TimsBrakeContext context)
         {
-            float total = 0f;
-            foreach (var car in context.Input.cars)
-            {
-                total += car.massKg;
-            }
+            context.Workspace.targetTotalBrakeForceN = 0f;
+            context.Workspace.remainingTargetBrakeForceN = 0f;
+            context.Workspace.targetDecelerationMps2 = 0f;
 
-            return total;
-        }
+            context.Workspace.minimumAirPressureKPa = 0f;
 
-        private static bool IsVvvfMotorCar(TimsBrakeContext context, int carIndex) => context.Input.cars[carIndex].isVvvfMotorCar;
-
-        private static bool IsTrailerCar(TimsBrakeContext context, int carIndex) => context.Input.cars[carIndex].isTrailerCar;
-
-        private static void EnsureFloatListSize(List<float> values, int count)
-        {
-            while (values.Count < count)
-            {
-                values.Add(0f);
-            }
-
-            if (values.Count > count)
-            {
-                values.RemoveRange(count, values.Count - count);
-            }
-        }
-
-        private static void CalculateRegenPattern(TimsBrakeContext context, float remainingTargetBrakeForceN)
-        {
-            EnsureFloatListSize(context.Workspace.targetRegenForcesN, context.Input.cars.Count);
-
-            float regenTotalMassKg = 0f;
-            for (int i = 0; i < context.Input.cars.Count; i++)
-            {
-                if (!IsVvvfMotorCar(context, i))
-                {
-                    continue;
-                }
-
-                regenTotalMassKg += context.Input.cars[i].massKg;
-            }
+            context.Workspace.targetCarBrakeForcesN.Clear();
+            context.Workspace.targetRegenForcesN.Clear();
+            context.Workspace.additionalAirForcesN.Clear();
+            context.Workspace.minimumAirForcesN.Clear();
 
             for (int i = 0; i < context.Input.cars.Count; i++)
             {
-                if (!IsVvvfMotorCar(context, i) || regenTotalMassKg <= 0f)
-                {
-                    context.Workspace.targetRegenForcesN[i] = 0f;
-                    continue;
-                }
-
-                context.Workspace.targetRegenForcesN[i] =
-                    Math.Max(0f, context.Input.cars[i].massKg) /
-                    regenTotalMassKg * remainingTargetBrakeForceN;
+                context.Workspace.targetCarBrakeForcesN.Add(0f);
+                context.Workspace.targetRegenForcesN.Add(0f);
+                context.Workspace.additionalAirForcesN.Add(0f);
+                context.Workspace.minimumAirForcesN.Add(0f);
             }
+
+
         }
 
-        private static void CalculateBrakeForces(TimsBrakeContext context)
+        public static void CalculateTargetDeceleration(TimsBrakeContext context)
         {
-            int subStepCount = context.Settings.brakeSubstepCount;
-            List<float> decelerationsMps2 = context.Settings.brakeTargetDecelerationsMps2;
 
-            float targetDecelerationMps2 = TimsBrakeCalculator.GetBrakeDecelerationFromStep(
+            if (context.Input.brakeStep == 0)
+            {
+                context.Workspace.targetDecelerationMps2 = 0f;
+                return;
+            }
+
+
+            TimsNotchCalculator.ToBrakeNotchStep(
                 context.Input.brakeStep,
-                subStepCount,
-                decelerationsMps2
+                context.Settings.brakeSubstepCount,
+                out int brakeNotch,
+                out int notchStep
             );
 
-            context.Output.targetTotalBrakeForceN = GetTotalMassKg(context) * targetDecelerationMps2;
-            float minimumAirTotalForceN = CalculateMinimumAirBrakeForces(context);
-            float remainingTargetBrakeForceN = Math.Max(
-                0f,
-                context.Output.targetTotalBrakeForceN - minimumAirTotalForceN);
+            int maxBrakeNotch = context.Settings.brakeTargetDecelerationsMps2.Count;
 
-            // 回生PTN計算
-            CalculateRegenPattern(context, remainingTargetBrakeForceN);
-
-            // 最低込め圧を除いた追加ブレーキ目標を質量比で計算
-            CalculateTargetCarBrakeForcesN(context, remainingTargetBrakeForceN);
-
-            CalculateAirBrakeForces(context);
-            UpdateBrakeForceCommands(context);
-        }
-
-        private static void CalculateTargetCarBrakeForcesN(TimsBrakeContext context, float targetBrakeForceN)
-        {
-            EnsureFloatListSize(context.Workspace.targetCarBrakeForcesN, context.Input.cars.Count);
-            float totalMassKg = Math.Max(1f, GetTotalMassKg(context));
-
-            for (int i = 0; i < context.Input.cars.Count; i++)
+            if (brakeNotch == maxBrakeNotch)
             {
-                context.Workspace.targetCarBrakeForcesN[i] =
-                    Math.Max(0f, context.Input.cars[i].massKg) /
-                    totalMassKg * targetBrakeForceN;
+                context.Workspace.targetDecelerationMps2 = context.Settings.brakeTargetDecelerationsMps2[brakeNotch - 1];
+            }
+            else
+            {
+                float previousTargetDecelerationMps2 = context.Settings.brakeTargetDecelerationsMps2[brakeNotch - 1];
+                float nextTargetDecelerationMps2 = context.Settings.brakeTargetDecelerationsMps2[brakeNotch];
+                float decelerationDifferenceMps2 = Mathf.Max(nextTargetDecelerationMps2 - previousTargetDecelerationMps2, 0f);
+
+                context.Workspace.targetDecelerationMps2 =
+                    previousTargetDecelerationMps2 +
+                    decelerationDifferenceMps2 / context.Settings.brakeSubstepCount * notchStep;
             }
         }
-
-        private static float CalculateMinimumAirBrakeForces(TimsBrakeContext context)
+        public static void CalculateTargetTotalBrakeForce(TimsBrakeContext context)
         {
-            EnsureFloatListSize(context.Workspace.minimumAirForcesN, context.Input.cars.Count);
+            float totalMassKg = 0f;
 
-            float total = 0f;
-            float baseMinimumPressureKPa = context.Input.brakeStep > 0
-                ? Math.Max(0f, context.Settings.minimumServiceBrakePressureKPa)
+            foreach (TimsBrakeCarInput carInput in context.Input.cars)
+            {
+                totalMassKg += carInput.massKg;
+            }
+
+            context.Workspace.targetTotalBrakeForceN = totalMassKg * context.Workspace.targetDecelerationMps2;
+        }
+
+        public static void CalculateMinimumAirBrakePressure(TimsBrakeContext context)
+        {
+            context.Workspace.minimumAirPressureKPa = context.Input.brakeStep > 0
+                ? Mathf.Max(0f, context.Settings.minimumServiceBrakePressureKPa)
                 : 0f;
-            float minMassKg = GetMinimumCarMassKg(context);
-            float maxLoadScale = Math.Max(1f, context.Settings.minimumServiceBrakePressureLoadScaleMax);
 
             for (int i = 0; i < context.Input.cars.Count; i++)
             {
-                TimsBrakeCarInput carBrakeOutput = context.Input.cars[i];
-                float maxPressureKPa = carBrakeOutput != null
-                    ? Math.Max(0f, carBrakeOutput.maxBCPressureKPa)
-                    : 0f;
-                float forcePerKPa = carBrakeOutput != null
-                    ? Math.Max(0f, carBrakeOutput.airForcePerKPa)
-                    : 0f;
-                float loadScale = minMassKg > 0f && i < context.Input.cars.Count
-                    ? TimsMath.Clamp(Math.Max(0f, context.Input.cars[i].massKg) / minMassKg, 1f, maxLoadScale)
-                    : 1f;
-                float minimumPressureKPa = baseMinimumPressureKPa * loadScale;
-                float pressureKPa = maxPressureKPa > 0f
-                    ? Math.Min(minimumPressureKPa, maxPressureKPa)
-                    : minimumPressureKPa;
-
-                context.Workspace.minimumAirForcesN[i] = pressureKPa * forcePerKPa;
-                total += context.Workspace.minimumAirForcesN[i];
+                context.Workspace.minimumAirForcesN[i] =
+                    context.Workspace.minimumAirPressureKPa *
+                    Mathf.Max(0f, context.Input.cars[i].airForcePerKPa);
             }
-
-            return total;
         }
 
-        private static float GetMinimumCarMassKg(TimsBrakeContext context)
+        public static void CalculateRemainingTargetBrakeForce(TimsBrakeContext context)
         {
-            float minMassKg = float.MaxValue;
+            float minimumAirTotalForceN = 0f;
 
-            for (int i = 0; i < context.Input.cars.Count; i++)
+            foreach (float minimumAirForceN in context.Workspace.minimumAirForcesN)
             {
-                float massKg = Math.Max(0f, context.Input.cars[i].massKg);
-                if (massKg > 0f)
-                {
-                    minMassKg = Math.Min(minMassKg, massKg);
-                }
+                minimumAirTotalForceN += minimumAirForceN;
             }
 
-            return minMassKg < float.MaxValue ? minMassKg : 0f;
+            context.Workspace.remainingTargetBrakeForceN = Mathf.Max(
+                context.Workspace.targetTotalBrakeForceN - minimumAirTotalForceN,
+                0f);
         }
 
-        private static void CalculateAirBrakeForces(TimsBrakeContext context)
+        public static void CalculateOutput(TimsBrakeContext context)
         {
-            EnsureFloatListSize(context.Workspace.additionalAirForcesN, context.Input.cars.Count);
+            context.Output.hasCommands = false;
+            context.Output.carCommands.Clear();
 
-            float regenSurplusForceN = 0f;
-            context.Output.actualRegenTotalForceN = 0f;
-            for (int i = 0; i < context.Input.cars.Count; i++)
-            {
-                TimsBrakeCarInput carBrakeOutput = context.Input.cars[i];
-                float actualRegenForceN = carBrakeOutput != null
-                    ? Math.Max(0f, carBrakeOutput.regenForceN)
-                    : 0f;
-                float targetBrakeForceN = GetTargetCarBrakeForceN(context, i);
-
-                context.Output.actualRegenTotalForceN += actualRegenForceN;
-
-                if (IsVvvfMotorCar(context, i))
-                {
-                    if (actualRegenForceN >= targetBrakeForceN)
-                    {
-                        regenSurplusForceN += actualRegenForceN - targetBrakeForceN;
-                        context.Workspace.additionalAirForcesN[i] = 0f;
-                    }
-                    else
-                    {
-                        context.Workspace.additionalAirForcesN[i] = ClampAdditionalAirForceN(
-                            context,
-                            i,
-                            targetBrakeForceN - actualRegenForceN);
-                    }
-                }
-                else
-                {
-                    context.Workspace.additionalAirForcesN[i] = ClampAdditionalAirForceN(
-                        context,
-                        i,
-                        targetBrakeForceN);
-                }
-            }
-
-            ReduceTrailerAirBrakeByRegenSurplus(context, regenSurplusForceN);
-        }
-
-        private static void ReduceTrailerAirBrakeByRegenSurplus(TimsBrakeContext context, float regenSurplusForceN)
-        {
-            if (regenSurplusForceN <= 0f)
+            if (context.Output.isEmergency)
             {
                 return;
             }
 
-            List<float> trailerReductionCaps = new();
-            for (int i = 0; i < context.Workspace.additionalAirForcesN.Count; i++)
+            for (int i = 0; i < context.Input.cars.Count; i++)
             {
-                trailerReductionCaps.Add(
-                    IsTrailerCar(context, i)
-                        ? context.Workspace.additionalAirForcesN[i]
-                        : 0f);
-            }
+                TimsBrakeCarInput carInput = context.Input.cars[i];
+                float targetAirForceN = Mathf.Max(
+                    context.Workspace.minimumAirForcesN[i] +
+                    context.Workspace.additionalAirForcesN[i],
+                    0f);
+                targetAirForceN = Mathf.Min(targetAirForceN, Mathf.Max(0f, carInput.airCapN));
 
-            List<float> reductions = TimsBrakeCalculator.AllocateEvenlyWithSaturation(
-                trailerReductionCaps,
-                regenSurplusForceN
-            );
-
-            for (int i = 0; i < context.Workspace.additionalAirForcesN.Count; i++)
-            {
-                context.Workspace.additionalAirForcesN[i] = Math.Max(
-                    0f,
-                    context.Workspace.additionalAirForcesN[i] - reductions[i]);
-            }
-        }
-
-        private static float ClampAdditionalAirForceN(TimsBrakeContext context, int carIndex, float additionalAirTargetN)
-        {
-            float minimumAirForceN = GetMinimumAirForceN(context, carIndex);
-            float airCapN = GetAirCapForceN(context, carIndex);
-            float additionalAirCapN = Math.Max(0f, airCapN - minimumAirForceN);
-
-            return additionalAirCapN > 0f
-                ? TimsMath.Clamp(additionalAirTargetN, 0f, additionalAirCapN)
-                : Math.Max(0f, additionalAirTargetN);
-        }
-
-        private static float GetTargetCarBrakeForceN(TimsBrakeContext context, int carIndex)
-        {
-            return carIndex >= 0 && carIndex < context.Workspace.targetCarBrakeForcesN.Count
-                ? Math.Max(0f, context.Workspace.targetCarBrakeForcesN[carIndex])
-                : 0f;
-        }
-
-        private static float GetMinimumAirForceN(TimsBrakeContext context, int carIndex)
-        {
-            return carIndex >= 0 && carIndex < context.Workspace.minimumAirForcesN.Count
-                ? Math.Max(0f, context.Workspace.minimumAirForcesN[carIndex])
-                : 0f;
-        }
-
-        private static float GetAirCapForceN(TimsBrakeContext context, int carIndex)
-        {
-            if (carIndex < 0 ||
-                carIndex >= context.Input.cars.Count ||
-                context.Input.cars[carIndex] == null)
-            {
-                return 0f;
-            }
-
-            return Math.Max(0f, context.Input.cars[carIndex].airCapN);
-        }
-
-        private static void UpdateBrakeForceCommands(TimsBrakeContext context)
-        {
-            for (int i = 0; i < context.Output.carCommands.Count; i++)
-            {
-                TimsBrakeCarCommand command = context.Output.carCommands[i];
-                float targetRegenForceN = i < context.Workspace.targetRegenForcesN.Count
-                    ? context.Workspace.targetRegenForcesN[i]
-                    : 0f;
-                float targetAirForceN = i < context.Workspace.additionalAirForcesN.Count
-                    ? context.Workspace.additionalAirForcesN[i]
-                    : 0f;
-                float minimumAirForceN = i < context.Workspace.minimumAirForcesN.Count
-                    ? context.Workspace.minimumAirForcesN[i]
+                // airForcePerKPaはN/kPa。Fを係数で割るとkPaになる。
+                float targetAirPressureKPa = carInput.airForcePerKPa > 0f
+                    ? Mathf.Clamp(targetAirForceN / carInput.airForcePerKPa,
+                        0f, Mathf.Max(0f, carInput.maxBCPressureKPa))
                     : 0f;
 
-                command.targetRegenForceN = targetRegenForceN;
-                command.targetAirForceN = targetAirForceN + minimumAirForceN;
-                command.targetBrakeForceN = GetTargetCarBrakeForceN(context, i);
-                command.isEmergency = false;
+                // 圧力上限適用後の値に合わせ、力と圧力の指令を一致させる。
+                targetAirForceN = carInput.airForcePerKPa > 0f
+                    ? targetAirPressureKPa * carInput.airForcePerKPa
+                    : 0f;
+
+                context.Output.carCommands.Add(new TimsBrakeCarCommand
+                {
+                    targetRegenForceN = context.Workspace.targetRegenForcesN[i],
+                    targetAirForceN = targetAirForceN,
+                    targetAirPressureKPa = targetAirPressureKPa,
+                    targetBrakeForceN = context.Workspace.targetCarBrakeForcesN[i],
+                    isEmergency = false
+                });
+            }
+
+            context.Output.hasCommands = true;
+        }
+
+        public static void CalculateTargetCarBrakeForces(TimsBrakeContext context)
+        {
+            float totalMassKg = 0f;
+
+            foreach (TimsBrakeCarInput carInput in context.Input.cars)
+            {
+                totalMassKg += Mathf.Max(0f, carInput.massKg);
+            }
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                context.Workspace.targetCarBrakeForcesN[i] = totalMassKg > 0f
+                    ? context.Workspace.remainingTargetBrakeForceN *
+                      Mathf.Max(0f, context.Input.cars[i].massKg) / totalMassKg
+                    : 0f;
+            }
+        }
+
+        public static void CalculateTargetRegenForces(TimsBrakeContext context)
+        {
+            List<float> regenCapsN = new();
+
+            foreach (TimsBrakeCarInput carInput in context.Input.cars)
+            {
+                regenCapsN.Add(carInput.isVvvfMotorCar
+                    ? Mathf.Max(0f, carInput.regenCapN)
+                    : 0f);
+            }
+
+            // 上限に達した車両の残りを、余力のある車両へ均等に再配分する。
+            List<float> targetRegenForcesN = TimsBrakeCalculator.AllocateEvenlyWithSaturation(
+                regenCapsN,
+                context.Workspace.remainingTargetBrakeForceN);
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                context.Workspace.targetRegenForcesN[i] = targetRegenForcesN[i];
+            }
+        }
+
+        public static void CalculateAdditionalAirBrakeForces(TimsBrakeContext context)
+        {
+            float regenSurplusForceN = 0f;
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                // 回生目標ではなく、実際に出た回生力を使う。
+                float actualRegenForceN = Mathf.Max(0f, context.Input.cars[i].regenForceN);
+                float targetCarBrakeForceN = context.Workspace.targetCarBrakeForcesN[i];
+
+                context.Workspace.additionalAirForcesN[i] = Mathf.Max(
+                    targetCarBrakeForceN - actualRegenForceN,
+                    0f);
+                regenSurplusForceN += Mathf.Max(
+                    actualRegenForceN - targetCarBrakeForceN,
+                    0f);
+            }
+
+            // 他車の追加空制分を上限に、余剰回生を均等に充当する。
+            // 最低込め分のminimumAirForcesNは減らさない。
+            List<float> reductionsN = TimsBrakeCalculator.AllocateEvenlyWithSaturation(
+                context.Workspace.additionalAirForcesN,
+                regenSurplusForceN);
+
+            for (int i = 0; i < context.Input.cars.Count; i++)
+            {
+                context.Workspace.additionalAirForcesN[i] = Mathf.Max(
+                    context.Workspace.additionalAirForcesN[i] - reductionsN[i],
+                    0f);
             }
         }
     }

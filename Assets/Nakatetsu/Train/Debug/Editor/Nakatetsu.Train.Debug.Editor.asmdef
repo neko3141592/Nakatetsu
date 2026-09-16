@@ -1,0 +1,10 @@
+{
+    "name": "Nakatetsu.Train.Debug.Editor",
+    "rootNamespace": "Nakatetsu.Train.Debugging",
+    "references": [
+        "Nakatetsu.Train.Debug"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}

@@ -10,7 +10,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         {
             TimsBrakeContext context = CreateContext();
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.minimumAirPressureKPa, Is.EqualTo(40f));
             Assert.That(context.Workspace.minimumAirForcesN, Is.EqualTo(new[] { 4000f, 4000f }));
@@ -22,10 +22,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         public void Calculate_ReleaseClearsPreviousCarTargets()
         {
             TimsBrakeContext context = CreateContext();
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             context.Input.brakeStep = 0;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetCarBrakeForcesN, Is.EqualTo(new[] { 0f, 0f }));
         }
@@ -39,7 +39,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 carInput.massKg = 0f;
             }
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetCarBrakeForcesN, Is.EqualTo(new[] { 0f, 0f }));
         }
@@ -58,7 +58,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 regenCapN = 100000f
             });
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.remainingTargetBrakeForceN, Is.EqualTo(88000f));
             Assert.That(context.Workspace.targetRegenForcesN, Is.EqualTo(new[] { 44000f, 0f, 44000f }));
@@ -71,11 +71,11 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             TimsBrakeContext context = CreateContext();
             context.Input.cars[0].isVvvfMotorCar = true;
             context.Input.cars[1].isVvvfMotorCar = true;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             context.Input.cars[0].isVvvfMotorCar = false;
             context.Input.cars[1].isVvvfMotorCar = remainingMotorCarCount == 1;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN,
                 Is.EqualTo(new[] { 0f, remainingMotorCarCount == 1 ? 72000f : 0f }));
@@ -86,10 +86,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         {
             TimsBrakeContext context = CreateContext();
             context.Input.cars[0].isVvvfMotorCar = true;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             context.Input.brakeStep = 0;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN, Is.EqualTo(new[] { 0f, 0f }));
         }
@@ -109,7 +109,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             context.Input.cars[0].regenCapN = firstCapN;
             context.Input.cars[1].regenCapN = secondCapN;
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN,
                 Is.EqualTo(new[] { firstTargetN, secondTargetN }).Within(0.01f));
@@ -134,7 +134,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 regenCapN = 100000f
             });
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN,
                 Is.EqualTo(new[] { 5000f, 30000f, 53000f }).Within(0.01f));
@@ -146,10 +146,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             TimsBrakeContext context = CreateContext();
             context.Input.cars[0].isVvvfMotorCar = true;
             context.Input.cars[1].isVvvfMotorCar = true;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             context.Input.cars[0].regenCapN = 0f;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN, Is.EqualTo(new[] { 0f, 72000f }));
         }
@@ -165,7 +165,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             context.Input.cars[0].isVvvfMotorCar = true;
             context.Input.cars[0].regenForceN = actualRegenN;
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN, Is.EqualTo(new[] { 72000f, 0f }));
             Assert.That(context.Workspace.additionalAirForcesN,
@@ -182,7 +182,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             context.Input.cars[0].regenCapN = 0f;
             context.Input.cars[0].regenForceN = 20000f;
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.targetRegenForcesN, Is.EqualTo(new[] { 0f, 0f }));
             Assert.That(context.Workspace.additionalAirForcesN, Is.EqualTo(new[] { 7000f, 45000f }));
@@ -202,7 +202,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 isTrailerCar = true
             });
 
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.additionalAirForcesN,
                 Is.EqualTo(new[] { 0f, 8000f, 0f }).Within(0.01f));
@@ -215,15 +215,15 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             TimsBrakeContext context = CreateContext();
             context.Input.cars[0].isVvvfMotorCar = true;
             context.Input.cars[0].regenForceN = 50000f;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             context.Input.cars[0].regenForceN = 0f;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.additionalAirForcesN, Is.EqualTo(new[] { 27000f, 45000f }));
 
             context.Input.brakeStep = 0;
-            TimsBrakeNewLogic.Calculate(context);
+            TimsBrakeLogic.Calculate(context);
 
             Assert.That(context.Workspace.additionalAirForcesN, Is.EqualTo(new[] { 0f, 0f }));
             Assert.That(context.Workspace.minimumAirForcesN, Is.EqualTo(new[] { 0f, 0f }));

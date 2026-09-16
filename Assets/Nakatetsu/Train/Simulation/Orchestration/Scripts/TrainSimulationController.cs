@@ -286,17 +286,19 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 carInput.massKg = loadSimulations.TryGetValue(carIndex, out TrainLoadController load)
                     ? load.ActualTotalMassKg
                     : definition != null ? Mathf.Max(0f, definition.emptyMassKg) : 0f;
-                carInput.tractionForceN = motorSimulations.TryGetValue(
-                    carIndex,
-                    out TrainMotorSimulation motor)
-                    ? motor.ActualTractionForceN * (tractionEquipments.TryGetValue(carIndex, out ITractionEquipment traction) &&
-                        traction is VvvfController vvvf ? vvvf.ForceDirectionSign : 1)
-                    : 0f;
-                carInput.brakeForceN = brakeSimulations.TryGetValue(
-                    carIndex,
-                    out TrainBrakeSimulation brake)
-                    ? brake.ActualBrakeForceN
-                    : 0f;
+                float motorForceN = motorSimulations.TryGetValue(carIndex, out TrainMotorSimulation motor)
+                    ? motor.ActualTractionForceN : 0f;
+                float regenForceN = 0f;
+                if (tractionEquipments.TryGetValue(carIndex, out ITractionEquipment traction) &&
+                    traction is VvvfController vvvf)
+                {
+                    // 機器内の負の力は回生。Physicsの制動力へ渡して前後進共通で速度に逆らわせる。
+                    carInput.tractionForceN = Mathf.Max(0f, motorForceN) * vvvf.ForceDirectionSign;
+                    regenForceN = Mathf.Max(0f, -motorForceN);
+                }
+                else carInput.tractionForceN = motorForceN;
+                carInput.brakeForceN = (brakeSimulations.TryGetValue(
+                    carIndex, out TrainBrakeSimulation brake) ? brake.ActualBrakeForceN : 0f) + regenForceN;
                 carInput.externalForceN = 0f;
             }
         }

@@ -1,0 +1,9 @@
+{
+    "name": "Nakatetsu.Train.Debug",
+    "rootNamespace": "Nakatetsu.Train.Debugging",
+    "references": [
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Equipment.Tims"
+    ],
+    "includePlatforms": []
+}

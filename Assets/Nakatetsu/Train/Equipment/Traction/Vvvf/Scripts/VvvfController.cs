@@ -38,6 +38,9 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 
         // センサーを兼ねるMVPとして、Simulationから受け取った測定値を公開する。
         public float ActualTractionForceN => measuredTractionForceN;
+        public float ActualRegenForceN => Mathf.Max(0f, -measuredTractionForceN);
+        public float RegenCapacityN => isActiveAndEnabled
+            ? GetRegenCapacityN(context.Input.vehicleSpeedMps) : 0f;
         public float TotalMotorCurrentRmsA => measuredMotorCurrentRmsA;
         public float TotalMotorOutputPowerW => measuredMotorOutputPowerW;
         public float RatedPowerW => motorDefinition != null
@@ -118,6 +121,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
 
         public float GetRegenCapacityN(float vehicleSpeedMps)
         {
+            ApplyDefinition();
             if (!IsAvailable) return 0f;
 
             VvvfSettings settings = context.Settings;
@@ -172,7 +176,12 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
             {
                 if (!tractionCommandSource.TryGetTargetTractionForceN(out float targetTractionForceN))
                     targetTractionForceN = 0f;
-                if (tractionCommandSource is ITractionDirectionSource directionSource)
+                if (targetTractionForceN < 0f)
+                {
+                    // 回生は進行方向に関係なく負の機器指令。低速では能力に応じて絞る。
+                    targetTractionForceN = -Mathf.Min(-targetTractionForceN, RegenCapacityN);
+                }
+                else if (tractionCommandSource is ITractionDirectionSource directionSource)
                 {
                     if (!directionSource.TryGetTractionDirection(out int direction) || direction == 0)
                         targetTractionForceN = 0f;

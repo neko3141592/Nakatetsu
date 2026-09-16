@@ -119,6 +119,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &160041256
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 853003941}
+    m_Modifications:
+    - target: {fileID: 100000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_Name
+      value: Tims
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: c7e068408eb847108de423430816ff96, type: 3}
+      propertyPath: trainRoot
+      value: 
+      objectReference: {fileID: 853003942}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c7e068408eb847108de423430816ff96, type: 3}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 853003941}
   - component: {fileID: 853003942}
+  - component: {fileID: 853003943}
   m_Layer: 0
   m_Name: 1001F
   m_TagString: Untagged
@@ -462,6 +524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1977190399}
   - {fileID: 1441256091}
   - {fileID: 1235997841}
   m_Father: {fileID: 1696717529}
@@ -479,6 +542,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.TrainRoot
   consistDefinition: {fileID: 11400000, guid: 3ace08d44e9eb4777b4a06f99c99dca1, type: 2}
+--- !u!114 &853003943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853003940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b6ec84adb9456e86f80a69ba0e9c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train.Debug::Nakatetsu.Train.Debugging.TrainDebugController
+  trainRoot: {fileID: 0}
 --- !u!1 &1235997840
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +712,11 @@ Transform:
   - {fileID: 853003941}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1977190399 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: c7e068408eb847108de423430816ff96, type: 3}
+  m_PrefabInstance: {fileID: 160041256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
