@@ -91,6 +91,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
             ApplyVisuals();
         }
 
+        public void SetLabelVisible(bool visible)
+        {
+            CacheChildComponents();
+            if (pText != null) pText.enabled = visible;
+            if (notchText != null) notchText.enabled = visible;
+        }
+
         private void ApplyVisuals()
         {
             if (background == null || pText == null || notchText == null)

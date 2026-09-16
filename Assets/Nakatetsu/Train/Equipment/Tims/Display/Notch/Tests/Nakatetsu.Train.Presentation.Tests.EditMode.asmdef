@@ -1,0 +1,16 @@
+{
+    "name": "Nakatetsu.Train.Presentation.Tests.EditMode",
+    "references": [
+        "Nakatetsu.Train.Presentation",
+        "Nakatetsu.Train.Equipment.Tims",
+        "Nakatetsu.Train",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "autoReferenced": false
+}
