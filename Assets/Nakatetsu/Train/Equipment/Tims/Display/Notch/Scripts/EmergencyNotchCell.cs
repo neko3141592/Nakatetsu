@@ -64,6 +64,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
 
         private void ApplyVisuals()
         {
+            CacheChildComponents();
             if (background == null || labelText == null)
             {
                 return;
