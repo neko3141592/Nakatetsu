@@ -44,6 +44,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
     {
         public float targetRegenForceN;
         public float targetAirForceN;
+        public float targetAirPressureKPa;
         // Legacy tag meaning: per-car additional target, excluding minimum air preload.
         public float targetBrakeForceN;
         public bool isEmergency;
@@ -54,9 +55,6 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
         public bool isEmergency = true;
         // False means only emergency status is new; do not publish the retained command arrays.
         public bool hasCommands;
-        public float totalMassKg;
-        public float targetTotalBrakeForceN;
-        public float actualRegenTotalForceN;
         public readonly List<TimsBrakeCarCommand> carCommands = new();
     }
 

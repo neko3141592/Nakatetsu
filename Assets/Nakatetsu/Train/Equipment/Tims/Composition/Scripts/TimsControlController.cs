@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Tims.Bus;
@@ -19,6 +20,9 @@ namespace Nakatetsu.Train.Equipment.Tims
     public sealed class TimsControlController : MonoBehaviour
     {
         private bool emergencyLatched;
+        private readonly List<string> emergencyReasons = new();
+        private string inputLocation;
+        public string EmergencyReason { get; private set; } = "制御未実行（Simulation・通信の実行状態を確認）";
         private void OnDisable()
         {
             if (TryGetComponent(out TimsCommunicationController communication))
@@ -27,6 +31,7 @@ namespace Nakatetsu.Train.Equipment.Tims
 
         public void CalculateAndPublish()
         {
+            emergencyReasons.Clear();
             var communication = GetComponent<TimsCommunicationController>();
             var direction = GetComponent<TimsDirectionController>();
             var notch = GetComponent<TimsNotchController>();
@@ -50,6 +55,11 @@ namespace Nakatetsu.Train.Equipment.Tims
             bool ready = CollectInputs(communication, consist, settings, traction.Context, brake.Context);
             bool emergency = !ready || !directionReady || !notch.isActiveAndEnabled ||
                 !notch.Context.Input.isReady || notch.Output.isEmergencyBrakeRequested;
+            if (!ready && emergencyReasons.Count == 0) emergencyReasons.Add("力行・ブレーキ入力が無効");
+            if (!directionReady) emergencyReasons.Add("Directionの設定・入力不足または無効化");
+            if (!notch.isActiveAndEnabled) emergencyReasons.Add("Notchが無効");
+            if (!notch.Context.Input.isReady) emergencyReasons.Add("有効運転台またはマスコン入力なし");
+            if (notch.Output.isEmergencyBrakeRequested) emergencyReasons.Add("Notch非常要求（運転台未選択・非常ノッチ等）");
             if (consist != null)
             {
                 for (int i = 0; i < consist.CarCount; i++)
@@ -57,16 +67,24 @@ namespace Nakatetsu.Train.Equipment.Tims
                     // EB出力は前ステップの値。起動直後の未公開は要求なしとして扱う。
                     if (communication.TryGetLocalBus(i, out TimsBusState local) &&
                         local.TryGetBool(EbDeviceTimsBusSource.IsEmergencyBrakeRequestedKey, out bool eb) && eb)
+                    {
                         emergency = true;
+                        emergencyReasons.Add($"車両{i + 1}: EB要求");
+                    }
                 }
             }
             emergency |= !traction.isActiveAndEnabled || !brake.isActiveAndEnabled;
+            if (!traction.isActiveAndEnabled || !brake.isActiveAndEnabled)
+                emergencyReasons.Add("TractionまたはBrakeが無効");
             // EB側が5 km/h未満で解除されても停止までは非常を保持する。
             // 原因解消後、停車かつ力行Nで解除できる。
             if (emergency) emergencyLatched = true;
             else if (traction.Context.Input.speedMps < 0.01f && traction.Context.Input.powerNotch == 0)
                 emergencyLatched = false;
+            if (!emergency && emergencyLatched)
+                emergencyReasons.Add("非常保持中：速度0.01 m/s未満・力行Nを待機");
             emergency |= emergencyLatched;
+            EmergencyReason = emergency ? string.Join("\n", emergencyReasons) : "なし";
             brake.Context.Input.canReleaseEmergencyBrake = !emergency;
             traction.Context.Input.isReady = ready && !emergency;
             if (!bus.TryGetInt(TimsDirectionController.ConsistDirectionSignKey, out int sign) || sign == 0)
@@ -77,7 +95,7 @@ namespace Nakatetsu.Train.Equipment.Tims
             brake.CalculateAndPublish();
         }
 
-        private static bool CollectInputs(TimsCommunicationController communication,
+        private bool CollectInputs(TimsCommunicationController communication,
             ConsistDefinitionAsset consist, TimsSettingsAsset settings,
             TimsTractionContext traction, TimsBrakeContext brake)
         {
@@ -98,8 +116,11 @@ namespace Nakatetsu.Train.Equipment.Tims
             bi.cars.Clear();
             brake.Settings.brakeTargetDecelerationsMps2.Clear();
 
-            if (consist == null || consist.CarCount == 0) return false;
+            if (consist == null || consist.CarCount == 0)
+            { emergencyReasons.Add("編成定義が未設定または車両数0"); return false; }
+            inputLocation = "編成";
             bool ready = settings != null;
+            if (settings == null) emergencyReasons.Add("TIMS Settings未設定");
             var bus = communication.MasterBus;
             ready &= TryNonNegative(bus, TimsSpeedController.SpeedMpsKey, out ti.speedMps);
             ready &= bus.TryGetInt(TimsNotchController.ResolvedPowerNotchKey, out ti.powerNotch);
@@ -109,8 +130,12 @@ namespace Nakatetsu.Train.Equipment.Tims
             float totalPowerW = 0f;
             for (int i = 0; i < consist.CarCount; i++)
             {
+                inputLocation = $"車両{i + 1}";
                 CarDefinitionAsset definition = consist.cars[i];
-                var car = new TimsBrakeCarInput();
+                var car = new TimsBrakeCarInput
+                {
+                    isTrailerCar = definition != null && definition.motorCount == 0
+                };
                 var unit = new TimsTractionUnitInput();
                 bi.cars.Add(car);
                 bool hasLocal = communication.TryGetLocalBus(i, out TimsBusState local);
@@ -140,7 +165,11 @@ namespace Nakatetsu.Train.Equipment.Tims
                     valid &= hasCapacity && car.airCapN > 0f;
                     if (definition != null && definition.motorCount > 0)
                     {
+                        valid &= local.TryGetBool(TimsTractionBusSource.IsVvvfMotorCarKey, out car.isVvvfMotorCar);
+                        valid &= TryNonNegative(local, TimsTractionBusSource.RegenCapacityNKey, out car.regenCapN);
+                        valid &= TryNonNegative(local, TimsTractionBusSource.ActualRegenForceNKey, out car.regenForceN);
                         valid &= local.TryGetBool(TimsTractionBusSource.IsAvailableKey, out unit.isAvailable);
+                        if (!unit.isAvailable) car.regenCapN = 0f;
                         valid &= local.TryGetInt(TimsTractionBusSource.MotorCountKey, out unit.motorCount) && unit.motorCount > 0;
                         valid &= TryNonNegative(local, TimsTractionBusSource.RatedPowerWKey, out float ratedPowerW);
                         unit.ratedMotorPowerW = unit.motorCount > 0 ? ratedPowerW / unit.motorCount : 0f;
@@ -148,12 +177,12 @@ namespace Nakatetsu.Train.Equipment.Tims
                         if (unit.isAvailable && unit.hasMotorSettings) totalPowerW += ratedPowerW;
                     }
                 }
-                // 最小版は全車空気制動。回生力の要求は生成しない。
-                car.isVvvfMotorCar = false;
-                car.isTrailerCar = true;
                 ti.units.Add(unit);
                 ti.carBCPressuresKPa.Add(car.bcPressureKPa);
                 ti.consistMassKg += car.massKg;
+                if (!valid && definition != null && definition.emptyMassKg <= 0f && car.massKg <= 0f)
+                    emergencyReasons.Add($"{inputLocation}: {definition.name}の空車質量が0以下、測定質量も無効");
+                if (!valid) emergencyReasons.Add($"{inputLocation}: 質量・制動能力・機器定義・LocalBus／VVVF情報のいずれかが無効");
                 ready &= valid;
             }
             if (settings != null)
@@ -185,13 +214,17 @@ namespace Nakatetsu.Train.Equipment.Tims
                     else ready = false;
                 }
             }
+            if (!ready && settings != null && emergencyReasons.Count == 0)
+                emergencyReasons.Add("ノッチ段数・減速度表・力行カーブの設定が無効");
             return ready;
         }
 
         private static bool IsNonNegative(float value) => value >= 0f && !float.IsInfinity(value);
-        private static bool TryNonNegative(TimsBusState bus, TimsTagKey key, out float value)
+        private bool TryNonNegative(TimsBusState bus, TimsTagKey key, out float value)
         {
-            return bus.TryGetFloat(key, out value) && IsNonNegative(value);
+            bool valid = bus.TryGetFloat(key, out value) && IsNonNegative(value);
+            if (!valid) emergencyReasons.Add($"{inputLocation}: {key}が未受信または不正");
+            return valid;
         }
     }
 }

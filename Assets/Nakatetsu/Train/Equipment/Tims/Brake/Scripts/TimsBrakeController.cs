@@ -11,6 +11,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
     {
         public static readonly TimsTagKey TargetAirBrakeForcesNKey =
             new("Brake", "TargetAirBrakeForcesN");
+        public static readonly TimsTagKey TargetRegenForcesNKey =
+            new("Brake", "TargetRegenForcesN");
         public static readonly TimsTagKey IsEmergencyKey =
             new("Brake", "IsEmergency");
 
@@ -75,19 +77,24 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
             if (!context.Output.hasCommands)
             {
                 masterBus.Remove(TargetAirBrakeForcesNKey);
+                masterBus.Remove(TargetRegenForcesNKey);
                 return;
             }
 
             var targetAirBrakeForcesN = new float[context.Output.carCommands.Count];
+            var targetRegenForcesN = new float[context.Output.carCommands.Count];
             for (int carIndex = 0; carIndex < context.Output.carCommands.Count; carIndex++)
             {
                 TimsBrakeCarCommand command = context.Output.carCommands[carIndex];
+                targetRegenForcesN[carIndex] = command != null
+                    ? Math.Max(0f, command.targetRegenForceN) : 0f;
                 targetAirBrakeForcesN[carIndex] = command != null
                     ? Math.Max(0f, command.targetAirForceN)
                     : 0f;
             }
 
             masterBus.SetFloatArray(TargetAirBrakeForcesNKey, targetAirBrakeForcesN);
+            masterBus.SetFloatArray(TargetRegenForcesNKey, targetRegenForcesN);
         }
 
         private bool ResolveCommunicationController()
