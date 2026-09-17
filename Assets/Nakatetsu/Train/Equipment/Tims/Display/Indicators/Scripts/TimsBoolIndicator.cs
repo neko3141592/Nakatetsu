@@ -54,52 +54,55 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
 
         private void Awake()
         {
-            background = GetComponentInChildren<Image>(true);
-            labelText = GetComponentInChildren<TMP_Text>(true);
+            CacheObjects();
+            Refresh();
         }
 
+        public void Configure(TimsCommunicationController source, TimsBusTarget busTarget, int carIndex,
+            string device, string item, Color onBackground, Color onText, string label)
+        {
+            tims = source;
+            target = busTarget;
+            localCarIndex = carIndex;
+            deviceName = device;
+            itemName = item;
+            backgroundOnColor = onBackground;
+            labelOnColor = onText;
+            CacheObjects();
+            if (labelText != null) labelText.text = label;
+            Refresh();
+        }
+
+        private void CacheObjects()
+        {
+            if (background == null) background = GetComponentInChildren<Image>(true);
+            if (labelText == null) labelText = GetComponentInChildren<TMP_Text>(true);
+        }
 
         private TimsBusState GetBus()
         {
-            if (tims == null)
-            {
-                return null;
-            }
-
-            return target switch
-            {
-                TimsBusTarget.Master =>
-                    tims.MasterBus,
-
-                TimsBusTarget.Local =>
-                    tims.GetLocalBus(localCarIndex),
-
-                _ => null
-            };
+            if (tims == null || !tims.isActiveAndEnabled) return null;
+            if (target == TimsBusTarget.Master) return tims.MasterBus;
+            return target == TimsBusTarget.Local && tims.TryGetLocalBus(localCarIndex, out var localBus)
+                ? localBus : null;
         }
 
-        
-        private void LateUpdate() {
+        private void LateUpdate() => Refresh();
+        private void OnDisable() => Apply(false);
 
-            TimsBusState timsBusState = GetBus();
-
-            if (timsBusState == null)
-            {
-                return;
-            }
-
-            if (timsBusState.TryGetBool(new TimsTagKey(deviceName, itemName), out bool isOn))
-            {
-                background.color = isOn ? backgroundOnColor : backgroundOffColor;
-                labelText.color = isOn ? labelOnColor : labelOffColor;
-            } else
-            {
-                background.color = backgroundOffColor;
-                labelText.color = labelOffColor;
-            }
-
-
+        public void Refresh()
+        {
+            TimsBusState bus = GetBus();
+            bool isOn = bus != null && !string.IsNullOrWhiteSpace(deviceName) &&
+                !string.IsNullOrWhiteSpace(itemName) &&
+                bus.TryGetBool(new TimsTagKey(deviceName, itemName), out bool value) && value;
+            Apply(isOn);
         }
-    
+
+        private void Apply(bool isOn)
+        {
+            if (background != null) background.color = isOn ? backgroundOnColor : backgroundOffColor;
+            if (labelText != null) labelText.color = isOn ? labelOnColor : labelOffColor;
+        }
     }
 }

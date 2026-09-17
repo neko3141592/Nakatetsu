@@ -34,6 +34,10 @@ namespace Nakatetsu.Train.Presentation.Tests
             displayObject = Object.Instantiate(prefab);
             display = displayObject.GetComponent<TimsNotchDisplay>();
             display.Configure(source);
+            // EditModeではAwakeが走らないため、実行時のセル生成を明示する。
+            if (displayObject.GetComponentInChildren<PowerNotchCell>() == null)
+                typeof(TimsNotchDisplay).GetMethod("Awake",
+                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(display, null);
         }
 
         [TearDown]

@@ -67,9 +67,9 @@ MonoBehaviour:
   background: {fileID: 0}
   labelText: {fileID: 0}
   backgroundOnColor: {r: 0, g: 1, b: 0, a: 1}
-  backgroundOffColor: {r: 0, g: 0, b: 0, a: 1}
+  backgroundOffColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   labelOnColor: {r: 0, g: 0, b: 0, a: 1}
-  labelOffColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  labelOffColor: {r: 0.15294118, g: 0.16078432, b: 0.1882353, a: 1}
 --- !u!1 &7822114230887170955
 GameObject:
   m_ObjectHideFlags: 0

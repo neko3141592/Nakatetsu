@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8abafe9bcb847c1b5481c96d5f1e5ed, type: 3}
   m_Name: StandardBrakeCylinder
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Simulation.Brake.BrakeCylinderDefinitionAsset
-  maximumPressureKPa: 500
-  applyRateKPaPerSecond: 250
-  releaseRateKPaPerSecond: 350
-  pistonAreaM2: 0.01
+  maximumPressureKPa: 420
+  applyRateKPaPerSecond: 200
+  releaseRateKPaPerSecond: 240
+  pistonAreaM2: 0.03
   mechanicalEfficiency: 0.9

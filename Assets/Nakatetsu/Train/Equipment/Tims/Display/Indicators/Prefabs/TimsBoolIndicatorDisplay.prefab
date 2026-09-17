@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2530670663990801680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954388199519124861}
+  - component: {fileID: 2061876155533271814}
+  m_Layer: 5
+  m_Name: TimsBoolIndicatorDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &954388199519124861
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530670663990801680}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 410, y: 290}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2061876155533271814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530670663990801680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4080812e9714ca8b059db777174f4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train.Presentation::Nakatetsu.Train.Equipment.Tims.Presentation.Indicators.TimsBoolIndicatorDisplay
+  tims: {fileID: 0}
+  indicatorPrefab: {fileID: 1908764998804366150, guid: 845b845c796694a3d8b95d7829184d9e, type: 3}
+  indicators:
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "\u975E\u5E38\u904B\u8EE2"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "ATC\u96FB\u6E90"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: ATC
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "ATC\u5E38\u7528"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "ATC\u975E\u5E38"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "ATC\u958B\u653E"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "\u69CB\u3000\u5185"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "\u975E\u3000\u8A2D"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "\u505C\u901A\u9632\u6B62"
+  - busTarget: 0
+    carNumber: 1
+    deviceName: 
+    itemName: 
+    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
+    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    label: "\u6545\u3000\u969C"
+  verticalSpacing: 60
+  horizontalSpacing: 210
+  indicatorsPerColumn: 10
