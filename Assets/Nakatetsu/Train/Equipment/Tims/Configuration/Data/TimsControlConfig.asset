@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e217e9e9a154489a644d3a673c9e06, type: 3}
   m_Name: TimsControlConfig
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Configuration.TimsSettingsAsset
-  powerStepCount: 4
+  powerNotchCount: 4
   powerCurves: []
-  launchAccelerationKmhPerSec: 2.5
+  launchAccelerationKmhPerSec: 3.3
   brakeTargetDecelerationsKmhPerSec:
   - 0.5
   - 1
@@ -23,7 +23,8 @@ MonoBehaviour:
   - 2.5
   - 3
   - 3.5
-  brakeStepCount: 7
+  brakeNotchCount: 7
+  masterControllerEmergencyBrakeNotchPosition: 8
   brakeSubstepCount: 4
   minimumServiceBrakePressureKPa: 40
   minimumServiceBrakePressureLoadScaleMax: 3
