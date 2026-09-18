@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Nakatetsu.Train.Equipment.Door;
+using Nakatetsu.Train.Simulation.Door;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Brake.ControlDevice;
 using Nakatetsu.Train.Equipment.Shared;
@@ -27,6 +29,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         private readonly Dictionary<int, TrainMotorSimulation> motorSimulations = new();
         private readonly Dictionary<int, TrainBrakeSimulation> brakeSimulations = new();
         private readonly Dictionary<int, TrainLoadController> loadSimulations = new();
+        private readonly List<DoorController> doorControllers = new();
         private readonly TrainSimulationContext context = new();
 
         public TrainRoot TrainRoot => trainRoot;
@@ -60,6 +63,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
 
             equipmentControllers.Clear();
+            doorControllers.Clear();
             speedSensors.Clear();
             equipmentInputSourceCollectors.Clear();
             foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
@@ -71,6 +75,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 else if (component is IEquipmentController controller)
                 {
                     equipmentControllers.Add(controller);
+                    if (controller is DoorController door) doorControllers.Add(door);
                 }
 
                 if (component is IEquipmentInputSourceCollector collector)
@@ -131,6 +136,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
             StepEquipment(deltaTimeSeconds);
 
+            StepDoors(deltaTimeSeconds);
             StepPhysicalSimulation(signedVelocityMps, deltaTimeSeconds);
             PopulatePhysicsInput();
 
@@ -227,6 +233,29 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             foreach (SpeedSensor sensor in speedSensors.Values)
             {
                 if (sensor != null) sensor.ApplyOutput(deltaTimeSeconds);
+            }
+        }
+
+        private void StepDoors(float deltaTimeSeconds)
+        {
+            // ドアPrefab内の物理モデルは編成の時間進行から1回だけ更新する。
+            foreach (DoorController door in doorControllers)
+            {
+                if (door == null) continue;
+                var simulation = door.GetComponent<TrainDoorSimulation>();
+                if (simulation != null) simulation.SetInput(door.LeftCommand, door.RightCommand);
+            }
+            foreach (DoorController door in doorControllers)
+            {
+                if (door == null) continue;
+                var simulation = door.GetComponent<TrainDoorSimulation>();
+                if (simulation != null) simulation.Calculate(deltaTimeSeconds);
+            }
+            foreach (DoorController door in doorControllers)
+            {
+                if (door == null) continue;
+                var simulation = door.GetComponent<TrainDoorSimulation>();
+                if (simulation != null) simulation.ApplyOutput(deltaTimeSeconds);
             }
         }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Nakatetsu.Train.Equipment.Tims.Door;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Speed;
@@ -48,6 +49,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             MonoBehaviour[] components = trainRoot.GetComponentsInChildren<MonoBehaviour>(true);
             foreach (MonoBehaviour component in components)
             {
+                // 割当やLocalBusが欠けたドアも搭載として認識し、監視を有効にする。
+                if (component is DoorTimsBusSource && !TryGetComponent<TimsDoorController>(out _))
+                    gameObject.AddComponent<TimsDoorController>();
                 if (component is not ITimsBusSource source ||
                     !TryGetLocalBus(source.AssignedCarIndex, out TimsBusState localBus))
                 {
@@ -68,6 +72,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             // LocalBusへの全送信が完了してから編成速度を確定する。
             ResolveSpeedController();
             speedController.CalculateAndPublish();
+            // 前ステップのドア接点を集約。1両でも未取得なら全扉閉にはしない。
+            if (TryGetComponent(out TimsDoorController doors))
+                doors.CalculateAndPublish();
             // 指令処理は任意の同一GameObjectコンポーネントで有効化する。
             if (TryGetComponent(out TimsControlController control) && control.isActiveAndEnabled)
                 control.CalculateAndPublish();

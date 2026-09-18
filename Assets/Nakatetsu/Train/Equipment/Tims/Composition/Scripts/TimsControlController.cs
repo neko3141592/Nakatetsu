@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nakatetsu.Train.Equipment.Tims.Door;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Tims.Bus;
@@ -88,6 +89,13 @@ namespace Nakatetsu.Train.Equipment.Tims
             brake.Context.Input.canReleaseEmergencyBrake = !emergency;
             traction.Context.Input.isReady = ready && !emergency;
             if (!bus.TryGetInt(TimsDirectionController.ConsistDirectionSignKey, out int sign) || sign == 0)
+                traction.Context.Input.powerNotch = 0;
+
+            // ドア監視搭載編成だけに適用。表示部品には依存せず集約した接点を使用する。
+            if (TryGetComponent(out TimsDoorController doors) &&
+                (!doors.isActiveAndEnabled ||
+                 !bus.TryGetBool(TimsDoorController.HasValidStateKey, out bool validDoors) || !validDoors ||
+                 !bus.TryGetBool(TimsDoorController.TractionPermittedKey, out bool closedDoors) || !closedDoors))
                 traction.Context.Input.powerNotch = 0;
 
             // 非常フラグは両方のAdapterが優先して読み、力行遮断・最大空気制動にする。
