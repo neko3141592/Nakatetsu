@@ -10,6 +10,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
     /// 下端を最小値、上端を最大値とする縦目盛り。右端から左へ目盛りを描く。
     /// </summary>
     [ExecuteAlways]
+    [RequireComponent(typeof(CanvasRenderer))]
     [AddComponentMenu("Nakatetsu/Gauges/Vertical Gauge Scale")]
     public sealed class VerticalGaugeScale : MaskableGraphic
     {
@@ -85,6 +86,9 @@ namespace Nakatetsu.Train.Presentation.Gauges
         [SerializeField] private TMP_FontAsset labelFont;
         [SerializeField, Min(0f)] private float labelGap = 4f;
 
+        [Tooltip("オンで左端から右に目盛りを描く（右側目盛り用）。")]
+        [SerializeField] private bool ticksFromLeft;
+
         public float EndPadding => Mathf.Max(labels.visible ? labels.fontSize * 0.75f : 0f,
             Mathf.Max(ticks.minor.thickness, Mathf.Max(ticks.medium.thickness, ticks.major.thickness)) * 0.5f);
 
@@ -151,7 +155,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
                 float y = Mathf.Lerp(area.yMin, area.yMax, Mathf.InverseLerp(ticks.minimum, ticks.maximum, value));
                 TickStyle style = SelectStyle(value);
                 style.length = Mathf.Min(style.length, area.width);
-                AddTick(vertexHelper, new Vector2(area.xMax, y), style);
+                AddTick(vertexHelper, new Vector2(ticksFromLeft ? area.xMin : area.xMax, y), style, ticksFromLeft);
             }
         }
 
@@ -165,11 +169,11 @@ namespace Nakatetsu.Train.Presentation.Gauges
             return IsInterval(value, ticks.minimum, ticks.mediumInterval) ? ticks.medium : ticks.minor;
         }
 
-        private static void AddTick(VertexHelper vertices, Vector2 edge, TickStyle style)
+        private static void AddTick(VertexHelper vertices, Vector2 edge, TickStyle style, bool fromLeft)
         {
             if (style.length <= 0f || style.thickness <= 0f) return;
             Vector2 halfThickness = Vector2.up * (style.thickness * 0.5f);
-            Vector2 inner = edge - Vector2.right * style.length;
+            Vector2 inner = edge + Vector2.right * (fromLeft ? style.length : -style.length);
             int first = vertices.currentVertCount;
             vertices.AddVert(edge - halfThickness, style.color, Vector2.zero);
             vertices.AddVert(edge + halfThickness, style.color, Vector2.zero);
@@ -214,11 +218,12 @@ namespace Nakatetsu.Train.Presentation.Gauges
                 float value = GetValue(labels.minimum, labels.maximum, labels.interval, index);
                 float normalized = Mathf.InverseLerp(ticks.minimum, ticks.maximum, value);
                 RectTransform textTransform = text.rectTransform;
-                textTransform.anchorMin = textTransform.anchorMax = new Vector2(1f, normalized);
-                textTransform.pivot = new Vector2(1f, 0.5f);
+                textTransform.anchorMin = textTransform.anchorMax = new Vector2(ticksFromLeft ? 0f : 1f, normalized);
+                textTransform.pivot = new Vector2(ticksFromLeft ? 0f : 1f, 0.5f);
+                text.alignment = ticksFromLeft ? TextAlignmentOptions.Left : TextAlignmentOptions.Right;
                 float tickLength = Mathf.Max(ticks.minor.length, Mathf.Max(ticks.medium.length, ticks.major.length));
                 float inset = Mathf.Min(tickLength + labelGap, rectTransform.rect.width);
-                textTransform.anchoredPosition = new Vector2(-inset, 0f);
+                textTransform.anchoredPosition = new Vector2(ticksFromLeft ? inset : -inset, 0f);
                 textTransform.sizeDelta = new Vector2(Mathf.Max(0f, rectTransform.rect.width - inset), labels.fontSize * 1.5f);
                 text.enableAutoSizing = true;
                 text.fontSizeMin = 1f;
