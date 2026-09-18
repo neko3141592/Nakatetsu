@@ -1,4 +1,3 @@
-using Nakatetsu.Train.Equipment.Tims;
 using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Tims.Configuration;
 using Nakatetsu.Train.Equipment.Tims.Communication;

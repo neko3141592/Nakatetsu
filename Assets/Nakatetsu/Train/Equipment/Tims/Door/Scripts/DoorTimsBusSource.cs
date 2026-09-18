@@ -31,7 +31,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Door
             if (publishedBus != localBus) Clear();
             publishedBus = localBus;
             publishedCarIndex = AssignedCarIndex;
-            var simulation = GetComponent<TrainDoorSimulation>();
+            var simulation = GetComponent<DoorController>().Simulation;
             if (!isActiveAndEnabled || !GetComponent<DoorController>().isActiveAndEnabled ||
                 publishedCarIndex < 0 || localBus == null || simulation == null || !simulation.HasValidState)
             { Clear(); return; }

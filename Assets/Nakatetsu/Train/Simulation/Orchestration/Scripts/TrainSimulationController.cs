@@ -29,7 +29,8 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         private readonly Dictionary<int, TrainMotorSimulation> motorSimulations = new();
         private readonly Dictionary<int, TrainBrakeSimulation> brakeSimulations = new();
         private readonly Dictionary<int, TrainLoadController> loadSimulations = new();
-        private readonly List<DoorController> doorControllers = new();
+        private readonly Dictionary<int, DoorController> doorControllers = new();
+        private readonly Dictionary<int, TrainDoorSimulation> doorSimulations = new();
         private readonly TrainSimulationContext context = new();
 
         public TrainRoot TrainRoot => trainRoot;
@@ -75,7 +76,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 else if (component is IEquipmentController controller)
                 {
                     equipmentControllers.Add(controller);
-                    if (controller is DoorController door) doorControllers.Add(door);
+                    if (controller is DoorController door) RegisterEquipment(doorControllers, door, door);
                 }
 
                 if (component is IEquipmentInputSourceCollector collector)
@@ -109,6 +110,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             foreach (TrainBrakeSimulation brake in searchRoot.GetComponentsInChildren<TrainBrakeSimulation>(true))
             {
                 RegisterSimulation(brakeSimulations, brake, brake);
+            }
+
+            doorSimulations.Clear();
+            foreach (TrainDoorSimulation door in searchRoot.GetComponentsInChildren<TrainDoorSimulation>(true))
+            {
+                RegisterSimulation(doorSimulations, door, door);
+            }
+            foreach (KeyValuePair<int, DoorController> pair in doorControllers)
+            {
+                doorSimulations.TryGetValue(pair.Key, out TrainDoorSimulation door);
+                pair.Value.SetSimulation(door);
             }
 
             loadSimulations.Clear();
@@ -238,24 +250,21 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void StepDoors(float deltaTimeSeconds)
         {
-            // ドアPrefab内の物理モデルは編成の時間進行から1回だけ更新する。
-            foreach (DoorController door in doorControllers)
+            // 同じ号車の制御指令を物理モデルへ渡し、各モデルを1回だけ更新する。
+            foreach (KeyValuePair<int, TrainDoorSimulation> pair in doorSimulations)
             {
-                if (door == null) continue;
-                var simulation = door.GetComponent<TrainDoorSimulation>();
-                if (simulation != null) simulation.SetInput(door.LeftCommand, door.RightCommand);
+                doorControllers.TryGetValue(pair.Key, out DoorController door);
+                pair.Value.SetInput(
+                    door != null ? door.LeftCommand : DoorMotionCommand.Hold,
+                    door != null ? door.RightCommand : DoorMotionCommand.Hold);
             }
-            foreach (DoorController door in doorControllers)
+            foreach (TrainDoorSimulation door in doorSimulations.Values)
             {
-                if (door == null) continue;
-                var simulation = door.GetComponent<TrainDoorSimulation>();
-                if (simulation != null) simulation.Calculate(deltaTimeSeconds);
+                door.Calculate(deltaTimeSeconds);
             }
-            foreach (DoorController door in doorControllers)
+            foreach (TrainDoorSimulation door in doorSimulations.Values)
             {
-                if (door == null) continue;
-                var simulation = door.GetComponent<TrainDoorSimulation>();
-                if (simulation != null) simulation.ApplyOutput(deltaTimeSeconds);
+                door.ApplyOutput(deltaTimeSeconds);
             }
         }
 

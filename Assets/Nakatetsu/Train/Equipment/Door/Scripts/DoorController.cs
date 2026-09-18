@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Nakatetsu.Train.Equipment.Door
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(TrainEquipmentAssignment), typeof(TrainDoorSimulation))]
+    [RequireComponent(typeof(TrainEquipmentAssignment))]
     public sealed class DoorController : MonoBehaviour, IEquipmentController
     {
         [SerializeField, Min(0f)] private float maximumOpeningSpeedMps = 0.1f;
@@ -24,6 +24,9 @@ namespace Nakatetsu.Train.Equipment.Door
             ((leftPending ? leftRequest : context.leftCommand) == DoorMotionCommand.Open ||
              (rightPending ? rightRequest : context.rightCommand) == DoorMotionCommand.Open);
 
+        public TrainDoorSimulation Simulation { get; private set; }
+        public void SetSimulation(TrainDoorSimulation simulation) => Simulation = simulation;
+
         public void SetInputSource(IDoorInputSource source) => inputSource = source;
         public void SetOpeningPermissions(bool left, bool right)
         {
@@ -36,11 +39,11 @@ namespace Nakatetsu.Train.Equipment.Door
             if (leftSide) { leftPending = true; leftRequest = command; }
             else { rightPending = true; rightRequest = command; }
         }
-        [ContextMenu("Prototype/Open left")]
+        [ContextMenu("Door/Open left")]
         public void OpenLeft() => Request(true, DoorMotionCommand.Open);
-        [ContextMenu("Prototype/Open right")]
+        [ContextMenu("Door/Open right")]
         public void OpenRight() => Request(false, DoorMotionCommand.Open);
-        [ContextMenu("Prototype/Close both")]
+        [ContextMenu("Door/Close both")]
         public void CloseBoth()
         {
             Request(true, DoorMotionCommand.Close);

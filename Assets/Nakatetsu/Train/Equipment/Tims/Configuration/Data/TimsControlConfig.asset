@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Configuration.TimsSettingsAsset
   powerNotchCount: 4
   powerCurves: []
-  launchAccelerationKmhPerSec: 3.3
+  launchAccelerationKmhPerSec: 2.8
   brakeTargetDecelerationsKmhPerSec:
-  - 0.5
-  - 1
-  - 1.5
-  - 2
-  - 2.5
-  - 3
+  - 0.6
+  - 1.1
+  - 1.7
+  - 2.3
+  - 2.9
   - 3.5
+  - 4
   brakeNotchCount: 7
   masterControllerEmergencyBrakeNotchPosition: 8
   brakeSubstepCount: 4

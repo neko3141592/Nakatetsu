@@ -4,6 +4,7 @@ using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Door;
 using Nakatetsu.Train.Simulation.Orchestration;
+using Nakatetsu.Train.Simulation.Door;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Debugging
@@ -14,8 +15,8 @@ namespace Nakatetsu.Train.Debugging
         [SerializeField] private Rect panelRect = new(20, 400, 540, 360);
         private Vector2 scroll;
 
-        [ContextMenu("Install four-door prototype (Play Mode only)")]
-        public void InstallPrototype()
+        [ContextMenu("Install doors (Play Mode only)")]
+        public void InstallDoors()
         {
             if (!Application.isPlaying) return;
             var root = GetComponentInParent<TrainRoot>();
@@ -25,13 +26,28 @@ namespace Nakatetsu.Train.Debugging
                 bool exists = false;
                 foreach (DoorController door in root.GetComponentsInChildren<DoorController>(true))
                     if (door.GetComponent<TrainEquipmentAssignment>().AssignedCarIndex == i) exists = true;
-                if (exists) continue;
-                var go = new GameObject($"DoorPrototype_Car_{i + 1}");
-                go.transform.SetParent(root.transform, false);
-                go.AddComponent<DoorController>();
-                go.GetComponent<TrainEquipmentAssignment>().AssignCarIndex(i);
-                go.AddComponent<DoorTimsInputAdapter>();
-                go.AddComponent<DoorTimsBusSource>();
+                if (!exists)
+                {
+                    var go = new GameObject($"Door_Car_{i + 1}");
+                    go.transform.SetParent(root.transform, false);
+                    go.AddComponent<DoorController>();
+                    go.GetComponent<TrainEquipmentAssignment>().AssignCarIndex(i);
+                    go.AddComponent<DoorTimsInputAdapter>();
+                    go.AddComponent<DoorTimsBusSource>();
+                }
+                bool hasSimulation = false;
+                foreach (TrainDoorSimulation door in root.GetComponentsInChildren<TrainDoorSimulation>(true))
+                {
+                    var assignment = door.GetComponentInParent<TrainSimulationAssignment>();
+                    if (assignment != null && assignment.AssignedCarIndex == i) hasSimulation = true;
+                }
+                if (!hasSimulation)
+                {
+                    var go = new GameObject($"DoorSimulation_Car_{i + 1}");
+                    go.transform.SetParent(root.transform, false);
+                    go.AddComponent<TrainSimulationAssignment>().AssignCarIndex(i);
+                    go.AddComponent<TrainDoorSimulation>();
+                }
             }
             var simulation = root.GetComponentInChildren<TrainSimulationController>();
             if (simulation != null) simulation.ResolveReferences();
@@ -42,8 +58,8 @@ namespace Nakatetsu.Train.Debugging
             if (!Application.isPlaying) return;
             var root = GetComponentInParent<TrainRoot>();
             if (root == null) return;
-            GUILayout.BeginArea(panelRect, "Door prototype — 4 per side", GUI.skin.window);
-            if (GUILayout.Button("Install prototype on all cars")) InstallPrototype();
+            GUILayout.BeginArea(panelRect, "Door debug", GUI.skin.window);
+            if (GUILayout.Button("Install doors on all cars")) InstallDoors();
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Open left"))
                 foreach (DoorController door in root.GetComponentsInChildren<DoorController>()) door.OpenLeft();

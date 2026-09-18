@@ -23,6 +23,7 @@ MonoBehaviour:
   tractionEquipmentPrefab: {fileID: 0}
   brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
   additionalEquipmentPrefabs:
+  - {fileID: 100000, guid: dc7ca2adce2649a6a67570f64974c2f4, type: 3}
   - {fileID: 100000, guid: 7d9600a607604d0d85f0aa49c225feab, type: 3}
   - {fileID: 100000, guid: f4bd5667ccab4e48bc6e4ae8ad184f9b, type: 3}
   motorDefinition: {fileID: 0}
@@ -32,5 +33,6 @@ MonoBehaviour:
   motorSimulationPrefab: {fileID: 0}
   brakeSimulationPrefab: {fileID: 100000, guid: d6659b8d35ada4445ae679e638287adc, type: 3}
   loadSimulationPrefab: {fileID: 100000, guid: d731bba9abbc43b5935134eaf473dc62, type: 3}
+  doorSimulationPrefab: {fileID: 100000, guid: 04060fdb4d634ef19f9eff28b300521c, type: 3}
   masterControllerPrefab: {fileID: 7306635846304263880, guid: 57eec8538a44430b9cd850ab6b98fd41, type: 3}
   cabActivationSwitchPrefab: {fileID: 2414232455009005073, guid: 149b207c2302b4ffcb683c25b21d5f0e, type: 3}

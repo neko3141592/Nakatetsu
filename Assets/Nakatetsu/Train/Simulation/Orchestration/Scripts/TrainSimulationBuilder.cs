@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Simulation.Brake;
+using Nakatetsu.Train.Simulation.Door;
 using Nakatetsu.Train.Simulation.Load;
 using Nakatetsu.Train.Simulation.Traction.Motor;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         [SerializeField] private GameObject defaultMotorSimulationPrefab;
         [SerializeField] private GameObject defaultBrakeSimulationPrefab;
         [SerializeField] private GameObject defaultLoadSimulationPrefab;
+        [SerializeField] private GameObject defaultDoorSimulationPrefab;
         [SerializeField] private bool buildOnAwake = true;
 
         private readonly List<TrainCarSimulationInstances> carSimulations = new();
@@ -99,6 +101,16 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                     ? loadObject.GetComponent<TrainLoadController>()
                     : null;
                 instances.LoadSimulation?.Configure(definition);
+
+                GameObject doorObject = InstantiateSimulation(
+                    definition.doorSimulationPrefab != null
+                        ? definition.doorSimulationPrefab
+                        : defaultDoorSimulationPrefab,
+                    carRoot,
+                    carIndex);
+                instances.DoorSimulation = doorObject != null
+                    ? doorObject.GetComponent<TrainDoorSimulation>()
+                    : null;
 
                 carSimulations.Add(instances);
             }
@@ -216,5 +228,6 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public TrainMotorSimulation MotorSimulation { get; internal set; }
         public TrainBrakeSimulation BrakeSimulation { get; internal set; }
         public TrainLoadController LoadSimulation { get; internal set; }
+        public TrainDoorSimulation DoorSimulation { get; internal set; }
     }
 }
