@@ -204,7 +204,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
                     ? NeutralNotchCellState.On : NeutralNotchCellState.Off);
             if (emergencyCell != null)
                 emergencyCell.SetState(available && emergency ? EmergencyNotchCellState.On : EmergencyNotchCellState.Off);
-            if (unavailableText != null) unavailableText.enabled = !available;
+            if (unavailableText != null) unavailableText.enabled = false;
         }
     }
 }

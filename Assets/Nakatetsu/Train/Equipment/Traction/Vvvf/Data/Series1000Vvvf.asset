@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.Traction.Vvvf.VvvfDefinitionAsset
   settings:
     launchFrequencyHz: 0.5
-    launchVoltageBoostRatio: 0.04
+    launchVoltageBoostRatio: 0.05
     slipFrequencyControlRateHzPerSecond: 0.45
     voltageControlRateRatioPerSecond: 0.45
     torqueDeadbandNm: 5
     maximumSlipFrequencyHz: 1.5
     maximumSlipRatio: 0.16
-    launchSlipFrequencyHz: 0.2
+    launchSlipFrequencyHz: 0.3
     regenTorqueMultiplier: 1.2
     regenPowerMultiplier: 1
     regenCutOutSpeedMps: 0.2

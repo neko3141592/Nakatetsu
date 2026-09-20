@@ -61,6 +61,11 @@ namespace Nakatetsu.Train.Presentation.Gauges
         private float pressureRatio = 1f;
         private float mrPressureRatio;
 
+        public void SetTimsSource(TimsCommunicationController source)
+        {
+            tims = source;
+        }
+
         public void Configure(TimsCommunicationController source, int localCarIndex)
         {
             tims = source;

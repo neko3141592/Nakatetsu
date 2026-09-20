@@ -34,6 +34,11 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
         [Tooltip("縦にこの個数を並べたら右の列へ折り返します。")]
         [SerializeField, Min(1)] private int indicatorsPerColumn = 4;
 
+        public void SetTimsSource(TimsCommunicationController source)
+        {
+            tims = source;
+        }
+
         private void Awake()
         {
             if (indicators == null || indicators.Length == 0) return;
