@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.TimsRoot
   settings: {fileID: 11400000, guid: c55c3735c286e4591b9aba3ad352bbff, type: 2}
+  monitorOutputPrefab: {fileID: 515155758855971000, guid: 716b56ad93468499898df1b0b276d9df, type: 3}
+  monitorResolution: {x: 1536, y: 1024}
 --- !u!114 &11400001
 MonoBehaviour:
   m_ObjectHideFlags: 0

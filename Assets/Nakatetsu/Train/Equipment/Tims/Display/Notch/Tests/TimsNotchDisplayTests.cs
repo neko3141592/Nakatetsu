@@ -163,7 +163,7 @@ namespace Nakatetsu.Train.Presentation.Tests
             Assert.That(displayObject.GetComponentsInChildren<BrakeNotchCell>().All(c => c.State == BrakeNotchCellState.Off), Is.True);
             Assert.That(displayObject.GetComponentInChildren<NeutralNotchCell>().State, Is.EqualTo(NeutralNotchCellState.Off));
             Assert.That(displayObject.GetComponentInChildren<EmergencyNotchCell>().State, Is.EqualTo(EmergencyNotchCellState.Off));
-            Assert.That(displayObject.transform.Find("Unavailable").GetComponent<TMP_Text>().enabled, Is.True);
+            Assert.That(displayObject.transform.Find("Unavailable").GetComponent<TMP_Text>().enabled, Is.False);
         }
     }
 }

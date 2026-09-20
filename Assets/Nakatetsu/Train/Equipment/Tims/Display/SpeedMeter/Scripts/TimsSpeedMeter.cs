@@ -76,7 +76,6 @@ namespace Nakatetsu.Train.Presentation.Gauges
         [Min(0.01f)]
         [SerializeField] private float needleStepKmh = 1f;
         [SerializeField] private string speedNumberFormat = "0";
-        [SerializeField] private string unavailableSpeedText = "--";
 
         [Header("ATC Speed Markers")]
         [Min(0f)]
@@ -248,7 +247,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
             SetNeedleSpeed(0f);
             if (speedText != null)
             {
-                speedText.text = unavailableSpeedText;
+                speedText.text = string.Empty;
             }
         }
 
@@ -345,6 +344,11 @@ namespace Nakatetsu.Train.Presentation.Gauges
                 Transform speedObject = transform.Find("Speed");
                 speedText = speedObject != null ? speedObject.GetComponent<TMP_Text>() : null;
             }
+        }
+
+        public void SetTimsSource(TimsCommunicationController source)
+        {
+            tims = source;
         }
 
         private void ResolveTims()

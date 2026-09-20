@@ -44,6 +44,11 @@ namespace Nakatetsu.Train.Presentation.Gauges
             if (currentLabel != null) currentLabel.text = "--";
         }
 
+        public void SetTimsSource(TimsCommunicationController source)
+        {
+            tims = source;
+        }
+
         public void Configure(TimsCommunicationController source, int localCarIndex)
         {
             tims = source;
