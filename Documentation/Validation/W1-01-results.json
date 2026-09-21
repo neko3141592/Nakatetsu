@@ -1,0 +1,147 @@
+{
+  "baselineHead": "c211a6e9ecc850285dde80f802c366bd09ff5a85",
+  "unityVersion": "6000.4.0f1 (8cf496087c8f)",
+  "runs": [
+    {
+      "name": "initial_editmode",
+      "source": "Logs/W1-01/editmode-results.xml",
+      "result": "Failed(Child)",
+      "total": "168",
+      "passed": "167",
+      "failed": "1",
+      "skipped": "0",
+      "start-time": "2026-09-21 13:54:45Z",
+      "end-time": "2026-09-21 13:54:45Z",
+      "duration": "0.3235536",
+      "assemblies": [
+        {
+          "name": "Nakatetsu.Track.Tests.EditMode.dll",
+          "total": "20",
+          "passed": "20",
+          "failed": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "Nakatetsu.Train.Equipment.Tims.Tests.EditMode.dll",
+          "total": "94",
+          "passed": "94",
+          "failed": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "Nakatetsu.Train.Presentation.Tests.EditMode.dll",
+          "total": "14",
+          "passed": "14",
+          "failed": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "Nakatetsu.Train.Tests.EditMode.dll",
+          "total": "40",
+          "passed": "39",
+          "failed": "1",
+          "skipped": "0"
+        }
+      ],
+      "failures": [
+        {
+          "test": "Nakatetsu.Train.Tests.BrakeControlDeviceTests.TargetForceIsConvertedToCommonCylinderPressure",
+          "message": "  Expected: 250.0f\n  But was:  250.000015f\n"
+        }
+      ]
+    },
+    {
+      "name": "initial_playmode_without_graphics",
+      "source": "Logs/W1-01/playmode-results.xml",
+      "result": "Failed(Child)",
+      "total": "1",
+      "passed": "0",
+      "failed": "1",
+      "skipped": "0",
+      "start-time": "2026-09-21 13:56:35Z",
+      "end-time": "2026-09-21 13:56:36Z",
+      "duration": "0.7701404",
+      "assemblies": [
+        {
+          "name": "Nakatetsu.Train.Debug.Tests.PlayMode.dll",
+          "total": "1",
+          "passed": "0",
+          "failed": "1",
+          "skipped": "0"
+        }
+      ],
+      "failures": [
+        {
+          "test": "Nakatetsu.Train.Debugging.Tests.TrainBaselineTests.NtLineCanAccelerateAndStopWithServiceBrake",
+          "message": "Unhandled log message: '[Error] RenderTexture.Create failed'. Use UnityEngine.TestTools.LogAssert.Expect"
+        }
+      ]
+    },
+    {
+      "name": "verified_playmode_metal",
+      "source": "Logs/W1-01/playmode-metal-results.xml",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "start-time": "2026-09-21 13:57:04Z",
+      "end-time": "2026-09-21 13:57:23Z",
+      "duration": "18.4672825",
+      "assemblies": [
+        {
+          "name": "Nakatetsu.Train.Debug.Tests.PlayMode.dll",
+          "total": "1",
+          "passed": "1",
+          "failed": "0",
+          "skipped": "0"
+        }
+      ],
+      "failures": [],
+      "output": "Prepared\n速度: 0.00 km/h（編成前方＋）\n非常理由: なし\n有効運転台: Front\nP0 / B0 / レバーサー Forward\nTIMS非常: False / 指令有効: True\n車両1: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両2: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両3: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両4: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両5: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両6: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両7: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両8: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両9: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両10: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\nEB EbDevice: 残り 60.0 s / 非常 False\nEB EbDevice: 残り 60.0 s / 非常 False\n\nPowered\n速度: 19.42 km/h（編成前方＋）\n非常理由: なし\n有効運転台: Front\nP4 / B0 / レバーサー Forward\nTIMS非常: False / 指令有効: True\n車両1: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両2: 回生 0 / 能力 41229 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両3: 回生 0 / 能力 41229 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両4: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両5: 回生 0 / 能力 41229 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両6: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両7: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両8: 回生 0 / 能力 41229 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両9: 回生 0 / 能力 41229 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\n車両10: 回生 0 / 能力 0 N、BC 0.0 kPa\n  指令: 回生 0 N、空制 0 N / 0.0 kPa\nEB EbDevice: 残り 54.8 s / 非常 False\nEB EbDevice: 残り 60.0 s / 非常 False\n\nBraking: start=5.3943 m/s, duration=6.431 s, peak BC=307.546 kPa, peak air brake=352582.0 N\n速度: 0.03 km/h（編成前方＋）\n非常理由: なし\n有効運転台: Front\nP0 / B7 / レバーサー Forward\nTIMS非常: False / 指令有効: True\n車両1: 回生 0 / 能力 0 N、BC 298.6 kPa\n  指令: 回生 0 N、空制 32252 N / 298.6 kPa\n車両2: 回生 0 / 能力 0 N、BC 191.0 kPa\n  指令: 回生 0 N、空制 33215 N / 307.5 kPa\n車両3: 回生 0 / 能力 0 N、BC 191.0 kPa\n  指令: 回生 0 N、空制 33215 N / 307.5 kPa\n車両4: 回生 0 / 能力 0 N、BC 289.7 kPa\n  指令: 回生 0 N、空制 31289 N / 289.7 kPa\n車両5: 回生 0 / 能力 0 N、BC 191.0 kPa\n  指令: 回生 0 N、空制 33215 N / 307.5 kPa\n車両6: 回生 0 / 能力 0 N、BC 289.7 kPa\n  指令: 回生 0 N、空制 31289 N / 289.7 kPa\n車両7: 回生 0 / 能力 0 N、BC 289.7 kPa\n  指令: 回生 0 N、空制 31289 N / 289.7 kPa\n車両8: 回生 0 / 能力 0 N、BC 191.0 kPa\n  指令: 回生 0 N、空制 33215 N / 307.5 kPa\n車両9: 回生 0 / 能力 0 N、BC 191.0 kPa\n  指令: 回生 0 N、空制 33215 N / 307.5 kPa\n車両10: 回生 0 / 能力 0 N、BC 298.6 kPa\n  指令: 回生 0 N、空制 32252 N / 298.6 kPa\nEB EbDevice: 残り 60.0 s / 非常 False\nEB EbDevice: 残り 60.0 s / 非常 False\n\nSaving results to: /Users/yudai/Library/Application Support/DefaultCompany/Nakatetsu/TestResults.xml\n"
+    },
+    {
+      "name": "verified_editmode",
+      "source": "Logs/W1-01/editmode-verified-results.xml",
+      "result": "Passed",
+      "total": "168",
+      "passed": "168",
+      "failed": "0",
+      "skipped": "0",
+      "start-time": "2026-09-21 13:57:55Z",
+      "end-time": "2026-09-21 13:57:55Z",
+      "duration": "0.3263476",
+      "assemblies": [
+        {
+          "name": "Nakatetsu.Track.Tests.EditMode.dll",
+          "total": "20",
+          "passed": "20",
+          "failed": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "Nakatetsu.Train.Equipment.Tims.Tests.EditMode.dll",
+          "total": "94",
+          "passed": "94",
+          "failed": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "Nakatetsu.Train.Presentation.Tests.EditMode.dll",
+          "total": "14",
+          "passed": "14",
+          "failed": "0",
+          "skipped": "0"
+        },
+        {
+          "name": "Nakatetsu.Train.Tests.EditMode.dll",
+          "total": "40",
+          "passed": "40",
+          "failed": "0",
+          "skipped": "0"
+        }
+      ],
+      "failures": []
+    }
+  ]
+}

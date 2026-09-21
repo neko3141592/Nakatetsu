@@ -18,7 +18,7 @@ namespace Nakatetsu.Train.Tests
             BrakeControlDeviceLogic.Calculate(context);
 
             Assert.That(context.Output.hasOperationalCylinders, Is.True);
-            Assert.That(context.Output.targetPressureKPa, Is.EqualTo(250f));
+            Assert.That(context.Output.targetPressureKPa, Is.EqualTo(250f).Within(0.001f));
             Assert.That(context.Output.maximumBrakeForceN, Is.EqualTo(9000f));
         }
 
