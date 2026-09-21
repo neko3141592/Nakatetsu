@@ -20,6 +20,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
     {
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TrainPhysicsController physicsController;
+        [SerializeField] private bool AutoRefresh;
 
         private readonly List<IEquipmentController> equipmentControllers = new();
         private readonly Dictionary<int, SpeedSensor> speedSensors = new();
@@ -133,10 +134,14 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         private void Update()
         {
             // 1フレーム分の編成シミュレーションを進める。
-            Step(Time.deltaTime);
+            if (AutoRefresh)
+            {
+                Step(Time.deltaTime);
+            }
         }
 
-        private void Step(float deltaTimeSeconds)
+
+        public void Step(float deltaTimeSeconds)
         {
             // 測定、機器制御、物理モデル、編成物理の順に1ステップ実行する。
             float signedVelocityMps = physicsController != null
