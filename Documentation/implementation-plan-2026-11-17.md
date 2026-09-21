@@ -60,7 +60,7 @@ CTCの時刻到達だけで信号を開通させない。**ダイヤは進路を
 1. **100m線形では現行編成を収められない。** `Consist.asset` は20m車×10両で約200m。単車試験の次に、500m以上の線路と全編成を載せられる初期位置を用意する。
 2. **時間進行を早期に外から呼べるようにする。** 現在は `TrainSimulationController.Update()` → private `Step(Time.deltaTime)`。ダイヤ時計、複数列車、早送り、snapshotを後付けすると更新順が崩れやすい。第1週で手動tick経路を設ける。
 3. **文書とコードの差分がある。** 実装ルールは `ISimulationController.CollectInput()` 等を説明するが、現在のInterfaceは `Calculate` と `ApplyOutput` の2メソッド。Physicsも `SetInput()` で入力を受ける。全機器の一括改修を始めず、現行接続を確認して世界全体の更新契約を先に決める。
-4. **既存の線路方針を維持する。** [線路基盤の移植計画](../Documentation/Migration/TrackFoundationMigration.md) はオフセット方式採用を明記している。締切前に別方式の線路エディターを作り直さない。
+4. **既存の線路方針を維持する。** [線路基盤の移植計画](./Migration/TrackFoundationMigration.md) はオフセット方式採用を明記している。締切前に別方式の線路エディターを作り直さない。
 5. **ATOの設計資料は実装完了を意味しない。** NPC用の簡単な自動運転は必要だが、プレイヤー用ATO/TASCの本格実装は今回の必須範囲から外す。
 
 ### 主な調査根拠
@@ -72,7 +72,7 @@ CTCの時刻到達だけで信号を開通させない。**ダイヤは進路を
 - [100m線形](../Assets/Nakatetsu/Track/Graph/Geometry/Data/TrainGeometryStraight100m.asset)、[編成定義](../Assets/Nakatetsu/Train/Consist/Definitions/Data/Consist.asset)、[車体生成のTODO](../Assets/Nakatetsu/Train/Presentation/Shared/TrainPresentationBuilder.cs)
 - [TIMS制御](../Assets/Nakatetsu/Train/Equipment/Tims/Composition/Scripts/TimsControlController.cs)、[ノッチ調停](../Assets/Nakatetsu/Train/Equipment/Tims/Notch/Scripts/TimsNotchLogic.cs)、[Bus snapshot](../Assets/Nakatetsu/Train/Equipment/Tims/Bus/Scripts/TimsBusState.cs)
 - [NtLineシーン](../Assets/Scenes/NtLine.unity)、[Build Settings](../ProjectSettings/EditorBuildSettings.asset)、[Unityバージョン](../ProjectSettings/ProjectVersion.txt)
-- [実装ルール](../Documentation/Architecture/ImplementationRules.md)、[運転デバッグの範囲](../Documentation/Train/DebugControls.md)、[ATO/TASC方針](../Documentation/Train/AutomaticOperation/AtoTascImplementation.md)
+- [実装ルール](./Architecture/ImplementationRules.md)、[運転デバッグの範囲](./Train/DebugControls.md)、[ATO/TASC方針](./Train/AutomaticOperation/AtoTascImplementation.md)
 
 ## 3. 工数と進め方
 
@@ -410,7 +410,7 @@ Transform、MonoBehaviour参照、描画物、辞書キャッシュをそのま�
 
 ```text
 対象：W2-02 編成全長の閉塞占有
-前提：docs/implementation-plan-2026-11-17.md と
+前提：Documentation/implementation-plan-2026-11-17.md と
       Documentation/Architecture/ImplementationRules.md を確認する。
 入力：先頭基準点、編成寸法、実際に通過したEdge列、閉塞範囲。
 出力：占有閉塞ID集合と不正経路の診断。
