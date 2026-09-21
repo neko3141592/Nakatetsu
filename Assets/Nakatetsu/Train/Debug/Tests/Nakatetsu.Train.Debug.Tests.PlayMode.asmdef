@@ -1,0 +1,13 @@
+{
+    "name": "Nakatetsu.Train.Debug.Tests.PlayMode",
+    "rootNamespace": "Nakatetsu.Train.Debugging.Tests",
+    "references": [
+        "Nakatetsu.Train.Debug",
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Equipment.Tims"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "autoReferenced": false
+}
