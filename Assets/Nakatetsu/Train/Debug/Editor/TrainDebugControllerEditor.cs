@@ -37,6 +37,13 @@ namespace Nakatetsu.Train.Debugging.Editor
                     if (GUILayout.Button($"B{i}")) controller.SetBrake(i);
                 EditorGUILayout.EndHorizontal();
                 if (GUILayout.Button("非常ブレーキ")) controller.SetEmergencyBrake();
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("ドア（全車・編成前方を基準とした左右）");
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("左側を開く")) controller.OpenLeftDoors();
+                if (GUILayout.Button("右側を開く")) controller.OpenRightDoors();
+                if (GUILayout.Button("両側を閉じる")) controller.CloseDoors();
+                EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.HelpBox(controller.LastOperation, MessageType.None);
             if (Application.isPlaying) EditorGUILayout.HelpBox(controller.GetStatus(), MessageType.None);

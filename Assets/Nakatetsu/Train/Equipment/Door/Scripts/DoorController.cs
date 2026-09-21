@@ -13,63 +13,72 @@ namespace Nakatetsu.Train.Equipment.Door
         [SerializeField] private bool rightOpenPermitted = true;
         private readonly DoorControlContext context = new();
         private IDoorInputSource inputSource;
-        private bool leftPending;
-        private bool rightPending;
-        private DoorMotionCommand leftRequest;
-        private DoorMotionCommand rightRequest;
         public DoorMotionCommand LeftCommand => isActiveAndEnabled ? context.leftCommand : DoorMotionCommand.Hold;
         public DoorMotionCommand RightCommand => isActiveAndEnabled ? context.rightCommand : DoorMotionCommand.Hold;
         public bool OpeningInhibited => context.openingInhibited;
         public bool HasOpenCommand => isActiveAndEnabled &&
-            ((leftPending ? leftRequest : context.leftCommand) == DoorMotionCommand.Open ||
-             (rightPending ? rightRequest : context.rightCommand) == DoorMotionCommand.Open);
+            (HasOpenCommandOnSide(true) || HasOpenCommandOnSide(false));
 
         public TrainDoorSimulation Simulation { get; private set; }
         public void SetSimulation(TrainDoorSimulation simulation) => Simulation = simulation;
 
-        public void SetInputSource(IDoorInputSource source) => inputSource = source;
+        public void SetInputSource(IDoorInputSource source)
+        {
+            if (ReferenceEquals(inputSource, source)) return;
+            inputSource = source;
+            context.hasLeftRevision = context.hasRightRevision = false;
+            context.leftCommand = context.rightCommand = DoorMotionCommand.Hold;
+        }
         public void SetOpeningPermissions(bool left, bool right)
         {
             leftOpenPermitted = left;
             rightOpenPermitted = right;
         }
-        public void Request(bool leftSide, DoorMotionCommand command)
+        private void ResolveInputSource()
         {
-            if (!isActiveAndEnabled) return;
-            if (leftSide) { leftPending = true; leftRequest = command; }
-            else { rightPending = true; rightRequest = command; }
-        }
-        [ContextMenu("Door/Open left")]
-        public void OpenLeft() => Request(true, DoorMotionCommand.Open);
-        [ContextMenu("Door/Open right")]
-        public void OpenRight() => Request(false, DoorMotionCommand.Open);
-        [ContextMenu("Door/Close both")]
-        public void CloseBoth()
-        {
-            Request(true, DoorMotionCommand.Close);
-            Request(false, DoorMotionCommand.Close);
-        }
-        public void CollectInput()
-        {
-            if (inputSource == null)
+            if (inputSource == null || inputSource is Object unityObject && unityObject == null)
+            {
+                inputSource = null;
                 foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
                     if (component is IDoorInputSource source) { inputSource = source; break; }
+            }
+        }
+
+        private bool TryGetCommand(bool leftSide, out DoorMotionCommand command, out int revision)
+        {
+            ResolveInputSource();
+            command = DoorMotionCommand.Hold;
+            revision = 0;
+            return isActiveAndEnabled && inputSource != null &&
+                inputSource.TryGetCommand(leftSide, out command, out revision);
+        }
+
+        private bool HasOpenCommandOnSide(bool leftSide)
+        {
+            if (!TryGetCommand(leftSide, out DoorMotionCommand command, out int revision)) return false;
+            bool hasRevision = leftSide ? context.hasLeftRevision : context.hasRightRevision;
+            int previousRevision = leftSide ? context.leftRevision : context.rightRevision;
+            // 入力収集前でも未処理の開指令を全閉監視に含める。
+            if (!hasRevision || revision != previousRevision) return command == DoorMotionCommand.Open;
+            return (leftSide ? context.leftCommand : context.rightCommand) == DoorMotionCommand.Open;
+        }
+
+        public void CollectInput()
+        {
+            ResolveInputSource();
             context.speedMps = 0f;
             context.hasSpeed = isActiveAndEnabled && inputSource != null && inputSource.TryGetSpeedMps(out context.speedMps);
             context.maximumOpeningSpeedMps = maximumOpeningSpeedMps;
             context.leftOpenPermitted = leftOpenPermitted;
             context.rightOpenPermitted = rightOpenPermitted;
-            context.hasLeftRequest = leftPending;
-            context.hasRightRequest = rightPending;
-            context.leftRequest = leftRequest;
-            context.rightRequest = rightRequest;
-            leftPending = rightPending = false;
+            context.hasLeftRequest = TryGetCommand(true, out context.leftRequest, out context.leftRequestRevision);
+            context.hasRightRequest = TryGetCommand(false, out context.rightRequest, out context.rightRequestRevision);
         }
         public void Calculate(float deltaTimeSeconds) => DoorControlLogic.Calculate(context);
         public void ApplyOutput(float deltaTimeSeconds) { }
         private void OnDisable()
         {
-            leftPending = rightPending = false;
+            context.hasLeftRequest = context.hasRightRequest = false;
             context.leftCommand = context.rightCommand = DoorMotionCommand.Hold;
         }
     }

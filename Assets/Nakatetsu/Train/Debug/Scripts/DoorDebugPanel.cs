@@ -60,15 +60,18 @@ namespace Nakatetsu.Train.Debugging
             if (root == null) return;
             GUILayout.BeginArea(panelRect, "Door debug", GUI.skin.window);
             if (GUILayout.Button("Install doors on all cars")) InstallDoors();
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Open left"))
-                foreach (DoorController door in root.GetComponentsInChildren<DoorController>()) door.OpenLeft();
-            if (GUILayout.Button("Open right"))
-                foreach (DoorController door in root.GetComponentsInChildren<DoorController>()) door.OpenRight();
-            if (GUILayout.Button("Close both"))
-                foreach (DoorController door in root.GetComponentsInChildren<DoorController>()) door.CloseBoth();
-            GUILayout.EndHorizontal();
             var communication = root.GetComponentInChildren<TimsCommunicationController>();
+            var doors = communication != null ? communication.GetComponent<TimsDoorController>() : null;
+            bool previousEnabled = GUI.enabled;
+            GUI.enabled = previousEnabled && communication != null && communication.isActiveAndEnabled &&
+                doors != null && doors.isActiveAndEnabled;
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Open left")) doors.OpenLeft();
+            if (GUILayout.Button("Open right")) doors.OpenRight();
+            if (GUILayout.Button("Close both")) doors.CloseBoth();
+            GUILayout.EndHorizontal();
+            GUI.enabled = previousEnabled;
+            if (doors == null || !doors.isActiveAndEnabled) GUILayout.Label("TIMS door control unavailable");
             if (communication == null || !communication.isActiveAndEnabled)
                 GUILayout.Label("TIMS unavailable");
             else
