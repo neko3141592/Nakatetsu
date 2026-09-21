@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nakatetsu.Track.GuideLine
+namespace Nakatetsu.Track.TrainGeometry
 {
-    public static class GuideLineProfileCalculator
+    public static class TrainGeometryProfileCalculator
     {
         private const float MinSegmentLengthM = 0.001f;
         private const float PermilleScale = 1000f;
@@ -41,7 +41,7 @@ namespace Nakatetsu.Track.GuideLine
             return Mathf.Lerp(startGradientPermille, endGradientPermille, t);
         }
 
-        public static float GetVerticalHeightAt(List<TrackVerticalSegment> segments, float distanceOnEdgeM)
+        public static float GetVerticalHeightAt(List<TrainGeometryVerticalSegment> segments, float distanceOnEdgeM)
         {
             if (segments == null || segments.Count == 0)
             {
@@ -55,7 +55,7 @@ namespace Nakatetsu.Track.GuideLine
 
             for (int i = 0; i < segments.Count; i++)
             {
-                TrackVerticalSegment segment = segments[i];
+                TrainGeometryVerticalSegment segment = segments[i];
                 if (segment == null || segment.lengthM <= MinSegmentLengthM)
                 {
                     continue;
@@ -96,17 +96,17 @@ namespace Nakatetsu.Track.GuideLine
             return heightM;
         }
 
-        public static float GetGradientPermilleAt(List<TrackVerticalSegment> segments, float distanceOnEdgeM)
+        public static float GetGradientPermilleAt(List<TrainGeometryVerticalSegment> segments, float distanceOnEdgeM)
         {
             if (segments == null || segments.Count == 0)
             {
                 return 0f;
             }
 
-            TrackVerticalSegment lastPassedSegment = null;
+            TrainGeometryVerticalSegment lastPassedSegment = null;
             for (int i = 0; i < segments.Count; i++)
             {
-                TrackVerticalSegment segment = segments[i];
+                TrainGeometryVerticalSegment segment = segments[i];
                 if (segment == null || segment.lengthM <= MinSegmentLengthM)
                 {
                     continue;

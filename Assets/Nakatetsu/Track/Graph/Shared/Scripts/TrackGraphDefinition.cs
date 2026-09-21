@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace Nakatetsu.Track.Graph
 {
@@ -24,10 +25,13 @@ namespace Nakatetsu.Track.Graph
         public string edgeId;
         public string nodeAId;
         public string nodeBId;
-        public string guideLineId;
-        public float startDistanceOnGuideLineM;
-        public float endDistanceOnGuideLineM;
+        [FormerlySerializedAs("guideLineId")]
+        public string trainGeometryId;
+        [FormerlySerializedAs("startDistanceOnGuideLineM")]
+        public float startDistanceOnTrainGeometryM;
+        [FormerlySerializedAs("endDistanceOnGuideLineM")]
+        public float endDistanceOnTrainGeometryM;
 
-        public float LengthM => Math.Abs(endDistanceOnGuideLineM - startDistanceOnGuideLineM);
+        public float LengthM => Math.Abs(endDistanceOnTrainGeometryM - startDistanceOnTrainGeometryM);
     }
 }

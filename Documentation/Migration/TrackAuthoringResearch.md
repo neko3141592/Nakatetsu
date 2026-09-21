@@ -1,6 +1,6 @@
 # 線形作成方式の調査：BVE・OpenBVEと旧TD-ATC
 
-採用結果：オフセット方式を継続する。本文の独立線形案は比較用の未採用案。走行基準の先行移植は [GuideLine移植記録](GuideLineMigration.md) を参照。
+採用結果：オフセット方式を継続する。本文の独立線形案は比較用の未採用案。走行基準の先行移植は [TrainGeometry移植記録](TrainGeometryMigration.md) を参照。
 
 調査日：2026-09-07。目的は、分岐付帯曲線を作成しやすくするため、線形の入力方法と実行時の表現を見直すこと。
 追加調査：[Open Rails・Transport Fever 2の線路グラフ](TrackGraphSimulatorResearch.md)。接続グラフ・形状・作成入力を分ける実例を整理した。

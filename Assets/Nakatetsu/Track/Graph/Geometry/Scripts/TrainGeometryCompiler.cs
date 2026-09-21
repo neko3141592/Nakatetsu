@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-namespace Nakatetsu.Track.GuideLine
+namespace Nakatetsu.Track.TrainGeometry
 {
-    public static class GuideLineCompiler
+    public static class TrainGeometryCompiler
     {
         /// <summary>Rebuild after loading or editing an ordered, valid definition.</summary>
-        public static void Rebuild(GuideLineDefinition definition, GuideLineContext context)
+        public static void Rebuild(TrainGeometryDefinition definition, TrainGeometryContext context)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             var workspace = context.Workspace;
@@ -15,7 +15,7 @@ namespace Nakatetsu.Track.GuideLine
             if (definition == null) return;
 
             Vector3 position = definition.originPosition;
-            Quaternion rotation = GuideLineCalculator.GetPlanRotation(definition.originRotation);
+            Quaternion rotation = TrainGeometryCalculator.GetPlanRotation(definition.originRotation);
             if (definition.horizontalSegments != null)
             {
                 for (int i = 0; i < definition.horizontalSegments.Count; i++)
@@ -24,12 +24,12 @@ namespace Nakatetsu.Track.GuideLine
                     if (segment == null) continue;
                     float start = Mathf.Max(0f, segment.startDistanceM);
                     float length = Mathf.Max(0f, segment.lengthM);
-                    workspace.horizontalStarts.Add(new GuideLineHorizontalStart
+                    workspace.horizontalStarts.Add(new TrainGeometryHorizontalStart
                     {
                         segmentIndex = i, startDistanceM = start, endDistanceM = start + length,
                         position = position, rotation = rotation
                     });
-                    GuideLineCalculator.CalculateHorizontal(segment.trackCurveType, length, length,
+                    TrainGeometryCalculator.CalculateHorizontal(segment.trackCurveType, length, length,
                         segment.radiusM, out float x, out float z, out float angle);
                     position += rotation * new Vector3(x, 0f, z);
                     rotation *= Quaternion.Euler(0f, angle, 0f);
@@ -46,12 +46,12 @@ namespace Nakatetsu.Track.GuideLine
                 if (segment == null || segment.lengthM <= 0.001f) continue;
                 float start = Mathf.Max(0f, segment.startDistanceM);
                 height += previousGradient * Mathf.Max(0f, start - previousEnd) / 1000f;
-                workspace.verticalStarts.Add(new GuideLineVerticalStart
+                workspace.verticalStarts.Add(new TrainGeometryVerticalStart
                 {
                     segmentIndex = i, startDistanceM = start,
                     endDistanceM = start + segment.lengthM, heightM = height
                 });
-                height += GuideLineProfileCalculator.GetHeightDeltaM(segment.lengthM,
+                height += TrainGeometryProfileCalculator.GetHeightDeltaM(segment.lengthM,
                     segment.lengthM, segment.startGradientPermille, segment.endGradientPermille);
                 previousEnd = start + segment.lengthM;
                 previousGradient = segment.endGradientPermille;
