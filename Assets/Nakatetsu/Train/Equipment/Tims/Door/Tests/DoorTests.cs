@@ -65,6 +65,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             target.GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(target, args);
         private void Step(float seconds) => Invoke(simulation, "Step", seconds);
         private void Collect() => communication.CollectInputSources();
+        private void Request(int carIndex, bool leftSide, DoorMotionCommand command) =>
+            Assert.That(communication.GetComponent<TimsDoorController>().Request(carIndex, leftSide, command), Is.True);
         private bool Master(Nakatetsu.Train.Equipment.Tims.Bus.TimsTagKey key)
         {
             Assert.That(communication.MasterBus.TryGetBool(key, out bool value), Is.True);
@@ -88,7 +90,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         public void LeftDoorsMoveOncePerStepAndRightStaysClosed()
         {
             Step(0f); Collect();
-            doors[0].OpenLeft();
+            Request(0, true, DoorMotionCommand.Open);
             // 接点がまだ閉でも開指令受付中は力行を許可しない。
             Collect();
             Assert.That(Master(TimsDoorController.AllClosedKey), Is.True);
@@ -108,7 +110,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             Assert.That(states, Is.EqualTo(new[] { 1, 1, 1, 1 }));
             Assert.That(communication.MasterBus.TryGetIntArray(TimsDoorController.CarClosedStatesKey, out int[] cars), Is.True);
             Assert.That(cars, Is.EqualTo(new[] { 0, 1 }));
-            doors[0].CloseBoth(); Step(1.5f); Collect();
+            Request(0, true, DoorMotionCommand.Close); Request(0, false, DoorMotionCommand.Close); Step(1.5f); Collect();
             Assert.That(Master(TimsDoorController.TractionPermittedKey), Is.True);
         }
 
@@ -118,35 +120,35 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         {
             Step(0f);
             physics.Context.State.signedVelocityMps = speed; physics.ApplyOutput(0f);
-            doors[0].OpenLeft(); Step(1f);
+            Request(0, true, DoorMotionCommand.Open); Step(1f);
             physics.Context.State.signedVelocityMps = 0f; physics.ApplyOutput(0f);
             Step(1f); Collect();
             Assert.That(Master(TimsDoorController.AllClosedKey), Is.True);
-            doors[0].OpenLeft(); Step(1f); Collect();
+            Request(0, true, DoorMotionCommand.Open); Step(1f); Collect();
             Assert.That(Master(TimsDoorController.AllClosedKey), Is.False);
         }
 
         [Test]
         public void MissingSpeedBlocksOpeningButStillAllowsClosing()
         {
-            Step(0f); doors[0].OpenLeft(); Step(1f);
+            Step(0f); Request(0, true, DoorMotionCommand.Open); Step(1f);
             physics.enabled = false;
             Step(1f);
             var model = doors[0].Simulation;
             model.TryGetDoor(true, 0, out float opening, out _, out DoorStatus state);
             Assert.That(opening, Is.EqualTo(1f / 3f).Within(0.00001f));
             Assert.That(state, Is.EqualTo(DoorStatus.Stopped));
-            doors[0].CloseBoth(); Step(1f); Collect();
+            Request(0, true, DoorMotionCommand.Close); Request(0, false, DoorMotionCommand.Close); Step(1f); Collect();
             Assert.That(Master(TimsDoorController.AllClosedKey), Is.True);
         }
 
         [Test]
         public void ClosingCanBeReopenedOnlyOnPermittedSide()
         {
-            Step(0f); doors[0].OpenLeft(); Step(3f);
-            doors[0].CloseBoth(); Step(1f);
+            Step(0f); Request(0, true, DoorMotionCommand.Open); Step(3f);
+            Request(0, true, DoorMotionCommand.Close); Request(0, false, DoorMotionCommand.Close); Step(1f);
             doors[0].SetOpeningPermissions(true, false);
-            doors[0].OpenLeft(); doors[0].OpenRight(); Step(1f);
+            Request(0, true, DoorMotionCommand.Open); Request(0, false, DoorMotionCommand.Open); Step(1f);
             var model = doors[0].Simulation;
             model.TryGetDoor(true, 0, out float left, out _, out _);
             model.TryGetDoor(false, 0, out float right, out _, out _);
@@ -221,13 +223,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 var traction = train.GetComponent<TimsTractionController>();
                 Assert.That(traction.Context.Input.isReady, Is.True, control.EmergencyReason);
                 Assert.That(traction.Context.Input.powerNotch, Is.EqualTo(1));
-                doors[0].OpenLeft(); Collect();
+                Request(0, true, DoorMotionCommand.Open); Collect();
                 Assert.That(traction.Context.Input.isReady, Is.True);
                 Assert.That(traction.Context.Input.powerNotch, Is.Zero);
                 Assert.That(traction.Output.targetForceN, Is.Zero);
                 Step(1f); Collect();
                 Assert.That(traction.Context.Input.powerNotch, Is.Zero);
-                doors[0].CloseBoth(); Step(1f); Collect();
+                Request(0, true, DoorMotionCommand.Close); Request(0, false, DoorMotionCommand.Close); Step(1f); Collect();
                 Assert.That(traction.Context.Input.powerNotch, Is.EqualTo(1));
                 doors[1].GetComponent<DoorTimsBusSource>().enabled = false; Collect();
                 Assert.That(traction.Context.Input.powerNotch, Is.Zero);

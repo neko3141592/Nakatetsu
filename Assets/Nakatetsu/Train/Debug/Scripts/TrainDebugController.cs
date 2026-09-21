@@ -5,7 +5,11 @@ using Nakatetsu.Train.Equipment.Safety.Eb;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Tims;
+using Nakatetsu.Train.Equipment.Tims.Bus;
+using Nakatetsu.Train.Equipment.Tims.Communication;
+using Nakatetsu.Train.Equipment.Tims.Door;
 using Nakatetsu.Train.Equipment.Tims.Operation;
+using Nakatetsu.Train.Simulation.Door;
 using Nakatetsu.Train.Simulation.Orchestration;
 using Nakatetsu.Train.Simulation.Physics;
 using UnityEngine;
@@ -21,6 +25,7 @@ namespace Nakatetsu.Train.Debugging
         private TrainPhysicsController physics;
         private TimsBrakeController brake;
         private TimsDirectionController direction;
+        private TimsCommunicationController communication;
         private MasterController frontMaster, rearMaster;
         private CabActivationSwitchController frontSwitch, rearSwitch;
         private EbDevice[] ebDevices = new EbDevice[0];
@@ -45,6 +50,7 @@ namespace Nakatetsu.Train.Debugging
             physics = null;
             brake = null;
             direction = null;
+            communication = null;
             ebDevices = new EbDevice[0];
             if (trainRoot == null) { lastOperation = "TrainRootのある編成ルートに配置してください。"; return; }
 
@@ -52,6 +58,7 @@ namespace Nakatetsu.Train.Debugging
             physics = trainRoot.GetComponentInChildren<TrainPhysicsController>(true);
             brake = trainRoot.GetComponentInChildren<TimsBrakeController>(true);
             direction = trainRoot.GetComponentInChildren<TimsDirectionController>(true);
+            communication = trainRoot.GetComponentInChildren<TimsCommunicationController>(true);
             ebDevices = trainRoot.GetComponentsInChildren<EbDevice>(true);
             int rearIndex = trainRoot.ConsistDefinition != null ? trainRoot.ConsistDefinition.CarCount - 1 : -1;
             foreach (MasterController master in trainRoot.GetComponentsInChildren<MasterController>(true))
@@ -146,6 +153,74 @@ namespace Nakatetsu.Train.Debugging
             return true;
         }
 
+        [ContextMenu("ドア/左側を開く（編成基準）")]
+        public void OpenLeftDoors() => RequestDoors(true, DoorMotionCommand.Open);
+
+        [ContextMenu("ドア/右側を開く（編成基準）")]
+        public void OpenRightDoors() => RequestDoors(false, DoorMotionCommand.Open);
+
+        [ContextMenu("ドア/両側を閉じる")]
+        public void CloseDoors() => RequestDoors(null, DoorMotionCommand.Close);
+
+        private void RequestDoors(bool? leftSide, DoorMotionCommand command)
+        {
+            if (!Application.isPlaying) { lastOperation = "Playモードで操作してください。"; return; }
+            if (communication == null) RefreshReferences();
+            var doors = communication != null ? communication.GetComponent<TimsDoorController>() : null;
+            if (communication == null || !communication.isActiveAndEnabled || doors == null || !doors.isActiveAndEnabled)
+            { lastOperation = "TIMS通信・ドア制御の配置と有効状態を確認してください。"; return; }
+
+            bool accepted;
+            if (leftSide.HasValue) accepted = doors.RequestAll(leftSide.Value, command);
+            else
+            {
+                bool leftAccepted = doors.RequestAll(true, command);
+                bool rightAccepted = doors.RequestAll(false, command);
+                accepted = leftAccepted && rightAccepted;
+            }
+            if (!accepted) { lastOperation = "ドア指令を送信できませんでした。編成定義と各車のTIMS Busを確認してください。"; return; }
+            lastOperation = leftSide.HasValue
+                ? $"全車の{(leftSide.Value ? "左" : "右")}側へ開指令を送信しました（編成基準）。速度・開扉許可により開かない場合があります。"
+                : "全車の両側へ閉指令を送信しました。";
+        }
+
+        private void AppendDoorStatus(StringBuilder text)
+        {
+            var doors = communication != null ? communication.GetComponent<TimsDoorController>() : null;
+            if (communication == null || !communication.isActiveAndEnabled || doors == null || !doors.isActiveAndEnabled)
+            { text.AppendLine("TIMS Door: 未取得または無効"); return; }
+            var bus = communication.MasterBus;
+            bool valid = bus.TryGetBool(TimsDoorController.HasValidStateKey, out bool v) && v;
+            string closed = valid && bus.TryGetBool(TimsDoorController.AllClosedKey, out bool c) ? (c ? "全閉" : "未閉") : "不明";
+            string traction = bus.TryGetBool(TimsDoorController.TractionPermittedKey, out bool p) ? (p ? "許可" : "禁止") : "不明";
+            text.AppendLine($"ドア: {closed} / 力行: {traction}（左右は編成基準）");
+            int count = trainRoot != null && trainRoot.ConsistDefinition != null ? trainRoot.ConsistDefinition.CarCount : 0;
+            for (int i = 0; i < count; i++)
+            {
+                communication.TryGetLocalBus(i, out TimsBusState local);
+                text.AppendLine($"車両{i + 1} ドア: 左 [{GetDoorStates(local, true)}] / 右 [{GetDoorStates(local, false)}]");
+            }
+        }
+
+        private static string GetDoorStates(TimsBusState bus, bool leftSide)
+        {
+            if (bus == null || !bus.TryGetIntArray(leftSide ? DoorTimsBusSource.LeftStatusKey : DoorTimsBusSource.RightStatusKey, out int[] states))
+                return "不明";
+            var labels = new string[states.Length];
+            for (int i = 0; i < states.Length; i++)
+                labels[i] = ((DoorStatus)states[i]) switch
+                {
+                    DoorStatus.Closed => "閉",
+                    DoorStatus.Opening => "開動作中",
+                    DoorStatus.Open => "開",
+                    DoorStatus.Closing => "閉動作中",
+                    DoorStatus.Stopped => "停止",
+                    DoorStatus.Fault => "故障",
+                    _ => "不明"
+                };
+            return string.Join(" / ", labels);
+        }
+
         public string GetStatus()
         {
             var text = new StringBuilder();
@@ -160,6 +235,7 @@ namespace Nakatetsu.Train.Debugging
             text.AppendLine(direction != null ? $"有効運転台: {direction.Output.activatedCabPosition}" : "TIMS Direction: 未取得");
             text.AppendLine(master != null ? $"P{master.PowerPosition} / B{master.BrakePosition} / レバーサー {master.ReverserPosition}" : "マスコン: 未選択");
             text.AppendLine(brake != null ? $"TIMS非常: {brake.Output.isEmergency} / 指令有効: {brake.Output.hasCommands}" : "TIMS Brake: 未取得");
+            AppendDoorStatus(text);
             if (brake != null)
                 for (int i = 0; i < brake.Context.Input.cars.Count; i++)
                 {

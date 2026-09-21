@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: TrainPresentationDebugSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cfbb1f827446a796aef1d2353c8558, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Nakatetsu.Train.Debug::Nakatetsu.Train.Debugging.TrainPresentationDebugSpawner
+  trainRoot: {fileID: 0}
+  generateOnStart: 1
+  cars:
+  - prefab: {fileID: 718862623358748911, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 3997408238962653769, guid: fde4ec77751ef4d8c822bd6af04c3ba6, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 3997408238962653769, guid: fde4ec77751ef4d8c822bd6af04c3ba6, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 1753707822384407793, guid: 4f5eaeefa739b44fd8ef68964931fb6c, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 3997408238962653769, guid: fde4ec77751ef4d8c822bd6af04c3ba6, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 1753707822384407793, guid: 4f5eaeefa739b44fd8ef68964931fb6c, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 1753707822384407793, guid: 4f5eaeefa739b44fd8ef68964931fb6c, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 3997408238962653769, guid: fde4ec77751ef4d8c822bd6af04c3ba6, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 3997408238962653769, guid: fde4ec77751ef4d8c822bd6af04c3ba6, type: 3}
+    rotationEuler: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 718862623358748911, guid: 1c54949148e614859b7156894890f3fe, type: 3}
+    rotationEuler: {x: 0, y: 180, z: 0}
+  originPositionM: {x: 0, y: 0, z: 0}
+  carsPerRow: 5
+  spacingM: {x: 6, y: 25}
+  generatedRoot: {fileID: 0}
