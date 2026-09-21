@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Nakatetsu.Track.GuideLine
+namespace Nakatetsu.Track.TrainGeometry
 {
-    public readonly struct GuideLineSample
+    public readonly struct TrainGeometrySample
     {
         public float DistanceM { get; }
         public Vector3 Position { get; }
@@ -10,7 +10,7 @@ namespace Nakatetsu.Track.GuideLine
         public Quaternion Rotation { get; }
         public float GradientPermille { get; }
 
-        public GuideLineSample(float distanceM, Vector3 position, Vector3 tangent,
+        public TrainGeometrySample(float distanceM, Vector3 position, Vector3 tangent,
             Quaternion rotation, float gradientPermille)
         {
             DistanceM = distanceM;

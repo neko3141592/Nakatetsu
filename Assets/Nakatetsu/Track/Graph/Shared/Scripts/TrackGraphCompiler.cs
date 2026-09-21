@@ -39,9 +39,9 @@ namespace Nakatetsu.Track.Graph
                     else if (!edgeIds.Add(edge.edgeId)) errors.Add($"Duplicate edgeId '{edge.edgeId}'.");
                     if (!nodeIds.Contains(edge.nodeAId)) errors.Add($"Edge '{edge.edgeId}' references missing nodeA '{edge.nodeAId}'.");
                     if (!nodeIds.Contains(edge.nodeBId)) errors.Add($"Edge '{edge.edgeId}' references missing nodeB '{edge.nodeBId}'.");
-                    if (string.IsNullOrWhiteSpace(edge.guideLineId)) errors.Add($"Edge '{edge.edgeId}' has an empty guideLineId.");
-                    if (edge.startDistanceOnGuideLineM < 0f || edge.endDistanceOnGuideLineM < 0f || edge.LengthM <= 0f)
-                        errors.Add($"Edge '{edge.edgeId}' has an invalid GuideLine distance range.");
+                    if (string.IsNullOrWhiteSpace(edge.trainGeometryId)) errors.Add($"Edge '{edge.edgeId}' has an empty trainGeometryId.");
+                    if (edge.startDistanceOnTrainGeometryM < 0f || edge.endDistanceOnTrainGeometryM < 0f || edge.LengthM <= 0f)
+                        errors.Add($"Edge '{edge.edgeId}' has an invalid TrainGeometry distance range.");
                 }
             }
 

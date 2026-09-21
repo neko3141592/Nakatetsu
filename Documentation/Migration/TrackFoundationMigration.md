@@ -1,13 +1,13 @@
 # 線路基盤の移植計画
 
 作成日：2026-09-07。対象は旧 `TD-ATC` の線路基盤と、それを利用する車両位置計算。
-この文書は全体の実装計画。走行基準GuideLineの先行移植を実施した。実装済みの型・検証・使い方は [GuideLine移植記録](GuideLineMigration.md) を参照。以下の全段階が実装済みという意味ではない。
+この文書は全体の実装計画。走行基準TrainGeometryの先行移植を実施した。実装済みの型・検証・使い方は [TrainGeometry移植記録](TrainGeometryMigration.md) を参照。以下の全段階が実装済みという意味ではない。
 
-**採用方針：ユーザーの決定により、オフセット方式を基本にする。** まず走行基準GuideLineを移し、次にオフセット評価、グラフ接続を移す。独立線形の検討は調査案として残すが、実装の前提にはしない。分岐付帯曲線の描きやすさは作成補助で改善する。
+**採用方針：ユーザーの決定により、オフセット方式を基本にする。** まず走行基準TrainGeometryを移し、次にオフセット評価、グラフ接続を移す。独立線形の検討は調査案として残すが、実装の前提にはしない。分岐付帯曲線の描きやすさは作成補助で改善する。
 
 参考調査：[BVE/OpenBVEの線形入力](TrackAuthoringResearch.md)、[線路グラフを持つシミュレーター](TrackGraphSimulatorResearch.md)。独立線形に関する提案より、上記の採用方針を優先する。
 
-**GuideLineの責務変更：カントとその計算用軌間を廃止した。** 基準線は平面線形・高さ・勾配のみを評価する。下記の旧実装のカント記述は調査記録であり、新GuideLineの仕様ではない。将来の実線路側でのカントは別機能として検討し、旧基準線への非ゼロカント適用との一致は要求しない。
+**TrainGeometryの責務変更：カントとその計算用軌間を廃止した。** 基準線は平面線形・高さ・勾配のみを評価する。下記の旧実装のカント記述は調査記録であり、新TrainGeometryの仕様ではない。将来の実線路側でのカントは別機能として検討し、旧基準線への非ゼロカント適用との一致は要求しない。
 
 ## 1. 最初に何を作るか
 
@@ -32,7 +32,7 @@
 | 新プロジェクト | `/Users/yudai/Documents/Unity/Nakatetsu` |
 | 旧HEAD | `0913d6eeb74f4743664b3603de2564110fe86b07` |
 | 新側の調査時ブランチ | `migration/Tims`。線路用ブランチへの切り替えはこの作業では行っていない |
-| 新側のTrack | `Assets/Nakatetsu/Track/Geometry/Scripts/Nakatetsu.Track.asmdef` とGuideLine実装がある |
+| 新側のTrack | `Assets/Nakatetsu/Track/Graph/Geometry/Scripts/Nakatetsu.Track.asmdef` とTrainGeometry実装がある |
 | 新側の車両定義 | `CarDefinitionAsset` と `ConsistDefinitionAsset` がある |
 | TIMS | Logic・Contextと、編成両数からLocalBusを作る通信Controllerがある |
 
