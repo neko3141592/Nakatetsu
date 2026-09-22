@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
+using Nakatetsu.Track.Graph.Edge;
+using Nakatetsu.Track.Graph.Geometry;
+using Nakatetsu.Track.Graph.Node;
 
 namespace Nakatetsu.Track.Graph
 {
@@ -8,30 +10,8 @@ namespace Nakatetsu.Track.Graph
     public sealed class TrackGraphDefinition
     {
         public string graphId;
+        public List<TrackGeometryDefinition> geometries = new();
         public List<TrackNodeDefinition> nodes = new();
         public List<TrackEdgeDefinition> edges = new();
-    }
-
-    [Serializable]
-    public sealed class TrackNodeDefinition
-    {
-        public string nodeId;
-        public List<string> connectedEdgeIds = new();
-    }
-
-    [Serializable]
-    public sealed class TrackEdgeDefinition
-    {
-        public string edgeId;
-        public string nodeAId;
-        public string nodeBId;
-        [FormerlySerializedAs("guideLineId")]
-        public string trainGeometryId;
-        [FormerlySerializedAs("startDistanceOnGuideLineM")]
-        public float startDistanceOnTrainGeometryM;
-        [FormerlySerializedAs("endDistanceOnGuideLineM")]
-        public float endDistanceOnTrainGeometryM;
-
-        public float LengthM => Math.Abs(endDistanceOnTrainGeometryM - startDistanceOnTrainGeometryM);
     }
 }

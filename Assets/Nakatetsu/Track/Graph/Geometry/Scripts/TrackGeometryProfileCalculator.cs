@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nakatetsu.Track.TrainGeometry
+namespace Nakatetsu.Track.Graph.Geometry
 {
-    public static class TrainGeometryProfileCalculator
+    public static class TrackGeometryProfileCalculator
     {
         private const float MinSegmentLengthM = 0.001f;
         private const float PermilleScale = 1000f;
@@ -41,7 +41,7 @@ namespace Nakatetsu.Track.TrainGeometry
             return Mathf.Lerp(startGradientPermille, endGradientPermille, t);
         }
 
-        public static float GetVerticalHeightAt(List<TrainGeometryVerticalSegment> segments, float distanceOnEdgeM)
+        public static float GetVerticalHeightAt(List<TrackGeometryVerticalSegment> segments, float distanceOnEdgeM)
         {
             if (segments == null || segments.Count == 0)
             {
@@ -55,7 +55,7 @@ namespace Nakatetsu.Track.TrainGeometry
 
             for (int i = 0; i < segments.Count; i++)
             {
-                TrainGeometryVerticalSegment segment = segments[i];
+                TrackGeometryVerticalSegment segment = segments[i];
                 if (segment == null || segment.lengthM <= MinSegmentLengthM)
                 {
                     continue;
@@ -96,17 +96,17 @@ namespace Nakatetsu.Track.TrainGeometry
             return heightM;
         }
 
-        public static float GetGradientPermilleAt(List<TrainGeometryVerticalSegment> segments, float distanceOnEdgeM)
+        public static float GetGradientPermilleAt(List<TrackGeometryVerticalSegment> segments, float distanceOnEdgeM)
         {
             if (segments == null || segments.Count == 0)
             {
                 return 0f;
             }
 
-            TrainGeometryVerticalSegment lastPassedSegment = null;
+            TrackGeometryVerticalSegment lastPassedSegment = null;
             for (int i = 0; i < segments.Count; i++)
             {
-                TrainGeometryVerticalSegment segment = segments[i];
+                TrackGeometryVerticalSegment segment = segments[i];
                 if (segment == null || segment.lengthM <= MinSegmentLengthM)
                 {
                     continue;

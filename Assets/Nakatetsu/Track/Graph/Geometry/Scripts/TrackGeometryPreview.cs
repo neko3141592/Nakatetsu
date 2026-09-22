@@ -2,14 +2,15 @@ using UnityEngine.Serialization;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-namespace Nakatetsu.Track.TrainGeometry
+namespace Nakatetsu.Track.Graph.Geometry
 {
     /// <summary>Scene-view preview. Coordinates come from the asset, not this Transform.</summary>
-    [MovedFrom(true, sourceNamespace: "Nakatetsu.Track.GuideLine", sourceAssembly: "Nakatetsu.Track", sourceClassName: "GuideLinePreview")]
-    public sealed class TrainGeometryPreview : MonoBehaviour
+    [MovedFrom(true, sourceNamespace: "Nakatetsu.Track.Graph.Geometry", sourceAssembly: "Nakatetsu.Track", sourceClassName: "TrainGeometryPreview")]
+    public sealed class TrackGeometryPreview : MonoBehaviour
     {
         [FormerlySerializedAs("guideLine")]
-        [SerializeField] private TrainGeometryAsset trainGeometry;
+        [FormerlySerializedAs("trainGeometry")]
+        [SerializeField] private TrackGeometryAsset trackGeometry;
         [SerializeField, Min(0.1f)] private float sampleIntervalM = 5f;
         [SerializeField] private Color lineColor = Color.cyan;
         [SerializeField, Min(0f)] private float probeDistanceM;
@@ -17,8 +18,8 @@ namespace Nakatetsu.Track.TrainGeometry
 
         private void OnDrawGizmos()
         {
-            if (trainGeometry == null || !trainGeometry.TryEvaluate(0f, out TrainGeometrySample previous)) return;
-            float length = trainGeometry.Definition.lengthM;
+            if (trackGeometry == null || !trackGeometry.TryEvaluate(0f, out TrackGeometrySample previous)) return;
+            float length = trackGeometry.Definition.lengthM;
             float interval = float.IsNaN(sampleIntervalM) || float.IsInfinity(sampleIntervalM)
                 ? 5f : Mathf.Max(0.1f, sampleIntervalM);
             int count = Mathf.CeilToInt(Mathf.Min(MaximumSegments, length / interval));
@@ -27,12 +28,12 @@ namespace Nakatetsu.Track.TrainGeometry
             Gizmos.color = lineColor;
             for (int i = 1; i <= count; i++)
             {
-                if (!trainGeometry.TryEvaluate(length * ((float)i / count), out TrainGeometrySample current)) break;
+                if (!trackGeometry.TryEvaluate(length * ((float)i / count), out TrackGeometrySample current)) break;
                 Gizmos.DrawLine(previous.Position, current.Position);
                 previous = current;
             }
 
-            if (trainGeometry.TryEvaluate(probeDistanceM, out TrainGeometrySample probe))
+            if (trackGeometry.TryEvaluate(probeDistanceM, out TrackGeometrySample probe))
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(probe.Position, probe.Position + probe.Rotation * Vector3.up * 2f);

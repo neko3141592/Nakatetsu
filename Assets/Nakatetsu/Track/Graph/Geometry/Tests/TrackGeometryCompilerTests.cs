@@ -1,27 +1,27 @@
 using NUnit.Framework;
 using UnityEngine;
-using Nakatetsu.Track.TrainGeometry;
+using Nakatetsu.Track.Graph.Geometry;
 
-namespace Nakatetsu.Track.Tests
+namespace Nakatetsu.Track.Graph.Geometry.Tests
 {
-    public sealed class TrainGeometryCompilerTests
+    public sealed class TrackGeometryCompilerTests
     {
         [Test]
         public void RebuildStoresCurveEndpointAndHeightAcrossGradientGap()
         {
-            var definition = new TrainGeometryDefinition { originPosition = new Vector3(10, 5, 20) };
+            var definition = new TrackGeometryDefinition { originPosition = new Vector3(10, 5, 20) };
             float arcLength = Mathf.PI * 50f;
-            definition.horizontalSegments.Add(new TrainGeometryHorizontalSegment
-            { lengthM = arcLength, trackCurveType = TrainGeometryCurveType.Curve, radiusM = 100 });
-            definition.horizontalSegments.Add(new TrainGeometryHorizontalSegment
+            definition.horizontalSegments.Add(new TrackGeometryHorizontalSegment
+            { lengthM = arcLength, trackCurveType = TrackGeometryCurveType.Curve, radiusM = 100 });
+            definition.horizontalSegments.Add(new TrackGeometryHorizontalSegment
             { startDistanceM = arcLength, lengthM = 20 });
-            definition.verticalSegments.Add(new TrainGeometryVerticalSegment
+            definition.verticalSegments.Add(new TrackGeometryVerticalSegment
             { lengthM = 50, startGradientPermille = 0, endGradientPermille = 20 });
-            definition.verticalSegments.Add(new TrainGeometryVerticalSegment
+            definition.verticalSegments.Add(new TrackGeometryVerticalSegment
             { startDistanceM = 75, lengthM = 25, startGradientPermille = 20, endGradientPermille = 0 });
 
-            var context = new TrainGeometryContext();
-            TrainGeometryCompiler.Rebuild(definition, context);
+            var context = new TrackGeometryContext();
+            TrackGeometryCompiler.Rebuild(definition, context);
             var start = context.Workspace.horizontalStarts[1];
             Assert.That(start.segmentIndex, Is.EqualTo(1));
             Assert.That(start.startDistanceM, Is.EqualTo(arcLength));
@@ -34,15 +34,15 @@ namespace Nakatetsu.Track.Tests
         [Test]
         public void RebuildReplacesPreviousCacheAndNullClearsIt()
         {
-            var definition = new TrainGeometryDefinition();
-            definition.horizontalSegments.Add(new TrainGeometryHorizontalSegment());
-            var context = new TrainGeometryContext();
-            TrainGeometryCompiler.Rebuild(definition, context);
+            var definition = new TrackGeometryDefinition();
+            definition.horizontalSegments.Add(new TrackGeometryHorizontalSegment());
+            var context = new TrackGeometryContext();
+            TrackGeometryCompiler.Rebuild(definition, context);
             definition.originPosition = Vector3.right;
-            TrainGeometryCompiler.Rebuild(definition, context);
+            TrackGeometryCompiler.Rebuild(definition, context);
             Assert.That(context.Workspace.horizontalStarts.Count, Is.EqualTo(1));
             Assert.That(context.Workspace.horizontalStarts[0].position, Is.EqualTo(Vector3.right));
-            TrainGeometryCompiler.Rebuild(null, context);
+            TrackGeometryCompiler.Rebuild(null, context);
             Assert.That(context.Workspace.horizontalStarts, Is.Empty);
             Assert.That(context.Workspace.verticalStarts, Is.Empty);
         }

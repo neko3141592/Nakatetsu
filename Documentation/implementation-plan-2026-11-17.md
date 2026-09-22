@@ -49,9 +49,9 @@ CTCの時刻到達だけで信号を開通させない。**ダイヤは進路を
 | 車両物理 | `TrainPhysicsLogic` が力・質量から加速度と符号付き速度を計算。`TrainSimulationController` が機器・物理を進める | 距離積分→線路上移動→各車姿勢への接続が必要。勾配等の入力も走行側から接続 |
 | TIMS | Local/Master Bus、力行・制動・ドア連携、速度計等の表示。ATCブレーキを扱う入力フィールドがある | ATC装置そのものや地上系は確認できない。ATC入力の収集・欠損時処理・表示との実接続が必要 |
 | 車体・運転台 | Series1000のFBX・車体Prefab・モニター資産がある | `TrainPresentationBuilder.Awake()` はグラフ待ちのTODO。走行編成・カメラ・運転UIへの組込みが必要 |
-| 基準線形 | `TrainGeometry` の直線・円曲線・緩和曲線・勾配評価、Compiler、Preview、テスト | 実線路のオフセット評価・距離表・移動処理は別途必要 |
-| グラフ | Node/EdgeのDefinition、Asset、Compiler、ID検索Contextがある | 現在のEdge長は基準線距離の差。オフセット線路の実長、分岐選択、通過履歴、編成占有は未接続 |
-| 路線・駅 | Track配下で確認できた線形Assetは `TrainGeometryStraight100m.asset`。NT01/NT02の駅フォルダに実アセットなし | 10.6km・11駅の配線・駅データと表示を制作する必要がある |
+| 基準線形 | `TrackGeometry` の直線・円曲線・緩和曲線・勾配評価、Compiler、Preview、テスト | 実線路のオフセット評価・距離表・移動処理は別途必要 |
+| グラフ | Geometry・Edge・Node定義の集約、参照検証、ID検索Context、Edge Asset、一定オフセットとLUT保存用データがある | LUT生成・実長評価・走行評価・分岐選択・通過履歴・編成占有は未接続 |
+| 路線・駅 | Track配下で確認できた線形Assetは `TrackGeometryStraight100m.asset`。NT01/NT02の駅フォルダに実アセットなし | 10.6km・11駅の配線・駅データと表示を制作する必要がある |
 | 地上小物・街 | 出発時機表示機のPrefab・表示スクリプト、標識等のBlender制作元がある。Worldにはasmdefのみ | 全線のレール・ホーム・街並み配置、制作元の書出し、Prefab化が必要。制作元の存在を完成小物数に数えない |
 | 運行・保安 | 地上CTC・連動・閉塞・車上ATCの実装は対象C#内で確認できない | 一連の仕組みを新規実装または範囲を絞って移植 |
 | ダイヤ・シナリオ | Applicationにはasmdefのみ。ダイヤ・シナリオ・運行snapshotの実装は確認できない | 時計、NPC運行、データ定義、保存復元、ゲーム進行が必要 |
@@ -70,8 +70,8 @@ CTCの時刻到達だけで信号を開通させない。**ダイヤは進路を
 文書の設計案より、今回のHEADのコードを現在地の根拠として優先した。
 
 - [TrainSimulationController](../Assets/Nakatetsu/Train/Simulation/Orchestration/Scripts/TrainSimulationController.cs)、[Physics](../Assets/Nakatetsu/Train/Simulation/Physics/TrainPhysicsLogic.cs)、[Simulation Interface](../Assets/Nakatetsu/Train/Simulation/Orchestration/Interfaces/ISimulationController.cs)
-- [TrainGeometryCalculator](../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrainGeometryCalculator.cs)、[TrackGraphDefinition](../Assets/Nakatetsu/Track/Graph/Shared/Scripts/TrackGraphDefinition.cs)、[TrackGraphCompiler](../Assets/Nakatetsu/Track/Graph/Shared/Scripts/TrackGraphCompiler.cs)
-- [100m線形](../Assets/Nakatetsu/Track/Graph/Geometry/Data/TrainGeometryStraight100m.asset)、[編成定義](../Assets/Nakatetsu/Train/Consist/Definitions/Data/Consist.asset)、[車体生成のTODO](../Assets/Nakatetsu/Train/Presentation/Shared/TrainPresentationBuilder.cs)
+- [TrackGeometryCalculator](../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryCalculator.cs)、[TrackGraphDefinition](../Assets/Nakatetsu/Track/Graph/Shared/Scripts/TrackGraphDefinition.cs)、[TrackGraphCompiler](../Assets/Nakatetsu/Track/Graph/Shared/Scripts/TrackGraphCompiler.cs)
+- [100m線形](../Assets/Nakatetsu/Track/Graph/Geometry/Data/TrackGeometryStraight100m.asset)、[編成定義](../Assets/Nakatetsu/Train/Consist/Definitions/Data/Consist.asset)、[車体生成のTODO](../Assets/Nakatetsu/Train/Presentation/Shared/TrainPresentationBuilder.cs)
 - [TIMS制御](../Assets/Nakatetsu/Train/Equipment/Tims/Composition/Scripts/TimsControlController.cs)、[ノッチ調停](../Assets/Nakatetsu/Train/Equipment/Tims/Notch/Scripts/TimsNotchLogic.cs)、[Bus snapshot](../Assets/Nakatetsu/Train/Equipment/Tims/Bus/Scripts/TimsBusState.cs)
 - [NtLineシーン](../Assets/Scenes/NtLine.unity)、[Build Settings](../ProjectSettings/EditorBuildSettings.asset)、[Unityバージョン](../ProjectSettings/ProjectVersion.txt)
 - [実装ルール](./Architecture/ImplementationRules.md)、[運転デバッグの範囲](./Train/DebugControls.md)、[ATO/TASC方針](./Train/AutomaticOperation/AtoTascImplementation.md)
@@ -126,6 +126,10 @@ CTCの時刻到達だけで信号を開通させない。**ダイヤは進路を
 **W1-01は2026-09-22完了。** [検証結果・確定条件・後続への引継ぎ](Validation/W1-01-baseline-2026-09-21.md)を参照。W1-03以降とW1全体の合格判定は未完了。
 
 **W1-02は2026-09-22完了。** 世界時計、固定tick、自動更新、停止・再開、再生倍率、手動tick、デバッグUIを実装。[世界時計と固定tickの設計](Architecture/WorldTick.md)と[確認結果・snapshot対象State・引継ぎ](Validation/W1-02-world-tick-2026-09-22.md)を参照。次はW1-03の線路上移動へ進む。
+
+**W1-03の位置・方向・移動結果の基本契約は2026-09-22確定。** [線路上移動の契約](Architecture/TrackMovement.md)を参照。基準点は編成定義の先頭車中心、移動距離の正方向は固定された編成前方向とする。終端制限は基準点だけで判定し、車体のはみ出しによる移動制限は今回含めない。W1-03の実装・検証完了を意味しない。
+
+同日の中間実装は[Track定義・一定オフセットの検証記録](Validation/W1-03-track-foundation-2026-09-22.md)を参照。定義整理と保存・検索の基盤までを対象とし、走行処理は後続作業。
 
 | ID | 順序・時間 | 作業と成果物 |
 | --- | --- | --- |
