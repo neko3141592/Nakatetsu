@@ -1,15 +1,25 @@
 # 線路基盤の移植計画
 
 作成日：2026-09-07。対象は旧 `TD-ATC` の線路基盤と、それを利用する車両位置計算。
-この文書は全体の実装計画。走行基準TrainGeometryの先行移植を実施した。実装済みの型・検証・使い方は [TrainGeometry移植記録](TrainGeometryMigration.md) を参照。以下の全段階が実装済みという意味ではない。
+この文書は全体の実装計画。走行基準TrackGeometryの先行移植を実施した。実装済みの型・検証・使い方は [TrackGeometry移植記録](TrackGeometryMigration.md) を参照。以下の全段階が実装済みという意味ではない。
 
-**採用方針：ユーザーの決定により、オフセット方式を基本にする。** まず走行基準TrainGeometryを移し、次にオフセット評価、グラフ接続を移す。独立線形の検討は調査案として残すが、実装の前提にはしない。分岐付帯曲線の描きやすさは作成補助で改善する。
+**採用方針：ユーザーの決定により、オフセット方式を基本にする。** まず走行基準TrackGeometryを移し、次にオフセット評価、グラフ接続を移す。独立線形の検討は調査案として残すが、実装の前提にはしない。分岐付帯曲線の描きやすさは作成補助で改善する。
 
 参考調査：[BVE/OpenBVEの線形入力](TrackAuthoringResearch.md)、[線路グラフを持つシミュレーター](TrackGraphSimulatorResearch.md)。独立線形に関する提案より、上記の採用方針を優先する。
 
-**TrainGeometryの責務変更：カントとその計算用軌間を廃止した。** 基準線は平面線形・高さ・勾配のみを評価する。下記の旧実装のカント記述は調査記録であり、新TrainGeometryの仕様ではない。将来の実線路側でのカントは別機能として検討し、旧基準線への非ゼロカント適用との一致は要求しない。
+**TrackGeometryの責務変更：カントとその計算用軌間を廃止した。** 基準線は平面線形・高さ・勾配のみを評価する。下記の旧実装のカント記述は調査記録であり、新TrackGeometryの仕様ではない。将来の実線路側でのカントは別機能として検討し、旧基準線への非ゼロカント適用との一致は要求しない。
+
+**W1-03の基本契約（2026-09-22確定）：** [線路上の位置・方向・移動結果の契約](../Architecture/TrackMovement.md)を参照。基準点は編成定義の先頭車中心とし、後退・運転台切替でも固定する。今回の終端制限は基準点だけで判定し、車体のはみ出しを許容する。以下の旧実装調査や段階案と異なる場合は、この契約をW1-03の前提とする。
 
 ## 1. 最初に何を作るか
+
+### 現在のグラフ定義（2026-09-22）
+
+`Graph/Shared`の`TrackGraphDefinition`は、`geometries`・`edges`・`nodes`の定義リストをまとめる。Edge定義は`Graph/Edge/Scripts/TrackEdgeDefinition.cs`を唯一の正とし、Node定義は`Graph/Node/Scripts/TrackNodeDefinition.cs`、Geometry定義は`Graph/Geometry/Scripts/TrackGeometryDefinition.cs`に置く。各リストは通常のC#定義データであり、個別のScriptableObjectへの参照リストではない。
+
+`TrackGraphCompiler`はIDの重複、Node接続、Edgeの`geometryId`が登録済みGeometryを指すこと、基準線距離の範囲を確認する。`TrackGraphContext`からNode・Edge・GeometryをID検索できる。旧EdgeのGeometry ID・開始終了距離の保存名は、新Edge定義の`FormerlySerializedAs`で引き継ぐ。旧Graphに含まれていなかったGeometryは明示的な追加が必要であり、欠落を自動補完しない。LUT生成・オフセットの完全な検証・走行可能性の保証は、今回の定義整理には含めない。
+
+### 最初の到達点
 
 **旧プロジェクトの線形計算を活かして「直線1本に車両1両を置き、距離を変えると動く」状態を最初の到達点にする。**
 
@@ -32,7 +42,7 @@
 | 新プロジェクト | `/Users/yudai/Documents/Unity/Nakatetsu` |
 | 旧HEAD | `0913d6eeb74f4743664b3603de2564110fe86b07` |
 | 新側の調査時ブランチ | `migration/Tims`。線路用ブランチへの切り替えはこの作業では行っていない |
-| 新側のTrack | `Assets/Nakatetsu/Track/Graph/Geometry/Scripts/Nakatetsu.Track.asmdef` とTrainGeometry実装がある |
+| 新側のTrack | `Assets/Nakatetsu/Track/Graph/Geometry/Scripts/Nakatetsu.Track.asmdef` とTrackGeometry実装がある |
 | 新側の車両定義 | `CarDefinitionAsset` と `ConsistDefinitionAsset` がある |
 | TIMS | Logic・Contextと、編成両数からLocalBusを作る通信Controllerがある |
 
@@ -265,7 +275,7 @@ TrackSandbox
 
 完了条件：停止・前進・後退できる。フレームレートを変えても同じ総移動距離になる。終端で無限に距離を増やさず結果を返す。無効なOutputで原点へワープさせない。
 
-終端処理は、当初は基準点の終端Clampでよい。その場合、車体前端が線路外に出る制約が残ることをSandboxに明示する。編成全体を収める処理はCで追加する。
+終端処理は基準点の終端Clampとする。2026-09-22のW1-03の合意により、車体のはみ出しを許容し、編成全体を線路内に収める移動制限は今回実装しない。C相当の複数Edge・複数車両対応でも、この制限を完了条件に含めない。
 
 ### C：複数Edgeと複数車両
 

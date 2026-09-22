@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Nakatetsu.Track.TrainGeometry
+namespace Nakatetsu.Track.Graph.Geometry
 {
-    public readonly struct TrainGeometrySample
+    public readonly struct TrackGeometrySample
     {
         public float DistanceM { get; }
         public Vector3 Position { get; }
@@ -10,7 +10,7 @@ namespace Nakatetsu.Track.TrainGeometry
         public Quaternion Rotation { get; }
         public float GradientPermille { get; }
 
-        public TrainGeometrySample(float distanceM, Vector3 position, Vector3 tangent,
+        public TrackGeometrySample(float distanceM, Vector3 position, Vector3 tangent,
             Quaternion rotation, float gradientPermille)
         {
             DistanceM = distanceM;

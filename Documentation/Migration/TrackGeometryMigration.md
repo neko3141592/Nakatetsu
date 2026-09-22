@@ -1,14 +1,16 @@
-# 走行基準TrainGeometryの移植
+# 走行基準TrackGeometryの移植
 
-命名更新（2026-09-21）：走行基準の旧 `GuideLine` 型・ファイル名・名前空間を `TrainGeometry` に統一した。Unityの `.meta` GUIDは維持し、旧フィールド名は `FormerlySerializedAs`、保存される型は `MovedFrom` で移行する。
+命名履歴：2026-09-21に旧 `GuideLine` を `TrainGeometry` へ改名し、2026-09-22に型・ファイル・フィールド名を `TrackGeometry` に統一した。名前空間は `Nakatetsu.Track.Graph.Geometry`。Unityの `.meta` GUIDは維持し、旧 `guideLine`／`trainGeometry` フィールド名は `FormerlySerializedAs`、直前の型名は `MovedFrom` で移行する。
 
 改名後はUnity 6000.4.0f1の隔離プロジェクトでEditModeテスト20件が成功した。既存の線形評価に加え、旧フィールド名のUnityアセット・Prefabを読み込み、IDとPreviewのアセット参照が保持されることを確認した。
+
+2026-09-22の`TrackGeometry`への改名後も、Unity 6000.4.0f1の隔離プロジェクトでEditModeテスト22件が成功した。旧`guideLine`系に加え、`trainGeometryId`と`trainGeometry`の保存データからの読込みを確認した。検証結果は`/tmp/nakatetsu-geometry-rename.scimgz/results.xml`。本プロジェクト全体のScene・PlayMode検証は含まない。
 
 実装日：2026-09-07。ブランチ：`feature/track-guideline`。
 
 ## 対象
 
-旧 `TrackGeometry` を、新側の `Nakatetsu.Track.TrainGeometry` として移植した。
+旧 `TrackGeometry` を移植した。現在の名前空間は、配置先に合わせた `Nakatetsu.Track.Graph.Geometry`（2026-09-22更新）。Assembly名・`.meta` GUIDは変更していない。
 景観用の `SceneryGuideLineRule` とは別の機能。旧プロジェクトは変更していない。
 
 今回は基準線だけを扱う。オフセットEdge、距離変換表、Node接続、分岐、JSON読込、車両走行、レールメッシュ生成はまだ追加していない。
@@ -16,9 +18,9 @@
 
 ## カント廃止
 
-TrainGeometryから `cantSegments`、`TrackCantSegment`、`CantMm`、カント補間・ロール適用を削除した。カント角計算にのみ使用していた `gaugeM` も削除した。基準線は平面線形と高さ・勾配を担当する。実線路側のカント機能は今回追加していない。
+TrackGeometryから `cantSegments`、`TrackCantSegment`、`CantMm`、カント補間・ロール適用を削除した。カント角計算にのみ使用していた `gaugeM` も削除した。基準線は平面線形と高さ・勾配を担当する。実線路側のカント機能は今回追加していない。
 
-旧カントが非ゼロの姿勢とは意図的に異なる。既存の独自TrainGeometryアセットに保存したカント・軌間値は使われなくなる。付属サンプルからも該当フィールドを除去済み。
+旧カントが非ゼロの姿勢とは意図的に異なる。既存の独自TrackGeometryアセットに保存したカント・軌間値は使われなくなる。付属サンプルからも該当フィールドを除去済み。
 
 ## ファイルと役割
 
@@ -26,23 +28,25 @@ TrainGeometryから `cantSegments`、`TrackCantSegment`、`CantMm`、カント�
 
 | ファイル | 内容 |
 | --- | --- |
-| `TrainGeometryDefinition.cs` | ID、名称、長さ、原点・方向、水平・勾配区間 |
-| `TrainGeometryCurveDefinitions.cs` | 旧区間型と曲線種別。Straight/Curve/TransitionIn/TransitionOut |
-| `TrainGeometryCalculator.cs` | 距離から位置・接線・姿勢を評価する静的処理 |
-| `TrainGeometryProfileCalculator.cs` | 旧勾配積分・勾配取得 |
-| `TrainGeometrySample.cs` | 評価結果。距離、位置、接線、姿勢、勾配 |
-| `TrainGeometryAsset.cs` | 定義をInspectorで編集・保存するScriptableObject |
-| `TrainGeometryPreview.cs` | Sceneビューで基準線と指定地点の向きを描く確認用コンポーネント |
+| `TrackGeometryDefinition.cs` | ID、名称、長さ、原点・方向、水平・勾配区間 |
+| `TrackGeometryCurveDefinitions.cs` | 旧区間型と曲線種別。Straight/Curve/TransitionIn/TransitionOut |
+| `TrackGeometryCalculator.cs` | 距離から位置・接線・姿勢を評価する静的処理 |
+| `TrackGeometryProfileCalculator.cs` | 旧勾配積分・勾配取得 |
+| `TrackGeometrySample.cs` | 評価結果。距離、位置、接線、姿勢、勾配 |
+| `TrackGeometryAsset.cs` | 定義をInspectorで編集・保存するScriptableObject |
+| `TrackGeometryPreview.cs` | Sceneビューで基準線と指定地点の向きを描く確認用コンポーネント |
 
 Definitionが固定入力、Sampleが出力で、Calculatorは状態を持たない。PreviewがUnityの描画接続を担当し、計算側からシーンやControllerを参照しない。
 
+`TrackGeometryAsset`はUnityで保存・共有・Inspector編集するためのScriptableObjectで、`TrackGeometryDefinition`を保持する。Definitionは線形のID・寸法・区間などを持つ通常のC#クラスで、Calculatorへ直接渡せる。これにより計算やテストでScriptableObjectの生成が不要になる。DefinitionにはUnityの値型を使っており、Unity非依存や不変性を保証するものではない。AssetのDefinitionを計算中に変更しない。
+
 ## segment開始情報の保存（2026-09-08）
 
-`TrainGeometryContext.Workspace`へ、水平segmentの開始・終了距離、開始位置・水平姿勢と、勾配segmentの開始・終了距離、開始高さを保持できるようにした。各項目は元のsegmentIndexを保持する。高さは原点からの相対値、水平位置のYは原点のYで、勾配は別に扱う。
+`TrackGeometryContext.Workspace`へ、水平segmentの開始・終了距離、開始位置・水平姿勢と、勾配segmentの開始・終了距離、開始高さを保持できるようにした。各項目は元のsegmentIndexを保持する。高さは原点からの相対値、水平位置のYは原点のYで、勾配は別に扱う。
 
 ```csharp
-var context = new TrainGeometryContext();
-TrainGeometryCompiler.Rebuild(trainGeometry.Definition, context);
+var context = new TrackGeometryContext();
+TrackGeometryCompiler.Rebuild(trackGeometry.Definition, context);
 ```
 
 読み込み時・定義編集後に明示的に呼ぶ。Rebuildは前回の内容を消して各区間を順に計算し直す。null定義ならキャッシュを空にする。入力には従来どおり距離順の有効な区間を使う。
@@ -52,24 +56,24 @@ TrainGeometryCompiler.Rebuild(trainGeometry.Definition, context);
 ## 使用例
 
 ```csharp
-using Nakatetsu.Track.TrainGeometry;
+using Nakatetsu.Track.Graph.Geometry;
 
-// trainGeometryはTrainGeometryAssetへの参照。
-if (trainGeometry.TryEvaluate(25f, out TrainGeometrySample sample))
+// trackGeometryはTrackGeometryAssetへの参照。
+if (trackGeometry.TryEvaluate(25f, out TrackGeometrySample sample))
 {
     // sample.Position / Rotation / Tangent
     // sample.GradientPermille
 }
 ```
 
-Assetを使わない場合は `TrainGeometryCalculator.TryEvaluate(definition, distanceM, out sample)` を呼ぶ。
+Assetを使わない場合は `TrackGeometryCalculator.TryEvaluate(definition, distanceM, out sample)` を呼ぶ。
 定義は参照型なので、実行時にAssetのDefinitionを書き換えない。評価処理自体は変更を行わない。
 
 ## Unityで確認する手順
 
-1. `Assets/Nakatetsu/Track/Graph/Geometry/Data/TrainGeometryStraight100m.asset` を選ぶ。原点からZ方向へ100mの直線を用意済み。
-2. 確認用の空GameObjectを作り、`TrainGeometryPreview` を追加する。
-3. `Train Geometry`へこのアセットを割り当てる。
+1. `Assets/Nakatetsu/Track/Graph/Geometry/Data/TrackGeometryStraight100m.asset` を選ぶ。原点からZ方向へ100mの直線を用意済み。
+2. 確認用の空GameObjectを作り、`TrackGeometryPreview` を追加する。
+3. `Track Geometry`へこのアセットを割り当てる。
 4. SceneビューのGizmosを有効にする。再生しなくても確認できる。
 5. `Probe Distance M`で確認地点を指定する。赤は右、緑は上、青は前方向。
 
@@ -77,7 +81,7 @@ PreviewのGameObjectのTransformは座標に加算しない。Assetの原点・�
 Previewは最大10,000区間に制限して描画するため、非常に長い基準線では指定したサンプル間隔より粗くなる。Gizmoは走行用レールメッシュではない。
 既存Sceneへのオブジェクト追加は行っていない。
 
-新規AssetはCreateメニューの `Nakatetsu > Track > Train Geometry` から作る。
+新規AssetはCreateメニューの `Nakatetsu > Track > Track Geometry` から作る。
 新規作成直後は長さ0・区間なしなので、`lengthM`と水平区間を設定してから評価する。
 
 ## データの規則と互換性

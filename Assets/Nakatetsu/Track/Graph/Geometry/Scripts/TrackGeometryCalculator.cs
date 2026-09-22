@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Nakatetsu.Track.TrainGeometry
+namespace Nakatetsu.Track.Graph.Geometry
 {
     /// <summary>Evaluates the running reference line; has no graph or scene dependencies.</summary>
-    public static class TrainGeometryCalculator
+    public static class TrackGeometryCalculator
     {
-        public static bool TryEvaluate(TrainGeometryDefinition definition, float distanceM, out TrainGeometrySample sample)
+        public static bool TryEvaluate(TrackGeometryDefinition definition, float distanceM, out TrackGeometrySample sample)
         {
             sample = default;
             if (definition == null || !IsFinite(distanceM) ||
@@ -17,13 +17,13 @@ namespace Nakatetsu.Track.TrainGeometry
             float distance = Mathf.Clamp(distanceM, 0f, definition.lengthM);
             if (!TryResolveNativeGeometryPose(definition, distance, out Vector3 position,
                 out Vector3 tangent, out Quaternion rotation)) return false;
-            float gradient = TrainGeometryProfileCalculator.GetGradientPermilleAt(definition.verticalSegments, distance);
+            float gradient = TrackGeometryProfileCalculator.GetGradientPermilleAt(definition.verticalSegments, distance);
             if (!IsFinite(position.x) || !IsFinite(position.y) || !IsFinite(position.z) ||
                 !IsFinite(tangent.x) || !IsFinite(tangent.y) || !IsFinite(tangent.z) ||
                 !IsFinite(rotation.x) || !IsFinite(rotation.y) || !IsFinite(rotation.z) || !IsFinite(rotation.w) ||
                 !IsFinite(gradient)) return false;
 
-            sample = new TrainGeometrySample(distance, position, tangent, rotation, gradient);
+            sample = new TrackGeometrySample(distance, position, tangent, rotation, gradient);
             return true;
         }
 
@@ -90,7 +90,7 @@ namespace Nakatetsu.Track.TrainGeometry
         }
 
         private static bool TryResolveNativeGeometryPose(
-            TrainGeometryDefinition geometry,
+            TrackGeometryDefinition geometry,
             float distanceM,
             out Vector3 position,
             out Vector3 tangent,
@@ -108,8 +108,8 @@ namespace Nakatetsu.Track.TrainGeometry
                 return false;
             }
 
-            float heightM = TrainGeometryProfileCalculator.GetVerticalHeightAt(geometry.verticalSegments, distanceM);
-            float currentPermille = TrainGeometryProfileCalculator.GetGradientPermilleAt(geometry.verticalSegments, distanceM);
+            float heightM = TrackGeometryProfileCalculator.GetVerticalHeightAt(geometry.verticalSegments, distanceM);
+            float currentPermille = TrackGeometryProfileCalculator.GetGradientPermilleAt(geometry.verticalSegments, distanceM);
 
             position = currentPos;
             position.y = geometry.originPosition.y + heightM;
@@ -121,7 +121,7 @@ namespace Nakatetsu.Track.TrainGeometry
         }
 
         private static bool TryResolveHorizontalPosition(
-            List<TrainGeometryHorizontalSegment> segments,
+            List<TrackGeometryHorizontalSegment> segments,
             float distanceM,
             ref Vector3 currentPos,
             ref Quaternion currentRot)
@@ -133,7 +133,7 @@ namespace Nakatetsu.Track.TrainGeometry
 
             for (int i = 0; i < segments.Count; i++)
             {
-                TrainGeometryHorizontalSegment segment = segments[i];
+                TrackGeometryHorizontalSegment segment = segments[i];
                 if (segment == null)
                 {
                     continue;
@@ -176,7 +176,7 @@ namespace Nakatetsu.Track.TrainGeometry
         }
 
         internal static void CalculateHorizontal(
-            TrainGeometryCurveType type,
+            TrackGeometryCurveType type,
             float localDistanceM,
             float segmentLengthM,
             float radiusM,
@@ -186,13 +186,13 @@ namespace Nakatetsu.Track.TrainGeometry
         {
             switch (type)
             {
-                case TrainGeometryCurveType.Curve:
+                case TrackGeometryCurveType.Curve:
                     CalculateCircularCurve(localDistanceM, radiusM, out localX, out localZ, out angleDegree);
                     break;
-                case TrainGeometryCurveType.TransitionIn:
+                case TrackGeometryCurveType.TransitionIn:
                     CalculateCubicTransitionIn(localDistanceM, segmentLengthM, radiusM, out localX, out localZ, out angleDegree);
                     break;
-                case TrainGeometryCurveType.TransitionOut:
+                case TrackGeometryCurveType.TransitionOut:
                     CalculateCubicTransitionOut(localDistanceM, segmentLengthM, radiusM, out localX, out localZ, out angleDegree);
                     break;
                 default:

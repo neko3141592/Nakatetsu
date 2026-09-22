@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-namespace Nakatetsu.Track.TrainGeometry
+namespace Nakatetsu.Track.Graph.Geometry
 {
-    public static class TrainGeometryCompiler
+    public static class TrackGeometryCompiler
     {
         /// <summary>Rebuild after loading or editing an ordered, valid definition.</summary>
-        public static void Rebuild(TrainGeometryDefinition definition, TrainGeometryContext context)
+        public static void Rebuild(TrackGeometryDefinition definition, TrackGeometryContext context)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             var workspace = context.Workspace;
@@ -15,7 +15,7 @@ namespace Nakatetsu.Track.TrainGeometry
             if (definition == null) return;
 
             Vector3 position = definition.originPosition;
-            Quaternion rotation = TrainGeometryCalculator.GetPlanRotation(definition.originRotation);
+            Quaternion rotation = TrackGeometryCalculator.GetPlanRotation(definition.originRotation);
             if (definition.horizontalSegments != null)
             {
                 for (int i = 0; i < definition.horizontalSegments.Count; i++)
@@ -24,12 +24,12 @@ namespace Nakatetsu.Track.TrainGeometry
                     if (segment == null) continue;
                     float start = Mathf.Max(0f, segment.startDistanceM);
                     float length = Mathf.Max(0f, segment.lengthM);
-                    workspace.horizontalStarts.Add(new TrainGeometryHorizontalStart
+                    workspace.horizontalStarts.Add(new TrackGeometryHorizontalStart
                     {
                         segmentIndex = i, startDistanceM = start, endDistanceM = start + length,
                         position = position, rotation = rotation
                     });
-                    TrainGeometryCalculator.CalculateHorizontal(segment.trackCurveType, length, length,
+                    TrackGeometryCalculator.CalculateHorizontal(segment.trackCurveType, length, length,
                         segment.radiusM, out float x, out float z, out float angle);
                     position += rotation * new Vector3(x, 0f, z);
                     rotation *= Quaternion.Euler(0f, angle, 0f);
@@ -46,12 +46,12 @@ namespace Nakatetsu.Track.TrainGeometry
                 if (segment == null || segment.lengthM <= 0.001f) continue;
                 float start = Mathf.Max(0f, segment.startDistanceM);
                 height += previousGradient * Mathf.Max(0f, start - previousEnd) / 1000f;
-                workspace.verticalStarts.Add(new TrainGeometryVerticalStart
+                workspace.verticalStarts.Add(new TrackGeometryVerticalStart
                 {
                     segmentIndex = i, startDistanceM = start,
                     endDistanceM = start + segment.lengthM, heightM = height
                 });
-                height += TrainGeometryProfileCalculator.GetHeightDeltaM(segment.lengthM,
+                height += TrackGeometryProfileCalculator.GetHeightDeltaM(segment.lengthM,
                     segment.lengthM, segment.startGradientPermille, segment.endGradientPermille);
                 previousEnd = start + segment.lengthM;
                 previousGradient = segment.endGradientPermille;
