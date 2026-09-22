@@ -6,6 +6,33 @@ namespace Nakatetsu.Track.Graph
 {
     public static class TrackGraphCompiler
     {
+        /// <summary>全EdgeのLUTを一時領域に生成する。Asset/Definitionへの反映はEditor側が成功後に行う。</summary>
+        public static bool TryBuildDistanceMaps(TrackGraphDefinition definition, float integrationStepM,
+            out Dictionary<string, List<TrackEdgeDistanceSample>> distanceMaps, List<string> errors)
+        {
+            distanceMaps = null;
+            var context = new TrackGraphContext();
+            if (!TryCompile(definition, context, errors)) return false;
+            if (float.IsNaN(integrationStepM) || float.IsInfinity(integrationStepM) || integrationStepM <= 0f)
+            {
+                errors.Add("Integration step must be finite and positive.");
+                return false;
+            }
+            var results = new Dictionary<string, List<TrackEdgeDistanceSample>>();
+            foreach (var edge in definition.edges)
+            {
+                context.TryGetGeometry(edge.geometryId, out var geometry);
+                if (!TrackEdgeCompiler.TryBuildDistanceMap(edge, geometry, integrationStepM, out var map, out var error))
+                {
+                    errors.Add($"Edge '{edge.edgeId}': {error}");
+                    return false;
+                }
+                results.Add(edge.edgeId, map);
+            }
+            distanceMaps = results;
+            return true;
+        }
+
         public static bool TryCompile(TrackGraphDefinition definition, TrackGraphContext context, List<string> errors)
         {
             if (errors == null) return false;

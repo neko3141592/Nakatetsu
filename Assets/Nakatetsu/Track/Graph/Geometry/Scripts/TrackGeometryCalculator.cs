@@ -6,7 +6,7 @@ namespace Nakatetsu.Track.Graph.Geometry
     /// <summary>Evaluates the running reference line; has no graph or scene dependencies.</summary>
     public static class TrackGeometryCalculator
     {
-        public static bool TryEvaluate(TrackGeometryDefinition definition, float distanceM, out TrackGeometrySample sample)
+        public static bool TryEvaluate(TrackGeometryDefinition definition, float distanceM, out TrackSample sample)
         {
             sample = default;
             if (definition == null || !IsFinite(distanceM) ||
@@ -23,71 +23,101 @@ namespace Nakatetsu.Track.Graph.Geometry
                 !IsFinite(rotation.x) || !IsFinite(rotation.y) || !IsFinite(rotation.z) || !IsFinite(rotation.w) ||
                 !IsFinite(gradient)) return false;
 
-            sample = new TrackGeometrySample(distance, position, tangent, rotation, gradient);
+            sample = new TrackSample(distance, position, tangent, rotation, gradient);
             return true;
         }
 
+        /// <summary>Evaluates world position and unnormalized dP/dS without changing the legacy pose API.</summary>
+        public static bool TryEvaluateAtGeometryDistance(TrackGeometryDefinition definition, float distanceOnGeometryM,
+            out Vector3 position, out Vector3 derivative)
+        {
+            return TryEvaluateDerivatives(definition, distanceOnGeometryM, false, out position, out derivative, out _);
+        }
+
+        /// <summary>Also returns world-space d²P/dS² [1/m], without normalization or translation.</summary>
+        public static bool TryEvaluateAtGeometryDistance(TrackGeometryDefinition definition, float distanceOnGeometryM,
+            out Vector3 position, out Vector3 derivative, out Vector3 secondDerivative)
+        {
+            return TryEvaluateDerivatives(definition, distanceOnGeometryM, true, out position, out derivative, out secondDerivative);
+        }
+
+        private static bool TryEvaluateDerivatives(TrackGeometryDefinition definition, float distanceOnGeometryM,
+            bool includeSecondDerivative, out Vector3 position, out Vector3 derivative, out Vector3 secondDerivative)
+        {
+            position = default;
+            derivative = default;
+            secondDerivative = default;
+            if (definition == null || !IsFinite(distanceOnGeometryM) || !IsFinite(definition.lengthM)
+                || definition.lengthM <= 0f || distanceOnGeometryM < 0f || distanceOnGeometryM > definition.lengthM
+                || definition.horizontalSegments == null || definition.horizontalSegments.Count == 0
+                || !IsFinite(definition.originPosition)) return false;
+
+            var originRotation = definition.originRotation;
+            if (!IsFinite(originRotation.x) || !IsFinite(originRotation.y)
+                || !IsFinite(originRotation.z) || !IsFinite(originRotation.w)) return false;
+
+            // Validate vertical ranges before using the existing height/gap extension rules.
+            float previousVerticalEndM = 0f;
+            if (definition.verticalSegments != null)
+            {
+                foreach (var segment in definition.verticalSegments)
+                {
+                    if (segment == null || !IsFinite(segment.startDistanceM) || !IsFinite(segment.lengthM)) return false;
+                    if (segment.lengthM <= 0.001f) continue;
+                    float endM = segment.startDistanceM + segment.lengthM;
+                    if (segment.startDistanceM < previousVerticalEndM || !IsFinite(endM)) return false;
+                    previousVerticalEndM = endM;
+                }
+            }
+
+            Vector3 currentPosition = definition.originPosition;
+            Quaternion currentRotation = GetPlanRotation(originRotation);
+            float previousEndM = 0f;
+            foreach (var segment in definition.horizontalSegments)
+            {
+                if (segment == null || !IsFinite(segment.startDistanceM) || !IsFinite(segment.lengthM)
+                    || segment.lengthM <= 0f || segment.startDistanceM != previousEndM) return false;
+                float endM = segment.startDistanceM + segment.lengthM;
+                if (!IsFinite(endM)) return false;
+                float sampleDistanceM = Mathf.Min(distanceOnGeometryM, endM);
+                segment.EvaluatePosition(sampleDistanceM, out Vector3 localPosition, out float headingDegrees);
+                if (!IsFinite(localPosition) || !IsFinite(headingDegrees)) return false;
+                currentPosition += currentRotation * localPosition;
+
+                if (distanceOnGeometryM <= endM)
+                {
+                    Vector3 localDerivative = segment.EvaluateDerivative(distanceOnGeometryM);
+                    if (!IsFinite(localDerivative)) return false;
+                    Vector3 worldDerivative = currentRotation * localDerivative;
+                    currentPosition.y = definition.originPosition.y
+                        + TrackGeometryProfileCalculator.GetVerticalHeightAt(definition.verticalSegments, distanceOnGeometryM);
+                    worldDerivative.y = TrackGeometryProfileCalculator.GetDerivativeAt(definition.verticalSegments, distanceOnGeometryM);
+                    if (!IsFinite(currentPosition) || !IsFinite(worldDerivative)) return false;
+                    Vector3 worldSecondDerivative = Vector3.zero;
+                    if (includeSecondDerivative)
+                    {
+                        Vector3 localSecondDerivative = segment.EvaluateSecondDerivative(distanceOnGeometryM);
+                        if (!IsFinite(localSecondDerivative)) return false;
+                        worldSecondDerivative = currentRotation * localSecondDerivative;
+                        worldSecondDerivative.y = TrackGeometryProfileCalculator.GetSecondDerivativeAt(
+                            definition.verticalSegments, distanceOnGeometryM);
+                        if (!IsFinite(worldSecondDerivative)) return false;
+                    }
+                    position = currentPosition;
+                    derivative = worldDerivative;
+                    secondDerivative = worldSecondDerivative;
+                    return true;
+                }
+
+                currentRotation *= Quaternion.Euler(0f, headingDegrees, 0f);
+                previousEndM = endM;
+            }
+            return false;
+        }
+
+        private static bool IsFinite(Vector3 value) => IsFinite(value.x) && IsFinite(value.y) && IsFinite(value.z);
+
         private static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
-        public static void CalculateStraight(float lengthM, out float x, out float z, out float angleDegree)
-        {
-            x = 0f;
-            z = lengthM;
-            angleDegree = 0f;
-        }
-
-        public static void CalculateCircularCurve(float lengthM, float radiusM, out float x, out float z, out float angleDegree)
-        {
-            if (Mathf.Abs(radiusM) < 0.001f)
-            {
-                CalculateStraight(lengthM, out x, out z, out angleDegree);
-                return;
-            }
-
-            float theta = lengthM / radiusM;
-            x = radiusM * (1f - Mathf.Cos(theta));
-            z = radiusM * Mathf.Sin(theta);
-            angleDegree = theta * Mathf.Rad2Deg;
-        }
-
-        public static void CalculateCubicTransitionIn(
-            float lengthM,
-            float totalLengthM,
-            float radiusM,
-            out float x,
-            out float z,
-            out float angleDegree)
-        {
-            if (Mathf.Abs(radiusM) < 0.001f || totalLengthM < 0.001f)
-            {
-                CalculateStraight(lengthM, out x, out z, out angleDegree);
-                return;
-            }
-
-            float theta = (lengthM * lengthM) / (2f * totalLengthM * radiusM);
-            x = (lengthM * lengthM * lengthM) / (6f * totalLengthM * radiusM);
-            z = lengthM;
-            angleDegree = theta * Mathf.Rad2Deg;
-        }
-
-        public static void CalculateCubicTransitionOut(
-            float lengthM,
-            float totalLengthM,
-            float radiusM,
-            out float x,
-            out float z,
-            out float angleDegree)
-        {
-            if (Mathf.Abs(radiusM) < 0.001f || totalLengthM < 0.001f)
-            {
-                CalculateStraight(lengthM, out x, out z, out angleDegree);
-                return;
-            }
-
-            float theta = lengthM / radiusM - (lengthM * lengthM) / (2f * radiusM * totalLengthM);
-            x = (lengthM * lengthM) / (2f * radiusM) - (lengthM * lengthM * lengthM) / (6f * radiusM * totalLengthM);
-            z = lengthM;
-            angleDegree = theta * Mathf.Rad2Deg;
-        }
 
         private static bool TryResolveNativeGeometryPose(
             TrackGeometryDefinition geometry,
@@ -154,16 +184,9 @@ namespace Nakatetsu.Track.Graph.Geometry
                     continue;
                 }
 
-                CalculateHorizontal(
-                    segment.trackCurveType,
-                    localDistanceM,
-                    segmentLengthM,
-                    segment.radiusM,
-                    out float localX,
-                    out float localZ,
-                    out float angleDegree
-                );
-                currentPos += currentRot * new Vector3(localX, 0f, localZ);
+                segment.EvaluatePosition(Mathf.Min(distanceM, segmentEndM),
+                    out Vector3 localPosition, out float angleDegree);
+                currentPos += currentRot * localPosition;
                 currentRot *= Quaternion.Euler(0f, angleDegree, 0f);
 
                 if (distanceM <= segmentEndM)
@@ -173,32 +196,6 @@ namespace Nakatetsu.Track.Graph.Geometry
             }
 
             return true;
-        }
-
-        internal static void CalculateHorizontal(
-            TrackGeometryCurveType type,
-            float localDistanceM,
-            float segmentLengthM,
-            float radiusM,
-            out float localX,
-            out float localZ,
-            out float angleDegree)
-        {
-            switch (type)
-            {
-                case TrackGeometryCurveType.Curve:
-                    CalculateCircularCurve(localDistanceM, radiusM, out localX, out localZ, out angleDegree);
-                    break;
-                case TrackGeometryCurveType.TransitionIn:
-                    CalculateCubicTransitionIn(localDistanceM, segmentLengthM, radiusM, out localX, out localZ, out angleDegree);
-                    break;
-                case TrackGeometryCurveType.TransitionOut:
-                    CalculateCubicTransitionOut(localDistanceM, segmentLengthM, radiusM, out localX, out localZ, out angleDegree);
-                    break;
-                default:
-                    CalculateStraight(localDistanceM, out localX, out localZ, out angleDegree);
-                    break;
-            }
         }
 
         internal static Quaternion GetPlanRotation(Quaternion worldRotation)

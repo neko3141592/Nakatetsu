@@ -18,7 +18,7 @@ namespace Nakatetsu.Track.Graph.Geometry
 
         private void OnDrawGizmos()
         {
-            if (trackGeometry == null || !trackGeometry.TryEvaluate(0f, out TrackGeometrySample previous)) return;
+            if (trackGeometry == null || !trackGeometry.TryEvaluate(0f, out TrackSample previous)) return;
             float length = trackGeometry.Definition.lengthM;
             float interval = float.IsNaN(sampleIntervalM) || float.IsInfinity(sampleIntervalM)
                 ? 5f : Mathf.Max(0.1f, sampleIntervalM);
@@ -28,12 +28,12 @@ namespace Nakatetsu.Track.Graph.Geometry
             Gizmos.color = lineColor;
             for (int i = 1; i <= count; i++)
             {
-                if (!trackGeometry.TryEvaluate(length * ((float)i / count), out TrackGeometrySample current)) break;
+                if (!trackGeometry.TryEvaluate(length * ((float)i / count), out TrackSample current)) break;
                 Gizmos.DrawLine(previous.Position, current.Position);
                 previous = current;
             }
 
-            if (trackGeometry.TryEvaluate(probeDistanceM, out TrackGeometrySample probe))
+            if (trackGeometry.TryEvaluate(probeDistanceM, out TrackSample probe))
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(probe.Position, probe.Position + probe.Rotation * Vector3.up * 2f);

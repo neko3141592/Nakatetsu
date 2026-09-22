@@ -77,7 +77,7 @@ ATOは駅間で、線路・ATCの速度制限を超えない目標速度に追�
 
 | 現在の要素 | 利用方法 | 不足しているもの |
 | --- | --- | --- |
-| `TrackGeometryDefinition` / `TrackGeometrySample` | 経路距離、位置、勾配の取得 | 分岐を跨ぐ経路距離、駅・停止目標、地上子 |
+| `TrackGeometryDefinition` / `TrackSample` | 経路距離、位置、勾配の取得 | 分岐を跨ぐ経路距離、駅・停止目標、地上子 |
 | `TimsNotchLogic` | 手動ブレーキとATCブレーキを統合 | ATO専用指令、運転モード、操作権限の調停 |
 | `TimsBrakeCalculator` | 目標減速度と連続ブレーキステップの相互変換 | TASCが要求する減速度の生成、指令ヒステリシス |
 | `TimsBrakeLogic` | 編成質量に応じた回生・空制配分 | 実減速度をATOへ戻す経路、応答遅れを含む車両運動 |
@@ -253,7 +253,7 @@ commandedDeceleration = clamp(
 位置 → 目標速度のルックアップ表
 ```
 
-この表は毎フレーム生成せず、停止目標または経路が変わったときに作る。経路上の勾配は `TrackGeometrySample.GradientPermille` を利用できる。分岐を跨ぐ経路が未実装の間は、同じTrackGeometry内の停止目標だけをサポート対象とする。
+この表は毎フレーム生成せず、停止目標または経路が変わったときに作る。経路上の勾配は `TrackSample.GradientPermille` を利用できる。分岐を跨ぐ経路が未実装の間は、同じTrackGeometry内の停止目標だけをサポート対象とする。
 
 ### 5.3 ATO駅間制御
 

@@ -2,7 +2,8 @@
     "name": "Nakatetsu.Track",
     "rootNamespace": "Nakatetsu.Track.Graph.Geometry",
     "references": [
-        "Nakatetsu.Core"
+        "Nakatetsu.Core",
+        "Nakatetsu.Track.Shared"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -11,6 +11,20 @@ namespace Nakatetsu.Track.Graph.Tests
 {
     public sealed class TrackGraphTests
     {
+        [Test]
+        public void SharedSampleIsAccessibleFromGraphAndPreservesScriptGuid()
+        {
+            Assert.That(TrackGeometryCalculator.TryEvaluate(CreateGraph().geometries[0], 25f, out TrackSample sample), Is.True);
+            Assert.That(sample.DistanceM, Is.EqualTo(25f));
+            Assert.That(sample.Position, Is.EqualTo(new Vector3(0f, 0f, 25f)));
+            Assert.That(sample.Tangent, Is.EqualTo(Vector3.forward));
+            Assert.That(sample.Rotation, Is.EqualTo(Quaternion.identity));
+            Assert.That(sample.GradientPermille, Is.Zero);
+            Assert.That(typeof(TrackSample).Assembly.GetName().Name, Is.EqualTo("Nakatetsu.Track.Shared"));
+            Assert.That(AssetDatabase.GUIDToAssetPath("8768062a803e497687dc0076446dce5d"),
+                Is.EqualTo("Assets/Nakatetsu/Track/Shared/Scripts/TrackSample.cs"));
+        }
+
         private static TrackGraphDefinition CreateGraph()
         {
             var graph = new TrackGraphDefinition { graphId = "Graph1" };
@@ -20,7 +34,7 @@ namespace Nakatetsu.Track.Graph.Tests
                 lengthM = 100f,
                 horizontalSegments = new List<TrackGeometryHorizontalSegment>
                 {
-                    new TrackGeometryHorizontalSegment { lengthM = 100f }
+                    new TrackGeometryStraightSegment { lengthM = 100f }
                 }
             });
             graph.nodes.Add(new TrackNodeDefinition { nodeId = "A", connectedEdgeIds = new List<string> { "Edge1" } });

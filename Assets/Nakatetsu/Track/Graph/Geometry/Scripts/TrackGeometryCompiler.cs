@@ -29,32 +29,30 @@ namespace Nakatetsu.Track.Graph.Geometry
                         segmentIndex = i, startDistanceM = start, endDistanceM = start + length,
                         position = position, rotation = rotation
                     });
-                    TrackGeometryCalculator.CalculateHorizontal(segment.trackCurveType, length, length,
-                        segment.radiusM, out float x, out float z, out float angle);
-                    position += rotation * new Vector3(x, 0f, z);
+                    segment.EvaluatePosition(start + length, out Vector3 localPosition, out float angle);
+                    position += rotation * localPosition;
                     rotation *= Quaternion.Euler(0f, angle, 0f);
                 }
             }
 
             float height = 0f;
             float previousEnd = 0f;
-            float previousGradient = 0f;
+            float previousDerivative = 0f;
             if (definition.verticalSegments == null) return;
             for (int i = 0; i < definition.verticalSegments.Count; i++)
             {
                 var segment = definition.verticalSegments[i];
                 if (segment == null || segment.lengthM <= 0.001f) continue;
                 float start = Mathf.Max(0f, segment.startDistanceM);
-                height += previousGradient * Mathf.Max(0f, start - previousEnd) / 1000f;
+                height += previousDerivative * Mathf.Max(0f, start - previousEnd);
                 workspace.verticalStarts.Add(new TrackGeometryVerticalStart
                 {
                     segmentIndex = i, startDistanceM = start,
                     endDistanceM = start + segment.lengthM, heightM = height
                 });
-                height += TrackGeometryProfileCalculator.GetHeightDeltaM(segment.lengthM,
-                    segment.lengthM, segment.startGradientPermille, segment.endGradientPermille);
+                height += segment.EvaluateHeightDeltaM(start + segment.lengthM);
                 previousEnd = start + segment.lengthM;
-                previousGradient = segment.endGradientPermille;
+                previousDerivative = segment.EvaluateDerivative(previousEnd);
             }
         }
     }

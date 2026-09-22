@@ -1,7 +1,7 @@
 {
     "name": "Nakatetsu.Track.Tests.EditMode",
     "rootNamespace": "Nakatetsu.Track.Graph.Geometry.Tests",
-    "references": ["Nakatetsu.Track"],
+    "references": ["Nakatetsu.Track", "Nakatetsu.Track.Shared"],
     "includePlatforms": ["Editor"],
     "optionalUnityReferences": ["TestAssemblies"],
     "autoReferenced": false

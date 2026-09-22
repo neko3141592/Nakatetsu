@@ -29,10 +29,15 @@ TrackGeometryから `cantSegments`、`TrackCantSegment`、`CantMm`、カント�
 | ファイル | 内容 |
 | --- | --- |
 | `TrackGeometryDefinition.cs` | ID、名称、長さ、原点・方向、水平・勾配区間 |
-| `TrackGeometryCurveDefinitions.cs` | 旧区間型と曲線種別。Straight/Curve/TransitionIn/TransitionOut |
+| `TrackGeometryCurveDefinitions.cs` | 旧水平・勾配区間の読込み用データと曲線種別 |
+| `TrackGeometryHorizontalSegment.cs` | 水平区間の抽象クラス。位置・既存の向き・未実装の微分関数の契約 |
+| `TrackGeometryStraightSegment.cs` / `TrackGeometryCircularSegment.cs` | 直線・円曲線の具体型 |
+| `TrackGeometryTransitionInSegment.cs` / `TrackGeometryTransitionOutSegment.cs` | 緩和曲線の入口・出口の具体型 |
 | `TrackGeometryCalculator.cs` | 距離から位置・接線・姿勢を評価する静的処理 |
-| `TrackGeometryProfileCalculator.cs` | 旧勾配積分・勾配取得 |
-| `TrackGeometrySample.cs` | 評価結果。距離、位置、接線、姿勢、勾配 |
+| `TrackGeometryVerticalSegment.cs` | 高さ変化量・微分を返す縦断区間の抽象クラス |
+| `TrackGeometryConstantGradientSegment.cs` / `TrackGeometryLinearGradientSegment.cs` | 一定勾配・線形に変化する勾配の具体型 |
+| `TrackGeometryProfileCalculator.cs` | 縦断区間の選択・高さの積算・区間外の勾配延長 |
+| `Track/Shared/Scripts/TrackSample.cs` | Geometry・Edge共通の評価結果。距離、位置、接線、姿勢、勾配 |
 | `TrackGeometryAsset.cs` | 定義をInspectorで編集・保存するScriptableObject |
 | `TrackGeometryPreview.cs` | Sceneビューで基準線と指定地点の向きを描く確認用コンポーネント |
 
@@ -41,6 +46,38 @@ Definitionが固定入力、Sampleが出力で、Calculatorは状態を持たな
 `TrackGeometryAsset`はUnityで保存・共有・Inspector編集するためのScriptableObjectで、`TrackGeometryDefinition`を保持する。Definitionは線形のID・寸法・区間などを持つ通常のC#クラスで、Calculatorへ直接渡せる。これにより計算やテストでScriptableObjectの生成が不要になる。DefinitionにはUnityの値型を使っており、Unity非依存や不変性を保証するものではない。AssetのDefinitionを計算中に変更しない。
 
 ## segment開始情報の保存（2026-09-08）
+
+### 水平区間の抽象化（2026-09-22）
+
+水平区間を`TrackGeometryHorizontalSegment`の派生型に分けた。`EvaluatePosition`はGeometry起点からの基準線距離を受け、区間始点のローカル座標と既存の近似角を返す。CalculatorとCompilerはこの共通関数を呼ぶ。既存の直線・円曲線・三次緩和曲線の数式は変更していない。
+
+`EvaluateDerivative`は宣言と未実装の枠のみで、全4形状が`NotImplementedException`を送出する。解析微分・解析接線はまだ実装しておらず、現在の位置・姿勢評価からは呼び出さない。勾配側は今回抽象化していない。
+
+`horizontalSegments`はリストを公開するプロパティになり、保存先は`[SerializeReference]`付きの`horizontalSegmentDefinitions`。旧インライン形式は隠しフィールドで読み込み、逆シリアライズ時に派生型へ変換する。新形式での保存後も型・順序・区間・半径を維持する。形状を選択・追加する専用Inspectorは含まない。
+
+隔離Unity 6000.4.0f1環境で既存評価・旧形式からの移行と再保存・混在リストの再読込み・微分未実装の確認を含む68テストが成功した。結果は`/tmp/nakatetsu-w1-03-pr.nQRHqp/geometry-abstract-results.xml`。
+
+### 縦断区間の抽象化（2026-09-23）
+
+`TrackGeometryVerticalSegment`を抽象クラスにし、`TrackGeometryConstantGradientSegment`（一定勾配）と`TrackGeometryLinearGradientSegment`（勾配を線形補間、高さは二次式）を追加した。
+
+- `EvaluateHeightDeltaM(S)`はGeometry起点からの距離を受け、区間始点からの高さ差[m]を返す。
+- `EvaluateDerivative(S)`は区間内の`dy/dS`[m/m]を返す。‰ではない。端点では区間側の勾配を返す。
+- 長さ0.001m以下は従来どおり積算対象から除外し、具体型の高さ・微分評価も0を返す。
+- `ProfileCalculator`と`Compiler`は具体型の勾配フィールドではなく共通の評価関数を呼ぶ。最初の区間より前は0‰、隙間・末尾は直前の終点勾配を延長する。
+- 形状の数式は具体型へ移動し、旧`GetHeightDeltaM`と4引数の`GetGradientPermilleAt`は削除した。リスト全体を評価するAPIは維持する。
+
+`verticalSegments`もリストを公開するプロパティにし、`[SerializeReference]`の`verticalSegmentDefinitions`へ保存する。旧インライン形式は隠しフィールドで読み込み、一定勾配を含めて`TrackGeometryLinearGradientSegment`へ移行する。開始距離・長さ・始終点勾配・順序を維持する。水平区間がない旧データも移行できる。専用Inspectorや姿勢計算の解析接線への切替は含まない。
+
+Unity 6000.4.0f1の隔離環境で130テストが成功した。縦断の高さ・微分、正負勾配、微分と差分の比較、縮退区間、混在区間と隙間の積算、旧データの移行・再保存、新形式の型保持を確認した。結果は`/tmp/nakatetsu-w1-03-pr.nQRHqp/vertical-segments-results.xml`。本プロジェクト全体のScene・PlayMode検証は含まない。
+
+### 評価結果の共通化（2026-09-23）
+
+評価結果を`Nakatetsu.Track.TrackSample`へ改名し、`Track/Shared/Scripts`へ移動した。プロパティ・コンストラクターの引数・評価の挙動は維持する。`DistanceM`は評価対象上の距離で、Geometryでは基準線距離、今後のEdge実距離評価ではNode Aからの実距離を表す。
+
+既存の`Graph/Shared`はGeometryを参照するため、共通型は独立した`Nakatetsu.Track.Shared`アセンブリへ置く。Geometry・Graphと両テストアセンブリから明示参照し、循環参照を避ける。スクリプトの`.meta` GUIDを維持し、`MovedFrom`に旧名前空間・型名・アセンブリを記載した。リポジトリ内の呼出しとドキュメントは新名へ更新する。外部C#コードでは`using Nakatetsu.Track;`と新型名・必要なasmdef参照への更新が必要であり、`MovedFrom`は旧C#型名の別名ではない。
+
+### 開始情報のキャッシュ
 
 `TrackGeometryContext.Workspace`へ、水平segmentの開始・終了距離、開始位置・水平姿勢と、勾配segmentの開始・終了距離、開始高さを保持できるようにした。各項目は元のsegmentIndexを保持する。高さは原点からの相対値、水平位置のYは原点のYで、勾配は別に扱う。
 
@@ -56,10 +93,11 @@ TrackGeometryCompiler.Rebuild(trackGeometry.Definition, context);
 ## 使用例
 
 ```csharp
+using Nakatetsu.Track;
 using Nakatetsu.Track.Graph.Geometry;
 
 // trackGeometryはTrackGeometryAssetへの参照。
-if (trackGeometry.TryEvaluate(25f, out TrackGeometrySample sample))
+if (trackGeometry.TryEvaluate(25f, out TrackSample sample))
 {
     // sample.Position / Rotation / Tangent
     // sample.GradientPermille

@@ -8,40 +8,25 @@ namespace Nakatetsu.Track.Graph.Geometry
         private const float MinSegmentLengthM = 0.001f;
         private const float PermilleScale = 1000f;
 
-        public static float GetHeightDeltaM(
-            float localDistanceM,
-            float segmentLengthM,
-            float startGradientPermille,
-            float endGradientPermille)
+        /// <summary>
+        /// d²y/dS²[1/m]。区間の共有端点は手前側を採用する。
+        /// 最初の区間より前・区間の隙間・末尾は一定勾配なので0。
+        /// </summary>
+        public static float GetSecondDerivativeAt(List<TrackGeometryVerticalSegment> segments, float distanceOnGeometryM)
         {
-            if (segmentLengthM <= MinSegmentLengthM)
+            if (segments == null) return 0f;
+            foreach (var segment in segments)
             {
-                return 0f;
+                if (segment == null || segment.lengthM <= MinSegmentLengthM) continue;
+                float startM = Mathf.Max(0f, segment.startDistanceM);
+                if (distanceOnGeometryM < startM) return 0f;
+                if (distanceOnGeometryM <= startM + segment.lengthM)
+                    return segment.EvaluateSecondDerivative(distanceOnGeometryM);
             }
-
-            float x = Mathf.Clamp(localDistanceM, 0f, segmentLengthM);
-            float p0 = startGradientPermille;
-            float p1 = endGradientPermille;
-
-            return (p0 * x + (p1 - p0) * x * x / (2f * segmentLengthM)) / PermilleScale;
+            return 0f;
         }
 
-        public static float GetGradientPermilleAt(
-            float localDistanceM,
-            float segmentLengthM,
-            float startGradientPermille,
-            float endGradientPermille)
-        {
-            if (segmentLengthM <= MinSegmentLengthM)
-            {
-                return endGradientPermille;
-            }
-
-            float t = Mathf.Clamp01(localDistanceM / segmentLengthM);
-            return Mathf.Lerp(startGradientPermille, endGradientPermille, t);
-        }
-
-        public static float GetVerticalHeightAt(List<TrackGeometryVerticalSegment> segments, float distanceOnEdgeM)
+        public static float GetVerticalHeightAt(List<TrackGeometryVerticalSegment> segments, float distanceOnGeometryM)
         {
             if (segments == null || segments.Count == 0)
             {
@@ -50,8 +35,8 @@ namespace Nakatetsu.Track.Graph.Geometry
 
             float heightM = 0f;
             float cursorDistanceM = 0f;
-            float currentGradientPermille = 0f;
-            float targetDistanceM = Mathf.Max(0f, distanceOnEdgeM);
+            float currentDerivative = 0f;
+            float targetDistanceM = Mathf.Max(0f, distanceOnGeometryM);
 
             for (int i = 0; i < segments.Count; i++)
             {
@@ -66,22 +51,16 @@ namespace Nakatetsu.Track.Graph.Geometry
 
                 if (targetDistanceM <= segmentStartM)
                 {
-                    heightM += currentGradientPermille * Mathf.Max(0f, targetDistanceM - cursorDistanceM) / PermilleScale;
+                    heightM += currentDerivative * Mathf.Max(0f, targetDistanceM - cursorDistanceM);
                     return heightM;
                 }
 
                 if (segmentStartM > cursorDistanceM)
                 {
-                    heightM += currentGradientPermille * (segmentStartM - cursorDistanceM) / PermilleScale;
+                    heightM += currentDerivative * (segmentStartM - cursorDistanceM);
                 }
 
-                float localDistanceM = Mathf.Min(targetDistanceM, segmentEndM) - segmentStartM;
-                heightM += GetHeightDeltaM(
-                    localDistanceM,
-                    segment.lengthM,
-                    segment.startGradientPermille,
-                    segment.endGradientPermille
-                );
+                heightM += segment.EvaluateHeightDeltaM(Mathf.Min(targetDistanceM, segmentEndM));
 
                 if (targetDistanceM <= segmentEndM)
                 {
@@ -89,14 +68,20 @@ namespace Nakatetsu.Track.Graph.Geometry
                 }
 
                 cursorDistanceM = segmentEndM;
-                currentGradientPermille = segment.endGradientPermille;
+                currentDerivative = segment.EvaluateDerivative(segmentEndM);
             }
 
-            heightM += currentGradientPermille * Mathf.Max(0f, targetDistanceM - cursorDistanceM) / PermilleScale;
+            heightM += currentDerivative * Mathf.Max(0f, targetDistanceM - cursorDistanceM);
             return heightM;
         }
 
-        public static float GetGradientPermilleAt(List<TrackGeometryVerticalSegment> segments, float distanceOnEdgeM)
+        public static float GetGradientPermilleAt(List<TrackGeometryVerticalSegment> segments, float distanceOnGeometryM)
+        {
+            return GetDerivativeAt(segments, distanceOnGeometryM) * PermilleScale;
+        }
+
+        /// <summary>Height derivative dy/dS in m/m, including the existing gap and tail extension rules.</summary>
+        public static float GetDerivativeAt(List<TrackGeometryVerticalSegment> segments, float distanceOnGeometryM)
         {
             if (segments == null || segments.Count == 0)
             {
@@ -114,25 +99,22 @@ namespace Nakatetsu.Track.Graph.Geometry
 
                 float segmentStartM = Mathf.Max(0f, segment.startDistanceM);
                 float segmentEndM = segmentStartM + Mathf.Max(0f, segment.lengthM);
-                if (distanceOnEdgeM < segmentStartM)
+                if (distanceOnGeometryM < segmentStartM)
                 {
                     break;
                 }
 
-                if (distanceOnEdgeM <= segmentEndM)
+                if (distanceOnGeometryM <= segmentEndM)
                 {
-                    return GetGradientPermilleAt(
-                        distanceOnEdgeM - segmentStartM,
-                        segment.lengthM,
-                        segment.startGradientPermille,
-                        segment.endGradientPermille
-                    );
+                    return segment.EvaluateDerivative(distanceOnGeometryM);
                 }
 
                 lastPassedSegment = segment;
             }
 
-            return lastPassedSegment != null ? lastPassedSegment.endGradientPermille : 0f;
+            if (lastPassedSegment == null) return 0f;
+            float lastEndM = Mathf.Max(0f, lastPassedSegment.startDistanceM) + lastPassedSegment.lengthM;
+            return lastPassedSegment.EvaluateDerivative(lastEndM);
         }
     }
 }

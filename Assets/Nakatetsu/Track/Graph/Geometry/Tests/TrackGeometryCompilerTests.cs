@@ -11,13 +11,13 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
         {
             var definition = new TrackGeometryDefinition { originPosition = new Vector3(10, 5, 20) };
             float arcLength = Mathf.PI * 50f;
-            definition.horizontalSegments.Add(new TrackGeometryHorizontalSegment
-            { lengthM = arcLength, trackCurveType = TrackGeometryCurveType.Curve, radiusM = 100 });
-            definition.horizontalSegments.Add(new TrackGeometryHorizontalSegment
+            definition.horizontalSegments.Add(new TrackGeometryCircularSegment
+            { lengthM = arcLength, radiusM = 100 });
+            definition.horizontalSegments.Add(new TrackGeometryStraightSegment
             { startDistanceM = arcLength, lengthM = 20 });
-            definition.verticalSegments.Add(new TrackGeometryVerticalSegment
+            definition.verticalSegments.Add(new TrackGeometryLinearGradientSegment
             { lengthM = 50, startGradientPermille = 0, endGradientPermille = 20 });
-            definition.verticalSegments.Add(new TrackGeometryVerticalSegment
+            definition.verticalSegments.Add(new TrackGeometryLinearGradientSegment
             { startDistanceM = 75, lengthM = 25, startGradientPermille = 20, endGradientPermille = 0 });
 
             var context = new TrackGeometryContext();
@@ -35,7 +35,7 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
         public void RebuildReplacesPreviousCacheAndNullClearsIt()
         {
             var definition = new TrackGeometryDefinition();
-            definition.horizontalSegments.Add(new TrackGeometryHorizontalSegment());
+            definition.horizontalSegments.Add(new TrackGeometryStraightSegment());
             var context = new TrackGeometryContext();
             TrackGeometryCompiler.Rebuild(definition, context);
             definition.originPosition = Vector3.right;

@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using System;
 
@@ -14,8 +13,8 @@ namespace Nakatetsu.Track.Graph.Geometry
     }
 
     [Serializable]
-    [MovedFrom(true, sourceNamespace: "Nakatetsu.Track.Graph.Geometry", sourceAssembly: "Nakatetsu.Track", sourceClassName: "TrainGeometryHorizontalSegment")]
-    public class TrackGeometryHorizontalSegment
+    // Read-only migration shape for the former inline, enum-discriminated format.
+    internal sealed class LegacyTrackGeometryHorizontalSegment
     {
         public float startDistanceM;
         public float lengthM = 100f;
@@ -24,8 +23,8 @@ namespace Nakatetsu.Track.Graph.Geometry
     }
 
     [Serializable]
-    [MovedFrom(true, sourceNamespace: "Nakatetsu.Track.Graph.Geometry", sourceAssembly: "Nakatetsu.Track", sourceClassName: "TrainGeometryVerticalSegment")]
-    public class TrackGeometryVerticalSegment
+    // Read-only migration shape for the former inline vertical segments.
+    internal sealed class LegacyTrackGeometryVerticalSegment
     {
         public float startDistanceM;
         public float lengthM = 100f;

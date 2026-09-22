@@ -14,7 +14,7 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
                 lengthM = 100f,
                 horizontalSegments = new List<TrackGeometryHorizontalSegment>
                 {
-                    new TrackGeometryHorizontalSegment { lengthM = 100f }
+                    new TrackGeometryStraightSegment { lengthM = 100f }
                 }
             };
         }
@@ -49,9 +49,9 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
         {
             var line = Straight();
             line.lengthM = Mathf.PI * 50f;
-            line.horizontalSegments[0] = new TrackGeometryHorizontalSegment
+            line.horizontalSegments[0] = new TrackGeometryCircularSegment
             {
-                lengthM = line.lengthM, trackCurveType = TrackGeometryCurveType.Curve, radiusM = radius
+                lengthM = line.lengthM, radiusM = radius
             };
             Assert.That(TrackGeometryCalculator.TryEvaluate(line, line.lengthM, out var sample), Is.True);
             Assert.That(Vector3.Distance(sample.Position, new Vector3(x, 0, 100)), Is.LessThan(0.001f));
@@ -63,10 +63,10 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
             var line = Straight();
             line.lengthM = 20 + Mathf.PI * 50;
             line.horizontalSegments[0].lengthM = 20;
-            line.horizontalSegments.Add(new TrackGeometryHorizontalSegment
+            line.horizontalSegments.Add(new TrackGeometryCircularSegment
             {
                 startDistanceM = 20, lengthM = Mathf.PI * 50,
-                trackCurveType = TrackGeometryCurveType.Curve, radiusM = 100
+                radiusM = 100
             });
             Assert.That(TrackGeometryCalculator.TryEvaluate(line, line.lengthM, out var sample), Is.True);
             Assert.That(Vector3.Distance(sample.Position, new Vector3(100, 0, 120)), Is.LessThan(0.001f));
@@ -76,7 +76,7 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
         public void GradientProducesPitchWithoutRoll()
         {
             var line = Straight();
-            line.verticalSegments.Add(new TrackGeometryVerticalSegment
+            line.verticalSegments.Add(new TrackGeometryLinearGradientSegment
             { lengthM = 100, startGradientPermille = 20, endGradientPermille = 20 });
             line.originRotation = Quaternion.Euler(0, 0, 30);
             Assert.That(TrackGeometryCalculator.TryEvaluate(line, 50, out var sample), Is.True);
@@ -91,7 +91,7 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
         public void GradientRampIntegratesHeightAndExtendsAcrossGap()
         {
             var line = Straight();
-            line.verticalSegments.Add(new TrackGeometryVerticalSegment
+            line.verticalSegments.Add(new TrackGeometryLinearGradientSegment
             { lengthM = 50, startGradientPermille = 0, endGradientPermille = 20 });
             Assert.That(TrackGeometryCalculator.TryEvaluate(line, 75, out var sample), Is.True);
             Assert.That(sample.Position.y, Is.EqualTo(1).Within(0.0001));
@@ -103,8 +103,9 @@ namespace Nakatetsu.Track.Graph.Geometry.Tests
         public void TransitionRetainsLegacyCubicApproximation(TrackGeometryCurveType type, float expectedX)
         {
             var line = Straight();
-            line.horizontalSegments[0].trackCurveType = type;
-            line.horizontalSegments[0].radiusM = 500;
+            line.horizontalSegments[0] = type == TrackGeometryCurveType.TransitionIn
+                ? new TrackGeometryTransitionInSegment { lengthM = 100f, radiusM = 500f }
+                : new TrackGeometryTransitionOutSegment { lengthM = 100f, radiusM = 500f };
             Assert.That(TrackGeometryCalculator.TryEvaluate(line, 50, out var sample), Is.True);
             // x=in: 50^3/(6*100*500); out: 50^2/(2*500)-in.
             Assert.That(sample.Position.x, Is.EqualTo(expectedX).Within(0.0001));

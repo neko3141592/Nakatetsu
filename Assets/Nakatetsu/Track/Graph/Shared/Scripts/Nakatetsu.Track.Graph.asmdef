@@ -2,7 +2,8 @@
     "name": "Nakatetsu.Track.Graph",
     "rootNamespace": "Nakatetsu.Track.Graph",
     "references": [
-        "Nakatetsu.Track"
+        "Nakatetsu.Track",
+        "Nakatetsu.Track.Shared"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
