@@ -18,7 +18,7 @@ namespace Nakatetsu.Train.Debugging
         [ContextMenu("Install doors (Play Mode only)")]
         public void InstallDoors()
         {
-            if (!Application.isPlaying) return;
+            if (!UnityEngine.Application.isPlaying) return;
             var root = GetComponentInParent<TrainRoot>();
             if (root == null || root.ConsistDefinition == null) return;
             for (int i = 0; i < root.ConsistDefinition.CarCount; i++)
@@ -55,7 +55,7 @@ namespace Nakatetsu.Train.Debugging
 
         private void OnGUI()
         {
-            if (!Application.isPlaying) return;
+            if (!UnityEngine.Application.isPlaying) return;
             var root = GetComponentInParent<TrainRoot>();
             if (root == null) return;
             GUILayout.BeginArea(panelRect, "Door debug", GUI.skin.window);

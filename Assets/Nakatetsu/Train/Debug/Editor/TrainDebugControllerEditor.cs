@@ -7,14 +7,14 @@ namespace Nakatetsu.Train.Debugging.Editor
     [CustomEditor(typeof(TrainDebugController))]
     public sealed class TrainDebugControllerEditor : UnityEditor.Editor
     {
-        public override bool RequiresConstantRepaint() => Application.isPlaying;
+        public override bool RequiresConstantRepaint() => UnityEngine.Application.isPlaying;
 
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
             var controller = (TrainDebugController)target;
             EditorGUILayout.HelpBox("TrainRootのある編成ルートに追加し、Play後に運転台を準備 → Pノッチで発進します。車両モデルの線路上移動は別途接続が必要です。", MessageType.Info);
-            using (new EditorGUI.DisabledScope(!Application.isPlaying))
+            using (new EditorGUI.DisabledScope(!UnityEngine.Application.isPlaying))
             {
                 if (GUILayout.Button("機器を再取得")) controller.RefreshReferences();
                 EditorGUILayout.BeginHorizontal();
@@ -46,7 +46,7 @@ namespace Nakatetsu.Train.Debugging.Editor
                 EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.HelpBox(controller.LastOperation, MessageType.None);
-            if (Application.isPlaying) EditorGUILayout.HelpBox(controller.GetStatus(), MessageType.None);
+            if (UnityEngine.Application.isPlaying) EditorGUILayout.HelpBox(controller.GetStatus(), MessageType.None);
         }
     }
 }

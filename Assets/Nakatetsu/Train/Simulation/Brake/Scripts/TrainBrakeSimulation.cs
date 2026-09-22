@@ -102,7 +102,7 @@ namespace Nakatetsu.Train.Simulation.Brake
         private void OnValidate()
         {
             cylinderCount = Mathf.Max(0, cylinderCount);
-            if (Application.isPlaying)
+            if (UnityEngine.Application.isPlaying)
             {
                 appliedDefinition = null;
                 appliedCylinderCount = -1;

@@ -137,7 +137,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
             for (int i = generatedObjects.Count - 1; i >= 0; i--)
             {
-                if (Application.isPlaying)
+                if (UnityEngine.Application.isPlaying)
                 {
                     Destroy(generatedObjects[i]);
                 }

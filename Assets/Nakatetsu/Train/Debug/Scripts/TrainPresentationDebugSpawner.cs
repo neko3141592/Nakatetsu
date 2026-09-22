@@ -40,7 +40,7 @@ namespace Nakatetsu.Train.Debugging
         [ContextMenu("Generate presentation (Play Mode only)")]
         public void Generate()
         {
-            if (!Application.isPlaying) return;
+            if (!UnityEngine.Application.isPlaying) return;
             if (trainRoot == null) trainRoot = GetComponentInParent<TrainRoot>(true);
             if (trainRoot == null || trainRoot.ConsistDefinition == null)
             {
@@ -99,7 +99,7 @@ namespace Nakatetsu.Train.Debugging
             GameObject container = generatedRoot.gameObject;
             generatedRoot = null;
             container.SetActive(false);
-            if (Application.isPlaying) Destroy(container);
+            if (UnityEngine.Application.isPlaying) Destroy(container);
             else DestroyImmediate(container);
         }
 

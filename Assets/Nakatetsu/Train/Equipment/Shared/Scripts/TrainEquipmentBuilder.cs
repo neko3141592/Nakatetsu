@@ -301,7 +301,7 @@ namespace Nakatetsu.Train.Equipment.Shared
                 return;
             }
 
-            if (Application.isPlaying)
+            if (UnityEngine.Application.isPlaying)
             {
                 Destroy(target);
             }

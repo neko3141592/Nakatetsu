@@ -73,7 +73,7 @@ namespace Nakatetsu.Train.Debugging
                 if (assignment.AssignedCarIndex == 0) frontSwitch = cab;
                 if (assignment.AssignedCarIndex == rearIndex) rearSwitch = cab;
             }
-            if (Application.isPlaying && simulation != null) simulation.ResolveReferences();
+            if (UnityEngine.Application.isPlaying && simulation != null) simulation.ResolveReferences();
             lastOperation = "機器を再取得しました。";
         }
 
@@ -84,7 +84,7 @@ namespace Nakatetsu.Train.Debugging
 
         private void PrepareCab(bool rear)
         {
-            if (!Application.isPlaying) return;
+            if (!UnityEngine.Application.isPlaying) return;
             RefreshReferences();
             if (physics == null || simulation == null || brake == null || direction == null ||
                 frontMaster == null || rearMaster == null || frontSwitch == null || rearSwitch == null ||
@@ -148,7 +148,7 @@ namespace Nakatetsu.Train.Debugging
         private bool TryGetMaster(out MasterController master)
         {
             master = ActiveMaster;
-            if (!Application.isPlaying) { lastOperation = "Playモードで操作してください。"; return false; }
+            if (!UnityEngine.Application.isPlaying) { lastOperation = "Playモードで操作してください。"; return false; }
             if (master == null) { lastOperation = "先に運転台を準備してください。"; return false; }
             return true;
         }
@@ -164,7 +164,7 @@ namespace Nakatetsu.Train.Debugging
 
         private void RequestDoors(bool? leftSide, DoorMotionCommand command)
         {
-            if (!Application.isPlaying) { lastOperation = "Playモードで操作してください。"; return; }
+            if (!UnityEngine.Application.isPlaying) { lastOperation = "Playモードで操作してください。"; return; }
             if (communication == null) RefreshReferences();
             var doors = communication != null ? communication.GetComponent<TimsDoorController>() : null;
             if (communication == null || !communication.isActiveAndEnabled || doors == null || !doors.isActiveAndEnabled)

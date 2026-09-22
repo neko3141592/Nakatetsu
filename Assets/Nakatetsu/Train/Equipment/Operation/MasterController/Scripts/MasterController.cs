@@ -159,7 +159,7 @@ namespace Nakatetsu.Train.Equipment.Operation
             maxPowerPosition = Mathf.Max(1, maxPowerPosition);
             maxServiceBrakePosition = Mathf.Max(1, maxServiceBrakePosition);
             emergencyBrakePosition = Mathf.Max(maxServiceBrakePosition + 1, emergencyBrakePosition);
-            if (Application.isPlaying)
+            if (UnityEngine.Application.isPlaying)
             {
                 ApplySerializedSettings();
             }

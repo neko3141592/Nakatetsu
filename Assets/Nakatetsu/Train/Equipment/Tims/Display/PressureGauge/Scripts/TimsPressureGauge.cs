@@ -77,7 +77,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
 
         private void LateUpdate()
         {
-            if (Application.isPlaying) Refresh();
+            if (UnityEngine.Application.isPlaying) Refresh();
             else
             {
                 mrPressureRatio = NormalizePressure(manualMrPressureKPa);

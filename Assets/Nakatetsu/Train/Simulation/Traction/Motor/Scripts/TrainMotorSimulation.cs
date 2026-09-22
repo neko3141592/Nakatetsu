@@ -152,7 +152,7 @@ namespace Nakatetsu.Train.Simulation.Traction.Motor
         private void OnValidate()
         {
             motorCount = Mathf.Max(0, motorCount);
-            if (Application.isPlaying)
+            if (UnityEngine.Application.isPlaying)
             {
                 appliedDefinition = null;
                 appliedMotorCount = -1;
