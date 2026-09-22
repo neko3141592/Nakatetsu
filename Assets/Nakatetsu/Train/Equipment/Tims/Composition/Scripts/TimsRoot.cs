@@ -95,7 +95,7 @@ namespace Nakatetsu.Train.Equipment.Tims
             {
                 foreach (var camera in monitorOutputContainer.GetComponentsInChildren<Camera>(true))
                     camera.targetTexture = null;
-                if (Application.isPlaying) Destroy(monitorOutputContainer);
+                if (UnityEngine.Application.isPlaying) Destroy(monitorOutputContainer);
                 else DestroyImmediate(monitorOutputContainer);
             }
             if (monitorTextures == null) return;
@@ -103,7 +103,7 @@ namespace Nakatetsu.Train.Equipment.Tims
             {
                 if (texture == null) continue;
                 texture.Release();
-                if (Application.isPlaying) Destroy(texture);
+                if (UnityEngine.Application.isPlaying) Destroy(texture);
                 else DestroyImmediate(texture);
             }
             monitorTextures = null;

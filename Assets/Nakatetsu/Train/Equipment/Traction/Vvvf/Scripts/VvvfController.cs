@@ -228,7 +228,7 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
         {
             motorCount = Mathf.Max(0, motorCount);
             responseVariation = Mathf.Clamp(responseVariation, 0.9f, 1.1f);
-            if (Application.isPlaying)
+            if (UnityEngine.Application.isPlaying)
             {
                 appliedDefinition = null;
                 ApplyDefinition();

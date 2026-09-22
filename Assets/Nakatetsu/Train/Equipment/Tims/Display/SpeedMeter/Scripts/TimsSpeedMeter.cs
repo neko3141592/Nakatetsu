@@ -401,7 +401,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
                 }
 
                 child.gameObject.SetActive(false);
-                if (Application.isPlaying)
+                if (UnityEngine.Application.isPlaying)
                 {
                     Destroy(child.gameObject);
                 }

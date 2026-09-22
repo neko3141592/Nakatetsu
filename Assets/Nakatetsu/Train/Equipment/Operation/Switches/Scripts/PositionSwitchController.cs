@@ -121,7 +121,7 @@ namespace Nakatetsu.Train.Equipment.Operation.Switches
                 minimumPosition,
                 maximumPosition);
 
-            if (Application.isPlaying)
+            if (UnityEngine.Application.isPlaying)
             {
                 int previousPosition = Position;
                 ApplySerializedSettings();

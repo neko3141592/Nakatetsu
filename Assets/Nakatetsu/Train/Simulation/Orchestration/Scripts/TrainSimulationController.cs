@@ -45,6 +45,9 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public IReadOnlyDictionary<int, TrainLoadController> LoadSimulations => loadSimulations;
         public TrainSimulationContext Context => context;
         public TrainPhysicsController PhysicsController => physicsController;
+        public bool IsInitialized { get; private set; }
+
+        public void SetAutoRefresh(bool enabled) => AutoRefresh = enabled;
 
         private void Awake()
         {
@@ -57,6 +60,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         {
             // 生成済みのEquipmentとSimulationを車両ごとに収集する。
             ResolveReferences();
+            IsInitialized = true;
         }
 
         public void ResolveReferences()
