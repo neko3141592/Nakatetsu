@@ -3,7 +3,9 @@
     "rootNamespace": "Nakatetsu.Train.Debugging",
     "references": [
         "Nakatetsu.Train",
-        "Nakatetsu.Train.Equipment.Tims"
+        "Nakatetsu.Train.Equipment.Tims",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Simulation"
     ],
     "includePlatforms": []
 }

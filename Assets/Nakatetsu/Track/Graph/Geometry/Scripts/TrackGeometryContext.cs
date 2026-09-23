@@ -19,7 +19,7 @@ namespace Nakatetsu.Track.Graph.Geometry
         public int segmentIndex;
         public float startDistanceM;
         public float endDistanceM;
-        // Horizontal pose: height and pitch are evaluated separately.
+        // 高さとピッチは水平姿勢とは別に評価する。
         public Vector3 position;
         public Quaternion rotation;
     }
@@ -29,7 +29,7 @@ namespace Nakatetsu.Track.Graph.Geometry
         public int segmentIndex;
         public float startDistanceM;
         public float endDistanceM;
-        // Height relative to the TrackGeometry origin.
+        // TrackGeometry起点からの相対高さ。
         public float heightM;
     }
 }

@@ -21,7 +21,7 @@ namespace Nakatetsu.Track.Graph.Geometry
 
         [SerializeReference] private List<TrackGeometryHorizontalSegment> horizontalSegmentDefinitions = new();
 
-        // A different serialized name is required: inline data cannot be read as managed references.
+        // 旧形式のインライン値はSerializeReferenceで読めないため、別名で受け取る。
         [SerializeField, HideInInspector, FormerlySerializedAs("horizontalSegments")]
         private List<LegacyTrackGeometryHorizontalSegment> legacyHorizontalSegments;
 
@@ -50,11 +50,7 @@ namespace Nakatetsu.Track.Graph.Geometry
             }
         }
 
-        /// <summary>
-        /// Geometry距離からワールド位置[m]と正規化しない一次微分dP/dS[m/m]を取得する。
-        /// 範囲外はClampせずfalse。水平区間は0から連続した距離順、縦断区間は重なりのない距離順を使う。
-        /// 共有端点は既存Geometry評価と同じく手前の区間側の微分を返す。
-        /// </summary>
+        // Geometry距離から位置と一次微分を取得する。区間の共有端点では手前側を採用する。
         public bool TryEvaluateAtGeometryDistance(float distanceOnGeometryM, out Vector3 position,
             out Vector3 derivative)
         {
@@ -62,10 +58,7 @@ namespace Nakatetsu.Track.Graph.Geometry
                 out position, out derivative);
         }
 
-        /// <summary>
-        /// ワールド位置・一次微分に加え、正規化しない二階微分d²P/dS²[1/m]を取得する。
-        /// 区間選択は一次微分版と同じ。失敗時は全出力を0にする。
-        /// </summary>
+        // 位置と一次微分に加え、正規化しない二階微分を取得する。
         public bool TryEvaluateAtGeometryDistance(float distanceOnGeometryM, out Vector3 position,
             out Vector3 derivative, out Vector3 secondDerivative)
         {
@@ -83,7 +76,11 @@ namespace Nakatetsu.Track.Graph.Geometry
 
         private void MigrateVerticalSegments()
         {
-            if (legacyVerticalSegments == null || legacyVerticalSegments.Count == 0) return;
+            if (legacyVerticalSegments == null || legacyVerticalSegments.Count == 0)
+            {
+                return;
+            }
+
             if (verticalSegmentDefinitions == null || verticalSegmentDefinitions.Count == 0)
             {
                 verticalSegmentDefinitions = new List<TrackGeometryVerticalSegment>(legacyVerticalSegments.Count);
@@ -98,12 +95,17 @@ namespace Nakatetsu.Track.Graph.Geometry
                     });
                 }
             }
+
             legacyVerticalSegments = null;
         }
 
         private void MigrateHorizontalSegments()
         {
-            if (legacyHorizontalSegments == null || legacyHorizontalSegments.Count == 0) return;
+            if (legacyHorizontalSegments == null || legacyHorizontalSegments.Count == 0)
+            {
+                return;
+            }
+
             if (horizontalSegmentDefinitions == null || horizontalSegmentDefinitions.Count == 0)
             {
                 horizontalSegmentDefinitions = new List<TrackGeometryHorizontalSegment>(legacyHorizontalSegments.Count);
@@ -114,6 +116,7 @@ namespace Nakatetsu.Track.Graph.Geometry
                         horizontalSegmentDefinitions.Add(null);
                         continue;
                     }
+
                     TrackGeometryHorizontalSegment segment;
                     switch (legacy.trackCurveType)
                     {
@@ -127,15 +130,17 @@ namespace Nakatetsu.Track.Graph.Geometry
                             segment = new TrackGeometryTransitionOutSegment { radiusM = legacy.radiusM };
                             break;
                         default:
-                            // Preserve the previous evaluator's fallback for an unknown enum value.
+                            // 不明な列挙値は旧評価処理と同じく直線として扱う。
                             segment = new TrackGeometryStraightSegment();
                             break;
                     }
+
                     segment.startDistanceM = legacy.startDistanceM;
                     segment.lengthM = legacy.lengthM;
                     horizontalSegmentDefinitions.Add(segment);
                 }
             }
+
             legacyHorizontalSegments = null;
         }
     }

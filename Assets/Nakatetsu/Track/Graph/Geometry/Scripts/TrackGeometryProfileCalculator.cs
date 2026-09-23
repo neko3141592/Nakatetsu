@@ -8,21 +8,33 @@ namespace Nakatetsu.Track.Graph.Geometry
         private const float MinSegmentLengthM = 0.001f;
         private const float PermilleScale = 1000f;
 
-        /// <summary>
-        /// d²y/dS²[1/m]。区間の共有端点は手前側を採用する。
-        /// 最初の区間より前・区間の隙間・末尾は一定勾配なので0。
-        /// </summary>
+        // 高さの二階微分を返す。区間外は0、共有端点では手前側を採用する。
         public static float GetSecondDerivativeAt(List<TrackGeometryVerticalSegment> segments, float distanceOnGeometryM)
         {
-            if (segments == null) return 0f;
+            if (segments == null)
+            {
+                return 0f;
+            }
+
             foreach (var segment in segments)
             {
-                if (segment == null || segment.lengthM <= MinSegmentLengthM) continue;
+                if (segment == null || segment.lengthM <= MinSegmentLengthM)
+                {
+                    continue;
+                }
+
                 float startM = Mathf.Max(0f, segment.startDistanceM);
-                if (distanceOnGeometryM < startM) return 0f;
+                if (distanceOnGeometryM < startM)
+                {
+                    return 0f;
+                }
+
                 if (distanceOnGeometryM <= startM + segment.lengthM)
+                {
                     return segment.EvaluateSecondDerivative(distanceOnGeometryM);
+                }
             }
+
             return 0f;
         }
 
@@ -80,7 +92,7 @@ namespace Nakatetsu.Track.Graph.Geometry
             return GetDerivativeAt(segments, distanceOnGeometryM) * PermilleScale;
         }
 
-        /// <summary>Height derivative dy/dS in m/m, including the existing gap and tail extension rules.</summary>
+        // 区間の隙間と末尾への勾配延長を含め、高さの一次微分を返す。
         public static float GetDerivativeAt(List<TrackGeometryVerticalSegment> segments, float distanceOnGeometryM)
         {
             if (segments == null || segments.Count == 0)
@@ -112,7 +124,11 @@ namespace Nakatetsu.Track.Graph.Geometry
                 lastPassedSegment = segment;
             }
 
-            if (lastPassedSegment == null) return 0f;
+            if (lastPassedSegment == null)
+            {
+                return 0f;
+            }
+
             float lastEndM = Mathf.Max(0f, lastPassedSegment.startDistanceM) + lastPassedSegment.lengthM;
             return lastPassedSegment.EvaluateDerivative(lastEndM);
         }

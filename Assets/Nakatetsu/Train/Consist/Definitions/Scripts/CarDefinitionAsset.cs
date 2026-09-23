@@ -34,6 +34,8 @@ namespace Nakatetsu.Train.Consist
 
         public TrainDriveDefinition driveDefinition;
 
+        [Header("Presentation")]
+        public GameObject presentationPrefab;
 
         [Header("Equipment")]
         public GameObject tractionEquipmentPrefab;

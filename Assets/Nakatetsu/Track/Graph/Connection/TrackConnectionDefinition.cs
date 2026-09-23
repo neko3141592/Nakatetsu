@@ -6,9 +6,9 @@ namespace Nakatetsu.Track.Graph.Connection
     public enum TrackConnectionCondition
     {
         Unspecified, // 未設定を検出するため
-        Always,  // 固定接続
-        Normal,  // 定位のとき接続
-        Reverse  // 反位のとき接続
+        Always, // 固定接続
+        Normal, // 定位のとき接続
+        Reverse // 反位のとき接続
     }
 
     [Serializable]
@@ -17,7 +17,7 @@ namespace Nakatetsu.Track.Graph.Connection
         public string connectionId;
         public string nodeId;
 
-        // 固定接続は長さ1、転轍機は長さ2
+        // 固定接続は1組、転轍機は定位と反位の2組を持つ。
         public List<TrackEdgePair> edgePairs = new();
     }
 

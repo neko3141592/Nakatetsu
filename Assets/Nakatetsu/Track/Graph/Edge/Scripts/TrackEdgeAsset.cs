@@ -7,7 +7,7 @@ namespace Nakatetsu.Track.Graph.Edge
     {
         [SerializeField] private TrackEdgeDefinition definition = new();
 
-        /// <summary>Authoring data and baked distance map. Do not modify during simulation.</summary>
+        // 線路定義と生成済み距離表。走行中は変更しない。
         public TrackEdgeDefinition Definition => definition;
     }
 }

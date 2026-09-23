@@ -12,10 +12,12 @@ namespace Nakatetsu.Track.Graph
         private void Awake()
         {
             if (!TryInitialize(out string error))
+            {
                 Debug.LogError($"Track graph lookup initialization failed: {error}", this);
+            }
         }
 
-        /// <summary>Rebuilds lookup dictionaries only; does not compile or generate track geometry.</summary>
+        // ID検索を作り直す。線形のコンパイルや距離表の生成は行わない。
         public bool TryInitialize(out string error)
         {
             if (graphAsset == null)

@@ -28,7 +28,11 @@ namespace Nakatetsu.Track.Graph.Geometry
         public override Vector3 EvaluateSecondDerivative(float distanceOnGeometryM)
         {
             float totalLengthM = Mathf.Max(0f, lengthM);
-            if (Mathf.Abs(radiusM) < 0.001f || totalLengthM < 0.001f) return Vector3.zero;
+            if (Mathf.Abs(radiusM) < 0.001f || totalLengthM < 0.001f)
+            {
+                return Vector3.zero;
+            }
+
             float localDistanceM = GetLocalDistanceM(distanceOnGeometryM);
             return new Vector3((1f - localDistanceM / totalLengthM) / radiusM, 0f, 0f);
         }
