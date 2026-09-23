@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nakatetsu.Track.Graph.Connection;
 using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Graph.Geometry;
 
@@ -105,6 +106,18 @@ namespace Nakatetsu.Track.Graph
             }
 
             ValidateNodeEdgeLists(definition, errors);
+            if (errors.Count != 0) return false;
+
+            // 接続のIDとNodeごとの一意性を確認してから、固定・定位・反位のペアを検証する。
+            var indexedGraph = new TrackGraphContext();
+            if (!indexedGraph.TryBuildLookups(definition, out string lookupError))
+            {
+                errors.Add(lookupError);
+                return false;
+            }
+            foreach (var connection in definition.connections)
+                if (!TrackConnectionValidator.TryValidate(connection, indexedGraph, out string error))
+                    errors.Add(error);
             if (errors.Count != 0) return false;
             context.Rebuild(definition);
             return true;

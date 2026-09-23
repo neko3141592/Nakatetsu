@@ -29,11 +29,13 @@ namespace Nakatetsu.Track.Graph.Edge
         [FormerlySerializedAs("endDistanceOnTrackGeometryM")]
         public float endDistanceOnGeometryM;
 
-        // Shape-specific settings are saved in Geometry coordinates, independently of Edge orientation.
         [SerializeReference] public List<TrackEdgeOffsetSegment> offsetSegments = new();
 
-        // Generated samples ordered from Node A to Node B. Do not modify during simulation.
         [HideInInspector] public List<TrackEdgeDistanceSample> distanceMap = new();
+
+        public float LengthM => distanceMap != null && distanceMap.Count >= 2
+            ? distanceMap[^1].distanceOnEdgeM
+            : 0f;
 
         /// <summary>
         /// Geometry距離[m]に対応するOffsetSegmentから横オフセット[m]を取得する。LUTは使用しない。

@@ -3,7 +3,9 @@
     "rootNamespace": "Nakatetsu.Train",
     "references": [
         "Nakatetsu.Core",
-        "Nakatetsu.Track"
+        "Nakatetsu.Track",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Simulation"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

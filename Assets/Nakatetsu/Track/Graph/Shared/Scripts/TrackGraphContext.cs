@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Nakatetsu.Track.Graph.Connection;
 using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Graph.Geometry;
 using Nakatetsu.Track.Graph.Node;
@@ -12,6 +13,10 @@ namespace Nakatetsu.Track.Graph
         private readonly Dictionary<string, TrackNodeDefinition> nodesById = new();
         private readonly Dictionary<string, TrackEdgeDefinition> edgesById = new();
         private readonly Dictionary<string, TrackGeometryDefinition> geometriesById = new();
+        private readonly Dictionary<string, TrackConnectionDefinition> connectionsById = new();
+        private readonly Dictionary<string, TrackConnectionDefinition> connectionsByNodeId = new();
+
+        public IEnumerable<TrackConnectionDefinition> Connections => connectionsById.Values;
 
         /// <summary>Only indicates successful ID indexing, not validated topology or movement data.</summary>
         public bool IsInitialized { get; private set; }
@@ -34,6 +39,18 @@ namespace Nakatetsu.Track.Graph
             return !string.IsNullOrWhiteSpace(id) && geometriesById.TryGetValue(id, out geometry);
         }
 
+        public bool TryGetConnection(string id, out TrackConnectionDefinition connection)
+        {
+            connection = null;
+            return !string.IsNullOrWhiteSpace(id) && connectionsById.TryGetValue(id, out connection);
+        }
+
+        public bool TryGetConnectionAtNode(string nodeId, out TrackConnectionDefinition connection)
+        {
+            connection = null;
+            return !string.IsNullOrWhiteSpace(nodeId) && connectionsByNodeId.TryGetValue(nodeId, out connection);
+        }
+
         /// <summary>Builds ID lookups only. Does not evaluate geometry, generate LUTs or validate connections.</summary>
         public bool TryBuildLookups(TrackGraphDefinition definition, out string error)
         {
@@ -46,7 +63,9 @@ namespace Nakatetsu.Track.Graph
 
             if (!TryIndex(definition.nodes, nodesById, node => node.nodeId, "nodes", out error) ||
                 !TryIndex(definition.edges, edgesById, edge => edge.edgeId, "edges", out error) ||
-                !TryIndex(definition.geometries, geometriesById, geometry => geometry.trackGeometryId, "geometries", out error))
+                !TryIndex(definition.geometries, geometriesById, geometry => geometry.trackGeometryId, "geometries", out error) ||
+                !TryIndex(definition.connections, connectionsById, connection => connection.connectionId, "connections", out error) ||
+                !TryIndex(definition.connections, connectionsByNodeId, connection => connection.nodeId, "connection nodes", out error))
             {
                 ClearLookups();
                 return false;
@@ -69,6 +88,8 @@ namespace Nakatetsu.Track.Graph
             nodesById.Clear();
             edgesById.Clear();
             geometriesById.Clear();
+            connectionsById.Clear();
+            connectionsByNodeId.Clear();
         }
 
         private static bool TryIndex<T>(List<T> entries, Dictionary<string, T> lookup,

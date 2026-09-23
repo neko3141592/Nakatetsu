@@ -7,6 +7,10 @@ namespace Nakatetsu.Train.Simulation.Physics
         private const float StopThresholdMps = 0.01f;
         public static void Calculate(TrainPhysicsContext context, float deltaTimeSeconds)
         {
+            context.State.signedDisplacementM = 0f;
+            if (float.IsNaN(deltaTimeSeconds) || float.IsInfinity(deltaTimeSeconds) || deltaTimeSeconds < 0f)
+                return;
+
             if (!TryApplyBrakeHold(context))
             {
                 CalculateAcceleration(context);
@@ -29,6 +33,7 @@ namespace Nakatetsu.Train.Simulation.Physics
 
             context.State.signedVelocityMps = 0;
             context.State.signedAcceleration = 0;
+            context.State.signedDisplacementM = 0;
 
             return true;
         }
@@ -64,7 +69,14 @@ namespace Nakatetsu.Train.Simulation.Physics
                 (currentVelocityMps < 0f && nextVelocityMps > 0f)
             )
             {
+                float timeToStopSeconds = -currentVelocityMps / context.State.signedAcceleration;
+                context.State.signedDisplacementM = 0.5f * currentVelocityMps * timeToStopSeconds;
                 nextVelocityMps = 0;
+            }
+            else
+            {
+                context.State.signedDisplacementM =
+                    0.5f * (currentVelocityMps + nextVelocityMps) * deltaTimeSeconds;
             }
 
             context.State.signedVelocityMps = nextVelocityMps;
@@ -74,6 +86,7 @@ namespace Nakatetsu.Train.Simulation.Physics
         {
             context.Output.signedVelocityMps = context.State.signedVelocityMps;
             context.Output.signedAcceleration = context.State.signedAcceleration;
+            context.Output.signedDisplacementM = context.State.signedDisplacementM;
         }
     }
 }
