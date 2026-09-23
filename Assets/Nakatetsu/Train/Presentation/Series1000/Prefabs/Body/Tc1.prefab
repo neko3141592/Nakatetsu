@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2948488863669113307}
+  - component: {fileID: 5773146434449166538}
   m_Layer: 0
   m_Name: Tc1
   m_TagString: Untagged
@@ -123,6 +124,18 @@ Transform:
   - {fileID: 7592282096734724162}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5773146434449166538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718862623358748911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4389785b5124b7bb36d21d400f4b09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Bogie.TrainBogiePresentation
 --- !u!1 &783314765040139880
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +260,25 @@ Transform:
   - {fileID: 5170796921162401058}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &311109418709698509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896080082866378294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 1
+  firstLeaf: {fileID: 5833995386018277244}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 5170796921162401058}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &978761297651646132
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +512,25 @@ Transform:
   - {fileID: 8599053812181020992}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8712829322747822950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169546229073428447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 3
+  firstLeaf: {fileID: 3103043911807300388}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 8599053812181020992}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &1472594933358217858
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +883,25 @@ Transform:
   - {fileID: 7092226014682561380}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5337519352798428162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669910804195445994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 3
+  firstLeaf: {fileID: 2371141852228324595}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 7092226014682561380}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &2807331856346606872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1383,25 @@ Transform:
   - {fileID: 4871684584445009948}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4008817491953363064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183467005134431682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 0
+  firstLeaf: {fileID: 6390539192810109288}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 4871684584445009948}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &3650292676713359592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,6 +1528,25 @@ Transform:
   - {fileID: 6800208754811448936}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2225350588785985780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3726260682431736387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 2
+  firstLeaf: {fileID: 8788474988371594548}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 6800208754811448936}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &3894544016475666319
 GameObject:
   m_ObjectHideFlags: 0
@@ -2545,6 +2653,25 @@ Transform:
   - {fileID: 3021774998598660249}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2871064356990908234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102357449871802038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 1
+  firstLeaf: {fileID: 1618516045046013222}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 3021774998598660249}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &6238719035783773428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3125,6 +3252,25 @@ Transform:
   - {fileID: 4235579617278198855}
   m_Father: {fileID: 732621552815080039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3622059629331966041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7223712372760367045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 2
+  firstLeaf: {fileID: 8605066873407690019}
+  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
+  secondLeaf: {fileID: 4235579617278198855}
+  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
 --- !u!1 &7592643632514884603
 GameObject:
   m_ObjectHideFlags: 0
@@ -4362,7 +4508,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
   simulation: {fileID: 0}
   leftSide: 1
@@ -4370,137 +4516,4 @@ MonoBehaviour:
   firstLeaf: {fileID: 481927852119546335}
   firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
   secondLeaf: {fileID: 6035205889868465578}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &4008817491953363064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3183467005134431682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 0
-  doorIndex: 0
-  firstLeaf: {fileID: 6390539192810109288}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 4871684584445009948}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &311109418709698509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896080082866378294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 1
-  doorIndex: 1
-  firstLeaf: {fileID: 5833995386018277244}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 5170796921162401058}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &2871064356990908234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6102357449871802038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 0
-  doorIndex: 1
-  firstLeaf: {fileID: 1618516045046013222}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 3021774998598660249}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &2225350588785985780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3726260682431736387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 1
-  doorIndex: 2
-  firstLeaf: {fileID: 8788474988371594548}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 6800208754811448936}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &3622059629331966041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7223712372760367045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 0
-  doorIndex: 2
-  firstLeaf: {fileID: 8605066873407690019}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 4235579617278198855}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &5337519352798428162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2669910804195445994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 1
-  doorIndex: 3
-  firstLeaf: {fileID: 2371141852228324595}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 7092226014682561380}
-  secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}
---- !u!114 &8712829322747822950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1169546229073428447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
-  simulation: {fileID: 0}
-  leftSide: 0
-  doorIndex: 3
-  firstLeaf: {fileID: 3103043911807300388}
-  firstLeafOpenOffset: {x: 0, y: -0.65, z: 0}
-  secondLeaf: {fileID: 8599053812181020992}
   secondLeafOpenOffset: {x: 0, y: 0.65, z: 0}

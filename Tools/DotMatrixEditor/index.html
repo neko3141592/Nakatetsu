@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dot Matrix Glyph Editor</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #1f1f1f;
+    --side: #181818;
+    --activity: #181818;
+    --title: #181818;
+    --surface: #252526;
+    --surface-hover: #2a2d2e;
+    --input: #313131;
+    --line: #2b2b2b;
+    --text: #d4d4d4;
+    --muted: #919191;
+    --accent: #3794ff;
+    --selection: #04395e;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--text); font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  button, input, select { font: inherit; }
+  button { cursor: pointer; }
+
+  .app { display: flex; flex-direction: column; height: 100vh; min-height: 540px; overflow: hidden; }
+  .titlebar { height: 38px; flex: none; display: flex; align-items: center; gap: 20px; padding: 0 16px; background: var(--title); border-bottom: 1px solid var(--line); }
+  .window-dots { display: flex; gap: 8px; align-items: center; }
+  .window-dots i { display: block; width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+  .window-dots i:nth-child(2) { background: #febc2e; }
+  .window-dots i:nth-child(3) { background: #28c840; }
+  .menu { display: flex; gap: 17px; color: #bdbdbd; white-space: nowrap; }
+  .command-center { width: min(460px, 36vw); height: 25px; margin: auto; display: flex; align-items: center; justify-content: center; gap: 8px; color: #a9a9a9; background: #252526; border: 1px solid #454545; border-radius: 6px; white-space: nowrap; overflow: hidden; }
+  .command-center .magnifier { font-size: 17px; line-height: 1; }
+  .title-name { color: #999; white-space: nowrap; font-size: 12px; }
+
+  main { flex: 1; min-height: 0; display: grid; grid-template-columns: 48px 300px minmax(0, 1fr); }
+  .activitybar { display: flex; flex-direction: column; align-items: center; gap: 3px; padding-top: 6px; background: var(--activity); border-right: 1px solid var(--line); }
+  .activity-icon { width: 48px; height: 48px; display: grid; place-items: center; color: #858585; font-size: 24px; font-family: var(--font-mono); }
+  .activity-icon.active { color: #e6e6e6; border-left: 2px solid var(--accent); }
+  .activity-icon.last { margin-top: auto; margin-bottom: 9px; }
+
+  aside { min-height: 0; overflow: auto; background: var(--side); border-right: 1px solid var(--line); }
+  .sidebar-title { position: sticky; top: 0; z-index: 2; height: 38px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px 0 20px; background: var(--side); color: #bbb; font-size: 11px; letter-spacing: .09em; }
+  .sidebar-title .more { font-size: 17px; letter-spacing: 0; }
+  .project-name { padding: 6px 16px 8px; color: #ccc; font-size: 12px; font-weight: 600; }
+  .project-name::before { content: "⌄"; display: inline-block; width: 17px; color: #a5a5a5; }
+  section { padding: 0 14px 18px 20px; border-top: 1px solid #262626; }
+  section h2 { margin: 0 -14px 12px -20px; padding: 11px 14px 10px 20px; color: #c5c5c5; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  section h2::before { content: "⌄"; display: inline-block; width: 18px; color: #999; font-size: 13px; }
+  .field { margin-bottom: 11px; }
+  label { display: block; margin-bottom: 5px; color: #a9a9a9; font-size: 11px; }
+  input[type=text], input[type=number], select { width: 100%; height: 29px; padding: 4px 8px; color: #dedede; background: var(--input); border: 1px solid #3c3c3c; border-radius: 2px; outline: none; }
+  input[type=text]:focus, input[type=number]:focus, select:focus { border-color: var(--accent); }
+  input[type=color] { width: 100%; height: 29px; padding: 2px; background: var(--input); border: 1px solid #3c3c3c; border-radius: 2px; cursor: pointer; }
+  input[type=checkbox] { margin: 0; accent-color: var(--accent); }
+  .row { display: flex; align-items: center; gap: 6px; margin: 7px 0; }
+  .row .btn { flex: 1; }
+  .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+  .grid2 + .grid2 { margin-top: 10px; }
+  .checkbox-row { display: flex; align-items: center; gap: 7px; margin: 10px 0 0; color: #bcbcbc; font-size: 11px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 28px; padding: 4px 7px; color: #ddd; background: #313131; border: 1px solid #454545; border-radius: 2px; white-space: nowrap; text-align: center; }
+  .btn:hover { background: #3b3b3b; }
+  .btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+  .btn.active { color: #fff; background: var(--selection); border-color: #0e639c; }
+  .btn.primary { color: #fff; background: #0e639c; border-color: #0e639c; }
+  .btn.primary:hover { background: #1177bb; }
+  .btn.danger:hover { color: #f48771; border-color: #a1260d; }
+  .hint { color: var(--muted); font-size: 11px; line-height: 1.55; }
+  .kbd { color: #d7ba7d; font-family: var(--font-mono); }
+  .sidebar-footnote { padding: 0 14px 24px 20px; }
+  .glyphList { display: flex; flex-direction: column; gap: 2px; max-height: 260px; margin-top: 9px; overflow: auto; }
+  .glyphItem { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 3px; align-items: center; padding: 2px 3px; border-left: 2px solid transparent; }
+  .glyphItem.active { background: var(--selection); border-left-color: var(--accent); }
+  .glyphItem .btn:first-child { display: block; min-width: 0; color: #d4d4d4; background: none; border: 0; }
+  .glyphItem .btn:not(:first-child) { min-height: 23px; padding: 2px 4px; color: #999; background: none; border-color: transparent; font-size: 11px; }
+  .glyphItem .btn:hover { background: var(--surface-hover); }
+  .glyphName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-mono); }
+  .glyphName::before { content: "▦"; margin-right: 7px; color: #e7a04a; }
+  .glyphMeta { padding-left: 19px; color: var(--muted); font-size: 10px; }
+
+  .workspace { min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--bg); }
+  .tabbar { height: 36px; flex: none; display: flex; background: #181818; border-bottom: 1px solid var(--line); }
+  .tab { display: flex; align-items: center; gap: 9px; min-width: 184px; padding: 0 15px; color: #d4d4d4; background: var(--bg); border-right: 1px solid var(--line); border-top: 1px solid var(--accent); font-family: var(--font-mono); font-size: 12px; }
+  .tab-icon { color: #e7a04a; font-size: 15px; }
+  .tab-close { margin-left: auto; color: #888; font-family: sans-serif; font-size: 15px; }
+  .breadcrumbs { height: 29px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 18px; color: #969696; font-size: 12px; }
+  .breadcrumbs b { color: #c9c9c9; font-weight: 400; }
+  .toolbar { min-height: 38px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 18px; border-bottom: 1px solid var(--line); color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+  .toolbar .separator { width: 1px; height: 15px; background: #414141; }
+  .toolbar strong { color: #dcdcaa; font-weight: 500; }
+  .toolbar #currentName { color: #ce9178; }
+  .status { margin-left: auto; color: #9cdcfe; }
+  .canvasWrap { flex: 1; min-height: 0; overflow: auto; display: flex; padding: 32px; background-image: linear-gradient(#252525 1px, transparent 1px), linear-gradient(90deg, #252525 1px, transparent 1px); background-size: 24px 24px; }
+  .canvas-stage { width: max-content; min-width: min(440px, 100%); margin: auto; padding: 0 0 14px; background: #202020; border: 1px solid #3b3b3b; box-shadow: 0 18px 45px #0005; }
+  .canvas-stage-head { height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 13px; border-bottom: 1px solid #343434; color: #bdbdbd; font-family: var(--font-mono); font-size: 11px; }
+  .canvas-stage-head .file-icon { color: #e7a04a; margin-right: 7px; }
+  .canvas-stage-head .stage-type { color: #858585; }
+  .canvas-inner { min-height: 310px; display: grid; place-items: center; padding: 28px 40px; }
+  canvas { display: block; max-width: none; touch-action: none; image-rendering: pixelated; border: 1px solid #090909; background: #000; box-shadow: 0 0 0 7px #181818, 0 12px 24px #0008; }
+  .canvas-note { padding: 0 15px; color: #808080; font-size: 11px; text-align: center; }
+  .statusbar { height: 24px; flex: none; display: flex; align-items: center; gap: 15px; padding: 0 11px; color: #ddd; background: #007acc; font-size: 11px; }
+  .statusbar .grow { flex: 1; }
+
+  @media (max-width: 900px) {
+    .app { min-height: 0; height: auto; overflow: visible; }
+    .titlebar { gap: 12px; }
+    .menu, .title-name { display: none; }
+    .command-center { width: auto; flex: 1; margin: 0; }
+    main { display: grid; grid-template-columns: minmax(0, 1fr); }
+    .activitybar { display: none; }
+    aside { max-height: 48vh; border-right: 0; border-bottom: 1px solid var(--line); }
+    .workspace { min-height: 58vh; }
+    .canvasWrap { min-height: 46vh; padding: 16px; }
+    .canvas-stage { min-width: 0; }
+    .canvas-inner { min-height: 240px; padding: 28px; }
+    .statusbar { position: sticky; bottom: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+<header class="titlebar">
+  <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="menu" aria-hidden="true"><span>ファイル</span><span>編集</span><span>表示</span><span>ヘルプ</span></div>
+  <div class="command-center"><span class="magnifier">⌕</span><span>Dot Matrix Glyph Editor</span></div>
+  <div class="title-name">ローカルツール</div>
+</header>
+<main>
+<nav class="activitybar" aria-label="ワークスペース">
+  <div class="activity-icon active" title="エクスプローラー">▤</div>
+  <div class="activity-icon" title="検索">⌕</div>
+  <div class="activity-icon" title="描画">▦</div>
+  <div class="activity-icon last" title="設定">⚙</div>
+</nav>
+<aside>
+  <div class="sidebar-title"><span>EXPLORER</span><span class="more">⋯</span></div>
+  <div class="project-name">DOT MATRIX</div>
+  <section>
+    <h2>Glyph</h2>
+    <div class="field"><label for="glyphName">Character / Name</label><input id="glyphName" type="text" value="1" placeholder="例: 1 / 抑 / HOLD"></div>
+    <div class="row"><button class="btn primary" id="newGlyph">新規</button><button class="btn" id="saveGlyph">登録 / 更新</button></div>
+    <div class="glyphList" id="glyphList"></div>
+  </section>
+
+  <section>
+    <h2>Grid</h2>
+    <div class="grid2">
+      <div><label for="cols">Width</label><input id="cols" type="number" min="1" max="300" value="8"></div>
+      <div><label for="rows">Height</label><input id="rows" type="number" min="1" max="300" value="8"></div>
+    </div>
+    <div class="row"><button class="btn primary" id="applySize">サイズ変更</button></div>
+    <label class="checkbox-row"><input id="preserve" type="checkbox" checked> 既存の描画を保持</label>
+  </section>
+
+  <section>
+    <h2>Appearance</h2>
+    <div class="grid2">
+      <div><label for="onColor">点灯色</label><input id="onColor" type="color" value="#ffb000"></div>
+      <div><label for="offColor">消灯色</label><input id="offColor" type="color" value="#222222"></div>
+      <div><label for="bgColor">背景色</label><input id="bgColor" type="color" value="#050505"></div>
+      <div><label for="shape">ドット形状</label><select id="shape"><option value="circle" selected>Circle</option><option value="square">Square</option></select></div>
+    </div>
+    <div class="grid2">
+      <div><label for="dotSize">Dot size (px)</label><input id="dotSize" type="number" min="2" max="64" value="14"></div>
+      <div><label for="gap">Gap (px)</label><input id="gap" type="number" min="0" max="32" value="4"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tools</h2>
+    <div class="row"><button class="btn active" data-tool="draw">Draw</button><button class="btn" data-tool="erase">Erase</button><button class="btn" data-tool="toggle">Toggle</button></div>
+    <div class="grid2">
+      <button class="btn" id="invert">Invert</button><button class="btn danger" id="clear">Clear</button>
+      <button class="btn" id="shiftL">← Shift</button><button class="btn" id="shiftR">Shift →</button>
+      <button class="btn" id="shiftU">↑ Shift</button><button class="btn" id="shiftD">Shift ↓</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Project</h2>
+    <div class="row"><button class="btn" id="copyJson">JSONコピー</button><button class="btn primary" id="saveJson">JSON保存</button></div>
+    <div class="row"><label class="btn" style="cursor:pointer">JSON読込<input id="loadJson" type="file" accept="application/json,.json" hidden></label><button class="btn" id="png">現在の文字をPNG</button></div>
+    <div class="hint">形式: <span class="kbd">glyphs[]</span> に <span class="kbd">character</span>・<span class="kbd">width</span>・<span class="kbd">height</span>・<span class="kbd">pattern</span></div>
+  </section>
+  <div class="hint sidebar-footnote">文字ごとにサイズとパターンを保存できます。データはブラウザ内だけで編集されます。</div>
+</aside>
+
+<div class="workspace">
+  <div class="tabbar"><div class="tab"><span class="tab-icon">▦</span><span>glyph_editor.html</span><span class="tab-close">×</span></div></div>
+  <div class="breadcrumbs"><span>DOT MATRIX</span><span>›</span><b>glyph_editor.html</b><span>›</span><span>Canvas</span></div>
+  <div class="toolbar"><span>SIZE</span><strong id="dimensions">8 × 8</strong><span class="separator"></span><span>GLYPH</span><span id="currentName">1</span><span class="status" id="status">Draw</span></div>
+  <div class="canvasWrap">
+    <div class="canvas-stage">
+      <div class="canvas-stage-head"><span><span class="file-icon">▦</span>PIXEL CANVAS</span><span class="stage-type">PREVIEW</span></div>
+      <div class="canvas-inner"><canvas id="canvas" aria-label="ドットマトリクス描画キャンバス"></canvas></div>
+      <div class="canvas-note">クリックして描画 · 右クリックまたは Control + クリックで消去</div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="statusbar"><span>▦ Dot Matrix Editor</span><span class="grow"></span><span>JSON</span><span>UTF-8</span><span>ローカル</span></footer>
+</div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const c = $('canvas'), ctx = c.getContext('2d');
+  let cols=8, rows=8, grid=Array.from({length:8},()=>Array(8).fill(false));
+  let tool='draw', dragging=false, dragValue=true;
+  let glyphs=[];
+  let selectedIndex=-1;
+
+  function settings(){return {dotSize:+$('dotSize').value||14,gap:+$('gap').value||0,on:$('onColor').value,off:$('offColor').value,bg:$('bgColor').value,shape:$('shape').value}}
+  function render(){
+    const s=settings(), cell=s.dotSize+s.gap;
+    c.width=cols*cell+s.gap; c.height=rows*cell+s.gap;
+    const previewScale=Math.max(1,Math.min(2,300/Math.max(c.width,c.height)));
+    c.style.width=`${Math.round(c.width*previewScale)}px`;
+    c.style.height=`${Math.round(c.height*previewScale)}px`;
+    ctx.fillStyle=s.bg; ctx.fillRect(0,0,c.width,c.height);
+    for(let y=0;y<rows;y++) for(let x=0;x<cols;x++){
+      const px=s.gap+x*cell+s.dotSize/2, py=s.gap+y*cell+s.dotSize/2;
+      ctx.fillStyle=grid[y][x]?s.on:s.off;
+      if(s.shape==='circle'){ctx.beginPath();ctx.arc(px,py,s.dotSize/2,0,Math.PI*2);ctx.fill();}
+      else ctx.fillRect(s.gap+x*cell,s.gap+y*cell,s.dotSize,s.dotSize);
+    }
+    $('dimensions').textContent=`${cols} × ${rows}`;
+    $('currentName').textContent=$('glyphName').value || '(unnamed)';
+  }
+  function pos(ev){
+    const r=c.getBoundingClientRect(), sx=c.width/r.width, sy=c.height/r.height, s=settings(), cell=s.dotSize+s.gap;
+    const x=Math.floor((ev.clientX-r.left)*sx/cell), y=Math.floor((ev.clientY-r.top)*sy/cell);
+    return {x,y};
+  }
+  function paint(ev, first=false){
+    const {x,y}=pos(ev); if(x<0||x>=cols||y<0||y>=rows)return;
+    if(first){
+      if(ev.button===2||ev.ctrlKey) dragValue=false;
+      else if(tool==='erase') dragValue=false;
+      else if(tool==='toggle') dragValue=!grid[y][x];
+      else dragValue=true;
+    }
+    grid[y][x]=dragValue; render();
+  }
+  c.addEventListener('contextmenu',e=>e.preventDefault());
+  c.addEventListener('pointerdown',e=>{dragging=true;c.setPointerCapture(e.pointerId);paint(e,true)});
+  c.addEventListener('pointermove',e=>{if(dragging)paint(e,false)});
+  c.addEventListener('pointerup',()=>dragging=false); c.addEventListener('pointercancel',()=>dragging=false);
+
+  document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>{tool=b.dataset.tool;document.querySelectorAll('[data-tool]').forEach(x=>x.classList.toggle('active',x===b));$('status').textContent=b.textContent});
+  ['dotSize','gap','onColor','offColor','bgColor','shape'].forEach(id=>$(id).addEventListener('input',render));
+  $('glyphName').addEventListener('input',render);
+
+  $('applySize').onclick=()=>{
+    const nc=Math.max(1,Math.min(300,+$('cols').value||1)), nr=Math.max(1,Math.min(300,+$('rows').value||1));
+    const ng=Array.from({length:nr},()=>Array(nc).fill(false));
+    if($('preserve').checked) for(let y=0;y<Math.min(rows,nr);y++) for(let x=0;x<Math.min(cols,nc);x++) ng[y][x]=grid[y][x];
+    cols=nc;rows=nr;grid=ng;render();
+  };
+  $('clear').onclick=()=>{grid.forEach(r=>r.fill(false));render()};
+  $('invert').onclick=()=>{grid=grid.map(r=>r.map(v=>!v));render()};
+  function shift(dx,dy){const ng=Array.from({length:rows},()=>Array(cols).fill(false));for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const nx=x+dx,ny=y+dy;if(nx>=0&&nx<cols&&ny>=0&&ny<rows)ng[ny][nx]=grid[y][x]}grid=ng;render()}
+  $('shiftL').onclick=()=>shift(-1,0);$('shiftR').onclick=()=>shift(1,0);$('shiftU').onclick=()=>shift(0,-1);$('shiftD').onclick=()=>shift(0,1);
+
+  function currentGlyph(){
+    return {
+      character: $('glyphName').value,
+      width: cols,
+      height: rows,
+      pattern: grid.map(row => row.map(v => v ? '1' : '0').join(''))
+    };
+  }
+  function loadGlyph(g,index){
+    selectedIndex=index;
+    $('glyphName').value=g.character ?? '';
+    cols=Math.max(1,Math.min(300,g.width|0));
+    rows=Math.max(1,Math.min(300,g.height|0));
+    grid=Array.from({length:rows},(_,y)=>Array.from({length:cols},(_,x)=>String(g.pattern?.[y] ?? '')[x]==='1'));
+    $('cols').value=cols;$('rows').value=rows;
+    render(); renderGlyphList();
+  }
+  function renderGlyphList(){
+    const el=$('glyphList'); el.innerHTML='';
+    glyphs.forEach((g,i)=>{
+      const item=document.createElement('div'); item.className='glyphItem'+(i===selectedIndex?' active':'');
+      const main=document.createElement('button'); main.className='btn'; main.style.textAlign='left'; main.innerHTML=`<div class="glyphName">${escapeHtml(g.character || '(unnamed)')}</div><div class="glyphMeta">${g.width} × ${g.height}</div>`; main.onclick=()=>loadGlyph(g,i);
+      const dup=document.createElement('button'); dup.className='btn'; dup.textContent='複製'; dup.onclick=()=>{glyphs.splice(i+1,0,JSON.parse(JSON.stringify(g)));renderGlyphList();};
+      const del=document.createElement('button'); del.className='btn danger'; del.textContent='削除'; del.onclick=()=>{glyphs.splice(i,1); if(selectedIndex===i)selectedIndex=-1; else if(selectedIndex>i)selectedIndex--; renderGlyphList();};
+      item.append(main,dup,del); el.appendChild(item);
+    });
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
+
+  $('newGlyph').onclick=()=>{selectedIndex=-1;$('glyphName').value='';cols=8;rows=8;$('cols').value=8;$('rows').value=8;grid=Array.from({length:8},()=>Array(8).fill(false));render();renderGlyphList();};
+  $('saveGlyph').onclick=()=>{
+    const g=currentGlyph();
+    if(!g.character){alert('Character / Name を入力してください');return;}
+    if(selectedIndex>=0) glyphs[selectedIndex]=g;
+    else { const existing=glyphs.findIndex(x=>x.character===g.character); if(existing>=0){ glyphs[existing]=g; selectedIndex=existing; } else {glyphs.push(g); selectedIndex=glyphs.length-1;} }
+    renderGlyphList(); $('status').textContent='Glyph saved'; setTimeout(()=>$('status').textContent=tool[0].toUpperCase()+tool.slice(1),900);
+  };
+
+  function projectData(){return {glyphs:glyphs.map(g=>({character:g.character,width:g.width,height:g.height,pattern:g.pattern}))};}
+  function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+  $('png').onclick=()=>c.toBlob(b=>dl(b,`${$('glyphName').value||'glyph'}.png`),'image/png');
+  $('saveJson').onclick=()=>dl(new Blob([JSON.stringify(projectData(), null, 2)],{type:'application/json'}),'dot-matrix-glyphs.json');
+  $('copyJson').onclick=async()=>{await navigator.clipboard.writeText(JSON.stringify(projectData(), null, 2));$('status').textContent='JSON copied';setTimeout(()=>$('status').textContent=tool[0].toUpperCase()+tool.slice(1),1200)};
+  $('loadJson').onchange=async e=>{
+    const f=e.target.files[0]; if(!f)return;
+    try{
+      const d=JSON.parse(await f.text());
+      if(Array.isArray(d.glyphs)){
+        glyphs=d.glyphs.map(g=>({character:String(g.character ?? ''),width:Math.max(1,Math.min(300,+g.width||1)),height:Math.max(1,Math.min(300,+g.height||1)),pattern:Array.isArray(g.pattern)?g.pattern.map(String):[]}));
+      } else if(Number.isInteger(d.width) && Number.isInteger(d.height) && Array.isArray(d.pattern)) {
+        glyphs=[{character:'glyph',width:d.width,height:d.height,pattern:d.pattern.map(String)}];
+      } else throw new Error('Unsupported JSON');
+      selectedIndex=glyphs.length?0:-1;
+      if(selectedIndex>=0) loadGlyph(glyphs[0],0); else renderGlyphList();
+    }catch{alert('JSONを読み込めませんでした');}
+    e.target.value='';
+  };
+  render(); renderGlyphList();
+})();
+</script>
+</body>
+</html>

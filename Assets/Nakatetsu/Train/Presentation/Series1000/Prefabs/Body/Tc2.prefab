@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2948488863669113307}
+  - component: {fileID: 3474412610769422789}
   m_Layer: 0
   m_Name: Tc2
   m_TagString: Untagged
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 7304654676895268895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3474412610769422789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718862623358748911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4389785b5124b7bb36d21d400f4b09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Bogie.TrainBogiePresentation
 --- !u!1001 &5599234677661258180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,7 +67,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948488863669113307, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.60127
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2948488863669113307, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -86,23 +99,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7069834
-      objectReference: {fileID: 0}
-    - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
-      propertyPath: m_LocalRotation.z
       value: 0.7072302
       objectReference: {fileID: 0}
     - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155760937631145954, guid: f2cff671804bf4e1186ab354ccf719b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
