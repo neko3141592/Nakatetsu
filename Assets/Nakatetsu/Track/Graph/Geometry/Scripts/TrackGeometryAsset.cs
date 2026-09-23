@@ -9,7 +9,7 @@ namespace Nakatetsu.Track.Graph.Geometry
     {
         [SerializeField] private TrackGeometryDefinition definition = new TrackGeometryDefinition();
 
-        /// <summary>Fixed authoring data. Do not modify it during simulation.</summary>
+        // 走行中には変更しない線路定義。
         public TrackGeometryDefinition Definition => definition;
 
         public bool TryEvaluate(float distanceM, out TrackSample sample)

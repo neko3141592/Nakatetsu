@@ -10,7 +10,11 @@ namespace Nakatetsu.Track.Graph.Geometry
 
         public override float EvaluateHeightDeltaM(float distanceOnGeometryM)
         {
-            if (lengthM <= MinSegmentLengthM) return 0f;
+            if (lengthM <= MinSegmentLengthM)
+            {
+                return 0f;
+            }
+
             float localDistanceM = Mathf.Clamp(GetLocalDistanceM(distanceOnGeometryM), 0f, lengthM);
             return gradientPermille * localDistanceM / PermilleScale;
         }

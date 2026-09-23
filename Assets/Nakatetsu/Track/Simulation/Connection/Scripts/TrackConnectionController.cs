@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Nakatetsu.Track.Simulation.Connection
 {
-    /// <summary>Graphと同じGameObjectに配置し、全列車・連動装置が共有する。</summary>
+    // Graphと同じGameObjectに配置し、全列車と連動装置で共有する。
     [DisallowMultipleComponent]
     [RequireComponent(typeof(TrackGraphController))]
     public sealed class TrackConnectionController : MonoBehaviour
@@ -26,30 +26,41 @@ namespace Nakatetsu.Track.Simulation.Connection
         {
             // GraphのAwakeによる初期化が終わってから状態を生成する。
             if (!IsInitialized && !TryInitialize(out string error))
+            {
                 Debug.LogError($"Track connection initialization failed: {error}", this);
+            }
         }
 
-        /// <summary>設定した初期位置へ全転轍機をリセットする。実行中の通常操作には使わない。</summary>
+        // 全転轍機を初期位置へ戻す。走行中の通常操作には使わない。
         public bool TryInitialize(out string error)
         {
             if (trackGraphController == null)
+            {
                 trackGraphController = GetComponent<TrackGraphController>();
+            }
+
             return TrackConnectionLogic.TryInitialize(context,
                 trackGraphController != null ? trackGraphController.Context : null,
                 initialPosition, out error);
         }
 
-        /// <summary>連動条件の判定を終えた要求を受け付ける。進路鎖錠・占有判定は連動装置側の責務。</summary>
+        // 連動条件を判定済みの転換要求を受け付ける。
         public bool TryRequestPosition(string connectionId, TrackSwitchPosition position, out string error)
         {
             if (!TrackConnectionLogic.TryRequestPosition(context, connectionId, position, out error))
+            {
                 return false;
+            }
+
             if (completeRequestsImmediately)
+            {
                 return TrackConnectionLogic.TryConfirmPosition(context, connectionId, position, out error);
+            }
+
             return true;
         }
 
-        /// <summary>転換動作の完了通知。受付済みの要求位置と一致するときに確定する。</summary>
+        // 受付済みの要求位置と一致する転換完了だけを確定する。
         public bool TryConfirmPosition(string connectionId, TrackSwitchPosition position, out string error) =>
             TrackConnectionLogic.TryConfirmPosition(context, connectionId, position, out error);
 

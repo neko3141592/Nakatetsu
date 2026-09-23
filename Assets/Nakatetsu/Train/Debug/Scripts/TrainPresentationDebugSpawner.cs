@@ -1,10 +1,12 @@
 using System;
+using Nakatetsu.Train.Presentation.Bogie;
 using Nakatetsu.Train.Presentation.Shared;
+using Nakatetsu.Train.Simulation.TrackPosition;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Debugging
 {
-    /// <summary>グラフ完成までの確認用。車両モデルを格子状に配置し、所属車両を割り当てる。</summary>
+    /// <summary>車両モデルを生成し、線路位置が得られるまでは格子状に配置する。</summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Nakatetsu/Train/Debug/Presentation Spawner")]
     public sealed class TrainPresentationDebugSpawner : MonoBehaviour
@@ -34,14 +36,25 @@ namespace Nakatetsu.Train.Debugging
 
         private void Start()
         {
-            if (generateOnStart) Generate();
+            if (generateOnStart)
+            {
+                Generate();
+            }
         }
 
         [ContextMenu("Generate presentation (Play Mode only)")]
         public void Generate()
         {
-            if (!UnityEngine.Application.isPlaying) return;
-            if (trainRoot == null) trainRoot = GetComponentInParent<TrainRoot>(true);
+            if (!UnityEngine.Application.isPlaying)
+            {
+                return;
+            }
+
+            if (trainRoot == null)
+            {
+                trainRoot = GetComponentInParent<TrainRoot>(true);
+            }
+
             if (trainRoot == null || trainRoot.ConsistDefinition == null)
             {
                 Debug.LogWarning($"{nameof(TrainPresentationDebugSpawner)}: 編成定義のあるTrainRootの子に配置してください。", this);
@@ -72,6 +85,8 @@ namespace Nakatetsu.Train.Debugging
             generatedRoot = container.transform;
             generatedRoot.SetParent(trainRoot.transform, false);
             generatedRoot.localPosition = originPositionM;
+            TrainTrackPositionController trackPosition =
+                trainRoot.GetComponentInChildren<TrainTrackPositionController>(true);
 
             for (int carIndex = 0; carIndex < carCount; carIndex++)
             {
@@ -85,8 +100,17 @@ namespace Nakatetsu.Train.Debugging
                 car.transform.localRotation = Quaternion.Euler(model.rotationEuler);
 
                 var assignment = car.GetComponent<TrainPresentationAssignment>();
-                if (assignment == null) assignment = car.AddComponent<TrainPresentationAssignment>();
+                if (assignment == null)
+                {
+                    assignment = car.AddComponent<TrainPresentationAssignment>();
+                }
+
                 assignment.AssignCarIndex(carIndex);
+
+                if (trackPosition != null && car.GetComponent<TrainBogiePresentation>() == null)
+                {
+                    car.AddComponent<TrainBogiePresentation>();
+                }
             }
 
             container.SetActive(true);
@@ -95,12 +119,22 @@ namespace Nakatetsu.Train.Debugging
         [ContextMenu("Clear generated presentation")]
         public void ClearGenerated()
         {
-            if (generatedRoot == null) return;
+            if (generatedRoot == null)
+            {
+                return;
+            }
+
             GameObject container = generatedRoot.gameObject;
             generatedRoot = null;
             container.SetActive(false);
-            if (UnityEngine.Application.isPlaying) Destroy(container);
-            else DestroyImmediate(container);
+            if (UnityEngine.Application.isPlaying)
+            {
+                Destroy(container);
+            }
+            else
+            {
+                DestroyImmediate(container);
+            }
         }
 
         private void OnDestroy() => ClearGenerated();
