@@ -15,13 +15,15 @@ MonoBehaviour:
   definition:
     graphId: NtLine
     geometries:
-    - displayName: Preview straight track
+    - displayName: Preview curved track
       trackGeometryId: preview-straight-geometry
-      lengthM: 400
+      lengthM: 1000
       originPosition: {x: 0, y: 0, z: -180}
       originRotation: {x: 0, y: 0, z: 0, w: 1}
       horizontalSegmentDefinitions:
       - rid: 2411377945952911719
+      - rid: 2411377945952911721
+      - rid: 2411377945952911722
       legacyHorizontalSegments: []
       verticalSegmentDefinitions: []
       legacyVerticalSegments: []
@@ -38,14 +40,14 @@ MonoBehaviour:
       nodeBId: preview-end
       geometryId: preview-straight-geometry
       startDistanceOnGeometryM: 0
-      endDistanceOnGeometryM: 400
+      endDistanceOnGeometryM: 1000
       offsetSegments:
       - rid: 2411377945952911720
       distanceMap:
       - distanceOnGeometryM: 0
         distanceOnEdgeM: 0
-      - distanceOnGeometryM: 400
-        distanceOnEdgeM: 400
+      - distanceOnGeometryM: 1000
+        distanceOnEdgeM: 1000
     connections: []
   references:
     version: 2
@@ -54,10 +56,21 @@ MonoBehaviour:
       type: {class: TrackGeometryStraightSegment, ns: Nakatetsu.Track.Graph.Geometry, asm: Nakatetsu.Track}
       data:
         startDistanceM: 0
-        lengthM: 400
+        lengthM: 100
+    - rid: 2411377945952911721
+      type: {class: TrackGeometryCircularSegment, ns: Nakatetsu.Track.Graph.Geometry, asm: Nakatetsu.Track}
+      data:
+        startDistanceM: 100
+        lengthM: 200
+        radiusM: 220
+    - rid: 2411377945952911722
+      type: {class: TrackGeometryStraightSegment, ns: Nakatetsu.Track.Graph.Geometry, asm: Nakatetsu.Track}
+      data:
+        startDistanceM: 300
+        lengthM: 700
     - rid: 2411377945952911720
       type: {class: TrackEdgeConstantOffsetSegment, ns: Nakatetsu.Track.Graph.Edge, asm: Nakatetsu.Track.Graph}
       data:
         startDistanceOnGeometryM: 0
-        endDistanceOnGeometryM: 400
+        endDistanceOnGeometryM: 1000
         offsetM: 0

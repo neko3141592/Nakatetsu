@@ -1,3 +1,4 @@
+using Nakatetsu.Train.Presentation.Shared;
 using Nakatetsu.Train.Simulation.TrackPosition;
 using UnityEngine;
 
@@ -6,29 +7,56 @@ namespace Nakatetsu.Train.Presentation.Bogie
     [DisallowMultipleComponent]
     public sealed class TrainBogiePresentation : MonoBehaviour
     {
-        [SerializeField] private TrainTrackPositionController trackPosition;
-        [SerializeField] private int carIndex = -1;
-        [SerializeField] private float bogieCenterDistanceM;
+        private TrainPresentationAssignment assignment;
+        private TrainRoot trainRoot;
+        private TrainTrackPositionController trackPosition;
+        private Quaternion modelRotation;
 
-        private Quaternion modelRotation = Quaternion.identity;
-
-        public void Configure(TrainTrackPositionController source, int index,
-            float centerDistanceM, Quaternion rotation)
+        private void Start()
         {
-            trackPosition = source;
-            carIndex = index;
-            bogieCenterDistanceM = centerDistanceM;
-            modelRotation = rotation;
+            modelRotation = transform.localRotation;
         }
 
         private void LateUpdate()
         {
-            if (trackPosition == null || carIndex < 0 || bogieCenterDistanceM <= 0f)
+            if (assignment == null)
+            {
+                assignment = GetComponent<TrainPresentationAssignment>();
+            }
+
+            if (trainRoot == null)
+            {
+                trainRoot = GetComponentInParent<TrainRoot>(true);
+            }
+
+            if (assignment == null || !assignment.IsAssigned || trainRoot == null || trainRoot.ConsistDefinition == null)
             {
                 return;
             }
 
-            float halfDistanceM = bogieCenterDistanceM * 0.5f;
+            int carIndex = assignment.AssignedCarIndex;
+            if (carIndex >= trainRoot.ConsistDefinition.CarCount)
+            {
+                return;
+            }
+
+            var carDefinition = trainRoot.ConsistDefinition.cars[carIndex];
+            if (carDefinition == null || carDefinition.bogieCenterDistanceM <= 0f)
+            {
+                return;
+            }
+
+            if (trackPosition == null)
+            {
+                trackPosition = trainRoot.GetComponentInChildren<TrainTrackPositionController>(true);
+            }
+
+            if (trackPosition == null)
+            {
+                return;
+            }
+
+            float halfDistanceM = carDefinition.bogieCenterDistanceM * 0.5f;
             if (!trackPosition.TryGetTrackSample(carIndex, halfDistanceM, out var front) ||
                 !trackPosition.TryGetTrackSample(carIndex, -halfDistanceM, out var rear))
             {

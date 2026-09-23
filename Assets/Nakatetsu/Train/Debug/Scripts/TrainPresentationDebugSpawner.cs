@@ -24,11 +24,6 @@ namespace Nakatetsu.Train.Debugging
         [Tooltip("編成先頭から順に指定。要素0が1両目です。")]
         [SerializeField] private CarModel[] cars = new CarModel[10];
 
-        [Header("Track Preview")]
-        [SerializeField] private string startEdgeId;
-        [SerializeField] private float startDistanceOnEdgeM;
-        [SerializeField] private bool startFrontFacesAtoB = true;
-
         [Header("Layout")]
         [Tooltip("TrainRootのローカル座標での配置開始位置。")]
         [SerializeField] private Vector3 originPositionM;
@@ -92,11 +87,6 @@ namespace Nakatetsu.Train.Debugging
             generatedRoot.localPosition = originPositionM;
             TrainTrackPositionController trackPosition =
                 trainRoot.GetComponentInChildren<TrainTrackPositionController>(true);
-            if (trackPosition != null && string.IsNullOrEmpty(trackPosition.Context.State.currentEdgeId) &&
-                !string.IsNullOrEmpty(startEdgeId))
-            {
-                trackPosition.SetTrackPosition(startEdgeId, startDistanceOnEdgeM, startFrontFacesAtoB);
-            }
 
             for (int carIndex = 0; carIndex < carCount; carIndex++)
             {
@@ -117,14 +107,9 @@ namespace Nakatetsu.Train.Debugging
 
                 assignment.AssignCarIndex(carIndex);
 
-                if (trackPosition != null)
+                if (trackPosition != null && car.GetComponent<TrainBogiePresentation>() == null)
                 {
-                    var bogiePresentation = car.AddComponent<TrainBogiePresentation>();
-                    bogiePresentation.Configure(
-                        trackPosition,
-                        carIndex,
-                        trainRoot.ConsistDefinition.cars[carIndex].bogieCenterDistanceM,
-                        Quaternion.Euler(model.rotationEuler));
+                    car.AddComponent<TrainBogiePresentation>();
                 }
             }
 
