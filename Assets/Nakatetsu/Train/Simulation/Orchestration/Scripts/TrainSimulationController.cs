@@ -11,6 +11,7 @@ using Nakatetsu.Train.Simulation.Brake;
 using Nakatetsu.Train.Simulation.Load;
 using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
 using Nakatetsu.Train.Simulation.Physics;
+using Nakatetsu.Train.Simulation.TrackPosition;
 using Nakatetsu.Train.Simulation.Traction.Motor;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
     {
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TrainPhysicsController physicsController;
+        [SerializeField] private TrainTrackPositionController trackPositionController;
         [SerializeField] private bool AutoRefresh;
 
         private readonly List<IEquipmentController> equipmentControllers = new();
@@ -45,15 +47,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public IReadOnlyDictionary<int, TrainLoadController> LoadSimulations => loadSimulations;
         public TrainSimulationContext Context => context;
         public TrainPhysicsController PhysicsController => physicsController;
+        public TrainTrackPositionController TrackPositionController => trackPositionController;
         public bool IsInitialized { get; private set; }
 
         public void SetAutoRefresh(bool enabled) => AutoRefresh = enabled;
 
         private void Awake()
         {
-            // 編成ルートと物理Controllerの参照を解決する。
+            // 編成ルートと編成単位のSimulation Controllerを解決する。
             ResolveTrainRoot();
             ResolvePhysicsController();
+            ResolveTrackPositionController();
         }
 
         private void Start()
@@ -147,7 +151,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         public void Step(float deltaTimeSeconds)
         {
-            // 測定、機器制御、物理モデル、編成物理の順に1ステップ実行する。
+            // 測定、機器制御、物理モデル、編成物理、線路位置の順に1ステップ実行する。
             float signedVelocityMps = physicsController != null
                 ? physicsController.Context.State.signedVelocityMps
                 : 0f;
@@ -165,6 +169,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             {
                 physicsController.SetInput(context.Input.cars);
                 ISimulationController controller = physicsController;
+                controller.Calculate(deltaTimeSeconds);
+                controller.ApplyOutput(deltaTimeSeconds);
+            }
+
+            if (trackPositionController != null)
+            {
+                float signedDisplacementM = physicsController != null
+                    ? physicsController.Context.Output.signedDisplacementM
+                    : 0f;
+                trackPositionController.SetInput(signedDisplacementM);
+                ISimulationController controller = trackPositionController;
                 controller.Calculate(deltaTimeSeconds);
                 controller.ApplyOutput(deltaTimeSeconds);
             }
@@ -409,6 +424,15 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             {
                 Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
                 physicsController = searchRoot.GetComponentInChildren<TrainPhysicsController>(true);
+            }
+        }
+
+        private void ResolveTrackPositionController()
+        {
+            if (trackPositionController == null)
+            {
+                Transform searchRoot = trainRoot != null ? trainRoot.transform : transform;
+                trackPositionController = searchRoot.GetComponentInChildren<TrainTrackPositionController>(true);
             }
         }
 

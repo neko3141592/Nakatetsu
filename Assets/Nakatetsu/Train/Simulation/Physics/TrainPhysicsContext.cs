@@ -20,10 +20,12 @@ namespace Nakatetsu.Train.Simulation.Physics
 
     public sealed class TrainPhysicsState
     {
-        //
+        // 符号付き加速度
         public float signedAcceleration;
         // 符号付き速度
         public float signedVelocityMps;
+        // 直近のtickで進もうとした符号付き距離
+        public float signedDisplacementM;
     }
 
 
@@ -33,6 +35,8 @@ namespace Nakatetsu.Train.Simulation.Physics
         public float signedAcceleration;
         // 符号付き速度
         public float signedVelocityMps;
+        // 直近のtickで進もうとした符号付き距離
+        public float signedDisplacementM;
     }
 
     public sealed class TrainPhysicsContext

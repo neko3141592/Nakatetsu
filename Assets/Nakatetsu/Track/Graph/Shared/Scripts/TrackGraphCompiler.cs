@@ -1,9 +1,39 @@
 using System.Collections.Generic;
+using Nakatetsu.Track.Graph.Connection;
+using Nakatetsu.Track.Graph.Edge;
+using Nakatetsu.Track.Graph.Geometry;
 
 namespace Nakatetsu.Track.Graph
 {
     public static class TrackGraphCompiler
     {
+        /// <summary>全EdgeのLUTを一時領域に生成する。Asset/Definitionへの反映はEditor側が成功後に行う。</summary>
+        public static bool TryBuildDistanceMaps(TrackGraphDefinition definition, float integrationStepM,
+            out Dictionary<string, List<TrackEdgeDistanceSample>> distanceMaps, List<string> errors)
+        {
+            distanceMaps = null;
+            var context = new TrackGraphContext();
+            if (!TryCompile(definition, context, errors)) return false;
+            if (float.IsNaN(integrationStepM) || float.IsInfinity(integrationStepM) || integrationStepM <= 0f)
+            {
+                errors.Add("Integration step must be finite and positive.");
+                return false;
+            }
+            var results = new Dictionary<string, List<TrackEdgeDistanceSample>>();
+            foreach (var edge in definition.edges)
+            {
+                context.TryGetGeometry(edge.geometryId, out var geometry);
+                if (!TrackEdgeCompiler.TryBuildDistanceMap(edge, geometry, integrationStepM, out var map, out var error))
+                {
+                    errors.Add($"Edge '{edge.edgeId}': {error}");
+                    return false;
+                }
+                results.Add(edge.edgeId, map);
+            }
+            distanceMaps = results;
+            return true;
+        }
+
         public static bool TryCompile(TrackGraphDefinition definition, TrackGraphContext context, List<string> errors)
         {
             if (errors == null) return false;
@@ -15,6 +45,27 @@ namespace Nakatetsu.Track.Graph
             }
             if (definition.nodes == null) errors.Add("Track graph nodes are null.");
             if (definition.edges == null) errors.Add("Track graph edges are null.");
+            if (definition.geometries == null) errors.Add("Track graph geometries are null.");
+            if (context == null) errors.Add("Track graph context is null.");
+
+            var geometriesById = new Dictionary<string, TrackGeometryDefinition>();
+            if (definition.geometries != null)
+            {
+                for (var i = 0; i < definition.geometries.Count; i++)
+                {
+                    var geometry = definition.geometries[i];
+                    if (geometry == null) { errors.Add($"geometries[{i}] is null."); continue; }
+                    if (string.IsNullOrWhiteSpace(geometry.trackGeometryId))
+                    {
+                        errors.Add($"geometries[{i}] has an empty trackGeometryId.");
+                        continue;
+                    }
+                    if (!geometriesById.TryAdd(geometry.trackGeometryId, geometry))
+                        errors.Add($"Duplicate geometryId '{geometry.trackGeometryId}'.");
+                    if (!IsFinite(geometry.lengthM) || geometry.lengthM <= 0f)
+                        errors.Add($"Geometry '{geometry.trackGeometryId}' has an invalid length.");
+                }
+            }
 
             var nodeIds = new HashSet<string>();
             if (definition.nodes != null)
@@ -39,17 +90,40 @@ namespace Nakatetsu.Track.Graph
                     else if (!edgeIds.Add(edge.edgeId)) errors.Add($"Duplicate edgeId '{edge.edgeId}'.");
                     if (!nodeIds.Contains(edge.nodeAId)) errors.Add($"Edge '{edge.edgeId}' references missing nodeA '{edge.nodeAId}'.");
                     if (!nodeIds.Contains(edge.nodeBId)) errors.Add($"Edge '{edge.edgeId}' references missing nodeB '{edge.nodeBId}'.");
-                    if (string.IsNullOrWhiteSpace(edge.trainGeometryId)) errors.Add($"Edge '{edge.edgeId}' has an empty trainGeometryId.");
-                    if (edge.startDistanceOnTrainGeometryM < 0f || edge.endDistanceOnTrainGeometryM < 0f || edge.LengthM <= 0f)
-                        errors.Add($"Edge '{edge.edgeId}' has an invalid TrainGeometry distance range.");
+                    TrackGeometryDefinition geometry = null;
+                    if (string.IsNullOrWhiteSpace(edge.geometryId))
+                        errors.Add($"Edge '{edge.edgeId}' has an empty geometryId.");
+                    else if (!geometriesById.TryGetValue(edge.geometryId, out geometry))
+                        errors.Add($"Edge '{edge.edgeId}' references missing geometry '{edge.geometryId}'.");
+
+                    float start = edge.startDistanceOnGeometryM;
+                    float end = edge.endDistanceOnGeometryM;
+                    if (!IsFinite(start) || !IsFinite(end) || start < 0f || end < 0f || start == end)
+                        errors.Add($"Edge '{edge.edgeId}' has an invalid TrackGeometry distance range.");
+                    else if (geometry != null && (start > geometry.lengthM || end > geometry.lengthM))
+                        errors.Add($"Edge '{edge.edgeId}' exceeds geometry '{edge.geometryId}' distance range.");
                 }
             }
 
             ValidateNodeEdgeLists(definition, errors);
-            if (errors.Count != 0 || context == null) return false;
+            if (errors.Count != 0) return false;
+
+            // 接続のIDとNodeごとの一意性を確認してから、固定・定位・反位のペアを検証する。
+            var indexedGraph = new TrackGraphContext();
+            if (!indexedGraph.TryBuildLookups(definition, out string lookupError))
+            {
+                errors.Add(lookupError);
+                return false;
+            }
+            foreach (var connection in definition.connections)
+                if (!TrackConnectionValidator.TryValidate(connection, indexedGraph, out string error))
+                    errors.Add(error);
+            if (errors.Count != 0) return false;
             context.Rebuild(definition);
             return true;
         }
+
+        private static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
 
         private static void ValidateNodeEdgeLists(TrackGraphDefinition definition, List<string> errors)
         {
@@ -64,6 +138,11 @@ namespace Nakatetsu.Track.Graph
                 var listed = new HashSet<string>();
                 foreach (var edgeId in node.connectedEdgeIds)
                 {
+                    if (string.IsNullOrWhiteSpace(edgeId))
+                    {
+                        errors.Add($"Node '{node.nodeId}' lists an empty edgeId.");
+                        continue;
+                    }
                     if (!listed.Add(edgeId)) errors.Add($"Node '{node.nodeId}' lists edge '{edgeId}' more than once.");
                     if (!edgeById.TryGetValue(edgeId, out var edge)) { errors.Add($"Node '{node.nodeId}' references missing edge '{edgeId}'."); continue; }
                     if (edge.nodeAId != node.nodeId && edge.nodeBId != node.nodeId)
