@@ -4,7 +4,7 @@ using UnityEngine.Scripting.APIUpdating;
 
 namespace Nakatetsu.Track.Graph.Geometry
 {
-    /// <summary>Scene-view preview. Coordinates come from the asset, not this Transform.</summary>
+    // SceneビューでAssetの座標を表示する。このTransformは位置計算に使わない。
     [MovedFrom(true, sourceNamespace: "Nakatetsu.Track.Graph.Geometry", sourceAssembly: "Nakatetsu.Track", sourceClassName: "TrainGeometryPreview")]
     public sealed class TrackGeometryPreview : MonoBehaviour
     {
@@ -18,7 +18,11 @@ namespace Nakatetsu.Track.Graph.Geometry
 
         private void OnDrawGizmos()
         {
-            if (trackGeometry == null || !trackGeometry.TryEvaluate(0f, out TrackSample previous)) return;
+            if (trackGeometry == null || !trackGeometry.TryEvaluate(0f, out TrackSample previous))
+            {
+                return;
+            }
+
             float length = trackGeometry.Definition.lengthM;
             float interval = float.IsNaN(sampleIntervalM) || float.IsInfinity(sampleIntervalM)
                 ? 5f : Mathf.Max(0.1f, sampleIntervalM);
@@ -26,9 +30,14 @@ namespace Nakatetsu.Track.Graph.Geometry
             count = Mathf.Max(1, count);
             Color oldColor = Gizmos.color;
             Gizmos.color = lineColor;
+
             for (int i = 1; i <= count; i++)
             {
-                if (!trackGeometry.TryEvaluate(length * ((float)i / count), out TrackSample current)) break;
+                if (!trackGeometry.TryEvaluate(length * ((float)i / count), out TrackSample current))
+                {
+                    break;
+                }
+
                 Gizmos.DrawLine(previous.Position, current.Position);
                 previous = current;
             }
@@ -42,6 +51,7 @@ namespace Nakatetsu.Track.Graph.Geometry
                 Gizmos.color = Color.blue;
                 Gizmos.DrawLine(probe.Position, probe.Position + probe.Tangent * 2f);
             }
+
             Gizmos.color = oldColor;
         }
     }

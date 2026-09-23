@@ -8,16 +8,10 @@ namespace Nakatetsu.Track.Graph.Edge
         public float startDistanceOnGeometryM;
         public float endDistanceOnGeometryM;
 
-        /// <summary>
-        /// Lateral offset in metres, positive to the right in the Geometry's increasing-distance direction.
-        /// The caller validates the definition and selects a segment containing the requested distance.
-        /// </summary>
+        // Geometry距離が増える向きの右側を正とした横オフセット[m]。
         public abstract float EvaluateOffsetM(float distanceOnGeometryM);
 
-        /// <summary>
-        /// Derivative of offset with respect to Geometry distance (metres per metre).
-        /// Independent of Edge orientation and train movement direction.
-        /// </summary>
+        // Geometry距離に対する横オフセットの微分。Edgeや列車の向きには依存しない。
         public abstract float EvaluateDerivative(float distanceOnGeometryM);
     }
 }

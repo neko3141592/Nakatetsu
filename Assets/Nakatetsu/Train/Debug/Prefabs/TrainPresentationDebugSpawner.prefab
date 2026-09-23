@@ -67,6 +67,9 @@ MonoBehaviour:
     rotationEuler: {x: 0, y: 0, z: 0}
   - prefab: {fileID: 718862623358748911, guid: 1c54949148e614859b7156894890f3fe, type: 3}
     rotationEuler: {x: 0, y: 180, z: 0}
+  startEdgeId: preview-straight
+  startDistanceOnEdgeM: 195
+  startFrontFacesAtoB: 0
   originPositionM: {x: 0, y: 0, z: 0}
   carsPerRow: 5
   spacingM: {x: 6, y: 25}

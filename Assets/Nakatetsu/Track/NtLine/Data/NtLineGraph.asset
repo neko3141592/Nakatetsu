@@ -14,9 +14,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Track.Graph::Nakatetsu.Track.Graph.TrackGraphAsset
   definition:
     graphId: NtLine
-    geometries: []
-    nodes: []
-    edges: []
+    geometries:
+    - displayName: Preview straight track
+      trackGeometryId: preview-straight-geometry
+      lengthM: 400
+      originPosition: {x: 0, y: 0, z: -180}
+      originRotation: {x: 0, y: 0, z: 0, w: 1}
+      horizontalSegmentDefinitions:
+      - rid: 2411377945952911719
+      legacyHorizontalSegments: []
+      verticalSegmentDefinitions: []
+      legacyVerticalSegments: []
+    nodes:
+    - nodeId: preview-start
+      connectedEdgeIds:
+      - preview-straight
+    - nodeId: preview-end
+      connectedEdgeIds:
+      - preview-straight
+    edges:
+    - edgeId: preview-straight
+      nodeAId: preview-start
+      nodeBId: preview-end
+      geometryId: preview-straight-geometry
+      startDistanceOnGeometryM: 0
+      endDistanceOnGeometryM: 400
+      offsetSegments:
+      - rid: 2411377945952911720
+      distanceMap:
+      - distanceOnGeometryM: 0
+        distanceOnEdgeM: 0
+      - distanceOnGeometryM: 400
+        distanceOnEdgeM: 400
+    connections: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2411377945952911719
+      type: {class: TrackGeometryStraightSegment, ns: Nakatetsu.Track.Graph.Geometry, asm: Nakatetsu.Track}
+      data:
+        startDistanceM: 0
+        lengthM: 400
+    - rid: 2411377945952911720
+      type: {class: TrackEdgeConstantOffsetSegment, ns: Nakatetsu.Track.Graph.Edge, asm: Nakatetsu.Track.Graph}
+      data:
+        startDistanceOnGeometryM: 0
+        endDistanceOnGeometryM: 400
+        offsetM: 0

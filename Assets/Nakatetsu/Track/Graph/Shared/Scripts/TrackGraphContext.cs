@@ -7,7 +7,7 @@ using Nakatetsu.Track.Graph.Node;
 
 namespace Nakatetsu.Track.Graph
 {
-    /// <summary>Runtime ID lookups. Referenced authoring definitions must not be modified during simulation.</summary>
+    // 実行時のID検索を保持する。参照先の定義は走行中に変更しない。
     public sealed class TrackGraphContext
     {
         private readonly Dictionary<string, TrackNodeDefinition> nodesById = new();
@@ -18,7 +18,7 @@ namespace Nakatetsu.Track.Graph
 
         public IEnumerable<TrackConnectionDefinition> Connections => connectionsById.Values;
 
-        /// <summary>Only indicates successful ID indexing, not validated topology or movement data.</summary>
+        // ID検索の構築結果。接続や移動データの妥当性は示さない。
         public bool IsInitialized { get; private set; }
 
         public bool TryGetNode(string id, out TrackNodeDefinition node)
@@ -51,7 +51,7 @@ namespace Nakatetsu.Track.Graph
             return !string.IsNullOrWhiteSpace(nodeId) && connectionsByNodeId.TryGetValue(nodeId, out connection);
         }
 
-        /// <summary>Builds ID lookups only. Does not evaluate geometry, generate LUTs or validate connections.</summary>
+        // 定義をIDで検索できるようにする。線形評価や距離表の生成は行わない。
         public bool TryBuildLookups(TrackGraphDefinition definition, out string error)
         {
             ClearLookups();
@@ -76,7 +76,7 @@ namespace Nakatetsu.Track.Graph
             return true;
         }
 
-        // Existing Compiler entry point; its caller has already validated the definition.
+        // Compilerからの呼び出しでは、事前に定義の検証を終えている。
         internal void Rebuild(TrackGraphDefinition definition)
         {
             TryBuildLookups(definition, out _);
@@ -109,12 +109,14 @@ namespace Nakatetsu.Track.Graph
                     error = $"{kind}[{i}] is null.";
                     return false;
                 }
+
                 string id = getId(entry);
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     error = $"{kind}[{i}] has an empty ID.";
                     return false;
                 }
+
                 if (!lookup.TryAdd(id, entry))
                 {
                     error = $"Duplicate ID '{id}' in {kind}.";

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Nakatetsu.Track.Graph.Geometry
 {
-    /// <summary>Evaluates the running reference line; has no graph or scene dependencies.</summary>
+    // GraphやSceneに依存せず、走行用の基準線を評価する。
     public static class TrackGeometryCalculator
     {
         public static bool TryEvaluate(TrackGeometryDefinition definition, float distanceM, out TrackSample sample)
@@ -12,29 +12,38 @@ namespace Nakatetsu.Track.Graph.Geometry
             if (definition == null || !IsFinite(distanceM) ||
                 !IsFinite(definition.lengthM) || definition.lengthM <= 0f ||
                 definition.horizontalSegments == null || definition.horizontalSegments.Count == 0)
+            {
                 return false;
+            }
 
             float distance = Mathf.Clamp(distanceM, 0f, definition.lengthM);
             if (!TryResolveNativeGeometryPose(definition, distance, out Vector3 position,
-                out Vector3 tangent, out Quaternion rotation)) return false;
+                out Vector3 tangent, out Quaternion rotation))
+            {
+                return false;
+            }
+
             float gradient = TrackGeometryProfileCalculator.GetGradientPermilleAt(definition.verticalSegments, distance);
             if (!IsFinite(position.x) || !IsFinite(position.y) || !IsFinite(position.z) ||
                 !IsFinite(tangent.x) || !IsFinite(tangent.y) || !IsFinite(tangent.z) ||
                 !IsFinite(rotation.x) || !IsFinite(rotation.y) || !IsFinite(rotation.z) || !IsFinite(rotation.w) ||
-                !IsFinite(gradient)) return false;
+                !IsFinite(gradient))
+            {
+                return false;
+            }
 
             sample = new TrackSample(distance, position, tangent, rotation, gradient);
             return true;
         }
 
-        /// <summary>Evaluates world position and unnormalized dP/dS without changing the legacy pose API.</summary>
+        // 従来の姿勢評価を変えずに、位置と正規化しない一次微分を求める。
         public static bool TryEvaluateAtGeometryDistance(TrackGeometryDefinition definition, float distanceOnGeometryM,
             out Vector3 position, out Vector3 derivative)
         {
             return TryEvaluateDerivatives(definition, distanceOnGeometryM, false, out position, out derivative, out _);
         }
 
-        /// <summary>Also returns world-space d²P/dS² [1/m], without normalization or translation.</summary>
+        // ワールド空間での正規化しない二階微分も返す。
         public static bool TryEvaluateAtGeometryDistance(TrackGeometryDefinition definition, float distanceOnGeometryM,
             out Vector3 position, out Vector3 derivative, out Vector3 secondDerivative)
         {
@@ -47,25 +56,44 @@ namespace Nakatetsu.Track.Graph.Geometry
             position = default;
             derivative = default;
             secondDerivative = default;
+
             if (definition == null || !IsFinite(distanceOnGeometryM) || !IsFinite(definition.lengthM)
                 || definition.lengthM <= 0f || distanceOnGeometryM < 0f || distanceOnGeometryM > definition.lengthM
                 || definition.horizontalSegments == null || definition.horizontalSegments.Count == 0
-                || !IsFinite(definition.originPosition)) return false;
+                || !IsFinite(definition.originPosition))
+            {
+                return false;
+            }
 
             var originRotation = definition.originRotation;
             if (!IsFinite(originRotation.x) || !IsFinite(originRotation.y)
-                || !IsFinite(originRotation.z) || !IsFinite(originRotation.w)) return false;
+                || !IsFinite(originRotation.z) || !IsFinite(originRotation.w))
+            {
+                return false;
+            }
 
-            // Validate vertical ranges before using the existing height/gap extension rules.
+            // 高さと区間の隙間を評価する前に、縦断区間の範囲を確認する。
             float previousVerticalEndM = 0f;
             if (definition.verticalSegments != null)
             {
                 foreach (var segment in definition.verticalSegments)
                 {
-                    if (segment == null || !IsFinite(segment.startDistanceM) || !IsFinite(segment.lengthM)) return false;
-                    if (segment.lengthM <= 0.001f) continue;
+                    if (segment == null || !IsFinite(segment.startDistanceM) || !IsFinite(segment.lengthM))
+                    {
+                        return false;
+                    }
+
+                    if (segment.lengthM <= 0.001f)
+                    {
+                        continue;
+                    }
+
                     float endM = segment.startDistanceM + segment.lengthM;
-                    if (segment.startDistanceM < previousVerticalEndM || !IsFinite(endM)) return false;
+                    if (segment.startDistanceM < previousVerticalEndM || !IsFinite(endM))
+                    {
+                        return false;
+                    }
+
                     previousVerticalEndM = endM;
                 }
             }
@@ -76,33 +104,61 @@ namespace Nakatetsu.Track.Graph.Geometry
             foreach (var segment in definition.horizontalSegments)
             {
                 if (segment == null || !IsFinite(segment.startDistanceM) || !IsFinite(segment.lengthM)
-                    || segment.lengthM <= 0f || segment.startDistanceM != previousEndM) return false;
+                    || segment.lengthM <= 0f || segment.startDistanceM != previousEndM)
+                {
+                    return false;
+                }
+
                 float endM = segment.startDistanceM + segment.lengthM;
-                if (!IsFinite(endM)) return false;
+                if (!IsFinite(endM))
+                {
+                    return false;
+                }
+
                 float sampleDistanceM = Mathf.Min(distanceOnGeometryM, endM);
                 segment.EvaluatePosition(sampleDistanceM, out Vector3 localPosition, out float headingDegrees);
-                if (!IsFinite(localPosition) || !IsFinite(headingDegrees)) return false;
+                if (!IsFinite(localPosition) || !IsFinite(headingDegrees))
+                {
+                    return false;
+                }
+
                 currentPosition += currentRotation * localPosition;
 
                 if (distanceOnGeometryM <= endM)
                 {
                     Vector3 localDerivative = segment.EvaluateDerivative(distanceOnGeometryM);
-                    if (!IsFinite(localDerivative)) return false;
+                    if (!IsFinite(localDerivative))
+                    {
+                        return false;
+                    }
+
                     Vector3 worldDerivative = currentRotation * localDerivative;
                     currentPosition.y = definition.originPosition.y
                         + TrackGeometryProfileCalculator.GetVerticalHeightAt(definition.verticalSegments, distanceOnGeometryM);
                     worldDerivative.y = TrackGeometryProfileCalculator.GetDerivativeAt(definition.verticalSegments, distanceOnGeometryM);
-                    if (!IsFinite(currentPosition) || !IsFinite(worldDerivative)) return false;
+                    if (!IsFinite(currentPosition) || !IsFinite(worldDerivative))
+                    {
+                        return false;
+                    }
+
                     Vector3 worldSecondDerivative = Vector3.zero;
                     if (includeSecondDerivative)
                     {
                         Vector3 localSecondDerivative = segment.EvaluateSecondDerivative(distanceOnGeometryM);
-                        if (!IsFinite(localSecondDerivative)) return false;
+                        if (!IsFinite(localSecondDerivative))
+                        {
+                            return false;
+                        }
+
                         worldSecondDerivative = currentRotation * localSecondDerivative;
                         worldSecondDerivative.y = TrackGeometryProfileCalculator.GetSecondDerivativeAt(
                             definition.verticalSegments, distanceOnGeometryM);
-                        if (!IsFinite(worldSecondDerivative)) return false;
+                        if (!IsFinite(worldSecondDerivative))
+                        {
+                            return false;
+                        }
                     }
+
                     position = currentPosition;
                     derivative = worldDerivative;
                     secondDerivative = worldSecondDerivative;
@@ -112,6 +168,7 @@ namespace Nakatetsu.Track.Graph.Geometry
                 currentRotation *= Quaternion.Euler(0f, headingDegrees, 0f);
                 previousEndM = endM;
             }
+
             return false;
         }
 

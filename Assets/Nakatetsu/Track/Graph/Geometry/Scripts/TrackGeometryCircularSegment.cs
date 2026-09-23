@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 namespace Nakatetsu.Track.Graph.Geometry
 {
@@ -28,7 +27,11 @@ namespace Nakatetsu.Track.Graph.Geometry
 
         public override Vector3 EvaluateSecondDerivative(float distanceOnGeometryM)
         {
-            if (Mathf.Abs(radiusM) < 0.001f) return Vector3.zero;
+            if (Mathf.Abs(radiusM) < 0.001f)
+            {
+                return Vector3.zero;
+            }
+
             float theta = GetLocalDistanceM(distanceOnGeometryM) / radiusM;
             return new Vector3(Mathf.Cos(theta) / radiusM, 0f, -Mathf.Sin(theta) / radiusM);
         }
@@ -39,13 +42,12 @@ namespace Nakatetsu.Track.Graph.Geometry
             {
                 return new Vector3(0f, 0f, 1f);
             }
-            
+
             float localDistanceM = GetLocalDistanceM(distanceOnGeometryM);
             float dxDl = Mathf.Sin(localDistanceM / radiusM);
             float dzDl = Mathf.Cos(localDistanceM / radiusM);
 
             return new Vector3(dxDl, 0f, dzDl);
-            
         }
     }
 }

@@ -8,12 +8,12 @@ namespace Nakatetsu.Track.Graph.Geometry
     {
         Straight,
         Curve,
-        TransitionIn,  // 直線から円曲線へつなぐ緩和曲線です。
-        TransitionOut  // 円曲線から直線へ戻す緩和曲線です。
+        TransitionIn, // 直線から円曲線へつなぐ緩和曲線。
+        TransitionOut // 円曲線から直線へ戻す緩和曲線。
     }
 
     [Serializable]
-    // Read-only migration shape for the former inline, enum-discriminated format.
+    // 旧インライン形式を読み込むための移行用データ。
     internal sealed class LegacyTrackGeometryHorizontalSegment
     {
         public float startDistanceM;
@@ -23,7 +23,7 @@ namespace Nakatetsu.Track.Graph.Geometry
     }
 
     [Serializable]
-    // Read-only migration shape for the former inline vertical segments.
+    // 旧インライン形式の縦断区間を読み込むための移行用データ。
     internal sealed class LegacyTrackGeometryVerticalSegment
     {
         public float startDistanceM;

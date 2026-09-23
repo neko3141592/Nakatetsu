@@ -10,7 +10,7 @@ namespace Nakatetsu.Track.Simulation.Connection
         Reverse
     }
 
-    /// <summary>外部へ返す状態のスナップショット。操作はControllerの要求・完了通知を通す。</summary>
+    // 外部へ返す状態のスナップショット。変更はControllerを通す。
     public readonly struct TrackConnectionState
     {
         public TrackSwitchPosition RequestedPosition { get; }
@@ -30,6 +30,7 @@ namespace Nakatetsu.Track.Simulation.Connection
     {
         // 初期化時に定義をコピーする。実行中にAssetのリストやペアは変更しない。
         internal readonly Dictionary<string, TrackConnectionDefinition> ConnectionsByNodeId = new();
+
         // 固定接続は状態を持たず、転轍機だけをConnection IDで管理する。
         internal readonly Dictionary<string, TrackConnectionState> StatesById = new();
 
