@@ -42,7 +42,7 @@ Core
 - TIMSと車両機器の接続は、TIMS側または両方へ依存できる統合AssemblyのAdapterで行う。
 - 相互参照で解決しない。値、利用側が所有するインターフェース、Adapter、上位Controllerで境界を作る。
 - 上位のOrchestrationは下位Controllerを直接参照してよいが、下位ControllerからOrchestration Controllerを参照しない。必要な入力データまたは専用Interfaceを上位から接続する。
-- 車載装置同士の情報伝達はTIMS Busを介する。Simulationによる装置出力の収集、Physicsへの力の入力、PhysicsからDynamicsへの物理結果の受け渡しは車載通信ではないため直接接続を許可する。
+- 車載装置同士の情報伝達はTIMS Busを介する。Simulationによる装置出力の収集、Physicsへの力の入力、SimulationによるPhysicsからTrackへの符号付き移動距離の受け渡しは車載通信ではないため直接接続を許可する。
 - `Train/Simulation` からTIMS型を参照する場合は、`Nakatetsu.Train`へ逆参照を追加しない。TrainとTimsの両方を参照する独立asmdefにするか、接続を`Application`へ置く。
 - Presentationは表示だけを担当し、ブレーキ配分、力行力、運動などのシミュレーション計算を持たない。
 
@@ -106,27 +106,26 @@ Core
 → Adapterで車両別の値へ変換
 → VVVF・ブレーキなどの装置をCollectInput / Calculate / ApplyOutput
 → 実際の力と車両質量をSimulationが収集
-→ PhysicsをCollectInput / Calculate / ApplyOutputして加速度と符号付き速度を更新
-→ Dynamicsが速度から符号付き移動距離を求めてグラフ内を進める
-→ 移動結果をTrackへ適用
+→ PhysicsをCollectInput / Calculate / ApplyOutputして加速度・符号付き速度・符号付き移動距離を計算
+→ SimulationがPhysicsの符号付き移動距離をTrackへ渡し、線路上の位置を更新
 → 各車位置・占有・表示・Bus状態を反映
 ```
 
 - フィードバックに前ステップ値を使う場合は明記する。暗黙の更新順依存にしない。
 - Presentationの描画更新はSimulation結果を読むだけにし、シミュレーション状態を進めない。
 
-## 8. VVVF・ブレーキ・Physics・Dynamics・Trackの境界
+## 8. VVVF・ブレーキ・Physics・Trackの境界
 
 - VVVFは目標力、車速、時間を受け、実モーター力・回生力・電気状態を返す。
 - Brakeは目標空制力と時間を受け、実空制力を返す。
 - 将来のAdhesion層は機器が発生した力を、レールへ伝達できる力へ制限する。
-- Physicsは車両別の牽引力、非負のブレーキ力、外力、質量を集計し、編成の加速度と符号付き速度を計算する。物理状態の所有者はPhysicsとする。
+- Physicsは車両別の牽引力、非負のブレーキ力、外力、質量を集計し、編成の加速度・符号付き速度・符号付き移動距離を計算する。物理状態の所有者はPhysicsとする。
 - PhysicsのStateを書き換えるのはPhysicsのLogicだけとする。外部は計算結果としてOutputを読み、Stateを直接変更しない。現段階では専用のPhysics Output Interfaceを必須としない。
-- DynamicsはPhysicsの符号付き速度から移動距離を求め、グラフ内を進む処理を担当する。装置の力計算や速度更新を持たない。
+- 独立したDynamics層は設けない。Physicsが速度更新と距離積分を担当し、Simulationがその出力をTrackへ渡す。
 - Trackは符号付き移動距離を受け、Edge上の位置、実移動距離、未消費距離、終了理由、各車姿勢を返す。
 - PhysicsはVVVF、Brake、Track、TrainSimulationControllerを参照しない。Contextへ集計済みの値を渡す。
-- TrackはDynamicsを参照せず、時間や速度から距離を再計算しない。
-- 速度更新はPhysics、距離積分はDynamicsでそれぞれ1回だけ行い、Trackは渡された距離だけを適用する。
+- TrackはPhysicsを参照せず、時間や速度から距離を再計算しない。
+- 速度更新と距離積分はPhysicsでそれぞれ1ステップにつき1回だけ行い、Trackは渡された距離だけを適用する。
 - 車載装置が利用する速度は、最終的には速度発電機などの物理センサーからLocalBus、TIMSのMasterBusを経由して配る。車載装置はPhysicsを直接参照しない。センサー完成前のSimulationから装置への速度Setterは暫定接続として扱う。
 - 編成の向きと移動方向を分ける。後退だけで車両順やEdge上の編成前方を反転させない。
 

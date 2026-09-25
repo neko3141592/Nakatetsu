@@ -1,5 +1,7 @@
 # 運転デバッグ
 
+本書は既存のInspector操作の説明。W1-04で採用するキー操作・初期状態・レバーサー操作条件は[キーボード運転入力仕様](KeyboardControls.md)を参照。新仕様は未実装であり、以下には従来の操作条件を記載している。
+
 編成ルート（TrainRootがあるGameObject）に、Add Component → Nakatetsu → Train → Debug → Train Debug Controllerを追加する。
 
 前提は編成定義を持つTrainRoot、TrainEquipmentBuilder、TrainSimulationBuilder、TrainSimulationController、TrainPhysicsControllerと、子のTims.prefab。両BuilderのBuild On Awakeを有効にする。デバッグ機能は機器の生成やTIMSの設定を自動変更しない。
@@ -17,4 +19,4 @@ Inspectorにはマスコン、TIMS非常・指令有効状態、各車の回生�
 
 操作用コンポーネントとEditor専用Inspectorは独立したAssemblyに置き、Train本体からTIMSへの依存は追加しない。テストファイルは追加していない。
 
-この機能は制御・速度計算のデバッグ用。車両モデルの線路上移動はDynamics／Trackの接続が別途必要。
+この機能は運転指令の操作と制御状態の確認を担当する。車両モデルの線路上移動は、Physicsが速度・移動距離を計算し、TrainSimulationControllerが移動距離をTrackへ渡し、Presentationが線路上の姿勢を車体へ反映する。NtLineシーンではW1-03でこの接続を実装済み。
