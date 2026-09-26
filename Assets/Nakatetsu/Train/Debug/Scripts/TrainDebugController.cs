@@ -94,13 +94,15 @@ namespace Nakatetsu.Train.Debugging
             { lastOperation = "運転台の切り替えは停車後に行ってください。"; return; }
             frontMaster.SetInputEnabled(true);
             rearMaster.SetInputEnabled(true);
-            frontMaster.SetNeutral();
-            rearMaster.SetNeutral();
+            frontMaster.SetEmergencyBrake();
+            rearMaster.SetEmergencyBrake();
             frontMaster.SetReverserPosition(ReverserPosition.Neutral);
             rearMaster.SetReverserPosition(ReverserPosition.Neutral);
             frontSwitch.SetPosition(rear ? CabActivationPosition.Rear : CabActivationPosition.Front);
             rearSwitch.SetPosition(rear ? CabActivationPosition.Front : CabActivationPosition.Rear);
             (rear ? rearMaster : frontMaster).SetReverserPosition(ReverserPosition.Forward);
+            frontMaster.SetNeutral();
+            rearMaster.SetNeutral();
             lastOperation = (rear ? "後側" : "前側") + "運転台を準備しました。TIMSの更新後にPノッチを操作してください。";
         }
 
@@ -108,7 +110,7 @@ namespace Nakatetsu.Train.Debugging
         {
             if (!TryGetMaster(out MasterController master)) return;
             if (brake == null || brake.Output.isEmergency)
-            { lastOperation = "非常制動中です。停車・Nで原因を解除してから力行してください。"; return; }
+            { lastOperation = "非常要求が残っています。TIMSの非常理由を確認してください。"; return; }
             master.SetPowerPosition(Mathf.Clamp(notch, 0, master.MaxPowerPosition));
             lastOperation = $"力行 P{master.PowerPosition}";
         }
@@ -125,7 +127,7 @@ namespace Nakatetsu.Train.Debugging
         {
             if (!TryGetMaster(out MasterController master)) return;
             master.SetNeutral();
-            lastOperation = "Nにしました。非常保持は停車・原因解消後にTIMSが解除します。";
+            lastOperation = "Nにしました。次の通信更新でマスコン操作が反映されます。";
         }
 
         [ContextMenu("非常ブレーキ")]
@@ -139,10 +141,8 @@ namespace Nakatetsu.Train.Debugging
         public void SetReverser(int position)
         {
             if (!TryGetMaster(out MasterController master)) return;
-            if (physics == null || Mathf.Abs(physics.Context.Output.signedVelocityMps) >= 0.01f)
-            { lastOperation = "レバーサー操作は停車後に行ってください。"; return; }
             lastOperation = master.SetReverserPosition((ReverserPosition)Mathf.Clamp(position, -1, 1))
-                ? "レバーサーを変更しました。" : "先にノッチをNにしてください。";
+                ? "レバーサーを変更しました。" : "入力が有効な状態で非常ノッチにしてください。";
         }
 
         private bool TryGetMaster(out MasterController master)

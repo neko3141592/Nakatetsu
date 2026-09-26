@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
 
-namespace Nakatetsu.Application.Simulation
+namespace Nakatetsu.Train.Equipment.LoadWeightDevice
 {
-    public sealed class ApplicationSimulationController
+    public sealed class LoadWeightDeviceController
     {
         [SerializeField] private float tickDurationSeconds = 0.02f;
         [SerializeField] private List<TrainSimulationController> trains;

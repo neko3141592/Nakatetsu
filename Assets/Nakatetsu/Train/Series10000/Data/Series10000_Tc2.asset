@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040c0444d01224e339e513b023f1591c, type: 3}
+  m_Name: Series10000_Tc2
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Consist.CarDefinitionAsset
+  carId: Series10000_Tc2
+  displayName: Series10000 Tc2
+  carType: 2
+  lengthM: 20
+  bogieCenterDistanceM: 13.6
+  emptyMassKg: 29000
+  passengerCapacity: 150
+  driveDefinition: {fileID: 11400000, guid: c3987347a3b7e46f389133356ffa6bca, type: 2}
+  presentationPrefab: {fileID: 9066339466456279447, guid: c762fc32321544574b09fb3af60658a7, type: 3}
+  tractionEquipmentPrefab: {fileID: 0}
+  brakeEquipmentPrefab: {fileID: 5789206022697535869, guid: 45e9f438bb84543afa30daaa672d854f, type: 3}
+  additionalEquipmentPrefabs:
+  - {fileID: 100000, guid: dc7ca2adce2649a6a67570f64974c2f4, type: 3}
+  - {fileID: 100000, guid: 7d9600a607604d0d85f0aa49c225feab, type: 3}
+  - {fileID: 100000, guid: f4bd5667ccab4e48bc6e4ae8ad184f9b, type: 3}
+  motorDefinition: {fileID: 0}
+  motorCount: 0
+  brakeCylinderDefinition: {fileID: 11400000, guid: 8389f6ebee624835951cb11fc47fa86e, type: 2}
+  brakeCylinderCount: 4
+  motorSimulationPrefab: {fileID: 0}
+  brakeSimulationPrefab: {fileID: 100000, guid: d6659b8d35ada4445ae679e638287adc, type: 3}
+  loadSimulationPrefab: {fileID: 100000, guid: d731bba9abbc43b5935134eaf473dc62, type: 3}
+  doorSimulationPrefab: {fileID: 100000, guid: 04060fdb4d634ef19f9eff28b300521c, type: 3}
+  masterControllerPrefab: {fileID: 7306635846304263880, guid: 57eec8538a44430b9cd850ab6b98fd41, type: 3}
+  cabActivationSwitchPrefab: {fileID: 2414232455009005073, guid: 149b207c2302b4ffcb683c25b21d5f0e, type: 3}

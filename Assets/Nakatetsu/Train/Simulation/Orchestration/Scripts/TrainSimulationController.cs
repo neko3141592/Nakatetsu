@@ -221,7 +221,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             // TIMSなどの通信入力を各車の入力Busへ先に収集する。
             foreach (IEquipmentInputSourceCollector collector in equipmentInputSourceCollectors)
             {
-                collector.CollectInputSources();
+                collector.CollectInputSources(deltaTimeSeconds);
             }
 
             // 全Equipmentの入力を同じ時点で収集する。

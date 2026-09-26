@@ -13,7 +13,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
             {
                 throw new ArgumentNullException(nameof(context));
             }
-            context.Output.isEmergency = !context.Input.canReleaseEmergencyBrake;
+            context.Output.isEmergency = context.Input.isEmergencyBrakeRequested;
             context.Output.hasCommands = false;
             context.Output.carCommands.Clear();
 

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Nakatetsu.Core.Time;
 using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
 
 namespace Nakatetsu.Application.Simulation
 {
-    public sealed class ApplicationSimulationController : MonoBehaviour
+    public sealed class ApplicationSimulationController : MonoBehaviour, IWorldTimeSource
     {
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private float tickDurationSeconds;

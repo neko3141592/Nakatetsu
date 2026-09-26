@@ -3,6 +3,7 @@ using Nakatetsu.Train.Equipment.Tims.Door;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Speed;
+using Nakatetsu.Train.Equipment.Tims.Traction;
 
 namespace Nakatetsu.Train.Equipment.Tims.Communication
 {
@@ -10,8 +11,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
     public class TimsCommunicationController : MonoBehaviour, IEquipmentInputSourceCollector
     {
         [SerializeField] private TrainRoot trainRoot;
+        [SerializeField, Min(0f)] private float transferIntervalSeconds = 0.25f;
         private readonly TimsCommunicationContext context = new();
         private TimsSpeedController speedController;
+        private TimsCurrentController currentController;
 
         public TimsBusState MasterBus => context.State.masterBus;
 
@@ -45,13 +48,19 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
                 return 0;
             }
 
+            // 電流は今回受信できた装置だけを代表候補にする。撤去・割当解除時の古い値を残さない。
+            foreach (TimsCarTerminalState terminal in context.State.terminals)
+                terminal.localBus.Remove(TimsTractionBusSource.SignedMotorCurrentAKey);
+
             int collectedSourceCount = 0;
             MonoBehaviour[] components = trainRoot.GetComponentsInChildren<MonoBehaviour>(true);
             foreach (MonoBehaviour component in components)
             {
                 // 割当やLocalBusが欠けたドアも搭載として認識し、監視を有効にする。
                 if (component is DoorTimsBusSource && !TryGetComponent<TimsDoorController>(out _))
+                {
                     gameObject.AddComponent<TimsDoorController>();
+                }
                 if (component is not ITimsBusSource source ||
                     !TryGetLocalBus(source.AssignedCarIndex, out TimsBusState localBus))
                 {
@@ -65,19 +74,42 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             return collectedSourceCount;
         }
 
+        public void CollectInputSources(float deltaTimeSeconds)
+        {
+            if (TimsCommunicationLogic.ShouldCollectSources(context.State, deltaTimeSeconds, transferIntervalSeconds))
+            {
+                CollectSources();
+            }
+
+            CalculateAndPublish();
+        }
+
+        /// <summary>テスト・手動収集用。転送間隔を待たずに現在値を収集する。</summary>
         public void CollectInputSources()
         {
-            // 各車のTIMS送信元を対応するLocalBusへ収集する。
             CollectSources();
-            // LocalBusへの全送信が完了してから編成速度を確定する。
+            context.State.hasCollectedSources = true;
+            context.State.collectionElapsedSeconds = 0d;
+            CalculateAndPublish();
+        }
+
+        private void CalculateAndPublish()
+        {
+            // 転送待ちのtickでも、受信済みのLocalBusを使って計算を続ける。
             ResolveSpeedController();
             speedController.CalculateAndPublish();
+            ResolveCurrentController();
+            currentController.CalculateAndPublish();
             // 前ステップのドア接点を集約。1両でも未取得なら全扉閉にはしない。
             if (TryGetComponent(out TimsDoorController doors))
+            {
                 doors.CalculateAndPublish();
+            }
             // 指令処理は任意の同一GameObjectコンポーネントで有効化する。
             if (TryGetComponent(out TimsControlController control) && control.isActiveAndEnabled)
+            {
                 control.CalculateAndPublish();
+            }
         }
 
         private void Awake()
@@ -85,6 +117,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             ResolveTrainRoot();
             Initialize();
             ResolveSpeedController();
+            ResolveCurrentController();
         }
 
         private void ResolveSpeedController()
@@ -96,6 +129,16 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
                 {
                     speedController = gameObject.AddComponent<TimsSpeedController>();
                 }
+            }
+        }
+
+        private void ResolveCurrentController()
+        {
+            if (currentController == null)
+            {
+                currentController = GetComponent<TimsCurrentController>();
+                if (currentController == null)
+                    currentController = gameObject.AddComponent<TimsCurrentController>();
             }
         }
 
