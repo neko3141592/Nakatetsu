@@ -1,6 +1,6 @@
 # 運転デバッグ
 
-本書は既存のInspector操作の説明。W1-04で採用するキー操作・初期状態・レバーサー操作条件は[キーボード運転入力仕様](KeyboardControls.md)を参照。キー入力は未実装。レバーサー操作条件は新仕様を反映済み。
+本書は既存のInspector操作の説明。W1-04で採用するキー操作・初期状態・レバーサー操作条件は[キーボード運転入力仕様](KeyboardControls.md)を参照。ノッチ・レバーサー・EBリセットのキー入力と、新仕様のレバーサー操作条件を実装済み。
 
 編成ルート（TrainRootがあるGameObject）に、Add Component → Nakatetsu → Train → Debug → Train Debug Controllerを追加する。
 
