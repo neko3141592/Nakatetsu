@@ -26,8 +26,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Brake
 
     public sealed class TimsBrakeInput
     {
-        // Replaces the legacy check for TIMS, consist, config and terminal availability.
-        public bool canReleaseEmergencyBrake;
+        // そのステップで集約された非常要求。保持状態は持たない。
+        public bool isEmergencyBrakeRequested = true;
         public int brakeStep;
         public readonly List<TimsBrakeCarInput> cars = new();
     }

@@ -1,5 +1,5 @@
 using System.Globalization;
-using Nakatetsu.Train.Equipment.Tims.Bus;
+using Nakatetsu.Train.Equipment.Tims.Traction;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using TMPro;
 using UnityEngine;
@@ -13,11 +13,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
     public sealed class TimsCurrentGauge : MonoBehaviour
     {
         [SerializeField] private TimsCommunicationController tims;
-        [SerializeField, Min(0)] private int carIndex;
-        [Tooltip("正が力行、負が回生の電流（A）を読むLocalBusのタグ。")]
-        [SerializeField] private string deviceName;
-        [SerializeField] private string itemName;
-        [SerializeField] private bool useManualCurrent = true;
+        [SerializeField] private bool useManualCurrent;
         [Tooltip("表示確認用。正が力行、負が回生。単位A。")]
         [SerializeField] private float manualCurrentA;
         [SerializeField, Min(1f)] private float maximumCurrentA = 1500f;
@@ -47,12 +43,6 @@ namespace Nakatetsu.Train.Presentation.Gauges
         public void SetTimsSource(TimsCommunicationController source)
         {
             tims = source;
-        }
-
-        public void Configure(TimsCommunicationController source, int localCarIndex)
-        {
-            tims = source;
-            carIndex = localCarIndex;
             Refresh();
         }
 
@@ -63,11 +53,11 @@ namespace Nakatetsu.Train.Presentation.Gauges
             if (!useManualCurrent)
             {
                 available = tims != null && tims.isActiveAndEnabled &&
-                    !string.IsNullOrWhiteSpace(deviceName) && !string.IsNullOrWhiteSpace(itemName) &&
-                    tims.TryGetLocalBus(carIndex, out var bus) &&
-                    bus.TryGetFloat(new TimsTagKey(deviceName, itemName), out current);
+                    tims.MasterBus.TryGetFloat(TimsCurrentController.SignedMotorCurrentAKey, out current);
             }
             available &= IsFinite(current) && IsFinite(maximumCurrentA) && maximumCurrentA > 0f;
+            // 数値とバーを同じ5A刻みに丸める。TIMSの測定値自体は変更しない。
+            current = available ? Mathf.Round(current / 5f) * 5f : 0f;
             float plotHeight = IsFinite(height) ? Mathf.Max(1f, height) : 1f;
             float bottom = -plotHeight * 0.5f;
             UpdateScale(regenScale, bottom, plotHeight);

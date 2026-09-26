@@ -22,7 +22,7 @@ Prefab内のセルは既存Prefabのインスタンス。配置・配色はPrefa
 | `Notch.ResolvedPowerNotch` | 確定力行ノッチ |
 | `Notch.ResolvedBrakeStep` | 確定ブレーキStep |
 | `Notch.IsEmergencyBrakeRequested` | ノッチ側の非常要求 |
-| `Brake.IsEmergency` | EB・入力欠損等を含むTIMSの非常保持 |
+| `Brake.IsEmergency` | EB・入力欠損等を含む、そのステップでTIMSが集約した非常要求 |
 
 ブレーキStepは同じTIMSの `TimsRoot.Settings.brakeSubstepCount` で段数へ変換する。刻み4ならStep1〜4はB1、5〜8はB2、25はB7。補間中の細分ステップの文字表示は行わない。
 
@@ -35,7 +35,7 @@ Prefab内のセルは既存Prefabのインスタンス。配置・配色はPrefa
 - `Assets/Scripts/UI/PowerDisplayBuilder.cs` / `BrakeDisplayBuilder.cs`：現在段まで点灯する挙動を継承。文字は現在段と消灯段に表示し、点灯中の下位段だけ隠す（消灯段のグレー表示は現行側の仕様）。
 - `NeutralDisplay.cs` / `EBDisplay.cs`：N・非常を別表示にする構成を継承。
 - 旧 `Main.unity` のP4/B7とP/B読み取り遅延0に合わせる。N・非常も同じスナップショットへ即時反映し、旧側の個別遅延キューは移植しない。
-- 旧TrainController直接参照を、現在の確定ノッチ・非常保持のBus参照へ変更。欠損をNと区別し、古い点灯を残さない。
+- 旧TrainController直接参照を、現在の確定ノッチ・非常要求のBus参照へ変更。EB装置が保持している要求も同じタグから表示する。欠損をNと区別し、古い点灯を残さない。
 - 配色と形状は現在のセルPrefabを使用する。
 
 `Display/Notch/Tests` でPrefab構成、積み上げ点灯、ブレーキStep境界、設定変更、非常保持、欠損・不正値・切断後の表示を検証する。

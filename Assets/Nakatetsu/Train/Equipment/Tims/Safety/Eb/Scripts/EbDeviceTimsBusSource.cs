@@ -10,6 +10,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
     [RequireComponent(typeof(TrainEquipmentAssignment))]
     public sealed class EbDeviceTimsBusSource : MonoBehaviour, ITimsBusSource
     {
+        public static readonly TimsTagKey IsBuzzerRequestedKey =
+            new("EB", "IsBuzzerRequested");
         public static readonly TimsTagKey IsEmergencyBrakeRequestedKey =
             new("EB", "IsEmergencyBrakeRequested");
         public static readonly TimsTagKey InactivitySecondsKey =
@@ -39,6 +41,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
             if (!isActiveAndEnabled || !ebDevice.isActiveAndEnabled || !ebDevice.HasOutput)
             {
                 localBus.Remove(IsEmergencyBrakeRequestedKey);
+                localBus.Remove(IsBuzzerRequestedKey);
                 localBus.Remove(InactivitySecondsKey);
                 localBus.Remove(RemainingSecondsKey);
                 return;
@@ -47,6 +50,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Safety.Eb
             // 時間を進めず、自車の計算済みEB出力をそのまま公開する。
             EbDeviceOutput output = ebDevice.Output;
             localBus.SetBool(IsEmergencyBrakeRequestedKey, output.isEmergencyBrakeRequested);
+            localBus.SetBool(IsBuzzerRequestedKey, output.isBuzzerRequested);
             localBus.SetFloat(InactivitySecondsKey, output.inactivitySeconds);
             localBus.SetFloat(RemainingSecondsKey, output.remainingSeconds);
         }

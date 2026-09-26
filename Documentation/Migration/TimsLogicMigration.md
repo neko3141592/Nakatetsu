@@ -52,7 +52,7 @@ MonoBehaviour、車両Controller、Prefab、ScriptableObject、シーンは移�
 var context = new TimsBrakeContext();
 context.Settings.brakeTargetDecelerationsMps2.Add(1f);
 context.Settings.minimumServiceBrakePressureKPa = 0f;
-context.Input.canReleaseEmergencyBrake = true;
+context.Input.isEmergencyBrakeRequested = false;
 context.Input.brakeStep = 1;
 context.Input.cars.Add(new TimsBrakeCarInput
 {
@@ -89,8 +89,8 @@ TimsBrakeLogic.Calculate(context);
 
 ### ブレーキ
 
-- `Input.canReleaseEmergencyBrake` は、旧実装が調べていたTIMS・編成・設定・端末の利用可否を呼び出し側でまとめた値。
-- falseのとき `Output.isEmergency = true`、`hasCommands = false`。前回指令は保持するため、このフレームは非常状態だけを反映し、保持された指令を新規指令として送信しない。
+- `Input.isEmergencyBrakeRequested` は、マスコン・EB装置・必要入力の欠損などを呼び出し側で集約した、そのステップの非常要求。TIMSは保持状態を持たず、要求元の装置が保持・解除を判断する。
+- trueのとき `Output.isEmergency = true`、`hasCommands = false` とし、通常の車両別指令はクリアする。非常状態は別タグで公開し、受信側が最大空気制動へ変換する。falseに戻ると通常の指令計算を再開する。
 - `Input.cars` は車両順で、全車に非nullのレコードを用意する。
 - `massKg` は荷重バスの値。取得できなければ呼び出し側が車両定義の質量で補完する。
 - `isVvvfMotorCar` は、旧条件「Motor車・motorCount > 0・VVVF Prefabあり」を呼び出し側で判定した結果。

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Communication;
-using Nakatetsu.Train.Equipment.Tims.Notch;
-using Nakatetsu.Train.Equipment.Tims.Brake;
-using Nakatetsu.Train.Equipment.Tims.Traction;
 
 namespace Nakatetsu.Train.Equipment.Tims.Tests
 {
@@ -18,6 +15,55 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             context.Input.sources.Add(new TimsTransmissionInput
                 { sourceId = 7, carIndex = 0 });
             return context;
+        }
+
+        [Test]
+        public void CollectionStartsImmediatelyThenWaitsFor250Milliseconds()
+        {
+            var state = new TimsCommunicationState();
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f), Is.True);
+            for (int i = 0; i < 12; i++)
+            {
+                Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f), Is.False);
+            }
+
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f), Is.True);
+            Assert.That(state.collectionElapsedSeconds, Is.EqualTo(0.01d).Within(0.000001d));
+            for (int i = 0; i < 11; i++)
+            {
+                Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f), Is.False);
+            }
+
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f), Is.True);
+        }
+
+        [Test]
+        public void ZeroTimeDoesNotAdvanceCollection()
+        {
+            var state = new TimsCommunicationState();
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0f, 0.25f), Is.False);
+            Assert.That(state.hasCollectedSources, Is.False);
+            TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f);
+            TimsCommunicationLogic.ShouldCollectSources(state, 0.1f, 0.25f);
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0f, 0.25f), Is.False);
+            Assert.That(state.collectionElapsedSeconds, Is.EqualTo(0.1d).Within(0.000001d));
+        }
+
+        [Test]
+        public void LargeStepKeepsOnlyRemainder()
+        {
+            var state = new TimsCommunicationState();
+            TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0.25f);
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.8f, 0.25f), Is.True);
+            Assert.That(state.collectionElapsedSeconds, Is.EqualTo(0.05d).Within(0.000001d));
+        }
+
+        [Test]
+        public void ZeroIntervalCollectsEveryPositiveTick()
+        {
+            var state = new TimsCommunicationState();
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0f), Is.True);
+            Assert.That(TimsCommunicationLogic.ShouldCollectSources(state, 0.02f, 0f), Is.True);
         }
 
         [Test]

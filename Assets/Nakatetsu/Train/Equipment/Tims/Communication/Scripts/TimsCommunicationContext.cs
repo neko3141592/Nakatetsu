@@ -16,6 +16,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
     [Serializable]
     public sealed class TimsCommunicationState
     {
+        public bool hasCollectedSources;
+        public double collectionElapsedSeconds;
         public TimsBusState masterBus = new();
         public readonly List<TimsCarTerminalState> terminals = new();
     }

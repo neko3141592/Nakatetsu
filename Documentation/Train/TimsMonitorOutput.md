@@ -17,7 +17,9 @@ TIMSを無効化すると描画用オブジェクトを無効化し、再度有�
 3. `Screen Number` に1〜3、`Screen Renderer` に画面メッシュのRenderer、`Material Index` に対象の材質番号（0始まり）を設定する。
 4. PlayするとTIMSの子に `Monitor Output` が作られ、RTが接続される。
 
-`Assets/Nakatetsu/Train/Series1000/Prefabs/Cab/TimsMonitor.prefab` には、左画面 `Cube.001` に画面番号1、右画面 `Cube.002` に画面番号2のコンポーネントを追加済み。接続先TIMSはSceneで指定する。3枚目は表示用メッシュに同コンポーネントを追加して番号3を指定する。
+`Assets/Nakatetsu/Train/Series1000/Prefabs/Body/Tc1.prefab` の `Presentation/Cab/CabModule/Monitor1`〜`Monitor3` は、それぞれ画面番号1〜3と自身のRendererを設定済み。実行時は親の `TrainRoot` 内から `TimsRoot` を自動取得する。各画面には、新しいCabModuleの頂点・法線・三角形を維持し、ローカルX/Z座標からUVを0〜1へ展開した `CabMonitor1Screen.asset`〜`CabMonitor3Screen.asset` を使用する。元FBXと各MonitorのTransformは変更しない。
+
+旧 `Assets/Nakatetsu/Train/Series1000/Prefabs/Cab/TimsMonitor.prefab` の `Cube.001` / `Cube.002` は画面番号1 / 2の設定を維持する。
 
 `TimsMonitorOutput` を別途Sceneへ配置する必要はない。以前の手動配置が残っている場合、必要なUI編集をPrefabへApplyしてから、その手動配置を無効にして二重描画を避ける。
 

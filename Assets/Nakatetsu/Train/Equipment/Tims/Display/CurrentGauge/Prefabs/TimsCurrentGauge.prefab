@@ -205,10 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Nakatetsu.Train.Presentation::Nakatetsu.Train.Presentation.Gauges.TimsCurrentGauge
   tims: {fileID: 0}
-  carIndex: 0
-  deviceName: 
-  itemName: 
-  useManualCurrent: 1
+  useManualCurrent: 0
   manualCurrentA: 0
   maximumCurrentA: 1500
   height: 514

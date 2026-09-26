@@ -1,0 +1,14 @@
+{
+    "name": "Nakatetsu.Train.Audio.Tests.PlayMode",
+    "rootNamespace": "Nakatetsu.Train.Presentation.Audio.Tests",
+    "references": [
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Presentation",
+        "Nakatetsu.Train.Equipment.Tims",
+        "Nakatetsu.Train.Integration",
+        "Nakatetsu.Application"
+    ],
+    "includePlatforms": [],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}

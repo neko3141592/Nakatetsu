@@ -13,8 +13,128 @@ MonoBehaviour:
   m_Name: TimsControlConfig
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Configuration.TimsSettingsAsset
   powerNotchCount: 4
-  powerCurves: []
-  launchAccelerationKmhPerSec: 2.8
+  maximumOperatingSpeedKmh: 120
+  powerCurves:
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.49637222
+      inSlope: -1.5492212
+      outSlope: -1.5492212
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.19493696
+      value: 0.19437176
+      inSlope: -0.13803965
+      outSlope: -0.13803965
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.50457364
+    - serializedVersion: 3
+      time: 0.7951051
+      value: 0.16900788
+      inSlope: -0.042261288
+      outSlope: -0.042261288
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000016419217
+      value: 0.9986808
+      inSlope: -0.027219705
+      outSlope: -0.027219705
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.14825785
+      value: 0.99802095
+      inSlope: -0.0044505615
+      outSlope: -0.022107475
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3027483
+    - serializedVersion: 3
+      time: 0.33629313
+      value: 0.30151275
+      inSlope: 0.023344127
+      outSlope: 0.023344127
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2443658
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.000099171884
+      value: 0.99997437
+      inSlope: -0.0021061262
+      outSlope: -0.0021061262
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.31324512
+      value: 0.9993144
+      inSlope: -0.0021061262
+      outSlope: -0.046013217
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.50457364
+    - serializedVersion: 3
+      time: 1.0013146
+      value: 0.8012432
+      inSlope: -0.031018382
+      outSlope: -0.031018382
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31593278
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  launchAccelerationKmhPerSec: 3
   brakeTargetDecelerationsKmhPerSec:
   - 0.6
   - 1.1

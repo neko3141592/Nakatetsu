@@ -20,18 +20,21 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
 
     public sealed class EbDeviceInput
     {
+        public bool resetRequested;
         public bool hasMasterControllerState;
         public EbMasterControllerInput masterController;
     }
 
     public sealed class EbDeviceSettings
     {
-        public float activationDelaySeconds = 60f;
+        public float warningDelaySeconds = 60f;
+        public float warningDurationSeconds = 5f;
         public float activationSpeedMps = 5f / 3.6f;
     }
 
     public sealed class EbDeviceState
     {
+        public bool isEmergencyBrakeLatched;
         public bool hasPreviousMasterControllerState;
         public EbMasterControllerInput previousMasterController;
         public float inactivitySeconds;
@@ -39,6 +42,7 @@ namespace Nakatetsu.Train.Equipment.Safety.Eb
 
     public sealed class EbDeviceOutput
     {
+        public bool isBuzzerRequested;
         public bool isEmergencyBrakeRequested;
         public float inactivitySeconds;
         public float remainingSeconds;

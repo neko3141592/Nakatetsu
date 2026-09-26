@@ -45,7 +45,7 @@ namespace Nakatetsu.Train.Debugging.Editor
                     controller.SetReverser(1);
                 }
                 EditorGUILayout.EndHorizontal();
-                if (GUILayout.Button("N（惰行／停車後の非常解除）"))
+                if (GUILayout.Button("N（惰行）"))
                 {
                     controller.SetNeutral();
                 }
