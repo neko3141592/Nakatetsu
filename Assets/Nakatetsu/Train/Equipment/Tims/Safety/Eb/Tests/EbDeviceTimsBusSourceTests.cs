@@ -81,55 +81,95 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         public void CollectsPreviousStepOutputIntoEachCarsLocalBus()
         {
             devices[1].Configure(devices[1].GetComponent<EbDeviceTimsInputAdapter>(), 120f);
-            StepDevices(60f);
+            StepDevices(65f);
 
             // 最初の収集では、まだ一度も計算していない出力を送らない。
             AssertNoStatus(communication.GetLocalBus(0));
             AssertNoStatus(communication.GetLocalBus(1));
 
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), true, 60f, 0f);
-            AssertStatus(communication.GetLocalBus(1), false, 0f, 120f);
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
+            AssertStatus(communication.GetLocalBus(1), false, 0f, 125f);
             AssertNoStatus(communication.MasterBus);
 
             // 収集だけではEBタイマーを進めない。
             communication.CollectInputSources();
-            Assert.That(devices[0].Output.inactivitySeconds, Is.EqualTo(60f));
+            Assert.That(devices[0].Output.inactivitySeconds, Is.EqualTo(65f));
             Assert.That(devices[1].Output.inactivitySeconds, Is.Zero);
+        }
+
+        [Test]
+        public void WarningAndEmergencyArePublishedSeparatelyOnNextCollection()
+        {
+            StepDevices(60f);
+            AssertNoStatus(communication.GetLocalBus(0));
+            communication.CollectInputSources();
+            var bus = communication.GetLocalBus(0);
+            Assert.That(bus.TryGetBool(EbDeviceTimsBusSource.IsBuzzerRequestedKey, out bool buzzer), Is.True);
+            Assert.That(buzzer, Is.True);
+            AssertStatus(bus, false, 60f, 5f);
+            StepDevices(5f);
+            AssertStatus(bus, false, 60f, 5f);
+            communication.CollectInputSources();
+            AssertStatus(bus, true, 65f, 0f);
+            Assert.That(bus.TryGetBool(EbDeviceTimsBusSource.IsBuzzerRequestedKey, out buzzer), Is.True);
+            Assert.That(buzzer, Is.True);
         }
 
         [Test]
         public void OperationUpdatesOnlyTheOperatedCarsPublishedState()
         {
-            StepDevices(60f);
+            StepDevices(59f);
             communication.CollectInputSources();
             masters[0].SetPowerPosition(1);
             StepDevices(1f);
 
             // 計算直後は前ステップ値、次の収集でリセット結果へ更新する。
-            AssertStatus(communication.GetLocalBus(0), true, 60f, 0f);
+            AssertStatus(communication.GetLocalBus(0), false, 59f, 6f);
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
-            AssertStatus(communication.GetLocalBus(1), false, 0f, 60f);
+            AssertStatus(communication.GetLocalBus(0), false, 0f, 65f);
+            AssertStatus(communication.GetLocalBus(1), false, 0f, 65f);
         }
 
         [Test]
-        public void DisabledMasterControllerPublishesExistingResetBehavior()
+        public void DisabledMasterControllerKeepsLatchedRequest()
         {
-            StepDevices(60f);
+            StepDevices(65f);
             masters[0].SetInputEnabled(false);
             StepDevices(1f);
             communication.CollectInputSources();
 
-            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
-            AssertStatus(communication.GetLocalBus(1), false, 0f, 60f);
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
+            AssertStatus(communication.GetLocalBus(1), false, 0f, 65f);
+        }
+
+        [Test]
+        public void LatchedRequestReleasesOnBusOnlyAfterStoppingWithoutPower()
+        {
+            StepDevices(65f);
+            masters[0].SetPowerPosition(1);
+            communication.GetLocalBus(0).SetFloat(SpeedSensorTimsBusSource.MeasuredSpeedMpsKey, 4f / 3.6f);
+            StepDevices(1f);
+            communication.CollectInputSources();
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
+
+            communication.GetLocalBus(0).SetFloat(SpeedSensorTimsBusSource.MeasuredSpeedMpsKey, 0f);
+            StepDevices(1f);
+            communication.CollectInputSources();
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
+
+            masters[0].SetNeutral();
+            StepDevices(1f);
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
+            communication.CollectInputSources();
+            AssertStatus(communication.GetLocalBus(0), false, 0f, 65f);
         }
 
         [TestCase(false)]
         [TestCase(true)]
         public void UnavailableComponentRemovesOnlyEbTags(bool disableSource)
         {
-            StepDevices(60f);
+            StepDevices(65f);
             communication.CollectInputSources();
             if (disableSource)
             {
@@ -145,13 +185,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             TimsBusState localBus = communication.GetLocalBus(0);
             AssertNoStatus(localBus);
             Assert.That(localBus.TryGetInt(MasterControllerTimsBusSource.PowerPositionKey, out _), Is.True);
-            AssertStatus(communication.GetLocalBus(1), false, 0f, 60f);
+            AssertStatus(communication.GetLocalBus(1), false, 0f, 65f);
         }
 
         [Test]
         public void UnassignedSourceAndNullBusDoNotPublish()
         {
-            StepDevices(60f);
+            StepDevices(65f);
             devices[0].GetComponent<TrainEquipmentAssignment>().AssignCarIndex(-1);
             EbDeviceTimsBusSource source = devices[0].GetComponent<EbDeviceTimsBusSource>();
             var bus = new TimsBusState();
@@ -165,7 +205,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         [Test]
         public void OtherTrainCannotCollectThisTrainsEbStatus()
         {
-            StepDevices(60f);
+            StepDevices(65f);
             var otherTrainObject = new GameObject("OtherTrain");
             try
             {
@@ -179,7 +219,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 AssertNoStatus(otherCommunication.GetLocalBus(0));
                 AssertNoStatus(otherCommunication.GetLocalBus(1));
                 communication.CollectInputSources();
-                AssertStatus(communication.GetLocalBus(0), true, 60f, 0f);
+                AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
             }
             finally
             {
@@ -192,7 +232,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         public void CabDefinitionIncludesStatusSource(string carName)
         {
             var definition = AssetDatabase.LoadAssetAtPath<CarDefinitionAsset>(
-                $"Assets/Nakatetsu/Train/Consist/Definitions/Data/{carName}.asset");
+                $"Assets/Nakatetsu/Train/Series1000/Data/Series1000_{carName}.asset");
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
 
             Assert.That(definition, Is.Not.Null);
@@ -203,35 +243,35 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         [Test]
         public void CabSwitchResetsFormerCabAndStartsNewCabsTimer()
         {
-            StepDevices(60f);
+            StepDevices(30f);
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), true, 60f, 0f);
+            AssertStatus(communication.GetLocalBus(0), false, 30f, 35f);
 
             SetActiveCab(ActivatedCabPosition.Rear);
             StepDevices(1f);
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
-            AssertStatus(communication.GetLocalBus(1), false, 1f, 59f);
+            AssertStatus(communication.GetLocalBus(0), false, 0f, 65f);
+            AssertStatus(communication.GetLocalBus(1), false, 1f, 64f);
 
-            StepDevices(59f);
+            StepDevices(58f);
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
-            AssertStatus(communication.GetLocalBus(1), true, 60f, 0f);
+            AssertStatus(communication.GetLocalBus(0), false, 0f, 65f);
+            AssertStatus(communication.GetLocalBus(1), false, 59f, 6f);
 
             SetActiveCab(ActivatedCabPosition.Front);
             StepDevices(1f);
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), false, 1f, 59f);
-            AssertStatus(communication.GetLocalBus(1), false, 0f, 60f);
+            AssertStatus(communication.GetLocalBus(0), false, 1f, 64f);
+            AssertStatus(communication.GetLocalBus(1), false, 0f, 65f);
         }
 
         [TestCase("missing")]
         [TestCase("wrongType")]
         [TestCase("invalid")]
         [TestCase("none")]
-        public void UnavailableCabSelectionStopsMonitoringAndClearsRequest(string state)
+        public void UnavailableCabSelectionKeepsLatchedRequest(string state)
         {
-            StepDevices(60f);
+            StepDevices(65f);
             communication.CollectInputSources();
             switch (state)
             {
@@ -251,8 +291,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
 
             StepDevices(120f);
             communication.CollectInputSources();
-            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
-            AssertStatus(communication.GetLocalBus(1), false, 0f, 60f);
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
+            AssertStatus(communication.GetLocalBus(1), false, 0f, 65f);
         }
 
         [TestCase(0f, false)]
@@ -262,22 +302,22 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         {
             communication.GetLocalBus(0).SetFloat(
                 SpeedSensorTimsBusSource.MeasuredSpeedMpsKey, speedKmh / 3.6f);
-            StepDevices(60f);
+            StepDevices(65f);
             communication.CollectInputSources();
             AssertStatus(communication.GetLocalBus(0), expectedEmergency,
-                expectedEmergency ? 60f : 0f, expectedEmergency ? 0f : 60f);
+                expectedEmergency ? 65f : 0f, expectedEmergency ? 0f : 65f);
         }
 
         [Test]
-        public void MissingSpeedClearsPreviousRequest()
+        public void MissingSpeedKeepsLatchedRequest()
         {
-            StepDevices(60f);
+            StepDevices(65f);
             Assert.That(devices[0].Output.isEmergencyBrakeRequested, Is.True);
             communication.GetLocalBus(0).Remove(SpeedSensorTimsBusSource.MeasuredSpeedMpsKey);
             StepDevices(1f);
             communication.CollectInputSources();
             Assert.That(devices[0].Context.Input.hasMasterControllerState, Is.False);
-            AssertStatus(communication.GetLocalBus(0), false, 0f, 60f);
+            AssertStatus(communication.GetLocalBus(0), true, 65f, 0f);
         }
 
         private void SetActiveCab(ActivatedCabPosition position)
@@ -315,6 +355,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         {
             Assert.That(bus, Is.Not.Null);
             Assert.That(bus.TryGetBool(EbDeviceTimsBusSource.IsEmergencyBrakeRequestedKey, out _), Is.False);
+            Assert.That(bus.TryGetBool(EbDeviceTimsBusSource.IsBuzzerRequestedKey, out _), Is.False);
             Assert.That(bus.TryGetFloat(EbDeviceTimsBusSource.InactivitySecondsKey, out _), Is.False);
             Assert.That(bus.TryGetFloat(EbDeviceTimsBusSource.RemainingSecondsKey, out _), Is.False);
         }

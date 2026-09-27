@@ -6,6 +6,40 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
 {
     public static class TimsCommunicationLogic
     {
+        /// <summary>初回は即時収集し、以後は指定したシミュレーション時間ごとに収集する。</summary>
+        public static bool ShouldCollectSources(
+            TimsCommunicationState state,
+            float deltaTimeSeconds,
+            float intervalSeconds)
+        {
+            if (float.IsNaN(deltaTimeSeconds) || float.IsInfinity(deltaTimeSeconds) || deltaTimeSeconds <= 0f ||
+                float.IsNaN(intervalSeconds) || float.IsInfinity(intervalSeconds))
+            {
+                return false;
+            }
+
+            if (!state.hasCollectedSources || intervalSeconds <= 0f)
+            {
+                state.hasCollectedSources = true;
+                state.collectionElapsedSeconds = 0d;
+                return true;
+            }
+
+            state.collectionElapsedSeconds += deltaTimeSeconds;
+            // floatのtick幅を加算したときの丸め誤差を吸収する。
+            const double toleranceSeconds = 0.0000001d;
+            if (state.collectionElapsedSeconds + toleranceSeconds < intervalSeconds)
+            {
+                return false;
+            }
+
+            // 端数を残し、tick幅によって毎回転送周期が伸びないようにする。
+            // 複数周期を越えても、現在値の収集はこのtickで1回だけ行う。
+            double intervals = Math.Floor((state.collectionElapsedSeconds + toleranceSeconds) / intervalSeconds);
+            state.collectionElapsedSeconds = Math.Max(0d, state.collectionElapsedSeconds - intervals * intervalSeconds);
+            return true;
+        }
+
         /// <summary>Collect sources that can write to an initialized car terminal.</summary>
         public static void Calculate(TimsCommunicationContext context)
         {

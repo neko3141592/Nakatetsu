@@ -1,0 +1,134 @@
+{
+    "name": "TrainInputActions",
+    "maps": [
+        {
+            "name": "Driving",
+            "id": "41ac3dc4-f8fa-4d5a-a7f1-1cea4b319737",
+            "actions": [
+                {
+                    "name": "NotchTowardBrake",
+                    "type": "Button",
+                    "id": "b6eb7579-4cfc-439d-93f8-d7444166972d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=0)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NotchTowardPower",
+                    "type": "Button",
+                    "id": "85adf2b8-1f3c-4d83-bf94-6523a482b422",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=0)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NotchNeutral",
+                    "type": "Button",
+                    "id": "1053e7f9-9008-4c94-a5ec-abec1c47c32f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=0)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReverserForward",
+                    "type": "Button",
+                    "id": "f7a33c0e-6fb1-4c9c-8368-ee533d2d47e6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=0)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReverserBackward",
+                    "type": "Button",
+                    "id": "787253be-0ce7-49f8-a0fe-c0d3ffc21c99",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=0)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EbReset",
+                    "type": "Button",
+                    "id": "5e4d43a0-bc05-4400-9428-54674fc687df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=0)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "afed15a8-8539-46c4-880a-3a011583a711",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NotchTowardBrake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c0c9ee6-493d-4086-af0a-3eae9d88f04f",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NotchTowardPower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7efb841-5b25-4722-99fe-61ddc150e5e7",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NotchNeutral",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13476120-3d53-41ea-8efd-13df450d2520",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReverserForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1156cc02-811f-461d-9e98-8a816063ac5c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReverserBackward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2bf8061-7bfa-4424-9114-796ce34a0013",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EbReset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

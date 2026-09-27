@@ -1,0 +1,15 @@
+{
+    "name": "Nakatetsu.Application.Player.Tests.EditMode",
+    "rootNamespace": "Nakatetsu.Application.Player.Tests",
+    "references": [
+        "Nakatetsu.Application",
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Integration",
+        "Nakatetsu.Train.Equipment.Tims",
+        "Unity.InputSystem",
+        "Unity.InputSystem.TestFramework"
+    ],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}

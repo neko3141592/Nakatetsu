@@ -78,7 +78,11 @@ namespace Nakatetsu.Train.Equipment.Operation
             ReverserPosition position)
         {
             ThrowIfNull(context);
-            if (context.State.powerPosition > 0)
+            if (!context.State.isInputEnabled ||
+                context.State.powerPosition != 0 ||
+                context.State.brakePosition != context.Settings.emergencyBrakePosition ||
+                (int)position < (int)ReverserPosition.Reverse ||
+                (int)position > (int)ReverserPosition.Forward)
             {
                 return false;
             }

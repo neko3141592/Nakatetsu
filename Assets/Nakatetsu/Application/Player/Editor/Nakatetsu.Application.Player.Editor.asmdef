@@ -1,0 +1,14 @@
+{
+    "name": "Nakatetsu.Application.Player.Editor",
+    "references": [
+        "Nakatetsu.Application",
+        "Nakatetsu.Train",
+        "Nakatetsu.Train.Integration",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "Unity.ugui"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}

@@ -232,7 +232,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         private static TimsBrakeContext CreateContext()
         {
             var context = new TimsBrakeContext();
-            context.Input.canReleaseEmergencyBrake = true;
+            context.Input.isEmergencyBrakeRequested = false;
             context.Input.brakeStep = 1;
             context.Settings.brakeTargetDecelerationsMps2.Add(1f);
             context.Settings.minimumServiceBrakePressureKPa = 40f;

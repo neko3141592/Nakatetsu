@@ -20,7 +20,6 @@ namespace Nakatetsu.Train.Equipment.Tims
     [RequireComponent(typeof(TimsNotchController), typeof(TimsTractionController), typeof(TimsBrakeController))]
     public sealed class TimsControlController : MonoBehaviour
     {
-        private bool emergencyLatched;
         private readonly List<string> emergencyReasons = new();
         private string inputLocation;
         public string EmergencyReason { get; private set; } = "制御未実行（Simulation・通信の実行状態を確認）";
@@ -77,16 +76,9 @@ namespace Nakatetsu.Train.Equipment.Tims
             emergency |= !traction.isActiveAndEnabled || !brake.isActiveAndEnabled;
             if (!traction.isActiveAndEnabled || !brake.isActiveAndEnabled)
                 emergencyReasons.Add("TractionまたはBrakeが無効");
-            // EB側が5 km/h未満で解除されても停止までは非常を保持する。
-            // 原因解消後、停車かつ力行Nで解除できる。
-            if (emergency) emergencyLatched = true;
-            else if (traction.Context.Input.speedMps < 0.01f && traction.Context.Input.powerNotch == 0)
-                emergencyLatched = false;
-            if (!emergency && emergencyLatched)
-                emergencyReasons.Add("非常保持中：速度0.01 m/s未満・力行Nを待機");
-            emergency |= emergencyLatched;
+            // TIMSは現在の要求だけを集約する。保持・解除は要求元の装置が判断する。
             EmergencyReason = emergency ? string.Join("\n", emergencyReasons) : "なし";
-            brake.Context.Input.canReleaseEmergencyBrake = !emergency;
+            brake.Context.Input.isEmergencyBrakeRequested = emergency;
             traction.Context.Input.isReady = ready && !emergency;
             if (!bus.TryGetInt(TimsDirectionController.ConsistDirectionSignKey, out int sign) || sign == 0)
                 traction.Context.Input.powerNotch = 0;
@@ -119,7 +111,7 @@ namespace Nakatetsu.Train.Equipment.Tims
             ti.currentBCPressureKPa = 0f;
             ti.units.Clear();
             ti.carBCPressuresKPa.Clear();
-            bi.canReleaseEmergencyBrake = false;
+            bi.isEmergencyBrakeRequested = true;
             bi.brakeStep = 0;
             bi.cars.Clear();
             brake.Settings.brakeTargetDecelerationsMps2.Clear();
@@ -135,7 +127,6 @@ namespace Nakatetsu.Train.Equipment.Tims
             ready &= bus.TryGetInt(TimsNotchController.ResolvedBrakeStepKey, out bi.brakeStep);
             ti.brakeStep = bi.brakeStep;
 
-            float totalPowerW = 0f;
             for (int i = 0; i < consist.CarCount; i++)
             {
                 inputLocation = $"車両{i + 1}";
@@ -182,7 +173,6 @@ namespace Nakatetsu.Train.Equipment.Tims
                         valid &= TryNonNegative(local, TimsTractionBusSource.RatedPowerWKey, out float ratedPowerW);
                         unit.ratedMotorPowerW = unit.motorCount > 0 ? ratedPowerW / unit.motorCount : 0f;
                         unit.hasMotorSettings = definition.motorDefinition != null && ratedPowerW > 0f;
-                        if (unit.isAvailable && unit.hasMotorSettings) totalPowerW += ratedPowerW;
                     }
                 }
                 ti.units.Add(unit);
@@ -209,17 +199,22 @@ namespace Nakatetsu.Train.Equipment.Tims
                 if (ti.powerNotch > 0 && settings.powerNotchCount > 0)
                 {
                     if (settings.powerCurves == null || settings.powerCurves.Length == 0)
-                        ti.powerStepGain = (float)ti.powerNotch / settings.powerNotchCount;
-                    else if (ti.powerNotch <= settings.powerCurves.Length && settings.powerCurves[ti.powerNotch - 1] != null)
                     {
-                        float baseSpeed = TimsTractionLogic.CalculateConstantAccelerationEndSpeedMps(
-                            totalPowerW, ti.consistMassKg, traction.Settings.launchAccelerationMps2);
-                        // 横軸0=停止、1=定加速域の終端。ノッチ配列はP1から。
-                        ti.powerStepGain = settings.powerCurves[ti.powerNotch - 1].Evaluate(
-                            Mathf.Clamp01(ti.speedMps / Mathf.Max(0.01f, baseSpeed)));
+                        ti.powerStepGain = (float)ti.powerNotch / settings.powerNotchCount;
+                    }
+                    else if (ti.powerNotch <= settings.powerCurves.Length &&
+                        settings.powerCurves[ti.powerNotch - 1] != null &&
+                        IsNonNegative(settings.maximumOperatingSpeedKmh) && settings.maximumOperatingSpeedKmh > 0f)
+                    {
+                        // 横軸0=停止、1=設定した最高運転速度。ノッチ配列はP1から。
+                        float normalizedSpeed = Mathf.Clamp01(ti.speedMps * 3.6f / settings.maximumOperatingSpeedKmh);
+                        ti.powerStepGain = settings.powerCurves[ti.powerNotch - 1].Evaluate(normalizedSpeed);
                         ready &= IsNonNegative(ti.powerStepGain);
                     }
-                    else ready = false;
+                    else
+                    {
+                        ready = false;
+                    }
                 }
             }
             if (!ready && settings != null && emergencyReasons.Count == 0)

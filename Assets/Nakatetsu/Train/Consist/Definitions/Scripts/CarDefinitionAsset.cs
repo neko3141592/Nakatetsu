@@ -38,6 +38,8 @@ namespace Nakatetsu.Train.Consist
         public GameObject presentationPrefab;
 
         [Header("Equipment")]
+        [Tooltip("パンタグラフ搭載車。昇降状態ではなく、搭載の有無を表します。") ]
+        public bool hasPantograph;
         public GameObject tractionEquipmentPrefab;
         public GameObject brakeEquipmentPrefab;
         public GameObject[] additionalEquipmentPrefabs;

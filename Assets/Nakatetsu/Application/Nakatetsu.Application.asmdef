@@ -3,6 +3,9 @@
     "rootNamespace": "Nakatetsu.Application",
     "references": [
         "Nakatetsu.Core",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "Unity.ugui",
         "Nakatetsu.Track",
         "Nakatetsu.Train",
         "Nakatetsu.Train.Integration",

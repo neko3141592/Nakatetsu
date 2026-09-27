@@ -20,7 +20,7 @@
 | 運転台選択スイッチ `CabActivationSwitchController` | TIMSからの入力なし | 自車Local：`CabActivationSwitch/Position` | BusSource入りPrefabあり。ただしBuilderの専用フィールドからの生成は未接続 |
 | 速度センサー `SpeedSensor` | Simulationから物理速度を受ける | 自車Local：`SpeedSensor/MeasuredSpeedMps` | Tc1・Tc2・M・Tに登録済み。専用BusSourceで送信 |
 | 速度集約 `TimsSpeedController` | 全車Local：測定速度 | Master：`Train/*` 3項目 | 通信収集後に自動実行 |
-| EB `EbDevice` | 自車Local：マスコン4項目、Master：有効運転台 | 自車Local：`EB/*` 3項目 | 入力Adapter・BusSourceをTc1・Tc2のEB Prefabに配置済み。有効運転台の供給は未接続 |
+| EB `EbDevice` | 自車Local：マスコン4項目、Master：有効運転台 | 自車Local：`EB/*` 4項目 | 入力Adapter・BusSourceをTc1・Tc2のEB Prefabに配置済み。有効運転台の供給は未接続 |
 | 方向判定 `TimsDirectionController` | 前後Local：選択スイッチ・逆転器 | Master：`Direction/*` 3項目 | 公開メソッドあり。Scene／Prefab配置・定期実行なし |
 | ノッチ解決 `TimsNotchController` | Local：力行・ブレーキ位置、Master：有効運転台 | Master：`Notch/*` 6項目 | 入力収集・公開メソッドあり。Scene／Prefab配置・定期実行なし |
 | 力行装置 `VvvfController` | Master：`Traction/TargetTractionForcesN` | 自車Local：`Traction/*` 状態4項目 | 指令AdapterはPrefabに配置済み。状態BusSourceは配置なし |
@@ -77,6 +77,7 @@ flowchart LR
 | --- | --- | --- | --- |
 | `CabActivationSwitch/Position` | Int：Rear=-1、Off=0、Front=1 | `CabActivationSwitchTimsBusSource` ← 選択スイッチ | `TimsDirectionController`（前後Local） |
 | `SpeedSensor/MeasuredSpeedMps` | Float：非負、m/s | `SpeedSensorTimsBusSource` ← 速度センサー | `TimsSpeedController`（各車Local） |
+| `EB/IsBuzzerRequested` | Bool | `EbDeviceTimsBusSource` ← EB装置 | タグの固定読取先なし。CabAudioは同じ車両の装置Outputを直接読む |
 | `EB/IsEmergencyBrakeRequested` | Bool：無操作による非常要求 | `EbDeviceTimsBusSource` ← EB Output | なし |
 | `EB/InactivitySeconds` | Float：無操作時間、s | 同上 | なし |
 | `EB/RemainingSeconds` | Float：作動までの時間、s | 同上 | なし |

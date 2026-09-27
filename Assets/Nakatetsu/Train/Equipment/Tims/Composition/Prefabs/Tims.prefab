@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ac0e9478084a7f92afdd142920b93a, type: 3}
   m_Name:
   m_EditorClassIdentifier: Nakatetsu.Train.Equipment.Tims::Nakatetsu.Train.Equipment.Tims.Communication.TimsCommunicationController
+  transferIntervalSeconds: 0.25
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 0

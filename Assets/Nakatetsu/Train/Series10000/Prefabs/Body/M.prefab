@@ -1,0 +1,652 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &184394858327653866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308541954429579630}
+  - component: {fileID: 2499504921073452970}
+  m_Layer: 0
+  m_Name: Door_R_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308541954429579630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184394858327653866}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2499504921073452970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184394858327653866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 3
+  firstLeaf: {fileID: 5765441040039701892}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 5749693623073409875}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &799900740382250099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 977118767605911723}
+  - component: {fileID: 6040208041569307379}
+  m_Layer: 0
+  m_Name: Door_L_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &977118767605911723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799900740382250099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6040208041569307379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799900740382250099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 0
+  firstLeaf: {fileID: 1755207142884927492}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 8420538015969466244}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &903576382709942916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7599599096024872773}
+  - component: {fileID: 6055589703197829423}
+  - component: {fileID: 2063093356496081844}
+  m_Layer: 0
+  m_Name: M
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7599599096024872773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903576382709942916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6098207383940654546}
+  - {fileID: 6439388705080573360}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6055589703197829423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903576382709942916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ce722e65c04eb5a71be773becce908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Shared.TrainPresentationAssignment
+  assignedCarIndex: -1
+  assignedBy: {fileID: 0}
+--- !u!114 &2063093356496081844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903576382709942916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4389785b5124b7bb36d21d400f4b09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Bogie.TrainBogiePresentation
+--- !u!1 &5547679109125097231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6561776593675246659}
+  - component: {fileID: 8584254468669160865}
+  m_Layer: 0
+  m_Name: Door_R_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6561776593675246659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5547679109125097231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8584254468669160865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5547679109125097231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 1
+  firstLeaf: {fileID: 3051794920138219333}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 2861655470598826678}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &6481908561899484874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6439388705080573360}
+  m_Layer: 0
+  m_Name: Doors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6439388705080573360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6481908561899484874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 977118767605911723}
+  - {fileID: 1264073351738048788}
+  - {fileID: 3428099773969091465}
+  - {fileID: 4981828022298732551}
+  - {fileID: 999793369760161132}
+  - {fileID: 6561776593675246659}
+  - {fileID: 3344231648400425006}
+  - {fileID: 308541954429579630}
+  m_Father: {fileID: 7599599096024872773}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6802635808140065058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 999793369760161132}
+  - component: {fileID: 3303025182482271254}
+  m_Layer: 0
+  m_Name: Door_R_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &999793369760161132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802635808140065058}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3303025182482271254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802635808140065058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 0
+  firstLeaf: {fileID: 7012759386203502817}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 2608178374994023279}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &7004794780137542044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3344231648400425006}
+  - component: {fileID: 7519924288817141994}
+  m_Layer: 0
+  m_Name: Door_R_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3344231648400425006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004794780137542044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7519924288817141994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004794780137542044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 0
+  doorIndex: 2
+  firstLeaf: {fileID: 613103740167972677}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 5638986238034229047}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &7577711639111836880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264073351738048788}
+  - component: {fileID: 4498304165434335479}
+  m_Layer: 0
+  m_Name: Door_L_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264073351738048788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577711639111836880}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4498304165434335479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577711639111836880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 1
+  firstLeaf: {fileID: 8819980978023965579}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 5036705922107203232}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &8517371484477807887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3428099773969091465}
+  - component: {fileID: 728472485936334516}
+  m_Layer: 0
+  m_Name: Door_L_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3428099773969091465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517371484477807887}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &728472485936334516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517371484477807887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 2
+  firstLeaf: {fileID: 5438106903212566652}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 3913493380296251082}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1 &9201371439188115694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4981828022298732551}
+  - component: {fileID: 8126653123575446003}
+  m_Layer: 0
+  m_Name: Door_L_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4981828022298732551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201371439188115694}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6439388705080573360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8126653123575446003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201371439188115694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d30ed9a34454d8d379c7398cc9afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Presentation.Door.TrainDoorPresentation
+  simulation: {fileID: 0}
+  leftSide: 1
+  doorIndex: 3
+  firstLeaf: {fileID: 4388282371783530700}
+  firstLeafOpenOffset: {x: 0, y: 0, z: 0.65}
+  secondLeaf: {fileID: 7108358394807511670}
+  secondLeafOpenOffset: {x: 0, y: 0, z: -0.65}
+--- !u!1001 &5993048875618730553
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7599599096024872773}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+      propertyPath: m_Name
+      value: M
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+--- !u!4 &613103740167972677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2618358670808586884, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1755207142884927492 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3787481468005160387, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2608178374994023279 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -641329348601654954, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2861655470598826678 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -820444246349207409, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3051794920138219333 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8750970699891416444, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3913493380296251082 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1917386317710650125, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4388282371783530700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1167037438602044683, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5036705922107203232 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7579998619252466535, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5438106903212566652 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7470452149586318779, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5638986238034229047 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2119544131764598030, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5749693623073409875 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7142544287445448342, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5765441040039701892 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8995553058368163907, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6098207383940654546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7012759386203502817 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3637155544608619224, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7108358394807511670 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3570897654376687695, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8420538015969466244 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6345478944702638659, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8819980978023965579 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6247253772706438734, guid: 4ceca7e99463043749c31a8aa15716a6, type: 3}
+  m_PrefabInstance: {fileID: 5993048875618730553}
+  m_PrefabAsset: {fileID: 0}

@@ -86,3 +86,11 @@ snapshotの保存・復元本体はW5、線路上の移動はW1-03以降の対�
 - `Application/Debug/Scripts/ApplicationSimulationDebugPanel`が時計・倍率・停止状態と停止／再開ボタンを表示する。時刻表示だけ24時間表記に変換する。
 - 一時停止中の`StepOnce()`は自動更新と同じ1tick処理を使う。
 - 正式なシナリオ読込・製品用メニュー、snapshot保存復元は後続工程。W1-02のUIはデバッグ用とする。
+
+## TIMSの情報収集間隔
+
+`TimsCommunicationController.transferIntervalSeconds`は初期値0.25秒。各機器の送信元からLocalBusへの情報収集だけを間引き、速度・ドア・TIMS指令の計算は毎tick、受信済みの値で続ける。MasterBusから機器への出力側に別の転送待ちは追加しない。
+
+`TrainSimulationController`が`IEquipmentInputSourceCollector.CollectInputSources(deltaTimeSeconds)`へ固定tickの時間を渡す。初回の正のtickは即時収集し、以後は指定間隔で更新する。端数は持ち越すため、20ms tickでは更新間隔が260ms・240msとなり、平均250msになる。一時停止中はtickが来ないため待ち時間も進まない。0秒設定では毎tick収集する。
+
+時間引数なしの`CollectInputSources()`は既存テスト・手動確認用の即時収集として維持する。将来のsnapshotには、通信Stateの`hasCollectedSources`と`collectionElapsedSeconds`も含める。

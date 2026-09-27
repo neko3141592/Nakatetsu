@@ -13,6 +13,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Configuration
         [Min(1)] public int powerNotchCount = 4;
 
         [Header("Traction")]
+        [Tooltip("力行カーブの横軸1に対応する最高運転速度（km/h）。")]
+        [Min(1f)] public float maximumOperatingSpeedKmh = 120f;
         public AnimationCurve[] powerCurves;
         [Min(0f)] public float launchAccelerationKmhPerSec = 3f;
 
@@ -30,6 +32,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Configuration
         private void OnValidate()
         {
             powerNotchCount = Mathf.Max(1, powerNotchCount);
+            maximumOperatingSpeedKmh = Mathf.Max(1f, maximumOperatingSpeedKmh);
             launchAccelerationKmhPerSec = Mathf.Max(0f, launchAccelerationKmhPerSec);
             brakeNotchCount = Mathf.Max(1, brakeNotchCount);
             masterControllerEmergencyBrakeNotchPosition = Mathf.Max(

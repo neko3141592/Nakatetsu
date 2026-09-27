@@ -23,6 +23,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
         public static readonly TimsTagKey RegenCapacityNKey = new("Traction", "RegenCapacityN");
         public static readonly TimsTagKey ActualRegenForceNKey = new("Traction", "ActualRegenForceN");
 
+        // VVVF 1台が受け持つモーターの実効電流合計。正が力行、負が回生。
+        public static readonly TimsTagKey SignedMotorCurrentAKey = new("Traction", "SignedMotorCurrentA");
+
         [SerializeField] private MonoBehaviour tractionEquipmentComponent;
         [SerializeField] private TrainEquipmentAssignment equipmentAssignment;
 
@@ -42,12 +45,26 @@ namespace Nakatetsu.Train.Equipment.Tims.Traction
 
         public void WriteTimsBus(TimsBusState localBus)
         {
-            if (localBus == null || !ResolveReferences())
+            if (localBus == null) return;
+            localBus.Remove(SignedMotorCurrentAKey);
+            if (!ResolveReferences())
             {
                 return;
             }
 
             VvvfController vvvf = tractionEquipment as VvvfController;
+            if (isActiveAndEnabled && vvvf != null && vvvf.isActiveAndEnabled && vvvf.IsAvailable)
+            {
+                float currentA = vvvf.TotalMotorCurrentRmsA;
+                float forceN = vvvf.ActualTractionForceN;
+                if (!float.IsNaN(currentA) && !float.IsInfinity(currentA) && currentA >= 0f &&
+                    !float.IsNaN(forceN) && !float.IsInfinity(forceN))
+                {
+                    // 測定力は進行方向を適用する前の値。後退力行も正、回生は負になる。
+                    // 指令モードではなく、前ステップの実測値同士を組み合わせる。
+                    localBus.SetFloat(SignedMotorCurrentAKey, forceN < 0f ? -currentA : currentA);
+                }
+            }
             localBus.SetBool(IsVvvfMotorCarKey, vvvf != null && vvvf.MotorCount > 0);
             localBus.SetFloat(RegenCapacityNKey, vvvf != null ? vvvf.RegenCapacityN : 0f);
             // 実回生力は前ステップのモーター測定値。指令値で代用しない。

@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.Safety.Eb.EbDevice
   masterControllerInputSource: {fileID: 11400002}
-  activationDelaySeconds: 60
+  warningDelaySeconds: 60
+  warningDurationSeconds: 5
 --- !u!114 &11400001
 MonoBehaviour:
   m_ObjectHideFlags: 0

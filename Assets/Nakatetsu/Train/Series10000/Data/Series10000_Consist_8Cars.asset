@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb0e5c5d15984bb5be03b53779cf494, type: 3}
+  m_Name: Series10000_Consist_8Cars
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Consist.ConsistDefinitionAsset
+  consistId: Series10000
+  displayName: Series10000
+  cars:
+  - {fileID: 11400000, guid: 9943a93d5b56f4f4fab1196a1e3ea854, type: 2}
+  - {fileID: 11400000, guid: 51f412872b68a49a496642f562fa7369, type: 2}
+  - {fileID: 11400000, guid: 3a17ef1d61c0248558240a90fd268093, type: 2}
+  - {fileID: 11400000, guid: f6460c3321a7249d79ebdb49305ebf55, type: 2}
+  - {fileID: 11400000, guid: f6460c3321a7249d79ebdb49305ebf55, type: 2}
+  - {fileID: 11400000, guid: 51f412872b68a49a496642f562fa7369, type: 2}
+  - {fileID: 11400000, guid: 3a17ef1d61c0248558240a90fd268093, type: 2}
+  - {fileID: 11400000, guid: 9c24c72601efb44d2ae47b727608f25d, type: 2}
