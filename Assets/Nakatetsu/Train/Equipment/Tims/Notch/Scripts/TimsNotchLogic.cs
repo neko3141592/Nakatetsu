@@ -10,19 +10,31 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             context.Output.resolvedBrakeStep = 0;
             context.Output.manualBrakeStepLabel = "B0-0";
 
-            ResolveBrakeNotch(context);
+            bool atcBrakeSelected = ResolveBrakeNotch(context);
             ResolvePowerNotch(context);
 
             context.Output.brakeStepLabel = TimsNotchCalculator.FormatBrakeNotchStep(
                 context.Output.resolvedBrakeStep,
                 context.Settings.brakeSubstepCount);
-            context.Output.resolvedNotchLabel = context.Output.isEmergencyBrakeRequested ? "EB" :
-                context.Output.resolvedBrakeStep > 0 ? context.Output.brakeStepLabel :
-                context.Output.resolvedPowerNotch > 0 ? $"P{context.Output.resolvedPowerNotch}" : "N";
+            if (context.Output.isEmergencyBrakeRequested)
+                context.Output.resolvedNotchLabel = "非常";
+            else if (context.Output.resolvedBrakeStep > 0)
+                context.Output.resolvedNotchLabel = atcBrakeSelected
+                    ? context.Output.brakeStepLabel
+                    : FormatManualBrakeNotch(context.Output.resolvedBrakeStep, context.Settings.brakeSubstepCount);
+            else if (context.Output.resolvedPowerNotch > 0)
+                context.Output.resolvedNotchLabel = $"P{context.Output.resolvedPowerNotch}";
+            else
+                context.Output.resolvedNotchLabel = "切";
         }
 
+        private static string FormatManualBrakeNotch(int brakeStep, int substepCount)
+        {
+            TimsNotchCalculator.ToBrakeNotchStep(brakeStep, substepCount, out int brakeNotch, out _);
+            return $"B{brakeNotch}";
+        }
 
-        private static void ResolveBrakeNotch(TimsNotchContext context)
+        private static bool ResolveBrakeNotch(TimsNotchContext context)
         {
 
             //　有効運転台がない場合は非常
@@ -30,7 +42,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
                 context.Input.carInputs.Count == 0)
             {
                 context.Output.isEmergencyBrakeRequested = true;
-                return;
+                return false;
             }
 
             TimsCabInput cabInput = null;
@@ -52,7 +64,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             if (cabInput == null)
             {
                 context.Output.isEmergencyBrakeRequested = true;
-                return;
+                return false;
             }
 
             // 入力が非常ブレーキの場合は非常
@@ -62,7 +74,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             )
             {
                 context.Output.isEmergencyBrakeRequested = true;
-                return;
+                return false;
             }
 
 
@@ -92,12 +104,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             if (maxInputBrakeStep > maxBrakeStep)
             {
                 context.Output.isEmergencyBrakeRequested = true;
-                return;
+                return false;
             }
 
             context.Output.isEmergencyBrakeRequested = false;
             context.Output.resolvedBrakeStep = maxInputBrakeStep;
-
+            // 同段なら手動側を採用し、表示から刻みを省く。
+            return context.Input.atcBrakeStep > manualBrakeStep;
         }
 
         private static void ResolvePowerNotch(TimsNotchContext context)

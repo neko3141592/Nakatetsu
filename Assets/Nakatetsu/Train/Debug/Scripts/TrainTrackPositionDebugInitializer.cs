@@ -38,7 +38,7 @@ namespace Nakatetsu.Train.Debugging
                 return;
             }
 
-            // 接続状態を先に用意し、初期位置から編成全体の経路を作れるようにする。
+            // 接続状態を先に用意し、初期位置から各台車をGraph上で求められるようにする。
             if (graph.TryGetComponent<TrackConnectionController>(out var connections) &&
                 !connections.IsInitialized && !connections.TryInitialize(out _))
             {

@@ -160,6 +160,83 @@ namespace Nakatetsu.Track.Graph.Edge
             return true;
         }
 
+        // Geometry距離を距離表で二分探索し、Node A起点のEdge実距離へ変換する。
+        public bool TryConvertToEdgeDistance(float distanceOnGeometryM, out float distanceOnEdgeM)
+        {
+            distanceOnEdgeM = default;
+            if (!IsFinite(distanceOnGeometryM) || distanceMap == null || distanceMap.Count < 2)
+            {
+                return false;
+            }
+
+            int lowerIndex = 0;
+            int upperIndex = distanceMap.Count - 1;
+            var lower = distanceMap[lowerIndex];
+            var upper = distanceMap[upperIndex];
+            if (!IsFinite(lower) || !IsFinite(upper) || lower.distanceOnEdgeM != 0f
+                || upper.distanceOnEdgeM <= lower.distanceOnEdgeM
+                || upper.distanceOnGeometryM == lower.distanceOnGeometryM)
+            {
+                return false;
+            }
+
+            bool geometryIncreases = upper.distanceOnGeometryM > lower.distanceOnGeometryM;
+            if (distanceOnGeometryM < Mathf.Min(lower.distanceOnGeometryM, upper.distanceOnGeometryM)
+                || distanceOnGeometryM > Mathf.Max(lower.distanceOnGeometryM, upper.distanceOnGeometryM))
+            {
+                return false;
+            }
+
+            while (upperIndex - lowerIndex > 1)
+            {
+                int middleIndex = lowerIndex + (upperIndex - lowerIndex) / 2;
+                var middle = distanceMap[middleIndex];
+                if (!IsFinite(middle)
+                    || middle.distanceOnEdgeM <= lower.distanceOnEdgeM
+                    || middle.distanceOnEdgeM >= upper.distanceOnEdgeM
+                    || (geometryIncreases
+                        ? middle.distanceOnGeometryM <= lower.distanceOnGeometryM
+                          || middle.distanceOnGeometryM >= upper.distanceOnGeometryM
+                        : middle.distanceOnGeometryM >= lower.distanceOnGeometryM
+                          || middle.distanceOnGeometryM <= upper.distanceOnGeometryM))
+                {
+                    return false;
+                }
+
+                if (geometryIncreases
+                    ? distanceOnGeometryM < middle.distanceOnGeometryM
+                    : distanceOnGeometryM > middle.distanceOnGeometryM)
+                {
+                    upperIndex = middleIndex;
+                    upper = middle;
+                }
+                else
+                {
+                    lowerIndex = middleIndex;
+                    lower = middle;
+                }
+            }
+
+            if (distanceOnGeometryM == lower.distanceOnGeometryM)
+            {
+                distanceOnEdgeM = lower.distanceOnEdgeM;
+            }
+            else if (distanceOnGeometryM == upper.distanceOnGeometryM)
+            {
+                distanceOnEdgeM = upper.distanceOnEdgeM;
+            }
+            else
+            {
+                // 逆向きEdgeでも補間比は正になる。差分はdoubleで計算する。
+                double t = ((double)distanceOnGeometryM - lower.distanceOnGeometryM)
+                    / ((double)upper.distanceOnGeometryM - lower.distanceOnGeometryM);
+                distanceOnEdgeM = (float)(lower.distanceOnEdgeM
+                    + ((double)upper.distanceOnEdgeM - lower.distanceOnEdgeM) * t);
+            }
+
+            return true;
+        }
+
         private static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
 
         private static bool IsFinite(TrackEdgeDistanceSample sample) =>

@@ -15,7 +15,7 @@ namespace Nakatetsu.Train.Debugging
         public sealed class CarModel
         {
             public GameObject prefab;
-            [Tooltip("デバッグ配置での車両ルートの回転。Tc2はY=180で他車とドアの左右・前後を揃えます。")]
+            [Tooltip("Prefabに設定された向きに追加するデバッグ配置用の回転。Tc2のY=180はPrefab側から継承します。")]
             public Vector3 rotationEuler;
         }
 
@@ -97,7 +97,7 @@ namespace Nakatetsu.Train.Debugging
                     (carIndex % carsPerRow) * spacingM.x,
                     0f,
                     -(carIndex / carsPerRow) * spacingM.y);
-                car.transform.localRotation = Quaternion.Euler(model.rotationEuler);
+                car.transform.localRotation = Quaternion.Euler(model.rotationEuler) * car.transform.localRotation;
 
                 var assignment = car.GetComponent<TrainPresentationAssignment>();
                 if (assignment == null)

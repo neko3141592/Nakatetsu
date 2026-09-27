@@ -6,8 +6,12 @@ namespace Nakatetsu.Train.Simulation.Physics
         public float totalTractionForceN;
         public float totalBrakeForceN;
         public float totalExternalForceN;
+        public float totalGradeForceN;
+        public float totalRunningResistanceAN;
+        public float totalRunningResistanceBNsPerM;
+        public float totalRunningResistanceCNs2PerM2;
 
-        public float NonBrakeForceN => totalExternalForceN + totalTractionForceN;
+        public float NonBrakeForceN => totalTractionForceN + totalExternalForceN + totalGradeForceN;
 
         public void Reset()
         {
@@ -15,6 +19,10 @@ namespace Nakatetsu.Train.Simulation.Physics
             totalTractionForceN = 0f;
             totalBrakeForceN = 0f;
             totalExternalForceN = 0f;
+            totalGradeForceN = 0f;
+            totalRunningResistanceAN = 0f;
+            totalRunningResistanceBNsPerM = 0f;
+            totalRunningResistanceCNs2PerM2 = 0f;
         }
     }
 

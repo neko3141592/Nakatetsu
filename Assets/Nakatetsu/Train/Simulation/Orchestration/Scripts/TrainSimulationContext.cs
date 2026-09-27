@@ -15,6 +15,14 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         // 編成前方を正
         public float externalForceN;
+
+        // 編成前方を正。下り勾配では前方への力となる。
+        public float gradeForceN;
+
+        // R = A + B |v| + C |v|²。いずれも非負の係数。
+        public float runningResistanceAN;
+        public float runningResistanceBNsPerM;
+        public float runningResistanceCNs2PerM2;
     }
 
     public sealed class TrainSimulationInput

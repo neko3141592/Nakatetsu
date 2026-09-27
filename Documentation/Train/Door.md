@@ -34,7 +34,7 @@ TrainSimulationBuilderが物理モデルを生成し、TrainSimulationController
 - DoorTimsInputAdapter：MasterBusの測定速度を機器へ渡す。
 - DoorTimsBusSource：閉接点と各ドアの状態をLocalBusへ公開する。
 
-物理モデル用PrefabにはTrainDoorSimulationとTrainSimulationAssignmentを持つ。開閉時間の初期値は3秒。
+物理モデル用PrefabにはTrainDoorSimulationとTrainSimulationAssignmentを持つ。開閉時間の基準値は3秒。`Travel Time Variation Percent` の初期値は5%で、車両番号・左右・ドア位置ごとに開閉時間を固定の範囲（初期設定では2.85〜3.15秒）で変える。0%にすると個体差はなくなる。
 
 通信Controllerはドア送信元を検出すると同じGameObjectへTimsDoorControllerを追加する。以後、全車のドア情報が必要となる。ドア未搭載の既存編成には力行条件を追加しない。
 

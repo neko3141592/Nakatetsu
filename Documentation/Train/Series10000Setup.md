@@ -28,11 +28,11 @@
 - 画面用メッシュは `Models/Cab/Meshes/Monitor1Screen.asset`〜`Monitor3Screen.asset`。元FBXの形状・法線を保ち、画面平面上でUVを0〜1へ展開している。
 - `Materials/Cab/TimsMonitorScreen1.mat`〜`TimsMonitorScreen3.mat` はSeries1000の設定を複製。Emissionを含む。共通TIMS UIの編集はそのまま両系列に反映される。
 - 前後の運転用 `TrainCameraAnchor` と、同じ車両のEBへ接続する `CabAudioController` を設定済み。
-- Tc2はモデルを内部で180°回転させた後尾用Prefab。Prefabルートは回転0のまま使用する。
+- Tc2はTc1のPrefab Variant。Tc2のPrefabルートをY軸180°回転させ、車体モデル・運転台・ドア・TIMS設定をTc1から継承する。Tc1側の変更はTc2にも反映される。
 
 ## デバッグ配置
 
-既存の `TrainPresentationDebugSpawner` を使用する場合は、Series10000専用の `Prefabs/Debug/TrainPresentationDebugSpawner.prefab` をTrainRootの子へ配置する。10両分の車種参照を設定済み。Tc2を含め、追加の回転設定は不要。
+既存の `TrainPresentationDebugSpawner` を使用する場合は、Series10000専用の `Prefabs/Debug/TrainPresentationDebugSpawner.prefab` をTrainRootの子へ配置する。10両分の車種参照を設定済み。Tc2のPrefab側に180°回転を設定済みなので、Spawnerでの追加回転は不要。
 
 通常の `TrainPresentationBuilder` とデバッグSpawnerを同時に有効にすると二重に車体が生成されるので、使用する生成方式を1つ選ぶ。
 

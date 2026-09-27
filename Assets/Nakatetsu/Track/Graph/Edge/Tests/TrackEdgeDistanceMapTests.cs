@@ -38,7 +38,21 @@ namespace Nakatetsu.Track.Graph.Edge.Tests
             string before = JsonUtility.ToJson(edge);
             Assert.That(edge.TryConvertToGeometryDistance(distance, out float actual), Is.True);
             Assert.That(actual, Is.EqualTo(expected).Within(0.000001f));
+            Assert.That(edge.TryConvertToEdgeDistance(expected, out float roundTrip), Is.True);
+            Assert.That(roundTrip, Is.EqualTo(distance).Within(0.000001f));
             Assert.That(JsonUtility.ToJson(edge), Is.EqualTo(before));
+        }
+
+        [TestCase(false, 35f, 10f)]
+        [TestCase(false, 67.5f, 25f)]
+        [TestCase(true, 70f, 10f)]
+        [TestCase(true, 45f, 25f)]
+        public void GeometryDistanceUsesCorrectNonuniformInterval(bool reverse, float geometryDistance, float expectedEdgeDistance)
+        {
+            var edge = CreateEdge(reverse);
+            edge.distanceMap[1] = Sample(10f, reverse ? 70f : 35f);
+            Assert.That(edge.TryConvertToEdgeDistance(geometryDistance, out float actual), Is.True);
+            Assert.That(actual, Is.EqualTo(expectedEdgeDistance).Within(0.000001f));
         }
 
         [TestCase(-0.001f)]
@@ -49,6 +63,30 @@ namespace Nakatetsu.Track.Graph.Edge.Tests
         public void InvalidInputReturnsFalseWithoutClamping(float distance)
         {
             Assert.That(CreateEdge().TryConvertToGeometryDistance(distance, out float actual), Is.False);
+            Assert.That(actual, Is.Zero);
+        }
+
+        [TestCase(false, 19.999f)]
+        [TestCase(false, 100.001f)]
+        [TestCase(true, 19.999f)]
+        [TestCase(true, 100.001f)]
+        [TestCase(false, float.NaN)]
+        [TestCase(false, float.PositiveInfinity)]
+        [TestCase(false, float.NegativeInfinity)]
+        public void GeometryDistanceOutsideEdgeReturnsFalse(bool reverse, float distance)
+        {
+            Assert.That(CreateEdge(reverse).TryConvertToEdgeDistance(distance, out float actual), Is.False);
+            Assert.That(actual, Is.Zero);
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void NonMonotonicGeometryMapReturnsFalse(bool reverse)
+        {
+            var edge = CreateEdge(reverse);
+            edge.distanceMap[1] = Sample(10f, reverse ? 20f : 100f);
+
+            Assert.That(edge.TryConvertToEdgeDistance(60f, out float actual), Is.False);
             Assert.That(actual, Is.Zero);
         }
 
@@ -90,6 +128,8 @@ namespace Nakatetsu.Track.Graph.Edge.Tests
             };
             Assert.That(edge.TryConvertToGeometryDistance(50f, out float actual), Is.True);
             Assert.That(actual, Is.Zero);
+            Assert.That(edge.TryConvertToEdgeDistance(0f, out float edgeDistance), Is.True);
+            Assert.That(edgeDistance, Is.EqualTo(50f));
         }
 
         [Test]

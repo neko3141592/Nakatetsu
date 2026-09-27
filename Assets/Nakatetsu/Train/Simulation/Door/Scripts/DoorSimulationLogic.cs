@@ -15,6 +15,28 @@ namespace Nakatetsu.Train.Simulation.Door
 
     public static class DoorSimulationLogic
     {
+        // 同じ号車・側・戸は、実行順やフレーム数に関係なく同じ開閉時間を使う。
+        public static float GetTravelTimeSeconds(float baseTimeSeconds, float variationPercent,
+            int carIndex, bool leftSide, int doorIndex)
+        {
+            if (!IsFinite(baseTimeSeconds) || !IsFinite(variationPercent)) return float.NaN;
+            if (variationPercent <= 0f) return baseTimeSeconds;
+            float range = Math.Min(variationPercent, 20f) / 100f;
+            unchecked
+            {
+                uint hash = (uint)(carIndex + 1) * 0x9E3779B9u;
+                hash ^= (uint)(doorIndex + 1) * 0x85EBCA6Bu;
+                hash ^= leftSide ? 0xC2B2AE35u : 0x27D4EB2Fu;
+                hash ^= hash >> 16;
+                hash *= 0x7FEB352Du;
+                hash ^= hash >> 15;
+                hash *= 0x846CA68Bu;
+                hash ^= hash >> 16;
+                float offset = (hash / (float)uint.MaxValue) * 2f - 1f;
+                return baseTimeSeconds * (1f + offset * range);
+            }
+        }
+
         public static bool Step(DoorSimulationState state, DoorMotionCommand command,
             float travelTimeSeconds, float deltaTimeSeconds, bool fault)
         {

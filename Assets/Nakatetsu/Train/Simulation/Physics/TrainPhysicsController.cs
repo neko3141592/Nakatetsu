@@ -31,6 +31,10 @@ namespace Nakatetsu.Train.Simulation.Physics
                 input.totalTractionForceN += car.tractionForceN;
                 input.totalBrakeForceN += Mathf.Max(0f, car.brakeForceN);
                 input.totalExternalForceN += car.externalForceN;
+                input.totalGradeForceN += car.gradeForceN;
+                input.totalRunningResistanceAN += Mathf.Max(0f, car.runningResistanceAN);
+                input.totalRunningResistanceBNsPerM += Mathf.Max(0f, car.runningResistanceBNsPerM);
+                input.totalRunningResistanceCNs2PerM2 += Mathf.Max(0f, car.runningResistanceCNs2PerM2);
             }
         }
 

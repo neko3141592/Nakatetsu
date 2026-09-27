@@ -1,4 +1,5 @@
 using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Simulation.Door
@@ -9,7 +10,9 @@ namespace Nakatetsu.Train.Simulation.Door
     {
         [SerializeField, Min(1)] private int doorsPerSide = 4;
         [SerializeField, Min(0.01f)] private float travelTimeSeconds = 3f;
+        [SerializeField, Range(0f, 20f)] private float travelTimeVariationPercent = 5f;
         [SerializeField] private bool fault;
+        private TrainSimulationAssignment assignment;
         private DoorSimulationState[] left;
         private DoorSimulationState[] right;
         private DoorMotionCommand leftCommand;
@@ -32,11 +35,17 @@ namespace Nakatetsu.Train.Simulation.Door
                 left = CreateStates(doorsPerSide);
                 right = CreateStates(doorsPerSide);
             }
+            if (assignment == null) assignment = GetComponent<TrainSimulationAssignment>();
+            int carIndex = assignment != null ? assignment.AssignedCarIndex : -1;
             bool valid = true;
             for (int i = 0; i < doorsPerSide; i++)
             {
-                valid &= DoorSimulationLogic.Step(left[i], leftCommand, travelTimeSeconds, deltaTimeSeconds, fault);
-                valid &= DoorSimulationLogic.Step(right[i], rightCommand, travelTimeSeconds, deltaTimeSeconds, fault);
+                float leftTime = DoorSimulationLogic.GetTravelTimeSeconds(
+                    travelTimeSeconds, travelTimeVariationPercent, carIndex, true, i);
+                float rightTime = DoorSimulationLogic.GetTravelTimeSeconds(
+                    travelTimeSeconds, travelTimeVariationPercent, carIndex, false, i);
+                valid &= DoorSimulationLogic.Step(left[i], leftCommand, leftTime, deltaTimeSeconds, fault);
+                valid &= DoorSimulationLogic.Step(right[i], rightCommand, rightTime, deltaTimeSeconds, fault);
             }
             HasValidState = valid;
         }

@@ -5,6 +5,7 @@ namespace Nakatetsu.Train.Simulation.Physics
     public static class TrainPhysicsLogic
     {
         private const float StopThresholdMps = 0.01f;
+        private const float GravityMps2 = 9.80665f;
         public static void Calculate(TrainPhysicsContext context, float deltaTimeSeconds)
         {
             context.State.signedDisplacementM = 0f;
@@ -26,7 +27,9 @@ namespace Nakatetsu.Train.Simulation.Physics
                 return false;
             }
 
-            if (Mathf.Abs(context.Input.NonBrakeForceN) > context.Input.totalBrakeForceN)
+            float nonBrakeForceN = context.Input.NonBrakeForceN +
+                CalculateRunningResistanceForceN(context.Input, context.State.signedVelocityMps);
+            if (Mathf.Abs(nonBrakeForceN) > context.Input.totalBrakeForceN)
             {
                 return false;
             }
@@ -40,10 +43,12 @@ namespace Nakatetsu.Train.Simulation.Physics
 
         public static void CalculateAcceleration(TrainPhysicsContext context)
         {
+            float nonBrakeForceN = context.Input.NonBrakeForceN +
+                CalculateRunningResistanceForceN(context.Input, context.State.signedVelocityMps);
             float brakeDirectionSource =
-                Mathf.Abs(context.State.signedVelocityMps) > StopThresholdMps
+                context.State.signedVelocityMps != 0f
                     ? context.State.signedVelocityMps
-                    : context.Input.NonBrakeForceN;
+                    : nonBrakeForceN;
 
             float signedBrakeForceN =
                 Mathf.Abs(brakeDirectionSource) > 0.001f
@@ -51,12 +56,33 @@ namespace Nakatetsu.Train.Simulation.Physics
                     context.Input.totalBrakeForceN
                     : 0f;
                 
-            float netForceN = 
-                context.Input.totalTractionForceN 
-                + context.Input.totalExternalForceN 
-                + signedBrakeForceN;
+            float netForceN = nonBrakeForceN + signedBrakeForceN;
             
             context.State.signedAcceleration = netForceN / Mathf.Max(0.001f, context.Input.totalMassKg);
+        }
+
+        public static float CalculateRunningResistanceForceN(TrainPhysicsInput input, float signedVelocityMps)
+        {
+            float speedMps = Mathf.Abs(signedVelocityMps);
+            if (speedMps > 0f)
+            {
+                float resistanceN = input.totalRunningResistanceAN +
+                    input.totalRunningResistanceBNsPerM * speedMps +
+                    input.totalRunningResistanceCNs2PerM2 * speedMps * speedMps;
+                return -Mathf.Sign(signedVelocityMps) * resistanceN;
+            }
+
+            // 停止中の定数項は駆動力・勾配力などを超えて列車を動かさない。
+            float forceWithoutResistanceN = input.NonBrakeForceN;
+            return -Mathf.Sign(forceWithoutResistanceN) *
+                Mathf.Min(Mathf.Abs(forceWithoutResistanceN), input.totalRunningResistanceAN);
+        }
+
+        public static float CalculateGradeForceN(float massKg, float gradientPermille)
+        {
+            // 線路サンプルの勾配は編成前方向の高さの変化 [‰]。
+            float slope = gradientPermille / 1000f;
+            return -massKg * GravityMps2 * slope / Mathf.Sqrt(1f + slope * slope);
         }
 
         public static void CalculateVelocity(TrainPhysicsContext context, float deltaTimeSeconds)

@@ -1,16 +1,22 @@
-"""Export all four scenes from Series10000_UnityExport.blend.
-Run with Blender --background <blend file> --python <this script>.
+"""Export Series10000 car scenes from the specified .blend file.
+Run with Blender --background <blend file> --python <this script> [-- --car Tc1].
 The editable Blender meshes are not triangulated or otherwise changed.
 """
+import argparse
 import bpy
+import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[4]
 OUTPUT = PROJECT_ROOT / 'Assets/Nakatetsu/Train/Series10000/Models'
 OUTPUT.mkdir(parents=True, exist_ok=True)
+parser = argparse.ArgumentParser()
+parser.add_argument('--car', choices=('Tc1', 'Mp', 'M', 'T'))
+args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
+cars = (args.car,) if args.car else ('Tc1', 'Mp', 'M', 'T')
 original_scene = bpy.context.window.scene
 try:
-    for car in ('Tc1', 'Mp', 'M', 'T'):
+    for car in cars:
         scene = bpy.data.scenes['Series10000_' + car]
         bpy.context.window.scene = scene
         for obj in scene.objects:

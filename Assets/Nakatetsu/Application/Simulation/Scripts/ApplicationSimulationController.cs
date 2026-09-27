@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Nakatetsu.Core.Time;
+using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Nakatetsu.Application.Simulation
     public sealed class ApplicationSimulationController : MonoBehaviour, IWorldTimeSource
     {
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
+        [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private float tickDurationSeconds;
         [SerializeField] private bool isPaused;
         [SerializeField, Min(1)] private int maxTicksPerFrame = 100;
@@ -73,6 +75,25 @@ namespace Nakatetsu.Application.Simulation
             }
         }
 
+        private void Start()
+        {
+            if (!isInitialized || trackCircuitSimulation == null)
+            {
+                return;
+            }
+
+            foreach (TrainSimulationController train in trains)
+            {
+                if (train.TrackPositionController == null ||
+                    !trackCircuitSimulation.RegisterSource(train.TrackPositionController))
+                {
+                    Debug.LogError("軌道回路への列車占有ソース登録に失敗しました。", this);
+                    isInitialized = false;
+                    return;
+                }
+            }
+        }
+
         [ContextMenu("Step Once")]
         public void StepOnce()
         {
@@ -89,8 +110,15 @@ namespace Nakatetsu.Application.Simulation
 
         private void ExecuteTick()
         {
+            // 初回は列車の初期配置から占有を作る。以後は前tickの確定状態を保持する。
+            if (CompletedTickCount == 0 && trackCircuitSimulation != null)
+                trackCircuitSimulation.RefreshOccupancy();
+
             foreach (TrainSimulationController train in trains)
                 train.Step(fixedTickSeconds);
+
+            if (trackCircuitSimulation != null)
+                trackCircuitSimulation.RefreshOccupancy();
 
             CompletedTickCount++;
         }
