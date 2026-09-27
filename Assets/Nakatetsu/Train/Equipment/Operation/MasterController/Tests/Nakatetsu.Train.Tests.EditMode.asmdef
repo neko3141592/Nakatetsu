@@ -2,7 +2,10 @@
     "name": "Nakatetsu.Train.Tests.EditMode",
     "rootNamespace": "Nakatetsu.Train.Tests",
     "references": [
-        "Nakatetsu.Train"
+        "Nakatetsu.Train",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Shared",
+        "Nakatetsu.Track.Simulation"
     ],
     "includePlatforms": [
         "Editor"

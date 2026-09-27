@@ -24,6 +24,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Series10000_Light
     second: {fileID: 2100000, guid: 2ff4f4deef6e94c8994d70aa882cca0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Series10000_ProtectionRadio_Body
+    second: {fileID: 2100000, guid: 0b38dd337b27646479301cb9b63eaf28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Series10000_ProtectionRadio_Button
+    second: {fileID: 2100000, guid: 14511e47e0b384a47af439bbb2998b4c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

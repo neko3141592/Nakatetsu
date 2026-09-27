@@ -9,40 +9,45 @@ namespace Nakatetsu.Train.Simulation.TrackPosition
         public static void Calculate(TrainTrackPositionContext context, TrackGraphContext graph,
             TrainTrackConnectionResolver resolveNextEdge)
         {
-            if (!graph.TryGetEdge(context.State.currentEdgeId, out var edge) ||
-                !TrainTrackPathLogic.IsFinite(edge.LengthM) || edge.LengthM <= 0f)
+            if (context == null || graph == null
+                || !graph.TryGetEdge(context.State.currentEdgeId, out var edge)
+                || !TrainTrackPathLogic.IsValidEdge(edge)
+                || !TrainTrackPathLogic.IsFinite(context.State.distanceOnEdgeM)
+                || !TrainTrackPathLogic.IsFinite(context.Input.signedDisplacementM))
             {
+                context?.Output.Invalidate();
                 return;
             }
 
-            TrainTrackPathLogic.PrepareSamplingPath(context, graph, resolveNextEdge);
-
-            float distance = context.State.distanceOnEdgeM +
-                (context.State.frontFacesAtoB ? context.Input.signedDisplacementM : -context.Input.signedDisplacementM);
-            if (!TrainTrackPathLogic.IsFinite(distance))
+            double distance = context.State.distanceOnEdgeM
+                + (context.State.frontFacesAtoB
+                    ? (double)context.Input.signedDisplacementM
+                    : -(double)context.Input.signedDisplacementM);
+            if (distance < float.MinValue || distance > float.MaxValue)
             {
+                context.Output.Invalidate();
                 return;
             }
 
-            context.State.distanceOnEdgeM = distance;
+            context.State.distanceOnEdgeM = (float)distance;
             AdvanceEdgeIfNeeded(context, graph, resolveNextEdge);
-            TrainTrackPathLogic.PrepareSamplingPath(context, graph, resolveNextEdge);
+            TrainTrackSamplingLogic.RefreshOutput(context, graph, resolveNextEdge);
         }
 
-        // 境界を越えた距離を次Edgeへ繰り越す。進めない場合は境界で止める。
+        // 現在の分岐接続を使って越境先へ進める。接続不能なら境界で止める。
         public static void AdvanceEdgeIfNeeded(TrainTrackPositionContext context, TrackGraphContext graph,
             TrainTrackConnectionResolver resolveNextEdge)
         {
-            if (!graph.TryGetEdge(context.State.currentEdgeId, out var edge) ||
-                !TrainTrackPathLogic.IsFinite(edge.LengthM) || edge.LengthM <= 0f)
+            if (context == null || graph == null
+                || !graph.TryGetEdge(context.State.currentEdgeId, out var edge)
+                || !TrainTrackPathLogic.IsValidEdge(edge)
+                || !TrainTrackPathLogic.IsFinite(context.State.distanceOnEdgeM))
             {
+                context?.Output.Invalidate();
                 return;
             }
 
-            TrainTrackPathLogic.EnsureReferencePath(context, edge);
-            var workspace = context.Workspace;
-
-            for (int transitions = 0; ; transitions++)
+            for (int transitions = 0; transitions <= guard; transitions++)
             {
                 float distance = context.State.distanceOnEdgeM;
                 if (distance >= 0f && distance <= edge.LengthM)
@@ -51,39 +56,22 @@ namespace Nakatetsu.Train.Simulation.TrackPosition
                 }
 
                 bool exitsAtB = distance > edge.LengthM;
-                bool forward = exitsAtB == context.State.frontFacesAtoB;
-
-                // 境界を越えた分を、接続先Edgeの距離に引き継ぐ。
+                bool towardFront = exitsAtB == context.State.frontFacesAtoB;
                 float overflow = exitsAtB ? distance - edge.LengthM : -distance;
-
                 context.State.distanceOnEdgeM = exitsAtB ? edge.LengthM : 0f;
-                if (transitions >= guard)
+                if (transitions == guard
+                    || !TrainTrackPathLogic.TryGetAdjacent(graph, resolveNextEdge, edge,
+                        context.State.frontFacesAtoB, towardFront, out var next,
+                        out bool nextFacesAtoB, out float entryDistanceM))
                 {
                     return;
                 }
 
-                int nextIndex = workspace.ReferenceIndex + (forward ? 1 : -1);
-                if (nextIndex < 0 || nextIndex >= workspace.Path.Count)
-                {
-                    if (!TrainTrackPathLogic.TryExtendPath(workspace, forward, graph, resolveNextEdge))
-                    {
-                        return;
-                    }
-
-                    nextIndex = workspace.ReferenceIndex + (forward ? 1 : -1);
-                }
-
-                var next = workspace.Path[nextIndex];
-                if (!graph.TryGetEdge(next.EdgeId, out edge))
-                {
-                    return;
-                }
-
-                // 編成前方向を保ったまま、接続先のNode A起点の距離に変換する。
-                context.State.currentEdgeId = next.EdgeId;
-                context.State.frontFacesAtoB = next.FrontFacesAtoB;
-                context.State.distanceOnEdgeM = forward == next.FrontFacesAtoB ? overflow : next.LengthM - overflow;
-                workspace.ReferenceIndex = nextIndex;
+                edge = next;
+                context.State.currentEdgeId = next.edgeId;
+                context.State.frontFacesAtoB = nextFacesAtoB;
+                context.State.distanceOnEdgeM = entryDistanceM == 0f
+                    ? overflow : edge.LengthM - overflow;
             }
         }
     }

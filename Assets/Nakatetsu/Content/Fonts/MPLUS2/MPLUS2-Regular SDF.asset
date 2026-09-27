@@ -406,21 +406,6 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 1170
-    m_Metrics:
-      m_Width: 73.8125
-      m_Height: 82.265625
-      m_HorizontalBearingX: 8.09375
-      m_HorizontalBearingY: 73.53125
-      m_HorizontalAdvance: 90
-    m_GlyphRect:
-      m_X: 640
-      m_Y: 97
-      m_Width: 74
-      m_Height: 83
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
   - m_Index: 677
     m_Metrics:
       m_Width: 34.828125
@@ -448,6 +433,21 @@ MonoBehaviour:
       m_Y: 103
       m_Width: 45
       m_Height: 66
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 1170
+    m_Metrics:
+      m_Width: 73.8125
+      m_Height: 82.265625
+      m_HorizontalBearingX: 8.09375
+      m_HorizontalBearingY: 73.53125
+      m_HorizontalAdvance: 90
+    m_GlyphRect:
+      m_X: 640
+      m_Y: 97
+      m_Width: 74
+      m_Height: 83
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
@@ -650,16 +650,16 @@ MonoBehaviour:
     m_GlyphIndex: 29
     m_Scale: 1
   - m_ElementType: 1
-    m_Unicode: 20013
-    m_GlyphIndex: 1170
-    m_Scale: 1
-  - m_ElementType: 1
     m_Unicode: 49
     m_GlyphIndex: 677
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 70
     m_GlyphIndex: 63
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 20013
+    m_GlyphIndex: 1170
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 55
@@ -788,10 +788,6 @@ MonoBehaviour:
     m_Y: 0
     m_Width: 67
     m_Height: 87
-  - m_X: 630
-    m_Y: 87
-    m_Width: 93
-    m_Height: 102
   - m_X: 934
     m_Y: 87
     m_Width: 55
@@ -800,6 +796,10 @@ MonoBehaviour:
     m_Y: 93
     m_Width: 64
     m_Height: 85
+  - m_X: 630
+    m_Y: 87
+    m_Width: 93
+    m_Height: 102
   - m_X: 915
     m_Y: 172
     m_Width: 68
@@ -865,26 +865,26 @@ MonoBehaviour:
     m_Y: 0
     m_Width: 22
     m_Height: 1023
-  - m_X: 630
-    m_Y: 30
-    m_Width: 30
-    m_Height: 57
   - m_X: 851
     m_Y: 67
     m_Width: 24
     m_Height: 26
+  - m_X: 630
+    m_Y: 30
+    m_Width: 30
+    m_Height: 57
   - m_X: 915
     m_Y: 93
     m_Width: 19
     m_Height: 79
-  - m_X: 723
-    m_Y: 87
-    m_Width: 5
-    m_Height: 83
   - m_X: 790
     m_Y: 152
     m_Width: 61
     m_Height: 18
+  - m_X: 723
+    m_Y: 87
+    m_Width: 5
+    m_Height: 83
   - m_X: 70
     m_Y: 214
     m_Width: 653

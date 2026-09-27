@@ -362,6 +362,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 carInput.brakeForceN = (brakeSimulations.TryGetValue(
                     carIndex, out TrainBrakeSimulation brake) ? brake.ActualBrakeForceN : 0f) + regenForceN;
                 carInput.externalForceN = 0f;
+                carInput.gradeForceN = 0f;
+                if (trackPositionController != null &&
+                    trackPositionController.TryGetTrackSample(carIndex, 0f, out var trackSample))
+                {
+                    carInput.gradeForceN = TrainPhysicsLogic.CalculateGradeForceN(
+                        carInput.massKg, trackSample.GradientPermille);
+                }
+
+                carInput.runningResistanceAN = definition != null ? Mathf.Max(0f, definition.runningResistanceAN) : 0f;
+                carInput.runningResistanceBNsPerM = definition != null ? Mathf.Max(0f, definition.runningResistanceBNsPerM) : 0f;
+                carInput.runningResistanceCNs2PerM2 = definition != null ? Mathf.Max(0f, definition.runningResistanceCNs2PerM2) : 0f;
             }
         }
 

@@ -56,9 +56,7 @@ namespace Nakatetsu.Train.Presentation.Bogie
                 return;
             }
 
-            float halfDistanceM = carDefinition.bogieCenterDistanceM * 0.5f;
-            if (!trackPosition.TryGetTrackSample(carIndex, halfDistanceM, out var front) ||
-                !trackPosition.TryGetTrackSample(carIndex, -halfDistanceM, out var rear))
+            if (!trackPosition.TryGetBogies(carIndex, out var front, out var rear))
             {
                 return;
             }

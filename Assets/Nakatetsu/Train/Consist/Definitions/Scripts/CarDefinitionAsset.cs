@@ -54,6 +54,11 @@ namespace Nakatetsu.Train.Consist
         public GameObject loadSimulationPrefab;
         public GameObject doorSimulationPrefab;
 
+        [Header("Running Resistance (Davis, speed in m/s)")]
+        [Min(0f)] public float runningResistanceAN = 300f;
+        [Min(0f)] public float runningResistanceBNsPerM = 8f;
+        [Min(0f)] public float runningResistanceCNs2PerM2 = 0.5f;
+
         [Header("Cab Equipment")]
         public GameObject masterControllerPrefab;
         public GameObject cabActivationSwitchPrefab;

@@ -1,7 +1,7 @@
 {
     "name": "Nakatetsu.Track.Graph.Editor",
     "rootNamespace": "Nakatetsu.Track.Graph.Editor",
-    "references": ["Nakatetsu.Track.Graph"],
+    "references": ["Nakatetsu.Track.Graph", "Nakatetsu.Track.Simulation"],
     "includePlatforms": ["Editor"],
     "autoReferenced": true
 }

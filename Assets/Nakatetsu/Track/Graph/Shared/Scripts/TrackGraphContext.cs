@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Nakatetsu.Track.Graph.Circuit;
 using Nakatetsu.Track.Graph.Connection;
 using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Graph.Geometry;
@@ -15,8 +16,10 @@ namespace Nakatetsu.Track.Graph
         private readonly Dictionary<string, TrackGeometryDefinition> geometriesById = new();
         private readonly Dictionary<string, TrackConnectionDefinition> connectionsById = new();
         private readonly Dictionary<string, TrackConnectionDefinition> connectionsByNodeId = new();
+        private readonly Dictionary<string, TrackCircuitDefinition> circuitsById = new();
 
         public IEnumerable<TrackConnectionDefinition> Connections => connectionsById.Values;
+        public IEnumerable<TrackCircuitDefinition> Circuits => circuitsById.Values;
 
         // ID検索の構築結果。接続や移動データの妥当性は示さない。
         public bool IsInitialized { get; private set; }
@@ -51,6 +54,12 @@ namespace Nakatetsu.Track.Graph
             return !string.IsNullOrWhiteSpace(nodeId) && connectionsByNodeId.TryGetValue(nodeId, out connection);
         }
 
+        public bool TryGetCircuit(string id, out TrackCircuitDefinition circuit)
+        {
+            circuit = null;
+            return !string.IsNullOrWhiteSpace(id) && circuitsById.TryGetValue(id, out circuit);
+        }
+
         // 定義をIDで検索できるようにする。線形評価や距離表の生成は行わない。
         public bool TryBuildLookups(TrackGraphDefinition definition, out string error)
         {
@@ -65,7 +74,9 @@ namespace Nakatetsu.Track.Graph
                 !TryIndex(definition.edges, edgesById, edge => edge.edgeId, "edges", out error) ||
                 !TryIndex(definition.geometries, geometriesById, geometry => geometry.trackGeometryId, "geometries", out error) ||
                 !TryIndex(definition.connections, connectionsById, connection => connection.connectionId, "connections", out error) ||
-                !TryIndex(definition.connections, connectionsByNodeId, connection => connection.nodeId, "connection nodes", out error))
+                !TryIndex(definition.connections, connectionsByNodeId, connection => connection.nodeId, "connection nodes", out error) ||
+                !TryIndex(definition.circuits ?? new List<TrackCircuitDefinition>(), circuitsById,
+                    circuit => circuit.circuitId, "circuits", out error))
             {
                 ClearLookups();
                 return false;
@@ -90,6 +101,7 @@ namespace Nakatetsu.Track.Graph
             geometriesById.Clear();
             connectionsById.Clear();
             connectionsByNodeId.Clear();
+            circuitsById.Clear();
         }
 
         private static bool TryIndex<T>(List<T> entries, Dictionary<string, T> lookup,

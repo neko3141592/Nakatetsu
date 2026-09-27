@@ -20,18 +20,26 @@ if (trackPosition.TryGetTrackSample(0, 8f, out var sample))
 }
 ```
 
-`SetTrackPosition` は0号車中心の配置と経路リセットを行う。有効なEdge IDとEdge内距離を渡す。車両長は初回にTrainRootからコピーする。編成変更時は `TryConfigureConsist()` を呼び、再配置する。
+`SetTrackPosition` は0号車中心を配置し、現在の分岐接続から出力を再計算する。有効なEdge IDとEdge内距離を渡す。車両長と台車中心間距離は初回にTrainRootからコピーする。編成変更時は `TryConfigureConsist()` を呼び、再配置する。
 
 ## 計算
 
-`Calculate` がStateと経路を更新し、照会は現在のStateを直接読む。`ApplyOutput` でのコピーは行わない。
+`Calculate` は0号車中心のEdge位置を進め、Graphと現在の分岐接続から台車位置・向きと占有Edge列を再計算する。`ApplyOutput` でのコピーは行わない。
 
 車両中心間距離は隣接車の半車長を足して求める。別途の連結器間隔や、車体の剛体姿勢・受電器の高さは扱わない。
 
-編成がまたがるEdge列を保持し、その間の接続は転轍機の現在状態から再解決しない。照会はこの保持経路を読むだけで、状態変更や遠方への経路探索は行わない。未初期化・保持経路外では取得できない。接続不能時の移動はEdge境界で止まる。
+`Settings.CarOffsets` は各車両中心と前後台車の、0号車中心からの相対距離を保持する。`Output.TryGetBogies(carIndex, out front, out rear)` は各台車の位置と向きを返す。`Output.OccupiedEdges` は1号車前台車から最後尾後台車までの区間を、前から後ろへの順で `EdgeId` とGeometry上の開始・終了距離として保持する。Geometry距離が逆向きなら開始値は終了値より大きくなる。
 
-Graph再構築やテレポート時は `SetTrackPosition` で経路をリセットする。
+占有区間を別の処理へ渡すときは `TryGetOccupiedEdges(destination)` でコピーできる。出力が無効なら `false` を返し、`destination` は変更しない。占有範囲は台車端基準なので、車体のオーバーハングは含まない。
 
-## NtLineの確認用直線
+`TrainTrackPositionController` はTrack側の `ITrackOccupancySource` を実装する。世界のtickで全列車を移動させた後、`TrackCircuitSimulationController.RefreshOccupancy()` が登録済みソースから区間を読み、Graphに定義された軌道回路との重なりを計算する。どれか1列車の位置を取得できないときは、登録された全軌道回路を占有とする。未登録の回路IDも `IsOccupied` は占有として返す。
 
-`NtLineGraph.asset` には長さ400mの `preview-straight` を入れている。`TrainPresentationDebugSpawner` のPrefabが0号車中心をEdge内195mに配置し、編成前方をNode A方向（画面側）に向ける。生成した各車に `TrainBogiePresentation` を付け、毎フレーム前後台車の線路サンプルから車体の位置と向きを更新する。転轍機のない仮データなので端点で停止する。
+接続先は照会・更新のたびに現在の分岐状態から解決する。走行経路の履歴は保持しないため、編成が分岐を占有している間の転換禁止が前提となる。接続先が未確定なら `TryGetBogies` と `TryGetOccupiedEdges` は失敗し、軌道回路は全回路を占有とする。接続不能時の先頭車中心の移動はEdge境界で止まる。
+
+Graph再構築やテレポート時は `SetTrackPosition` で再計算する。
+
+## NtLineの確認用線路
+
+`NtLineGraph.asset` は元の1000m区間 `preview-straight` を残し、緩和曲線・円曲線・緩和曲線・直線の4 Edgeを固定接続でつないでいる。全長は実距離約3001.4m。構成と接続の検証結果は [NtLine 3km試験線](NtLine3kmPreview.md) を参照。
+
+`NtLine.unity` の `TrainTrackPositionDebugInitializer` は0号車中心を `preview-straight` の200mに置き、編成前方をNode A→Bへ向ける。生成した各車の `TrainBogiePresentation` は前後台車の線路サンプルから車体位置と向きを更新する。接続にはSceneの `TrackGraph` 上にある `TrackConnectionController` を使う。

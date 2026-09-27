@@ -1,0 +1,8 @@
+{
+    "name": "Nakatetsu.Track.Debug.Tests.EditMode",
+    "rootNamespace": "Nakatetsu.Track.Debugging.Tests",
+    "references": ["Nakatetsu.Track.Debug", "Nakatetsu.Track.Graph", "Nakatetsu.Track", "Nakatetsu.Track.Shared"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}

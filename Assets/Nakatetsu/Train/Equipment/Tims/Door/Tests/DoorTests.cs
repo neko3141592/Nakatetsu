@@ -100,7 +100,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             for (int i = 0; i < 4; i++)
             {
                 Assert.That(model.TryGetDoor(true, i, out float opening, out bool closed, out DoorStatus status), Is.True);
-                Assert.That(opening, Is.EqualTo(0.5f).Within(0.00001f));
+                float travelTime = DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 0, true, i);
+                Assert.That(opening, Is.EqualTo(1.5f / travelTime).Within(0.00001f));
                 Assert.That(closed, Is.False); Assert.That(status, Is.EqualTo(DoorStatus.Opening));
                 model.TryGetDoor(false, i, out float right, out bool rc, out _);
                 Assert.That(right, Is.Zero); Assert.That(rc, Is.True);
@@ -136,7 +137,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             Step(1f);
             var model = doors[0].Simulation;
             model.TryGetDoor(true, 0, out float opening, out _, out DoorStatus state);
-            Assert.That(opening, Is.EqualTo(1f / 3f).Within(0.00001f));
+            float travelTime = DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 0, true, 0);
+            Assert.That(opening, Is.EqualTo(1f / travelTime).Within(0.00001f));
             Assert.That(state, Is.EqualTo(DoorStatus.Stopped));
             Request(0, true, DoorMotionCommand.Close); Request(0, false, DoorMotionCommand.Close); Step(1f); Collect();
             Assert.That(Master(TimsDoorController.AllClosedKey), Is.True);
@@ -145,7 +147,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
         [Test]
         public void ClosingCanBeReopenedOnlyOnPermittedSide()
         {
-            Step(0f); Request(0, true, DoorMotionCommand.Open); Step(3f);
+            Step(0f); Request(0, true, DoorMotionCommand.Open); Step(3.2f);
             Request(0, true, DoorMotionCommand.Close); Request(0, false, DoorMotionCommand.Close); Step(1f);
             doors[0].SetOpeningPermissions(true, false);
             Request(0, true, DoorMotionCommand.Open); Request(0, false, DoorMotionCommand.Open); Step(1f);
@@ -244,6 +246,22 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             DoorSimulationLogic.Step(a, DoorMotionCommand.Open, 3f, 1.5f, false);
             for (int i = 0; i < 15; i++) DoorSimulationLogic.Step(b, DoorMotionCommand.Open, 3f, 0.1f, false);
             Assert.That(a.openingRatio, Is.EqualTo(b.openingRatio).Within(0.00001f));
+        }
+
+        [Test]
+        public void DoorTravelTimesVaryByCarSideAndPositionButStayStable()
+        {
+            float first = DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 0, true, 0);
+            float nextDoor = DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 0, true, 1);
+            float otherSide = DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 0, false, 0);
+            float otherCar = DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 1, true, 0);
+            foreach (float time in new[] { first, nextDoor, otherSide, otherCar })
+                Assert.That(time, Is.InRange(2.85f, 3.15f));
+            Assert.That(nextDoor, Is.Not.EqualTo(first));
+            Assert.That(otherSide, Is.Not.EqualTo(first));
+            Assert.That(otherCar, Is.Not.EqualTo(first));
+            Assert.That(DoorSimulationLogic.GetTravelTimeSeconds(3f, 5f, 0, true, 0), Is.EqualTo(first));
+            Assert.That(DoorSimulationLogic.GetTravelTimeSeconds(3f, 0f, 0, true, 0), Is.EqualTo(3f));
         }
 
         [TestCase(float.NaN)]
