@@ -31,7 +31,7 @@ namespace Nakatetsu.Track.Interlocking
         // 転轍機鎖錠
         public List<TurnoutRequirement> requiredTurnouts = new();
 
-        // 列車通過後の解錠判定に使う回路
+        // 進路内の回路。占有判定と列車通過後の解錠判定に使う。
         public List<string> routeLockTrackCircuitIds = new();
 
         // 進路入口の手前にある接近回路と、取消時の解錠待ち時間
@@ -42,6 +42,13 @@ namespace Nakatetsu.Track.Interlocking
     }
 
     [Serializable]
+    public sealed class  TurnoutTrackCircuitLock
+    {
+        public string connectionId;
+        public List<string> trackCircuitIds = new();
+    }
+
+    [Serializable]
     public sealed class TrackInterlockingDefinition
     {
         public string interlockingId;
@@ -49,5 +56,9 @@ namespace Nakatetsu.Track.Interlocking
         public List<string> memberTrackCircuitIds = new();
         public List<string> memberConnectionIds = new();
         public List<InterlockingRoute> routes = new();
+
+        public List<TurnoutTrackCircuitLock> turnoutTrackCircuitLocks = new(); 
+
+
     }
 }

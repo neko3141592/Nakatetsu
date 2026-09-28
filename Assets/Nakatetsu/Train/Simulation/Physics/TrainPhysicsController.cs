@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Nakatetsu.Train.Simulation.Orchestration;
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Core.Simulation;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Simulation.Physics

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Nakatetsu.Core.Simulation;
 using Nakatetsu.Track.Graph;
 using UnityEngine;
 
 namespace Nakatetsu.Track.Simulation.Circuit
 {
     [DisallowMultipleComponent]
-    public sealed class TrackCircuitSimulationController : MonoBehaviour
+    public sealed class TrackCircuitSimulationController : MonoBehaviour, ISimulationController
     {
         [SerializeField] private TrackGraphController trackGraphController;
         private readonly TrackCircuitSimulationContext context = new();
@@ -35,7 +36,7 @@ namespace Nakatetsu.Track.Simulation.Circuit
         }
 
         // 登録された列車に直接問い合わせ、同じ時点の占有状態を確定する。
-        public void RefreshOccupancy()
+        public void Calculate(float deltaTimeSeconds)
         {
             TrackGraphContext graph = trackGraphController != null ? trackGraphController.Context : null;
             bool complete = graph != null && graph.IsInitialized && sources.Count > 0;
@@ -64,6 +65,8 @@ namespace Nakatetsu.Track.Simulation.Circuit
             TrackCircuitSimulationLogic.Calculate(context, graph,
                 complete ? allOccupiedEdges : null);
         }
+
+        public void ApplyOutput(float deltaTimeSeconds) { }
 
         public bool IsOccupied(string circuitId) => context.State.IsOccupied(circuitId);
     }

@@ -9,7 +9,7 @@ using Nakatetsu.Train.Equipment.Traction;
 using Nakatetsu.Train.Equipment.Traction.Vvvf;
 using Nakatetsu.Train.Simulation.Brake;
 using Nakatetsu.Train.Simulation.Load;
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Core.Simulation;
 using Nakatetsu.Train.Simulation.Physics;
 using Nakatetsu.Train.Simulation.TrackPosition;
 using Nakatetsu.Train.Simulation.Traction.Motor;
@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace Nakatetsu.Train.Simulation.Orchestration
 {
-    public sealed class TrainSimulationController : MonoBehaviour
+    public sealed class TrainSimulationController : MonoBehaviour, ISimulationController
     {
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TrainPhysicsController physicsController;
@@ -144,12 +144,13 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             // 1フレーム分の編成シミュレーションを進める。
             if (AutoRefresh)
             {
-                Step(Time.deltaTime);
+                float deltaTimeSeconds = Time.deltaTime;
+                Calculate(deltaTimeSeconds);
+                ApplyOutput(deltaTimeSeconds);
             }
         }
 
-
-        public void Step(float deltaTimeSeconds)
+        public void Calculate(float deltaTimeSeconds)
         {
             // 測定、機器制御、物理モデル、編成物理、線路位置の順に1ステップ実行する。
             float signedVelocityMps = physicsController != null
@@ -184,6 +185,8 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 controller.ApplyOutput(deltaTimeSeconds);
             }
         }
+
+        public void ApplyOutput(float deltaTimeSeconds) { }
 
         private void CollectPhysicalMeasurements(float signedVelocityMps)
         {

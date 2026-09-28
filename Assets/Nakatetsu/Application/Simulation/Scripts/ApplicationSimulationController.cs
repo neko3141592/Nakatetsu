@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Nakatetsu.Core.Simulation;
 using Nakatetsu.Core.Time;
+using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
@@ -10,6 +12,7 @@ namespace Nakatetsu.Application.Simulation
     {
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
+        [SerializeField] private TrackInterlockingController[] interlockings = new TrackInterlockingController[0];
         [SerializeField] private float tickDurationSeconds;
         [SerializeField] private bool isPaused;
         [SerializeField, Min(1)] private int maxTicksPerFrame = 100;
@@ -47,6 +50,16 @@ namespace Nakatetsu.Application.Simulation
                 if (train == null || !registeredTrains.Add(train))
                 {
                     Debug.LogError("Trainの未設定または重複を修正してください。", this);
+                    return;
+                }
+            }
+
+            var registeredInterlockings = new HashSet<TrackInterlockingController>();
+            foreach (TrackInterlockingController interlocking in interlockings)
+            {
+                if (interlocking == null || !registeredInterlockings.Add(interlocking))
+                {
+                    Debug.LogError("Interlockingの未設定または重複を修正してください。", this);
                     return;
                 }
             }
@@ -105,6 +118,8 @@ namespace Nakatetsu.Application.Simulation
             if (!UnityEngine.Application.isPlaying || !isInitialized) return false;
             foreach (TrainSimulationController train in trains)
                 if (train == null || !train.IsInitialized) return false;
+            foreach (TrackInterlockingController interlocking in interlockings)
+                if (interlocking == null || !interlocking.IsInitialized) return false;
             return true;
         }
 
@@ -112,15 +127,24 @@ namespace Nakatetsu.Application.Simulation
         {
             // 初回は列車の初期配置から占有を作る。以後は前tickの確定状態を保持する。
             if (CompletedTickCount == 0 && trackCircuitSimulation != null)
-                trackCircuitSimulation.RefreshOccupancy();
+                AdvanceSimulation(trackCircuitSimulation);
 
             foreach (TrainSimulationController train in trains)
-                train.Step(fixedTickSeconds);
+                AdvanceSimulation(train);
 
             if (trackCircuitSimulation != null)
-                trackCircuitSimulation.RefreshOccupancy();
+                AdvanceSimulation(trackCircuitSimulation);
+
+            foreach (TrackInterlockingController interlocking in interlockings)
+                AdvanceSimulation(interlocking);
 
             CompletedTickCount++;
+        }
+
+        private void AdvanceSimulation(ISimulationController controller)
+        {
+            controller.Calculate(fixedTickSeconds);
+            controller.ApplyOutput(fixedTickSeconds);
         }
     }
 }

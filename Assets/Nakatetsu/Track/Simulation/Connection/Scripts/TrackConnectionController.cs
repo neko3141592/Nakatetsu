@@ -15,6 +15,7 @@ namespace Nakatetsu.Track.Simulation.Connection
         private TrackGraphController trackGraphController;
         private readonly TrackConnectionContext context = new();
 
+        public TrackConnectionContext Context => context;
         public bool IsInitialized => context.IsInitialized;
 
         private void Awake()

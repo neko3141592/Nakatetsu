@@ -1,4 +1,4 @@
-namespace Nakatetsu.Train.Simulation.Orchestration.Interfaces
+namespace Nakatetsu.Core.Simulation
 {
     public interface ISimulationController
     {

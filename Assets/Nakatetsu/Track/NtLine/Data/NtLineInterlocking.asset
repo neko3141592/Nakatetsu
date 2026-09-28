@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
+  m_Name: NtLineInterlocking
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackInterlockingAsset
+  definition:
+    interlockingId: NtLineStation
+    memberTrackCircuitIds:
+    - NT-A2
+    - NT-M1
+    - NT-M2
+    - NT-L1
+    - NT-L2
+    - NT-X1
+    - NT-X2
+    - NT-WP
+    - NT-EP
+    memberConnectionIds:
+    - nt-switch-west
+    - nt-switch-east
+    routes:
+    - routeId: NT-E-MAIN
+      startTrackCircuitId: NT-A2
+      destinationTrackCircuitId: NT-X1
+      requiredTurnouts:
+      - connectionId: nt-switch-west
+        requiredPosition: 1
+      - connectionId: nt-switch-east
+        requiredPosition: 1
+      routeLockTrackCircuitIds:
+      - NT-WP
+      - NT-M1
+      - NT-M2
+      - NT-EP
+      - NT-X1
+      approachLock:
+        trackCircuitIds:
+        - NT-A2
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT-E-LOOP
+      - NT-W-MAIN
+      - NT-W-LOOP
+    - routeId: NT-E-LOOP
+      startTrackCircuitId: NT-A2
+      destinationTrackCircuitId: NT-X1
+      requiredTurnouts:
+      - connectionId: nt-switch-west
+        requiredPosition: 2
+      - connectionId: nt-switch-east
+        requiredPosition: 2
+      routeLockTrackCircuitIds:
+      - NT-WP
+      - NT-L1
+      - NT-L2
+      - NT-EP
+      - NT-X1
+      approachLock:
+        trackCircuitIds:
+        - NT-A2
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT-E-MAIN
+      - NT-W-MAIN
+      - NT-W-LOOP
+    - routeId: NT-W-MAIN
+      startTrackCircuitId: NT-X2
+      destinationTrackCircuitId: NT-A2
+      requiredTurnouts:
+      - connectionId: nt-switch-west
+        requiredPosition: 1
+      - connectionId: nt-switch-east
+        requiredPosition: 1
+      routeLockTrackCircuitIds:
+      - NT-EP
+      - NT-X1
+      - NT-M2
+      - NT-M1
+      - NT-WP
+      approachLock:
+        trackCircuitIds:
+        - NT-X2
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT-E-MAIN
+      - NT-E-LOOP
+      - NT-W-LOOP
+    - routeId: NT-W-LOOP
+      startTrackCircuitId: NT-X2
+      destinationTrackCircuitId: NT-A2
+      requiredTurnouts:
+      - connectionId: nt-switch-west
+        requiredPosition: 2
+      - connectionId: nt-switch-east
+        requiredPosition: 2
+      routeLockTrackCircuitIds:
+      - NT-EP
+      - NT-X1
+      - NT-L2
+      - NT-L1
+      - NT-WP
+      approachLock:
+        trackCircuitIds:
+        - NT-X2
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT-E-MAIN
+      - NT-E-LOOP
+      - NT-W-MAIN
+    turnoutTrackCircuitLocks:
+    - connectionId: nt-switch-west
+      trackCircuitIds:
+      - NT-WP
+    - connectionId: nt-switch-east
+      trackCircuitIds:
+      - NT-EP
