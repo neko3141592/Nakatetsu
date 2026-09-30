@@ -11,6 +11,7 @@ namespace Nakatetsu.Track.Atc
         public TrackAtcOutput Output { get; } = new();
 
         public TrackAtcState State { get; } = new();
+        public TrackAtcWorkspace Workspace { get; } = new();
     }
 
     public sealed class TrackAtcInput
@@ -40,6 +41,15 @@ namespace Nakatetsu.Track.Atc
 
     public sealed class TrackAtcState
     {
-        public HashSet<string> visitedAtcEdgeIds = new();
+        public readonly Dictionary<string, string> NextEdgeById = new();
+    }
+
+    public sealed class TrackAtcWorkspace
+    {
+        public readonly Dictionary<string, TrackAtcGraphEdge> atcEdgesById = new();
+        public readonly Dictionary<string, TrackAtcGraphNode> atcNodesById = new();
+        // キーはATC進路ID。Input.RoutesByIdの連動進路IDとは異なる。
+        public readonly Dictionary<string, TrackAtcRouteDefinition> atcRoutesById = new();
+        public readonly HashSet<string> visitedAtcEdgeIds = new();
     }
 }
