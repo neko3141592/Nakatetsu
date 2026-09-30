@@ -6,6 +6,13 @@ using UnityEngine.Scripting.APIUpdating;
 
 namespace Nakatetsu.Track.Graph.Edge
 {
+    public enum TrackEdgeTravelDirection
+    {
+        Unspecified = 0,
+        AtoB,
+        BtoA
+    }
+
     [Serializable]
     [MovedFrom(true, sourceNamespace: "Nakatetsu.Track.Graph", sourceAssembly: "Nakatetsu.Track.Graph", sourceClassName: "TrackEdgeDefinition")]
     public sealed class TrackEdgeDefinition
@@ -14,6 +21,9 @@ namespace Nakatetsu.Track.Graph.Edge
 
         public string nodeAId;
         public string nodeBId;
+
+        // 自動閉そくの通常走行方向。連動進路の通行方向は進路側で決める。
+        public TrackEdgeTravelDirection travelDirection;
 
         [FormerlySerializedAs("guideLineId")]
         [FormerlySerializedAs("trainGeometryId")]
