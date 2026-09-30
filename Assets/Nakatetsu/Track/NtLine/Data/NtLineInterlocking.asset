@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
+  m_Name: NtLineInterlocking
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackInterlockingAsset
+  definition:
+    interlockingId: NtLineStation
+    memberTrackCircuitIds:
+    - 20T
+    - 21T
+    - 1RT
+    - 2RT
+    - 22T
+    memberConnectionIds:
+    - "21"
+    - "22"
+    routes:
+    - routeId: 21T-1RT
+      startTrackCircuitId: 21T
+      destinationTrackCircuitId: 1RT
+      requiredTurnouts:
+      - connectionId: "21"
+        requiredPosition: 2
+      routeLockTrackCircuitIds:
+      - 21T
+      - 1RT
+      approachLock:
+        trackCircuitIds:
+        - 20T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 21T-2RT
+    - routeId: 21T-2RT
+      startTrackCircuitId: 21T
+      destinationTrackCircuitId: 2RT
+      requiredTurnouts:
+      - connectionId: "21"
+        requiredPosition: 1
+      routeLockTrackCircuitIds:
+      - 21T
+      - 2RT
+      approachLock:
+        trackCircuitIds:
+        - 20T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 21T-1RT
+    - routeId: 1RT-22T
+      startTrackCircuitId: 1RT
+      destinationTrackCircuitId: 22T
+      requiredTurnouts:
+      - connectionId: "22"
+        requiredPosition: 2
+      routeLockTrackCircuitIds:
+      - 22T
+      approachLock:
+        trackCircuitIds:
+        - 1RT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 2RT-22T
+    - routeId: 2RT-22T
+      startTrackCircuitId: 2RT
+      destinationTrackCircuitId: 22T
+      requiredTurnouts:
+      - connectionId: "22"
+        requiredPosition: 1
+      routeLockTrackCircuitIds:
+      - 22T
+      approachLock:
+        trackCircuitIds:
+        - 2RT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RT-22T
+    turnoutTrackCircuitLocks:
+    - connectionId: "21"
+      trackCircuitIds:
+      - 21T
+    - connectionId: "22"
+      trackCircuitIds:
+      - 22T

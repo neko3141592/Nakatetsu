@@ -2,6 +2,7 @@
     "name": "Nakatetsu.Track.Simulation",
     "rootNamespace": "Nakatetsu.Track.Simulation",
     "references": [
+        "Nakatetsu.Core",
         "Nakatetsu.Track.Graph"
     ],
     "autoReferenced": true

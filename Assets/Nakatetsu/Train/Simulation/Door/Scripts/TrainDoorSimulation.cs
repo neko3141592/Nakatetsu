@@ -1,4 +1,4 @@
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Core.Simulation;
 using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
 

@@ -1,0 +1,13 @@
+{
+    "name": "Nakatetsu.Track.Atc",
+    "rootNamespace": "Nakatetsu.Track.Atc",
+    "references": [
+        "Nakatetsu.Core",
+        "Nakatetsu.Track",
+        "Nakatetsu.Track.Shared",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Simulation",
+        "Nakatetsu.Track.Interlocking"
+    ],
+    "autoReferenced": true
+}

@@ -40,6 +40,6 @@ Graph再構築やテレポート時は `SetTrackPosition` で再計算する。
 
 ## NtLineの確認用線路
 
-`NtLineGraph.asset` は元の1000m区間 `preview-straight` を残し、緩和曲線・円曲線・緩和曲線・直線の4 Edgeを固定接続でつないでいる。全長は実距離約3001.4m。構成と接続の検証結果は [NtLine 3km試験線](NtLine3kmPreview.md) を参照。
+`NtLineGraph.asset` は転轍機21・22で直線本線と待避線を接続する、1面2線の試験線。本線経由は全長2,520mで、駅の両側に各1kmの自動閉そく区間を置く。配線と各定義は [NtLine 島式ホーム試験線](NtLineTestTrack.md) を参照。
 
-`NtLine.unity` の `TrainTrackPositionDebugInitializer` は0号車中心を `preview-straight` の200mに置き、編成前方をNode A→Bへ向ける。生成した各車の `TrainBogiePresentation` は前後台車の線路サンプルから車体位置と向きを更新する。接続にはSceneの `TrackGraph` 上にある `TrackConnectionController` を使う。
+`NtLine.unity` の `TrainTrackPositionDebugInitializer` は0号車中心を `nt-approach` の400mに置き、編成前方をNode A→Bへ向ける。生成した各車の `TrainBogiePresentation` は前後台車の線路サンプルから車体位置と向きを更新する。接続にはSceneの `Track/Graph` 上にある `TrackConnectionController` を使う。

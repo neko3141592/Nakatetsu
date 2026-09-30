@@ -1,11 +1,9 @@
+using Nakatetsu.Core.Simulation;
+
 namespace Nakatetsu.Train.Equipment.Shared
 {
-    public interface IEquipmentController
+    public interface IEquipmentController : ISimulationController
     {
         void CollectInput();
-
-        void Calculate(float deltaTimeSeconds);
-
-        void ApplyOutput(float deltaTimeSeconds);
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "Nakatetsu.Track.Debug",
     "rootNamespace": "Nakatetsu.Track.Debugging",
-    "references": ["Nakatetsu.Track.Graph", "Nakatetsu.Track.Shared", "Nakatetsu.Track.Simulation"],
+    "references": ["Nakatetsu.Track.Graph", "Nakatetsu.Track.Shared", "Nakatetsu.Track.Simulation", "Nakatetsu.Track.Interlocking"],
     "includePlatforms": []
 }

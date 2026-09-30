@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Nakatetsu.Train.Equipment.Traction.Drive;
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Core.Simulation;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Simulation.Traction.Motor

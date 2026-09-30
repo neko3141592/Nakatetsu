@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Nakatetsu.Track.Graph;
 using Nakatetsu.Track.Simulation.Connection;
 using Nakatetsu.Track.Simulation.Circuit;
-using Nakatetsu.Train.Simulation.Orchestration.Interfaces;
+using Nakatetsu.Core.Simulation;
 using UnityEngine;
 
 namespace Nakatetsu.Train.Simulation.TrackPosition

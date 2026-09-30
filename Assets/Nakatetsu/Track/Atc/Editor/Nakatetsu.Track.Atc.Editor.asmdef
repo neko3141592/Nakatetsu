@@ -1,0 +1,11 @@
+{
+    "name": "Nakatetsu.Track.Atc.Editor",
+    "rootNamespace": "Nakatetsu.Track.Atc.Editor",
+    "references": [
+        "Nakatetsu.Track.Atc",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Interlocking"
+    ],
+    "includePlatforms": ["Editor"],
+    "autoReferenced": true
+}
