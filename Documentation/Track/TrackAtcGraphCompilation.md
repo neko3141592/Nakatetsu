@@ -10,7 +10,21 @@
 | `source` | 保存して編集する`TrackAtcGraphCompileDefinition`。閉塞区分、速度制限、順序付きの進路経路 |
 | `interlockings` | 参照する`TrackInterlockingDefinition`の一覧。進路IDと転轍機の要求位置を検証する。連動進路がなければ空の一覧でよい |
 
-生成元と生成結果は別に保存する。再コンパイルの入力は常に`source`であり、生成結果への直接編集は引き継がない。現段階はコンパイラAPIまでで、Assetへの保存やInspectorボタンは呼び出し側の責務。
+生成元と生成結果は別に保存する。再コンパイルの入力は常に`source`であり、生成結果への直接編集は引き継がない。
+
+## Inspectorからコンパイルする
+
+1. `Create > Nakatetsu > Track > ATC Graph` で `TrackAtcGraphAsset` を作成する。
+2. `Track Graph` に物理線路の `TrackGraphAsset`、`Source` に `TrackAtcGraphCompileAsset` を指定する。
+3. `Interlockings` に参照する `TrackInterlockingAsset` を追加する。複数指定できるが、進路IDは全連動装置で一意にする。連動進路がなければ空の一覧でよい。
+4. 線形を変更した場合は物理線路側で `Compile Distance Maps` を実行する。
+5. `Compile ATC Graph` を押す。成功すると、このAssetの `Definition` に生成結果を保存し、Edge・Node・進路の件数を表示する。
+
+`Compiled Graph` は読み取り専用の表示。入力や生成元は書き換えない。失敗時は理由をInspectorとConsoleに表示し、前回の生成結果を保持する。成功時の置換はUndoに対応する。Play Modeではコンパイルできない。
+
+NtLine用は `Assets/Nakatetsu/Track/NtLine/Data/NtLineAtcGraph.asset` に入力3種類を割り当て済み。追加時点では未コンパイルなので、Inspectorでボタンを押して生成する。入力を変更しても自動更新はしないため、変更後は再コンパイルする。
+
+## コードから呼び出す
 
 ```csharp
 var errors = new List<string>();
@@ -25,7 +39,7 @@ if (TrackAtcGraphCompiler.TryCompile(
 
 ## 生成元の設定
 
-- `circuits`：軌道回路IDごとの閉塞区分と基本速度制限[km/h]。全回路に設定する。`Unspecified`は設定漏れとしてエラー。`NonAutomaticBlock`は非自動閉塞を意味し、連動進路の有無とは独立する。
+- `circuits`：軌道回路IDごとの制御方式と基本速度制限[km/h]。全回路に設定する。`Unspecified`は設定漏れとしてエラー。`Block`は個別の進路設定が不要な区間、`Interlocking`は連動進路に従う区間、`Yard`は構内モードで通行する区間。列挙値はそれぞれ1・2・3を維持する。
 - `speedLimits`：物理Edge IDとGeometry距離の区間で指定する追加速度制限。区間の両端は昇順・降順どちらでもよい。回路の基本速度と重複する全区間の制限から、最も低い値を採用する。0 km/hも有効な制限。
 - `routes`：ATC進路ID、連動進路ID、通過順の`path`。各区間は物理Edge IDと、入口・出口のGeometry距離を持つ。入口→出口の順序が進行方向になる。同じ回路を通る直進・分岐の進路も、この経路によって区別する。
 - `gradientSampleIntervalM`：勾配サンプル間隔。既定10 m。Edge実距離を基準に採取する。

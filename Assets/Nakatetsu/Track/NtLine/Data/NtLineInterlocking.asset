@@ -15,111 +15,77 @@ MonoBehaviour:
   definition:
     interlockingId: NtLineStation
     memberTrackCircuitIds:
-    - NT-A2
-    - NT-M1
-    - NT-M2
-    - NT-L1
-    - NT-L2
-    - NT-X1
-    - NT-X2
-    - NT-WP
-    - NT-EP
+    - 20T
+    - 21T
+    - 1RT
+    - 2RT
+    - 22T
     memberConnectionIds:
-    - nt-switch-west
-    - nt-switch-east
+    - "21"
+    - "22"
     routes:
-    - routeId: NT-E-MAIN
-      startTrackCircuitId: NT-A2
-      destinationTrackCircuitId: NT-X1
+    - routeId: 21T-1RT
+      startTrackCircuitId: 21T
+      destinationTrackCircuitId: 1RT
       requiredTurnouts:
-      - connectionId: nt-switch-west
-        requiredPosition: 1
-      - connectionId: nt-switch-east
-        requiredPosition: 1
-      routeLockTrackCircuitIds:
-      - NT-WP
-      - NT-M1
-      - NT-M2
-      - NT-EP
-      - NT-X1
-      approachLock:
-        trackCircuitIds:
-        - NT-A2
-        releaseSeconds: 60
-      conflictRouteIds:
-      - NT-E-LOOP
-      - NT-W-MAIN
-      - NT-W-LOOP
-    - routeId: NT-E-LOOP
-      startTrackCircuitId: NT-A2
-      destinationTrackCircuitId: NT-X1
-      requiredTurnouts:
-      - connectionId: nt-switch-west
-        requiredPosition: 2
-      - connectionId: nt-switch-east
+      - connectionId: "21"
         requiredPosition: 2
       routeLockTrackCircuitIds:
-      - NT-WP
-      - NT-L1
-      - NT-L2
-      - NT-EP
-      - NT-X1
+      - 21T
+      - 1RT
       approachLock:
         trackCircuitIds:
-        - NT-A2
+        - 20T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT-E-MAIN
-      - NT-W-MAIN
-      - NT-W-LOOP
-    - routeId: NT-W-MAIN
-      startTrackCircuitId: NT-X2
-      destinationTrackCircuitId: NT-A2
+      - 21T-2RT
+    - routeId: 21T-2RT
+      startTrackCircuitId: 21T
+      destinationTrackCircuitId: 2RT
       requiredTurnouts:
-      - connectionId: nt-switch-west
-        requiredPosition: 1
-      - connectionId: nt-switch-east
+      - connectionId: "21"
         requiredPosition: 1
       routeLockTrackCircuitIds:
-      - NT-EP
-      - NT-X1
-      - NT-M2
-      - NT-M1
-      - NT-WP
+      - 21T
+      - 2RT
       approachLock:
         trackCircuitIds:
-        - NT-X2
+        - 20T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT-E-MAIN
-      - NT-E-LOOP
-      - NT-W-LOOP
-    - routeId: NT-W-LOOP
-      startTrackCircuitId: NT-X2
-      destinationTrackCircuitId: NT-A2
+      - 21T-1RT
+    - routeId: 1RT-22T
+      startTrackCircuitId: 1RT
+      destinationTrackCircuitId: 22T
       requiredTurnouts:
-      - connectionId: nt-switch-west
-        requiredPosition: 2
-      - connectionId: nt-switch-east
+      - connectionId: "22"
         requiredPosition: 2
       routeLockTrackCircuitIds:
-      - NT-EP
-      - NT-X1
-      - NT-L2
-      - NT-L1
-      - NT-WP
+      - 22T
       approachLock:
         trackCircuitIds:
-        - NT-X2
+        - 1RT
         releaseSeconds: 60
       conflictRouteIds:
-      - NT-E-MAIN
-      - NT-E-LOOP
-      - NT-W-MAIN
+      - 2RT-22T
+    - routeId: 2RT-22T
+      startTrackCircuitId: 2RT
+      destinationTrackCircuitId: 22T
+      requiredTurnouts:
+      - connectionId: "22"
+        requiredPosition: 1
+      routeLockTrackCircuitIds:
+      - 22T
+      approachLock:
+        trackCircuitIds:
+        - 2RT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RT-22T
     turnoutTrackCircuitLocks:
-    - connectionId: nt-switch-west
+    - connectionId: "21"
       trackCircuitIds:
-      - NT-WP
-    - connectionId: nt-switch-east
+      - 21T
+    - connectionId: "22"
       trackCircuitIds:
-      - NT-EP
+      - 22T

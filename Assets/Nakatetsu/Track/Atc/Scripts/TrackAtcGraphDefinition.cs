@@ -10,19 +10,19 @@ namespace Nakatetsu.Track.Atc
         BtoA
     }
 
-    // 閉塞区分
+    // ATC区間の制御方式
     public enum TrackAtcEdgeControlKind
     {
         Unspecified = 0,
 
-        // 自動閉塞
-        AutomaticBlock,
+        // 個別の進路設定が不要な区間
+        Block = 1,
 
-        // 非自動閉塞
-        NonAutomaticBlock,
+        // 連動進路に従って通行する区間
+        Interlocking = 2,
 
-        // 構内
-        YardOperation
+        // 構内モードで通行する区間
+        Yard = 3
     }
 
 
