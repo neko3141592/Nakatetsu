@@ -69,5 +69,11 @@ namespace Nakatetsu.Track.Simulation.Circuit
         public void ApplyOutput(float deltaTimeSeconds) { }
 
         public bool IsOccupied(string circuitId) => context.State.IsOccupied(circuitId);
+
+        public void SetAtcTelegrams(IReadOnlyDictionary<string, TrackCircuitAtcTelegram> telegrams) =>
+            context.State.SetAtcTelegrams(telegrams);
+
+        public bool TryGetAtcTelegram(string circuitId, out TrackCircuitAtcTelegram telegram) =>
+            context.State.TryGetAtcTelegram(circuitId, out telegram);
     }
 }

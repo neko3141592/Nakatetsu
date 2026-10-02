@@ -18,14 +18,14 @@
 
 主な参照先：
 
-- [TrackGeometryCalculator.cs](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryCalculator.cs)：区間選択・座標変換・勾配との合成。
-- 水平線形の式：[直線](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryStraightSegment.cs)、[円曲線](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryCircularSegment.cs)、[緩和曲線の入口](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryTransitionInSegment.cs)、[緩和曲線の出口](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryTransitionOutSegment.cs)の`EvaluatePosition()`。
-- [TrackGeometryHorizontalSegment.cs](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryHorizontalSegment.cs)：水平Segmentの共通契約。
-- [TrackGeometryVerticalSegment.cs](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryVerticalSegment.cs)：縦断Segmentの共通契約。
-- 勾配・高さの式：[一定勾配](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryConstantGradientSegment.cs)、[線形勾配](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryLinearGradientSegment.cs)。
-- [TrackGeometryProfileCalculator.cs](../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryProfileCalculator.cs)：縦断区間選択・高さ積算・区間外の勾配延長。
-- [TrackEdgeOffsetSegment.cs](../../Assets/Nakatetsu/Track/Graph/Edge/Scripts/TrackEdgeOffsetSegment.cs)：オフセットの共通契約。
-- [線路上の位置・方向・移動結果の契約](../Architecture/TrackMovement.md)：列車位置と移動距離の符号。
+- [TrackGeometryCalculator.cs](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryCalculator.cs)：区間選択・座標変換・勾配との合成。
+- 水平線形の式：[直線](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryStraightSegment.cs)、[円曲線](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryCircularSegment.cs)、[緩和曲線の入口](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryTransitionInSegment.cs)、[緩和曲線の出口](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryTransitionOutSegment.cs)の`EvaluatePosition()`。
+- [TrackGeometryHorizontalSegment.cs](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryHorizontalSegment.cs)：水平Segmentの共通契約。
+- [TrackGeometryVerticalSegment.cs](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryVerticalSegment.cs)：縦断Segmentの共通契約。
+- 勾配・高さの式：[一定勾配](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryConstantGradientSegment.cs)、[線形勾配](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryLinearGradientSegment.cs)。
+- [TrackGeometryProfileCalculator.cs](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryProfileCalculator.cs)：縦断区間選択・高さ積算・区間外の勾配延長。
+- [TrackEdgeOffsetSegment.cs](../../../Assets/Nakatetsu/Track/Graph/Edge/Scripts/TrackEdgeOffsetSegment.cs)：オフセットの共通契約。
+- [線路上の位置・方向・移動結果の契約](../../Architecture/TrackMovement.md)：列車位置と移動距離の符号。
 
 ## 2. 記号と座標
 

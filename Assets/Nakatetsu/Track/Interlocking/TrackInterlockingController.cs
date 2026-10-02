@@ -20,15 +20,11 @@ namespace Nakatetsu.Track.Interlocking
         public IEnumerable<InterlockingRoute> Routes => context.RoutesById.Values;
 
         public bool TryGetRouteState(string routeId, out TrackInterlockingRouteState state) =>
-            context.RouteStatesById.TryGetValue(routeId, out state);
+            TrackInterlockingLogic.TryGetRouteState(context, routeId, out state);
 
         public bool TryGetCircuitPassage(string routeId, string circuitId,
-            out TrackInterlockingCircuitPassageState passage)
-        {
-            passage = default;
-            return context.RouteStatesById.TryGetValue(routeId, out var state) &&
-                state.CircuitPassageById.TryGetValue(circuitId, out passage);
-        }
+            out TrackInterlockingCircuitPassageState passage) =>
+            TrackInterlockingLogic.TryGetCircuitPassage(context, routeId, circuitId, out passage);
 
         private void Awake()
         {

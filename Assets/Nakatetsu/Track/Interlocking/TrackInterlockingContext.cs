@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nakatetsu.Track.Simulation.Circuit;
 
 namespace Nakatetsu.Track.Interlocking
 {
@@ -7,13 +8,6 @@ namespace Nakatetsu.Track.Interlocking
         NotEntered,
         Occupied,
         Passed
-    }
-
-    public enum OverrunProtectionMode
-    {
-        None,
-        Normal,
-        Restricted
     }
 
     public enum OverrunProtectionPhase

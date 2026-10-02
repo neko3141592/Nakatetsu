@@ -72,7 +72,7 @@ Sceneの `Track/Graph/IslandPlatform_240m` が簡易ホーム。Geometry距離1,
 - 試験用の基本速度は80km/h、待避線の分岐・合流円弧区間は25km/h。制限は生成元のGeometry距離区間で保存する。
 - 勾配サンプル間隔は10m。全区間0‰。
 
-`NtLineAtcGraph.asset` にGraph、ATC入力、Interlockingの参照を割り当て済み。Inspectorの `Compile ATC Graph` で生成結果を同じAssetへ保存できる。追加時点では未コンパイル。操作方法は [ATC Graphのコンパイル](TrackAtcGraphCompilation.md) を参照。ATCの実行時制御への接続は別途必要。
+`NtLineAtcGraph.asset` にGraph、ATC入力、Interlockingの参照を割り当て済み。Inspectorの `Compile ATC Graph` で生成結果を同じAssetへ保存できる。追加時点では未コンパイル。操作方法は [ATC Graphのコンパイル](../Atc/TrackAtcGraphCompilation.md) を参照。ATCの実行時制御への接続は別途必要。
 
 ## Sceneと確認範囲
 
