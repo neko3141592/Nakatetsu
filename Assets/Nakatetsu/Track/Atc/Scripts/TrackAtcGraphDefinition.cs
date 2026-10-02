@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Nakatetsu.Track.Simulation.Circuit;
 
 namespace Nakatetsu.Track.Atc
 {
-    public enum TrackAtcTravelDirection
-    {
-        Unspecified = 0,
-        AtoB,
-        BtoA
-    }
-
     // ATC区間の制御方式
     public enum TrackAtcEdgeControlKind
     {

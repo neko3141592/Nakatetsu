@@ -15,6 +15,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         private TrackInterlockingController interlocking;
         private TrackConnectionController connectionController;
         private TrackAtcController atc;
+        private TrackAtcGraphAsset atcGraphAsset;
         private TrackCircuitSimulationState circuits;
         private TrackConnectionContext connections;
         private TrackInterlockingDefinition definition;
@@ -107,6 +108,10 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void TearDown()
         {
             UnityEngine.Object.DestroyImmediate(gameObject);
+            if (atcGraphAsset != null)
+            {
+                UnityEngine.Object.DestroyImmediate(atcGraphAsset);
+            }
         }
 
         [Test]
@@ -465,33 +470,48 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 atcEdgeId = "First", atcNodeAId = "B", atcNodeBId = "C", trackCircuitId = "Entry",
                 controlKind = TrackAtcEdgeControlKind.Interlocking
             };
-            var second = new TrackAtcGraphEdge { atcEdgeId = "Second", atcNodeAId = "C", atcNodeBId = "D" };
-            context.Workspace.atcEdgesById.Add(first.atcEdgeId, first);
-            context.Workspace.atcEdgesById.Add(second.atcEdgeId, second);
-            context.Workspace.atcNodesById.Add("B", new TrackAtcGraphNode
+            var second = new TrackAtcGraphEdge
             {
-                atcNodeId = "B", connectedAtcEdgeIds = new List<string> { "Before", "First" }
-            });
-            context.Workspace.atcRoutesById.Add("AtcRoute", new TrackAtcRouteDefinition
+                atcEdgeId = "Second", atcNodeAId = "C", atcNodeBId = "D", trackCircuitId = "Arrival",
+                controlKind = TrackAtcEdgeControlKind.Interlocking
+            };
+            var graph = new TrackAtcGraphDefinition
+            {
+                atcEdge = new List<TrackAtcGraphEdge> { before, first, second },
+                atcNode = new List<TrackAtcGraphNode>
+                {
+                    new() { atcNodeId = "A", connectedAtcEdgeIds = new List<string> { "Before" } },
+                    new() { atcNodeId = "B", connectedAtcEdgeIds = new List<string> { "Before", "First" } },
+                    new() { atcNodeId = "C", connectedAtcEdgeIds = new List<string> { "First", "Second" } },
+                    new() { atcNodeId = "D", connectedAtcEdgeIds = new List<string> { "Second" } }
+                }
+            };
+            graph.routes.Add(new TrackAtcRouteDefinition
             {
                 atcRouteId = "AtcRoute", interlockingRouteId = route.routeId,
                 atcEdgeIds = new List<string> { "First", "Second" }
             });
+            atcGraphAsset = ScriptableObject.CreateInstance<TrackAtcGraphAsset>();
+            atcGraphAsset.SetCompiledDefinition(graph);
+            SetField(atc, "atcGraphAsset", atcGraphAsset);
             atc.Calculate(0f);
             // 入力が不整合でも、予約だけを開通とみなさない。
             context.Input.RoutesById[route.routeId].ProceedAllowed = true;
-            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out var next), Is.True);
+            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out var next, out var nextRoute), Is.True);
             Assert.That(next, Is.Null);
+            Assert.That(nextRoute, Is.Null);
             Tick();
             atc.Calculate(0f);
-            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out next), Is.True);
+            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out next, out nextRoute), Is.True);
             Assert.That(next, Is.SameAs(first));
+            Assert.That(nextRoute, Is.SameAs(context.Workspace.atcRoutesById["AtcRoute"]));
             SetOccupied("Entry", true);
             Tick();
             atc.Calculate(0f);
             Assert.That(context.Input.RoutesById[route.routeId].PathEstablished, Is.True);
-            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out next), Is.True);
+            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out next, out nextRoute), Is.True);
             Assert.That(next, Is.Null);
+            Assert.That(nextRoute, Is.Null);
         }
 
         private void Initialize()

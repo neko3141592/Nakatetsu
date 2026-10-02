@@ -7,6 +7,18 @@ namespace Nakatetsu.Track.Interlocking
 {
     public static class TrackInterlockingLogic
     {
+        public static bool TryGetRouteState(TrackInterlockingContext context,
+            string routeId, out TrackInterlockingRouteState state) =>
+            context.RouteStatesById.TryGetValue(routeId, out state);
+
+        public static bool TryGetCircuitPassage(TrackInterlockingContext context,
+            string routeId, string circuitId, out TrackInterlockingCircuitPassageState passage)
+        {
+            passage = default;
+            return TryGetRouteState(context, routeId, out var state) &&
+                state.CircuitPassageById.TryGetValue(circuitId, out passage);
+        }
+
         public static bool TryInitialize(TrackInterlockingContext context,
             TrackInterlockingDefinition definition, out string error)
         {
@@ -605,11 +617,13 @@ namespace Nakatetsu.Track.Interlocking
                 return false;
             }
 
-            // Restrictedの追加制御と要求側の許可を確認できるまでは、Normal不可なら予約しない。
+            // 通常用追加設備を確保できなければ、共通防護を使うRestrictedにする。
             if (!TryCheckOverrunResources(context, circuits, route, normalCircuitIds, normalPositions, out error))
             {
-                error += " Restricted overrun protection is unavailable because its additional control and request authorization are not implemented.";
-                return false;
+                overrunProtectionMode = OverrunProtectionMode.Restricted;
+                error = null;
+                return true;
+
             }
 
             overrunProtectionMode = OverrunProtectionMode.Normal;
@@ -1179,11 +1193,7 @@ namespace Nakatetsu.Track.Interlocking
         )
         {
             state.ProceedAllowed = false;
-            // TODO: Restrictedの追加ATC制御が適用済みか照査する。未接続の間は進行許可を出さない。
-            if (state.overrunProtectionMode == OverrunProtectionMode.Restricted)
-            {
-                return;
-            }
+
 
             if (!state.PathEstablished || !CanSetRouteTurnouts(route, circuits, state) ||
                 connections == null || route.requiredTurnouts == null)

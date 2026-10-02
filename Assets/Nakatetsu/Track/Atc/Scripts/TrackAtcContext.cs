@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Nakatetsu.Track.Interlocking;
+using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 
 namespace Nakatetsu.Track.Atc
@@ -17,6 +18,9 @@ namespace Nakatetsu.Track.Atc
 
     public sealed class TrackAtcInput
     {
+        // 車上と同じシミュレーション時刻。未取得のまま有効な電文を作らない。
+        public double simulationTimeSeconds = double.NaN;
+
         public readonly Dictionary<string, bool> OccupiedByCircuitId = new();
 
         // 設定中の進路のみ。キーはATC GraphのinterlockingRouteIdに対応する。
@@ -39,8 +43,8 @@ namespace Nakatetsu.Track.Atc
 
     public sealed class TrackAtcOutput
     {
-        // キーは現在Edge ID、値は次Edge ID。nullは継続なし、未登録は未計算。
-        public readonly Dictionary<string, string> NextEdgeById = new();
+        // 軌道回路ID -> telegram。更新開始時にクリアし、同じ更新内の結果を集約する。
+        public Dictionary<string, TrackCircuitAtcTelegram> telegrams = new();
     }
 
     public sealed class TrackAtcState

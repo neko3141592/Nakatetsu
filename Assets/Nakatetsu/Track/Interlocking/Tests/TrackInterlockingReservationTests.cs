@@ -98,7 +98,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             existingRoute.overrunProtection = CreateProtection("Common", "Additional");
             requestedRoute.routeLockTrackCircuitIds = new List<string> { requestAdditional ? "Additional" : "Common" };
             InitializeAndReserveExisting();
-            // 既存のRestricted状態に対する照査。新規Restricted受付は追加制御の実装まで禁止。
+            // Restrictedでは共通防護だけを保持する。
             RouteStates["Existing"].overrunProtectionMode = OverrunProtectionMode.Restricted;
 
             if (requestAdditional)
@@ -139,28 +139,29 @@ namespace Nakatetsu.Track.Interlocking.Tests
 
         [TestCase(false)]
         [TestCase(true)]
-        public void UnavailableNormalProtectionDoesNotFallBackOrLeavePartialReservation(bool occupied)
+        public void UnavailableNormalProtectionFallsBackToRestricted(bool occupied)
         {
             string additionalCircuit = occupied ? "Additional" : "UnknownCircuit";
             requestedRoute.overrunProtection = CreateProtection("Common", additionalCircuit);
             InitializeAndReserveExisting();
             if (occupied) SetOccupied(additionalCircuit, true);
 
-            string error = AssertRequestedRouteRejected();
-            Assert.That(error, Does.Contain(additionalCircuit).And.Contain("Restricted"));
-
-            SetOccupied(additionalCircuit, false);
             AssertRequestedRouteAccepted();
-            Assert.That(RouteStates["Requested"].overrunProtectionMode, Is.EqualTo(OverrunProtectionMode.Normal));
+            Assert.That(RouteStates["Requested"].overrunProtectionMode, Is.EqualTo(OverrunProtectionMode.Restricted));
+
+            // 追加設備が空いても、予約中の方式は自動昇格しない。
+            SetOccupied(additionalCircuit, false);
+            Assert.That(RouteStates["Requested"].overrunProtectionMode, Is.EqualTo(OverrunProtectionMode.Restricted));
         }
 
         [Test]
-        public void ReservedNormalAdditionalCircuitDoesNotFallBackToRestricted()
+        public void ReservedNormalAdditionalCircuitFallsBackToRestricted()
         {
             requestedRoute.overrunProtection = CreateProtection("Common", "ExistingMain");
             InitializeAndReserveExisting();
 
-            Assert.That(AssertRequestedRouteRejected(), Does.Contain("ExistingMain").And.Contain("Restricted"));
+            AssertRequestedRouteAccepted();
+            Assert.That(RouteStates["Requested"].overrunProtectionMode, Is.EqualTo(OverrunProtectionMode.Restricted));
         }
 
         [TestCase(false, false, false)]

@@ -4,6 +4,7 @@ using System.Globalization;
 using Nakatetsu.Track.Graph;
 using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Interlocking;
+using Nakatetsu.Track.Simulation.Circuit;
 
 namespace Nakatetsu.Track.Atc
 {

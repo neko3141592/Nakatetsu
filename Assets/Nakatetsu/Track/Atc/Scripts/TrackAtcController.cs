@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Nakatetsu.Core.Simulation;
+using Nakatetsu.Core.Time;
 using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
@@ -13,23 +14,28 @@ namespace Nakatetsu.Track.Atc
         [SerializeField] private TrackAtcGraphAsset atcGraphAsset;
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackConnectionController trackConnectionController;
+        [SerializeField] private MonoBehaviour worldTimeSource;
         [SerializeField] private List<TrackInterlockingController> interlockings = new();
 
         private readonly TrackAtcContext context = new();
 
         public TrackAtcContext Context => context;
 
+        public void SetWorldTimeSource(MonoBehaviour source) => worldTimeSource = source;
+
         public void Calculate(float deltaTimeSeconds)
         {
             context.Graph = atcGraphAsset != null ? atcGraphAsset.Definition : null;
             CollectInput();
-            context.Output.NextEdgeById.Clear();
             TrackAtcLogic.Calculate(context, deltaTimeSeconds);
         }
 
         private void CollectInput()
         {
             TrackAtcInput input = context.Input;
+            input.simulationTimeSeconds = worldTimeSource != null && worldTimeSource is IWorldTimeSource clock
+                ? clock.WorldTimeSeconds
+                : double.NaN;
             input.OccupiedByCircuitId.Clear();
             input.RoutesById.Clear();
             input.TurnoutsById.Clear();
@@ -75,6 +81,20 @@ namespace Nakatetsu.Track.Atc
             }
         }
 
-        public void ApplyOutput(float deltaTimeSeconds) { }
+        public void ApplyOutput(float deltaTimeSeconds)
+        {
+            if (trackCircuitSimulation != null)
+            {
+                trackCircuitSimulation.SetAtcTelegrams(context.Output.telegrams);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (trackCircuitSimulation != null)
+            {
+                trackCircuitSimulation.SetAtcTelegrams(null);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nakatetsu.Core.Simulation;
 using Nakatetsu.Core.Time;
+using Nakatetsu.Track.Atc;
 using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Train.Simulation.Orchestration;
@@ -12,6 +13,7 @@ namespace Nakatetsu.Application.Simulation
     {
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
+        [SerializeField] private TrackAtcController trackAtc;
         [SerializeField] private TrackInterlockingController[] interlockings = new TrackInterlockingController[0];
         [SerializeField] private float tickDurationSeconds;
         [SerializeField] private bool isPaused;
@@ -68,6 +70,10 @@ namespace Nakatetsu.Application.Simulation
                 train.SetAutoRefresh(false);
 
             fixedTickSeconds = tickDurationSeconds;
+            if (trackAtc != null)
+            {
+                trackAtc.SetWorldTimeSource(this);
+            }
 
             // 開始時間を設定
             startTimeSeconds = startHour * 3600d + startMinute * 60d;
@@ -137,6 +143,10 @@ namespace Nakatetsu.Application.Simulation
 
             foreach (TrackInterlockingController interlocking in interlockings)
                 AdvanceSimulation(interlocking);
+
+            // 占有と連動の更新後に電文を作り、次tickの車上制御へ渡す。
+            if (trackAtc != null && trackAtc.isActiveAndEnabled)
+                AdvanceSimulation(trackAtc);
 
             CompletedTickCount++;
         }

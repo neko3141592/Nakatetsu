@@ -175,6 +175,12 @@ Documentation/
 ├── Architecture/                # 構成・依存関係・命名規則
 ├── Migration/                   # 移植計画・進捗・移植元コミット
 ├── Track/                       # 線路システムの設計
+│   ├── Interlocking/            # 連動装置・過走防護
+│   ├── Atc/                     # 地上ATC・ATC Graphのコンパイル
+│   ├── Graph/                   # 線形計算・Edge距離表
+│   ├── Simulation/              # 接続状態・列車の線路位置
+│   ├── Debug/                   # 線路・軌道回路のデバッグ表示
+│   └── NtLine/                  # NT線の仕様・試験線
 ├── Train/
 │   └── Tims/                    # 車両・TIMSの設計
 ├── World/                       # 景観・カメラなどの設計

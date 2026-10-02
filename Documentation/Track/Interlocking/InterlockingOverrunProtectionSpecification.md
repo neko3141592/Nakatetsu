@@ -9,7 +9,7 @@
 - 到着後の時間鎖錠、本進路と防護の独立解錠、取消時の保持、過走・回路状態不明時の自動解錠停止。
 - 到着トリガ回路は、現在の実装では `routeLockTrackCircuitIds` に含まれる回路に限定する。
 
-Restrictedの追加制御と要求側の許可は未実装のため、Normalを確保できなければ予約を拒否する。後続進路との共同保持、PRC連携、ATCの進路内探索本体、異常時の手動復旧は今後の実装となる。
+通常用追加設備を確保できない場合はRestrictedを選択し、共通防護と本進路の成立条件に従って進行許可を出す。地上ATCは進路内・後続進路を探索し、終端進路の防護方式を軌道回路の電文へ渡す。Restrictedの車上低速制御、後続進路との共同保持、PRC連携、異常時の手動復旧は今後の実装となる。
 
 自動昇格は初期実装の完成条件から外す。予約時に選択した防護方式は、その予約が終了するまで固定する。第15・18節等の自動昇格に関する記述は将来拡張案として扱う。
 
@@ -49,7 +49,7 @@ Restrictedの追加制御と要求側の許可は未実装のため、Normalを�
 - `TrackInterlockingController.cs`
 - `Assets/Nakatetsu/Track/Atc/Scripts/TrackAtcContext.cs`
 - `TrackAtcController.cs`
-- `Documentation/Track/TrackAtcGroundSpecification.md`
+- `Documentation/Track/Atc/TrackAtcGroundSpecification.md`
   - blob `e0484a80f7a18fc4109e58d3507e8feec00ac9ef`
 - `Assets/Nakatetsu/Track/NtLine/Data/NtLineInterlocking.asset`
   - blob `7ab756792003097a1f003cc7e632615e14d5315a`
@@ -321,13 +321,28 @@ public sealed class OverrunProtectionDefinition
 進路側に追加する。
 
 ```csharp
-// nullなら過走防護を要求しない。
+// nullなら過走防護なし（None）。車上ATCで100m手前補正を適用する。
 public OverrunProtectionDefinition overrunProtection;
 ```
 
 防護方式の配列、ID、priority、定義ごとのprotectionClassは設けない。
 実行状態の `OverrunMode` に、選択した方式を記録する。
-過走防護定義がない場合は `None` とし、空の設備リストだけで防護不要とは判断しない。
+過走防護定義がない場合は `None` とする。定義が存在して設備リストが空の場合とは区別する。
+
+### 定義なし・空の定義とATC制御（確定）
+
+本シミュレータでは、終端進路に対して次の扱いを採用する。
+
+| 定義・選択方式 | 意味 | 車上ATCの扱い |
+| --- | --- | --- |
+| `overrunProtection == null` → `None` | 過走防護なし | 停止限界の100m手前を停止目標にする |
+| 定義あり・共通／通常用追加の設備リストがすべて空 → `Normal` | 追加で確保する設備がなくても通常扱いでよいという明示的な設定 | None用の100m手前補正を適用しない |
+| 必要設備を確保して `Normal` | 通常の過走防護 | None用の100m手前補正を適用しない |
+| 共通設備を確保して `Restricted` | 追加の進入制御を伴う過走防護 | 接近時の低速制限を適用する |
+
+空の定義でも本進路などの成立条件は引き続き照査する。`common`・`normalAdditional`・設備リスト自体が `null` の場合は、空のリストとは異なる定義不備として拒否する。
+
+100mは車上側で適用する停止目標の手前補正量とし、地上が送る停止限界そのものは変更しない。ブレーキ開始位置を100m手前に固定する意味ではない。ATCへの受け渡しと停止目標の詳細は[地上側ATC 基本仕様](../Atc/TrackAtcGroundSpecification.md#4-地上車上の責務)に従う。
 
 `TurnoutRequirement` は既存の型を共用する。本進路・共通防護・通常用追加分で保持理由と解錠条件を区別する。
 共通と追加分に同じ設備を重複記載しない。本進路を含め、同じ転てつ器に矛盾する位置を要求する定義は拒否する。
@@ -361,11 +376,11 @@ Restricted ：本進路 ＋ 22T ＋ 追加の進入制御
    - `common` を確保できる。
    - `restrictedControlRequirement` に追加制御が定義されている。
    - その制御を車上などで実際に強制できる。
-   - 要求側が `AllowRestricted` を指定している。
 5. どちらも成立しなければ拒否する。
 
 評価途中では設備を予約しない。`common` が確保できなければ、どちらの方式も成立しない。
 優先順位はNormal→Restrictedで固定し、priorityによる候補選択は行わない。
+要求側は防護方式を指定せず、連動装置が設備と追加制御の成立条件から選択する。
 
 ---
 
@@ -385,7 +400,6 @@ TryRequestRoute(
 ```csharp
 TryRequestRoute(
     string routeId,
-    RouteRequestOptions options,
     out RouteRequestResult result
 )
 ```
@@ -394,22 +408,9 @@ TryRequestRoute(
 
 ---
 
-## 8.1 `RouteRequestOptions`
+## 8.1 要求側の責務
 
-```csharp
-public enum RouteRestrictionPolicy
-{
-    NormalOnly,
-    AllowRestricted
-}
-
-public readonly struct RouteRequestOptions
-{
-    public RouteRestrictionPolicy RestrictionPolicy { get; init; }
-}
-```
-
-PRCが指定するのはここまで。
+PRCは設定したい進路の `routeId` を指定する。
 
 PRCは、
 
@@ -1211,7 +1212,6 @@ RouteLocked
 - 列車追跡情報・ダイヤから進路要求時機を決定
 - 進入順序・出発順序を決定
 - 番線使用順序を管理
-- Normalのみで要求するか、Restrictedも許容するか決定
 - 拒否された進路を待機・再要求
 - 運転整理
 
@@ -1413,21 +1413,21 @@ Normal防護空き
 Main = OK
 Normal = Resource Conflict
 Restricted = OK
-AllowRestricted = true
 
 → Restricted成立
 ```
 
 ---
 
-## 26.3 Restricted禁止
+## 26.3 Restrictedの追加制御不可
 
 ```text
 Normal = NG
-Restricted = OK
-NormalOnly
+common = OK
+追加制御 = 未定義または強制不可
 
-→ Reject
+→ Reject:
+RestrictedControlUnavailable
 ```
 
 ---
@@ -1759,7 +1759,6 @@ Interlockingから上記状態を収集する。
 
 ### Phase 6: PRC連携
 
-- `RouteRequestOptions`
 - `RouteRequestResult`
 - `EvaluateRouteRequest`
 - Pending/Waiting
