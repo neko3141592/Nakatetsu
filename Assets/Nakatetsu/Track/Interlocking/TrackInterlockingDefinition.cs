@@ -19,6 +19,42 @@ namespace Nakatetsu.Track.Interlocking
         [Min(0f)] public float releaseSeconds = 60f;
     }
 
+
+    [Serializable]
+    public sealed class OverrunProtectionResources
+    {
+        public List<string> clearTrackCircuitIds = new();
+        public List<TurnoutRequirement> requiredTurnouts = new();
+    }
+
+    public enum OverrunReleaseMode
+    {
+        WithRouteRelease,
+        TimedAfterArrival
+    }
+
+    [Serializable]
+    public sealed class OverrunReleaseDefinition
+    {
+        public OverrunReleaseMode mode;
+        public string triggerTrackCircuitId;
+        [Min(0f)] public float releaseSeconds;
+    }
+
+    [Serializable]
+    public sealed class OverrunProtectionDefinition
+    {
+        // Normal・Restricted共通の防護設備
+        public OverrunProtectionResources common = new();
+
+        // Normalで追加確保する防護設備
+        public OverrunProtectionResources normalAdditional = new();
+
+        public OverrunReleaseDefinition release = new();
+    }
+
+
+
     [Serializable]
     public sealed class InterlockingRoute
     {
@@ -39,6 +75,9 @@ namespace Nakatetsu.Track.Interlocking
 
         // 競合進路
         public List<string> conflictRouteIds = new();
+
+        // nullなら過走防護なし。SerializeReferenceでnullを保持する。
+        [SerializeReference] public OverrunProtectionDefinition overrunProtection;
     }
 
     [Serializable]

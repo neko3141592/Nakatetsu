@@ -1,0 +1,16 @@
+{
+    "name": "Nakatetsu.Track.Interlocking.Tests.EditMode",
+    "rootNamespace": "Nakatetsu.Track.Interlocking.Tests",
+    "references": [
+        "Nakatetsu.Track.Interlocking",
+        "Nakatetsu.Track.Simulation",
+        "Nakatetsu.Track.Atc"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "autoReferenced": false
+}

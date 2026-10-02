@@ -53,6 +53,8 @@ namespace Nakatetsu.Track.Atc
                     var routeInput = new TrackAtcRouteInput
                     {
                         ProceedAllowed = state.ProceedAllowed,
+                        PathEstablished = state.PathEstablished,
+                        OverrunMode = state.overrunProtectionMode,
                         CancelPending = state.CancelPending,
                         RouteLocked = state.RouteLocked
                     };
