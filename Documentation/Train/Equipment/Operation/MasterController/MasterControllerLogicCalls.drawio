@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="MasterControllerLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="1289" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="MasterControllerLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Equipment/Operation/MasterController/Scripts/MasterControllerLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="ConfigureLimits" value="&lt;b style=&quot;font-size:15px&quot;&gt;Configure&lt;wbr&gt;Limits&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;力行・制動段数の上限を設定&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L7–22&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="ConfigureLimits" sourceLine="7">
+<mxGeometry x="40" y="218" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="Initialize" value="&lt;b style=&quot;font-size:15px&quot;&gt;Initialize&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;初期状態を設定して範囲を補正&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L24–35&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Initialize" sourceLine="24">
+<mxGeometry x="40" y="362" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="SetPowerPosition" value="&lt;b style=&quot;font-size:15px&quot;&gt;Set&lt;wbr&gt;Power&lt;wbr&gt;Position&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;力行段を設定し、正なら制動をゼロ&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L37–45&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="SetPowerPosition" sourceLine="37">
+<mxGeometry x="940" y="1046" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="SetBrakePosition" value="&lt;b style=&quot;font-size:15px&quot;&gt;Set&lt;wbr&gt;Brake&lt;wbr&gt;Position&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;制動段を設定し、正なら力行をゼロ&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L47–55&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="SetBrakePosition" sourceLine="47">
+<mxGeometry x="940" y="534" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="SetServiceBrakePosition" value="&lt;b style=&quot;font-size:15px&quot;&gt;Set&lt;wbr&gt;Service&lt;wbr&gt;Brake&lt;wbr&gt;Position&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用上限内で制動段を設定&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L57–61&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="SetServiceBrakePosition" sourceLine="57">
+<mxGeometry x="490" y="410" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="SetEmergencyBrake" value="&lt;b style=&quot;font-size:15px&quot;&gt;Set&lt;wbr&gt;Emergency&lt;wbr&gt;Brake&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;非常ブレーキ位置を設定&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L63–67&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="SetEmergencyBrake" sourceLine="63">
+<mxGeometry x="490" y="554" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="SetNeutral" value="&lt;b style=&quot;font-size:15px&quot;&gt;Set&lt;wbr&gt;Neutral&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;力行・制動位置をゼロにする&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L69–74&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="SetNeutral" sourceLine="69">
+<mxGeometry x="940" y="718" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="TrySetReverserPosition" value="&lt;b style=&quot;font-size:15px&quot;&gt;Try&lt;wbr&gt;Set&lt;wbr&gt;Reverser&lt;wbr&gt;Position&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;許可条件を照査して逆転器位置を変更&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L76–92&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="TrySetReverserPosition" sourceLine="76">
+<mxGeometry x="940" y="862" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="MoveOneStepTowardBrake" value="&lt;b style=&quot;font-size:15px&quot;&gt;Move&lt;wbr&gt;One&lt;wbr&gt;Step&lt;wbr&gt;Toward&lt;wbr&gt;Brake&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;力行を戻す、または制動を1段増やす&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L94–104&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="MoveOneStepTowardBrake" sourceLine="94">
+<mxGeometry x="490" y="698" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="MoveOneStepTowardPower" value="&lt;b style=&quot;font-size:15px&quot;&gt;Move&lt;wbr&gt;One&lt;wbr&gt;Step&lt;wbr&gt;Toward&lt;wbr&gt;Power&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;制動を戻す、または力行を1段増やす&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L106–116&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="MoveOneStepTowardPower" sourceLine="106">
+<mxGeometry x="490" y="842" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="StepTowardNeutral" value="&lt;b style=&quot;font-size:15px&quot;&gt;Step&lt;wbr&gt;Toward&lt;wbr&gt;Neutral&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;現在の制動または力行を1段戻す&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L118–129&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="StepTowardNeutral" sourceLine="118">
+<mxGeometry x="490" y="986" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="StepTowardServiceMaxBrake" value="&lt;b style=&quot;font-size:15px&quot;&gt;Step&lt;wbr&gt;Toward&lt;wbr&gt;Service&lt;wbr&gt;Max&lt;wbr&gt;Brake&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;力行を戻し、常用最大まで制動を増やす&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L131–144&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="StepTowardServiceMaxBrake" sourceLine="131">
+<mxGeometry x="40" y="1078" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="Normalize" value="&lt;b style=&quot;font-size:15px&quot;&gt;Normalize&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;設定・状態の範囲と排他を補正&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L146–168&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Normalize" sourceLine="146">
+<mxGeometry x="940" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="Clamp" value="&lt;b style=&quot;font-size:15px&quot;&gt;Clamp&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;値を指定範囲へ制限&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L170–173&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="Clamp" sourceLine="170">
+<mxGeometry x="1390" y="448" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="ThrowIfNull" value="&lt;b style=&quot;font-size:15px&quot;&gt;Throw&lt;wbr&gt;If&lt;wbr&gt;Null&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Context欠損を例外として検出&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L175–181&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="ThrowIfNull" sourceLine="175">
+<mxGeometry x="1390" y="626" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="call-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="ConfigureLimits" target="Normalize" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="246.5"/>
+<mxPoint x="430" y="250"/>
+<mxPoint x="880" y="250"/>
+<mxPoint x="928" y="218.5"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="ConfigureLimits" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="293.5"/>
+<mxPoint x="430" y="290"/>
+<mxPoint x="880" y="290"/>
+<mxPoint x="880" y="334"/>
+<mxPoint x="1330" y="334"/>
+<mxPoint x="1376" y="641.8461538461538"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Initialize" target="Normalize" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="390.5"/>
+<mxPoint x="430" y="330"/>
+<mxPoint x="880" y="330"/>
+<mxPoint x="928" y="265.5"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Initialize" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="437.5"/>
+<mxPoint x="430" y="370"/>
+<mxPoint x="880" y="370"/>
+<mxPoint x="880" y="374"/>
+<mxPoint x="1330" y="374"/>
+<mxPoint x="1374" y="649.0769230769231"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="MoveOneStepTowardBrake" target="SetBrakePosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="718.6666666666666"/>
+<mxPoint x="924" y="586"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="MoveOneStepTowardBrake" target="SetPowerPosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="781.3333333333334"/>
+<mxPoint x="928" y="1062.75"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="MoveOneStepTowardBrake" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="834" y="750"/>
+<mxPoint x="880" y="678"/>
+<mxPoint x="1330" y="678"/>
+<mxPoint x="1366" y="678"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="MoveOneStepTowardPower" target="SetBrakePosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="862.6666666666666"/>
+<mxPoint x="926" y="604.8"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="MoveOneStepTowardPower" target="SetPowerPosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="925.3333333333334"/>
+<mxPoint x="926" y="1086.25"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="MoveOneStepTowardPower" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="834" y="894"/>
+<mxPoint x="880" y="1006"/>
+<mxPoint x="1330" y="1006"/>
+<mxPoint x="1372" y="699.6923076923076"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Normalize" target="Clamp" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="218.5"/>
+<mxPoint x="1378" y="464.75"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Normalize" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="265.5"/>
+<mxPoint x="1378" y="634.6153846153846"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetBrakePosition" target="Clamp" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="562.5"/>
+<mxPoint x="1376" y="511.75"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetBrakePosition" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="609.5"/>
+<mxPoint x="1368" y="670.7692307692307"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetEmergencyBrake" target="SetBrakePosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="629.5"/>
+<mxPoint x="926" y="567.2"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetEmergencyBrake" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="582.5"/>
+<mxPoint x="880" y="494"/>
+<mxPoint x="1330" y="494"/>
+<mxPoint x="1370" y="663.5384615384615"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetNeutral" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="770"/>
+<mxPoint x="1368" y="685.2307692307693"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetPowerPosition" target="Clamp" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="1074.5"/>
+<mxPoint x="1378" y="535.25"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetPowerPosition" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="1121.5"/>
+<mxPoint x="1374" y="706.9230769230769"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetServiceBrakePosition" target="Clamp" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="430.66666666666663"/>
+<mxPoint x="880" y="414"/>
+<mxPoint x="1330" y="414"/>
+<mxPoint x="1376" y="488.25"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetServiceBrakePosition" target="SetBrakePosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="493.3333333333333"/>
+<mxPoint x="928" y="548.4"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="SetServiceBrakePosition" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="834" y="462"/>
+<mxPoint x="880" y="454"/>
+<mxPoint x="1330" y="454"/>
+<mxPoint x="1372" y="656.3076923076924"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="StepTowardNeutral" target="SetBrakePosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="1006.6666666666666"/>
+<mxPoint x="928" y="623.6"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="StepTowardNeutral" target="SetPowerPosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="834" y="1038"/>
+<mxPoint x="926" y="1109.75"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="StepTowardNeutral" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="1069.3333333333335"/>
+<mxPoint x="880" y="1190"/>
+<mxPoint x="1330" y="1190"/>
+<mxPoint x="1376" y="714.1538461538462"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="StepTowardServiceMaxBrake" target="SetPowerPosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="1130"/>
+<mxPoint x="430" y="1130"/>
+<mxPoint x="880" y="1130"/>
+<mxPoint x="928" y="1133.25"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="StepTowardServiceMaxBrake" target="SetServiceBrakePosition" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="1098.6666666666665"/>
+<mxPoint x="478" y="462"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="StepTowardServiceMaxBrake" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="1161.3333333333335"/>
+<mxPoint x="430" y="1230"/>
+<mxPoint x="880" y="1230"/>
+<mxPoint x="880" y="1230"/>
+<mxPoint x="1330" y="1230"/>
+<mxPoint x="1378" y="721.3846153846155"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="TrySetReverserPosition" target="ThrowIfNull" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="1282" y="914"/>
+<mxPoint x="1370" y="692.4615384615385"/>
+</Array>
+</mxGeometry>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

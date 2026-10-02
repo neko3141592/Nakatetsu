@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="TrainPhysicsLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="961" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="TrainPhysicsLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Simulation/Physics/TrainPhysicsLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="Calculate" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;編成物理の更新・計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L9–20&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Calculate" sourceLine="9">
+<mxGeometry x="40" y="498" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="TryApplyBrakeHold" value="&lt;b style=&quot;font-size:15px&quot;&gt;Try&lt;wbr&gt;Apply&lt;wbr&gt;Brake&lt;wbr&gt;Hold&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;停止付近での制動保持を判定・適用&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L22–42&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="TryApplyBrakeHold" sourceLine="22">
+<mxGeometry x="490" y="642" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateAcceleration" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Acceleration&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;非制動力・抵抗・制動力から加速度を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L44–62&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateAcceleration" sourceLine="44">
+<mxGeometry x="490" y="354" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateRunningResistanceForceN" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Running&lt;wbr&gt;Resistance&lt;wbr&gt;Force&lt;wbr&gt;N&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;走行方向または停止条件から抵抗力を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L64–79&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateRunningResistanceForceN" sourceLine="64">
+<mxGeometry x="940" y="498" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateGradeForceN" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Grade&lt;wbr&gt;Force&lt;wbr&gt;N&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;質量と勾配から勾配力を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L81–86&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateGradeForceN" sourceLine="81">
+<mxGeometry x="40" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateVelocity" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Velocity&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;速度・変位を積分し停止時の符号跨ぎを抑止&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L88–109&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateVelocity" sourceLine="88">
+<mxGeometry x="490" y="498" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CaptureOutPut" value="&lt;b style=&quot;font-size:15px&quot;&gt;Capture&lt;wbr&gt;Out&lt;wbr&gt;Put&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;速度・加速度・変位をOutputへ写す&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L111–116&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CaptureOutPut" sourceLine="111">
+<mxGeometry x="40" y="806" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="call-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateAcceleration" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="518.6666666666667"/>
+<mxPoint x="478" y="406"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateVelocity" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="550"/>
+<mxPoint x="478" y="550"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="TryApplyBrakeHold" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="581.3333333333333"/>
+<mxPoint x="478" y="694"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="CalculateAcceleration" target="CalculateRunningResistanceForceN" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="406"/>
+<mxPoint x="928" y="526.5"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="TryApplyBrakeHold" target="CalculateRunningResistanceForceN" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="694"/>
+<mxPoint x="928" y="573.5"/>
+</Array>
+</mxGeometry>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

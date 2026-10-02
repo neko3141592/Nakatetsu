@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="TrainStatusDisplayLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="673" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="TrainStatusDisplayLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Equipment/Tims/Display/TrainStatus/Scripts/TrainStatusDisplayLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="ResolveMotion" value="&lt;b style=&quot;font-size:15px&quot;&gt;Resolve&lt;wbr&gt;Motion&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;実測力・有効性から表示用運転状態を判定&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L16–25&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="ResolveMotion" sourceLine="16">
+<mxGeometry x="40" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="ResolveDirection" value="&lt;b style=&quot;font-size:15px&quot;&gt;Resolve&lt;wbr&gt;Direction&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;有効な運転台と逆転器から方向符号を取得&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L28–33&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="ResolveDirection" sourceLine="28">
+<mxGeometry x="40" y="354" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="FormatCarNumber" value="&lt;b style=&quot;font-size:15px&quot;&gt;Format&lt;wbr&gt;Car&lt;wbr&gt;Number&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;有効な号車番号を全角数字に変換&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L35–41&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="FormatCarNumber" sourceLine="35">
+<mxGeometry x="40" y="518" width="330" height="104" as="geometry"/>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

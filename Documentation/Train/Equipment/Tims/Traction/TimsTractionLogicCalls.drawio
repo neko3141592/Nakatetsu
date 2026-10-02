@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="TimsTractionLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="633" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="TimsTractionLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Equipment/Tims/Traction/Scripts/TimsTractionLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="Calculate" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;TIMS力行の更新・計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L7–86&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Calculate" sourceLine="7">
+<mxGeometry x="40" y="334" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateConstantAccelerationEndSpeedMps" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Constant&lt;wbr&gt;Acceleration&lt;wbr&gt;End&lt;wbr&gt;Speed&lt;wbr&gt;Mps&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;定格出力 / (質量×加速度)を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L89–94&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateConstantAccelerationEndSpeedMps" sourceLine="89">
+<mxGeometry x="490" y="334" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="AreAllBCReleased" value="&lt;b style=&quot;font-size:15px&quot;&gt;Are&lt;wbr&gt;All&lt;wbr&gt;BCReleased&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;BC緩解または勾配起動条件を照査&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L96–117&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="AreAllBCReleased" sourceLine="96">
+<mxGeometry x="490" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="DistributeTargetForce" value="&lt;b style=&quot;font-size:15px&quot;&gt;Distribute&lt;wbr&gt;Target&lt;wbr&gt;Force&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;利用可能VVVFへ目標力を均等配分&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L119–146&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="DistributeTargetForce" sourceLine="119">
+<mxGeometry x="490" y="478" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="call-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="AreAllBCReleased" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="354.66666666666663"/>
+<mxPoint x="478" y="242"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateConstantAccelerationEndSpeedMps" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="386"/>
+<mxPoint x="478" y="386"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="DistributeTargetForce" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="417.33333333333337"/>
+<mxPoint x="478" y="530"/>
+</Array>
+</mxGeometry>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>
