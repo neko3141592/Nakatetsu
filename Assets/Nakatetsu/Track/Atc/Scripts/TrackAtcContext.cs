@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Connection;
 
 namespace Nakatetsu.Track.Atc
@@ -28,6 +29,9 @@ namespace Nakatetsu.Track.Atc
     public sealed class TrackAtcRouteInput
     {
         public bool ProceedAllowed;
+        // 新規進入の許可とは別に、進入後も確保されている経路を表す。
+        public bool PathEstablished;
+        public OverrunProtectionMode OverrunMode;
         public bool CancelPending;
         public bool RouteLocked;
         public readonly Dictionary<string, TrackSwitchPosition> RequiredTurnoutsById = new();

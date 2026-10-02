@@ -210,7 +210,7 @@ namespace Nakatetsu.Track.Atc
                     route.atcEdgeIds.Count < 2 || 
                     route.atcEdgeIds[0] != edge.atcEdgeId ||
                     !context.Input.RoutesById.TryGetValue(route.interlockingRouteId, out var state) ||
-                    !state.ProceedAllowed || state.CancelPending
+                    !state.ProceedAllowed || !state.PathEstablished || state.CancelPending
                 )
                 {
                     continue;

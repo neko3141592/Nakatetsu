@@ -102,9 +102,11 @@ namespace Nakatetsu.Track.Interlocking
                 if (pair.Value.ProceedAllowed)
                     continue;
 
-                foreach (TurnoutRequirement turnout in route.requiredTurnouts)
+                // 本進路に加えて、保持中の過走防護用転轍機にも転換を要求する。
+                foreach (TurnoutRequirement turnout in TrackInterlockingLogic.GetRequiredTurnouts(route, pair.Value))
                 {
-                    if (!trackConnectionController.TryGetState(turnout.connectionId, out var switchState) ||
+                    if (turnout == null || trackConnectionController == null ||
+                        !trackConnectionController.TryGetState(turnout.connectionId, out var switchState) ||
                         switchState.IsMoving || switchState.ActualPosition == turnout.requiredPosition)
                         continue;
 

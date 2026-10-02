@@ -43,6 +43,8 @@ namespace Nakatetsu.Track.Debugging
                 if (interlocking.TryGetRouteState(route.routeId, out var state))
                 {
                     GUILayout.Label($"Proceed: {state.ProceedAllowed}  Route lock: {state.RouteLocked}");
+                    GUILayout.Label($"Path: {state.PathEstablished}  Overrun: {state.overrunProtectionMode} / {state.overrunProtectionPhase}");
+                    GUILayout.Label($"Overrun release: {state.OverrunProtectionReleaseRemainingSeconds:F1}s  Blocked: {state.OverrunAutomaticReleaseBlocked}");
                     GUILayout.Label($"Cancel: {state.CancelPending}  Approach lock: {state.ApproachLocked}  {state.ApproachReleaseRemainingSeconds:F1}s");
                 }
                 else

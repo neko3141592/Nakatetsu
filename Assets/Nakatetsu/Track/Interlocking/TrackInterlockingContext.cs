@@ -9,10 +9,29 @@ namespace Nakatetsu.Track.Interlocking
         Passed
     }
 
+    public enum OverrunProtectionMode
+    {
+        None,
+        Normal,
+        Restricted
+    }
+
+    public enum OverrunProtectionPhase
+    {
+        None,
+        Setting,
+        Established,
+        ReleaseTiming,
+        Released,
+    }
+
     public sealed class TrackInterlockingRouteState
     {
         // 進行許可
         public bool ProceedAllowed { get; internal set; }
+
+        // 転轍機の実位置と、保持中の過走防護を照査した開通状態
+        public bool PathEstablished { get; internal set; }
 
         // キャンセル済みかどうか
         public bool CancelPending { get; internal set; }
@@ -25,8 +44,15 @@ namespace Nakatetsu.Track.Interlocking
         public bool RouteLocked { get; internal set; }
 
         // 通過状態
-
         internal readonly Dictionary<string, TrackInterlockingCircuitPassageState> CircuitPassageById = new();
+
+
+        // 過走防護処理
+        public OverrunProtectionMode overrunProtectionMode;
+        public OverrunProtectionPhase overrunProtectionPhase;
+        public float OverrunProtectionReleaseRemainingSeconds;
+        public bool OverrunArrivalDetected { get; internal set; }
+        public bool OverrunAutomaticReleaseBlocked { get; internal set; }
 
     }
 
