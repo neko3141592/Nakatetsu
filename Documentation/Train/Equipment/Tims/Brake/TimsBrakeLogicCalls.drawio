@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="TimsBrakeLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="1497" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="TimsBrakeLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Equipment/Tims/Brake/Scripts/TimsBrakeLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="Calculate" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;TIMSブレーキの更新・計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L10–58&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Calculate" sourceLine="10">
+<mxGeometry x="40" y="766" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="InitializeWorkSpace" value="&lt;b style=&quot;font-size:15px&quot;&gt;Initialize&lt;wbr&gt;Work&lt;wbr&gt;Space&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;制動配分の作業領域を消去&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L60–82&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="InitializeWorkSpace" sourceLine="60">
+<mxGeometry x="490" y="1342" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateTargetDeceleration" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Target&lt;wbr&gt;Deceleration&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;制動段から目標減速度を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L84–117&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateTargetDeceleration" sourceLine="84">
+<mxGeometry x="490" y="1054" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateTargetTotalBrakeForce" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Target&lt;wbr&gt;Total&lt;wbr&gt;Brake&lt;wbr&gt;Force&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;総質量×目標減速度から必要力を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L118–128&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateTargetTotalBrakeForce" sourceLine="118">
+<mxGeometry x="490" y="1198" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateMinimumAirBrakePressure" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Minimum&lt;wbr&gt;Air&lt;wbr&gt;Brake&lt;wbr&gt;Pressure&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用制動の最低込め圧・力を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L130–142&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateMinimumAirBrakePressure" sourceLine="130">
+<mxGeometry x="490" y="334" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateRemainingTargetBrakeForce" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Remaining&lt;wbr&gt;Target&lt;wbr&gt;Brake&lt;wbr&gt;Force&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;最低込め分を差し引いた残余力を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L144–156&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateRemainingTargetBrakeForce" sourceLine="144">
+<mxGeometry x="490" y="622" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateOutput" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Output&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;空制力・圧力の上限を反映して指令を生成&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L158–199&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateOutput" sourceLine="158">
+<mxGeometry x="490" y="478" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateTargetCarBrakeForces" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Target&lt;wbr&gt;Car&lt;wbr&gt;Brake&lt;wbr&gt;Forces&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;残余制動力を車両質量比で配分&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L201–217&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateTargetCarBrakeForces" sourceLine="201">
+<mxGeometry x="490" y="766" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateTargetRegenForces" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Target&lt;wbr&gt;Regen&lt;wbr&gt;Forces&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;回生目標を飽和付きで均等配分&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L219–239&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateTargetRegenForces" sourceLine="219">
+<mxGeometry x="490" y="910" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateAdditionalAirBrakeForces" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Additional&lt;wbr&gt;Air&lt;wbr&gt;Brake&lt;wbr&gt;Forces&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;実回生・余剰回生から追加空制を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L241–271&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="CalculateAdditionalAirBrakeForces" sourceLine="241">
+<mxGeometry x="490" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="external:TimsBrakeCalculator.AllocateEvenlyWithSaturation" value="&lt;b style=&quot;font-size:14px&quot;&gt;Tims&lt;wbr&gt;Brake&lt;wbr&gt;Calculator&lt;br&gt;Allocate&lt;wbr&gt;Evenly&lt;wbr&gt;With&lt;wbr&gt;Saturation&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;別Logic / 計算補助&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#fff2cc;" parent="1" vertex="1" externalFunction="TimsBrakeCalculator.AllocateEvenlyWithSaturation">
+<mxGeometry x="940" y="550" width="350" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="external:TimsNotchCalculator.ToBrakeNotchStep" value="&lt;b style=&quot;font-size:14px&quot;&gt;Tims&lt;wbr&gt;Notch&lt;wbr&gt;Calculator&lt;br&gt;To&lt;wbr&gt;Brake&lt;wbr&gt;Notch&lt;wbr&gt;Step&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;別Logic / 計算補助&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#fff2cc;" parent="1" vertex="1" externalFunction="TimsNotchCalculator.ToBrakeNotchStep">
+<mxGeometry x="940" y="1054" width="350" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="call-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateAdditionalAirBrakeForces" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="776.2222222222222"/>
+<mxPoint x="478" y="242"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateMinimumAirBrakePressure" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="786.6666666666666"/>
+<mxPoint x="478" y="386"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateOutput" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="386" y="797.1111111111111"/>
+<mxPoint x="478" y="530"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateRemainingTargetBrakeForce" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="388" y="807.5555555555555"/>
+<mxPoint x="478" y="674"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateTargetCarBrakeForces" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="390" y="818"/>
+<mxPoint x="478" y="818"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateTargetDeceleration" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="386" y="838.8888888888889"/>
+<mxPoint x="478" y="1106"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateTargetRegenForces" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="388" y="828.4444444444445"/>
+<mxPoint x="478" y="962"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateTargetTotalBrakeForce" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="849.3333333333334"/>
+<mxPoint x="478" y="1250"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="InitializeWorkSpace" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="859.7777777777778"/>
+<mxPoint x="478" y="1394"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;dashed=1;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="CalculateAdditionalAirBrakeForces" target="external:TimsBrakeCalculator.AllocateEvenlyWithSaturation" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="242"/>
+<mxPoint x="928" y="578.5"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;dashed=1;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="CalculateTargetDeceleration" target="external:TimsNotchCalculator.ToBrakeNotchStep" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="1106"/>
+<mxPoint x="928" y="1106"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;dashed=1;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="CalculateTargetRegenForces" target="external:TimsBrakeCalculator.AllocateEvenlyWithSaturation" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="832" y="962"/>
+<mxPoint x="928" y="625.5"/>
+</Array>
+</mxGeometry>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

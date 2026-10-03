@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="TrainLoadLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="509" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="TrainLoadLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Simulation/Load/TrainLoadLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="Calculate" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;車両荷重の更新・計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L7–34&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Calculate" sourceLine="7">
+<mxGeometry x="40" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="ApplyOutput" value="&lt;b style=&quot;font-size:15px&quot;&gt;Apply&lt;wbr&gt;Output&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;計算OutputをStateへ反映&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L36–51&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="ApplyOutput" sourceLine="36">
+<mxGeometry x="40" y="354" width="330" height="104" as="geometry"/>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

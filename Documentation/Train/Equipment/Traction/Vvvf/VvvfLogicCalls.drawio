@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" agent="Nakatetsu Logic diagram generator">
+  <diagram id="VvvfLogic-calls" name="関数呼び出し">
+<mxGraphModel page="1" pageScale="1" pageWidth="1841" pageHeight="1353" background="#ffffff">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="VvvfLogic｜関数呼び出し" style="text;html=1;align=left;fontSize=25;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="24" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="legend" value="青：公開API　白：内部関数　橙：別Logic/計算補助への直接呼び出し&lt;br&gt;実線・破線：呼び出し元 → 呼び出し先（実行順・状態遷移ではない）" style="text;html=1;align=left;fontSize=13;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="78" width="1700" height="42" as="geometry"/>
+</mxCell>
+<mxCell id="source" value="Assets/Nakatetsu/Train/Equipment/Traction/Vvvf/Scripts/VvvfLogic.cs" style="text;html=1;align=left;fontSize=12;fontFamily=Noto Sans JP;fontColor=#222222;" parent="1" vertex="1">
+<mxGeometry x="40" y="126" width="1750" height="24" as="geometry"/>
+</mxCell>
+<mxCell id="Calculate" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;VVVFの更新・計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L9–69&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#dae8fc;" parent="1" vertex="1" function="Calculate" sourceLine="9">
+<mxGeometry x="40" y="694" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="UpdateSlipFrequency" value="&lt;b style=&quot;font-size:15px&quot;&gt;Update&lt;wbr&gt;Slip&lt;wbr&gt;Frequency&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;トルク偏差と上限から滑り周波数を更新&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L71–105&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="UpdateSlipFrequency" sourceLine="71">
+<mxGeometry x="500" y="622" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="GetSpeedLimitedMaximumSlipFrequencyHz" value="&lt;b style=&quot;font-size:15px&quot;&gt;Get&lt;wbr&gt;Speed&lt;wbr&gt;Limited&lt;wbr&gt;Maximum&lt;wbr&gt;Slip&lt;wbr&gt;Frequency&lt;wbr&gt;Hz&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;車速・起動条件を反映した滑り上限&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L107–120&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="GetSpeedLimitedMaximumSlipFrequencyHz" sourceLine="107">
+<mxGeometry x="960" y="622" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="UpdateThreePhaseWave" value="&lt;b style=&quot;font-size:15px&quot;&gt;Update&lt;wbr&gt;Three&lt;wbr&gt;Phase&lt;wbr&gt;Wave&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;位相を進めて三相電圧を生成&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L122–135&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="UpdateThreePhaseWave" sourceLine="122">
+<mxGeometry x="500" y="766" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="GetWheelRpm" value="&lt;b style=&quot;font-size:15px&quot;&gt;Get&lt;wbr&gt;Wheel&lt;wbr&gt;Rpm&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;車速・車輪半径から車輪回転数を計算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L137–141&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="GetWheelRpm" sourceLine="137">
+<mxGeometry x="500" y="334" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="CalculateTargetMotorTorqueNm" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;wbr&gt;Target&lt;wbr&gt;Motor&lt;wbr&gt;Torque&lt;wbr&gt;Nm&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;目標力をモータートルクに換算&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L143–149&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="CalculateTargetMotorTorqueNm" sourceLine="143">
+<mxGeometry x="500" y="190" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="ResolveDriveMode" value="&lt;b style=&quot;font-size:15px&quot;&gt;Resolve&lt;wbr&gt;Drive&lt;wbr&gt;Mode&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;目標力の符号・しきい値から運転モードを決定&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#666666&quot;&gt;L151–156&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;" parent="1" vertex="1" function="ResolveDriveMode" sourceLine="151">
+<mxGeometry x="500" y="478" width="330" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="external:MotorLogic.GetFrequencyFromSynchronousRpm" value="&lt;b style=&quot;font-size:14px&quot;&gt;Motor&lt;wbr&gt;Logic&lt;br&gt;Get&lt;wbr&gt;Frequency&lt;wbr&gt;From&lt;wbr&gt;Synchronous&lt;wbr&gt;Rpm&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;別Logic / 計算補助&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#fff2cc;" parent="1" vertex="1" externalFunction="MotorLogic.GetFrequencyFromSynchronousRpm">
+<mxGeometry x="490" y="910" width="350" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="external:MotorLogic.GetSlipRatio" value="&lt;b style=&quot;font-size:14px&quot;&gt;Motor&lt;wbr&gt;Logic&lt;br&gt;Get&lt;wbr&gt;Slip&lt;wbr&gt;Ratio&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;別Logic / 計算補助&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#fff2cc;" parent="1" vertex="1" externalFunction="MotorLogic.GetSlipRatio">
+<mxGeometry x="490" y="1054" width="350" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="external:MotorLogic.GetSynchronousRpm" value="&lt;b style=&quot;font-size:14px&quot;&gt;Motor&lt;wbr&gt;Logic&lt;br&gt;Get&lt;wbr&gt;Synchronous&lt;wbr&gt;Rpm&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;別Logic / 計算補助&lt;/span&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;strokeColor=#222222;strokeWidth=1.5;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#fff2cc;" parent="1" vertex="1" externalFunction="MotorLogic.GetSynchronousRpm">
+<mxGeometry x="490" y="1198" width="350" height="104" as="geometry"/>
+</mxCell>
+<mxCell id="call-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="CalculateTargetMotorTorqueNm" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="704.875"/>
+<mxPoint x="478" y="242"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="GetWheelRpm" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="716.625"/>
+<mxPoint x="478" y="386"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="ResolveDriveMode" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="386" y="728.375"/>
+<mxPoint x="478" y="530"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="UpdateSlipFrequency" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="388" y="740.125"/>
+<mxPoint x="478" y="674"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="UpdateThreePhaseWave" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="388" y="751.875"/>
+<mxPoint x="478" y="818"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="UpdateSlipFrequency" target="GetSpeedLimitedMaximumSlipFrequencyHz" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="852" y="674"/>
+<mxPoint x="948" y="674"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;dashed=1;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="external:MotorLogic.GetFrequencyFromSynchronousRpm" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="386" y="763.625"/>
+<mxPoint x="478" y="962"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;dashed=1;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="external:MotorLogic.GetSlipRatio" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="384" y="775.375"/>
+<mxPoint x="478" y="1106"/>
+</Array>
+</mxGeometry>
+</mxCell>
+<mxCell id="call-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;dashed=1;noEdgeStyle=0;orthogonal=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="Calculate" target="external:MotorLogic.GetSynchronousRpm" edge="1">
+<mxGeometry relative="1" as="geometry">
+<Array as="points">
+<mxPoint x="382" y="787.125"/>
+<mxPoint x="478" y="1250"/>
+</Array>
+</mxGeometry>
+</mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>
