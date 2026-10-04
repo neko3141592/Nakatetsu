@@ -4,7 +4,7 @@
 
 `TimsRoot` が `Monitor Output Prefab` を子に生成し、画面数分のRenderTextureをメモリ上に作る。標準Prefabは3画面、解像度は1536×1024（3:2）。実行時に `.renderTexture` アセットを追加・変更しない。
 
-`TimsMonitorOutput` が各CameraへRTを割り当て、速度計・ノッチ表示・圧力計・電流計・インジケーターを所有元のTIMS通信装置へ接続する。接続はUIのAwakeより先に行う。各計器の号車・タグ・手動表示値などの設定は維持する。
+`TimsMonitorOutput` が各CameraへRTを割り当て、速度計・ノッチ表示・圧力計・電流計・インジケーター・ATC信号表示を所有元のTIMS通信装置へ接続する。接続はUIのAwakeより先に行う。各計器の号車・タグ・手動表示値などの設定は維持する。
 
 車内メッシュの `TimsMonitorScreen` は参照先TIMSと画面番号からRTを取得し、対象Rendererの `_BaseMap` と、対応するShaderなら `_EmissionMap` へ設定する。MaterialPropertyBlockを使うため共有Materialアセットのテクスチャや色は変更しない。Emissionの有効化・色・Intensityは材質側で設定する。
 
@@ -36,6 +36,8 @@ TIMSを無効化すると描画用オブジェクトを無効化し、再度有�
 Canvasの基準解像度は1536×1024。1枚目は既存TIMS表示、2・3枚目は空Canvas。Prefab内の各CameraとCanvasの相対配置・専用Layerは維持する。部品をコピーするときは、コピー先のCanvasと同じLayerに設定する。車内を映すCameraのCulling Maskからは3つのモニター用Layerを外す。
 
 RT解像度は `TimsRoot` の `Monitor Resolution` で指定する。画面が歪まないよう3:2を維持する。
+
+ATC信号表示には`TimsAtcSignal`を追加し、Inspectorの`Red Object`・`Green Object`・`None Object`へそれぞれの表示用GameObjectを割り当てる。既存Signal Prefabの消灯画像を使う場合は`Off`を`None Object`へ割り当てる。モニターPrefab内のComponentには、生成時に`TimsMonitorOutput`が所有元のTIMS参照を渡す。単体で使う場合は`Tims`へ参照を設定する。MasterBusの`ATC/Signal`が`Red=1`、`Green=2`、`None=0`のどれかに応じて、一つだけ表示する。未接続・未受信・不正値ではNoneへ戻す。
 
 ## 既存のアセット
 

@@ -12,6 +12,7 @@
 | W | レバーサーを前進側へ | 後進→中立→前進の順に1段。非常ノッチ時のみ操作可能。速度による制限なし |
 | S | レバーサーを後進側へ | 前進→中立→後進の順に1段。非常ノッチ時のみ操作可能。速度による制限なし |
 | Space | EBリセット | 押した瞬間に1回リセット操作 |
+| K | マスコンキーの抜き差し | EB・レバーサ中立のとき、1回押すごとに挿入／抜去を切り替える |
 | B | ブザー | 押している間だけ鳴る |
 | G | 勾配起動 | 押している間だけ有効 |
 | Enter | 警笛 | 押している間だけ鳴る |
@@ -21,7 +22,7 @@
 - ノッチはワンハンドル方式とし、Nを挟んで力行側と制動側を行き来する。例：P2で↑を押すたびにP1→N→B1となる。
 - ノッチの長押しによる連続操作は行わない。
 - 非常ノッチを戻し、ほかの非常要求がなければ、TIMSの通信更新後に走行中でも非常制動を解除する。EB装置が作動している場合は、装置側が停車・力行なしまで非常要求を保持する。
-- レバーサーの操作条件は「非常ノッチであること」とする。MasterControllerLogicとデバッグ操作へ反映済み。
+- レバーサーの操作条件は「キーが挿入され、非常ノッチであること」とする。キーなし、またはレバーサー中立の間はノッチをEBに鎖錠する。
 - 前進・後進は指定された運転台を基準とする。
 
 ## EBリセット
@@ -31,13 +32,20 @@
 - 作動後の非常要求はSpaceでは解除しない。既存の「停車（絶対速度0.01 m/s未満）かつ力行なし」で自動解除する。
 - 有効運転台なし、対象EBの欠損・無効・重複では要求を受け付けない。他編成のEBには渡さない。
 
+## マスコンキー
+
+- Kの押下を`TrainKeyboardInputController.OnToggleMasterControllerKey` → 注目編成の`TrainIntegrationController.Input.ToggleMasterControllerKey()` → 現在の運転台の`MasterController.SetKeyInserted()`へ渡す。
+- EB・レバーサー中立のときだけ抜き差しできる。長押しやキーを離したときには再操作しない。
+- キーを抜いた後も、Kで同じ運転台へ挿し直せる。運転台選択スイッチの位置は変更しない。
+- 有効運転台なし、対象マスコンの欠損・無効・重複、操作入力無効では受け付けない。
+
 ## 注目対象と開始時の状態
 
 - 注目対象は、編成と前側／後側の運転台の組で指定する。
 - 前側／後側は編成定義上の固定された前後とし、後退しても入れ替えない。
 - 注目する編成と運転台はゲーム側が決める。プレイヤーによる切り替え操作は設けない。
 - 指定された運転台はゲーム開始時に自動で有効化する。有効化用のキー操作は設けない。
-- 開始時は非常ノッチ・レバーサー中立とする。Wで前進へ入れた後、ノッチを操作して運転を始める。
+- 開始時は指定された運転台だけにキーを挿し、非常ノッチ・レバーサー中立とする。Wで前進へ入れた後、ノッチを操作して運転を始める。
 
 ## 乗務方式とドア操作
 
@@ -58,12 +66,12 @@
 
 ## Input System接続
 
-- `Application/Player/Data/TrainInputActions.inputactions`の`Driving` Mapに、↑／↓／←／W／S／Spaceの6操作を定義する。各ActionはButton、Press Only。
+- `Application/Player/Data/TrainInputActions.inputactions`の`Driving` Mapに、↑／↓／←／W／S／Space／Kの7操作を定義する。各ActionはButton、Press Only。
 - `PlayerInput`のBehaviorは`Invoke Unity Events`、Default Mapは`Driving`とする。
 - `TrainKeyboardInputController`が`performed`だけを受け取り、指定した`TrainIntegrationController.Input`へ操作を渡す。長押しによる連続操作や、離したときの再操作は行わない。
 - `Application/Focus`の`TrainFocusController`が初期注目編成と注目先の切り替えを管理し、`Application/Input`の`TrainKeyboardInputController.SetTarget`で入力先も更新する。
 - `TrainCabInitializer`が生成済みの前後の操作機器を取得し、指定した運転台を有効化する。初期状態は非常ノッチ・レバーサー中立。TIMSが判定した後に入力可能となる。
-- 入力セットアップは1001FのIntegrationと、`Application/Input`への6つのイベント接続を行う。初期注目編成が未設定なら1001Fを設定する。未保存のシーンやPlay中には実行しない。
+- 入力セットアップは1001FのIntegrationと、`Application/Input`への7つのイベント接続を行う。初期注目編成が未設定なら1001Fを設定する。未保存のシーンやPlay中には実行しない。
 - 手動実行は `Nakatetsu > Setup > Connect NtLine Keyboard Input`。実行前にシーンを保存する。
 - Play開始後にGameビューへフォーカスし、Wで前進、←でN、↓で力行する。非常要求が残っている場合はTIMSの非常理由を確認する。EB装置の作動後は停車・力行なしで装置が解除し、その結果が次の通信更新で反映される。↑で制動側へ戻す。レバーサー操作には非常ノッチが必要。
 - B／G／Enterの接続は後続作業。
@@ -73,7 +81,7 @@
 `Train/Integration`は次の構成とする。Applicationは`TrainIntegrationController`を入口として参照する。
 
 - `Orchestration/Scripts/TrainIntegrationController.cs`：Input・Statusの参照公開と初期化の取りまとめ。
-- `Input/Scripts/TrainInputController.cs`：有効運転台へのノッチ・レバーサー操作とEBリセット。
+- `Input/Scripts/TrainInputController.cs`：有効運転台へのノッチ・レバーサー・マスコンキー操作とEBリセット。
 - `Status/Scripts/TrainStatusController.cs`：有効運転台とマスコン位置の取得。
 - `Status/Scripts/TrainCabControls.cs`：取得した操作位置の値。
 - `Initialization/Scripts/TrainCabInitializer.cs`：開始時の運転台準備。IntegrationのStartから呼ぶ。

@@ -402,7 +402,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400001, guid: c7e068408eb847108de423430816ff96, type: 3}
-      propertyPath: transferIntervalSeconds
+      propertyPath: localCollectionIntervalSeconds
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: c7e068408eb847108de423430816ff96, type: 3}
@@ -461,11 +461,13 @@ MonoBehaviour:
   trains:
   - {fileID: 1235997842}
   trackCircuitSimulation: {fileID: 2000000006}
+  trackAtc: {fileID: 920413740}
   interlockings:
   - {fileID: 2000000102}
   tickDurationSeconds: 0.015
   isPaused: 0
   maxTicksPerFrame: 100
+  maxSimulationMillisecondsPerFrame: 10
   playbackSpeed: 1
   startHour: 12
   startMinute: 0
@@ -1168,6 +1170,56 @@ MonoBehaviour:
   startEdgeId: nt-approach
   startDistanceOnEdgeM: 400
   startFrontFacesAtoB: 1
+--- !u!1 &920413738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 920413739}
+  - component: {fileID: 920413740}
+  m_Layer: 0
+  m_Name: ATC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &920413739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920413738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1148146697}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &920413740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920413738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c5afd6cba482eb87a83b8ec04e1a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nakatetsu.Track.Atc::Nakatetsu.Track.Atc.TrackAtcController
+  atcGraphAsset: {fileID: 11400000, guid: c32f92cbc297463698b198960c1e1936, type: 2}
+  trackCircuitSimulation: {fileID: 2000000006}
+  trackConnectionController: {fileID: 2000000005}
+  worldTimeSource: {fileID: 282171584}
+  interlockings:
+  - {fileID: 2000000102}
 --- !u!1 &1004262140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1357,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004262140}
   m_CullTransparentMesh: 1
+--- !u!1 &1133685517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133685518}
+  m_Layer: 0
+  m_Name: Interlocking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1133685518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133685517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2000000101}
+  m_Father: {fileID: 1148146697}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148146696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,7 +1419,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1757798722}
-  - {fileID: 2000000101}
+  - {fileID: 920413739}
+  - {fileID: 1133685518}
   m_Father: {fileID: 849475531}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235997840
@@ -1388,6 +1473,7 @@ MonoBehaviour:
   trainRoot: {fileID: 0}
   physicsController: {fileID: 0}
   trackPositionController: {fileID: 0}
+  atcGraphAsset: {fileID: 11400000, guid: c32f92cbc297463698b198960c1e1936, type: 2}
   AutoRefresh: 0
 --- !u!114 &1235997843
 MonoBehaviour:
@@ -2200,6 +2286,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5e4d43a0-bc05-4400-9428-54674fc687df
     m_ActionName: Driving/EbReset
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910742362}
+        m_TargetAssemblyTypeName: Nakatetsu.Application.Player.TrainKeyboardInputController,
+          Nakatetsu.Application
+        m_MethodName: OnToggleMasterControllerKey
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1a963881-690c-4f30-9d46-ee403163b65b
+    m_ActionName: Driving/ToggleMasterControllerKey
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Driving
@@ -2392,12 +2495,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000000100}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1148146697}
+  m_Father: {fileID: 1133685518}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2000000102
 MonoBehaviour:

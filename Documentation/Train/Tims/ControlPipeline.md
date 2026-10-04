@@ -4,9 +4,23 @@
 
 ## 更新順
 
-TrainSimulationControllerの測定 → 全LocalBus送信 → 速度公開 → `TimsControlController` がDirection → Notch → 力行・ブレーキの入力収集 → 力行・ブレーキ公開 → 通常Equipment → Motor/Brake/Load → Physics。新しいUpdateは追加しない。
+TrainSimulationControllerの測定 → LocalBus・MasterBusへの機器情報収集 → 速度公開 → `TimsControlController` がDirection → Notch → 力行・ブレーキの入力収集 → 力行・ブレーキ公開 → 通常Equipment → Motor/Brake/Load → Physics。新しいUpdateは追加しない。
 
-制御パイプラインは `TimsCommunicationController.CollectInputSources()` から呼ばれる。低レベルの `CollectSources()` はLocalBusへの収集だけ。方向・ノッチ・力行・ブレーキControllerを別途毎フレーム呼ぶ必要はない。
+制御パイプラインは `TimsCommunicationController.CollectInputSources()` から呼ばれる。低レベルの `CollectSources()` はLocalBusへの収集、`CollectMasterSources()` はMasterBusへの共通機器情報の収集だけ。方向・ノッチ・力行・ブレーキControllerを別途毎フレーム呼ぶ必要はない。
+
+## 機器情報の収集周期
+
+`TimsCommunicationController`の`localCollectionIntervalSeconds`と`masterCollectionIntervalSeconds`で、各車の機器と編成共通の機器の収集周期を個別に設定する。初期値はどちらも0.25秒。シミュレーション時間で計時し、初回は即時収集する。周期を超えた端数は次回へ持ち越し、0秒なら毎tick収集する。
+
+各車の`ITimsBusSource`は車両割当先のLocalBusへ、編成共通の`ITimsMasterBusSource`はMasterBusへ現在値を書き込む。両方を同じtickで収集する場合、編成配下の検索は1回にまとめる。周期を待つ間も、TIMS内部の速度・方向・ノッチ・力行・ブレーキ計算は受信済みの値で毎tick実行する。
+
+ATCの表示Adapterは`ITimsMasterBusSource`として収集する。通常の収集はEquipment計算より前に行うため、ATCが前tickまでに確定した表示情報を取得する。ATCの計算や位置更新をこの周期で間引く処理は含めない。
+
+ATCのブレーキ指令は`TimsNotchController.CollectInput()`が毎tick直接読み取る。表示収集周期を待たず、前tickに確定した常用段と非常要求を手動ノッチへ合成する。常用は強い方の段、非常は最優先とし、ATCの計算から各車の制動指令への反映は1tick後となる。同じTrainRoot配下のATCを自動取得するため、Sceneでの追加配線は不要。
+
+`TimsRoot`も`ITimsMasterBusSource`として、共通設定の常用減速度表・刻み数・常用最大段をMasterBusへ公開する。減速度はkm/h/sからm/s²へ変換し、ATCの入力Adapterが毎tick受信済みの設定を読む。ATCは設定Assetを直接参照しない。TimsRoot無効化・設定不正では設定タグを削除する。
+
+引数なしの`CollectInputSources()`は手動収集用で、両方の現在値を即時収集し、両方の収集タイマーをリセットする。
 
 ## 入力と初期設定
 
@@ -33,4 +47,4 @@ EB作動後の保持・解除は`EbDeviceLogic`が担当する。作動した装
 
 ## 対象外
 
-操作用キーボード/UI、車両の線路上移動、ATC/ATO、定速運転、高出力モードは含めない。Sceneは変更していない。
+操作用キーボード/UI、車両の線路上移動、ATO、定速運転、高出力モードは含めない。Sceneは変更していない。

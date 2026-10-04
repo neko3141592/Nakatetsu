@@ -11,6 +11,8 @@
 - P/Bの消灯段は段数をグレーで表示する。点灯中の下位段だけ文字を隠す。
 - 力行0・制動0かつ非常でなければNを点灯する。
 - 非常要求または非常保持中は非常セルだけを点灯する。
+- 有効運転台のマスコンキーが「切」のときは、非常・B・N・Pの全セルを消灯する。キーを「入」に戻すと現在のノッチ表示へ復帰する。
+- 有効運転台やキー状態の欠損・型不一致も全セルを消灯する。キー状態の照査は非常表示より先に行う。
 - 入力欠損・型不一致・範囲外・通信Controller未設定／無効は全セルを消灯し、下部に `--` を表示する。既知の非常要求は、通常ノッチの欠損より優先する。
 
 Prefab内のセルは既存Prefabのインスタンス。配置・配色はPrefab Variant等で調整できる。段数を変える場合は、対応するP/Bセルを追加し、各セルの `Notch` を設定する。表示対象の段のセルがなければ欠損扱いにする。制御設定の段数は表示側で変更しない。
@@ -23,6 +25,9 @@ Prefab内のセルは既存Prefabのインスタンス。配置・配色はPrefa
 | `Notch.ResolvedBrakeStep` | 確定ブレーキStep |
 | `Notch.IsEmergencyBrakeRequested` | ノッチ側の非常要求 |
 | `Brake.IsEmergency` | EB・入力欠損等を含む、そのステップでTIMSが集約した非常要求 |
+| `Direction.ActivatedCabPosition` | キー状態を読む運転台。Frontは先頭車、Rearは最後尾車 |
+
+対象運転台のLocalBusの `MasterController.IsKeyInserted`（Bool）を読む。最後尾の車両indexは接続先TIMSの親 `TrainRoot.ConsistDefinition` から取得する。
 
 ブレーキStepは同じTIMSの `TimsRoot.Settings.brakeSubstepCount` で段数へ変換する。刻み4ならStep1〜4はB1、5〜8はB2、25はB7。補間中の細分ステップの文字表示は行わない。
 
