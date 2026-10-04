@@ -196,6 +196,7 @@ ATC表示の公開は、`TrainAtcTimsDisplayAdapter`を`ITimsMasterBusSource`と
 | `ATC/IsHealthy` | Bool | 既存のATC正常判定 |
 | `ATC/HasFault` | Bool | 電源入かつ正常判定false。「故　障」ランプ |
 | `ATC/IsNormalBrakeRequired` | Bool | ATCの`State.brake.isNormalRequired`。常用要求・停止保持の状態。ATC常用ランプへ割り当てる項目 |
+| `ATC/IsEmergencyBrakeRequired` | Bool | ATCの`Output.brake.isEmergency`。非常保持中もtrue。モニターPrefabのATC非常ランプへ接続済み |
 | `ATC/IsOrpActive` | Bool | 有効なパターンがあり、Restrictedかつ非常パターンの予告・降下区間内、かつ非常目標速度が0m/s。現在速度は条件に含めない。ORPのOn／Off画像 |
 | `ATC/IsPatternApproaching` | Bool | 常用パターンの予告区間内、かつ現在の測定速度の大きさがパターン目標速度以上 |
 | `ATC/Signal` | Int | `TrainAtcSignal`。ATC無効は`None=0`。有効で現在位置の常用パターン速度か目標速度が0なら`Red=1`、それ以外は`Green=2`。`TimsAtcSignal`が読んで表示を切り替える |
@@ -207,7 +208,7 @@ ATC表示の公開は、`TrainAtcTimsDisplayAdapter`を`ITimsMasterBusSource`と
 | `ATC/PathLengthM` | Float、m | パターン全体の経路長 |
 | `ATC/DistanceOnPathM` | Float、m | 有効運転台側受信機の現在path内距離 |
 
-収集時にパターンを取得できなければ、`HasValidPattern`・`IsOrpActive`・`IsPatternApproaching`をfalseにし、パターンの数値・配列タグを削除する。ATCの無効化は次回収集時に表示を消し、表示Adapterの無効化は収集を待たずに電源・有効・故障表示も消す。これらの表示タグはTIMSの制動計算には使用しない。常用段と非常要求は`TimsNotchController`がATCの`Output.brake`から毎tick直接読み、手動ノッチと合成する。ATC常用・非常・開放のランプは未接続。
+収集時にパターンを取得できなければ、`HasValidPattern`・`IsOrpActive`・`IsPatternApproaching`をfalseにし、パターンの数値・配列タグを削除する。非常要求はパターン不成立時も公開し、非常保持中は点灯を続ける。表示Adapter・ATC・TrainRootの無効化を確認した場合は、常用・非常要求の表示タグをfalseへ戻す。表示Adapterの無効化は収集を待たずに電源・有効・故障表示も消す。これらの表示タグはTIMSの制動計算には使用しない。常用段と非常要求は`TimsNotchController`がATCの`Output.brake`から毎tick直接読み、手動ノッチと合成する。モニターPrefabのATC常用・非常ランプは接続済み。ATC開放は未接続。
 
 `Signal`はパターン不成立でも公開する。ATCが有効でパターンを取得できなければ、速度の初期値0として`Red`にする。ATC無効、表示Adapter無効では`None`に戻し、前回の現示を残さない。更新周期は既存のMaster収集周期に従う。
 

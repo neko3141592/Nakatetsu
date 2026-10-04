@@ -14,6 +14,7 @@ namespace Nakatetsu.Train.Integration
         public static readonly TimsTagKey IsHealthyKey = new("ATC", "IsHealthy");
         public static readonly TimsTagKey HasFaultKey = new("ATC", "HasFault");
         public static readonly TimsTagKey IsNormalBrakeRequiredKey = new("ATC", "IsNormalBrakeRequired");
+        public static readonly TimsTagKey IsEmergencyBrakeRequiredKey = new("ATC", "IsEmergencyBrakeRequired");
         public static readonly TimsTagKey HasValidPatternKey = new("ATC", "HasValidPattern");
         public static readonly TimsTagKey IsOrpActiveKey = new("ATC", "IsOrpActive");
         public static readonly TimsTagKey IsPatternApproachingKey = new("ATC", "IsPatternApproaching");
@@ -59,6 +60,7 @@ namespace Nakatetsu.Train.Integration
             bus.SetBool(IsHealthyKey, state.isHealthy);
             bus.SetBool(HasFaultKey, state.isAtcPowerOn && !state.isHealthy);
             bus.SetBool(IsNormalBrakeRequiredKey, state.brake.isNormalRequired);
+            bus.SetBool(IsEmergencyBrakeRequiredKey, output.brake.isEmergency);
             bus.SetBool(HasValidPatternKey, output.hasValidPattern);
             bus.SetBool(IsOrpActiveKey, output.hasValidPattern && output.isOrpActive);
             bus.SetBool(IsPatternApproachingKey, output.hasValidPattern && output.isPatternApproaching);
@@ -116,6 +118,7 @@ namespace Nakatetsu.Train.Integration
             bus.SetBool(IsHealthyKey, false);
             bus.SetBool(HasFaultKey, false);
             bus.SetBool(IsNormalBrakeRequiredKey, false);
+            bus.SetBool(IsEmergencyBrakeRequiredKey, false);
             bus.SetBool(HasValidPatternKey, false);
             bus.SetBool(IsOrpActiveKey, false);
             bus.SetBool(IsPatternApproachingKey, false);

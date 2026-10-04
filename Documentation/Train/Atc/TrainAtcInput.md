@@ -232,10 +232,12 @@ ATC Prefabの`TrainAtcTimsDisplayAdapter`が`ITimsMasterBusSource`を実装し�
 
 `ATC/IsNormalBrakeRequired`をBoolとして公開し、`State.brake.isNormalRequired`をそのまま渡す。常用要求・停止保持中はtrue、キー切・中立による解除後はfalseとなる。表示Adapter・ATC・TrainRootの無効化時はfalseへ戻す。公開は他のATC表示と同じMaster収集周期に従い、ブレーキ指令そのものの毎tickの受け渡しとは別に行う。
 
+`ATC/IsEmergencyBrakeRequired`をBoolとして公開し、`Output.brake.isEmergency`を渡す。作動原因が解消しても非常を保持している間はtrueとし、解除後はfalseへ戻す。パターン不成立時も公開する。モニターPrefabの「ATC非常」はこのタグへ接続し、常用と同じMaster収集周期で表示する。表示Adapter・ATC・TrainRootの無効化を確認した場合もfalseへ戻す。
+
 `Output.signal`には`TrainAtcSignal`を保持する。ATC無効は`None`。ATCが有効で、現在位置の常用パターン速度か目標速度が0m/sなら`Red`、それ以外は`Green`とする。有効でもパターンを取得できなければ、速度の初期値0として`Red`にする。MasterBusには`ATC/Signal`としてIntを公開し、`None=0`、`Red=1`、`Green=2`とする。
 
 収集を待つ間もATCの位置更新・パターン計算・表示用速度の計算は毎tick行う。無信号の猶予中は保持パターンから表示を更新し、猶予超過などによるパターン不成立時の消灯は次の収集時に反映する。表示Adapter自体の無効化では収集を待たずに表示を消す。
 
-公開するのは、電源・有効・正常・故障・常用要求・ORP状態、常用パターン接近状態、Signal、現在地点の常用・非常パターン速度、パターン全体、サンプル間隔、経路長、現在path内距離、経路のEdge ID列。タグ一覧と欠損時の扱いは[TIMS Bus一覧](../Tims/BusTagMap.md)に記載する。
+公開するのは、電源・有効・正常・故障・常用要求・非常要求・ORP状態、常用パターン接近状態、Signal、現在地点の常用・非常パターン速度、パターン全体、サンプル間隔、経路長、現在path内距離、経路のEdge ID列。タグ一覧と欠損時の扱いは[TIMS Bus一覧](../Tims/BusTagMap.md)に記載する。
 
-速度計の三角表示は常用パターン速度を設定した刻み幅（既定5km/h）で低い方へ切り捨てて表示する。「ATC電源」「ATC」「故　障」とORPの画像は接続済み。「ATC常用」はMasterの`ATC/IsNormalBrakeRequired`を割り当てることで表示できる。モニターPrefabへの割り当ては別途行う。「ATC非常」「ATC開放」の表示項目は未公開。ブレーキ指令の接続は「TIMSへのブレーキ出力」に記載する。
+速度計の三角表示は常用パターン速度を設定した刻み幅（既定5km/h）で低い方へ切り捨てて表示する。モニターPrefabの「ATC電源」「ATC」「故　障」「ATC常用」「ATC非常」とORPの画像は接続済み。「ATC開放」の表示項目は未公開。ブレーキ指令の接続は「TIMSへのブレーキ出力」に記載する。
