@@ -21,6 +21,8 @@ namespace Nakatetsu.Train.Equipment.SpeedMeasurement
         {
             hasPhysicalSpeed = false;
             context.Output.hasMeasurement = false;
+            context.Output.measuredSpeedMps = 0f;
+            context.Output.signedMeasuredSpeedMps = 0f;
         }
 
         public bool TryGetMeasuredSpeedMps(out float speedMps)
@@ -41,6 +43,18 @@ namespace Nakatetsu.Train.Equipment.SpeedMeasurement
             context.Input.signedPhysicalSpeedMps = signedPhysicalSpeedMps;
             // 物理入力は測定ステップごとに必要。未供給時に前回値を再測定しない。
             hasPhysicalSpeed = false;
+        }
+
+        public bool TryGetSignedMeasuredSpeedMps(out float signedSpeedMps)
+        {
+            signedSpeedMps = 0f;
+            if (!isActiveAndEnabled || !context.Output.hasMeasurement)
+            {
+                return false;
+            }
+
+            signedSpeedMps = context.Output.signedMeasuredSpeedMps;
+            return true;
         }
 
         public void Calculate(float deltaTimeSeconds)

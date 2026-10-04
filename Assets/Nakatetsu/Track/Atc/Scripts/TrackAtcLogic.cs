@@ -118,62 +118,38 @@ namespace Nakatetsu.Track.Atc
 
             context.Workspace.visitedAtcEdgeIds.Clear();
 
-            // 閉塞と成立中の進路から先に辿り、末尾Edgeだけを単独で再探索しない。
+            // 閉塞からの新規進入は、進行許可と次回路の空きを照査する。
             foreach (var edge in context.Graph.atcEdge)
             {
-                if (edge.controlKind == TrackAtcEdgeControlKind.Block &&
-                    !context.Workspace.visitedAtcEdgeIds.Contains(edge.atcEdgeId))
-                {
-                    CalculateNextEdge(context, edge);
-                }
-            }
-
-            foreach (var route in context.Workspace.atcRoutesById.Values)
-            {
-                if (!context.Input.RoutesById.TryGetValue(route.interlockingRouteId, out var state) ||
-                    !state.PathEstablished || state.CancelPending)
+                if (edge.controlKind != TrackAtcEdgeControlKind.Block ||
+                    context.Workspace.visitedAtcEdgeIds.Contains(edge.atcEdgeId))
                 {
                     continue;
                 }
 
-                for (int i = 0; i < route.atcEdgeIds.Count - 1; i++)
+                CalculateNextEdge(context, edge);
+            }
+
+            // 進路内を起点にする場合は、採用済みの進路と位置を引き継ぐ。
+            // 未開通の枝は探索せず、同じ回路の有効な電文を不正にしない。
+            foreach (var route in context.Workspace.atcRoutesById.Values)
+            {
+                if (!context.Input.RoutesById.TryGetValue(route.interlockingRouteId, out var state) ||
+                    !state.PathEstablished || !state.RouteLocked || state.CancelPending)
                 {
-                    if (i == 0)
-                    {
-                        if (!state.ProceedAllowed)
-                        {
-                            continue;
-                        }
-                    }
-                    else if (!state.RouteLocked)
+                    continue;
+                }
+
+                for (int i = 0; i < route.atcEdgeIds.Count; i++)
+                {
+                    string edgeId = route.atcEdgeIds[i];
+                    if (context.Workspace.visitedAtcEdgeIds.Contains(edgeId))
                     {
                         continue;
                     }
 
-                    string edgeId = route.atcEdgeIds[i];
-                    if (!context.Workspace.visitedAtcEdgeIds.Contains(edgeId))
-                    {
-                        CalculateNextEdge(context, context.Workspace.atcEdgesById[edgeId]);
-                    }
+                    CalculateNextEdge(context, context.Workspace.atcEdgesById[edgeId], route, i);
                 }
-            }
-
-            foreach (var atcEdge in context.Graph.atcEdge)
-            {
-                if (atcEdge.atcEdgeId == null)
-                {
-                    return false;
-                }
-
-                if (context.Workspace.visitedAtcEdgeIds.Contains(atcEdge.atcEdgeId))
-                {
-                    continue;
-                }
-
-                CalculateNextEdge(
-                    context,
-                    atcEdge
-                );
             }
 
             return true;
@@ -181,76 +157,88 @@ namespace Nakatetsu.Track.Atc
 
         public static void CalculateNextEdge(
             TrackAtcContext context,
-            TrackAtcGraphEdge startAtcEdge
+            TrackAtcGraphEdge startAtcEdge,
+            TrackAtcRouteDefinition startRoute = null,
+            int startRouteIndex = -1
         )
         {
             TrackAtcGraphEdge currentEdge = startAtcEdge;
-            TrackAtcRouteDefinition currentRoute = null;
-            int currentRouteIndex = -1;
+            TrackAtcRouteDefinition currentRoute = startRoute;
+            int currentRouteIndex = startRouteIndex;
             OverrunProtectionMode currentOverrunProtectionMode = OverrunProtectionMode.None;
+            TrackAtcTravelDirection startDirection = startAtcEdge.direction;
             bool calculationFailed = false;
 
-            List<string> atcEdgePath = new () {startAtcEdge.atcEdgeId};
+            // 次回路が占有で経路が1本だけになっても、進路の向きを電文に残す。
+            if (startRoute != null)
+            {
+                if (!TryGetRouteExitNode(context, startAtcEdge, startRoute, startRouteIndex, out string exitNodeId))
+                {
+                    calculationFailed = true;
+                }
+                else
+                {
+                    startDirection = TrackAtcTravelDirection.AtoB;
+                    if (exitNodeId == startAtcEdge.atcNodeAId)
+                    {
+                        startDirection = TrackAtcTravelDirection.BtoA;
+                    }
+                }
+            }
+
+            var atcEdgePath = new List<string> { startAtcEdge.atcEdgeId };
 
             int i;
-            for (i = 0; i < guard; i++)
+            for (i = 0; !calculationFailed && i < guard; i++)
             {
-
-                // 制御未設定のエッジであればそこを停止限界にする
+                // 制御未設定のEdgeであれば、そこを停止限界にする。
                 if (currentEdge.controlKind == TrackAtcEdgeControlKind.Unspecified)
                 {
                     break;
                 }
 
-                else if (currentEdge.controlKind == TrackAtcEdgeControlKind.Block)
+                TrackAtcGraphEdge nextAtcEdge;
+                TrackAtcRouteDefinition nextRoute;
+                int nextRouteIndex = -1;
+                if (currentEdge.controlKind == TrackAtcEdgeControlKind.Block)
                 {
-                    if (!TryResolveNextEdgeOnBlock(context, currentEdge, out var nextAtcEdge, out var nextRoute))
+                    if (!TryResolveNextEdgeOnBlock(context, currentEdge, out nextAtcEdge, out nextRoute))
                     {
                         calculationFailed = true;
                         break;
                     }
 
-                    // 正常終了したが、今のエッジが停止限界のとき
-                    if (nextAtcEdge == null)
+                    if (nextRoute != null)
                     {
-                        break;
+                        nextRouteIndex = 0;
                     }
-
-                    atcEdgePath.Add(nextAtcEdge.atcEdgeId);
-
-                    currentEdge = nextAtcEdge;
-                    currentRoute = nextRoute;
-                    currentRouteIndex = nextRoute != null ? 0 : -1;
                 }
                 else if (currentEdge.controlKind == TrackAtcEdgeControlKind.Interlocking)
                 {
                     if (!TryResolveNextEdgeOnInterlocking(context, currentEdge, currentRoute, currentRouteIndex,
-                            out var nextAtcEdge, out var nextRoute, out int nextRouteIndex, out var overrunProtectionMode))
+                        out nextAtcEdge, out nextRoute, out nextRouteIndex, out currentOverrunProtectionMode))
                     {
                         calculationFailed = true;
                         break;
                     }
-
-                    currentOverrunProtectionMode = overrunProtectionMode;
-                    if (nextAtcEdge == null)
-                    {
-                        break;
-                    }
-
-                    atcEdgePath.Add(nextAtcEdge.atcEdgeId);
-                    currentEdge = nextAtcEdge;
-                    currentRoute = nextRoute;
-                    currentRouteIndex = nextRouteIndex;
                 }
-
                 else
                 {
-                    // TODO: 構内運転は後で実装
+                    // TODO: 構内運転は後で実装する。
                     calculationFailed = true;
                     break;
                 }
 
+                // 次のEdgeがなければ、現在Edgeを停止限界にする。
+                if (nextAtcEdge == null)
+                {
+                    break;
+                }
 
+                atcEdgePath.Add(nextAtcEdge.atcEdgeId);
+                currentEdge = nextAtcEdge;
+                currentRoute = nextRoute;
+                currentRouteIndex = nextRouteIndex;
             }
 
             // 停止限界が決まらず探索上限に達した場合は異常とする。
@@ -259,12 +247,12 @@ namespace Nakatetsu.Track.Atc
                 calculationFailed = true;
             }
 
-
             CreateTrackCircuitAtcTelegram(
                 context,
                 atcEdgePath,
                 currentOverrunProtectionMode,
-                calculationFailed
+                calculationFailed,
+                startDirection
             );
         }
 
@@ -272,7 +260,8 @@ namespace Nakatetsu.Track.Atc
             TrackAtcContext context,
             List<string> atcEdgePath,
             OverrunProtectionMode overrunProtectionMode,
-            bool calculationFailed
+            bool calculationFailed,
+            TrackAtcTravelDirection startDirection = TrackAtcTravelDirection.Unspecified
         )
         {
             if (context == null || atcEdgePath == null || atcEdgePath.Count == 0)
@@ -310,7 +299,7 @@ namespace Nakatetsu.Track.Atc
             }
 
             var directions = new TrackAtcTravelDirection[edges.Count];
-            if (!calculationFailed && !TryGetAtcEdgePathDirections(edges, directions))
+            if (!calculationFailed && !TryGetAtcEdgePathDirections(edges, directions, startDirection))
             {
                 calculationFailed = true;
             }
@@ -356,17 +345,22 @@ namespace Nakatetsu.Track.Atc
 
         private static bool TryGetAtcEdgePathDirections(
             List<TrackAtcGraphEdge> edges,
-            TrackAtcTravelDirection[] directions)
+            TrackAtcTravelDirection[] directions,
+            TrackAtcTravelDirection startDirection)
         {
             if (edges.Count == 0)
             {
                 return false;
             }
 
-            // 1本だけなら接続順から方向を求められないため、Edgeの方向を使う。
+            // 1本だけなら起点の進路方向を使う。未指定ならEdgeの方向を使う。
             if (edges.Count == 1)
             {
                 directions[0] = edges[0].direction;
+                if (startDirection != TrackAtcTravelDirection.Unspecified)
+                {
+                    directions[0] = startDirection;
+                }
             }
 
             for (int i = 0; i < edges.Count - 1; i++)
@@ -403,6 +397,11 @@ namespace Nakatetsu.Track.Atc
                 {
                     directions[i + 1] = TrackAtcTravelDirection.BtoA;
                 }
+            }
+
+            if (startDirection != TrackAtcTravelDirection.Unspecified && directions[0] != startDirection)
+            {
+                return false;
             }
 
             for (int i = 0; i < edges.Count; i++)
@@ -458,7 +457,7 @@ namespace Nakatetsu.Track.Atc
             // 2本なら残りの1本、3本なら有効な連動進路の先頭を選ぶ。
             foreach (string edgeId in exitAtcNode.connectedAtcEdgeIds)
             {
-                // 自分自身を選ばないようにする
+                // 自分自身を選ばない。
                 if (edgeId == currentEdge.atcEdgeId)
                 {
                     continue;
@@ -470,8 +469,6 @@ namespace Nakatetsu.Track.Atc
                     nextRoute = null;
                     return false;
                 }
-
-
                 if (count == 3 && candidate.controlKind != TrackAtcEdgeControlKind.Interlocking)
                 {
                     continue;
@@ -495,19 +492,12 @@ namespace Nakatetsu.Track.Atc
             }
 
             // 経路を決めてから占有を照査する。同じ回路の占有は無視する。
-            if (
-                nextAtcEdge != null &&
-                nextAtcEdge.trackCircuitId != currentEdge.trackCircuitId && (
-                   !context.Input.OccupiedByCircuitId.TryGetValue(nextAtcEdge.trackCircuitId, out bool occupied) ||
-                    occupied
-                )
-            )
+            if (nextAtcEdge != null && nextAtcEdge.trackCircuitId != currentEdge.trackCircuitId &&
+                (!context.Input.OccupiedByCircuitId.TryGetValue(nextAtcEdge.trackCircuitId, out bool occupied) || occupied))
             {
                 nextAtcEdge = null;
                 nextRoute = null;
             }
-
-
             return true;
         }
 
@@ -530,14 +520,10 @@ namespace Nakatetsu.Track.Atc
             TrackAtcRouteDefinition selectedRoute = null;
             int selectedIndex = -1;
             string exitNodeId = null;
-
-
-            if (currentRoute != null)
+            if (currentRoute != null &&
+                !TryGetRouteExitNode(context, currentEdge, currentRoute, currentRouteIndex, out exitNodeId))
             {
-                if (!TryGetRouteExitNode(context, currentEdge, currentRoute, currentRouteIndex, out exitNodeId))
-                {
-                    return false;
-                }
+                return false;
             }
 
             if (currentRoute == null || currentRouteIndex == currentRoute.atcEdgeIds.Count - 1)
@@ -560,9 +546,7 @@ namespace Nakatetsu.Track.Atc
                     {
                         continue;
                     }
-
-
-                    // その進路に進行許可があるか確認する
+                    // 進路の成立と取消状態を確認する。
                     if (!context.Input.RoutesById.TryGetValue(route.interlockingRouteId, out var state) ||
                         !state.PathEstablished || state.CancelPending)
                     {
@@ -612,8 +596,6 @@ namespace Nakatetsu.Track.Atc
                     if (nextAtcEdge != null)
                     {
                         // Blockへの退出後は進路を引き継がない。
-                        nextRoute = null;
-                        nextRouteIndex = -1;
                         return true;
                     }
 
@@ -629,7 +611,6 @@ namespace Nakatetsu.Track.Atc
                     }
 
                     overrunProtection = currentRouteState.OverrunMode;
-
                     return true;
                 }
             }
@@ -749,7 +730,11 @@ namespace Nakatetsu.Track.Atc
             }
 
             // 途中・末尾では直前のEdge、先頭では次のEdgeとの接続から退出側を求める。
-            int adjacentIndex = routeIndex > 0 ? routeIndex - 1 : 1;
+            int adjacentIndex = 1;
+            if (routeIndex > 0)
+            {
+                adjacentIndex = routeIndex - 1;
+            }
             if (!context.Workspace.atcEdgesById.TryGetValue(route.atcEdgeIds[adjacentIndex], out var adjacent) ||
                 adjacent == null)
             {
@@ -763,9 +748,17 @@ namespace Nakatetsu.Track.Atc
                 return false;
             }
 
-            exitNodeId = routeIndex > 0
-                ? (sharedA ? currentEdge.atcNodeBId : currentEdge.atcNodeAId)
-                : (sharedA ? currentEdge.atcNodeAId : currentEdge.atcNodeBId);
+            bool exitsAtA = sharedA;
+            if (routeIndex > 0)
+            {
+                exitsAtA = !sharedA;
+            }
+
+            exitNodeId = currentEdge.atcNodeBId;
+            if (exitsAtA)
+            {
+                exitNodeId = currentEdge.atcNodeAId;
+            }
             return true;
         }
 
@@ -787,8 +780,6 @@ namespace Nakatetsu.Track.Atc
                 // TODO: 後で構内運転を実装
                 return false;
             }
-
-
             string exitNodeId;
 
             if (edge.atcNodeAId == entryNodeId)
@@ -799,38 +790,27 @@ namespace Nakatetsu.Track.Atc
             {
                 exitNodeId = edge.atcNodeAId;
             }
-
             else
             {
                 return false;
             }
-
-
             foreach (var route in context.Workspace.atcRoutesById.Values)
             {
-                if (
-                    route.atcEdgeIds.Count < 2 ||
+                if (route.atcEdgeIds.Count < 2 ||
                     route.atcEdgeIds[0] != edge.atcEdgeId ||
                     !context.Input.RoutesById.TryGetValue(route.interlockingRouteId, out var state) ||
-                    !state.ProceedAllowed || !state.PathEstablished || state.CancelPending
-                )
+                    !state.ProceedAllowed || !state.PathEstablished || state.CancelPending)
                 {
                     continue;
                 }
-
-
-                // 進路の2本目が退出側につながることを確認する。(逆向きの進路を許可しない)
-                if (
-                    context.Workspace.atcEdgesById.TryGetValue(route.atcEdgeIds[1], out var secondEdge) && (
-                        secondEdge.atcNodeAId == exitNodeId
-                        || secondEdge.atcNodeBId == exitNodeId
-                    )
-                )
+                // 進路の2本目が退出側につながることを確認する。
+                if (context.Workspace.atcEdgesById.TryGetValue(route.atcEdgeIds[1], out var secondEdge) &&
+                    secondEdge != null &&
+                    (secondEdge.atcNodeAId == exitNodeId || secondEdge.atcNodeBId == exitNodeId))
                 {
                     nextRoute = route;
                     return true;
                 }
-
             }
 
             return false;

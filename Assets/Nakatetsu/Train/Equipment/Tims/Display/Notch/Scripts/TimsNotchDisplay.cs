@@ -2,6 +2,8 @@ using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Tims.Configuration;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Notch;
+using Nakatetsu.Train.Equipment.Tims.Integration;
+using Nakatetsu.Train.Equipment.Tims.Operation;
 using TMPro;
 using UnityEngine;
 
@@ -125,6 +127,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
                 return;
             }
 
+            // キーが切、または状態を取得できない場合は非常セルも含めて消灯する。
+            if (!IsMasterControllerKeyInserted())
+            {
+                Apply(false, false, 0, 0);
+                return;
+            }
+
             var bus = tims.MasterBus;
             bool hasBrakeEmergency = bus.TryGetBool(TimsBrakeController.IsEmergencyKey, out bool brakeEmergency);
             bool hasNotchEmergency = bus.TryGetBool(TimsNotchController.IsEmergencyBrakeRequestedKey, out bool notchEmergency);
@@ -155,6 +164,36 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
             // 連続Stepは対応するB段へ表示変換するだけ。減速度・指令の再計算はしない。
             bool hasCell = brake > 0 ? HasBrakeCell(brake) : power == 0 || HasPowerCell(power);
             Apply(hasCell, false, brake > 0 ? 0 : power, brake);
+        }
+
+        private bool IsMasterControllerKeyInserted()
+        {
+            if (!tims.MasterBus.TryGetInt(TimsDirectionController.ActivatedCabPositionKey, out int cabPosition))
+            {
+                return false;
+            }
+
+            int carIndex;
+            if (cabPosition == (int)ActivatedCabPosition.Front)
+            {
+                carIndex = 0;
+            }
+            else if (cabPosition == (int)ActivatedCabPosition.Rear)
+            {
+                var train = tims.GetComponentInParent<TrainRoot>(true);
+                if (train == null || train.ConsistDefinition == null || train.ConsistDefinition.CarCount <= 0)
+                {
+                    return false;
+                }
+                carIndex = train.ConsistDefinition.CarCount - 1;
+            }
+            else
+            {
+                return false;
+            }
+
+            return tims.TryGetLocalBus(carIndex, out var localBus) &&
+                localBus.TryGetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, out bool isInserted) && isInserted;
         }
 
         private void CacheCells()

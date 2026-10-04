@@ -18,6 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea2099a6e39d405c9b808504c5820996, type: 2}
   definition:
     atcGraphId: NtLineAtc
+    maximumOperatingSpeedKmh: 120
     atcEdge:
     - atcEdgeId: edge:nt-approach:0:1000
       trackCircuitId: 20T
@@ -27,7 +28,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 1000
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -244,7 +245,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 20
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -265,7 +266,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 20
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -286,7 +287,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 1000
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -544,7 +545,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 280
-        speedLimitKmh: 80
+        speedLimitKmh: 45
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -658,7 +659,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 100
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -695,7 +696,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 280
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0
@@ -768,7 +769,7 @@ MonoBehaviour:
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 100
-        speedLimitKmh: 80
+        speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
         gradientPermille: 0

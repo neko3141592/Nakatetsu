@@ -16,8 +16,12 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
     [Serializable]
     public sealed class TimsCommunicationState
     {
+        // 各車の機器からLocalBusへの収集状態。
         public bool hasCollectedSources;
         public double collectionElapsedSeconds;
+        // 編成共通の機器からMasterBusへの収集状態。
+        public bool hasCollectedMasterSources;
+        public double masterCollectionElapsedSeconds;
         public TimsBusState masterBus = new();
         public readonly List<TimsCarTerminalState> terminals = new();
     }

@@ -8,6 +8,8 @@ namespace Nakatetsu.Track.Atc
     public sealed class TrackAtcGraphCompileDefinition
     {
         public string atcGraphId;
+        // 線区全体の営業最高速度[km/h]。
+        public float maximumOperatingSpeedKmh;
         public float gradientSampleIntervalM = 10f;
         public List<TrackAtcCircuitSetting> circuits = new();
         public List<TrackAtcSpeedLimitSourceSection> speedLimits = new();

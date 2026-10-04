@@ -15,6 +15,7 @@ namespace Nakatetsu.Train.Equipment.Operation
         public int powerPosition;
         public int brakePosition;
         public ReverserPosition reverserPosition = ReverserPosition.Neutral;
+        public bool isKeyInserted;
         public bool isInputEnabled = true;
     }
 

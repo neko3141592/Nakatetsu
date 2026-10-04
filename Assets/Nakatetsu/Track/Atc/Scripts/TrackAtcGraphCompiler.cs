@@ -32,6 +32,12 @@ namespace Nakatetsu.Track.Atc
                 return false;
             }
 
+            if (!IsFinite(source.maximumOperatingSpeedKmh) || source.maximumOperatingSpeedKmh < 0f)
+            {
+                errors.Add("ATC compile definition requires a finite, nonnegative maximum operating speed.");
+                return false;
+            }
+
             var graph = new TrackGraphContext();
             if (!TrackGraphCompiler.TryCompile(track, graph, errors))
             {
@@ -96,7 +102,11 @@ namespace Nakatetsu.Track.Atc
                 this.graph = graph;
                 this.source = source;
                 this.interlockings = interlockings;
-                Result = new TrackAtcGraphDefinition { atcGraphId = source.atcGraphId };
+                Result = new TrackAtcGraphDefinition
+                {
+                    atcGraphId = source.atcGraphId,
+                    maximumOperatingSpeedKmh = source.maximumOperatingSpeedKmh
+                };
             }
 
             public bool Run()

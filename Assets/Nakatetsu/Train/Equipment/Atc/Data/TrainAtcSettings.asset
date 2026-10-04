@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa5c96159f146dfb1a77b5b2f79a017, type: 3}
+  m_Name: TrainAtcSettings
+  m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.Atc.TrainAtcSettingsAsset
+  settings:
+    noSignalTimeoutSeconds: 1
+    maximumSamplingIntervalM: 5
+    patternApproachWarningTimeSeconds: 5
+    serviceDecelerationMps2: 0.7
+    emergencyDecelerationMps2: 1.2
+    serviceStopMarginM: 100
+    emergencyStopMarginM: 5
+    normalBrakeReleaseMarginKmh: 5
+    brakeStepChangeIntervalSeconds: 0.2
+    brakeStepTable:
+    - brakeStepOffset: -6
+      increaseToDeviationKmh: -3
+      decreaseToDeviationKmh: -3.5
+    - brakeStepOffset: -3
+      increaseToDeviationKmh: -2
+      decreaseToDeviationKmh: -2
+    - brakeStepOffset: 0
+      increaseToDeviationKmh: -1
+      decreaseToDeviationKmh: -2
+    - brakeStepOffset: 1
+      increaseToDeviationKmh: 0
+      decreaseToDeviationKmh: -1
+    - brakeStepOffset: 2
+      increaseToDeviationKmh: 1
+      decreaseToDeviationKmh: 0
+    - brakeStepOffset: 3
+      increaseToDeviationKmh: 2
+      decreaseToDeviationKmh: 1
+    - brakeStepOffset: 4
+      increaseToDeviationKmh: 3
+      decreaseToDeviationKmh: 2
+    - brakeStepOffset: 6
+      increaseToDeviationKmh: 4
+      decreaseToDeviationKmh: 3
+    - brakeStepOffset: 8
+      increaseToDeviationKmh: 5
+      decreaseToDeviationKmh: 4
+    maximumDownhillGradientPermille: 0
+    orpSpeedLimitKmh: 25
+    orpMinimumTargetMarginM: 100

@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.32156864, g: 0.8352941, b: 0.94509804, a: 1}
+  m_Color: {r: 0, g: 0.44705883, b: 0.85882354, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
   background: {fileID: 5118305705740947476}
   pText: {fileID: 4125846433768095483}
   notchText: {fileID: 4543713291926017208}
-  backgroundOnColor: {r: 0.32156864, g: 0.8352941, b: 0.94509804, a: 1}
+  backgroundOnColor: {r: 0, g: 0.44705883, b: 0.85882354, a: 1}
   textOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   backgroundOffColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
   textOffColor: {r: 0.15294118, g: 0.16078432, b: 0.1882353, a: 1}

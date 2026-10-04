@@ -53,6 +53,7 @@ namespace Nakatetsu.Train.Consist
         public GameObject brakeSimulationPrefab;
         public GameObject loadSimulationPrefab;
         public GameObject doorSimulationPrefab;
+        public GameObject atcReceiverPrefab;
 
         [Header("Running Resistance (Davis, speed in m/s)")]
         [Min(0f)] public float runningResistanceAN = 300f;

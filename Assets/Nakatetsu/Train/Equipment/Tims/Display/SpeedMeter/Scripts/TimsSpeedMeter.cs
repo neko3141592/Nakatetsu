@@ -220,7 +220,7 @@ namespace Nakatetsu.Train.Presentation.Gauges
             }
 
             float interval = Mathf.Max(0.1f, atcMarkerIntervalKmh);
-            float activeSpeedKmh = Mathf.Round(atcSpeedKmh / interval) * interval;
+            float activeSpeedKmh = Mathf.Floor(atcSpeedKmh / interval) * interval;
             bool activeSpeedIsInRange = activeSpeedKmh >= 0f &&
                                         activeSpeedKmh <= maximumAtcMarkerSpeedKmh + 0.0001f;
 

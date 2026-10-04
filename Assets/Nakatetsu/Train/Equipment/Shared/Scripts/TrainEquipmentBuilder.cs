@@ -48,6 +48,7 @@ namespace Nakatetsu.Train.Equipment.Shared
                 return false;
             }
 
+            BuildCommonEquipment();
             ResolveCarsRoot();
             ClearGeneratedEquipment();
 
@@ -95,6 +96,33 @@ namespace Nakatetsu.Train.Equipment.Shared
             }
 
             return true;
+        }
+
+        private void BuildCommonEquipment()
+        {
+            GameObject[] prefabs = ConsistDefinition.commonEquipmentPrefabs;
+            if (prefabs == null || prefabs.Length == 0)
+            {
+                return;
+            }
+
+            Transform commonRoot = GetOrCreateDirectChild(transform, "Common");
+            foreach (GameObject prefab in prefabs)
+            {
+                if (prefab == null)
+                {
+                    continue;
+                }
+
+                // シーンに配置済みの機器や再生成時の機器を再利用する。
+                if (FindDirectChild(commonRoot, prefab.name) != null)
+                {
+                    continue;
+                }
+
+                GameObject instance = Instantiate(prefab, commonRoot, false);
+                instance.name = prefab.name;
+            }
         }
 
         public void ClearGeneratedEquipment()

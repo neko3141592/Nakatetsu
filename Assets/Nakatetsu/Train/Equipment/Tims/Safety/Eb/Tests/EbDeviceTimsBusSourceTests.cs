@@ -59,6 +59,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
                 masters[i] = masterObject.AddComponent<MasterController>();
                 masters[i].ConfigureLimits(4, 7, 8);
                 masters[i].SetInputEnabled(true);
+                Assert.That(masters[i].SetKeyInserted(true), Is.True);
+                Assert.That(masters[i].SetReverserPosition(ReverserPosition.Forward), Is.True);
+                masters[i].SetNeutral();
                 masterObject.AddComponent<MasterControllerTimsBusSource>();
 
                 GameObject instance = Object.Instantiate(prefab, trainObject.transform);

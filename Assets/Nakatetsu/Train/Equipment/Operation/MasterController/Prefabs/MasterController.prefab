@@ -50,6 +50,7 @@ MonoBehaviour:
   maxServiceBrakePosition: 7
   emergencyBrakePosition: 8
   initialReverserPosition: 0
+  keyInsertedOnAwake: 0
   inputEnabledOnAwake: 1
 --- !u!114 &4383402664079058660
 MonoBehaviour:

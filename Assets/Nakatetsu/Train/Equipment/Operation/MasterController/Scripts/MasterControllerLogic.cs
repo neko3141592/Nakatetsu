@@ -24,19 +24,46 @@ namespace Nakatetsu.Train.Equipment.Operation
         public static void Initialize(
             MasterControllerContext context,
             ReverserPosition initialReverserPosition,
-            bool isInputEnabled)
+            bool isInputEnabled,
+            bool isKeyInserted = false)
         {
             ThrowIfNull(context);
             context.State.powerPosition = 0;
-            context.State.brakePosition = 0;
+            context.State.brakePosition = context.Settings.emergencyBrakePosition;
             context.State.reverserPosition = initialReverserPosition;
+            context.State.isKeyInserted = isKeyInserted;
             context.State.isInputEnabled = isInputEnabled;
             Normalize(context);
+        }
+
+        public static bool TrySetKeyInserted(MasterControllerContext context, bool isInserted)
+        {
+            ThrowIfNull(context);
+            if (context.State.isKeyInserted == isInserted)
+            {
+                return true;
+            }
+
+            // キーはEB・レバーサ中立のときだけ抜き差しできる。
+            if (context.State.powerPosition != 0 ||
+                context.State.brakePosition != context.Settings.emergencyBrakePosition ||
+                context.State.reverserPosition != ReverserPosition.Neutral)
+            {
+                return false;
+            }
+
+            context.State.isKeyInserted = isInserted;
+            return true;
         }
 
         public static void SetPowerPosition(MasterControllerContext context, int position)
         {
             ThrowIfNull(context);
+            if (!CanMoveHandle(context))
+            {
+                return;
+            }
+
             context.State.powerPosition = Clamp(position, 0, context.Settings.maxPowerPosition);
             if (context.State.powerPosition > 0)
             {
@@ -47,6 +74,11 @@ namespace Nakatetsu.Train.Equipment.Operation
         public static void SetBrakePosition(MasterControllerContext context, int position)
         {
             ThrowIfNull(context);
+            if (!CanMoveHandle(context))
+            {
+                return;
+            }
+
             context.State.brakePosition = Clamp(position, 0, context.Settings.emergencyBrakePosition);
             if (context.State.brakePosition > 0)
             {
@@ -63,12 +95,19 @@ namespace Nakatetsu.Train.Equipment.Operation
         public static void SetEmergencyBrake(MasterControllerContext context)
         {
             ThrowIfNull(context);
-            SetBrakePosition(context, context.Settings.emergencyBrakePosition);
+            // 非常位置への設定は、キーや操作入力の許可にかかわらず受け付ける。
+            context.State.powerPosition = 0;
+            context.State.brakePosition = context.Settings.emergencyBrakePosition;
         }
 
         public static void SetNeutral(MasterControllerContext context)
         {
             ThrowIfNull(context);
+            if (!CanMoveHandle(context))
+            {
+                return;
+            }
+
             context.State.powerPosition = 0;
             context.State.brakePosition = 0;
         }
@@ -78,7 +117,7 @@ namespace Nakatetsu.Train.Equipment.Operation
             ReverserPosition position)
         {
             ThrowIfNull(context);
-            if (!context.State.isInputEnabled ||
+            if (!context.State.isInputEnabled || !context.State.isKeyInserted ||
                 context.State.powerPosition != 0 ||
                 context.State.brakePosition != context.Settings.emergencyBrakePosition ||
                 (int)position < (int)ReverserPosition.Reverse ||
@@ -152,6 +191,18 @@ namespace Nakatetsu.Train.Equipment.Operation
                 context.Settings.maxServiceBrakePosition + 1,
                 context.Settings.emergencyBrakePosition);
 
+            // キーなしはレバーサ中立。中立位置ではマスコンをEBに鎖錠する。
+            if (!context.State.isKeyInserted)
+            {
+                context.State.reverserPosition = ReverserPosition.Neutral;
+            }
+            if (context.State.reverserPosition == ReverserPosition.Neutral)
+            {
+                context.State.powerPosition = 0;
+                context.State.brakePosition = context.Settings.emergencyBrakePosition;
+                return;
+            }
+
             context.State.powerPosition = Clamp(
                 context.State.powerPosition,
                 0,
@@ -165,6 +216,14 @@ namespace Nakatetsu.Train.Equipment.Operation
             {
                 context.State.powerPosition = 0;
             }
+        }
+
+        private static bool CanMoveHandle(MasterControllerContext context)
+        {
+            // キー挿入・レバーサ前進または後進のときだけEBから動かせる。
+            return context.State.isInputEnabled && context.State.isKeyInserted &&
+                (context.State.reverserPosition == ReverserPosition.Forward ||
+                 context.State.reverserPosition == ReverserPosition.Reverse);
         }
 
         private static int Clamp(int value, int min, int max)

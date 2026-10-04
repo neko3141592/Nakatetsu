@@ -14,26 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Track.Atc::Nakatetsu.Track.Atc.TrackAtcGraphCompileAsset
   definition:
     atcGraphId: NtLineAtc
+    maximumOperatingSpeedKmh: 120
     gradientSampleIntervalM: 10
     circuits:
     - trackCircuitId: 20T
       controlKind: 1
-      speedLimitKmh: 80
+      speedLimitKmh: 120
     - trackCircuitId: 21T
       controlKind: 2
-      speedLimitKmh: 80
+      speedLimitKmh: 120
     - trackCircuitId: 1RT
       controlKind: 2
-      speedLimitKmh: 80
+      speedLimitKmh: 45
     - trackCircuitId: 2RT
       controlKind: 2
-      speedLimitKmh: 80
+      speedLimitKmh: 120
     - trackCircuitId: 22T
       controlKind: 2
-      speedLimitKmh: 80
+      speedLimitKmh: 120
     - trackCircuitId: 23T
       controlKind: 1
-      speedLimitKmh: 80
+      speedLimitKmh: 120
     speedLimits:
     - trackEdgeId: nt-loop
       startDistanceOnGeometryM: 1020

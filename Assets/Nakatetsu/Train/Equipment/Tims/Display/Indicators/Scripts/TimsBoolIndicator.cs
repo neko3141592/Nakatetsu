@@ -39,6 +39,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
         [SerializeField]
         private TMP_Text labelText;
 
+        [Header("On / Off Objects")]
+        [SerializeField] private GameObject onObject;
+        [SerializeField] private GameObject offObject;
+
         [Header("Colors")]
         [SerializeField]
         private Color backgroundOnColor = Color.green;
@@ -75,6 +79,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
 
         private void CacheObjects()
         {
+            // On・Offの専用画像がある場合は、その色を変更しない。
+            if (onObject != null || offObject != null) return;
             if (background == null) background = GetComponentInChildren<Image>(true);
             if (labelText == null) labelText = GetComponentInChildren<TMP_Text>(true);
         }
@@ -90,6 +96,12 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
         private void LateUpdate() => Refresh();
         private void OnDisable() => Apply(false);
 
+        public void SetTimsSource(TimsCommunicationController source)
+        {
+            tims = source;
+            Refresh();
+        }
+
         public void Refresh()
         {
             TimsBusState bus = GetBus();
@@ -101,6 +113,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
 
         private void Apply(bool isOn)
         {
+            if (onObject != null) onObject.SetActive(isOn);
+            if (offObject != null) offObject.SetActive(!isOn);
             if (background != null) background.color = isOn ? backgroundOnColor : backgroundOffColor;
             if (labelText != null) labelText.color = isOn ? labelOnColor : labelOffColor;
         }

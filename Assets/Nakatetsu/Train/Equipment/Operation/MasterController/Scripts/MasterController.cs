@@ -14,6 +14,7 @@ namespace Nakatetsu.Train.Equipment.Operation
 
         [Header("Initial state")]
         [SerializeField] private ReverserPosition initialReverserPosition = ReverserPosition.Neutral;
+        [SerializeField] private bool keyInsertedOnAwake;
         [SerializeField] private bool inputEnabledOnAwake = true;
 
         private readonly MasterControllerContext context = new();
@@ -28,6 +29,7 @@ namespace Nakatetsu.Train.Equipment.Operation
         public ReverserPosition ReverserPosition => context.State.reverserPosition;
         public bool IsNeutral => PowerPosition == 0 && BrakePosition == 0;
         public bool IsEmergencyBrake => BrakePosition == EmergencyBrakePosition;
+        public bool IsKeyInserted => context.State.isKeyInserted;
         public bool IsInputEnabled => context.State.isInputEnabled;
         public int MaxPowerPosition => context.Settings.maxPowerPosition;
         public int MaxServiceBrakePosition => context.Settings.maxServiceBrakePosition;
@@ -40,7 +42,7 @@ namespace Nakatetsu.Train.Equipment.Operation
         {
             ResolveEquipmentAssignment();
             ApplySerializedSettings();
-            MasterControllerLogic.Initialize(context, initialReverserPosition, inputEnabledOnAwake);
+            MasterControllerLogic.Initialize(context, initialReverserPosition, inputEnabledOnAwake, keyInsertedOnAwake);
         }
 
         public void ConfigureLimits(
@@ -64,6 +66,13 @@ namespace Nakatetsu.Train.Equipment.Operation
 
             context.State.isInputEnabled = isEnabled;
             StateChanged?.Invoke();
+        }
+
+        public bool SetKeyInserted(bool isInserted)
+        {
+            bool accepted = false;
+            ChangeState(() => accepted = MasterControllerLogic.TrySetKeyInserted(context, isInserted));
+            return accepted;
         }
 
         public void SetPowerPosition(int position)
@@ -141,13 +150,15 @@ namespace Nakatetsu.Train.Equipment.Operation
             int previousBrake = BrakePosition;
             ReverserPosition previousReverser = ReverserPosition;
             bool previousInputEnabled = IsInputEnabled;
+            bool previousKeyInserted = IsKeyInserted;
 
             change();
 
             bool changed = previousPower != PowerPosition ||
                 previousBrake != BrakePosition ||
                 previousReverser != ReverserPosition ||
-                previousInputEnabled != IsInputEnabled;
+                previousInputEnabled != IsInputEnabled ||
+                previousKeyInserted != IsKeyInserted;
             if (changed && (shouldNotify == null || shouldNotify()))
             {
                 StateChanged?.Invoke();

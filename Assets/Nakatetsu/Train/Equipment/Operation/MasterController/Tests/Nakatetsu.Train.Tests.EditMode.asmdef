@@ -3,7 +3,12 @@
     "rootNamespace": "Nakatetsu.Train.Tests",
     "references": [
         "Nakatetsu.Train",
+        "Nakatetsu.Train.Integration",
+        "Nakatetsu.Train.Equipment.Tims",
+        "Nakatetsu.Core",
+        "Nakatetsu.Track",
         "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Atc",
         "Nakatetsu.Track.Shared",
         "Nakatetsu.Track.Simulation"
     ],

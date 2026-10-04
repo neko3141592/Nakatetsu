@@ -41,6 +41,7 @@
 - `Speed Binding` は針と速度数字に使う数値タグです。`float` と `int` の両方に対応します。
 - `ATC Speed Binding` は点灯させるATC現示速度、`ATC Validity Binding` は現示の有効状態です。
 - ATC三角は0 km/hから `Maximum Atc Marker Speed Kmh` まで、`Atc Marker Interval Kmh`（既定5 km/h）ごとに自動生成されます。
+- 現示速度は刻み幅に合わせて低い方へ切り捨てます。既定では42 km/h・43 km/hは40 km/h現示になります。
 - ATC速度または有効状態を取得できない場合、すべての三角を消灯スプライトにします。
 - 半径を含めて作成した `Atc Marker On/Off Sprite` を指定し、その画像サイズを `Atc Marker Size` に設定します。
 

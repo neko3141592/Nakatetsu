@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Nakatetsu.Track.Atc;
 using Nakatetsu.Train.Equipment.Door;
+using Nakatetsu.Train.Equipment.Atc;
 using Nakatetsu.Train.Simulation.Door;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Brake.ControlDevice;
@@ -8,6 +10,8 @@ using Nakatetsu.Train.Equipment.SpeedMeasurement;
 using Nakatetsu.Train.Equipment.Traction;
 using Nakatetsu.Train.Equipment.Traction.Vvvf;
 using Nakatetsu.Train.Simulation.Brake;
+using Nakatetsu.Train.Simulation.Atc;
+using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Train.Simulation.Load;
 using Nakatetsu.Core.Simulation;
 using Nakatetsu.Train.Simulation.Physics;
@@ -22,6 +26,8 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TrainPhysicsController physicsController;
         [SerializeField] private TrainTrackPositionController trackPositionController;
+        [SerializeField] private TrackAtcGraphAsset atcGraphAsset;
+        private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private bool AutoRefresh;
 
         private readonly List<IEquipmentController> equipmentControllers = new();
@@ -34,6 +40,9 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         private readonly Dictionary<int, TrainLoadController> loadSimulations = new();
         private readonly Dictionary<int, DoorController> doorControllers = new();
         private readonly Dictionary<int, TrainDoorSimulation> doorSimulations = new();
+        private readonly Dictionary<int, TrainAtcReceiverController> atcReceivers = new();
+        private TrainAtcController atcController;
+        private bool hasAttemptedAtcInitialization;
         private readonly TrainSimulationContext context = new();
 
         public TrainRoot TrainRoot => trainRoot;
@@ -51,6 +60,15 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public bool IsInitialized { get; private set; }
 
         public void SetAutoRefresh(bool enabled) => AutoRefresh = enabled;
+
+        public void SetTrackCircuitSimulation(TrackCircuitSimulationController controller)
+        {
+            trackCircuitSimulation = controller;
+            foreach (TrainAtcReceiverController receiver in atcReceivers.Values)
+            {
+                if (receiver != null) receiver.SetTrackCircuitSimulation(controller);
+            }
+        }
 
         private void Awake()
         {
@@ -75,6 +93,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             equipmentControllers.Clear();
             doorControllers.Clear();
             speedSensors.Clear();
+            atcController = null;
             equipmentInputSourceCollectors.Clear();
             foreach (MonoBehaviour component in searchRoot.GetComponentsInChildren<MonoBehaviour>(true))
             {
@@ -84,6 +103,16 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 }
                 else if (component is IEquipmentController controller)
                 {
+                    if (controller is TrainAtcController atc)
+                    {
+                        atc.SetReceivers(null, null);
+                        if (atcController != null)
+                        {
+                            Debug.LogError("編成内の車上ATCは1つだけ配置してください。", atc);
+                            continue;
+                        }
+                        atcController = atc;
+                    }
                     equipmentControllers.Add(controller);
                     if (controller is DoorController door) RegisterEquipment(doorControllers, door, door);
                 }
@@ -137,6 +166,40 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             {
                 RegisterSimulation(loadSimulations, load, load);
             }
+
+            atcReceivers.Clear();
+            foreach (TrainAtcReceiverController receiver in searchRoot.GetComponentsInChildren<TrainAtcReceiverController>(true))
+            {
+                receiver.SetTrackPositionController(trackPositionController);
+                receiver.SetTrackCircuitSimulation(trackCircuitSimulation);
+                RegisterSimulation(atcReceivers, receiver, receiver);
+            }
+            if (atcController != null)
+            {
+                // 車上ATCは編成に1つ。両端車の受信機を固定前側・固定後側として接続する。
+                atcReceivers.TryGetValue(0, out var frontReceiver);
+                TrainAtcReceiverController rearReceiver = null;
+                if (ConsistDefinition != null && ConsistDefinition.CarCount > 1)
+                {
+                    atcReceivers.TryGetValue(ConsistDefinition.CarCount - 1, out rearReceiver);
+                }
+                atcController.SetReceivers(frontReceiver, rearReceiver);
+                // 固定前側の速度発電機を使う。なければ号車indexが最小のものを接続する。
+                speedSensors.TryGetValue(0, out var atcSpeedSensor);
+                if (atcSpeedSensor == null)
+                {
+                    int firstCarIndex = int.MaxValue;
+                    foreach (var pair in speedSensors)
+                    {
+                        if (pair.Key < firstCarIndex)
+                        {
+                            firstCarIndex = pair.Key;
+                            atcSpeedSensor = pair.Value;
+                        }
+                    }
+                }
+                atcController.SetSpeedSensor(atcSpeedSensor);
+            }
         }
 
         private void Update()
@@ -152,6 +215,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         public void Calculate(float deltaTimeSeconds)
         {
+            InitializeAtcPosition();
             // 測定、機器制御、物理モデル、編成物理、線路位置の順に1ステップ実行する。
             float signedVelocityMps = physicsController != null
                 ? physicsController.Context.State.signedVelocityMps
@@ -159,6 +223,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
             CollectPhysicalMeasurements(signedVelocityMps);
             StepSpeedSensors(deltaTimeSeconds);
+            StepAtcReceivers(deltaTimeSeconds);
 
             StepEquipment(deltaTimeSeconds);
 
@@ -187,6 +252,47 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         }
 
         public void ApplyOutput(float deltaTimeSeconds) { }
+
+        private void InitializeAtcPosition()
+        {
+            if (hasAttemptedAtcInitialization) return;
+            hasAttemptedAtcInitialization = true;
+            if (atcController == null) return;
+            if (atcController.Context.State.isPositionInitialized) return;
+
+            // 全Start処理の後、最初の移動前に一度だけ両端の初期位置を渡す。
+            atcReceivers.TryGetValue(0, out var frontReceiver);
+            TrainAtcReceiverController rearReceiver = null;
+            if (ConsistDefinition != null && ConsistDefinition.CarCount > 1)
+            {
+                atcReceivers.TryGetValue(ConsistDefinition.CarCount - 1, out rearReceiver);
+            }
+            if (atcGraphAsset == null || frontReceiver == null || rearReceiver == null)
+            {
+                Debug.LogError("車上ATCの初期設定に必要なATCグラフまたは両端の受信機がありません。", this);
+                return;
+            }
+            if (!frontReceiver.TryGetTrackSample(out var frontSample) ||
+                !rearReceiver.TryGetTrackSample(out var rearSample))
+            {
+                Debug.LogError("車上ATCの初期位置をTrackSampleから取得できません。列車の初期配置を確認してください。", this);
+                return;
+            }
+
+            var graph = atcGraphAsset.Definition;
+            if (!TrainAtcInitializationLogic.TryResolvePosition(graph,
+                    frontSample.EdgeId, frontSample.DistanceOnEdgeM, frontSample.FrontFacesAtoB, out var frontPosition) ||
+                !TrainAtcInitializationLogic.TryResolvePosition(graph,
+                    rearSample.EdgeId, rearSample.DistanceOnEdgeM, rearSample.FrontFacesAtoB, out var rearPosition))
+            {
+                Debug.LogError("車上ATCの初期位置に対応するATC Edgeを決定できません。ATCグラフを確認してください。", this);
+                return;
+            }
+            if (!atcController.TryInitializePosition(graph, frontPosition, rearPosition))
+            {
+                Debug.LogError("車上ATCの初期位置が不正です。ATCグラフを確認してください。", this);
+            }
+        }
 
         private void CollectPhysicalMeasurements(float signedVelocityMps)
         {
@@ -272,6 +378,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             foreach (SpeedSensor sensor in speedSensors.Values)
             {
                 if (sensor != null) sensor.ApplyOutput(deltaTimeSeconds);
+            }
+        }
+
+        private void StepAtcReceivers(float deltaTimeSeconds)
+        {
+            // Equipmentが入力を読む前に、前ステップの線路位置から受信機位置を更新する。
+            foreach (TrainAtcReceiverController receiver in atcReceivers.Values)
+            {
+                if (receiver == null) continue;
+                receiver.Calculate(deltaTimeSeconds);
+                receiver.ApplyOutput(deltaTimeSeconds);
             }
         }
 

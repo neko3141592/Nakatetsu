@@ -12,31 +12,56 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
             float deltaTimeSeconds,
             float intervalSeconds)
         {
+            return ShouldCollectSources(
+                ref state.hasCollectedSources,
+                ref state.collectionElapsedSeconds,
+                deltaTimeSeconds,
+                intervalSeconds);
+        }
+
+        public static bool ShouldCollectMasterSources(
+            TimsCommunicationState state,
+            float deltaTimeSeconds,
+            float intervalSeconds)
+        {
+            return ShouldCollectSources(
+                ref state.hasCollectedMasterSources,
+                ref state.masterCollectionElapsedSeconds,
+                deltaTimeSeconds,
+                intervalSeconds);
+        }
+
+        private static bool ShouldCollectSources(
+            ref bool hasCollectedSources,
+            ref double collectionElapsedSeconds,
+            float deltaTimeSeconds,
+            float intervalSeconds)
+        {
             if (float.IsNaN(deltaTimeSeconds) || float.IsInfinity(deltaTimeSeconds) || deltaTimeSeconds <= 0f ||
                 float.IsNaN(intervalSeconds) || float.IsInfinity(intervalSeconds))
             {
                 return false;
             }
 
-            if (!state.hasCollectedSources || intervalSeconds <= 0f)
+            if (!hasCollectedSources || intervalSeconds <= 0f)
             {
-                state.hasCollectedSources = true;
-                state.collectionElapsedSeconds = 0d;
+                hasCollectedSources = true;
+                collectionElapsedSeconds = 0d;
                 return true;
             }
 
-            state.collectionElapsedSeconds += deltaTimeSeconds;
+            collectionElapsedSeconds += deltaTimeSeconds;
             // floatのtick幅を加算したときの丸め誤差を吸収する。
             const double toleranceSeconds = 0.0000001d;
-            if (state.collectionElapsedSeconds + toleranceSeconds < intervalSeconds)
+            if (collectionElapsedSeconds + toleranceSeconds < intervalSeconds)
             {
                 return false;
             }
 
             // 端数を残し、tick幅によって毎回転送周期が伸びないようにする。
             // 複数周期を越えても、現在値の収集はこのtickで1回だけ行う。
-            double intervals = Math.Floor((state.collectionElapsedSeconds + toleranceSeconds) / intervalSeconds);
-            state.collectionElapsedSeconds = Math.Max(0d, state.collectionElapsedSeconds - intervals * intervalSeconds);
+            double intervals = Math.Floor((collectionElapsedSeconds + toleranceSeconds) / intervalSeconds);
+            collectionElapsedSeconds = Math.Max(0d, collectionElapsedSeconds - intervals * intervalSeconds);
             return true;
         }
 
