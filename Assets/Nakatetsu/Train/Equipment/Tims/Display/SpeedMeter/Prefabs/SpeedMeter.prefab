@@ -3075,10 +3075,9 @@ MonoBehaviour:
   atcSpeedBinding:
     deviceName: ATC
     itemName: PatternAllowSpeedKmh
-  requireAtcValidity: 1
-  atcValidityBinding:
+  atcIndicationBinding:
     deviceName: ATC
-    itemName: HasValidPattern
+    itemName: IsSpeedIndicated
   needle: {fileID: 2446419165630980288}
   speedText: {fileID: 8202337232250269657}
   atcMarkerRoot: {fileID: 6688682135817758696}

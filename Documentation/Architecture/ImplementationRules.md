@@ -48,6 +48,8 @@ Core
 
 ## 4. Context・Logic・Controller
 
+工程ごとにStateとLogicを分割する場合は、[EquipmentLogicImplementationRules.md](EquipmentLogicImplementationRules.md) に従い、呼び出し関係と更新担当を明確にする。
+
 | 種類 | 責務 |
 | --- | --- |
 | `Input` | 1ステップ分の入力スナップショット |

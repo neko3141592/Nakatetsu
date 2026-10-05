@@ -52,11 +52,10 @@ namespace Nakatetsu.Train.Presentation.Gauges
             deviceName = "ATC",
             itemName = "PatternAllowSpeedKmh"
         };
-        [SerializeField] private bool requireAtcValidity = true;
-        [SerializeField] private BoolBinding atcValidityBinding = new BoolBinding
+        [SerializeField] private BoolBinding atcIndicationBinding = new BoolBinding
         {
             deviceName = "ATC",
-            itemName = "HasValidPattern"
+            itemName = "IsSpeedIndicated"
         };
 
         [Header("Objects")]
@@ -207,13 +206,9 @@ namespace Nakatetsu.Train.Presentation.Gauges
 
         private void UpdateAtcMarkers()
         {
-            bool hasAtcSpeed = TryReadNumber(atcSpeedBinding, out float atcSpeedKmh);
-            if (hasAtcSpeed && requireAtcValidity)
-            {
-                hasAtcSpeed = TryReadBool(atcValidityBinding, out bool isValid) && isValid;
-            }
-
-            if (!hasAtcSpeed)
+            // 速度タグの有無ではなく、ATCが出力した現示可否に従って点灯する。
+            if (!TryReadBool(atcIndicationBinding, out bool isSpeedIndicated) ||
+                !isSpeedIndicated || !TryReadNumber(atcSpeedBinding, out float atcSpeedKmh))
             {
                 SetAllAtcMarkersOff();
                 return;

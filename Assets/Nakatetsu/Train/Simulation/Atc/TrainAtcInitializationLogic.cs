@@ -62,10 +62,13 @@ namespace Nakatetsu.Train.Simulation.Atc
 
             float distanceOnAtcEdgeM = distanceOnEdgeM - matchedEdge.startDistanceOnEdgeM;
             if (distanceOnAtcEdgeM > matchedEdge.lengthM + 0.001f) return false;
-            position.atcEdgeId = matchedEdge.atcEdgeId;
-            position.distanceOnAtcEdgeM = Math.Min(distanceOnAtcEdgeM, matchedEdge.lengthM);
             // コンパイル済みATC EdgeのA→Bは、物理Edgeの距離が増える方向と一致する。
-            position.frontFacesAtoB = frontFacesAtoB;
+            position = new TrainAtcPosition
+            {
+                atcEdgeId = matchedEdge.atcEdgeId,
+                distanceOnAtcEdgeM = Math.Min(distanceOnAtcEdgeM, matchedEdge.lengthM),
+                frontFacesAtoB = frontFacesAtoB
+            };
             return true;
         }
     }

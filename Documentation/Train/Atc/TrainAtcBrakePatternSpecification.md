@@ -1,13 +1,14 @@
 # 車上ATC ブレーキパターン・ブレーキ出力仕様
 
-本書を車上ATCのブレーキパターン計算とブレーキ出力に関する実装用仕様とする。確定事項を記録し、まだ決めていない項目は未決事項として区別する。経路長・サンプル間隔・速度配列の初期化、常設速度制限、過走防護モードに応じた低速制限と停止目標の設定、編成全体の勾配補正と制動曲線の積分まで実装済みとする。ブレーキ出力は状態・出力の保持、毎tickの更新、キー切・レバーサ中立時の解除、入力や計算の不成立による非常保持・解除の基盤まで実装済みとする。速度偏差テーブルの設定、`CreateBrakeStep()`内での基準段・ヒステリシスによる目標段の選択と、`UpdateCurrentBrakeStep()`による実出力段の刻み切り替えは実装済みとする。`UpdateBrakeState()`から`CreateBrakeStep()`を毎tick呼ぶ。常用段のOutputへの反映と、TIMSへの毎tickの制御要求の受け渡しは実装済みとする。非常パターンの速度超過照査はまだ実装していない。
+本書を車上ATCのブレーキパターン計算とブレーキ出力に関する実装用仕様とする。確定事項を記録し、未決事項と区別する。正式な実装は`Assets/Nakatetsu/Train/Equipment/Atc/`に統一する。常用・非常・独立ORPの生成と現在位置の更新、常用のヒステリシスと刻み切替、非常速度超過の照査と保持・解除、TIMSへの接続を実装済みとする。全体の処理順・Stateの更新担当・最新の表示条件は[全体処理仕様](TrainAtcProcessingFlow.md)、入力とTIMSのタグは[車上ATCの入力・状態・出力](TrainAtcInput.md)を参照する。移行後のUnityでの実走は未検証。
 
 ## 1. 対象
 
-`TrainAtcLogic`から呼ぶ`TrainAtcBrakePatternLogic.UpdateBrakePattern()`で生成する、次の2種類のパターンを対象とする。
+`TrainAtcLogic`から呼ぶ`TrainAtcPatternLogic.UpdatePattern()`で生成する、次のパターンを対象とする。
 
 - ATC常用ブレーキパターン
 - ATC非常ブレーキパターン
+- Restricted時の独立ORPパターン
 
 地上電文の進行可能なATC Edge列と停止限界を使い、車上がATC Graphから距離・常設速度制限・勾配を取得して計算する。地上から距離や計算済みの速度パターンを受け取らない。
 
@@ -38,42 +39,23 @@ Edge内距離はNode Aからの距離で保持するため、経路上の距離�
 
 先頭Edgeの方向は電文のキーで区別し、以降のEdgeの方向は順序付きEdge列の接続から求める。
 
-現在Edgeでどちらの方向の電文を使用するかは、`State.currentTravelDirection`で選ぶ。この方向は、有効運転台とレバーサから編成の固定前後での指定方向を求め、`currentPosition.frontFacesAtoB`を使って現在EdgeのA→B・B→Aに変換する。停止中も同じ方法で決める。中立、または運転台・現在位置を選択できない場合は`Unspecified`とする。レバーサ中立ではATCを無効とし、直前の進行方向を使って照査を継続しない。
+現在Edgeでどちらの方向の電文を使用するかは、`State.operation.currentTravelDirection`で選ぶ。この方向は、有効運転台とレバーサから編成の固定前後での指定方向を求め、`currentPosition.frontFacesAtoB`を使って現在EdgeのA→B・B→Aに変換する。停止中も同じ方法で決める。中立、または運転台・現在位置を選択できない場合は`Unspecified`とする。レバーサ中立ではATCを無効とし、直前の進行方向を使って照査を継続しない。
 
 この指定方向と、位置積算に用いる速度センサーの符号による実際の移動方向は別に扱う。
 
-### 経路上の地点情報の取得（実装済み）
+### 経路情報と距離の計算（実装済み）
 
-`TrainAtcLogic.TryGetPathPointInformation(context, routeInfomation, distanceOnPathM, out information)`で、電文の進路情報と経路内距離から地点情報を取得する。パターンの生成・更新は行わない。
+経路の準備は`TrainAtcPatternLogic.PreparePath()`から`TrainAtcPatternHelper.TryPreparePath()`を呼ぶ。Edge辞書・順序付きEdge ID列・始点の進行方向を渡し、各Edgeの方向と経路始点からの累積距離を持つ`TrainAtcPatternPathEdge`の列を作る。生成時は経路内の速度制限と勾配プロファイルも確認する。
 
-`distanceOnPathM`は最初のEdgeの進入端を0mとする。先頭Edgeは現在Edgeと一致する必要があり、方向は`State.currentTravelDirection`を使う。以降のEdgeは、直前のEdgeの出口Nodeとの接続から方向を求める。Edge間の境界は次のEdgeの進入端に対応し、経路の終端だけは最後のEdgeの退出端に対応する。
+先頭Edgeの方向には採用時の`State.operation.currentTravelDirection`を使う。以降のEdgeの方向は、直前のEdgeの出口Nodeとの接続から求める。保持時は保存済みの`State.pattern.pathStartTravelDirection`を使い、現在Edgeが変わっても経路の原点と方向を変えない。
 
-返す`TrainAtcPathPointInformation`は、次の値を保持する。
+`TrainAtcPatternHelper.TryGetPathDistance(path, atcEdgeId, distanceOnAtcEdgeM, out distanceOnPathM, out direction)`は、準備済み経路とEdge内位置から経路内距離・そのEdgeの方向を返す。指定Edgeより前のEdge長の合計に、進入端からの距離を加える。A→BではNode Aからの距離、B→AではEdge長からNode A基準の距離を引いた値を使う。前のEdgeの退出端と次のEdgeの進入端は同じ経路内距離になる。
 
-| 項目 | 内容 |
-| --- | --- |
-| `atcEdgeId` / `trackCircuitId` | 地点に対応するATC Edgeと軌道回路のID |
-| `distanceOnPathM` | 指定した経路内距離[m] |
-| `distanceOnAtcEdgeM` | Node AからのEdge内距離[m] |
-| `direction` | そのEdge上の進行方向 |
-| `gradientPermille` | 進行方向に対して上りを正とする勾配[‰] |
-| `speedLimitMps` | 線区最高速度と、その地点の常設速度制限の低い方[m/s] |
+経路は同じEdge IDを重複して含めない。欠損したEdge、不正な長さ、接続から方向を決められない経路は準備に失敗する。距離変換では指定Edgeが経路にあることとEdge内位置を確認し、失敗時はfalseを返す。ContextやStateをHelperから書き換えない。
 
-勾配はGraphの`gradientProfiles`の前後2点から線形補間し、B→Aの場合は符号を反転する。データはNode Aからの距離順で、0mとEdge全長の両端を含むものとする。欠損した勾配を0‰として補わない。
+勾配は経路内の`gradientProfiles`から線形補間し、B→Aでは符号を反転する。0mとEdge全長の両端を含む距離順のデータを使用し、欠損した勾配を0‰として補わない。常設速度制限は`speedLimitSections`から読み、共有境界や重複区間では低い方を採用する。
 
-速度制限はGraphの`speedLimitSections`を直接読む。区間の両端を含み、共有境界・重複区間では低い方を採用する。パターンのサンプル前後へ広げた制限や、制動曲線・ORPの速度はこの値に含めない。Edge間の境界では、選択した次のEdge側の制限を返す。
-
-進路情報・距離が不正、経路外、現在位置・進行方向が不明、指定地点までのEdgeや接続を解決できない、対象Edgeの勾配・速度制限が不正な場合はfalseを返す。失敗時の`information`はdefaultとし、Contextの位置やパターンを書き換えない。
-
-### Edge内位置から経路内距離への変換（実装済み）
-
-`TrainAtcLogic.TryGetPathDistance(context, routeInfomation, atcEdgeId, distanceOnAtcEdgeM, out distanceOnPathM)`で、Edge IDとNode AからのEdge内距離を、経路内距離へ変換する。経路の原点と方向の解決方法は地点情報の取得と同じとする。
-
-指定Edgeより前のEdge長の合計に、そのEdgeの進入端からの距離を加える。A→Bでは`distanceOnAtcEdgeM`、B→Aでは`Edge長 − distanceOnAtcEdgeM`を使う。Edgeの両端を含めて変換でき、前のEdgeの退出端と次のEdgeの進入端は同じ経路内距離になる。
-
-無信号中の保持パターンについては、経路のEdge列と採用時の先頭Edgeの方向を受け取る内部版`TryGetPathDistance()`を使う。現在Edgeが経路の先頭から先へ移っても、採用時の原点から距離を求め、現在Edge上の方向と`State.currentTravelDirection`の一致を確認する。
-
-勾配・速度制限のデータは参照しない。進路情報・位置が不正、経路に指定Edgeがない、指定Edgeが複数回含まれて地点を特定できない、現在位置・進行方向が不明、指定EdgeまでのEdgeや接続を解決できない場合はfalseを返す。失敗時の`distanceOnPathM`は0とし、Contextの位置やパターンを書き換えない。
+これらの処理はパターン生成と現在位置の更新の内部計算とし、地点情報や経路距離を`TrainAtcLogic`の公開APIとして提供しない。制御用の現在距離は`State.pattern.distanceOnPathM`に保持する。
 
 ## 3. サンプリングと保持情報（確定）
 
@@ -94,63 +76,63 @@ N = ceil(L / 5m)
 
 ### パターンの保持情報
 
+以下の項目は`State.pattern`を基準とする。個別パターンの現在値は、その`normalPattern`・`emergencyPattern`・`orpPattern`に保持する。
+
 | 項目 | 内容 |
 | --- | --- |
 | `pathLengthM` | 最初のEdgeの進入端から最後のEdgeの退出端までの経路長[m] |
 | `samplingIntervalM` | 実際のサンプル間隔[m] |
-| `hasValidPattern` | 今回の現在位置でパターンを使用できるか。ブレーキ判定とOutput生成で共有 |
+| `isValid` | 今回の現在位置でパターンを使用できるか。ブレーキ判定とOutput生成で共有 |
 | `distanceOnPathM` | 現在位置のpath内距離[m] |
-| `normalAllowSpeedMps` | 現在位置で補間した常用許容速度[m/s]。float |
-| `emergencyAllowSpeedMps` | 現在位置で補間した非常許容速度[m/s]。float |
-| `orpAllowSpeedMps` | 現在位置で補間した独立ORP許容速度[m/s]。float。ORPがない場合は0 |
-| `normalTargetSpeedMps` | 現在位置で補間した常用の目標速度[m/s] |
-| `emergencyPatternTargetMps` | 現在位置で補間した非常の目標速度[m/s] |
-| `orpPatternTargetMps` | 現在位置で補間した独立ORPの目標速度[m/s]。ORPがない場合は0 |
-| `isNormalDecelerationSection` | 現在位置が常用パターンの減速区間か。bool |
-| `isEmergencyDecelerationSection` | 現在位置が非常パターンの減速区間か。bool |
-| `isNormalPatternApproachSection` / `isEmergencyPatternApproachSection` | 現在位置が常用・非常それぞれの予告・降下区間内か |
-| `isOrpPatternApproachSection` | 現在位置が独立ORPの予告・降下区間内か。ORPがない場合はfalse |
-| `pathAtcEdges` | 進行順に並んだATC Edge IDの列。IDは文字列 |
+| `normalPattern.currentAllowSpeedMps` | 現在位置で補間した常用許容速度[m/s]。float |
+| `emergencyPattern.currentAllowSpeedMps` | 現在位置で補間した非常許容速度[m/s]。float |
+| `orpPattern.currentAllowSpeedMps` | 現在位置で補間した独立ORP許容速度[m/s]。float。ORPがない場合は0 |
+| `normalPattern.currentTargetSpeedMps` | 現在位置で補間した常用の目標速度[m/s] |
+| `emergencyPattern.currentTargetSpeedMps` | 現在位置で補間した非常の目標速度[m/s] |
+| `orpPattern.currentTargetSpeedMps` | 現在位置で補間した独立ORPの目標速度[m/s]。ORPがない場合は0 |
+| `normalPattern.isDecelerationSection` | 現在位置が常用パターンの減速区間か。bool |
+| `emergencyPattern.isDecelerationSection` | 現在位置が非常パターンの減速区間か。bool |
+| `normalPattern.isApproachSection` / `emergencyPattern.isApproachSection` | 現在位置が常用・非常それぞれの予告・降下区間内か |
+| `orpPattern.isApproachSection` | 現在位置が独立ORPの予告・降下区間内か。ORPがない場合はfalse |
+| `atcEdgePath` | 進行順に並んだATC Edge IDの列。IDは文字列 |
 | `pathStartTravelDirection` | 採用時の先頭Edgeの進行方向。現在Edgeが変わっても保持 |
-| `isFrontCab` / `reverserPosition` | パターンを採用した運転台側とレバーサ位置。保持可否の確認に使用 |
-| `overrunProtectionMode` | 採用した過走防護モード。無信号の猶予中もORP状態へ反映 |
 | `normalPattern` | 各サンプル位置の常用パターン情報 |
 | `emergencyPattern` | 各サンプル位置の非常パターン情報 |
-| `orpPattern` | Restricted時に生成する独立ORPパターン。同じ経路とサンプル間隔を使用。通常非常との合成は未実装 |
+| `orpPattern` | Restricted時に生成する独立ORPパターン。同じ経路とサンプル間隔を使用。通常非常と別の配列で保持 |
 
-`State.brakePattern`は宣言時に生成し、`pathAtcEdges`は`List<string>`として保持する。経路は電文内のリストを参照せず、今回のEdge ID列をコピーする。
+`State.pattern`は宣言時に生成し、`atcEdgePath`は`List<string>`として保持する。経路は電文内のリストを参照せず、今回のEdge ID列をコピーする。 防護方式は`State.protectionMode`だけで保持する。現在の運転台・レバーサは`State.operation.cab`を参照し、PatternStateへ重複保存しない。
 
-現在位置の許容速度は`TrainAtcBrakePatternLogic.UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間してStateへ保持する。常用・非常・独立ORPの目標速度も同じ方法で補間し、前後サンプルから予告・降下区間内かを求める。現在位置のパターンを取得できない場合と、`ClearBrakePattern()`でパターンを消す場合は、使用可否・距離・許容速度・目標速度・区間フラグを初期値へ戻す。
+現在位置の許容速度は`TrainAtcPatternLogic.UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間して、個別パターンの`currentAllowSpeedMps`へ保持する。常用・非常・独立ORPの目標速度は`currentTargetSpeedMps`へ同じ方法で補間する。接近は前後サンプルのいずれか、降下と減速度は現在位置を含むサンプル区間から取得する。参照失敗時と`ClearPattern()`では使用可否・距離・現在値・区間フラグを初期値へ戻す。
 
-現在位置の減速区間は、現在位置を含む区間の始点サンプルの`isDecelerationSection`を常用・非常それぞれから取得し、Stateの上記フラグへ保存する。サンプル位置ではその地点から先の区間を使い、経路終端では終端サンプルのfalseを使う。現在位置のパターンを取得できない場合とパターン消去時は、両方のフラグをfalseへ戻す。
+現在位置の減速区間は、現在位置を含む区間の始点サンプルの`isDecelerationSection`を各パターンから取得する。サンプル境界ではその地点から先の区間を使う。降下終了後の延長区間も同じフラグで保持する。パターン消去時は全パターンの区間フラグをfalseへ戻す。
 
-常用・非常はそれぞれ`List<TrainAtcBrakePatternSample>`として保持する。各サンプルの情報は次の通りとする。
+常用・非常・独立ORPは、それぞれ`TrainAtcPattern`の`samples`に`List<TrainAtcPatternSample>`として保持する。各サンプルの情報は次の通りとする。
 
 | 項目 | 内容 |
 | --- | --- |
-| `speedLimitMps` | その地点の積分後の許容速度[m/s] |
+| `allowSpeedMps` | その地点の積分後の許容速度[m/s] |
 | `targetSpeedMps` | 減速先の目標速度[m/s]。予告区間でも引き継ぐ |
 | `decelerationMps2` | 勾配補正前の計算用減速度[m/s²]。常用・非常それぞれの設定値 |
-| `isDecelerationSection` | 進行方向に見て、次サンプルより許容速度が高い減速区間 |
-| `isPatternApproachSection` | 減速区間と、設定時間分だけ手前の予告区間 |
+| `isDecelerationSection` | 減速区間と、下がり切った速度で1秒進む距離の延長区間 |
+| `isApproachSection` | 減速区間、設定時間分だけ手前の予告区間、降下終了後の延長区間 |
 
-初期化時は目標速度を初期上限速度と同じ値にし、両方の区間フラグをfalseにする。勾配補正した有効減速度は積分だけに使い、サンプルに保存する減速度には加算しない。TIMSへ公開する既存の速度配列は、サンプルの`speedLimitMps`だけを取り出す。
+初期化時は目標速度を初期上限速度と同じ値にし、両方の区間フラグをfalseにする。勾配補正した有効減速度は積分だけに使い、サンプルに保存する減速度には加算しない。TIMSへ公開する既存の速度配列は、サンプルの`allowSpeedMps`だけを取り出す。
 
 ### 実装済みの初期化
 
-`InitializeBrakePattern()`は経路の各Edgeの全長を合計し、サンプル間隔を求め、常用の速度配列を`Settings.MaximumOperatingSpeedMps`、非常の速度配列を線区最高速度に`EmergencySpeedMarginKmh`を加えてm/sへ換算した値で初期化する。成功時はtrueを返す。
+`PreparePath()`で経路長を求め、`InitializePatterns()`でサンプル間隔を決める。常用は`Settings.MaximumOperatingSpeedMps`、非常とRestricted時の独立ORPは線区最高速度に`EmergencySpeedMarginKmh`を加え、m/sへ換算した値で初期化する。ORP以外では独立ORPのサンプルを生成しない。
 
-`InitializeBrakePattern()`はEdge IDの欠損、非正または不正なEdge長、分割数を扱えない経路でfalseを返す。進路情報・経路のnull、空経路、先頭Edgeの一致、過走防護モードと共通の計算用設定は、更新前の`CheckBrakePatternInput()`で確認し、不正なら消去と判定する。共通入力の取得には`TryGetBrakePatternInputs()`を使う。確認が完了するまではパターンを書き換えない。`UpdateBrakePattern()`は計算失敗時に`ClearBrakePattern()`を呼び、経路長とサンプル間隔を0、経路と両方の速度配列を空にする。電文が未受信・不正、または現在位置と進行方向に対応するキーがない場合は、第6節の無信号時間による猶予を適用する。
+Edge ID・長さ・接続・プロファイルは`PreparePath()`、分割数と計算値は`InitializePatterns()`で確認する。共通入力と方式別の設定は更新前の`TrainAtcValidationLogic.UpdateValidation()`、防護方式は`TrainAtcProtectionModeLogic.UpdateProtectionMode()`で確定する。生成途中の内容はローカルに置き、全工程が成功するまでStateへ採用しない。`UpdatePattern()`は失敗時に`ClearPattern()`で経路と全パターンを消去する。電文未受信・不正・対応キーなしの場合は、第6節の無信号猶予を適用する。
 
 この初期化では常設速度制限・停止余裕・ORP・制動曲線をまだ反映しない。
 
 ### 実装済みの常設速度制限
 
-`TryCreateBrakePattern()`は初期化に成功した場合だけ、その直後に`ApplyPermanentSpeedLimits()`を呼ぶ。初期化または反映に失敗した場合はfalseを返し、呼び出し元の`UpdateBrakePattern()`がパターンを消す。
+`UpdatePattern()`は初期化成功後に`ApplyPermanentSpeedLimits()`を呼ぶ。初期化または反映に失敗した場合は、生成を中止してパターンを一括消去する。
 
 `ApplyPermanentSpeedLimits()`は各Edgeの`speedLimitSections`を読み、常用へ常設速度制限、非常へ常設速度制限に`EmergencySpeedMarginKmh`を加えた速度上限を反映する。共通定数の初期値は10km/hとし、非常側の初期上限・常設制限・ORPで同じ定数を使う。保持単位はm/sであり、各配列の現在値と比較して低い方を採用する。重複区間もそれぞれの低い方を優先する。
 
-先頭Edgeの進行方向には`State.currentTravelDirection`を使う。以降は直前のEdgeの出口Nodeから進入する側を判定し、Node AならA→B、Node BならB→Aとする。接続先がない・両端が同じ出口Nodeに一致して方向を特定できない場合は失敗とする。
+先頭Edgeの進行方向には`State.operation.currentTravelDirection`を使う。以降は直前のEdgeの出口Nodeから進入する側を判定し、Node AならA→B、Node BならB→Aとする。接続先がない・両端が同じ出口Nodeに一致して方向を特定できない場合は失敗とする。
 
 制限区間はNode Aからの距離で定義されているため、B→Aの場合は開始を`Edge長 − 元の終了位置`、終了を`Edge長 − 元の開始位置`へ変換する。そのEdgeより前のEdge長の合計を加え、経路上の距離にする。
 
@@ -190,15 +172,15 @@ Controllerは、固定前後の受信機の取り付け位置を`Input.frontRece
     − 車両中心の固定前端からの距離
 ```
 
-固定後側へ進む場合は、受信機と車両中心の距離差の符号を反転する。固定前後の走行方向は`State.currentTravelDirection`と`currentPosition.frontFacesAtoB`から求める。運転台の前後だけで決めないため、後進時も実際に先頭となる車両を使用する。
+固定後側へ進む場合は、受信機と車両中心の距離差の符号を反転する。固定前後の走行方向は`State.operation.currentTravelDirection`と`currentPosition.frontFacesAtoB`から求める。運転台の前後だけで決めないため、後進時も実際に先頭となる車両を使用する。
 
 ### 車両ごとの勾配と経路外の扱い
 
 経路内にある車両中心の勾配は、静的Graphから取得する。進行方向に対して上りを正とする。各サンプル区間ごとに車両位置と勾配を計算し直し、現在の編成位置で求めた勾配を経路全体へ一律に適用しない。
 
-`TryGetPathMinimumGradient()`は、指定した経路区間の最小勾配を返す。区間の両端だけでなく、区間内の勾配プロファイルの各点とEdge境界の両側も確認する。プロファイル間は線形補間のため、この確認で区間内の最小値を取得する。Edgeごとの進行方向を反映し、B→Aなら勾配の符号を反転して比較する。
+`TrainAtcPatternHelper.TryGetMinimumGradient()`は、指定した経路区間の最小勾配を返す。区間の両端だけでなく、区間内の勾配プロファイルの各点とEdge境界の両側も確認する。プロファイル間は線形補間のため、この確認で区間内の最小値を取得する。Edgeごとの進行方向を反映し、B→Aなら勾配の符号を反転して比較する。
 
-勾配プロファイル全体の数値・順序・両端の確認は、`ApplyBrakePattern()`の積分前に経路内の各Edgeに対して1回行う。積分中の`GetGradient()`は二分探索で前後のプロファイルを取得して補間し、区間内の変化点も二分探索した開始位置から対象区間だけを確認する。地点情報の公開関数から呼ぶ`TryGetGradient()`では、取得前にプロファイル全体を確認する。
+勾配プロファイル全体の数値・順序・両端の確認は、`PreparePath()`から`TrainAtcPatternHelper.TryPreparePath()`を呼ぶ際、経路内の各Edgeに対して1回行う。勾配補正中の`TrainAtcPatternHelper.GetGradient()`は二分探索で前後のプロファイルを取得して補間し、区間内の変化点も二分探索した開始位置から対象区間だけを確認する。
 
 車両中心が経路の始点より手前、または終端より先にある場合は、次の近似を使う。
 
@@ -217,7 +199,7 @@ Controllerは、固定前後の受信機の取り付け位置を`Input.frontRece
 
 ### 勾配から有効減速度への変換
 
-車両質量を`m[j]`、その車両がサンプル区間を通る間の最小勾配[‰]を`gradient[j]`として、常用・非常のそれぞれで次の式を使う。重力加速度はLogicの定数`GravityMps2 = 9.80665f`とする。
+車両質量を`m[j]`、その車両がサンプル区間を通る間の最小勾配[‰]を`gradient[j]`として、常用・非常のそれぞれで次の式を使う。重力加速度は`TrainAtcPatternHelper`の定数`GravityMps2 = 9.80665f`とする。
 
 ```text
 勾配補正減速度 = 9.80665 × Σ(m[j] × gradient[j]) / (1000 × Σm[j])
@@ -244,37 +226,37 @@ v[i - 1] = min(その位置の速度上限, sqrt(v[i]² + 2 × a × Δx))
 
 25km/hなどの低速条件が常設速度制限より高い場合も、低い速度上限を優先する。低速条件を理由に許容速度を引き上げない。
 
-質量入力が取得できない、質量・車両中心位置・受信機の取り付け距離が不正、参照する経路内の勾配プロファイルが不正、減速度設定が非正または不正、最大下り勾配の設定が負数または不正、勾配補正後の有効減速度が0以下または不正な場合は積分に失敗する。共通の計算用入力・設定は`TryGetBrakePatternInputs()`でまとめて確認し、新しいパターンの計算中に判明した不正も含め、無信号の猶予を適用しない。`UpdateBrakePattern()`は途中まで計算した値も含めて`ClearBrakePattern()`で消す。キー切やレバーサ中立、位置不明などでATCが無効な場合も前回のパターンを残さない。計算失敗時の非常要求とTIMSへの受け渡しは第6節に記載する。
+質量入力が取得できない、質量・車両中心位置・受電器の取り付け距離が不正、経路内の勾配プロファイルが不正、減速度設定が非正または不正、最大下り勾配が負数または不正、有効減速度が0以下または不正の場合は生成に失敗する。共通入力・基本設定と方式別設定は`TrainAtcValidationLogic.UpdateValidation()`でまとめて確認し、生成中に判明した失敗にも無信号猶予を適用しない。`UpdatePattern()`は`ClearPattern()`で使用不可にする。キー切・中立の場合もパターンを残さない。計算失敗時の非常要求とTIMSへの受け渡しは第6節に記載する。
 
 ### 減速区間・予告区間と目標速度
 
-積分成功後に`UpdatePatternSections()`を常用・非常それぞれへ適用し、終端から始点へ区間情報を設定する。終端サンプルは目標速度を自身の許容速度、両方の区間フラグをfalseとする。
+積分成功後に`UpdatePatternSections()`を常用・非常・生成済み独立ORPそれぞれへ適用し、終端から始点へ区間情報を設定する。終端サンプルは目標速度を自身の許容速度、両方の区間フラグをfalseとする。
 
-進行方向に見て許容速度が下がる区間を`isDecelerationSection = true`とする。一定速度の区間や速度が上がる区間はfalseとする。
+進行方向に見て許容速度が下がる区間を`isDecelerationSection = true`とする。下がり切った地点から「その速度[m/s] × 1秒」の距離まで、降下・接近区間を延長する。境界はサンプル区間単位で切り上げ、目標速度を延長区間にも保持する。速度曲線は変更せず、停止目標0m/sでは延長距離も0mとする。それ以外の一定速度・上昇区間は降下区間としない。
 
-予告時間は`Settings.patternApproachWarningTimeSeconds`で設定し、初期値を5秒とする。減速区間を検出したら、次サンプルの許容速度[m/s]に予告時間[s]を掛け、手前へ延ばす距離[m]とする。減速区間以外では残り距離からサンプル間隔を引き、残り距離が正のサンプルにも`isPatternApproachSection = true`を設定する。TD-ATCと同様の距離換算であり、サンプル単位の近似とする。予告時間が0なら、予告区間は減速区間だけになる。予告時間が負数・NaN・無限大なら初期化に失敗し、パターンを消す。
+予告時間は`Settings.patternApproachWarningTimeSeconds`で設定し、初期値を5秒とする。減速区間を検出したら、次サンプルの許容速度[m/s]に予告時間[s]を掛け、手前へ延ばす距離[m]とする。減速区間以外では残り距離からサンプル間隔を引き、残り距離が正のサンプルにも`isApproachSection = true`を設定する。TD-ATCと同様の距離換算であり、サンプル単位の近似とする。予告時間が0なら、予告区間は減速区間だけになる。予告時間が負数・NaN・無限大なら初期化に失敗し、パターンを消す。
 
 減速・予告区間では次サンプルの目標速度を引き継ぎ、自身の許容速度を超えないよう低い方を採用する。それ以外では、自身の許容速度を目標速度とする。停止へ向かう区間では0、ORP常用へ向かう区間では設定したORP速度を保持する。
 
-`TrainAtcOutputLogic.UpdatePatternOutput()`は、Stateの`isNormalPatternApproachSection`がtrueで、現在の測定速度の大きさがStateの`normalTargetSpeedMps`以上なら、`Output.isPatternApproaching = true`とする。同じ速度の場合も予告対象に含める。速度未取得・不正、ATC無効、パターン不成立ではfalseとし、前回の状態を残さない。
+`TrainAtcOutputLogic.UpdateAtcPatternOutput()`は、`State.pattern.normalPattern.isApproachSection`がtrueで、測定速度の絶対値が`State.pattern.normalPattern.currentTargetSpeedMps`以上なら`Output.pattern.isPatternApproaching`をtrueにする。同じ速度も予告対象に含める。表示の成立条件と消去は[全体処理仕様の工程8](TrainAtcProcessingFlow.md#8-outputを生成)に従う。
 
 TIMSのMasterBusには機器名`ATC`、項目名`IsPatternApproaching`でBoolを公開する。更新周期は既存のMaster収集周期に従う。予告音・インジケーターとブレーキ出力への接続は後続で実装する。
 
 ### Signalの表示出力
 
-`TrainAtcOutputLogic.UpdatePatternOutput()`はStateに保持した常用パターン速度と目標速度から、`Output.signal`を設定する。
+`TrainAtcOutputLogic.UpdateAtcPatternOutput()`は`Output.pattern.signal`を設定する。最新の表示条件は[全体処理仕様の工程8](TrainAtcProcessingFlow.md#8-outputを生成)に従う。
 
 | 条件 | Signal |
 | --- | --- |
-| ATC無効 | `None` |
-| ATC有効で、常用パターン速度か目標速度が0m/s | `Red` |
-| ATC有効で、上記以外 | `Green` |
+| ATC異常または無効 | `None` |
+| ATC正常・有効で、常用目標速度が0より大きくORP非作動 | `Green` |
+| ATC正常・有効で、上記以外 | `Red` |
 
-ATCが有効でもパターンを取得できなければ、速度の初期値0として`Red`にする。前回の現示を残さない。TIMSのMasterBusには`ATC/Signal`としてIntを公開し、`None=0`、`Red=1`、`Green=2`とする。Signalの公開も既存のMaster収集周期に従う。
+パターンを使用できない場合は全体の正常性へ反映し、前回の現示を残さない。TIMSのMasterBusには`ATC/Signal`としてIntを公開し、`None=0`、`Red=1`、`Green=2`とする。Signalの公開も既存のMaster収集周期に従う。
 
 ## 5. 停止目標とORPの扱い（実装済み）
 
-`Calculate()`は`UpdateBrakePattern()`の前に`CheckBrakePatternInput()`を呼び、入力・電文・猶予・保持経路から新規生成・前回保持・消去を決める。判定結果は`State.brakePatternUpdateDecision`に毎tick保持し、`UpdateBrakePattern()`はStateから読んで処理する。enumとstructは`TrainAtcContext.cs`に定義する。新規生成の場合は、`TryCreateBrakePattern()`で初期化、常設速度制限、`ApplyOverrunProtection()`、`ApplyBrakePattern()`、`TryCreateOrpPattern()`の順に呼ぶ。いずれかの処理に失敗した場合は、ORPを含むパターンを消してその回の処理を終了する。`ApplyBrakePattern()`は第4節の勾配補正と速度積分を行う。無信号の猶予中は速度配列を再生成せず、採用済みの過走防護モードも保持する。
+`TrainAtcLogic.Calculate()`は工程4の`UpdateValidation()`で入力・電文・猶予・保持可否を判定し、`State.validation.result`へAdopt・Retain・Unusableを保存する。工程5で防護方式を確定し、工程6の`TrainAtcPatternLogic.UpdatePattern()`が判定結果を読む。新規生成は`PreparePath()` → `InitializePatterns()` → `ApplyPermanentSpeedLimits()` → `ApplyStopTargets()` → `CalculateGradientCorrections()` → `IntegratePatterns()` → `UpdatePatternSections()`の順に実行し、成功した内容を採用して現在値を更新する。失敗時は一括消去する。無信号猶予中は速度配列を再生成せず、防護方式はProtectionModeStateで維持する。
 
 ORPは電文の`overrunProtectionMode`が`Restricted`の場合だけ有効とする。各モードでは、後続の積分に用いる速度上限と停止目標を次のように設定する。
 
@@ -286,7 +268,7 @@ ORPは電文の`overrunProtectionMode`が`Restricted`の場合だけ有効とす
 
 ### 独立ORPパターンの生成（実装済み）
 
-`TryCreateOrpPattern()`はRestrictedの場合だけ、`State.brakePattern.orpPattern`を生成する。常用・非常と同じ経路・サンプル数・間隔で保持し、Restricted以外では空の配列とする。生成前の初期化とパターン消去では前回のORPも消し、無信号の猶予中はそのまま保持する。
+独立ORPはRestrictedの場合だけ`State.pattern.orpPattern`へ生成する。配列の準備は`InitializePatterns()`、低速上限と停止目標の設定は`ApplyStopTargets()`、専用減速度での積分は`IntegratePatterns()`で行う。常用・非常と同じ経路・サンプル数・間隔を使う。Restricted以外では空の配列とし、消去時はORPも消す。無信号猶予中は他のパターンとともに保持する。
 
 初期速度上限は次のとおりとし、共通の`EmergencySpeedMarginKmh`を使用する。
 
@@ -298,26 +280,26 @@ ORPは電文の`overrunProtectionMode`が`Restricted`の場合だけ有効とす
 
 境界は既存の過走防護と同じく手前側のサンプルへ丸める。設定距離が経路より長い場合は原点から制限する。設定距離が0や1サンプル未満でも、最後の2サンプルの停止目標を優先する。Graphの区間別常設速度制限は独立ORPへ追加しない。
 
-計算用減速度は`Settings.orpDecelerationMps2`で独立して設定し、初期値を0.7m/s²とする。各サンプルには勾配補正前の値を保存する。非常側と同じ質量加重の勾配補正を加え、設定距離以内だけ終端側から逆向きに積分する。範囲外の初期上限は維持する。勾配データの全件確認は先行する通常の積分処理で行い、ORPで繰り返さない。減速度が0以下・NaN・Infinityの場合や、補正後の有効減速度が非正・不正の場合は生成に失敗する。
+計算用減速度は`Settings.orpDecelerationMps2`で独立して設定し、初期値を0.7m/s²とする。各サンプルには勾配補正前の値を保存する。非常側と同じ質量加重の勾配補正を加え、設定距離以内だけ終端側から逆向きに積分する。範囲外の初期上限は維持する。勾配データの全件確認は経路準備で先に行い、ORPで繰り返さない。減速度が0以下・NaN・Infinityの場合や、補正後の有効減速度が非正・不正の場合は生成に失敗する。
 
 生成後は`UpdatePatternSections()`で目標速度・降下区間・接近区間を常用・非常と同じ方法で求める。接近の予告は既存の`patternApproachWarningTimeSeconds`を使用する。
 
-現在位置のORP許容速度は`UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間し、`State.brakePattern.orpAllowSpeedMps`に保存する。`Output.orpAllowSpeedMps`にも同じ値を反映する。ORPがない場合や使用できないパターンを消す場合は0に戻す。無信号の猶予中も保持したORPから毎tick更新する。通常非常との大小比較は行わない。
+現在位置のORP許容速度は`UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間し、`State.pattern.orpPattern.currentAllowSpeedMps`に保存する。ORPがない場合とパターン消去時は0に戻す。無信号猶予中も現在位置から毎tick更新する。通常非常と別の配列で保持し、非常照査では通常非常と独立ORPの両方を確認する。
 
-独立ORPの目標速度は`State.brakePattern.orpPatternTargetMps`に保存する。接近状態は前後サンプルのどちらかの`isPatternApproachSection`がtrueなら、`State.brakePattern.isOrpPatternApproachSection`をtrueとする。ORPがない場合やパターンを使用できない場合は目標速度を0、接近状態をfalseに戻す。無信号の猶予中も保持したORPの現在位置から更新する。通常非常との合成と、独立ORP許容速度のTIMSタグへの公開は未実装とする。
+独立ORPの目標速度は`State.pattern.orpPattern.currentTargetSpeedMps`、接近状態は`isApproachSection`、降下状態は`isDecelerationSection`に保存する。ORPがない場合とパターン消去時は現在値と区間状態を初期値に戻す。保持中も現在位置から更新する。表示用許容速度の比較とORP表示はOutputLogicで行い、パターンの配列を合成しない。
 
 ### ORP表示
 
-モニター用の`Output.isOrpActive`は、有効なパターンがあり、`Restricted`かつ`State.brakePattern.isOrpPatternApproachSection`がtrueで、`State.brakePattern.orpPatternTargetMps`が0m/sの場合だけtrueとする。独立ORPの予告・降下区間と停止目標から判定し、現在速度は条件に含めない。無信号の猶予中も保持した独立ORPの現在位置から判定する。
+ORPのモニター表示は`TrainAtcOutputLogic.UpdateAtcPatternOutput()`が`Output.pattern.isOrpOperating`へ生成する。現在はRestrictedかつ独立ORPの降下区間内で有効とする。最新の条件は[全体処理仕様の工程8](TrainAtcProcessingFlow.md#8-outputを生成)を参照する。
 
-ORP表示が有効な間は、TIMSへ公開する現示速度`ATC/PatternAllowSpeedKmh`を0km/hにする。State・Outputの許容速度は計算値を保持し、ブレーキ制御に使う。ORP表示のOn／Offは、上記の速度上限・停止目標の設定とは別に現在位置で更新する。
+ORP表示中は`Output.pattern.isSpeedIndicated`をfalseにする。TIMSへ現示速度と`ATC/IsSpeedIndicated`を転送し、速度計UIがフラグに従って消灯する。StateとOutputの計算用許容速度は維持し、消灯のために0へ書き換えない。
 
 ### 設定値と単位
 
 - ORPの距離は`Settings.orpMinimumTargetMarginM`から取得し、初期値を100mとする。
 - ORPの常用速度は`Settings.orpSpeedLimitKmh`から取得し、初期値を25km/hとする。
 - `None`の常用停止余裕は`Settings.serviceStopMarginM`から取得し、初期値を100mとする。
-- 非常の速度余裕は`TrainAtcLogic`の`private const float EmergencySpeedMarginKmh = 10f`で設定する。ORPの非常上限は初期値で35km/hとなる。
+- 非常の速度余裕は`TrainAtcPatternLogic`の`private const float EmergencySpeedMarginKmh = 10f`で設定する。ORPの非常上限は初期値で35km/hとなる。
 - 配列に書く際は、km/hを3.6で割りm/sへ換算する。
 
 既存の常設制限や線区最高速度に対応する上限が低い場合は、その低い値を維持する。ORPの低速制限によって速度を引き上げない。停止目標の0m/sには速度余裕を加算しない。
@@ -357,15 +339,19 @@ ORP表示が有効な間は、TIMSへ公開する現示速度`ATC/PatternAllowSp
 
 ### ブレーキ状態と出力の基盤（実装済み）
 
-`State.brake`に`TrainAtcBrakeState`を保持する。`isEmergencyRequired`は今回の非常作動原因の有無、`isEmergencyHold`は解除まで引き継ぐ非常の保持状態とする。常用介入の保持には`isNormalRequired`、刻み段には`targetBrakeStep`と`currentBrakeStep`、切り替え用の経過時間には`brakeChangeElapsedSeconds`を用意する。`targetBrakeStepTableIndex`はヒステリシスで選択したテーブルの行を保持し、未選択時は−1とする。目標段の計算は`CreateBrakeStep()`、実出力段の刻み切り替えは`UpdateCurrentBrakeStep()`に実装する。降下中の目標段を設定した直後に、同関数を呼ぶ。`UpdateBrakeState()`から毎tick`CreateBrakeStep()`を呼ぶ。
+ドア全閉未確認による転動防止は`State.brake.isRollingPreventing`へ毎tick保存する。TIMSの編成全体のドア状態が未全閉、または取得できない間は常用最大へ即時切替する。停車中だけに限定せず、全閉確認後は通常の常用介入・緩解判定へ戻る。キー切・レバーサ中立では転動防止も解除する。ドア情報の取得失敗だけでATC故障や非常要求を追加しない。
 
-`Output.brake`に`TrainAtcBrakeOutput`を保持する。各処理がStateを更新した後、`TrainAtcOutputLogic.UpdateOutput(context)`がContextだけから表示情報とブレーキ指令を生成する。Stateは変更せず、他のLogicはOutputを参照しない。非常保持中は`isEmergency = true`、`brakeStep = 0`とし、それ以外は`currentBrakeStep`を出力する。非常要求と常用段は別の項目として扱う。`CreateBrakeStep()`で常用段を更新した後、`TrainAtcOutputLogic.UpdateBrakeOutput()`で今回の出力へ反映する。
+`Output.brake.isRollingPreventing`へStateの判定を反映し、TIMS MasterBusの`ATC/IsRollingPreventing`にも転送する。他の原因による非常保持中は、従来どおり非常指令を優先して常用段を0とする。
 
-`Calculate()`は無効時にも途中で戻らず、`UpdateBrakeState()`を呼ぶ。更新前の`CheckBrakePatternInput()`で入力・電文・保持パターンの使用可否をまとめて判定する。判定結果に従って`UpdateBrakePattern()`が生成・保持・消去を行い、その結果を表示とブレーキで共有する。`HasEmergencyBrakeCause()`は`State.brakePattern.hasValidPattern`を読み、不成立なら非常を保持する。原因がなくなっても、停止とマスコン非常位置の両方を確認するまで保持する。キー切・レバーサ中立を確認できた場合は、`ClearBrakeState()`で全ブレーキ状態を即時にクリアし、最後のOutput生成で解除を反映する。
+`State.brake`に`TrainAtcBrakeState`を保持する。`isEmergencyBrakeRequired`は今回の非常作動原因、`isEmergencyHold`は解除まで引き継ぐ非常保持、`isNormalBrakeRequired`は常用介入を表す。目標段・現在段は`targetBrakeStep`・`currentBrakeStep`、待ち時間は`brakeChangeElapsedSeconds`、選択行は`brakeStepTableIndex`に保持する。常用介入・緩解は`UpdateNormalBrakeState()`、ヒステリシスによる目標段の選択は`UpdateTargetBrakeStep()`、刻み切替は`UpdateCurrentBrakeStep()`で行う。入口の`UpdateBrakeState()`から毎tick更新する。
 
-保持時は更新前の`CheckBrakePatternInput()`内で、新規生成時は生成後の`Calculate()`内で、`TryGetBrakePatternPosition()`を一度だけ呼ぶ。採用済みの経路・方向と現在位置からpath内距離、補間するサンプルindexと比率を求める。表示の速度補間と常用ノッチの基準段選択へ結果を渡し、各処理で電文や現在位置の可否を判定し直さない。TIMSの表示収集や転送済みの表示値には依存しない。
+`Output.brake`に`TrainAtcBrakeOutput`を保持する。各工程の後に`TrainAtcOutputLogic.UpdateAtcOutput(context)`が表示とブレーキ指令を生成する。Stateは変更しない。`UpdateAtcBrakeOutput()`は非常保持を`isEmergencyBrakeRequired`へ反映し、非常中は常用段を0、それ以外はStateの`currentBrakeStep`を出力する。非常と常用の指令は別の項目で扱う。
 
-常用パターンの超過による介入、常用段の出力とTIMSへの受け渡しは実装済みとする。非常パターンの速度超過による非常作動はまだ実装していない。
+`Calculate()`は前工程が使用不可でも`UpdateBrakeState()`を呼ぶ。ValidationLogicが入力・電文・保持可否、PatternLogicが生成・現在値の更新を担当し、親Logicが全体の`State.isAtcHealthy`を集約する。`HasEmergencyBrakeCause()`は確定結果と`State.pattern.isValid`を参照し、不成立なら非常を保持する。原因消失後も停止・マスコン非常位置を確認するまで保持する。確認済みキー切・中立では`ClearBrakeState()`で全ATCブレーキ状態を解除し、最後のOutput生成へ反映する。
+
+保持可否はValidationLogicで確認し、生成・保持後の現在距離とサンプル参照はPatternLogicの`UpdateCurrentPattern()`で更新する。現在の許容速度・目標速度・減速度・区間状態をStateに残し、BrakeLogicとOutputLogicはその結果を使用する。基準段を選ぶために電文やパターン使用可否を判定し直さず、TIMSへ転送済みの表示値にも依存しない。
+
+常用パターン超過の介入とTIMSへの受け渡し、通常非常の速度超過照査、Restricted時の独立ORPの速度超過照査を実装する。非常作動後は保持・解除条件に従う。
 
 ### TIMSへの受け渡し（実装済み）
 
@@ -393,7 +379,7 @@ TIMSはATC段と手動段の大きい方を採用する。非常要求があれ�
 
 常用要求の緩解幅は`Settings.normalBrakeReleaseMarginKmh`で設定する。初期値を3km/hとし、0以上の値を指定する。緩解速度偏差はこの値に負号を付けたものとし、3km/hなら−3km/h、1km/hなら−1km/hで緩解する。パターンが降下中の場合と降下していない場合の両方に適用し、停止保持条件を優先する。
 
-降下中の基準ノッチは、パターンに保持した勾配補正前の減速度に最も近いTIMSの常用ブレーキ段を選ぶ。出力には刻みノッチを使い、速度偏差に応じて基準ノッチから増減する。TIMS設定の減速度をMasterBusへ公開し、ATCが`Input.brakeSettings`へ取り込む処理は実装済みとする。通常ノッチごとの減速度表・刻み数・常用最大段を保持する。`TrainAtcLogic.GetBaseBrakeStep()`で、現在位置の常用サンプルの減速度を`TrainAtcNotchHelper.TryGetNearestBrakeStep()`へ渡し、TIMSと同じ補間式による各段の減速度を比較する。取得した基準段は`TrainAtcBrakeLogic.UpdateBrakeState()`へ渡し、同じクラス内の`CreateBrakeStep()`で使う。取得失敗は−1として渡し、常用介入時は常用最大段へ切り替える。緩解の0stepも候補とし、差が同じ場合は小さい段を選ぶ。受信と選択の詳細は[車上ATCの入力](TrainAtcInput.md)に記載する。
+降下中の基準ノッチは、勾配補正前の常用減速度に最も近いTIMSの常用ブレーキ段を選ぶ。`TrainAtcBrakeLogic.TryGetBaseBrakeStep()`が`TrainAtcBrakeHelper.TryGetNearestBrakeStep()`へ`State.pattern.normalPattern.currentDecelerationMps2`と`Input.brakeSettings`の減速度表・刻み数・常用最大段を渡す。TIMSと同じ補間式で各段を比較し、緩解0stepも候補とする。差が同じ場合は小さい段を採用する。取得した基準段は同じクラス内の`UpdateTargetBrakeStep()`で使い、選択失敗時は常用最大へ切り替える。受け渡しの詳細は[車上ATCの入力・状態・出力](TrainAtcInput.md)を参照する。
 
 ### パターンが降下していない場合
 
@@ -438,7 +424,7 @@ TIMSはATC段と手動段の大きい方を採用する。非常要求があれ�
 
 例えば基準＋1から基準＋2へ強める条件は＋1.0km/h以上、基準＋2から基準＋1へ弱める条件は＋0.5km/h以下となる。同じ行の二つの閾値が同値でも、隣り合う行を参照するため、0.5km/h幅のヒステリシスになる。
 
-`CreateBrakeStep()`の降下中の分岐では、未選択時に増減数0の行から判定を始める。次の行の強める閾値以上であれば、条件を満たす間、行を進める。増段しなかった場合は、一つ下の行の弱める閾値以下である間、行を戻す。急な偏差変化では同じ呼び出し内で複数行を移動し、条件を満たさなくなった行またはテーブル末端で止める。前回の行は`targetBrakeStepTableIndex`へ保持する。基準段と行の増減数を合計し、`targetBrakeStep`を0から常用最大の範囲へ収める。基準段が変わった場合も選択済みの行の増減数を使う。
+`UpdateTargetBrakeStep()`では、未選択時に増減数0の行から判定を始める。次の行の強める閾値以上であれば、条件を満たす間、行を進める。増段しなかった場合は、一つ下の行の弱める閾値以下である間、行を戻す。急な偏差変化では同じ呼び出し内で複数行を移動し、条件を満たさなくなった行またはテーブル末端で止める。前回の行は`brakeStepTableIndex`へ保持する。基準段と行の増減数を合計し、`targetBrakeStep`を0から常用最大の範囲へ収める。基準段が変わった場合も選択済みの行の増減数を使う。
 
 停止保持、常用要求の解除、降下していない分岐、`ClearBrakeState()`では選択行を−1へ戻す。ブレーキ設定が未取得、現在位置のパターンや基準段を取得できない、テーブルが空・不正・基準行がない場合は、`SetMaximumServiceBrakeStep()`で現在段・目標段を入力された常用最大へ即時に切り替える。常用要求をtrue、選択行を−1、待ち時間を0へ戻す。テーブルは有限の閾値、昇順で重複のない刻み増減数（連番でなくてもよい）、単調に増える閾値を要求し、隣り合う2段の弱める閾値を強める閾値より低く設定する。降下中の分岐では目標段を設定した直後に`UpdateCurrentBrakeStep()`を呼び、指定間隔ごとに実出力段を目標へ近づける。初回の基準段は即時に設定する。
 
@@ -454,17 +440,17 @@ TIMSはATC段と手動段の大きい方を採用する。非常要求があれ�
 
 切り替え間隔は`Settings.brakeStepChangeIntervalSeconds`から読み、初期値を0.1秒、Inspectorの最小値を0.01秒とする。`UpdateCurrentBrakeStep()`は`Input.deltaTimeSeconds`を`State.brake.brakeChangeElapsedSeconds`へ加算し、間隔を経過するごとに目標へ1step近づける。複数の間隔を経過した呼び出しでは、その回数分の切り替えを行う。目標に到達した場合、停止保持・完全緩解・降下していない場合の即時切り替えでは経過時間を0へ戻す。目標変更中も経過時間を引き継ぐ。間隔が非正・不正、経過時間入力が負数・不正の場合は、`SetMaximumServiceBrakeStep()`で現在段・目標段を常用最大へ即時に切り替え、常用要求をtrue、選択行を−1、経過時間を0へ戻す。出力段を変更しないtickも現在の段を出力する。
 
-TIMSへ渡す制御用のブレーキ要求も毎tick更新する。表示用のMaster収集周期とは別に扱う。ブレーキ要求の受け渡し経路の詳細はまだ確定していない。
+TIMSへ渡す制御用のブレーキ要求も毎tick更新する。`TimsNotchController`がATCのOutputを直接読む。表示用のMaster収集周期とは別に扱う。
 
 ### 共通の停止保持
 
-常用パターン速度が5km/h未満で、測定速度の大きさが0.1km/h以下の場合は停止中と判定し、パターンの降下状態によらず常用最大ブレーキを保持する。この条件を満たす間は、通常の緩解条件より停止保持を優先する。停止保持中は`isNormalRequired`をtrueにする。
+常用パターン速度が5km/h未満で、測定速度の大きさが0.1km/h以下の場合は停止中と判定し、パターンの降下状態によらず常用最大ブレーキを保持する。この条件を満たす間は、通常の緩解条件より停止保持を優先する。停止保持中は`isNormalBrakeRequired`をtrueにする。
 
 停止保持を終えた後の要求の扱いはまだ確定していない。
 
 ### 非常ブレーキの作動と解除
 
-キー入中でレバーサが前進または後退の場合に、現在速度の大きさが現在位置の非常パターン速度を超えたら、ATCの非常ブレーキ要求を即時に出す。非常要求は保持し、非常パターン速度以下になっただけでは解除しない。
+キー入中でレバーサが前進または後退の場合に、現在速度の大きさが現在位置の非常パターン速度を超えたら、ATCの非常ブレーキ要求を即時に出す。 Restrictedの場合は独立ORPの許容速度超過も非常作動原因とする。非常要求は保持し、非常パターン速度以下になっただけでは解除しない。
 
 作動した非常要求は、次の3条件をすべて満たしたときに解除する。
 
@@ -472,7 +458,7 @@ TIMSへ渡す制御用のブレーキ要求も毎tick更新する。表示用の
 2. すべての非常作動原因が解消している。
 3. 有効運転台のマスコンが非常ブレーキ位置である。
 
-マスコンの非常位置は、有効運転台の入力から取得した`cab.isEmergencyBrake`で確認する。ここで解除するのはATCの非常要求であり、マスコンが非常位置の間はTIMSの手動非常ブレーキ要求が継続する。
+マスコンの非常位置は、有効運転台の入力から取得した`State.operation.cab.isEmergencyBrake`で確認する。ここで解除するのはATCの非常要求であり、マスコンが非常位置の間はTIMSの手動非常ブレーキ要求が継続する。
 
 キー切またはレバーサ中立を確認できた場合は、上記の3条件を待たずにATCの非常要求と保持状態をクリアする。
 
@@ -480,11 +466,11 @@ TIMSへ渡す制御用のブレーキ要求も毎tick更新する。表示用の
 
 ### 入力やパターン計算が成立しない場合
 
-キー入中でレバーサが前進または後退の場合、電文がnull、不正、または現在のEdge IDと進行方向に対応するキーがないときは、連続する無信号時間を`State.noSignalElapsedSeconds`へ毎tick積算する。
+キー入中でレバーサが前進または後退の場合、電文がnull、不正、または現在のEdge IDと進行方向に対応するキーがないときは、連続する無信号時間を`State.validation.noSignalElapsedSeconds`へ毎tick積算する。
 
 前回採用した有効なパターンがあり、無信号時間が`Settings.noSignalTimeoutSeconds`以下の間は、その経路・速度配列・過走防護モードを保持する。現在位置と方向に対応するpath内距離を求め、許容速度・降下状態・パターン接近状態を毎tick更新し、保持したパターンで常用ブレーキの照査を続ける。受信結果を前回電文で置き換えたり、直前の許容速度に固定したりしない。
 
-新しい電文からパターンを生成し、現在位置で使えることまで確認できた場合は無信号時間を0へ戻す。電文が存在するだけ、または`isValid = true`であるだけでは解除しない。運転台・レバーサを切り替えた場合は前回パターンを引き継がず、キー切・中立・ATC無効の場合はパターンと無信号時間を消す。
+無信号でなくなった場合は、後続のパターン生成の成功を待たず`UpdateNoSignalTime()`で積算時間を0へ戻す。受信回復の判定は電文の有無・有効性・現在Edgeと照査方向のキー取得で行う。運転台側の受電器を切り替えた場合は保持しない。キー切・中立では受電器選択を解除し、パターンと無信号時間を消す。
 
 次のいずれかが発生した場合は、ATCの非常ブレーキ要求を即時に出す。
 
@@ -500,7 +486,7 @@ TIMSへ渡す制御用のブレーキ要求も毎tick更新する。表示用の
 
 これらによる非常要求も、前項と同じ解除条件を使う。キー入かつレバーサが前進または後退の場合は、作動原因が残っている間、停止してマスコンを非常位置にしても解除しない。キー切またはレバーサ中立を確認できた場合は、ATC要求と非常の保持状態を即時にクリアする。
 
-キー入かつレバーサが前進または後退であることを確認できている場合や、運転台・マスコン状態を取得できない場合は、正常判定の失敗で`isAtcEnabled`がfalseになっても非常判定を省略しない。確認済みの中立による無効化では、無信号・位置不明・パターン未生成などを理由とする新たな非常要求は出さない。
+キー入かつレバーサが前進または後退であることを確認できている場合や、運転台・マスコン状態を取得できない場合は、全体の正常性がfalseでも非常判定を省略しない。確認済みの中立による無効化では、無信号・位置不明・パターン未生成などを理由とする新たな非常要求は出さない。
 
 ### キー切の場合
 

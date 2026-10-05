@@ -39,10 +39,10 @@
 
 - `Needle` と `Speed` は同名の子オブジェクトから自動取得できます。
 - `Speed Binding` は針と速度数字に使う数値タグです。`float` と `int` の両方に対応します。
-- `ATC Speed Binding` は点灯させるATC現示速度、`ATC Validity Binding` は現示の有効状態です。
+- `ATC Speed Binding` は点灯させるATC現示速度、`ATC Indication Binding` は速度現示の表示可否です。
 - ATC三角は0 km/hから `Maximum Atc Marker Speed Kmh` まで、`Atc Marker Interval Kmh`（既定5 km/h）ごとに自動生成されます。
 - 現示速度は刻み幅に合わせて低い方へ切り捨てます。既定では42 km/h・43 km/hは40 km/h現示になります。
-- ATC速度または有効状態を取得できない場合、すべての三角を消灯スプライトにします。
+- `IsSpeedIndicated`がfalse、または表示可否・ATC速度を取得できない場合、すべての三角を消灯スプライトにします。速度が0km/hでも、表示可否がtrueなら0km/hの三角を点灯します。
 - 半径を含めて作成した `Atc Marker On/Off Sprite` を指定し、その画像サイズを `Atc Marker Size` に設定します。
 
-旧プロジェクトと同じ既定タグは `ATC.PatternAllowSpeedKmh` と `ATC.HasValidPattern` です。走行速度タグはプロジェクト側の送信名に合わせて `Speed Binding` を変更してください。
+既定タグは `ATC.PatternAllowSpeedKmh` と `ATC.IsSpeedIndicated` です。ATCの現示速度は表示可否にかかわらずTIMSへ転送し、UI側で表示・消灯を切り替えます。走行速度タグはプロジェクト側の送信名に合わせて `Speed Binding` を変更してください。
