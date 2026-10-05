@@ -255,10 +255,16 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         private void InitializeAtcPosition()
         {
-            if (hasAttemptedAtcInitialization) return;
+            if (hasAttemptedAtcInitialization)
+            {
+                return;
+            }
             hasAttemptedAtcInitialization = true;
-            if (atcController == null) return;
-            if (atcController.Context.State.isPositionInitialized) return;
+
+            if (atcController == null || atcController.Context.State.position.isPositionInitialized)
+            {
+                return;
+            }
 
             // 全Start処理の後、最初の移動前に一度だけ両端の初期位置を渡す。
             atcReceivers.TryGetValue(0, out var frontReceiver);

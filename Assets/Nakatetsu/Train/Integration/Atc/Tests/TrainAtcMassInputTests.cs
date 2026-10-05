@@ -198,13 +198,22 @@ namespace Nakatetsu.Train.Integration.Tests
 
         [TestCase(float.NaN)]
         [TestCase(float.PositiveInfinity)]
-        public void InvalidReceiverOffsetClearsMassInputs(float offsetM)
+        public void InvalidReceiverOffsetIsCapturedAndRejectedDuringValidation(float offsetM)
         {
             atc.CollectInput();
             Assert.That(atc.Context.Input.hasCarMasses, Is.True);
             SetOffset(frontReceiver, offsetM);
             atc.CollectInput();
-            AssertClearedMassInput();
+
+            // 収集では測定値をそのまま保持する。計算に使えるかは工程4で判定する。
+            Assert.That(atc.Context.Input.hasCarMasses, Is.True);
+            Assert.That(atc.Context.Input.cars.Count, Is.EqualTo(3));
+            float receiverDistanceM = atc.Context.Input.frontReceiverDistanceFromFrontM;
+            Assert.That(float.IsNaN(receiverDistanceM) || float.IsInfinity(receiverDistanceM), Is.True);
+
+            atc.Calculate(0.01f);
+            Assert.That(atc.Context.State.validation.isInputValid, Is.False);
+            Assert.That(atc.Context.State.isAtcHealthy, Is.False);
         }
 
         private void AssertClearedMassInput()

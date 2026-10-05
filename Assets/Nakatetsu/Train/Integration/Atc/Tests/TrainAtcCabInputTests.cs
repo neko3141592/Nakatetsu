@@ -61,7 +61,7 @@ namespace Nakatetsu.Train.Integration.Tests
 
         [TestCase(ActivatedCabPosition.Front, 0)]
         [TestCase(ActivatedCabPosition.Rear, 1)]
-        public void CapturesOnlySelectedCabsKeyAndControlPositions(ActivatedCabPosition cab, int carIndex)
+        public void CapturesOnlySelectedCabsKeyReverserAndEmergencyPosition(ActivatedCabPosition cab, int carIndex)
         {
             direction.Output.activatedCabPosition = cab;
             MasterController master = front;
@@ -79,26 +79,20 @@ namespace Nakatetsu.Train.Integration.Tests
             Assert.That(input.carIndex, Is.EqualTo(carIndex));
             Assert.That(input.isFrontCab, Is.EqualTo(cab == ActivatedCabPosition.Front));
             Assert.That(input.isKeyInserted, Is.True);
-            Assert.That(input.isInputEnabled, Is.True);
-            Assert.That(input.powerPosition, Is.EqualTo(3));
-            Assert.That(input.brakePosition, Is.Zero);
-            Assert.That(input.serviceBrakePosition, Is.Zero);
             Assert.That(input.reverserPosition, Is.EqualTo(ReverserPosition.Reverse));
-            Assert.That(input.isNeutral, Is.False);
             Assert.That(input.isEmergencyBrake, Is.False);
 
             // マスコン操作は次の収集まで、ATCのキャプチャ済みInputを変更しない。
-            master.SetNeutral();
-            Assert.That(atc.Context.Input.cab.powerPosition, Is.EqualTo(3));
+            master.SetEmergencyBrake();
+            Assert.That(atc.Context.Input.cab.isEmergencyBrake, Is.False);
             atc.Calculate(0.01f);
-            Assert.That(atc.Context.State.cab, Is.EqualTo(input));
+            Assert.That(atc.Context.State.operation.cab, Is.EqualTo(input));
             atc.CollectInput();
-            Assert.That(atc.Context.Input.cab.isNeutral, Is.True);
+            Assert.That(atc.Context.Input.cab.isEmergencyBrake, Is.True);
 
             master.SetBrakePosition(5);
             atc.CollectInput();
-            Assert.That(atc.Context.Input.cab.brakePosition, Is.EqualTo(5));
-            Assert.That(atc.Context.Input.cab.serviceBrakePosition, Is.EqualTo(5));
+            Assert.That(atc.Context.Input.cab.isEmergencyBrake, Is.False);
 
             master.SetEmergencyBrake();
             Assert.That(master.SetReverserPosition(ReverserPosition.Neutral), Is.True);
@@ -107,9 +101,6 @@ namespace Nakatetsu.Train.Integration.Tests
             atc.CollectInput();
             Assert.That(atc.Context.Input.hasCabState, Is.True);
             Assert.That(atc.Context.Input.cab.isKeyInserted, Is.False);
-            Assert.That(atc.Context.Input.cab.isInputEnabled, Is.False);
-            Assert.That(atc.Context.Input.cab.brakePosition, Is.EqualTo(8));
-            Assert.That(atc.Context.Input.cab.serviceBrakePosition, Is.EqualTo(7));
             Assert.That(atc.Context.Input.cab.reverserPosition, Is.EqualTo(ReverserPosition.Neutral));
             Assert.That(atc.Context.Input.cab.isEmergencyBrake, Is.True);
         }
@@ -132,7 +123,8 @@ namespace Nakatetsu.Train.Integration.Tests
             Assert.That(rear.SetReverserPosition(ReverserPosition.Forward), Is.True);
             rear.SetPowerPosition(2);
             atc.CollectInput();
-            Assert.That(atc.Context.Input.cab.powerPosition, Is.EqualTo(2));
+            Assert.That(atc.Context.Input.cab.reverserPosition, Is.EqualTo(ReverserPosition.Forward));
+            Assert.That(atc.Context.Input.cab.isEmergencyBrake, Is.False);
         }
 
         [TestCase("noCab")]
@@ -149,8 +141,7 @@ namespace Nakatetsu.Train.Integration.Tests
             Assert.That(front.SetKeyInserted(true), Is.True);
             atc.CollectInput();
             atc.Calculate(0.01f);
-            Assert.That(atc.Context.State.hasCabState, Is.True);
-            Assert.That(atc.Context.State.isHealthy, Is.True);
+            Assert.That(atc.Context.State.operation.hasCabState, Is.True);
 
             switch (condition)
             {
@@ -169,11 +160,11 @@ namespace Nakatetsu.Train.Integration.Tests
             atc.Calculate(0.01f);
             Assert.That(atc.Context.Input.hasCabState, Is.False);
             Assert.That(atc.Context.Input.cab, Is.EqualTo(default(TrainAtcCabInput)));
-            Assert.That(atc.Context.State.hasCabState, Is.False);
-            Assert.That(atc.Context.State.cab, Is.EqualTo(default(TrainAtcCabInput)));
-            Assert.That(atc.Context.State.isHealthy, Is.False);
-            Assert.That(atc.Context.State.isAtcEnabled, Is.False);
-            Assert.That(atc.Context.State.currentTelegram, Is.Null);
+            Assert.That(atc.Context.State.operation.hasCabState, Is.False);
+            Assert.That(atc.Context.State.operation.cab, Is.EqualTo(default(TrainAtcCabInput)));
+            Assert.That(atc.Context.State.isAtcHealthy, Is.False);
+            Assert.That(atc.Context.State.operation.isAtcEnabled, Is.False);
+            Assert.That(atc.Context.State.operation.currentTelegram, Is.Null);
         }
 
         [Test]
@@ -184,15 +175,17 @@ namespace Nakatetsu.Train.Integration.Tests
                 .Invoke(simulation, null);
             simulation.ResolveReferences();
             Assert.That(front.SetKeyInserted(true), Is.True);
+            Assert.That(front.SetReverserPosition(ReverserPosition.Forward), Is.True);
             simulation.Calculate(0f);
             Assert.That(atc.Context.Input.hasCabState, Is.True);
-            Assert.That(atc.Context.State.cab.isKeyInserted, Is.True);
-            Assert.That(atc.Context.State.isAtcEnabled, Is.True);
+            Assert.That(atc.Context.State.operation.cab.isKeyInserted, Is.True);
+            Assert.That(atc.Context.State.operation.isAtcEnabled, Is.True);
+            front.SetEmergencyBrake();
+            Assert.That(front.SetReverserPosition(ReverserPosition.Neutral), Is.True);
             Assert.That(front.SetKeyInserted(false), Is.True);
             simulation.Calculate(0f);
-            Assert.That(atc.Context.State.cab.isKeyInserted, Is.False);
-            Assert.That(atc.Context.State.isHealthy, Is.True);
-            Assert.That(atc.Context.State.isAtcEnabled, Is.False);
+            Assert.That(atc.Context.State.operation.cab.isKeyInserted, Is.False);
+            Assert.That(atc.Context.State.operation.isAtcEnabled, Is.False);
         }
 
         private MasterController CreateMaster(int carIndex)

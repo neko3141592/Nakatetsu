@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 11400002}
   - component: {fileID: 11400003}
   - component: {fileID: 11400004}
+  - component: {fileID: 11400005}
   m_Layer: 0
   m_Name: Atc
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   frontReceiver: {fileID: 0}
   rearReceiver: {fileID: 0}
   cabInputSource: {fileID: 11400001}
+  doorInputSource: {fileID: 11400005}
   massInputSource: {fileID: 11400002}
   brakeSettingsInputSource: {fileID: 11400004}
   speedSensor: {fileID: 0}
@@ -103,3 +105,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbebf730956423991b426f21ca93d84, type: 3}
   m_Name:
   m_EditorClassIdentifier: Nakatetsu.Train.Integration::Nakatetsu.Train.Integration.TrainAtcBrakeSettingsInputAdapter
+--- !u!114 &11400005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f7a0f0c8dd4fb795537112dc313d31, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Nakatetsu.Train.Integration::Nakatetsu.Train.Integration.TrainAtcDoorInputAdapter

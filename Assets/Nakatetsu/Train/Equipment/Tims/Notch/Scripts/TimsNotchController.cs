@@ -93,7 +93,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             // 表示の収集周期を待たず、前tickに確定したATC指令を毎tick読み取る。
             var output = atcController.Context.Output.brake;
             context.Input.atcBrakeStep = output.brakeStep;
-            context.Input.isAtcEmergency = output.isEmergency;
+            context.Input.isAtcEmergency = output.isEmergencyBrakeRequired;
         }
 
         private void FillCarInputs(

@@ -14,29 +14,44 @@ namespace Nakatetsu.Train.Integration
 
         public bool TryReadBrakeSettings(TrainAtcBrakeSettingsInput input)
         {
-            if (input == null) return false;
+            if (input == null)
+            {
+                return false;
+            }
             input.brakeSubstepCount = 0;
             input.maximumServiceBrakeStep = 0;
             input.brakeTargetDecelerationsMps2.Clear();
-            if (!isActiveAndEnabled) return false;
+            if (!isActiveAndEnabled)
+            {
+                return false;
+            }
 
             if (trainRoot == null)
             {
                 trainRoot = GetComponentInParent<TrainRoot>(true);
             }
-            if (trainRoot == null || !trainRoot.isActiveAndEnabled) return false;
+            if (trainRoot == null || !trainRoot.isActiveAndEnabled)
+            {
+                return false;
+            }
 
             if (communication == null)
             {
                 TimsCommunicationController foundCommunication = null;
                 foreach (var candidate in trainRoot.GetComponentsInChildren<TimsCommunicationController>(true))
                 {
-                    if (foundCommunication != null) return false;
+                    if (foundCommunication != null)
+                    {
+                        return false;
+                    }
                     foundCommunication = candidate;
                 }
                 communication = foundCommunication;
             }
-            if (communication == null || !communication.isActiveAndEnabled) return false;
+            if (communication == null || !communication.isActiveAndEnabled)
+            {
+                return false;
+            }
 
             var bus = communication.MasterBus;
             if (!bus.TryGetFloatArray(TimsRoot.BrakeTargetDecelerationsMps2Key, out var decelerationsMps2) ||

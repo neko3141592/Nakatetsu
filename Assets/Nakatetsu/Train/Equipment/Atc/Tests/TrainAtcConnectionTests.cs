@@ -77,16 +77,16 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
                 new TrackCircuitAtcTelegram { issuedAtSeconds = 11d, isValid = false };
             atc.CollectInput();
             atc.Calculate(0.01f);
-            Assert.That(atc.Context.State.currentTelegram.issuedAtSeconds, Is.EqualTo(10d));
-            Assert.That(atc.Context.State.currentTelegram.isValid, Is.True);
+            Assert.That(atc.Context.State.operation.currentTelegram.issuedAtSeconds, Is.EqualTo(10d));
+            Assert.That(atc.Context.State.operation.currentTelegram.isValid, Is.True);
             Assert.That(atc.Context.Input.rearTelegram.issuedAtSeconds, Is.EqualTo(11d));
             Assert.That(atc.Context.Input.rearTelegram.isValid, Is.False);
 
             direction.Output.activatedCabPosition = ActivatedCabPosition.Rear;
             atc.CollectInput();
             atc.Calculate(0.01f);
-            Assert.That(atc.Context.State.currentTelegram.issuedAtSeconds, Is.EqualTo(11d));
-            Assert.That(atc.Context.State.currentTelegram.isValid, Is.False);
+            Assert.That(atc.Context.State.operation.currentTelegram.issuedAtSeconds, Is.EqualTo(11d));
+            Assert.That(atc.Context.State.operation.currentTelegram.isValid, Is.False);
 
             simulationBuilder.CarSimulations[0].AtcReceiver.Context.Output.telegram =
                 new TrackCircuitAtcTelegram { issuedAtSeconds = 12d };
@@ -108,7 +108,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             atc.CollectInput();
             atc.Calculate(0.01f);
             Assert.That(atc.Context.Input.frontTelegram, Is.Null);
-            Assert.That(atc.Context.State.currentTelegram, Is.Null);
+            Assert.That(atc.Context.State.operation.currentTelegram, Is.Null);
             Assert.That(atc.Context.Input.rearTelegram, Is.Not.Null);
             Object.DestroyImmediate(receiver.gameObject);
             simulation.ResolveReferences();
@@ -130,7 +130,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             LogAssert.Expect(LogType.Error, "車上ATCの初期設定に必要なATCグラフまたは両端の受信機がありません。");
             simulation.Calculate(0.01f);
             Assert.That(atc.Context.Input.frontTelegram, Is.Null);
-            Assert.That(atc.Context.State.currentTelegram, Is.Null);
+            Assert.That(atc.Context.State.operation.currentTelegram, Is.Null);
             Assert.That(atc.Context.Input.rearTelegram, Is.Null);
         }
 
@@ -146,25 +146,28 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
                 receiver.ApplyModifiedPropertiesWithoutUndo();
             }
             simulation.Calculate(0f);
-            Assert.That(atc.Context.State.isPositionInitialized, Is.True);
+            Assert.That(atc.Context.State.position.isPositionInitialized, Is.True);
             Assert.That(atc.Context.Graph, Is.SameAs(AssetDatabase.LoadAssetAtPath<TrackAtcGraphAsset>(
                 "Assets/Nakatetsu/Track/NtLine/Data/NtLineAtcGraph.asset").Definition));
             float directionSign = frontFacesAtoB ? 1f : -1f;
-            Assert.That(atc.Context.State.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(400f + 2f * directionSign));
-            Assert.That(atc.Context.State.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(400f - 18f * directionSign));
-            Assert.That(atc.Context.State.frontPosition.frontFacesAtoB, Is.EqualTo(frontFacesAtoB));
-            Assert.That(atc.Context.State.rearPosition.frontFacesAtoB, Is.EqualTo(frontFacesAtoB));
-            var front = atc.Context.State.frontPosition;
-            var rear = atc.Context.State.rearPosition;
+            Assert.That(atc.Context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(400f + 2f * directionSign));
+            Assert.That(atc.Context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(400f - 18f * directionSign));
+            Assert.That(atc.Context.State.position.frontPosition.frontFacesAtoB, Is.EqualTo(frontFacesAtoB));
+            Assert.That(atc.Context.State.position.rearPosition.frontFacesAtoB, Is.EqualTo(frontFacesAtoB));
+            var front = atc.Context.State.position.frontPosition;
+            var rear = atc.Context.State.position.rearPosition;
 
             // 物理位置・向きを変えて再接続しても、初期設定済みの車上位置を読み直さない。
             position.SetTrackPosition("nt-approach", 500f, !frontFacesAtoB);
             simulation.ResolveReferences();
             direction.Output.activatedCabPosition = ActivatedCabPosition.Rear;
             simulation.Calculate(0f);
-            Assert.That(atc.Context.State.frontPosition, Is.EqualTo(front));
-            Assert.That(atc.Context.State.rearPosition, Is.EqualTo(rear));
-            Assert.That(atc.Context.State.currentPosition, Is.EqualTo(rear));
+            Assert.That(atc.Context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(front.distanceOnAtcEdgeM));
+            Assert.That(atc.Context.State.position.frontPosition.frontFacesAtoB, Is.EqualTo(front.frontFacesAtoB));
+            Assert.That(atc.Context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(rear.distanceOnAtcEdgeM));
+            Assert.That(atc.Context.State.position.rearPosition.frontFacesAtoB, Is.EqualTo(rear.frontFacesAtoB));
+            Assert.That(atc.Context.State.operation.currentPosition.distanceOnAtcEdgeM, Is.EqualTo(rear.distanceOnAtcEdgeM));
+            Assert.That(atc.Context.State.operation.currentPosition.frontFacesAtoB, Is.EqualTo(rear.frontFacesAtoB));
         }
 
         [Test]
@@ -174,9 +177,9 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             simulation.Calculate(0f);
             ConfigureInitialTrackPosition(true);
             simulation.Calculate(0f);
-            Assert.That(atc.Context.State.isPositionInitialized, Is.False);
-            Assert.That(atc.Context.State.isHealthy, Is.False);
-            Assert.That(atc.Context.State.isAtcEnabled, Is.False);
+            Assert.That(atc.Context.State.position.isPositionInitialized, Is.False);
+            Assert.That(atc.Context.State.isAtcHealthy, Is.False);
+            Assert.That(atc.Context.State.operation.hasCurrentPosition, Is.False);
         }
 
         [Test]
@@ -194,6 +197,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             simulation.ResolveReferences();
             foreach (var master in train.GetComponentsInChildren<MasterController>())
             {
+                Assert.That(master.SetReverserPosition(ReverserPosition.Neutral), Is.True);
                 Assert.That(master.SetKeyInserted(false), Is.True);
             }
 
@@ -203,11 +207,10 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             atc.CollectInput();
             atc.Calculate(0.5f);
             Assert.That(atc.Context.Input.signedSpeedMps, Is.EqualTo(-10f));
-            Assert.That(atc.Context.State.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(45f));
-            Assert.That(atc.Context.State.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(15f));
-            Assert.That(atc.Context.State.isPositionKnown, Is.True);
-            Assert.That(atc.Context.State.isHealthy, Is.True);
-            Assert.That(atc.Context.State.isAtcEnabled, Is.False);
+            Assert.That(atc.Context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(45f));
+            Assert.That(atc.Context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(15f));
+            Assert.That(atc.Context.State.position.isPositionKnown, Is.True);
+            Assert.That(atc.Context.State.operation.isAtcEnabled, Is.False);
         }
 
         [Test]
@@ -291,6 +294,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             master.GetComponent<TrainEquipmentAssignment>().AssignCarIndex(carIndex);
             master.ConfigureLimits(4, 7, 8);
             Assert.That(master.SetKeyInserted(true), Is.True);
+            Assert.That(master.SetReverserPosition(ReverserPosition.Forward), Is.True);
         }
 
         private TrainTrackPositionController ConfigureInitialTrackPosition(bool frontFacesAtoB)

@@ -1,775 +1,522 @@
-<mxfile host="Electron" pages="6">
-  <diagram name="TrainAtcLogic.cs" id="atc-file-TrainAtcLogic">
-    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2980" pageHeight="1180" math="0" shadow="0">
+<mxfile host="Electron" pages="8" version="31.7.0">
+  <diagram name="TrainAtcLogic.cs" id="atc-TrainAtcLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1660" pageHeight="880" math="0" shadow="0" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="TryInitializePosition" function="TryInitializePosition" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryInitializePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;外部からの呼び出しを受け、担当Logicへ渡す&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcPositionLogic.TryInitializePosition&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" vertex="1" crossFileCalls="[[&quot;TrainAtcPositionLogic&quot;, &quot;TryInitializePosition&quot;, &quot;&quot;]]">
-          <mxGeometry x="180.0" y="60" width="460" height="120" as="geometry" />
+        <mxCell id="title" parent="1" value="TrainAtcLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1500" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="TryCorrectPosition" function="TryCorrectPosition" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryCorrectPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;外部からの呼び出しを受け、担当Logicへ渡す&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcPositionLogic.TryCorrectPosition&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" vertex="1" crossFileCalls="[[&quot;TrainAtcPositionLogic&quot;, &quot;TryCorrectPosition&quot;, &quot;&quot;]]">
-          <mxGeometry x="720.0" y="60" width="460" height="120" as="geometry" />
+        <mxCell id="caption" parent="1" value="全体の呼び出し順。各工程の詳細は対応するLogicページを参照。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1500" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetPathPointInformation" function="TryGetPathPointInformation" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPathPointInformation&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;外部からの呼び出しを受け、担当Logicへ渡す&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.TryGetPathPointInformation&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" vertex="1" crossFileCalls="[[&quot;TrainAtcBrakePatternLogic&quot;, &quot;TryGetPathPointInformation&quot;, &quot;&quot;]]">
-          <mxGeometry x="1260.0" y="60" width="460" height="120" as="geometry" />
+        <mxCell id="Calculate" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;入力スナップショットを受け、工程2〜8を実行。&lt;br&gt;&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcPositionLogic&quot; style=&quot;color:#222222&quot;&gt;2. 列車位置を更新&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcOperationLogic&quot; style=&quot;color:#222222&quot;&gt;3. 有効状態・使用受電器を決定&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcValidationLogic&quot; style=&quot;color:#222222&quot;&gt;4. 入力・受信状態を判定&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcProtectionModeLogic&quot; style=&quot;color:#222222&quot;&gt;5. 防護方式を確定&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcPatternLogic&quot; style=&quot;color:#222222&quot;&gt;6. 常用・非常・ORPパターンを更新&lt;/a&gt;&lt;br&gt;各工程の結果からATC全体の正常性を決定&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcBrakeLogic&quot; style=&quot;color:#222222&quot;&gt;7. ブレーキ状態を更新&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;data:page/id,atc-TrainAtcOutputLogic&quot; style=&quot;color:#222222&quot;&gt;8. Outputを生成&lt;/a&gt;&lt;br&gt;&lt;br&gt;前工程が使用不可でもブレーキ判定・Output生成を実行。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" function="Calculate" owner="TrainAtcLogic">
+          <mxGeometry x="80" y="140" width="660" height="480" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetPathDistance-route" function="TryGetPathDistance" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPathDistance（進路情報）&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;外部からの呼び出しを受け、担当Logicへ渡す&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.TryGetPathDistance&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" vertex="1" signature="route" crossFileCalls="[[&quot;TrainAtcBrakePatternLogic&quot;, &quot;TryGetPathDistance&quot;, &quot;route&quot;]]">
-          <mxGeometry x="1800.0" y="60" width="460" height="120" as="geometry" />
+        <mxCell id="TryInitializePosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryInitializePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;GraphとEdge辞書を設定し、&lt;br&gt;PositionLogicへ両端の初期位置を渡す。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" function="TryInitializePosition" owner="TrainAtcLogic">
+          <mxGeometry x="900" y="140" width="660" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="Calculate" function="Calculate" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;Calculate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;入力・位置・判定 → パターン生成と現在位置の情報 → ブレーキ状態 → Output生成&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcPositionLogic.UpdateAtcEdgePosition&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcPositionLogic.CaptureCurrentPosition&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.UpdateBrakePattern&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.TryGetBrakePatternPosition&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.ClearBrakePattern&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.UpdateCurrentPattern&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakeLogic.UpdateBrakeState&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcOutputLogic.UpdateOutput&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" vertex="1" crossFileCalls="[[&quot;TrainAtcPositionLogic&quot;, &quot;UpdateAtcEdgePosition&quot;, &quot;&quot;], [&quot;TrainAtcPositionLogic&quot;, &quot;CaptureCurrentPosition&quot;, &quot;&quot;], [&quot;TrainAtcBrakePatternLogic&quot;, &quot;UpdateBrakePattern&quot;, &quot;&quot;], [&quot;TrainAtcBrakePatternLogic&quot;, &quot;TryGetBrakePatternPosition&quot;, &quot;&quot;], [&quot;TrainAtcBrakePatternLogic&quot;, &quot;ClearBrakePattern&quot;, &quot;&quot;], [&quot;TrainAtcBrakePatternLogic&quot;, &quot;UpdateCurrentPattern&quot;, &quot;&quot;], [&quot;TrainAtcBrakeLogic&quot;, &quot;UpdateBrakeState&quot;, &quot;&quot;], [&quot;TrainAtcOutputLogic&quot;, &quot;UpdateOutput&quot;, &quot;&quot;]]">
-          <mxGeometry x="2340.0" y="60" width="460" height="240" as="geometry" />
+        <mxCell id="TryCreateEdgeDictionary" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryCreateEdgeDictionary&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Graphと線区最高速度を確認し、&lt;br&gt;Edge IDからEdgeを取得する辞書を作成。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: TryInitializePosition&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryCreateEdgeDictionary" owner="TrainAtcLogic">
+          <mxGeometry x="900" y="360" width="660" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="CaptureCabState" function="CaptureCabState" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;CaptureCabState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;有効運転台・マスコン状態を確認。取得不能・不正値なら異常&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="180.0" y="440" width="460" height="120" as="geometry" />
+        <mxCell id="TryCorrectPosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryCorrectPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;PositionLogicへ両端の補正位置を渡す。&lt;br&gt;位置不明からの復帰は明示的に行う。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#dae8fc;" function="TryCorrectPosition" owner="TrainAtcLogic">
+          <mxGeometry x="900" y="620" width="660" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="CaptureCurrentTelegram" function="CaptureCurrentTelegram" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;CaptureCurrentTelegram&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;有効運転台側をcurrentTelegramへコピー。未受信ならnull&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="440" width="460" height="120" as="geometry" />
+        <mxCell id="edge-1" parent="1" source="TryInitializePosition" target="TryCreateEdgeDictionary" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="GetRetainedBrakePattern" function="GetRetainedBrakePattern" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;GetRetainedBrakePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;運転台・レバーサが同じ場合に、前回採用したパターンを取得&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="1260.0" y="440" width="460" height="120" as="geometry" />
+        <mxCell id="legend" parent="1" value="青: Controllerが外部公開するAPIに対応する関数　白: その他のLogic関数" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=14;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="640" width="660" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CheckBrakePatternInput" function="CheckBrakePatternInput" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;CheckBrakePatternInput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;入力・電文・無信号時間・保持経路を確認し、Stateに保持する生成・保持・消去の判定結果を返す&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcBrakePatternLogic.TryGetBrakePatternPosition&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1" crossFileCalls="[[&quot;TrainAtcBrakePatternLogic&quot;, &quot;TryGetBrakePatternPosition&quot;, &quot;&quot;]]">
-          <mxGeometry x="1800.0" y="440" width="460" height="140" as="geometry" />
+        <mxCell id="flow-note" parent="1" value="各ページの矢印は主な実行順・分岐。共通補助関数は別欄にまとめ、呼び出し元を記載。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=14;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="720" width="660" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetBrakePatternInputs" function="TryGetBrakePatternInputs" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetBrakePatternInputs&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;速度・ブレーキ設定・計算設定・編成質量をまとめて確認。無信号中も不正なら失敗&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="1260.0" y="720" width="460" height="120" as="geometry" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="TrainAtcPositionLogic.cs" id="atc-TrainAtcPositionLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1960" pageHeight="1890" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" value="TrainAtcPositionLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1800" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="IsPositiveFinite" function="IsPositiveFinite" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;IsPositiveFinite&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;値が有限かつ0より大きいことを確認&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="990.0" y="980" width="460" height="120" as="geometry" />
+        <mxCell id="caption" parent="1" value="工程2。キー・レバーサに関係なく両端位置を更新。片側失敗時は両端の記録を保持し、位置不明にする。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1800" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="IsNonNegativeFinite" function="IsNonNegativeFinite" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;IsNonNegativeFinite&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;値が有限かつ0以上であることを確認&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="1530.0" y="980" width="460" height="120" as="geometry" />
+        <mxCell id="UpdatePosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdatePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;両端の移動をコピー上で計算し、&lt;br&gt;両方成功した場合だけ位置を更新。&lt;br&gt;位置不明から自動で再初期化しない。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdatePosition" owner="TrainAtcPositionLogic">
+          <mxGeometry x="80" y="140" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="GetBaseBrakeStep" function="GetBaseBrakeStep" owner="TrainAtcLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;GetBaseBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;現在サンプルの減速度から基準段を取得。取得失敗は-1としてブレーキ判定へ渡す&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;font-size:11px&quot;&gt;別ファイルへの呼び出し&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;TrainAtcNotchHelper.TryGetNearestBrakeStep&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1" crossFileCalls="[[&quot;TrainAtcNotchHelper&quot;, &quot;TryGetNearestBrakeStep&quot;, &quot;&quot;]]">
-          <mxGeometry x="2340.0" y="440" width="460" height="140" as="geometry" />
+        <mxCell id="TryGetMovementDistance" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryGetMovementDistance&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;測定速度 × 経過時間で移動距離を計算。&lt;br&gt;正方向は編成の固定前側。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryGetMovementDistance" owner="TrainAtcPositionLogic">
+          <mxGeometry x="80" y="380" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="Calculate--CaptureCabState" parent="1" source="Calculate" target="CaptureCabState" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.166667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
+        <mxCell id="TryAdvancePosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryAdvancePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;各受電器をEdge内・次のEdgeへ移動。&lt;br&gt;境界を越えたら編成の向きも更新。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryAdvancePosition" owner="TrainAtcPositionLogic">
+          <mxGeometry x="80" y="620" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="TryResolveNextAtcEdge" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryResolveNextAtcEdge&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;電文 → 保持経路 → Graphの順で、&lt;br&gt;移動先Edgeを解決する。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryResolveNextAtcEdge" owner="TrainAtcPositionLogic">
+          <mxGeometry x="80" y="860" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="TryResolveNextOnPath" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryResolveNextOnPath&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;現在Edgeの前後にあるEdgeから、&lt;br&gt;出口Nodeに接続する移動先を特定。&lt;br&gt;電文と保持経路を順に参照。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryResolveNextOnPath" owner="TrainAtcPositionLogic">
+          <mxGeometry x="700" y="860" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="TryResolveNextOnGraph" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryResolveNextOnGraph&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Graphの接続先が一つなら採用。&lt;br&gt;複数なら定義済み進路を確認。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryResolveNextOnGraph" owner="TrainAtcPositionLogic">
+          <mxGeometry x="700" y="1120" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="TryResolveNextOnRoute" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryResolveNextOnRoute&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;進路の開通状態によらず、&lt;br&gt;定義済み進路の行き先が一つなら採用。&lt;br&gt;進路ごとにTryResolveNextOnPathを使用。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryResolveNextOnRoute" owner="TrainAtcPositionLogic">
+          <mxGeometry x="700" y="1360" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="InitializePosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;InitializePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;両端の初期位置と編成の向きをコピー。&lt;br&gt;初期化は一度だけ。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: TrainAtcLogic.TryInitializePosition&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="InitializePosition" owner="TrainAtcPositionLogic">
+          <mxGeometry x="1320" y="140" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="CorrectPosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;CorrectPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;両端の補正位置を確認・コピーし、&lt;br&gt;位置不明から明示的に復帰。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: TrainAtcLogic.TryCorrectPosition&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="CorrectPosition" owner="TrainAtcPositionLogic">
+          <mxGeometry x="1320" y="380" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="helpers" parent="1" value="共通補助関数" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=18;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="1580" width="1760" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IsValidPosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;IsValidPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Edge内の位置が有効か確認。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: InitializePosition / CorrectPosition / TryAdvancePosition&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="IsValidPosition" owner="TrainAtcPositionLogic">
+          <mxGeometry x="80" y="1640" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="CopyPosition" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;CopyPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Edge ID・距離・編成の向きをコピー。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: InitializePosition / CorrectPosition / TryAdvancePosition&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="CopyPosition" owner="TrainAtcPositionLogic">
+          <mxGeometry x="700" y="1640" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="TryGetAtcEdge" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryGetAtcEdge&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;辞書からEdgeを取得し、長さを確認。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: IsValidPosition / TryAdvancePosition / 経路・Graph解決&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryGetAtcEdge" owner="TrainAtcPositionLogic">
+          <mxGeometry x="1320" y="1640" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="UpdatePosition" target="TryGetMovementDistance" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" parent="1" source="TryGetMovementDistance" target="TryAdvancePosition" value="両端を計算" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-3" parent="1" source="TryAdvancePosition" target="TryResolveNextAtcEdge" value="Edge境界" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-4" parent="1" source="TryResolveNextAtcEdge" target="TryResolveNextOnPath" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-5" parent="1" source="TryResolveNextOnPath" target="TryResolveNextOnGraph" value="経路で解決できない" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-6" parent="1" source="TryResolveNextOnGraph" target="TryResolveNextOnRoute" value="接続候補が複数" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="TrainAtcOperationLogic.cs" id="atc-TrainAtcOperationLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1320" pageHeight="1210" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" value="TrainAtcOperationLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1160" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="caption" parent="1" value="工程3。電源は常にON。有効条件は操作確認成功・キー投入・レバーサ前進または後退。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdateOperation" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateOperation&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;電源・ATC有効状態を更新し、&lt;br&gt;今回使用する受電器・照査位置・方向を決定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateOperation" owner="TrainAtcOperationLogic">
+          <mxGeometry x="320" y="140" width="680" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ClearReceiverSelection" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ClearReceiverSelection&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;前回の受電器選択を消去。&lt;br&gt;currentPosition・currentTelegramはnull、方向は未指定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ClearReceiverSelection" owner="TrainAtcOperationLogic">
+          <mxGeometry x="320" y="380" width="680" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="TryCaptureCabState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryCaptureCabState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;有効運転台・キー・レバーサを確認。&lt;br&gt;取得失敗は正常なキー切・中立と区別。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryCaptureCabState" owner="TrainAtcOperationLogic">
+          <mxGeometry x="320" y="620" width="680" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="SelectReceiver" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;SelectReceiver&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;有効運転台側の受電器と電文を選ぶ。&lt;br&gt;位置をコピーし、運転台側・レバーサ・編成の向きから&lt;br&gt;照査方向を決定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="SelectReceiver" owner="TrainAtcOperationLogic">
+          <mxGeometry x="320" y="880" width="680" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="UpdateOperation" target="ClearReceiverSelection" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" parent="1" source="ClearReceiverSelection" target="TryCaptureCabState" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-3" parent="1" source="TryCaptureCabState" target="SelectReceiver" value="確認成功・キーON・レバーサ前／後" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="TrainAtcValidationLogic.cs" id="atc-TrainAtcValidationLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1960" pageHeight="1720" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" value="TrainAtcValidationLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1800" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="caption" parent="1" value="工程4。入力不正でも電文読取と無信号時間更新を行う。受信回復時は後工程の成功を待たずリセット。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1800" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdateValidation" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateValidation&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;入力・受信・必要な方式別設定を確認し、&lt;br&gt;採用・保持・使用不可を決定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateValidation" owner="TrainAtcValidationLogic">
+          <mxGeometry x="700" y="140" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="TryValidateInputs" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryValidateInputs&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;工程2・3の確認結果と、速度・経過時間・&lt;br&gt;質量・受電器位置・ブレーキ設定を確認。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryValidateInputs" owner="TrainAtcValidationLogic">
+          <mxGeometry x="700" y="380" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="TryReadCurrentRoute" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryReadCurrentRoute&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;現在Edge・照査方向のキーから&lt;br&gt;使用受電器の電文内の経路を取得。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryReadCurrentRoute" owner="TrainAtcValidationLogic">
+          <mxGeometry x="700" y="620" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdateNoSignalTime" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateNoSignalTime&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;ATC有効かつ読めない場合だけ無信号時間を加算。&lt;br&gt;それ以外は常に0へリセット。&lt;br&gt;不正な経過時間は加算しない。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateNoSignalTime" owner="TrainAtcValidationLogic">
+          <mxGeometry x="700" y="860" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="CanRetainPattern" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;CanRetainPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;無信号・受電器変更なしの場合に確認。&lt;br&gt;猶予内、前回パターン有効、経路・方向一致なら保持可能。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="CanRetainPattern" owner="TrainAtcValidationLogic">
+          <mxGeometry x="700" y="1200" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Adopt" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;Adopt&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;入力正常・ATC有効・電文あり。&lt;br&gt;今回の候補経路を保存して生成へ進む。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;">
+          <mxGeometry x="80" y="1200" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Unusable" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;Unusable&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;入力不正／ATC無効／保持不可。&lt;br&gt;無信号中の受電器変更や猶予超過も使用不可。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;">
+          <mxGeometry x="1320" y="1200" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Retain" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;Retain&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;前回の経路・防護方式・パターンを保持。&lt;br&gt;移動後の現在位置の値は更新する。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;">
+          <mxGeometry x="700" y="1480" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="UpdateValidation" target="TryValidateInputs" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" parent="1" source="TryValidateInputs" target="TryReadCurrentRoute" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-3" parent="1" source="TryReadCurrentRoute" target="UpdateNoSignalTime" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-4" parent="1" source="UpdateNoSignalTime" target="CanRetainPattern" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-5" parent="1" source="UpdateNoSignalTime" target="Adopt" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2416.6666666666665" y="370.0" />
-              <mxPoint x="410.0" y="370.0" />
+              <mxPoint x="950" y="1100" />
+              <mxPoint x="330" y="1100" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Calculate--CaptureCurrentTelegram" parent="1" source="Calculate" target="CaptureCurrentTelegram" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
+        <mxCell id="edge-6" parent="1" source="UpdateNoSignalTime" target="Unusable" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2493.3333333333335" y="376.0" />
-              <mxPoint x="950.0" y="376.0" />
+              <mxPoint x="950" y="1100" />
+              <mxPoint x="1570" y="1100" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Calculate--CheckBrakePatternInput" parent="1" source="Calculate" target="CheckBrakePatternInput" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
+        <mxCell id="edge-7" parent="1" source="CanRetainPattern" target="Retain" value="保持可能" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-8" parent="1" source="CanRetainPattern" target="Unusable" value="保持不可" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="TrainAtcProtectionModeLogic.cs" id="atc-TrainAtcProtectionModeLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1960" pageHeight="800" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" value="TrainAtcProtectionModeLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1800" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="caption" parent="1" value="工程5。防護方式はProtectionModeStateだけで管理。Noneも正常な指定。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1800" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdateProtectionMode" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateProtectionMode&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;採用・保持・使用不可の判定から、&lt;br&gt;防護方式と確定結果を更新。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateProtectionMode" owner="TrainAtcProtectionModeLogic">
+          <mxGeometry x="700" y="140" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="mode-adopt" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;今回の方式を採用&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;AdoptかつNormal／Restricted／None。&lt;br&gt;方式を保存し、isProtectionModeKnownをtrueにする。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;">
+          <mxGeometry x="80" y="500" width="500" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="mode-retain" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;前回の方式を維持&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Retain。&lt;br&gt;前回の方式と確定結果をそのまま維持。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;">
+          <mxGeometry x="700" y="500" width="500" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="mode-unknown" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;方式を使用しない&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Unusableまたは不正な方式。&lt;br&gt;isProtectionModeKnownをfalseにする。&lt;br&gt;方式の値を失敗の代用にしない。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;">
+          <mxGeometry x="1320" y="500" width="500" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="UpdateProtectionMode" target="mode-adopt" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2570.0" y="382.0" />
-              <mxPoint x="2030.0" y="382.0" />
+              <mxPoint x="950" y="400" />
+              <mxPoint x="330" y="400" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Calculate--GetBaseBrakeStep" parent="1" source="Calculate" target="GetBaseBrakeStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2646.6666666666665" y="388.0" />
-              <mxPoint x="2570.0" y="388.0" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-2" parent="1" source="UpdateProtectionMode" target="mode-retain" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Calculate--GetRetainedBrakePattern" parent="1" source="Calculate" target="GetRetainedBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.833333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
+        <mxCell id="edge-3" parent="1" source="UpdateProtectionMode" target="mode-unknown" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2723.3333333333335" y="394.0" />
-              <mxPoint x="1490.0" y="394.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="CheckBrakePatternInput--TryGetBrakePatternInputs" parent="1" source="CheckBrakePatternInput" target="TryGetBrakePatternInputs" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2030.0" y="650.0" />
-              <mxPoint x="1490.0" y="650.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetBrakePatternInputs--IsNonNegativeFinite" parent="1" source="TryGetBrakePatternInputs" target="IsNonNegativeFinite" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1413.3333333333333" y="910.0" />
-              <mxPoint x="1760.0" y="910.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetBrakePatternInputs--IsPositiveFinite" parent="1" source="TryGetBrakePatternInputs" target="IsPositiveFinite" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1566.6666666666665" y="916.0" />
-              <mxPoint x="1220.0" y="916.0" />
+              <mxPoint x="950" y="400" />
+              <mxPoint x="1570" y="400" />
             </Array>
           </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="TrainAtcPositionLogic.cs" id="atc-file-TrainAtcPositionLogic">
-    <mxGraphModel dx="2588" dy="1860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2440" pageHeight="1820" math="0" shadow="0">
+  <diagram name="TrainAtcPatternLogic.cs" id="atc-TrainAtcPatternLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2080" pageHeight="2440" math="0" shadow="0" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="TryInitializePosition" function="TryInitializePosition" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryInitializePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;初期位置・編成の向き・Graph・Edge辞書・線区最高速度を一度だけ保持&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="180" y="60" as="geometry" />
+        <mxCell id="title" parent="1" value="TrainAtcPatternLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1920" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="TryCorrectPosition" function="TryCorrectPosition" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryCorrectPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;両端の位置を明示的に補正し、位置不明から復帰&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="720" y="60" as="geometry" />
+        <mxCell id="caption" parent="1" value="工程6。採用時は新規生成、保持時は現在値のみ更新。途中失敗は一括消去し、旧パターンへ戻さない。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1920" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateAtcEdgePosition" function="UpdateAtcEdgePosition" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateAtcEdgePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;両端の位置を更新。運転台側は保持経路も使用し、失敗時は位置不明を保持&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="60" as="geometry" />
+        <mxCell id="UpdatePattern" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdatePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;Adopt: 作業用パターンを生成し、成功後にStateへ採用。&lt;br&gt;Retain: 前回経路から現在値のみ更新。&lt;br&gt;使用不可・方式不明・生成／位置参照失敗: 一括消去。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdatePattern" owner="TrainAtcPatternLogic">
+          <mxGeometry x="700" y="140" width="500" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="CaptureCurrentPosition" function="CaptureCurrentPosition" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;CaptureCurrentPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;運転台側の位置を選び、レバーサから進行方向を保持&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1800" y="60" as="geometry" />
+        <mxCell id="create-section" parent="1" value="新規生成" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=18;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="340" width="500" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="TryCreateAtcEdgesById" function="TryCreateAtcEdgesById" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryCreateAtcEdgesById&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Edge IDの辞書を作成。IDの欠損・重複なら失敗&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="720" y="320" as="geometry" />
+        <mxCell id="helpers-section" parent="1" value="共通補助関数" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=18;strokeColor=none;fillColor=none;">
+          <mxGeometry x="1320" y="340" width="500" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="IsValidPosition" function="IsValidPosition" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;IsValidPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;ATCエッジの存在とエッジ内距離の範囲を確認&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="720" y="580" as="geometry" />
+        <mxCell id="PreparePath" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;PreparePath&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;経路の接続・方向・長さと、&lt;br&gt;各Edgeの速度制限・勾配を準備。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="PreparePath" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="400" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryUpdatePosition" function="TryUpdatePosition" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryUpdatePosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;電文または保持経路を使い、移動距離と編成の向きを次のエッジへ引き継ぐ&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="320" as="geometry" />
+        <mxCell id="InitializePatterns" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;InitializePatterns&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;常用・非常・Restricted時のORPを初期化。&lt;br&gt;サンプル間隔と計算用減速度を設定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="InitializePatterns" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="620" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetAtcEdge" function="TryGetAtcEdge" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetAtcEdge&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;辞書からATCエッジを検索。不正なエッジ長なら失敗&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="990" y="1620" as="geometry" />
+        <mxCell id="ApplyPermanentSpeedLimits" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ApplyPermanentSpeedLimits&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;常設制限を常用と非常へ反映。&lt;br&gt;非常は常設制限＋10km/h。ORPへは反映しない。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ApplyPermanentSpeedLimits" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="840" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryResolveNextAtcEdge" function="TryResolveNextAtcEdge" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryResolveNextAtcEdge&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;電文の経路を優先し、使えなければグラフから接続先を解決&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="580" as="geometry" />
+        <mxCell id="ApplyStopTargets" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ApplyStopTargets&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;防護方式に応じて停止目標と低速制限を設定。&lt;br&gt;通常非常は全方式で終端1サンプル手前から0。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ApplyStopTargets" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="1060" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryResolveNextOnPath" function="TryResolveNextOnPath" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryResolveNextOnPath&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;経路内で出口Nodeに接続する次のエッジを特定&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="990" y="1380" as="geometry" />
+        <mxCell id="CalculateGradientCorrections" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;CalculateGradientCorrections&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;各車の質量・中心位置・受電器位置から、&lt;br&gt;区間ごとの勾配補正を計算。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="CalculateGradientCorrections" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="1280" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryResolveNextOnGraph" function="TryResolveNextOnGraph" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryResolveNextOnGraph&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;接続先が一つなら進む。複数なら定義済みの進路を確認&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="990" y="840" as="geometry" />
+        <mxCell id="IntegratePatterns" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;IntegratePatterns&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;終端側から速度を逆積分。&lt;br&gt;ORPは終端の指定距離内だけ積分。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="IntegratePatterns" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="1500" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryResolveNextOnRoute" function="TryResolveNextOnRoute" owner="TrainAtcPositionLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryResolveNextOnRoute&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;開通状態によらず、進路定義から分岐先を一つに絞る&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="990" y="1100" as="geometry" />
+        <mxCell id="UpdatePatternSections-all" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdatePatternSections&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;常用・非常・ORPそれぞれの&lt;br&gt;降下・接近区間と目標速度を更新。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdatePatternSections" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="1720" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="IsValidPosition--TryGetAtcEdge" edge="1" parent="1" source="IsValidPosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.200000;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
+        <mxCell id="AdoptPattern" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;AdoptPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;経路IDと経路始点の方向をコピー。&lt;br&gt;現在位置の計算後、入口でStateへ採用する。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="AdoptPattern" owner="TrainAtcPatternLogic">
+          <mxGeometry x="80" y="1940" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="InitializeSamples" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;InitializeSamples&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;各パターンのサンプルを初期化。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: InitializePatterns&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="InitializeSamples" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="400" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="GetMarginSampleIndex" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;GetMarginSampleIndex&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;終端の指定余裕距離を&lt;br&gt;サンプル番号へ変換。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: ApplyStopTargets / IntegratePatterns&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="GetMarginSampleIndex" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="620" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FillSpeedLimit" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;FillSpeedLimit&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;指定位置から終端まで上限速度を設定。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: ApplyStopTargets&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="FillSpeedLimit" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="840" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="LimitSample" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;LimitSample&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;現在の速度上限を低い側へ制限。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: 常設制限・停止目標・積分&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="LimitSample" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="1060" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="IntegrateSample" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;IntegrateSample&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;勾配補正後の減速度で&lt;br&gt;1区間の速度を逆積分。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: IntegratePatterns&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="IntegrateSample" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="1280" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdatePatternSections-one" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdatePatternSections&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;個別パターンの降下・接近区間と&lt;br&gt;減速先の目標速度を計算。&lt;br&gt;下がり切った速度 × 1秒の距離まで区間を延長。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: UpdatePatternSections（全体）&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdatePatternSections" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="1500" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="IsFinite" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;IsFinite&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;計算した値が有限か確認。&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;呼び出し元: 初期化・制限反映・積分&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="IsFinite" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="1720" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="current-section" parent="1" value="現在位置の値を更新" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=18;strokeColor=none;fillColor=none;">
+          <mxGeometry x="700" y="1840" width="500" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="clear-section" parent="1" value="使用不可時の一括消去" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=18;strokeColor=none;fillColor=none;">
+          <mxGeometry x="1320" y="1880" width="500" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdateCurrentPattern-all" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateCurrentPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;採用済み経路上の現在位置を求め、&lt;br&gt;常用・非常・ORPの現在値を更新。&lt;br&gt;Retainではこの更新だけを行う。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateCurrentPattern" owner="TrainAtcPatternLogic">
+          <mxGeometry x="700" y="1940" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="UpdateCurrentPattern-one" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateCurrentPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;許容速度・目標速度を現在位置へ補間。&lt;br&gt;減速度・降下・接近状態はサンプルから取得。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateCurrentPattern" owner="TrainAtcPatternLogic">
+          <mxGeometry x="700" y="2220" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ClearPattern-all" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ClearPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;採用経路と全パターンを消去し、&lt;br&gt;今回のパターンを使用不可にする。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ClearPattern" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="1940" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ClearPattern-one" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ClearPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;個別パターンのサンプルと&lt;br&gt;現在位置の値・区間状態を消去。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ClearPattern" owner="TrainAtcPatternLogic">
+          <mxGeometry x="1320" y="2220" width="500" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="UpdatePattern" target="PreparePath" value="Adopt" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="950" y="732" />
-              <mxPoint x="130" y="732" />
-              <mxPoint x="130" y="1588" />
-              <mxPoint x="1082" y="1588" />
+              <mxPoint x="950" y="360" />
+              <mxPoint x="330" y="360" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="TryCorrectPosition--IsValidPosition" edge="1" parent="1" source="TryCorrectPosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.250000;jumpStyle=arc;jumpSize=6;" target="IsValidPosition">
+        <mxCell id="edge-2" parent="1" source="UpdatePattern" target="UpdateCurrentPattern-all" value="Retain" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="950" y="212" />
-              <mxPoint x="120" y="212" />
-              <mxPoint x="120" y="548" />
-              <mxPoint x="835" y="548" />
+              <mxPoint x="950" y="1840" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="TryInitializePosition--IsValidPosition" edge="1" parent="1" source="TryInitializePosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="IsValidPosition">
+        <mxCell id="edge-3" parent="1" source="UpdatePattern" target="ClearPattern-all" value="使用不可／失敗" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="333.3333333333333" y="212" />
-              <mxPoint x="110" y="212" />
-              <mxPoint x="110" y="538" />
-              <mxPoint x="950" y="538" />
+              <mxPoint x="1900" y="230" />
+              <mxPoint x="1900" y="2020" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="TryInitializePosition--TryCreateAtcEdgesById" edge="1" parent="1" source="TryInitializePosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryCreateAtcEdgesById">
+        <mxCell id="edge-4" parent="1" source="PreparePath" target="InitializePatterns" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-5" parent="1" source="InitializePatterns" target="ApplyPermanentSpeedLimits" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-6" parent="1" source="ApplyPermanentSpeedLimits" target="ApplyStopTargets" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-7" parent="1" source="ApplyStopTargets" target="CalculateGradientCorrections" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-8" parent="1" source="CalculateGradientCorrections" target="IntegratePatterns" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-9" parent="1" source="IntegratePatterns" target="UpdatePatternSections-all" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-10" parent="1" source="UpdatePatternSections-all" target="AdoptPattern" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-11" parent="1" source="AdoptPattern" target="UpdateCurrentPattern-all" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="486.66666666666663" y="256" />
-              <mxPoint x="950" y="256" />
+              <mxPoint x="640" y="2010" />
+              <mxPoint x="640" y="2020" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="TryResolveNextAtcEdge--TryResolveNextOnGraph" edge="1" parent="1" source="TryResolveNextAtcEdge" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryResolveNextOnGraph">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1413.3333333333333" y="770" />
-              <mxPoint x="1220" y="770" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-12" parent="1" source="UpdateCurrentPattern-all" target="UpdateCurrentPattern-one" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="TryResolveNextAtcEdge--TryResolveNextOnPath" edge="1" parent="1" source="TryResolveNextAtcEdge" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="TryResolveNextOnPath">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1566.6666666666665" y="744" />
-              <mxPoint x="2310" y="744" />
-              <mxPoint x="2310" y="1328" />
-              <mxPoint x="1143.3333333333333" y="1328" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-13" parent="1" source="UpdateCurrentPattern-all" target="ClearPattern-all" value="位置参照失敗" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="TryResolveNextOnGraph--TryGetAtcEdge" edge="1" parent="1" source="TryResolveNextOnGraph" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.400000;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1143.3333333333333" y="992" />
-              <mxPoint x="100" y="992" />
-              <mxPoint x="100" y="1578" />
-              <mxPoint x="1174" y="1578" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryResolveNextOnGraph--TryResolveNextOnRoute" edge="1" parent="1" source="TryResolveNextOnGraph" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryResolveNextOnRoute">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1296.6666666666665" y="1036" />
-              <mxPoint x="1220" y="1036" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryResolveNextOnPath--TryGetAtcEdge" edge="1" parent="1" source="TryResolveNextOnPath" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.600000;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1220" y="1550" />
-              <mxPoint x="1266" y="1550" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryResolveNextOnRoute--TryResolveNextOnPath" edge="1" parent="1" source="TryResolveNextOnRoute" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="TryResolveNextOnPath">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1220" y="1290" />
-              <mxPoint x="1296.6666666666665" y="1290" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryUpdatePosition--IsValidPosition" edge="1" parent="1" source="TryUpdatePosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.250000;entryX=0.750000;jumpStyle=arc;jumpSize=6;" target="IsValidPosition">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1375" y="510" />
-              <mxPoint x="1065" y="510" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryUpdatePosition--TryGetAtcEdge" edge="1" parent="1" source="TryUpdatePosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.800000;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490" y="484" />
-              <mxPoint x="2320" y="484" />
-              <mxPoint x="2320" y="1558" />
-              <mxPoint x="1358" y="1558" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryUpdatePosition--TryResolveNextAtcEdge" edge="1" parent="1" source="TryUpdatePosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.750000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryResolveNextAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1605" y="522" />
-              <mxPoint x="1490" y="522" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UpdateAtcEdgePosition--TryUpdatePosition" edge="1" parent="1" source="UpdateAtcEdgePosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryUpdatePosition">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490" y="250" />
-              <mxPoint x="1490" y="250" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-14" parent="1" source="ClearPattern-all" target="ClearPattern-one" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="TrainAtcBrakePatternLogic.cs" id="atc-file-TrainAtcBrakePatternLogic">
-    <mxGraphModel dx="2876" dy="2067" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2980" pageHeight="1820" math="0" shadow="0">
+  <diagram name="TrainAtcBrakeLogic.cs" id="atc-TrainAtcBrakeLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1960" pageHeight="1810" math="0" shadow="0" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="TryGetPathPointInformation" function="TryGetPathPointInformation" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPathPointInformation&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;進路情報と経路内距離からEdge・方向・勾配・速度制限を取得&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="180" y="60" as="geometry" />
+        <mxCell id="title" parent="1" value="TrainAtcBrakeLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1800" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetPathDistance-route" function="TryGetPathDistance" owner="TrainAtcBrakePatternLogic" parent="1" signature="route" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPathDistance（進路情報）&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;進路情報・Edge ID・Edge内位置から経路内距離を取得&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="720" y="60" as="geometry" />
+        <mxCell id="caption" parent="1" value="工程7。毎tick照査。確認済みキー切・中立は解除し、入力取得失敗・使用不可は非常要求へ進む。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1800" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetPathDistance-path" function="TryGetPathDistance" owner="TrainAtcBrakePatternLogic" parent="1" signature="path" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPathDistance（経路リスト）&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;経路列・先頭方向と、Edge内位置から経路内距離と現在Edgeの方向を取得&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="320" as="geometry" />
+        <mxCell id="UpdateBrakeState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;無効運転の解除 → ドア全閉確認 → 非常要求・保持 → 常用制御。&lt;br&gt;前工程が不正でも要求と保持状態を更新。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateBrakeState" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="700" y="140" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetBrakePatternPosition" function="TryGetBrakePatternPosition" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetBrakePatternPosition&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;採用済みの経路と方向から現在位置の距離・サンプル・補間比率を取得。保持時は判定内、新規は生成後&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="60" as="geometry" />
+        <mxCell id="ClearBrakeState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ClearBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;確認済みキー切・中立の場合、&lt;br&gt;常用・非常要求・非常保持・転動防止をすべて解除。&lt;br&gt;ClearNormalBrakeStepで段数も消去。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ClearBrakeState" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="1320" y="140" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateBrakePattern" function="UpdateBrakePattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateBrakePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Stateの判定結果に従って生成・保持・消去。入力や電文の判定は繰り返さず、生成失敗時は消去&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1800" y="60" as="geometry" />
+        <mxCell id="UpdateEmergencyBrakeState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateEmergencyBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;原因ありで非常保持をON。&lt;br&gt;原因消失・停止・マスコン非常位置で保持解除。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateEmergencyBrakeState" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="700" y="420" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateCurrentPattern" function="UpdateCurrentPattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateCurrentPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;現在位置の使用可否・距離・常用／非常／ORP許容速度と目標速度・予告区間をStateへ保持&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="2340" y="60" as="geometry" />
+        <mxCell id="HasEmergencyBrakeCause" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;HasEmergencyBrakeCause&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;不正／無効／パターンなし、非常許容速度超過、&lt;br&gt;Restricted時の独立ORP許容速度超過を確認。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="HasEmergencyBrakeCause" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="80" y="420" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="ClearBrakePattern" function="ClearBrakePattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;ClearBrakePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;経路・速度配列と現在位置のパターン情報を消去し、使用不可にする&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1800" y="320" as="geometry" />
+        <mxCell id="UpdateNormalBrakeState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateNormalBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;全閉未確認は転動防止として常用最大。&lt;br&gt;全閉後は速度超過・緩解と停止保持を通常判定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateNormalBrakeState" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="700" y="800" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="TryCreateBrakePattern" function="TryCreateBrakePattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryCreateBrakePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;通常パターンと独立ORPを生成。採用した経路方向・運転台・過走防護を保存&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="2340" y="320" as="geometry" />
+        <mxCell id="ClearNormalBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ClearNormalBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;要求なしの場合に常用段を0にし、&lt;br&gt;テーブル履歴と待ち時間を消去。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ClearNormalBrakeStep" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="80" y="800" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="InitializeBrakePattern" function="InitializeBrakePattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;InitializeBrakePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用は最高速度、非常は共通の速度余裕を加えて初期化&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="180" y="580" as="geometry" />
+        <mxCell id="SetMaximumServiceBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;SetMaximumServiceBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;不正／パターンなし／転動防止／停止保持／非降下時の介入／&lt;br&gt;基準段取得失敗は、常用最大へ即時切替。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="SetMaximumServiceBrakeStep" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="1320" y="800" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyPermanentSpeedLimits" function="ApplyPermanentSpeedLimits" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;ApplyPermanentSpeedLimits&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用・非常へ常設速度制限を反映&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="720" y="580" as="geometry" />
+        <mxCell id="TryGetBaseBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryGetBaseBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;現在の勾配補正前減速度に最も近い&lt;br&gt;基準刻み段を取得。失敗時は常用最大。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryGetBaseBrakeStep" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="700" y="1180" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyOverrunProtection" function="ApplyOverrunProtection" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;ApplyOverrunProtection&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;停止目標とORP速度を反映&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="580" as="geometry" />
+        <mxCell id="UpdateTargetBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateTargetBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;速度偏差テーブルの増段・減段条件で&lt;br&gt;ヒステリシス付きの目標段を決定。&lt;br&gt;急な偏差では必要な行まで移動。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateTargetBrakeStep" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="700" y="1400" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyBrakePattern" function="ApplyBrakePattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;ApplyBrakePattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;編成質量と勾配から常用・非常の曲線を終端から積分&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1800" y="580" as="geometry" />
+        <mxCell id="UpdateCurrentBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateCurrentBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;設定時間ごとに1stepずつ目標へ近づける。&lt;br&gt;介入開始時の基準段・テーブル以外の切替は即時。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateCurrentBrakeStep" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="700" y="1650" width="500" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="TryCreateOrpPattern" function="TryCreateOrpPattern" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryCreateOrpPattern&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Restricted時だけ独立ORPを生成。設定距離内を専用減速度で積分し、目標速度・接近・降下区間を計算&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="2340" y="580" as="geometry" />
+        <mxCell id="edge-1" parent="1" source="UpdateBrakeState" target="ClearBrakeState" value="確認済み無効" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ApplySampleSpeedLimit" function="ApplySampleSpeedLimit" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;ApplySampleSpeedLimit&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;サンプルの速度を、現在値と指定値の低い方へ更新&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="990" y="840" as="geometry" />
+        <mxCell id="edge-2" parent="1" source="UpdateBrakeState" target="UpdateEmergencyBrakeState" value="その他" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="UpdatePatternSections" function="UpdatePatternSections" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdatePatternSections&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;減速区間・予告区間と、減速先の目標速度を設定&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="2070" y="840" as="geometry" />
+        <mxCell id="edge-3" parent="1" source="UpdateEmergencyBrakeState" target="HasEmergencyBrakeCause" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetTrainGradientCorrection" function="TryGetTrainGradientCorrection" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetTrainGradientCorrection&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;各車両の区間内最小勾配を質量で重み付けし、減速度を補正&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1530" y="840" as="geometry" />
+        <mxCell id="edge-4" parent="1" source="UpdateEmergencyBrakeState" target="UpdateNormalBrakeState" value="使用可能" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="TryGetPathMinimumGradient" function="TryGetPathMinimumGradient" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPathMinimumGradient&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;区間両端・勾配変化点・Edge境界の両側から最小勾配を取得&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="1100" as="geometry" />
-        </mxCell>
-        <mxCell id="TryGetGradient" function="TryGetGradient" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetGradient&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Graphの前後の勾配データから、その地点の勾配を補間&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="180" y="320" as="geometry" />
-        </mxCell>
-        <mxCell id="TryValidateGradientProfiles" function="TryValidateGradientProfiles" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryValidateGradientProfiles&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;勾配データの数値・距離順・Edge両端を確認&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="450" y="840" as="geometry" />
-        </mxCell>
-        <mxCell id="GetGradient" function="GetGradient" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;GetGradient&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;確認済みの勾配データを二分探索して、その地点の勾配を補間&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="990" y="1360" as="geometry" />
-        </mxCell>
-        <mxCell id="FindGradientProfileIndex" function="FindGradientProfileIndex" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;FindGradientProfileIndex&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;指定距離以上となる最初の勾配データを二分探索&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1260" y="1620" as="geometry" />
-        </mxCell>
-        <mxCell id="TryGetPermanentSpeedLimit" function="TryGetPermanentSpeedLimit" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetPermanentSpeedLimit&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;線区最高速度と、その地点の常設速度制限の低い方を取得&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="720" y="320" as="geometry" />
-        </mxCell>
-        <mxCell id="TryGetAtcEdge" function="TryGetAtcEdge" owner="TrainAtcBrakePatternLogic" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetAtcEdge&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;辞書からATCエッジを検索。不正なエッジ長なら失敗&lt;/span&gt;" vertex="1">
-          <mxGeometry height="120" width="460" x="1530" y="1360" as="geometry" />
-        </mxCell>
-        <mxCell id="ApplyBrakePattern--ApplySampleSpeedLimit" edge="1" parent="1" source="ApplyBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.200000;entryX=0.200000;jumpStyle=arc;jumpSize=6;" target="ApplySampleSpeedLimit">
+        <mxCell id="edge-5" parent="1" source="UpdateEmergencyBrakeState" target="SetMaximumServiceBrakeStep" value="不正／パターンなし" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1892" y="770" />
-              <mxPoint x="1082" y="770" />
+              <mxPoint x="950" y="680" />
+              <mxPoint x="1570" y="680" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ApplyBrakePattern--TryGetAtcEdge" edge="1" parent="1" source="ApplyBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.400000;entryX=0.142857;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1984" y="744" />
-              <mxPoint x="2850" y="744" />
-              <mxPoint x="2850" y="1328" />
-              <mxPoint x="1595.7142857142858" y="1328" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-6" parent="1" source="UpdateNormalBrakeState" target="ClearNormalBrakeStep" value="要求なし" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyBrakePattern--TryGetTrainGradientCorrection" edge="1" parent="1" source="ApplyBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.600000;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="TryGetTrainGradientCorrection">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2076" y="782" />
-              <mxPoint x="1683.3333333333333" y="782" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-7" parent="1" source="UpdateNormalBrakeState" target="SetMaximumServiceBrakeStep" value="最大常用" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyBrakePattern--TryValidateGradientProfiles" edge="1" parent="1" source="ApplyBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.800000;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="TryValidateGradientProfiles">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2168" y="788" />
-              <mxPoint x="603.3333333333333" y="788" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-8" parent="1" source="UpdateNormalBrakeState" target="TryGetBaseBrakeStep" value="介入中・降下区間" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyOverrunProtection--ApplySampleSpeedLimit" edge="1" parent="1" source="ApplyOverrunProtection" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.400000;jumpStyle=arc;jumpSize=6;" target="ApplySampleSpeedLimit">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490" y="770" />
-              <mxPoint x="1174" y="770" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-9" parent="1" source="TryGetBaseBrakeStep" target="UpdateTargetBrakeStep" value="取得成功" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ApplyPermanentSpeedLimits--ApplySampleSpeedLimit" edge="1" parent="1" source="ApplyPermanentSpeedLimits" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.600000;jumpStyle=arc;jumpSize=6;" target="ApplySampleSpeedLimit">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="873.3333333333333" y="770" />
-              <mxPoint x="1266" y="770" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ApplyPermanentSpeedLimits--TryGetAtcEdge" edge="1" parent="1" source="ApplyPermanentSpeedLimits" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.285714;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1026.6666666666665" y="744" />
-              <mxPoint x="130" y="744" />
-              <mxPoint x="130" y="1318" />
-              <mxPoint x="1661.4285714285713" y="1318" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="GetGradient--FindGradientProfileIndex" edge="1" parent="1" source="GetGradient" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="FindGradientProfileIndex">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1220" y="1550" />
-              <mxPoint x="1413.3333333333333" y="1550" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="InitializeBrakePattern--TryGetAtcEdge" edge="1" parent="1" source="InitializeBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.428571;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="410" y="732" />
-              <mxPoint x="120" y="732" />
-              <mxPoint x="120" y="1308" />
-              <mxPoint x="1727.142857142857" y="1308" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateBrakePattern--ApplyBrakePattern" edge="1" parent="1" source="TryCreateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.142857;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="ApplyBrakePattern">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2405.714285714286" y="510" />
-              <mxPoint x="2030" y="510" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateBrakePattern--ApplyOverrunProtection" edge="1" parent="1" source="TryCreateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.285714;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="ApplyOverrunProtection">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2471.4285714285716" y="516" />
-              <mxPoint x="1490" y="516" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateBrakePattern--ApplyPermanentSpeedLimits" edge="1" parent="1" source="TryCreateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.428571;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="ApplyPermanentSpeedLimits">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2537.1428571428573" y="522" />
-              <mxPoint x="950" y="522" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateBrakePattern--InitializeBrakePattern" edge="1" parent="1" source="TryCreateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.571429;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="InitializeBrakePattern">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2602.8571428571427" y="528" />
-              <mxPoint x="410" y="528" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateBrakePattern--TryCreateOrpPattern" edge="1" parent="1" source="TryCreateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.714286;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryCreateOrpPattern">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2668.5714285714284" y="534" />
-              <mxPoint x="2570" y="534" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateBrakePattern--UpdatePatternSections" edge="1" parent="1" source="TryCreateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.857143;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="UpdatePatternSections">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2734.285714285714" y="532" />
-              <mxPoint x="2860" y="532" />
-              <mxPoint x="2860" y="808" />
-              <mxPoint x="2223.3333333333335" y="808" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateOrpPattern--ApplySampleSpeedLimit" edge="1" parent="1" source="TryCreateOrpPattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.250000;entryX=0.800000;jumpStyle=arc;jumpSize=6;" target="ApplySampleSpeedLimit">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2455" y="770" />
-              <mxPoint x="1358" y="770" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateOrpPattern--TryGetTrainGradientCorrection" edge="1" parent="1" source="TryCreateOrpPattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="TryGetTrainGradientCorrection">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2570" y="776" />
-              <mxPoint x="1836.6666666666665" y="776" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryCreateOrpPattern--UpdatePatternSections" edge="1" parent="1" source="TryCreateOrpPattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.750000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="UpdatePatternSections">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2685" y="782" />
-              <mxPoint x="2376.6666666666665" y="782" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetBrakePatternPosition--TryGetPathDistance-path" edge="1" parent="1" source="TryGetBrakePatternPosition" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="TryGetPathDistance-path">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490" y="250" />
-              <mxPoint x="1413.3333333333333" y="250" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetGradient--GetGradient" edge="1" parent="1" source="TryGetGradient" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.333333;jumpStyle=arc;jumpSize=6;" target="GetGradient">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="333.3333333333333" y="472" />
-              <mxPoint x="110" y="472" />
-              <mxPoint x="110" y="1328" />
-              <mxPoint x="1143.3333333333333" y="1328" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetGradient--TryValidateGradientProfiles" edge="1" parent="1" source="TryGetGradient" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="TryValidateGradientProfiles">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="486.66666666666663" y="484" />
-              <mxPoint x="100" y="484" />
-              <mxPoint x="100" y="798" />
-              <mxPoint x="756.6666666666666" y="798" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathDistance-path--TryGetAtcEdge" edge="1" parent="1" source="TryGetPathDistance-path" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.571429;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490" y="472" />
-              <mxPoint x="2870" y="472" />
-              <mxPoint x="2870" y="1298" />
-              <mxPoint x="1792.857142857143" y="1298" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathDistance-route--TryGetPathDistance-path" edge="1" parent="1" source="TryGetPathDistance-route" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="TryGetPathDistance-path">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="950" y="250" />
-              <mxPoint x="1566.6666666666665" y="250" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathMinimumGradient--FindGradientProfileIndex" edge="1" parent="1" source="TryGetPathMinimumGradient" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.250000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="FindGradientProfileIndex">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1375" y="1252" />
-              <mxPoint x="90" y="1252" />
-              <mxPoint x="90" y="1578" />
-              <mxPoint x="1566.6666666666665" y="1578" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathMinimumGradient--GetGradient" edge="1" parent="1" source="TryGetPathMinimumGradient" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" target="GetGradient">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490" y="1296" />
-              <mxPoint x="1296.6666666666665" y="1296" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathMinimumGradient--TryGetAtcEdge" edge="1" parent="1" source="TryGetPathMinimumGradient" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.750000;entryX=0.714286;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1605" y="1302" />
-              <mxPoint x="1858.5714285714284" y="1302" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathPointInformation--TryGetAtcEdge" edge="1" parent="1" source="TryGetPathPointInformation" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.250000;entryX=0.857143;jumpStyle=arc;jumpSize=6;" target="TryGetAtcEdge">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="295" y="212" />
-              <mxPoint x="80" y="212" />
-              <mxPoint x="80" y="1278" />
-              <mxPoint x="1924.2857142857142" y="1278" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathPointInformation--TryGetGradient" edge="1" parent="1" source="TryGetPathPointInformation" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryGetGradient">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="410" y="256" />
-              <mxPoint x="410" y="256" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetPathPointInformation--TryGetPermanentSpeedLimit" edge="1" parent="1" source="TryGetPathPointInformation" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.750000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryGetPermanentSpeedLimit">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="525" y="262" />
-              <mxPoint x="950" y="262" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetTrainGradientCorrection--TryGetPathMinimumGradient" edge="1" parent="1" source="TryGetTrainGradientCorrection" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryGetPathMinimumGradient">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1760" y="1030" />
-              <mxPoint x="1490" y="1030" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UpdateBrakePattern--ClearBrakePattern" edge="1" parent="1" source="UpdateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="ClearBrakePattern">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1953.3333333333333" y="250" />
-              <mxPoint x="2030" y="250" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UpdateBrakePattern--TryCreateBrakePattern" edge="1" parent="1" source="UpdateBrakePattern" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" target="TryCreateBrakePattern">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="2106.6666666666665" y="256" />
-              <mxPoint x="2570" y="256" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-10" parent="1" source="UpdateTargetBrakeStep" target="UpdateCurrentBrakeStep" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="TrainAtcBrakeLogic.cs" id="atc-file-TrainAtcBrakeLogic">
-    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1040" math="0" shadow="0">
+  <diagram name="TrainAtcOutputLogic.cs" id="atc-TrainAtcOutputLogic">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1560" pageHeight="1290" math="0" shadow="0" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="UpdateBrakeState" function="UpdateBrakeState" owner="TrainAtcBrakeLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;キー切・中立で解除。Stateの使用可否から非常の保持・解除と常用段を毎tick更新&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="60" width="460" height="120" as="geometry" />
+        <mxCell id="title" parent="1" value="TrainAtcOutputLogic.cs" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=24;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="30" width="1400" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="CreateBrakeStep" function="CreateBrakeStep" owner="TrainAtcBrakeLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;CreateBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用介入・停止保持を判定。降下中の目標と現在段を更新。不正時は常用最大&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="180.0" y="320" width="460" height="120" as="geometry" />
+        <mxCell id="caption" parent="1" value="工程8。確定したStateと今回の測定速度から外部向けOutputを生成。Stateは書き換えない。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="80" y="76" width="1400" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="SetMaximumServiceBrakeStep" function="SetMaximumServiceBrakeStep" owner="TrainAtcBrakeLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;SetMaximumServiceBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用要求をtrue、目標と現在段を常用最大にし、履歴と待ち時間を消す&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="840" width="460" height="120" as="geometry" />
+        <mxCell id="UpdateAtcOutput" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateAtcOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;ATC全体状態 → ブレーキ → パターン表示の順にOutputを更新。&lt;br&gt;入力不正・パターン使用不可の場合も実行する。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateAtcOutput" owner="TrainAtcOutputLogic">
+          <mxGeometry x="340" y="140" width="880" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateCurrentBrakeStep" function="UpdateCurrentBrakeStep" owner="TrainAtcBrakeLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateCurrentBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;設定間隔ごとに目標へ1段追従。不正な時間入力では常用最大&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="580" width="460" height="120" as="geometry" />
+        <mxCell id="UpdateAtcStateOutput" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateAtcStateOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;電源・有効状態・正常性をOutputへ反映。&lt;br&gt;ブレーキ開放は未実装のためfalse。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateAtcStateOutput" owner="TrainAtcOutputLogic">
+          <mxGeometry x="340" y="360" width="880" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="HasEmergencyBrakeCause" function="HasEmergencyBrakeCause" owner="TrainAtcBrakeLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;HasEmergencyBrakeCause&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;今回判定したパターンの使用可否から非常原因を判定&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="320" width="460" height="120" as="geometry" />
+        <mxCell id="UpdateAtcBrakeOutput" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateAtcBrakeOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;非常保持を非常指令として出力。&lt;br&gt;非常中は常用段を0、それ以外は現在の常用段を出力。&lt;br&gt;常用要求とドア全閉未確認の転動防止状態を反映。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateAtcBrakeOutput" owner="TrainAtcOutputLogic">
+          <mxGeometry x="340" y="580" width="880" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="ClearBrakeState" function="ClearBrakeState" owner="TrainAtcBrakeLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;ClearBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;常用・非常要求、保持状態、段数、切り替え時間を初期化&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="1260.0" y="320" width="460" height="120" as="geometry" />
+        <mxCell id="UpdateAtcPatternOutput" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateAtcPatternOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;常用・非常の許容速度の低い方を使用し、Restricted時だけORPも比較。&lt;br&gt;RestrictedかつORP降下区間ならORP表示し、速度現示を消灯。&lt;br&gt;現示速度はkm/hへ変換後、5km/h刻みで切り下げ。&lt;br&gt;常用接近区間かつ現在速度が常用目標速度以上なら接近表示。&lt;br&gt;異常・無効時はSignalをNone、正常有効時は目標速度が正かつORP非作動でGreen、その他はRed。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateAtcPatternOutput" owner="TrainAtcOutputLogic">
+          <mxGeometry x="340" y="820" width="880" height="280" as="geometry" />
         </mxCell>
-        <mxCell id="CreateBrakeStep--SetMaximumServiceBrakeStep" parent="1" source="CreateBrakeStep" target="SetMaximumServiceBrakeStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.333333;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="333.3333333333333" y="472" />
-              <mxPoint x="130" y="472" />
-              <mxPoint x="130" y="808" />
-              <mxPoint x="873.3333333333333" y="808" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-1" parent="1" source="UpdateAtcOutput" target="UpdateAtcStateOutput" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="CreateBrakeStep--UpdateCurrentBrakeStep" parent="1" source="CreateBrakeStep" target="UpdateCurrentBrakeStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="486.66666666666663" y="516.0" />
-              <mxPoint x="950.0" y="516.0" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-2" parent="1" source="UpdateAtcStateOutput" target="UpdateAtcBrakeOutput" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateBrakeState--ClearBrakeState" parent="1" source="UpdateBrakeState" target="ClearBrakeState" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.250000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="835.0" y="250.0" />
-              <mxPoint x="1490.0" y="250.0" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="edge-3" parent="1" source="UpdateAtcBrakeOutput" target="UpdateAtcPatternOutput" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateBrakeState--CreateBrakeStep" parent="1" source="UpdateBrakeState" target="CreateBrakeStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="950.0" y="256.0" />
-              <mxPoint x="410.0" y="256.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UpdateBrakeState--HasEmergencyBrakeCause" parent="1" source="UpdateBrakeState" target="HasEmergencyBrakeCause" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.750000;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1065.0" y="262.0" />
-              <mxPoint x="950.0" y="262.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UpdateCurrentBrakeStep--SetMaximumServiceBrakeStep" parent="1" source="UpdateCurrentBrakeStep" target="SetMaximumServiceBrakeStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="950.0" y="770.0" />
-              <mxPoint x="1026.6666666666665" y="770.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram name="TrainAtcOutputLogic.cs" id="atc-file-TrainAtcOutputLogic">
-    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1360" pageHeight="520" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="UpdateOutput" function="UpdateOutput" owner="TrainAtcOutputLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Contextだけから表示情報とブレーキ指令をOutputへ生成。Stateは変更しない&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="450.0" y="60" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="UpdatePatternOutput" function="UpdatePatternOutput" owner="TrainAtcOutputLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdatePatternOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Stateから許容速度・接近・Signalを反映。ORP表示はRestrictedかつ独立ORPの接近区間内、ORP目標速度0&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="180.0" y="320" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="UpdateBrakeOutput" function="UpdateBrakeOutput" owner="TrainAtcOutputLogic" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;UpdateBrakeOutput&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;Stateの非常保持と常用段をOutputへ反映。非常保持中は常用段を0にする&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="320" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="UpdateOutput--UpdateBrakeOutput" parent="1" source="UpdateOutput" target="UpdateBrakeOutput" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.333333;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="603.3333333333333" y="250.0" />
-              <mxPoint x="950.0" y="250.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UpdateOutput--UpdatePatternOutput" parent="1" source="UpdateOutput" target="UpdatePatternOutput" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.666667;entryX=0.500000;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="756.6666666666666" y="256.0" />
-              <mxPoint x="410.0" y="256.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram name="TrainAtcNotchHelper.cs" id="atc-file-TrainAtcNotchHelper">
-    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="520" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="ToBrakeStep" function="ToBrakeStep" owner="TrainAtcNotchHelper" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;ToBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;通常ノッチとノッチ内の刻みを、連続したブレーキ段へ変換&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="180.0" y="60" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="ToBrakeNotchStep" function="ToBrakeNotchStep" owner="TrainAtcNotchHelper" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;ToBrakeNotchStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;刻み段を通常ノッチとノッチ内の刻みに変換&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="320" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="FormatBrakeNotchStep" function="FormatBrakeNotchStep" owner="TrainAtcNotchHelper" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;FormatBrakeNotchStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;刻み段をB1-1形式のノッチ表記へ変換。緩解はB0-0&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="720.0" y="60" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="TryGetNearestBrakeStep" function="TryGetNearestBrakeStep" owner="TrainAtcNotchHelper" parent="1" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetNearestBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;TIMSの設定減速度と比較し、最も近い刻み段を取得&lt;/span&gt;" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=16;fontFamily=Noto Sans JP;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" vertex="1">
-          <mxGeometry x="1260.0" y="60" width="460" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="FormatBrakeNotchStep--ToBrakeNotchStep" parent="1" source="FormatBrakeNotchStep" target="ToBrakeNotchStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.333333;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="950.0" y="250.0" />
-              <mxPoint x="873.3333333333333" y="250.0" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="TryGetNearestBrakeStep--ToBrakeNotchStep" parent="1" source="TryGetNearestBrakeStep" target="ToBrakeNotchStep" style="noEdgeStyle=1;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;exitY=1;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;exitX=0.500000;entryX=0.666667;jumpStyle=arc;jumpSize=6;" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1490.0" y="250.0" />
-              <mxPoint x="1026.6666666666665" y="250.0" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="flow-note" parent="1" value="矢印は入口から実行する順。各補助関数はUpdateAtcOutputから呼び出す。" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;fontSize=15;strokeColor=none;fillColor=none;">
+          <mxGeometry x="340" y="1160" width="880" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

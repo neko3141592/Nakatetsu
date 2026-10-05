@@ -40,12 +40,7 @@ namespace Nakatetsu.Train.Integration
                 carIndex = master.AssignedCarIndex,
                 isFrontCab = cabPosition == ActivatedCabPosition.Front,
                 isKeyInserted = master.IsKeyInserted,
-                isInputEnabled = master.IsInputEnabled,
-                powerPosition = master.PowerPosition,
-                brakePosition = master.BrakePosition,
-                serviceBrakePosition = master.ServiceBrakePosition,
                 reverserPosition = master.ReverserPosition,
-                isNeutral = master.IsNeutral,
                 isEmergencyBrake = master.IsEmergencyBrake
             };
             return true;

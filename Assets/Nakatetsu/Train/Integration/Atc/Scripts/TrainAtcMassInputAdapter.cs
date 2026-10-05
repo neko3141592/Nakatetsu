@@ -16,10 +16,16 @@ namespace Nakatetsu.Train.Integration
 
         public bool TryReadCarInputs(List<TrainAtcCarInput> cars)
         {
-            if (cars == null) return false;
+            if (cars == null)
+            {
+                return false;
+            }
             cars.Clear();
             carInputs.Clear();
-            if (!isActiveAndEnabled) return false;
+            if (!isActiveAndEnabled)
+            {
+                return false;
+            }
 
             if (trainRoot == null)
             {
@@ -36,12 +42,18 @@ namespace Nakatetsu.Train.Integration
                 TimsCommunicationController foundCommunication = null;
                 foreach (var candidate in trainRoot.GetComponentsInChildren<TimsCommunicationController>(true))
                 {
-                    if (foundCommunication != null) return false;
+                    if (foundCommunication != null)
+                    {
+                        return false;
+                    }
                     foundCommunication = candidate;
                 }
                 communication = foundCommunication;
             }
-            if (communication == null || !communication.isActiveAndEnabled) return false;
+            if (communication == null || !communication.isActiveAndEnabled)
+            {
+                return false;
+            }
 
             float distanceFromFrontM = 0f;
             var consist = trainRoot.ConsistDefinition;

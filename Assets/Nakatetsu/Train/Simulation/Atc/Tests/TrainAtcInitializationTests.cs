@@ -44,7 +44,7 @@ namespace Nakatetsu.Train.Simulation.Atc.Tests
         {
             Assert.That(TrainAtcInitializationLogic.TryResolvePosition(CreateGraph(), "track", distance,
                 true, out var position), Is.False);
-            Assert.That(position, Is.EqualTo(default(TrainAtcPosition)));
+            Assert.That(position, Is.Null);
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Nakatetsu.Train.Simulation.Atc.Tests
             graph.atcEdge[1].lengthM = 150f;
             Assert.That(TrainAtcInitializationLogic.TryResolvePosition(graph, "track", 75f,
                 true, out var position), Is.False);
-            Assert.That(position, Is.EqualTo(default(TrainAtcPosition)));
+            Assert.That(position, Is.Null);
         }
 
         [Test]
