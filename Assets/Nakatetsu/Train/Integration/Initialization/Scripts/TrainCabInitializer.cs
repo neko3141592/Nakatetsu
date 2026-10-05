@@ -81,6 +81,8 @@ namespace Nakatetsu.Train.Integration
             frontMaster.SetReverserPosition(ReverserPosition.Neutral);
             rearMaster.SetReverserPosition(ReverserPosition.Neutral);
             bool rear = initialCab == ActivatedCabPosition.Rear;
+            frontMaster.SetKeyInserted(!rear);
+            rearMaster.SetKeyInserted(rear);
             frontSwitch.SetPosition(rear ? CabActivationPosition.Rear : CabActivationPosition.Front);
             rearSwitch.SetPosition(rear ? CabActivationPosition.Front : CabActivationPosition.Rear);
         }

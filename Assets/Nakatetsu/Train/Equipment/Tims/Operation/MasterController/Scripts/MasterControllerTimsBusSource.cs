@@ -23,6 +23,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Integration
             new("MasterController", "IsEmergency");
         public static readonly TimsTagKey IsInputEnabledKey =
             new("MasterController", "IsInputEnabled");
+        public static readonly TimsTagKey IsKeyInsertedKey =
+            new("MasterController", "IsKeyInserted");
 
         [SerializeField] private MasterController masterController;
         [SerializeField] private TrainEquipmentAssignment equipmentAssignment;
@@ -52,6 +54,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Integration
             localBus.SetBool(IsNeutralKey, masterController.IsNeutral);
             localBus.SetBool(IsEmergencyKey, masterController.IsEmergencyBrake);
             localBus.SetBool(IsInputEnabledKey, masterController.IsInputEnabled);
+            localBus.SetBool(IsKeyInsertedKey, masterController.IsKeyInserted);
         }
 
         private bool ResolveMasterController()

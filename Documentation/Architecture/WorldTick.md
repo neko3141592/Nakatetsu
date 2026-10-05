@@ -53,7 +53,9 @@ Applicationは個々の車両機器の更新を直接管理せず、Train側のS
 - 計算できた分だけ世界全体を進め、時計だけを先行させない。
 - 実際の進行速度が指定倍率を下回ることを許容する。
 
-1フレームの実行上限はInspector設定（初期値100tick）。未処理時間は捨てず次フレームへ持ち越す。過負荷時は時計だけを先行させず、実行できたtick数に対応する時刻を公開する。
+1フレームの実行上限はInspector設定（初期値100tick）。併せて`maxSimulationMillisecondsPerFrame`で実時間の上限を設定し、初期値を10msとする。tickの完了後に経過時間を確認し、いずれかの上限に達したら描画と入力へ戻る。1tick自体が上限より長い場合は、そのtickが完了してから戻る。
+
+未処理時間は捨てず次フレームへ持ち越す。過負荷時は時計だけを先行させず、実行できたtick数に対応する時刻を公開する。処理能力を超える再生倍率では実際の進行が設定倍率を下回る。
 
 ## 7. 開発用の手動実行
 
@@ -89,7 +91,7 @@ snapshotの保存・復元本体はW5、線路上の移動はW1-03以降の対�
 
 ## TIMSの情報収集間隔
 
-`TimsCommunicationController.transferIntervalSeconds`は初期値0.25秒。各機器の送信元からLocalBusへの情報収集だけを間引き、速度・ドア・TIMS指令の計算は毎tick、受信済みの値で続ける。MasterBusから機器への出力側に別の転送待ちは追加しない。
+`TimsCommunicationController.localCollectionIntervalSeconds`と`masterCollectionIntervalSeconds`は各0.25秒。各車の機器からLocalBusへの収集と、ATCなどの共通機器からMasterBusへの収集を、独立したシミュレーション時間の周期で行う。初回は両方とも即時収集する。速度・ドア・TIMS指令の計算は毎tick、受信済みの値で続ける。共通機器もEquipment計算より前に収集するため、ATC表示は前tickまでに確定した計算結果を使う。MasterBusから機器への出力側に別の転送待ちは追加しない。
 
 `TrainSimulationController`が`IEquipmentInputSourceCollector.CollectInputSources(deltaTimeSeconds)`へ固定tickの時間を渡す。初回の正のtickは即時収集し、以後は指定間隔で更新する。端数は持ち越すため、20ms tickでは更新間隔が260ms・240msとなり、平均250msになる。一時停止中はtickが来ないため待ち時間も進まない。0秒設定では毎tick収集する。
 

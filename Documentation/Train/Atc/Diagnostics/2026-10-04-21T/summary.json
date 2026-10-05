@@ -1,0 +1,36 @@
+[
+  {
+    "file": "original-P4.tsv",
+    "recordedRows": 127,
+    "keyFailureRecordedTicks": [],
+    "emergencyRecordedTicks": []
+  },
+  {
+    "file": "original-P3-emergency.tsv",
+    "recordedRows": 127,
+    "keyFailureRecordedTicks": [
+      4108
+    ],
+    "emergencyRecordedTicks": [
+      4108
+    ]
+  },
+  {
+    "file": "comparison-P3-trapezoid.tsv",
+    "recordedRows": 127,
+    "keyFailureRecordedTicks": [],
+    "emergencyRecordedTicks": []
+  },
+  {
+    "file": "original-P2.tsv",
+    "recordedRows": 152,
+    "keyFailureRecordedTicks": [],
+    "emergencyRecordedTicks": []
+  },
+  {
+    "file": "original-P1.tsv",
+    "recordedRows": 211,
+    "keyFailureRecordedTicks": [],
+    "emergencyRecordedTicks": []
+  }
+]

@@ -113,6 +113,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Tests
             assignment.AssignCarIndex(carIndex);
             MasterController masterController = masterObject.AddComponent<MasterController>();
             masterController.ConfigureLimits(4, 7, 8);
+            Assert.That(masterController.SetKeyInserted(true), Is.True);
+            Assert.That(masterController.SetReverserPosition(ReverserPosition.Forward), Is.True);
             masterController.SetPowerPosition(powerPosition);
             masterObject.AddComponent<MasterControllerTimsBusSource>();
         }

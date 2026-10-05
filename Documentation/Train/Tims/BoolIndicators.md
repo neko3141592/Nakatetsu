@@ -15,6 +15,8 @@ trueで指定の背景色・文字色、false・タグ未受信・TIMS未接続�
 
 `Prefabs/TimsBoolIndicatorDisplay.prefab` に画像の10項目（左列：非常運転、ATC電源、ATC、ATC常用、ATC非常／右列：ATC開放、構 内、非 設、停通防止、故 障）を設定済み。5行×2列で生成する。Device Name / Item Nameは空欄で、すべて消灯表示。
 
+`TimsMonitorOutput.prefab`内の配列では、ATC電源・有効・常用・非常・故障をMasterBusへ接続している。ATC非常はDevice Nameを`ATC`、Item Nameを`IsEmergencyBrakeRequired`とし、ATCの非常出力が有効な間は赤い文字で点灯する。非常保持中も点灯を続け、解除後は消灯する。
+
 `Prefabs/TimsOperationIndicatorDisplay.prefab` は耐雪ブレーキ、定速運転、回生開放、勾配起動、高加速制御、ATO、TASC電源、TASCパターン、TASCブレーキ、TASC切の10項目を縦1列で表示する。データバインディング・点灯色は未設定で、すべて消灯表示。
 
 `Prefabs/TimsPlatformDoorIndicatorDisplay.prefab` はBoolIndicatorWideを使い、定位置・ﾎｰﾑﾄﾞｱ連動・ﾎｰﾑﾄﾞｱ非連動を縦1列に生成する。中心間隔55、3個で折り返し。バインディング・点灯色は未設定で全項目消灯。

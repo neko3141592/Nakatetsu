@@ -68,7 +68,8 @@ namespace Nakatetsu.Application.Player.Editor
                 Bind(actions, "NotchNeutral", receiver.OnNotchNeutral),
                 Bind(actions, "ReverserForward", receiver.OnReverserForward),
                 Bind(actions, "ReverserBackward", receiver.OnReverserBackward),
-                Bind(actions, "EbReset", receiver.OnEbReset)
+                Bind(actions, "EbReset", receiver.OnEbReset),
+                Bind(actions, "ToggleMasterControllerKey", receiver.OnToggleMasterControllerKey)
             };
             EditorUtility.SetDirty(input);
             EditorUtility.SetDirty(receiver);

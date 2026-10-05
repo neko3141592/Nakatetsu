@@ -15,6 +15,7 @@ namespace Nakatetsu.Train.Equipment.SpeedMeasurement
             context.Output.hasMeasurement = context.Input.hasPhysicalSpeed &&
                 !float.IsNaN(speed) && !float.IsInfinity(speed);
             context.Output.measuredSpeedMps = context.Output.hasMeasurement ? Math.Abs(speed) : 0f;
+            context.Output.signedMeasuredSpeedMps = context.Output.hasMeasurement ? speed : 0f;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Nakatetsu.Application.Player.Editor
     [CustomEditor(typeof(TrainFocusController))]
     public sealed class TrainFocusControllerEditor : UnityEditor.Editor
     {
-        [SerializeField] private string debugTrainId = "1001F";
+        [SerializeField] private string debugTrainId = "10001F";
 
         private string lastResult;
         private MessageType lastResultType;

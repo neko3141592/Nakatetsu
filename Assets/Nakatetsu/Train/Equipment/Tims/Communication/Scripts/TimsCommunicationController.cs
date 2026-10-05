@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using Nakatetsu.Train.Equipment.Tims.Door;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.Tims.Bus;
@@ -11,7 +12,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
     public class TimsCommunicationController : MonoBehaviour, IEquipmentInputSourceCollector
     {
         [SerializeField] private TrainRoot trainRoot;
-        [SerializeField, Min(0f)] private float transferIntervalSeconds = 0.25f;
+        [FormerlySerializedAs("transferIntervalSeconds")]
+        [SerializeField, Min(0f)] private float localCollectionIntervalSeconds = 0.25f;
+        [SerializeField, Min(0f)] private float masterCollectionIntervalSeconds = 0.25f;
         private readonly TimsCommunicationContext context = new();
         private TimsSpeedController speedController;
         private TimsCurrentController currentController;
@@ -43,19 +46,42 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
 
         public int CollectSources()
         {
+            return CollectSources(collectLocal: true, collectMaster: false);
+        }
+
+        public int CollectMasterSources()
+        {
+            return CollectSources(collectLocal: false, collectMaster: true);
+        }
+
+        private int CollectSources(bool collectLocal, bool collectMaster)
+        {
             if (!ResolveTrainRoot())
             {
                 return 0;
             }
 
-            // 電流は今回受信できた装置だけを代表候補にする。撤去・割当解除時の古い値を残さない。
-            foreach (TimsCarTerminalState terminal in context.State.terminals)
-                terminal.localBus.Remove(TimsTractionBusSource.SignedMotorCurrentAKey);
+            if (collectLocal)
+            {
+                // 電流は今回受信できた装置だけを代表候補にする。撤去・割当解除時の古い値を残さない。
+                foreach (TimsCarTerminalState terminal in context.State.terminals)
+                    terminal.localBus.Remove(TimsTractionBusSource.SignedMotorCurrentAKey);
+            }
 
             int collectedSourceCount = 0;
             MonoBehaviour[] components = trainRoot.GetComponentsInChildren<MonoBehaviour>(true);
             foreach (MonoBehaviour component in components)
             {
+                if (collectMaster && component is ITimsMasterBusSource masterSource)
+                {
+                    masterSource.WriteTimsBus(context.State.masterBus);
+                    collectedSourceCount++;
+                }
+                if (!collectLocal)
+                {
+                    continue;
+                }
+
                 // 割当やLocalBusが欠けたドアも搭載として認識し、監視を有効にする。
                 if (component is DoorTimsBusSource && !TryGetComponent<TimsDoorController>(out _))
                 {
@@ -76,9 +102,13 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
 
         public void CollectInputSources(float deltaTimeSeconds)
         {
-            if (TimsCommunicationLogic.ShouldCollectSources(context.State, deltaTimeSeconds, transferIntervalSeconds))
+            bool collectLocal = TimsCommunicationLogic.ShouldCollectSources(
+                context.State, deltaTimeSeconds, localCollectionIntervalSeconds);
+            bool collectMaster = TimsCommunicationLogic.ShouldCollectMasterSources(
+                context.State, deltaTimeSeconds, masterCollectionIntervalSeconds);
+            if (collectLocal || collectMaster)
             {
-                CollectSources();
+                CollectSources(collectLocal, collectMaster);
             }
 
             CalculateAndPublish();
@@ -87,9 +117,11 @@ namespace Nakatetsu.Train.Equipment.Tims.Communication
         /// <summary>テスト・手動収集用。転送間隔を待たずに現在値を収集する。</summary>
         public void CollectInputSources()
         {
-            CollectSources();
+            CollectSources(collectLocal: true, collectMaster: true);
             context.State.hasCollectedSources = true;
             context.State.collectionElapsedSeconds = 0d;
+            context.State.hasCollectedMasterSources = true;
+            context.State.masterCollectionElapsedSeconds = 0d;
             CalculateAndPublish();
         }
 

@@ -18,6 +18,7 @@ namespace Nakatetsu.Application.Simulation
         [SerializeField] private float tickDurationSeconds;
         [SerializeField] private bool isPaused;
         [SerializeField, Min(1)] private int maxTicksPerFrame = 100;
+        [SerializeField, Min(1f)] private float maxSimulationMillisecondsPerFrame = 10f;
         [SerializeField, Min(0.1f)] private float playbackSpeed = 1.0f;
 
         [SerializeField, Range(0, 23)] private int startHour = 12;
@@ -67,7 +68,10 @@ namespace Nakatetsu.Application.Simulation
             }
 
             foreach (TrainSimulationController train in trains)
+            {
                 train.SetAutoRefresh(false);
+                train.SetTrackCircuitSimulation(trackCircuitSimulation);
+            }
 
             fixedTickSeconds = tickDurationSeconds;
             if (trackAtc != null)
@@ -86,11 +90,18 @@ namespace Nakatetsu.Application.Simulation
             if (isPaused || !CanStep()) return;
 
             pendingTimeSeconds += Time.unscaledDeltaTime * playbackSpeed;
+            double frameStartSeconds = Time.realtimeSinceStartupAsDouble;
+            double frameBudgetSeconds = Mathf.Max(1f, maxSimulationMillisecondsPerFrame) / 1000d;
             // 処理しきれなかった時間は捨てず、次フレームへ持ち越す。
             for (int i = 0; i < maxTicksPerFrame && pendingTimeSeconds >= fixedTickSeconds; i++)
             {
                 ExecuteTick();
                 pendingTimeSeconds -= fixedTickSeconds;
+                // tickは途中で切らず、実時間の上限に達したら描画と入力へ戻る。
+                if (Time.realtimeSinceStartupAsDouble - frameStartSeconds >= frameBudgetSeconds)
+                {
+                    break;
+                }
             }
         }
 

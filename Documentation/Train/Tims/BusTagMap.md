@@ -2,12 +2,15 @@
 
 2026-09-15、同期した `main` / `origin/main` の `18bb80a3665e38676ae84a6f408e0a06bf86b717` を基準に、現行C#、追跡対象のScene・Prefab・車両定義を調査した。実行中のSceneを観測した記録ではない。テストや設計例だけにあるタグは含めない。
 
+2026-10-03追記：各車LocalBusへのマスコンキー挿入状態の送信を追加し、該当タグと項目数を更新した。
+
 **速度の測定→LocalBus→MasterBus→速度計は更新経路まで接続済み。方向・ノッチ・力行・ブレーキのTIMS計算には公開メソッドがあるが、定期実行への接続がまだない。** 以下では「読み書きするコードがある」と「通常更新で値が供給される」を区別する。
 
 ## Busの読み方
 
 - **LocalBus**：編成内の車両ごとに1つ。装置の `TrainEquipmentAssignment.AssignedCarIndex` が送信先を決める。前側はindex 0、後側は `CarCount - 1`。
 - **MasterBus**：`TimsCommunicationController` が持つ編成共通のBus。LocalBusの内容が自動でコピーされるわけではなく、各TIMS Controllerが必要な値を読み、別のキーで公開する。
+- 機器情報の収集周期は、各車のLocalBusが`localCollectionIntervalSeconds`、編成共通機器のMasterBusが`masterCollectionIntervalSeconds`。初期値は各0.25秒で、別々にシミュレーション時間を計時する。TIMS内部の計算・公開は毎tick続ける。
 - 表の `Device/Item` は `new TimsTagKey("Device", "Item")` の略記。例えば `Train/SpeedKmh` と資料中の `Train.SpeedKmh` は同じ2要素のキーを指す。
 - 「固定読取先なし」は、現行コードにそのキーを指定した利用先がないという意味。汎用表示部品への将来の設定は含めない。
 - 同じキーでもLocalBusが違えば別の値。前後EBや各車速度センサーはキーに車両番号を付けず、Busのindexで区別する。別編成では別のCommunication ControllerとBusを使う。
@@ -16,7 +19,7 @@
 
 | 装置・機能 | 読むBusと情報 | 書くBusと情報 | 現在の接続状態 |
 | --- | --- | --- | --- |
-| マスコン `MasterController` | TIMSからの入力なし | 自車Local：`MasterController/*` 7項目 | 専用BusSourceを共通Prefabに配置済み |
+| マスコン `MasterController` | TIMSからの入力なし | 自車Local：`MasterController/*` 8項目 | 専用BusSourceを共通Prefabに配置済み |
 | 運転台選択スイッチ `CabActivationSwitchController` | TIMSからの入力なし | 自車Local：`CabActivationSwitch/Position` | BusSource入りPrefabあり。ただしBuilderの専用フィールドからの生成は未接続 |
 | 速度センサー `SpeedSensor` | Simulationから物理速度を受ける | 自車Local：`SpeedSensor/MeasuredSpeedMps` | Tc1・Tc2・M・Tに登録済み。専用BusSourceで送信 |
 | 速度集約 `TimsSpeedController` | 全車Local：測定速度 | Master：`Train/*` 3項目 | 通信収集後に自動実行 |
@@ -27,8 +30,9 @@
 | 力行計算 `TimsTractionController` | Bus入力収集なし。外部からContextを設定する | Master：`Traction/TargetTractionForcesN` | 公開メソッドあり。Scene／Prefab配置・定期実行なし |
 | ブレーキ装置 `BrakeControlDevice` | Master：`Brake/TargetAirBrakeForcesN` | 現行の専用状態タグなし | 指令Adapterを共通Prefabに配置済み |
 | 制動配分 `TimsBrakeController` | Bus入力収集なし。外部からContextを設定する | Master：`Brake/*` 2項目 | 公開メソッドあり。Scene／Prefab配置・定期実行なし |
-| 速度計 `TimsSpeedMeter` | Master：編成速度・ATC表示情報 | なし | Prototype/Tims Sceneに設定済み。ATC情報の送信元は未実装 |
-| 汎用ランプ `TimsBoolIndicator` | 設定したMasterまたはLocalのBool | なし | Prefabのキーは未設定。特定装置との接続なし |
+| 車上ATC表示 `TrainAtcTimsDisplayAdapter` | 車上ATCの計算結果 | Master：`ATC/*` 表示情報 | ATC Prefabに配置済み。Equipmentの出力段階で公開 |
+| 速度計 `TimsSpeedMeter` | Master：編成速度・ATC表示情報 | なし | 三角表示は車上ATCの常用パターン速度に接続済み |
+| 汎用ランプ `TimsBoolIndicator` | 設定したMasterまたはLocalのBool | なし | モニターPrefabのATC電源・有効・故障・ORPは接続済み |
 
 ```mermaid
 flowchart LR
@@ -51,7 +55,7 @@ flowchart LR
 
 実線も装置の生成・車両割り当て・親TrainRootの設定が前提。EB入力のMasterBus参照は実装済みだが、方向判定の定期実行がない現状では、有効運転台タグが別途供給されない限りEBは監視を開始しない。
 
-## LocalBusのタグ：16項目
+## LocalBusのタグ：17項目
 
 表の読取先は実装上の参照先。方向・ノッチControllerの定期実行が未接続である点は上表のとおり。
 
@@ -68,6 +72,7 @@ flowchart LR
 | `MasterController/IsNeutral` | Bool：マスコン中立 | なし |
 | `MasterController/IsEmergency` | Bool：マスコンの非常位置 | なし |
 | `MasterController/IsInputEnabled` | Bool：操作入力有効 | 自車のEB入力Adapter |
+| `MasterController/IsKeyInserted` | Bool：マスコンキー挿入状態 | `TimsNotchDisplay`（有効運転台のLocal） |
 
 ノッチControllerは各車の位置を収集し、MasterBusの有効運転台indexに対応する入力を選ぶ。`MasterController/IsEmergency` はEB装置の無操作による非常要求とは別の値。
 
@@ -109,7 +114,7 @@ EBは自車のマスコン4項目とMasterBusの有効運転台を読む。自�
 
 | TimsTagKey | 型・意味 | 固定読取先 |
 | --- | --- | --- |
-| `Direction/ActivatedCabPosition` | Int：Rear=-1、None=0、Front=1 | `EbDeviceTimsInputAdapter`、`TimsNotchController` |
+| `Direction/ActivatedCabPosition` | Int：Rear=-1、None=0、Front=1 | `EbDeviceTimsInputAdapter`、`TimsNotchController`、`TimsNotchDisplay` |
 | `Direction/ReverserPosition` | Int：選択した運転台の逆転器位置 | なし |
 | `Direction/ConsistDirectionSign` | Int：編成基準の方向、-1 / 0 / 1 | なし |
 
@@ -142,6 +147,18 @@ EBの有効運転台判定はFrontならindex 0、Rearなら最後尾。None・�
 
 車両index順で最初の有効なLocal測定値を採用する。有効運転台とは独立。全車取得不能なら速度2タグを削除し `HasValidSpeed=false`、有効な停車なら速度0かつ `true`。無効値・欠損と停車を区別する。
 
+### 常用ブレーキ設定
+
+`TimsRoot`が`ITimsMasterBusSource`として、既存のMaster収集周期で公開する。`TrainAtcBrakeSettingsInputAdapter`が同じ編成のMasterBusから読み、ATCのInputへコピーする。未設定・不正設定・TimsRoot無効化時は3つのタグを削除する。
+
+| TimsTagKey | 型・単位 | 内容 |
+| --- | --- | --- |
+| `Brake/TargetDecelerationsMps2` | FloatArray、m/s² | B1から常用最大まで、通常ノッチごとの設定減速度 |
+| `Brake/SubstepCount` | Int | 通常ノッチ間の刻み数 |
+| `Brake/MaximumServiceBrakeStep` | Int | 常用最大の刻み段。B1=1、B7・4刻みなら25 |
+
+これは設定値の転送であり、ATCからTIMSへのブレーキ要求はまだ接続しない。
+
 ### 力行・空気ブレーキ指令
 
 | TimsTagKey | 型・単位 | MasterBusへの送信元 | 固定読取先 |
@@ -158,33 +175,60 @@ EBの有効運転台判定はFrontならindex 0、Rearなら最後尾。None・�
 
 コード：[力行Controller](../../../Assets/Nakatetsu/Train/Equipment/Tims/Traction/Scripts/TimsTractionController.cs)、[力行Adapter](../../../Assets/Nakatetsu/Train/Equipment/Tims/Traction/Scripts/TimsTractionCommandAdapter.cs)、[制動Controller](../../../Assets/Nakatetsu/Train/Equipment/Tims/Brake/Scripts/TimsBrakeController.cs)、[ブレーキAdapter](../../../Assets/Nakatetsu/Train/Equipment/Tims/Brake/Scripts/BrakeControlDeviceTimsAdapter.cs)。
 
-## 表示側だけに存在するキー・設定
+## 表示で使うキー・設定
 
 [TimsSpeedMeter](../../../Assets/Nakatetsu/Train/Equipment/Tims/Display/SpeedMeter/Scripts/TimsSpeedMeter.cs) はキーをInspectorで変更できる。追跡対象の [Prototype/Tims Scene](../../../Assets/Scenes/Prototype/Tims.unity) では以下が設定されている。
 
 | Bus | TimsTagKey | 読取型・単位 | 送信元 |
 | --- | --- | --- | --- |
 | Master | `Train/SpeedKmh` | FloatまたはInt、km/h | 上記の速度Controller（Floatで公開） |
-| Master | `ATC/PatternAllowSpeedKmh` | FloatまたはInt、km/h | 現行コードに公開処理なし |
-| Master | `ATC/HasValidPattern` | Bool | 現行コードに公開処理なし |
+| Master | `ATC/PatternAllowSpeedKmh` | Float、km/h | `TrainAtcTimsDisplayAdapter`。通常は現在位置の常用パターン速度。ORP表示中は0km/h |
+| Master | `ATC/HasValidPattern` | Bool | `TrainAtcTimsDisplayAdapter`。現在位置のパターンを取得できたか |
 
-ATC有効性を要求する設定も有効。ATCの2キーは「送信実装済み31項目」には数えない。
+三角表示は`HasValidPattern=true`の場合だけ点灯し、設定した刻み幅（既定5km/h）で低い方へ切り捨てる。42km/h・43km/hは40km/h現示とする。無信号・不正電文・方向不明・パターン計算失敗・キー切では速度タグを削除し、三角表示を消灯する。有効な0km/hは、無信号と区別して0km/hの三角を点灯する。
 
-[TimsBoolIndicator](../../../Assets/Nakatetsu/Train/Equipment/Tims/Display/Indicators/Scripts/TimsBoolIndicator.cs) は `target` でMaster／Localを選び、Localなら `localCarIndex` を使う。`deviceName`・`itemName` のBoolを読むが、共通Prefabではキーが空でTIMS参照も未設定。EBランプなどとしての接続はまだない。
+ATC表示の公開は、`TrainAtcTimsDisplayAdapter`を`ITimsMasterBusSource`としてTIMSが収集するときに行う。AdapterはATCの最新の計算結果を読み、同じ編成のMasterBusへ書き込む。通常の収集はEquipment計算より前なので、前tickまでに確定した値が対象となる。車両LocalBusを経由しない。
+
+| MasterのTimsTagKey | 型・単位 | 内容・読取先 |
+| --- | --- | --- |
+| `ATC/IsPowerOn` | Bool | 有効運転台のキー入。「ATC電源」ランプ |
+| `ATC/IsEnabled` | Bool | ATCの有効状態。「ATC」ランプ |
+| `ATC/IsHealthy` | Bool | 既存のATC正常判定 |
+| `ATC/HasFault` | Bool | 電源入かつ正常判定false。「故　障」ランプ |
+| `ATC/IsNormalBrakeRequired` | Bool | ATCの`State.brake.isNormalRequired`。常用要求・停止保持の状態。ATC常用ランプへ割り当てる項目 |
+| `ATC/IsEmergencyBrakeRequired` | Bool | ATCの`Output.brake.isEmergency`。非常保持中もtrue。モニターPrefabのATC非常ランプへ接続済み |
+| `ATC/IsOrpActive` | Bool | 有効なパターンがあり、Restrictedかつ非常パターンの予告・降下区間内、かつ非常目標速度が0m/s。現在速度は条件に含めない。ORPのOn／Off画像 |
+| `ATC/IsPatternApproaching` | Bool | 常用パターンの予告区間内、かつ現在の測定速度の大きさがパターン目標速度以上 |
+| `ATC/Signal` | Int | `TrainAtcSignal`。ATC無効は`None=0`。有効で現在位置の常用パターン速度か目標速度が0なら`Red=1`、それ以外は`Green=2`。`TimsAtcSignal`が読んで表示を切り替える |
+| `ATC/EmergencyPatternAllowSpeedKmh` | Float、km/h | 現在位置の非常パターン速度。確認用 |
+| `ATC/NormalSpeedPatternMps` | FloatArray、m/s | 常用速度パターン全体 |
+| `ATC/EmergencySpeedPatternMps` | FloatArray、m/s | 非常速度パターン全体 |
+| `ATC/PatternAtcEdgeIds` | StringArray | パターンを構成するATC Edge IDの順序 |
+| `ATC/SamplingIntervalM` | Float、m | パターンのサンプル間隔 |
+| `ATC/PathLengthM` | Float、m | パターン全体の経路長 |
+| `ATC/DistanceOnPathM` | Float、m | 有効運転台側受信機の現在path内距離 |
+
+収集時にパターンを取得できなければ、`HasValidPattern`・`IsOrpActive`・`IsPatternApproaching`をfalseにし、パターンの数値・配列タグを削除する。非常要求はパターン不成立時も公開し、非常保持中は点灯を続ける。表示Adapter・ATC・TrainRootの無効化を確認した場合は、常用・非常要求の表示タグをfalseへ戻す。表示Adapterの無効化は収集を待たずに電源・有効・故障表示も消す。これらの表示タグはTIMSの制動計算には使用しない。常用段と非常要求は`TimsNotchController`がATCの`Output.brake`から毎tick直接読み、手動ノッチと合成する。モニターPrefabのATC常用・非常ランプは接続済み。ATC開放は未接続。
+
+`Signal`はパターン不成立でも公開する。ATCが有効でパターンを取得できなければ、速度の初期値0として`Red`にする。ATC無効、表示Adapter無効では`None`に戻し、前回の現示を残さない。更新周期は既存のMaster収集周期に従う。
+
+`TimsAtcSignal`はMasterBusの`ATC/Signal`を読み、Inspectorで割り当てた`Red Object`・`Green Object`・`None Object`のうち該当するものだけを表示する。TIMS未接続・無効、タグ欠損・型不一致・不正値、表示Componentの無効化では`None Object`を表示する。`TimsMonitorOutput`の初期化時には同じ編成のTIMS参照を渡す。
+
+[TimsBoolIndicator](../../../Assets/Nakatetsu/Train/Equipment/Tims/Display/Indicators/Scripts/TimsBoolIndicator.cs) は `target` でMaster／Localを選び、Localなら `localCarIndex` を使う。`deviceName`・`itemName` のBoolを読む。単体Prefabのキーは空だが、モニターPrefabでは上記のATC表示を設定済み。モニター初期化時には生成済みのランプにも同じ編成のTIMS参照を渡す。ORPは既存のOn／Off画像のGameObjectを切り替え、画像の色を変更しない。
 
 ## いつ更新されるか
 
 通常の [TrainSimulationController](../../../Assets/Nakatetsu/Train/Simulation/Orchestration/Scripts/TrainSimulationController.cs) と [TimsCommunicationController](../../../Assets/Nakatetsu/Train/Equipment/Tims/Communication/Scripts/TimsCommunicationController.cs) の経路は次のとおり。
 
 1. 前ステップで確定したPhysics Outputを速度センサー群へ入力し、測定を計算・反映する。
-2. `CollectInputSources()` → `CollectSources()` で編成配下の `ITimsBusSource` を収集し、割り当てられた各車LocalBusへ書く。
+2. `CollectInputSources(deltaTimeSeconds)`で各収集周期を確認し、各車の`ITimsBusSource`はLocalBusへ、共通機器の`ITimsMasterBusSource`はMasterBusへ書く。初回は即時、以後はそれぞれ既定0.25秒ごとに収集する。
 3. `TimsSpeedController.CalculateAndPublish()` がLocal測定値を選び、Master速度を公開する。
 4. EB・VVVF・ブレーキ等の装置群を、全体の入力収集→計算→反映の順に進める。
 5. 物理モデルとPhysicsを更新する。表示部品はBusの値を読む。
 
-速度は同じ測定ステップ内にLocal→Masterへ反映される。EB状態の送信はEB計算より前なので、**前ステップのEB Outputが公開される**。低レベルの `CollectSources()` だけでは速度のMaster集約は実行されない。
+収集した速度は同じステップ内にLocal→Masterへ反映される。収集待ちのtickでは前回の測定値を使う。EB状態の送信はEB計算より前なので、**前ステップのEB Outputが公開される**。ATC表示も共通機器の収集時点で前tickまでに確定した値を使う。低レベルの `CollectSources()` や `CollectMasterSources()` だけではTIMS内部の計算は実行されない。
 
-方向・ノッチ・力行・制動配分Controllerはこの更新列に入っていない。またBusは値を保持する入れ物で、全キー共通のタイムアウトや受信時刻による失効処理はない。欠損・無効時の削除やリセットは個別実装の契約を確認する。
+`TimsControlController`を配置した場合は、手順3の後に方向・ノッチ・力行・制動配分Controllerを毎tick実行する。ノッチ計算には前tickのATCブレーキ指令も取り込む。詳細は[制御パイプライン](ControlPipeline.md)を参照。またBusは値を保持する入れ物で、全キー共通のタイムアウトや受信時刻による失効処理はない。欠損・無効時の削除やリセットは個別実装の契約を確認する。
 
 ## 接続を進めるときの確認箇所
 

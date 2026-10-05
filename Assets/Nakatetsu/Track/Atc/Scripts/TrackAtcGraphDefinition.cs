@@ -24,6 +24,8 @@ namespace Nakatetsu.Track.Atc
     public sealed class TrackAtcGraphDefinition
     {
         public string atcGraphId;
+        // 線区全体の営業最高速度[km/h]。
+        public float maximumOperatingSpeedKmh;
         public List<TrackAtcGraphEdge> atcEdge = new();
         public List<TrackAtcGraphNode> atcNode = new();
         public List<TrackAtcRouteDefinition> routes = new();

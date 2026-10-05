@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Simulation.Brake;
+using Nakatetsu.Train.Simulation.Atc;
 using Nakatetsu.Train.Simulation.Door;
 using Nakatetsu.Train.Simulation.Load;
 using Nakatetsu.Train.Simulation.Traction.Motor;
@@ -111,6 +112,17 @@ namespace Nakatetsu.Train.Simulation.Orchestration
                 instances.DoorSimulation = doorObject != null
                     ? doorObject.GetComponent<TrainDoorSimulation>()
                     : null;
+
+                // ATC受信機はTc1・Tc2だけに生成し、SimulationAssignmentで車両を割り当てる。
+                if (definition.carType == CarType.Tc1 || definition.carType == CarType.Tc2)
+                {
+                    GameObject receiverObject = InstantiateSimulation(
+                        definition.atcReceiverPrefab, carRoot, carIndex);
+                    if (receiverObject != null)
+                    {
+                        instances.AtcReceiver = receiverObject.GetComponent<TrainAtcReceiverController>();
+                    }
+                }
 
                 carSimulations.Add(instances);
             }
@@ -229,5 +241,6 @@ namespace Nakatetsu.Train.Simulation.Orchestration
         public TrainBrakeSimulation BrakeSimulation { get; internal set; }
         public TrainLoadController LoadSimulation { get; internal set; }
         public TrainDoorSimulation DoorSimulation { get; internal set; }
+        public TrainAtcReceiverController AtcReceiver { get; internal set; }
     }
 }

@@ -36,5 +36,31 @@ namespace Nakatetsu.Track.Simulation.Circuit
         public bool isValid;
 
         public readonly Dictionary<(string atcEdgeId, TrackAtcTravelDirection direction), TrackCircuitAtcRouteInfomation> atcRouteInfomation = new();
+
+        // 受信・転送時点の内容を保持するため、進路のリストも複製する。
+        public TrackCircuitAtcTelegram Clone()
+        {
+            var copy = new TrackCircuitAtcTelegram
+            {
+                issuedAtSeconds = issuedAtSeconds,
+                isValid = isValid
+            };
+            foreach (var pair in atcRouteInfomation)
+            {
+                if (pair.Value == null)
+                {
+                    copy.atcRouteInfomation.Add(pair.Key, null);
+                    continue;
+                }
+
+                copy.atcRouteInfomation.Add(pair.Key, new TrackCircuitAtcRouteInfomation
+                {
+                    atcEdgePath = pair.Value.atcEdgePath == null ? null : new List<string>(pair.Value.atcEdgePath),
+                    stopAtcEdgeId = pair.Value.stopAtcEdgeId,
+                    overrunProtectionMode = pair.Value.overrunProtectionMode
+                });
+            }
+            return copy;
+        }
     }
 }

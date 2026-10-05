@@ -37,6 +37,10 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Indicators
         public void SetTimsSource(TimsCommunicationController source)
         {
             tims = source;
+            foreach (var indicator in GetComponentsInChildren<TimsBoolIndicator>(true))
+            {
+                indicator.SetTimsSource(source);
+            }
         }
 
         private void Awake()

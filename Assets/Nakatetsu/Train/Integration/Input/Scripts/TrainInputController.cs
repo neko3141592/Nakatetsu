@@ -17,7 +17,7 @@ namespace Nakatetsu.Train.Integration
 
         public bool MoveNotchTowardBrake()
         {
-            if (!TryGetMaster(out MasterController master))
+            if (!TryGetMaster(out MasterController master) || master.ReverserPosition == ReverserPosition.Neutral)
             {
                 return false;
             }
@@ -28,7 +28,7 @@ namespace Nakatetsu.Train.Integration
 
         public bool MoveNotchTowardPower()
         {
-            if (!TryGetMaster(out MasterController master))
+            if (!TryGetMaster(out MasterController master) || master.ReverserPosition == ReverserPosition.Neutral)
             {
                 return false;
             }
@@ -39,7 +39,7 @@ namespace Nakatetsu.Train.Integration
 
         public bool SetNeutral()
         {
-            if (!TryGetMaster(out MasterController master))
+            if (!TryGetMaster(out MasterController master) || master.ReverserPosition == ReverserPosition.Neutral)
             {
                 return false;
             }
@@ -56,6 +56,18 @@ namespace Nakatetsu.Train.Integration
         public bool MoveReverserBackward()
         {
             return MoveReverser(-1);
+        }
+
+        public bool ToggleMasterControllerKey()
+        {
+            // キーを抜いた後も同じ運転台へ挿し直せるよう、キーの有無は照査しない。
+            if (!isActiveAndEnabled || resolver == null ||
+                !resolver.TryGetActiveMaster(out MasterController master, out _) || !master.IsInputEnabled)
+            {
+                return false;
+            }
+
+            return master.SetKeyInserted(!master.IsKeyInserted);
         }
 
         public bool ResetEb()
@@ -89,7 +101,7 @@ namespace Nakatetsu.Train.Integration
                 return false;
             }
 
-            return resolver.TryGetActiveMaster(out master, out _) && master.IsInputEnabled;
+            return resolver.TryGetActiveMaster(out master, out _) && master.IsInputEnabled && master.IsKeyInserted;
         }
     }
 }

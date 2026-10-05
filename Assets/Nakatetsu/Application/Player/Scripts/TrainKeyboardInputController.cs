@@ -63,6 +63,14 @@ namespace Nakatetsu.Application.Player
             }
         }
 
+        public void OnToggleMasterControllerKey(InputAction.CallbackContext context)
+        {
+            if (CanOperate(context))
+            {
+                target.Input.ToggleMasterControllerKey();
+            }
+        }
+
         private bool CanOperate(InputAction.CallbackContext context)
         {
             return isActiveAndEnabled && context.performed &&

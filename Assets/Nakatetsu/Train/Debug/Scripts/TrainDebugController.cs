@@ -98,11 +98,12 @@ namespace Nakatetsu.Train.Debugging
             rearMaster.SetEmergencyBrake();
             frontMaster.SetReverserPosition(ReverserPosition.Neutral);
             rearMaster.SetReverserPosition(ReverserPosition.Neutral);
+            frontMaster.SetKeyInserted(!rear);
+            rearMaster.SetKeyInserted(rear);
             frontSwitch.SetPosition(rear ? CabActivationPosition.Rear : CabActivationPosition.Front);
             rearSwitch.SetPosition(rear ? CabActivationPosition.Front : CabActivationPosition.Rear);
             (rear ? rearMaster : frontMaster).SetReverserPosition(ReverserPosition.Forward);
-            frontMaster.SetNeutral();
-            rearMaster.SetNeutral();
+            (rear ? rearMaster : frontMaster).SetNeutral();
             lastOperation = (rear ? "後側" : "前側") + "運転台を準備しました。TIMSの更新後にPノッチを操作してください。";
         }
 
@@ -142,7 +143,7 @@ namespace Nakatetsu.Train.Debugging
         {
             if (!TryGetMaster(out MasterController master)) return;
             lastOperation = master.SetReverserPosition((ReverserPosition)Mathf.Clamp(position, -1, 1))
-                ? "レバーサーを変更しました。" : "入力が有効な状態で非常ノッチにしてください。";
+                ? "レバーサーを変更しました。" : "キーを挿入し、入力が有効な状態で非常ノッチにしてください。";
         }
 
         private bool TryGetMaster(out MasterController master)

@@ -1,3 +1,4 @@
+using Nakatetsu.Train.Equipment.Atc;
 using Nakatetsu.Train.Equipment.Operation.CabActivationSwitch;
 using Nakatetsu.Train.Equipment.Tims.Bus;
 using Nakatetsu.Train.Equipment.Tims.Communication;
@@ -27,6 +28,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
         [SerializeField] private TrainRoot trainRoot;
         [SerializeField] private TimsRoot timsRoot;
         [SerializeField] private TimsCommunicationController communicationController;
+        [SerializeField] private TrainAtcController atcController;
 
         private readonly TimsNotchContext context = new();
 
@@ -45,6 +47,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             TimsNotchInput input = context.Input;
             input.isReady = false;
             input.cabActivationPosition = CabActivationPosition.Off;
+            input.atcBrakeStep = 0;
+            input.isAtcEmergency = false;
 
             if (!ResolveReferences() ||
                 trainRoot.ConsistDefinition == null ||
@@ -52,6 +56,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             {
                 return;
             }
+
+            CollectAtcBrakeInput();
 
             int carCount = trainRoot.ConsistDefinition.CarCount;
             if (!TryReadActivatedCabPosition(out CabActivationPosition activatedCabPosition))
@@ -70,6 +76,24 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
             FillCarInputs(input, carCount, activatedCabIndex, out bool hasActivatedCabInput);
 
             input.isReady = activatedCabIndex >= 0 && hasActivatedCabInput;
+        }
+
+        private void CollectAtcBrakeInput()
+        {
+            if (atcController == null)
+            {
+                return;
+            }
+            if (!atcController.isActiveAndEnabled)
+            {
+                context.Input.isAtcEmergency = true;
+                return;
+            }
+
+            // 表示の収集周期を待たず、前tickに確定したATC指令を毎tick読み取る。
+            var output = atcController.Context.Output.brake;
+            context.Input.atcBrakeStep = output.brakeStep;
+            context.Input.isAtcEmergency = output.isEmergency;
         }
 
         private void FillCarInputs(
@@ -222,7 +246,33 @@ namespace Nakatetsu.Train.Equipment.Tims.Notch
                 communicationController = GetComponent<TimsCommunicationController>();
             }
 
-            return trainRoot != null && timsRoot != null && communicationController != null;
+            return trainRoot != null && timsRoot != null && communicationController != null &&
+                ResolveAtcController();
+        }
+
+        private bool ResolveAtcController()
+        {
+            if (atcController != null)
+            {
+                return atcController.GetComponentInParent<TrainRoot>(true) == trainRoot;
+            }
+
+            // ATC未搭載の編成では要求なし。同じ編成に複数ある場合は入力不成立にする。
+            TrainAtcController foundAtc = null;
+            foreach (var candidate in trainRoot.GetComponentsInChildren<TrainAtcController>(true))
+            {
+                if (candidate.GetComponentInParent<TrainRoot>(true) != trainRoot)
+                {
+                    continue;
+                }
+                if (foundAtc != null)
+                {
+                    return false;
+                }
+                foundAtc = candidate;
+            }
+            atcController = foundAtc;
+            return true;
         }
     }
 }

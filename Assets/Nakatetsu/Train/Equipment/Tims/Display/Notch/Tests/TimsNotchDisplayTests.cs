@@ -1,9 +1,13 @@
 using System.Linq;
+using System.Reflection;
+using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Tims;
 using Nakatetsu.Train.Equipment.Tims.Brake;
 using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Configuration;
 using Nakatetsu.Train.Equipment.Tims.Notch;
+using Nakatetsu.Train.Equipment.Tims.Integration;
+using Nakatetsu.Train.Equipment.Tims.Operation;
 using Nakatetsu.Train.Equipment.Tims.Presentation.Indicators;
 using NUnit.Framework;
 using TMPro;
@@ -20,14 +24,26 @@ namespace Nakatetsu.Train.Presentation.Tests
         private TimsCommunicationController source;
         private TimsSettingsAsset settings;
         private TimsNotchDisplay display;
+        private ConsistDefinitionAsset consist;
 
         [SetUp]
         public void SetUp()
         {
-            sourceObject = new GameObject("TIMS");
-            source = sourceObject.AddComponent<TimsCommunicationController>();
+            sourceObject = new GameObject("Train");
+            consist = ScriptableObject.CreateInstance<ConsistDefinitionAsset>();
+            consist.cars.Add(null);
+            consist.cars.Add(null);
+            sourceObject.AddComponent<TrainRoot>().Configure(consist);
+            var timsObject = new GameObject("TIMS");
+            timsObject.transform.SetParent(sourceObject.transform);
+            source = timsObject.AddComponent<TimsCommunicationController>();
+            typeof(TimsCommunicationController).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(source, null);
+            source.MasterBus.SetInt(TimsDirectionController.ActivatedCabPositionKey, (int)ActivatedCabPosition.Front);
+            source.GetLocalBus(0).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, true);
+            source.GetLocalBus(1).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, false);
             settings = ScriptableObject.CreateInstance<TimsSettingsAsset>();
-            sourceObject.AddComponent<TimsRoot>().Configure(settings);
+            timsObject.AddComponent<TimsRoot>().Configure(settings);
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(
                 "Assets/Nakatetsu/Train/Equipment/Tims/Display/Notch/Prefabs/TimsNotchDisplay.prefab");
             Assert.That(prefab, Is.Not.Null);
@@ -46,6 +62,7 @@ namespace Nakatetsu.Train.Presentation.Tests
             Object.DestroyImmediate(displayObject);
             Object.DestroyImmediate(sourceObject);
             Object.DestroyImmediate(settings);
+            Object.DestroyImmediate(consist);
         }
 
         private void Publish(int power, int brakeStep, bool emergency = false)
@@ -154,6 +171,74 @@ namespace Nakatetsu.Train.Presentation.Tests
             AssertUnavailable();
             display.Configure(source);
             Assert.That(display.IsAvailable, Is.True);
+        }
+
+        [TestCase(3, 0, false)]
+        [TestCase(0, 25, false)]
+        [TestCase(0, 0, false)]
+        [TestCase(0, 0, true)]
+        public void KeyOffClearsEveryCellAndKeyOnRestoresCurrentNotch(int power, int brakeStep, bool emergency)
+        {
+            Publish(power, brakeStep, emergency);
+            Assert.That(display.IsAvailable, Is.True);
+            source.GetLocalBus(0).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, false);
+            display.Refresh();
+            AssertUnavailable();
+
+            source.GetLocalBus(0).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, true);
+            display.Refresh();
+            Assert.That(display.IsAvailable, Is.True);
+            Assert.That(displayObject.GetComponentInChildren<EmergencyNotchCell>().State,
+                Is.EqualTo(emergency ? EmergencyNotchCellState.On : EmergencyNotchCellState.Off));
+            if (power > 0)
+                Assert.That(displayObject.GetComponentsInChildren<PowerNotchCell>().Single(c => c.Notch == power).State,
+                    Is.EqualTo(PowerNotchCellState.On));
+            if (brakeStep > 0)
+                Assert.That(displayObject.GetComponentsInChildren<BrakeNotchCell>().Single(c => c.Notch == 7).State,
+                    Is.EqualTo(BrakeNotchCellState.On));
+            if (!emergency && power == 0 && brakeStep == 0)
+                Assert.That(displayObject.GetComponentInChildren<NeutralNotchCell>().State,
+                    Is.EqualTo(NeutralNotchCellState.On));
+        }
+
+        [TestCase(ActivatedCabPosition.Front)]
+        [TestCase(ActivatedCabPosition.Rear)]
+        public void ReadsKeyOnlyFromSelectedCabsLocalBus(ActivatedCabPosition cab)
+        {
+            source.MasterBus.SetInt(TimsDirectionController.ActivatedCabPositionKey, (int)cab);
+            int selected = cab == ActivatedCabPosition.Front ? 0 : 1;
+            int other = 1 - selected;
+            source.GetLocalBus(selected).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, false);
+            source.GetLocalBus(other).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, true);
+            Publish(3, 0, true);
+            AssertUnavailable();
+
+            source.GetLocalBus(selected).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, true);
+            source.GetLocalBus(other).SetBool(MasterControllerTimsBusSource.IsKeyInsertedKey, false);
+            display.Refresh();
+            Assert.That(display.IsAvailable, Is.True);
+            Assert.That(displayObject.GetComponentInChildren<EmergencyNotchCell>().State,
+                Is.EqualTo(EmergencyNotchCellState.On));
+        }
+
+        [TestCase("missingKey")]
+        [TestCase("wrongKeyType")]
+        [TestCase("missingCab")]
+        [TestCase("noCab")]
+        [TestCase("invalidCab")]
+        public void UnavailableKeyOrCabClearsEmergencyDisplay(string condition)
+        {
+            Publish(0, 0, true);
+            switch (condition)
+            {
+                case "missingKey": source.GetLocalBus(0).Remove(MasterControllerTimsBusSource.IsKeyInsertedKey); break;
+                case "wrongKeyType": source.GetLocalBus(0).SetInt(MasterControllerTimsBusSource.IsKeyInsertedKey, 1); break;
+                case "missingCab": source.MasterBus.Remove(TimsDirectionController.ActivatedCabPositionKey); break;
+                case "noCab": source.MasterBus.SetInt(TimsDirectionController.ActivatedCabPositionKey, 0); break;
+                case "invalidCab": source.MasterBus.SetInt(TimsDirectionController.ActivatedCabPositionKey, 2); break;
+            }
+            display.Refresh();
+            AssertUnavailable();
         }
 
         private void AssertUnavailable()
