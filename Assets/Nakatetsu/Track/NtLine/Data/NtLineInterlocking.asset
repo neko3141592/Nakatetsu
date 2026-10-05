@@ -21,14 +21,14 @@ MonoBehaviour:
     - 2RT
     - 22T
     memberConnectionIds:
-    - "21"
-    - "22"
+    - 21
+    - 22
     routes:
     - routeId: 21T-1RT
       startTrackCircuitId: 21T
       destinationTrackCircuitId: 1RT
       requiredTurnouts:
-      - connectionId: "21"
+      - connectionId: 21
         requiredPosition: 2
       routeLockTrackCircuitIds:
       - 21T
@@ -39,11 +39,13 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds:
       - 21T-2RT
+      overrunProtection:
+        rid: -2
     - routeId: 21T-2RT
       startTrackCircuitId: 21T
       destinationTrackCircuitId: 2RT
       requiredTurnouts:
-      - connectionId: "21"
+      - connectionId: 21
         requiredPosition: 1
       routeLockTrackCircuitIds:
       - 21T
@@ -54,11 +56,13 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds:
       - 21T-1RT
+      overrunProtection:
+        rid: 271528848504389826
     - routeId: 1RT-22T
       startTrackCircuitId: 1RT
       destinationTrackCircuitId: 22T
       requiredTurnouts:
-      - connectionId: "22"
+      - connectionId: 22
         requiredPosition: 2
       routeLockTrackCircuitIds:
       - 22T
@@ -68,11 +72,13 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds:
       - 2RT-22T
+      overrunProtection:
+        rid: -2
     - routeId: 2RT-22T
       startTrackCircuitId: 2RT
       destinationTrackCircuitId: 22T
       requiredTurnouts:
-      - connectionId: "22"
+      - connectionId: 22
         requiredPosition: 1
       routeLockTrackCircuitIds:
       - 22T
@@ -82,10 +88,33 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds:
       - 1RT-22T
+      overrunProtection:
+        rid: -2
     turnoutTrackCircuitLocks:
-    - connectionId: "21"
+    - connectionId: 21
       trackCircuitIds:
       - 21T
-    - connectionId: "22"
+    - connectionId: 22
       trackCircuitIds:
       - 22T
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 271528848504389826
+      type: {class: OverrunProtectionDefinition, ns: Nakatetsu.Track.Interlocking, asm: Nakatetsu.Track.Interlocking}
+      data:
+        common:
+          clearTrackCircuitIds: []
+          requiredTurnouts: []
+        normalAdditional:
+          clearTrackCircuitIds:
+          - 22T
+          requiredTurnouts:
+          - connectionId: 22
+            requiredPosition: 1
+        release:
+          mode: 0
+          triggerTrackCircuitId: 
+          releaseSeconds: 0

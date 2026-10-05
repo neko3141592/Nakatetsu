@@ -53,6 +53,8 @@ namespace Nakatetsu.Train.Equipment.Atc
         [Min(0f)] public float maximumDownhillGradientPermille;
 
         [Header("ORP")]
+        // ORP専用の計算用減速度[m/s²]。0以下は未設定として扱う。
+        [Min(0f)] public float orpDecelerationMps2 = 0.7f;
         [Min(0f)] public float orpSpeedLimitKmh = 25f;
         // 停止限界より、この距離以上手前で制限速度へ到達させる。
         [Min(0f)] public float orpMinimumTargetMarginM = 100f;
@@ -81,6 +83,7 @@ namespace Nakatetsu.Train.Equipment.Atc
                 brakeStepTable = new(source.brakeStepTable);
             }
             maximumDownhillGradientPermille = source.maximumDownhillGradientPermille;
+            orpDecelerationMps2 = source.orpDecelerationMps2;
             orpSpeedLimitKmh = source.orpSpeedLimitKmh;
             orpMinimumTargetMarginM = source.orpMinimumTargetMarginM;
         }
@@ -252,20 +255,25 @@ namespace Nakatetsu.Train.Equipment.Atc
         // 今回の現在位置で、パターンを使用できるか。
         public bool hasValidPattern;
         public float distanceOnPathM;
-        // 現在位置での常用・非常の許容速度[m/s]。
+        
+        // 現在位置での常用・非常・ORPの許容速度[m/s]。
         public float normalAllowSpeedMps;
         public float emergencyAllowSpeedMps;
+        public float orpAllowSpeedMps;
         public float normalTargetSpeedMps;
         public float emergencyPatternTargetMps;
+        public float orpPatternTargetMps;
         // 現在位置が、進行方向に見てパターン速度が下がる区間か。
         public bool isNormalDecelerationSection;
         public bool isEmergencyDecelerationSection;
         // 現在位置が、予告区間または減速区間に含まれるか。
         public bool isNormalPatternApproachSection;
         public bool isEmergencyPatternApproachSection;
+        public bool isOrpPatternApproachSection;
         public List<string> pathAtcEdges = new();
         public List<TrainAtcBrakePatternSample> normalPattern = new();
         public List<TrainAtcBrakePatternSample> emergencyPattern = new();
+        public List<TrainAtcBrakePatternSample> orpPattern = new();
     }
 
     public struct TrainAtcBrakePatternSample
@@ -309,6 +317,7 @@ namespace Nakatetsu.Train.Equipment.Atc
         public float distanceOnPathM;
         public float normalAllowSpeedMps;
         public float emergencyAllowSpeedMps;
+        public float orpAllowSpeedMps;
 
         public TrainAtcBrakeOutput brake = new();
     }

@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea2099a6e39d405c9b808504c5820996, type: 2}
   definition:
     atcGraphId: NtLineAtc
-    maximumOperatingSpeedKmh: 120
+    maximumOperatingSpeedKmh: 105
     atcEdge:
     - atcEdgeId: edge:nt-approach:0:1000
       trackCircuitId: 20T

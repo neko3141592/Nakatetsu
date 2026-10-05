@@ -41,9 +41,14 @@ Logic内では`CaptureCabState()`が運転台状態の確認と保持を、`Capt
 | `serviceStopMarginM` | 100m | 過走防護が`None`の場合の常用停止余裕距離 |
 | `emergencyStopMarginM` | 5m | 非常停止余裕距離の保存値。現在の停止目標は1サンプル手前で、この設定値は参照しない |
 | `orpSpeedLimitKmh` | 25km/h | ORPの常用パターンの制限速度 |
+| `orpDecelerationMps2` | 0.7m/s² | 独立したORPパターンの計算用減速度。常用・非常の減速度とは別に設定 |
 | `orpMinimumTargetMarginM` | 100m | ORPの低速到達位置に必要な最低余裕距離 |
 
 減速度は設定値を読み、各サンプルで編成全体の勾配補正を加えて速度積分に使う。0以下・NaN・Infinityの設定値や、補正後の非正・不正な有効減速度ではパターンを消す。線区最高速度と区間制限はTrack側の設定として扱い、車上設定Assetには含めない。
+
+`TrainAtcBrakePatternLogic.TryCreateOrpPattern()`は通常の積分後に、Restrictedの場合だけ`State.brakePattern.orpPattern`を生成する。常用・非常と同じ経路・サンプル間隔を使い、設定距離以内はORP低速制限＋共通の10km/h、それより手前は線区最高速度＋10km/hで初期化する。最後の2サンプルを0にし、設定距離以内だけORP専用の減速度と非常側の勾配補正で逆向きに積分する。各サンプルの`decelerationMps2`には補正前のORP減速度を保存し、接近・降下区間と目標速度は既存の`UpdatePatternSections()`で計算する。Restricted以外とパターン消去時は配列を空にし、無信号の猶予中は他の配列とともに保持する。
+
+独立ORPパターンは現在Stateへの保存までとする。通常非常との大小比較、現在位置の許容速度への反映、TIMSへの公開は行わず、既存の表示・ブレーキ出力を使う。
 
 `brakeStepTable`は`List<TrainAtcBrakeStepCondition>`としてInspectorから編集できる。各行は`brakeStepOffset`（基準段からの刻み増減数）、`increaseToDeviationKmh`（この段へ強める閾値）、`decreaseToDeviationKmh`（この段へ弱める閾値）を持つ。基準段からの増減数の小さい順に並べる。増減数は連番でなくてもよく、例えば−2・−1・0・＋2・＋4も使用できる。初期値は−2・−1・0・＋1・＋2の5行で、両方の閾値を増減数×0.5km/hとする。`CopyFrom()`はリストと各行の値をコピーし、AssetとContext間で共有しない。Logicからは`context.Settings.brakeStepTable`で取得できる。`TrainAtcLogic.GetBaseBrakeStep()`で現在位置のパターン減速度から基準段を取得し、`CreateBrakeStep()`の降下中の分岐で、前回の選択行と速度偏差から`State.brake.targetBrakeStep`を更新する。選択行は`targetBrakeStepTableIndex`へ保持し、停止保持・緩解・降下区間からの退出で−1へ戻す。`CreateBrakeStep()`は降下中の目標段を設定した直後に`UpdateCurrentBrakeStep()`を呼ぶ。同関数は`Input.deltaTimeSeconds`で経過時間を計測し、`Settings.brakeStepChangeIntervalSeconds`ごとに`currentBrakeStep`を目標へ1step近づける。初回の基準段と、停止保持・完全緩解・降下していない場合の切り替えは即時とする。目標段の計算と現在段の追従は実装済みで、`UpdateBrakeState()`から毎tick`CreateBrakeStep()`を呼ぶ。停止保持中は`isNormalRequired`をtrueにし、停止判定は0.1km/h以下、緩解判定は、現在速度がパターン速度から`Settings.normalBrakeReleaseMarginKmh`（初期値3km/h）を引いた速度以下の場合とする。テーブルや基準段、切り替え時間が不正な場合は`SetMaximumServiceBrakeStep()`で現在段・目標段を入力された常用最大へ即時に切り替え、履歴と待ち時間を消す。常用段は`Output.brake.brakeStep`へ反映し、非常保持中は0にする。TIMSは毎tick出力を読んで、手動ノッチと合成する。
 
@@ -226,7 +231,9 @@ TIMS未取得・複数配置・無効化、タグ欠損、空の減速度表、�
 
 ブレーキ判定は`State.brakePattern.hasValidPattern`とStateの許容速度を使う。`TrainAtcBrakeLogic.UpdateBrakeState()`まで完了した後、`TrainAtcOutputLogic.UpdateOutput(context)`を呼ぶ。同関数はContextだけを引数に受け、Stateを変更せず、表示用情報とブレーキ指令をOutputへまとめて反映する。常用パターンの予告区間内かつ現在の測定速度の大きさがStateの目標速度以上なら、`Output.isPatternApproaching`をtrueとする。非常保持中は`Output.brake.isEmergency`をtrue、常用段を0にし、それ以外は`State.brake.currentBrakeStep`を出力する。
 
-`Output.isOrpActive`は、有効なパターンがあり、採用した過走防護モードが`Restricted`で、現在位置が非常パターンの予告・降下区間内で、`State.brakePattern.emergencyPatternTargetMps`が0m/sの場合だけtrueとする。前後サンプルのどちらかの`isPatternApproachSection`がtrueなら区間内として扱い、現在速度は判定条件に含めない。無信号の猶予中も保持パターンの現在位置から更新し、パターンが不成立ならfalseへ戻す。
+`Output.orpAllowSpeedMps`には`State.brakePattern.orpAllowSpeedMps`を反映する。独立ORPの前後サンプルの速度の二乗から現在位置の許容速度[m/s]を補間し、ORPがない場合やパターンを使用できない場合は0に戻す。無信号の猶予中も保持したORPから毎tick更新する。
+
+`Output.isOrpActive`は、有効なパターンがあり、採用した過走防護モードが`Restricted`で、`State.brakePattern.isOrpPatternApproachSection`がtrue、`State.brakePattern.orpPatternTargetMps`が0m/sの場合だけtrueとする。目標速度は独立ORPの前後サンプルの速度の二乗から補間し、前後サンプルのどちらかの`isPatternApproachSection`がtrueなら区間内として扱う。現在速度は判定条件に含めない。無信号の猶予中も保持した独立ORPの現在位置から更新し、ORPがない場合やパターンが不成立なら目標速度を0、接近状態と表示をfalseへ戻す。
 
 ATC Prefabの`TrainAtcTimsDisplayAdapter`が`ITimsMasterBusSource`を実装し、TIMSの収集時に`TrainAtcController.Context`から最新の計算結果を読み、同じ編成のMasterBusへ公開する。`Output.isOrpActive`がtrueの場合、現示用の`ATC/PatternAllowSpeedKmh`を0km/hにする。それ以外は現在位置の常用パターン速度を公開する。制御用のState・Outputの許容速度は計算した値を保持する。収集周期は`TimsCommunicationController.masterCollectionIntervalSeconds`で設定し、初期値は0.25秒。通常の収集はEquipment計算より前なので、前tickまでに確定した表示情報を取得する。車上ATC本体からTIMS Assemblyを参照しない。
 

@@ -102,21 +102,25 @@ N = ceil(L / 5m)
 | `distanceOnPathM` | 現在位置のpath内距離[m] |
 | `normalAllowSpeedMps` | 現在位置で補間した常用許容速度[m/s]。float |
 | `emergencyAllowSpeedMps` | 現在位置で補間した非常許容速度[m/s]。float |
+| `orpAllowSpeedMps` | 現在位置で補間した独立ORP許容速度[m/s]。float。ORPがない場合は0 |
 | `normalTargetSpeedMps` | 現在位置で補間した常用の目標速度[m/s] |
-| `emergencyPatternTargetMps` | 現在位置で補間した非常の目標速度[m/s]。ORP表示の停止目標判定に使用 |
+| `emergencyPatternTargetMps` | 現在位置で補間した非常の目標速度[m/s] |
+| `orpPatternTargetMps` | 現在位置で補間した独立ORPの目標速度[m/s]。ORPがない場合は0 |
 | `isNormalDecelerationSection` | 現在位置が常用パターンの減速区間か。bool |
 | `isEmergencyDecelerationSection` | 現在位置が非常パターンの減速区間か。bool |
 | `isNormalPatternApproachSection` / `isEmergencyPatternApproachSection` | 現在位置が常用・非常それぞれの予告・降下区間内か |
+| `isOrpPatternApproachSection` | 現在位置が独立ORPの予告・降下区間内か。ORPがない場合はfalse |
 | `pathAtcEdges` | 進行順に並んだATC Edge IDの列。IDは文字列 |
 | `pathStartTravelDirection` | 採用時の先頭Edgeの進行方向。現在Edgeが変わっても保持 |
 | `isFrontCab` / `reverserPosition` | パターンを採用した運転台側とレバーサ位置。保持可否の確認に使用 |
 | `overrunProtectionMode` | 採用した過走防護モード。無信号の猶予中もORP状態へ反映 |
 | `normalPattern` | 各サンプル位置の常用パターン情報 |
 | `emergencyPattern` | 各サンプル位置の非常パターン情報 |
+| `orpPattern` | Restricted時に生成する独立ORPパターン。同じ経路とサンプル間隔を使用。通常非常との合成は未実装 |
 
 `State.brakePattern`は宣言時に生成し、`pathAtcEdges`は`List<string>`として保持する。経路は電文内のリストを参照せず、今回のEdge ID列をコピーする。
 
-現在位置の許容速度は`TrainAtcBrakePatternLogic.UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間してStateへ保持する。常用・非常の目標速度も同じ方法で補間し、前後サンプルから予告・降下区間内かを求める。現在位置のパターンを取得できない場合と、`ClearBrakePattern()`でパターンを消す場合は、使用可否・距離・許容速度・目標速度・区間フラグを初期値へ戻す。
+現在位置の許容速度は`TrainAtcBrakePatternLogic.UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間してStateへ保持する。常用・非常・独立ORPの目標速度も同じ方法で補間し、前後サンプルから予告・降下区間内かを求める。現在位置のパターンを取得できない場合と、`ClearBrakePattern()`でパターンを消す場合は、使用可否・距離・許容速度・目標速度・区間フラグを初期値へ戻す。
 
 現在位置の減速区間は、現在位置を含む区間の始点サンプルの`isDecelerationSection`を常用・非常それぞれから取得し、Stateの上記フラグへ保存する。サンプル位置ではその地点から先の区間を使い、経路終端では終端サンプルのfalseを使う。現在位置のパターンを取得できない場合とパターン消去時は、両方のフラグをfalseへ戻す。
 
@@ -270,7 +274,7 @@ ATCが有効でもパターンを取得できなければ、速度の初期値0�
 
 ## 5. 停止目標とORPの扱い（実装済み）
 
-`Calculate()`は`UpdateBrakePattern()`の前に`CheckBrakePatternInput()`を呼び、入力・電文・猶予・保持経路から新規生成・前回保持・消去を決める。判定結果は`State.brakePatternUpdateDecision`に毎tick保持し、`UpdateBrakePattern()`はStateから読んで処理する。enumとstructは`TrainAtcContext.cs`に定義する。新規生成の場合は、`TryCreateBrakePattern()`で初期化、常設速度制限、`ApplyOverrunProtection()`、`ApplyBrakePattern()`の順に呼ぶ。いずれかの処理に失敗した場合は、パターンを消してその回の処理を終了する。`ApplyBrakePattern()`は第4節の勾配補正と速度積分を行う。無信号の猶予中は速度配列を再生成せず、採用済みの過走防護モードも保持する。
+`Calculate()`は`UpdateBrakePattern()`の前に`CheckBrakePatternInput()`を呼び、入力・電文・猶予・保持経路から新規生成・前回保持・消去を決める。判定結果は`State.brakePatternUpdateDecision`に毎tick保持し、`UpdateBrakePattern()`はStateから読んで処理する。enumとstructは`TrainAtcContext.cs`に定義する。新規生成の場合は、`TryCreateBrakePattern()`で初期化、常設速度制限、`ApplyOverrunProtection()`、`ApplyBrakePattern()`、`TryCreateOrpPattern()`の順に呼ぶ。いずれかの処理に失敗した場合は、ORPを含むパターンを消してその回の処理を終了する。`ApplyBrakePattern()`は第4節の勾配補正と速度積分を行う。無信号の猶予中は速度配列を再生成せず、採用済みの過走防護モードも保持する。
 
 ORPは電文の`overrunProtectionMode`が`Restricted`の場合だけ有効とする。各モードでは、後続の積分に用いる速度上限と停止目標を次のように設定する。
 
@@ -280,9 +284,31 @@ ORPは電文の`overrunProtectionMode`が`Restricted`の場合だけ有効とす
 | `Normal` | 最後の2サンプルを0にする | 最後の2サンプルを0にする |
 | `None` | 設定した停止余裕距離手前から終端までを0にする | 最後の2サンプルを0にする |
 
+### 独立ORPパターンの生成（実装済み）
+
+`TryCreateOrpPattern()`はRestrictedの場合だけ、`State.brakePattern.orpPattern`を生成する。常用・非常と同じ経路・サンプル数・間隔で保持し、Restricted以外では空の配列とする。生成前の初期化とパターン消去では前回のORPも消し、無信号の猶予中はそのまま保持する。
+
+初期速度上限は次のとおりとし、共通の`EmergencySpeedMarginKmh`を使用する。
+
+| 区間 | 初期速度上限 |
+| --- | --- |
+| 終端から`orpMinimumTargetMarginM`以内 | `orpSpeedLimitKmh`＋10km/h。ただし線区最高速度＋10km/hを上限とする |
+| それより手前 | 線区最高速度＋10km/h |
+| 最後の2サンプル | 停止目標として0km/h |
+
+境界は既存の過走防護と同じく手前側のサンプルへ丸める。設定距離が経路より長い場合は原点から制限する。設定距離が0や1サンプル未満でも、最後の2サンプルの停止目標を優先する。Graphの区間別常設速度制限は独立ORPへ追加しない。
+
+計算用減速度は`Settings.orpDecelerationMps2`で独立して設定し、初期値を0.7m/s²とする。各サンプルには勾配補正前の値を保存する。非常側と同じ質量加重の勾配補正を加え、設定距離以内だけ終端側から逆向きに積分する。範囲外の初期上限は維持する。勾配データの全件確認は先行する通常の積分処理で行い、ORPで繰り返さない。減速度が0以下・NaN・Infinityの場合や、補正後の有効減速度が非正・不正の場合は生成に失敗する。
+
+生成後は`UpdatePatternSections()`で目標速度・降下区間・接近区間を常用・非常と同じ方法で求める。接近の予告は既存の`patternApproachWarningTimeSeconds`を使用する。
+
+現在位置のORP許容速度は`UpdateCurrentPattern()`で前後サンプルの速度の二乗を補間し、`State.brakePattern.orpAllowSpeedMps`に保存する。`Output.orpAllowSpeedMps`にも同じ値を反映する。ORPがない場合や使用できないパターンを消す場合は0に戻す。無信号の猶予中も保持したORPから毎tick更新する。通常非常との大小比較は行わない。
+
+独立ORPの目標速度は`State.brakePattern.orpPatternTargetMps`に保存する。接近状態は前後サンプルのどちらかの`isPatternApproachSection`がtrueなら、`State.brakePattern.isOrpPatternApproachSection`をtrueとする。ORPがない場合やパターンを使用できない場合は目標速度を0、接近状態をfalseに戻す。無信号の猶予中も保持したORPの現在位置から更新する。通常非常との合成と、独立ORP許容速度のTIMSタグへの公開は未実装とする。
+
 ### ORP表示
 
-モニター用の`Output.isOrpActive`は、有効なパターンがあり、`Restricted`かつ現在位置が非常パターンの予告・降下区間内で、`State.brakePattern.emergencyPatternTargetMps`が0m/sの場合だけtrueとする。現在位置の前後サンプルのどちらかの`isPatternApproachSection`がtrueなら区間内とし、現在速度は条件に含めない。無信号の猶予中も保持パターンから判定する。
+モニター用の`Output.isOrpActive`は、有効なパターンがあり、`Restricted`かつ`State.brakePattern.isOrpPatternApproachSection`がtrueで、`State.brakePattern.orpPatternTargetMps`が0m/sの場合だけtrueとする。独立ORPの予告・降下区間と停止目標から判定し、現在速度は条件に含めない。無信号の猶予中も保持した独立ORPの現在位置から判定する。
 
 ORP表示が有効な間は、TIMSへ公開する現示速度`ATC/PatternAllowSpeedKmh`を0km/hにする。State・Outputの許容速度は計算値を保持し、ブレーキ制御に使う。ORP表示のOn／Offは、上記の速度上限・停止目標の設定とは別に現在位置で更新する。
 

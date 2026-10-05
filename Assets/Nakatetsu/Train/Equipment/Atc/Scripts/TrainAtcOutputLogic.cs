@@ -24,6 +24,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             output.distanceOnPathM = 0f;
             output.normalAllowSpeedMps = 0f;
             output.emergencyAllowSpeedMps = 0f;
+            output.orpAllowSpeedMps = 0f;
 
             if (state.isAtcEnabled)
             {
@@ -38,17 +39,16 @@ namespace Nakatetsu.Train.Equipment.Atc
             output.distanceOnPathM = pattern.distanceOnPathM;
             output.normalAllowSpeedMps = pattern.normalAllowSpeedMps;
             output.emergencyAllowSpeedMps = pattern.emergencyAllowSpeedMps;
-
-           
+            output.orpAllowSpeedMps = pattern.orpAllowSpeedMps;
 
             // 後退時も速度の大きさを使い、目標速度と同じ場合も予告する。
             output.isPatternApproaching = pattern.isNormalPatternApproachSection &&
                 Mathf.Abs(context.Input.signedSpeedMps) >= pattern.normalTargetSpeedMps;
-            // ORP表示は、非常パターンの停止を目標とする予告・降下区間内だけ有効にする。
+            // ORP表示は、独立ORPの停止を目標とする予告・降下区間内だけ有効にする。
             output.isOrpActive = pattern.overrunProtectionMode == OverrunProtectionMode.Restricted &&
-                pattern.emergencyPatternTargetMps == 0f;
+                pattern.isOrpPatternApproachSection && pattern.orpPatternTargetMps == 0f;
 
-             // 常用パターン速度か減速先の目標速度が0なら、停止現示にする。
+            // 常用パターン速度か減速先の目標速度が0なら、停止現示にする。
             if (pattern.normalAllowSpeedMps == 0f || pattern.normalTargetSpeedMps == 0f || output.isOrpActive)
             {
                 output.signal = TrainAtcSignal.Red;

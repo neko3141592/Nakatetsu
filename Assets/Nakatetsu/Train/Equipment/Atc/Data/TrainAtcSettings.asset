@@ -51,5 +51,6 @@ MonoBehaviour:
       increaseToDeviationKmh: 5
       decreaseToDeviationKmh: 4
     maximumDownhillGradientPermille: 0
-    orpSpeedLimitKmh: 25
+    orpDecelerationMps2: 0.2
+    orpSpeedLimitKmh: 35
     orpMinimumTargetMarginM: 100

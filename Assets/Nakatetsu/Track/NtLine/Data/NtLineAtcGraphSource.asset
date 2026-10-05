@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Track.Atc::Nakatetsu.Track.Atc.TrackAtcGraphCompileAsset
   definition:
     atcGraphId: NtLineAtc
-    maximumOperatingSpeedKmh: 120
+    maximumOperatingSpeedKmh: 105
     gradientSampleIntervalM: 10
     circuits:
     - trackCircuitId: 20T

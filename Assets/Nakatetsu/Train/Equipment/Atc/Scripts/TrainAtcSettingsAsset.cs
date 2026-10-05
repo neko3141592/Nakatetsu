@@ -30,6 +30,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             settings.normalBrakeReleaseMarginKmh = Mathf.Max(0f, settings.normalBrakeReleaseMarginKmh);
             settings.brakeStepChangeIntervalSeconds = Mathf.Max(0.01f, settings.brakeStepChangeIntervalSeconds);
             settings.maximumDownhillGradientPermille = Mathf.Max(0f, settings.maximumDownhillGradientPermille);
+            settings.orpDecelerationMps2 = Mathf.Max(0f, settings.orpDecelerationMps2);
             settings.orpSpeedLimitKmh = Mathf.Max(0f, settings.orpSpeedLimitKmh);
             settings.orpMinimumTargetMarginM = Mathf.Max(0f, settings.orpMinimumTargetMarginM);
         }

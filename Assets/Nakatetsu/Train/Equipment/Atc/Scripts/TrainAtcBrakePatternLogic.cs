@@ -289,12 +289,15 @@ namespace Nakatetsu.Train.Equipment.Atc
             pattern.distanceOnPathM = 0f;
             pattern.normalAllowSpeedMps = 0f;
             pattern.emergencyAllowSpeedMps = 0f;
+            pattern.orpAllowSpeedMps = 0f;
             pattern.normalTargetSpeedMps = 0f;
             pattern.emergencyPatternTargetMps = 0f;
+            pattern.orpPatternTargetMps = 0f;
             pattern.isNormalDecelerationSection = false;
             pattern.isEmergencyDecelerationSection = false;
             pattern.isNormalPatternApproachSection = false;
             pattern.isEmergencyPatternApproachSection = false;
+            pattern.isOrpPatternApproachSection = false;
             if (!hasValidPattern)
             {
                 return;
@@ -313,6 +316,24 @@ namespace Nakatetsu.Train.Equipment.Atc
                 (1d - ratio) * normalStartMps * normalStartMps + (double)ratio * normalEndMps * normalEndMps);
             pattern.emergencyAllowSpeedMps = (float)Math.Sqrt(
                 (1d - ratio) * emergencyStartMps * emergencyStartMps + (double)ratio * emergencyEndMps * emergencyEndMps);
+
+            // ORPはRestrictedの場合だけ生成される。
+            if (pattern.orpPattern.Count > 0)
+            {
+                var orpStartSample = pattern.orpPattern[index];
+                var orpEndSample = pattern.orpPattern[index + 1];
+                float orpStartMps = orpStartSample.speedLimitMps;
+                float orpEndMps = orpEndSample.speedLimitMps;
+                pattern.orpAllowSpeedMps = (float)Math.Sqrt(
+                    (1d - ratio) * orpStartMps * orpStartMps + (double)ratio * orpEndMps * orpEndMps);
+                float orpStartTargetMps = orpStartSample.targetSpeedMps;
+                float orpEndTargetMps = orpEndSample.targetSpeedMps;
+                pattern.orpPatternTargetMps = (float)Math.Sqrt(
+                    (1d - ratio) * orpStartTargetMps * orpStartTargetMps +
+                    (double)ratio * orpEndTargetMps * orpEndTargetMps);
+                pattern.isOrpPatternApproachSection =
+                    orpStartSample.isPatternApproachSection || orpEndSample.isPatternApproachSection;
+            }
 
             // 区間の始点側のフラグを使う。終端に到達した場合は終端側を使う。
             int currentSampleIndex = index;
@@ -356,15 +377,19 @@ namespace Nakatetsu.Train.Equipment.Atc
             pattern.distanceOnPathM = 0f;
             pattern.normalAllowSpeedMps = 0f;
             pattern.emergencyAllowSpeedMps = 0f;
+            pattern.orpAllowSpeedMps = 0f;
             pattern.normalTargetSpeedMps = 0f;
             pattern.emergencyPatternTargetMps = 0f;
+            pattern.orpPatternTargetMps = 0f;
             pattern.isNormalDecelerationSection = false;
             pattern.isEmergencyDecelerationSection = false;
             pattern.isNormalPatternApproachSection = false;
             pattern.isEmergencyPatternApproachSection = false;
+            pattern.isOrpPatternApproachSection = false;
             pattern.pathAtcEdges.Clear();
             pattern.normalPattern.Clear();
             pattern.emergencyPattern.Clear();
+            pattern.orpPattern.Clear();
         }
 
         private static bool TryCreateBrakePattern(
@@ -377,7 +402,9 @@ namespace Nakatetsu.Train.Equipment.Atc
             if (!InitializeBrakePattern(context, routeInfomation, emergencySpeedMarginKmh) ||
                 !ApplyPermanentSpeedLimits(context, emergencySpeedMarginKmh) ||
                 !ApplyOverrunProtection(context, routeInfomation.overrunProtectionMode, emergencySpeedMarginKmh) ||
-                !ApplyBrakePattern(context, routeInfomation, totalMassKg, receiverDistanceFromFrontM))
+                !ApplyBrakePattern(context, routeInfomation, totalMassKg, receiverDistanceFromFrontM) ||
+                !TryCreateOrpPattern(context, routeInfomation, totalMassKg,
+                    receiverDistanceFromFrontM, emergencySpeedMarginKmh))
             {
                 return false;
             }
@@ -437,6 +464,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             pattern.pathAtcEdges.AddRange(routeInfomation.atcEdgePath);
             pattern.normalPattern.Clear();
             pattern.emergencyPattern.Clear();
+            pattern.orpPattern.Clear();
 
             for (int i = 0; i < sampleCount; i++)
             {
@@ -697,6 +725,91 @@ namespace Nakatetsu.Train.Equipment.Atc
                 ApplySampleSpeedLimit(pattern.normalPattern, i, normalSpeedMps);
                 ApplySampleSpeedLimit(pattern.emergencyPattern, i, emergencySpeedMps);
             }
+            return true;
+        }
+
+        private static bool TryCreateOrpPattern(
+            TrainAtcContext context,
+            TrackCircuitAtcRouteInfomation routeInfomation,
+            double totalMassKg,
+            float receiverDistanceFromFrontM,
+            float emergencySpeedMarginKmh)
+        {
+            if (routeInfomation.overrunProtectionMode != OverrunProtectionMode.Restricted)
+            {
+                return true;
+            }
+
+            var settings = context.Settings;
+            float decelerationMps2 = settings.orpDecelerationMps2;
+            if (float.IsNaN(decelerationMps2) || float.IsInfinity(decelerationMps2) || decelerationMps2 <= 0f)
+            {
+                return false;
+            }
+
+            var pattern = context.State.brakePattern;
+            float maximumSpeedMps = (settings.maximumOperatingSpeedKmh + emergencySpeedMarginKmh) / 3.6f;
+            float orpSpeedLimitMps = (settings.orpSpeedLimitKmh + emergencySpeedMarginKmh) / 3.6f;
+            float startDistanceM = Mathf.Max(0f, pattern.pathLengthM - settings.orpMinimumTargetMarginM);
+            int firstSampleIndex = Mathf.FloorToInt(startDistanceM / pattern.samplingIntervalM);
+            firstSampleIndex = Mathf.Clamp(firstSampleIndex, 0, pattern.normalPattern.Count - 1);
+            int stopSampleIndex = pattern.normalPattern.Count - 2;
+
+            // 同じ経路・間隔で生成し、設定距離以内だけ低速制限を反映する。
+            for (int i = 0; i < pattern.normalPattern.Count; i++)
+            {
+                float speedLimitMps = maximumSpeedMps;
+                if (i >= firstSampleIndex)
+                {
+                    speedLimitMps = Mathf.Min(speedLimitMps, orpSpeedLimitMps);
+                }
+                if (i >= stopSampleIndex)
+                {
+                    speedLimitMps = 0f;
+                }
+                pattern.orpPattern.Add(new TrainAtcBrakePatternSample
+                {
+                    speedLimitMps = speedLimitMps,
+                    targetSpeedMps = speedLimitMps,
+                    decelerationMps2 = decelerationMps2
+                });
+            }
+
+            bool travelsTowardsFront = context.State.currentPosition.frontFacesAtoB;
+            if (context.State.currentTravelDirection == TrackAtcTravelDirection.BtoA)
+            {
+                travelsTowardsFront = !travelsTowardsFront;
+            }
+
+            // ORPの積分は設定距離以内に限定し、手前へ停止曲線を延ばさない。
+            for (int i = stopSampleIndex; i >= firstSampleIndex; i--)
+            {
+                float distanceOnPathM = i * pattern.samplingIntervalM;
+                float nextDistanceOnPathM = Mathf.Min((i + 1) * pattern.samplingIntervalM, pattern.pathLengthM);
+                if (!TryGetTrainGradientCorrection(context, routeInfomation,
+                    distanceOnPathM, nextDistanceOnPathM, receiverDistanceFromFrontM,
+                    travelsTowardsFront, totalMassKg, settings.maximumDownhillGradientPermille,
+                    out _, out float correctionMps2))
+                {
+                    return false;
+                }
+
+                // 非常照査用の曲線として、非常と同じ勾配補正を使う。
+                float effectiveDecelerationMps2 = decelerationMps2 + correctionMps2;
+                if (float.IsNaN(effectiveDecelerationMps2) || float.IsInfinity(effectiveDecelerationMps2) ||
+                    effectiveDecelerationMps2 <= 0f)
+                {
+                    return false;
+                }
+
+                double nextSpeedMps = pattern.orpPattern[i + 1].speedLimitMps;
+                float speedMps = (float)Math.Sqrt(nextSpeedMps * nextSpeedMps +
+                    2d * effectiveDecelerationMps2 * pattern.samplingIntervalM);
+                ApplySampleSpeedLimit(pattern.orpPattern, i, speedMps);
+            }
+
+            UpdatePatternSections(pattern.orpPattern, pattern.samplingIntervalM,
+                settings.patternApproachWarningTimeSeconds);
             return true;
         }
 

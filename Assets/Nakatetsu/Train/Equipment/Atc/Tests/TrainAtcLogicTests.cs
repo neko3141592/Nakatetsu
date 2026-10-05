@@ -125,6 +125,15 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             context.Settings.maximumSamplingIntervalM = 20f;
             TrainAtcLogic.Calculate(context);
             Assert.That(context.State.brakePattern.emergencyPattern.Select(sample => sample.speedLimitMps), Is.EqualTo(new[] { 0f, 0f }));
+            if (mode == OverrunProtectionMode.Restricted)
+            {
+                Assert.That(context.State.brakePattern.orpPattern.Select(sample => sample.speedLimitMps),
+                    Is.EqualTo(new[] { 0f, 0f }));
+            }
+            else
+            {
+                Assert.That(context.State.brakePattern.orpPattern, Is.Empty);
+            }
         }
 
         [TestCase("orpNegativeMargin")]
@@ -169,13 +178,204 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             return context;
         }
 
+        [Test]
+        public void CreatesIndependentOrpCurveWithoutChangingEmergencyOutput()
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = 0.5f;
+            context.State.frontPosition.distanceOnAtcEdgeM = 190f;
+
+            TrainAtcLogic.Calculate(context);
+
+            var pattern = context.State.brakePattern;
+            Assert.That(pattern.orpPattern.Count, Is.EqualTo(pattern.normalPattern.Count));
+            Assert.That(pattern.orpPattern[19].speedLimitMps, Is.EqualTo(82f / 3.6f));
+            Assert.That(pattern.orpPattern[20].speedLimitMps, Is.EqualTo(35f / 3.6f));
+            Assert.That(pattern.orpPattern[30].speedLimitMps, Is.EqualTo(6.708204f).Within(0.0001f));
+            Assert.That(pattern.orpPattern[38].speedLimitMps, Is.EqualTo(2.236068f).Within(0.0001f));
+            Assert.That(pattern.orpPattern[39].speedLimitMps, Is.Zero);
+            Assert.That(pattern.orpPattern[40].speedLimitMps, Is.Zero);
+            Assert.That(pattern.orpPattern.Select(sample => sample.decelerationMps2), Is.All.EqualTo(0.5f));
+            Assert.That(pattern.orpPattern[30].isDecelerationSection, Is.True);
+            Assert.That(pattern.orpPattern[30].isPatternApproachSection, Is.True);
+            Assert.That(pattern.orpPattern[30].targetSpeedMps, Is.Zero);
+            Assert.That(pattern.orpPattern[20].isDecelerationSection, Is.True);
+            Assert.That(pattern.orpPattern[20].isPatternApproachSection, Is.True);
+            Assert.That(pattern.orpPattern[20].targetSpeedMps, Is.Zero);
+            Assert.That(pattern.orpPattern[18].isDecelerationSection, Is.False);
+            Assert.That(pattern.orpPattern[18].isPatternApproachSection, Is.True);
+            Assert.That(context.Output.emergencyAllowSpeedMps, Is.EqualTo(35f / 3.6f));
+        }
+
+        [TestCase(0f, 22.777778f)]
+        [TestCase(150f, 6.708204f)]
+        [TestCase(192.5f, 1.581139f)]
+        [TestCase(200f, 0f)]
+        public void InterpolatesCurrentOrpAllowSpeed(float distanceM, float expectedSpeedMps)
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = 0.5f;
+            context.State.frontPosition.distanceOnAtcEdgeM = distanceM;
+
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.State.brakePattern.hasValidPattern, Is.True);
+            Assert.That(context.State.brakePattern.orpAllowSpeedMps,
+                Is.EqualTo(expectedSpeedMps).Within(0.0001f));
+            Assert.That(context.Output.orpAllowSpeedMps,
+                Is.EqualTo(context.State.brakePattern.orpAllowSpeedMps));
+        }
+
+        [TestCase(0.5f, 2.236068f)]
+        [TestCase(1f, 3.162278f)]
+        public void UsesOrpDecelerationIndependentlyOfServiceAndEmergency(float deceleration, float expectedSpeed)
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = deceleration;
+
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.State.brakePattern.orpPattern[38].speedLimitMps,
+                Is.EqualTo(expectedSpeed).Within(0.0001f));
+            Assert.That(context.State.brakePattern.emergencyPattern[38].speedLimitMps,
+                Is.EqualTo(35f / 3.6f));
+        }
+
+        [TestCase(30f, 34)]
+        [TestCase(101f, 19)]
+        [TestCase(300f, 0)]
+        public void InitializesOrpLimitsOnlyFromConfiguredEarlierSample(float marginM, int firstIndex)
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpMinimumTargetMarginM = marginM;
+            context.Settings.orpSpeedLimitKmh = 18f;
+
+            TrainAtcLogic.Calculate(context);
+
+            var samples = context.State.brakePattern.orpPattern;
+            for (int i = 0; i < firstIndex; i++)
+            {
+                Assert.That(samples[i].speedLimitMps, Is.EqualTo(82f / 3.6f));
+            }
+            Assert.That(samples[firstIndex].speedLimitMps, Is.EqualTo(28f / 3.6f));
+            Assert.That(samples[39].speedLimitMps, Is.Zero);
+            Assert.That(samples[40].speedLimitMps, Is.Zero);
+        }
+
+        [TestCase(OverrunProtectionMode.Normal)]
+        [TestCase(OverrunProtectionMode.None)]
+        public void ClearsOrpWhenRouteNoLongerUsesRestricted(OverrunProtectionMode nextMode)
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out var route);
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.brakePattern.orpPattern, Is.Not.Empty);
+            Assert.That(context.State.brakePattern.orpAllowSpeedMps, Is.GreaterThan(0f));
+
+            route.overrunProtectionMode = nextMode;
+            context.Settings.orpDecelerationMps2 = 0f;
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.Output.hasValidPattern, Is.True);
+            Assert.That(context.State.brakePattern.orpPattern, Is.Empty);
+            Assert.That(context.State.brakePattern.orpAllowSpeedMps, Is.Zero);
+            Assert.That(context.State.brakePattern.orpPatternTargetMps, Is.Zero);
+            Assert.That(context.State.brakePattern.isOrpPatternApproachSection, Is.False);
+            Assert.That(context.Output.orpAllowSpeedMps, Is.Zero);
+            Assert.That(context.Output.isOrpActive, Is.False);
+        }
+
+        [TestCase(0f)]
+        [TestCase(-1f)]
+        [TestCase(float.NaN)]
+        [TestCase(float.PositiveInfinity)]
+        public void InvalidOrpDecelerationClearsPreviouslyCreatedPatterns(float deceleration)
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.brakePattern.orpPattern, Is.Not.Empty);
+
+            context.Settings.orpDecelerationMps2 = deceleration;
+            TrainAtcLogic.Calculate(context);
+
+            AssertClearedBrakePattern(context);
+            Assert.That(context.Output.hasValidPattern, Is.False);
+        }
+
+        [Test]
+        public void RetainsOrpDuringNoSignalGracePeriod()
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = 0.5f;
+            context.State.frontPosition.distanceOnAtcEdgeM = 190f;
+            TrainAtcLogic.Calculate(context);
+            var samples = context.State.brakePattern.orpPattern.ToArray();
+            float previousAllowSpeedMps = context.State.brakePattern.orpAllowSpeedMps;
+            context.Input.frontTelegram = null;
+            context.Input.deltaTimeSeconds = 0.25f;
+            context.State.frontPosition.distanceOnAtcEdgeM = 192.5f;
+
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.Output.hasValidPattern, Is.True);
+            Assert.That(context.State.brakePattern.orpPattern, Is.EqualTo(samples));
+            Assert.That(context.State.brakePattern.orpAllowSpeedMps,
+                Is.EqualTo(1.581139f).Within(0.0001f));
+            Assert.That(context.State.brakePattern.orpAllowSpeedMps, Is.LessThan(previousAllowSpeedMps));
+            Assert.That(context.Output.orpAllowSpeedMps,
+                Is.EqualTo(context.State.brakePattern.orpAllowSpeedMps));
+            Assert.That(context.State.brakePattern.orpPatternTargetMps, Is.Zero);
+            Assert.That(context.State.brakePattern.isOrpPatternApproachSection, Is.True);
+            Assert.That(context.Output.isOrpActive, Is.True);
+        }
+
+        [Test]
+        public void UpdatesOrpDisplayDuringNoSignalGraceAndClearsItAfterTimeout()
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = 0.5f;
+            context.State.frontPosition.distanceOnAtcEdgeM = 0f;
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.Output.isOrpActive, Is.False);
+            Assert.That(context.State.brakePattern.orpPatternTargetMps, Is.GreaterThan(0f));
+
+            context.Input.frontTelegram = null;
+            context.Input.deltaTimeSeconds = 0.25f;
+            context.State.frontPosition.distanceOnAtcEdgeM = 150f;
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.State.brakePattern.isOrpPatternApproachSection, Is.True);
+            Assert.That(context.State.brakePattern.orpPatternTargetMps, Is.Zero);
+            Assert.That(context.Output.isOrpActive, Is.True);
+
+            context.Input.deltaTimeSeconds = context.Settings.noSignalTimeoutSeconds;
+            TrainAtcLogic.Calculate(context);
+
+            AssertClearedBrakePattern(context);
+        }
+
+        [Test]
+        public void AppliesEmergencyGradientCorrectionToOrpForCarsOutsidePath()
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = 0.5f;
+            context.Settings.maximumDownhillGradientPermille = 20f;
+            context.Input.cars.Add(new TrainAtcCarInput { massKg = 30000f, centerDistanceFromFrontM = 250f });
+
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.Output.hasValidPattern, Is.True);
+            Assert.That(context.State.brakePattern.orpPattern[38].speedLimitMps,
+                Is.LessThan(2.236068f));
+            Assert.That(context.State.brakePattern.orpPattern[38].decelerationMps2, Is.EqualTo(0.5f));
+        }
+
         [TestCase(OverrunProtectionMode.Restricted, 0f, false)]
         [TestCase(OverrunProtectionMode.Restricted, 50f, false)]
         [TestCase(OverrunProtectionMode.Restricted, 150f, false)]
         [TestCase(OverrunProtectionMode.Restricted, 190f, true)]
         [TestCase(OverrunProtectionMode.Normal, 50f, false)]
         [TestCase(OverrunProtectionMode.None, 50f, false)]
-        public void ShowsOrpOnlyWhileApproachingEmergencyPattern(
+        public void ShowsOrpOnlyWhileApproachingIndependentOrpPattern(
             OverrunProtectionMode mode, float distanceOnEdgeM, bool expected)
         {
             var context = CreateProtectionContext(mode, out _);
@@ -206,13 +406,14 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             Assert.That(context.Output.hasValidPattern, Is.True);
             Assert.That(context.Output.isPatternApproaching, Is.False);
             Assert.That(context.Output.isOrpActive, Is.True);
-            Assert.That(context.State.brakePattern.emergencyPatternTargetMps, Is.Zero);
+            Assert.That(context.State.brakePattern.orpPatternTargetMps, Is.Zero);
+            Assert.That(context.State.brakePattern.isOrpPatternApproachSection, Is.True);
             Assert.That(context.State.brakePattern.normalAllowSpeedMps, Is.EqualTo(25f / 3.6f));
         }
 
         [TestCase(50f, 35f, false)]
         [TestCase(190f, 0f, true)]
-        public void ShowsOrpOnlyWhenEmergencyApproachTargetsAStop(
+        public void ShowsOrpOnlyWhenIndependentOrpApproachTargetsAStop(
             float distanceOnEdgeM, float expectedTargetSpeedKmh, bool expectedOrp)
         {
             var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
@@ -222,9 +423,37 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
 
             var pattern = context.State.brakePattern;
             Assert.That(pattern.hasValidPattern, Is.True);
-            Assert.That(pattern.isEmergencyPatternApproachSection, Is.True);
-            Assert.That(pattern.emergencyPatternTargetMps, Is.EqualTo(expectedTargetSpeedKmh / 3.6f));
+            Assert.That(pattern.isOrpPatternApproachSection, Is.True);
+            Assert.That(pattern.orpPatternTargetMps, Is.EqualTo(expectedTargetSpeedKmh / 3.6f));
             Assert.That(context.Output.isOrpActive, Is.EqualTo(expectedOrp));
+        }
+
+        [TestCase(0f, 22.777778f, false, false)]
+        [TestCase(47.5f, 16.106321f, true, false)]
+        [TestCase(50f, 0f, true, true)]
+        [TestCase(150f, 0f, true, true)]
+        [TestCase(192.5f, 0f, true, true)]
+        [TestCase(200f, 0f, false, false)]
+        public void UsesIndependentOrpTargetAndApproachForDisplay(
+            float distanceM, float expectedTargetMps, bool expectedApproach, bool expectedOrp)
+        {
+            var context = CreateProtectionContext(OverrunProtectionMode.Restricted, out _);
+            context.Settings.orpDecelerationMps2 = 0.5f;
+            context.State.frontPosition.distanceOnAtcEdgeM = distanceM;
+
+            TrainAtcLogic.Calculate(context);
+
+            var pattern = context.State.brakePattern;
+            Assert.That(pattern.hasValidPattern, Is.True);
+            Assert.That(pattern.orpPatternTargetMps, Is.EqualTo(expectedTargetMps).Within(0.0001f));
+            Assert.That(pattern.isOrpPatternApproachSection, Is.EqualTo(expectedApproach));
+            Assert.That(context.Output.isOrpActive, Is.EqualTo(expectedOrp));
+            if (distanceM == 150f)
+            {
+                // 通常非常の目標が停止でなくても、独立ORPの停止接近を表示する。
+                Assert.That(pattern.emergencyPatternTargetMps, Is.EqualTo(35f / 3.6f));
+                Assert.That(context.Output.signal, Is.EqualTo(TrainAtcSignal.Red));
+            }
         }
 
         [TestCase(false, 0f, 0f)]
@@ -1204,6 +1433,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             // 上限設定のテストでは、積分結果が速度上限を下回らない減速度を使う。
             context.Settings.serviceDecelerationMps2 = 1000f;
             context.Settings.emergencyDecelerationMps2 = 1000f;
+            context.Settings.orpDecelerationMps2 = 1000f;
             context.Input.hasSpeedMeasurement = true;
             context.Input.hasBrakeSettings = true;
             context.Input.brakeSettings.brakeSubstepCount = 1;
@@ -1241,17 +1471,23 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             Assert.That(pattern.distanceOnPathM, Is.Zero);
             Assert.That(pattern.normalAllowSpeedMps, Is.Zero);
             Assert.That(pattern.emergencyAllowSpeedMps, Is.Zero);
+            Assert.That(pattern.orpAllowSpeedMps, Is.Zero);
+            Assert.That(context.Output.orpAllowSpeedMps, Is.Zero);
             Assert.That(pattern.normalTargetSpeedMps, Is.Zero);
             Assert.That(pattern.emergencyPatternTargetMps, Is.Zero);
+            Assert.That(pattern.orpPatternTargetMps, Is.Zero);
             Assert.That(pattern.isNormalDecelerationSection, Is.False);
             Assert.That(pattern.isEmergencyDecelerationSection, Is.False);
             Assert.That(pattern.isNormalPatternApproachSection, Is.False);
             Assert.That(pattern.isEmergencyPatternApproachSection, Is.False);
+            Assert.That(pattern.isOrpPatternApproachSection, Is.False);
+            Assert.That(context.Output.isOrpActive, Is.False);
             Assert.That(pattern.samplingIntervalM, Is.Zero);
             Assert.That(pattern.pathLengthM, Is.Zero);
             Assert.That(pattern.pathAtcEdges, Is.Empty);
             Assert.That(pattern.normalPattern.Select(sample => sample.speedLimitMps), Is.Empty);
             Assert.That(pattern.emergencyPattern.Select(sample => sample.speedLimitMps), Is.Empty);
+            Assert.That(pattern.orpPattern, Is.Empty);
         }
 
         [Test]
@@ -1567,11 +1803,13 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             var settings = new TrainAtcSettings
             {
                 maximumOperatingSpeedKmh = 120f,
-                maximumSamplingIntervalM = 3f
+                maximumSamplingIntervalM = 3f,
+                orpDecelerationMps2 = 0.9f
             };
             context.Settings.CopyFrom(settings);
             Assert.That(context.Settings.maximumOperatingSpeedKmh, Is.EqualTo(80f));
             Assert.That(context.Settings.maximumSamplingIntervalM, Is.EqualTo(3f));
+            Assert.That(context.Settings.orpDecelerationMps2, Is.EqualTo(0.9f));
             Assert.That(context.Graph.maximumOperatingSpeedKmh, Is.EqualTo(80f));
         }
 

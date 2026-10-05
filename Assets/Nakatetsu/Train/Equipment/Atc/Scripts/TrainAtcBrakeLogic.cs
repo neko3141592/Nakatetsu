@@ -245,8 +245,15 @@ namespace Nakatetsu.Train.Equipment.Atc
         {
             bool isEmergencyPatternExceeded = 
                 Mathf.Abs(context.Input.signedSpeedMps) > context.State.brakePattern.emergencyAllowSpeedMps;
+
+            // TODO: 過走防護パターン超過時の実装
+            bool isOrpPatternExceeded = 
+                context.State.brakePattern.overrunProtectionMode == Track.Simulation.Circuit.OverrunProtectionMode.Restricted && 
+                Mathf.Abs(context.Input.signedSpeedMps) > context.State.brakePattern.orpAllowSpeedMps;
+            
+
             // 電文・パターンの可否は、今回まとめて判定した結果を使う。
-            return !context.State.brakePattern.hasValidPattern || isEmergencyPatternExceeded;
+            return !context.State.brakePattern.hasValidPattern || isEmergencyPatternExceeded || isOrpPatternExceeded;
         }
 
         private static void ClearBrakeState(TrainAtcContext context)
