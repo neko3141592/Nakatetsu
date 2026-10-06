@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Nakatetsu.Track.Atc;
+using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using NUnit.Framework;
 using UnityEngine;
+using NewAtc = Nakatetsu.Track.NewAtc;
 
 namespace Nakatetsu.Track.Interlocking.Tests
 {
@@ -497,21 +499,28 @@ namespace Nakatetsu.Track.Interlocking.Tests
             atc.Calculate(0f);
             // 入力が不整合でも、予約だけを開通とみなさない。
             context.Input.RoutesById[route.routeId].ProceedAllowed = true;
-            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out var next, out var nextRoute), Is.True);
-            Assert.That(next, Is.Null);
-            Assert.That(nextRoute, Is.Null);
+            NewAtc.TrackAtcLogic.Calculate(context);
+            var beforeKey = new NewAtc.TrackAtcEdgeKey("Before", TrackEdgeTravelDirection.AtoB);
+            var result = context.State.path.resultsByKey[beforeKey];
+            Assert.That(result.isPathValid, Is.True);
+            Assert.That(result.nextEdgeKey, Is.Null);
+            Assert.That(result.stopAtcEdgeId, Is.EqualTo("Before"));
             Tick();
             atc.Calculate(0f);
-            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out next, out nextRoute), Is.True);
-            Assert.That(next, Is.SameAs(first));
-            Assert.That(nextRoute, Is.SameAs(context.Workspace.atcRoutesById["AtcRoute"]));
+            result = context.State.path.resultsByKey[beforeKey];
+            Assert.That(result.isPathValid, Is.True);
+            Assert.That(result.nextEdgeKey,
+                Is.EqualTo(new NewAtc.TrackAtcEdgeKey("First", TrackEdgeTravelDirection.AtoB)));
+            Assert.That(result.stopAtcEdgeId, Is.EqualTo("Second"));
+            Assert.That(result.terminalAtcRouteId, Is.EqualTo("AtcRoute"));
             SetOccupied("Entry", true);
             Tick();
             atc.Calculate(0f);
             Assert.That(context.Input.RoutesById[route.routeId].PathEstablished, Is.True);
-            Assert.That(TrackAtcLogic.TryResolveNextEdgeOnBlock(context, before, out next, out nextRoute), Is.True);
-            Assert.That(next, Is.Null);
-            Assert.That(nextRoute, Is.Null);
+            result = context.State.path.resultsByKey[beforeKey];
+            Assert.That(result.isPathValid, Is.True);
+            Assert.That(result.nextEdgeKey, Is.Null);
+            Assert.That(result.stopAtcEdgeId, Is.EqualTo("Before"));
         }
 
         private void Initialize()
