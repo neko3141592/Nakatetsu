@@ -5,6 +5,7 @@ using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using UnityEngine;
+using NewAtc = Nakatetsu.Track.NewAtc;
 
 namespace Nakatetsu.Track.Atc
 {
@@ -17,9 +18,9 @@ namespace Nakatetsu.Track.Atc
         [SerializeField] private MonoBehaviour worldTimeSource;
         [SerializeField] private List<TrackInterlockingController> interlockings = new();
 
-        private readonly TrackAtcContext context = new();
+        private readonly NewAtc.TrackAtcContext context = new();
 
-        public TrackAtcContext Context => context;
+        public NewAtc.TrackAtcContext Context => context;
 
         public void SetWorldTimeSource(MonoBehaviour source) => worldTimeSource = source;
 
@@ -27,52 +28,46 @@ namespace Nakatetsu.Track.Atc
         {
             context.Graph = atcGraphAsset != null ? atcGraphAsset.Definition : null;
             CollectInput();
-            TrackAtcLogic.Calculate(context, deltaTimeSeconds);
+            NewAtc.TrackAtcLogic.Calculate(context);
         }
 
         private void CollectInput()
         {
-            TrackAtcInput input = context.Input;
+            NewAtc.TrackAtcInput input = context.Input;
             input.simulationTimeSeconds = worldTimeSource != null && worldTimeSource is IWorldTimeSource clock
                 ? clock.WorldTimeSeconds
                 : double.NaN;
             input.OccupiedByCircuitId.Clear();
             input.RoutesById.Clear();
-            input.TurnoutsById.Clear();
 
             if (trackCircuitSimulation != null)
             {
                 foreach (var pair in trackCircuitSimulation.Context.State.OccupiedByCircuitId)
+                {
                     input.OccupiedByCircuitId.Add(pair.Key, pair.Value);
+                }
             }
 
             foreach (TrackInterlockingController interlocking in interlockings)
             {
                 if (interlocking == null || !interlocking.IsInitialized)
+                {
                     continue;
+                }
 
                 foreach (InterlockingRoute route in interlocking.Routes)
                 {
-                    if (!interlocking.TryGetRouteState(route.routeId, out var state))
-                        continue;
-
-                    var routeInput = new TrackAtcRouteInput
+                    // 初期化済み連動の定義にあり、状態がない進路は確認済みの未設定。
+                    // 連動を参照できない場合の未登録とは区別し、全定義を毎回写す。
+                    var routeInput = new NewAtc.TrackAtcRouteInput();
+                    if (interlocking.TryGetRouteState(route.routeId, out var state))
                     {
-                        ProceedAllowed = state.ProceedAllowed,
-                        PathEstablished = state.PathEstablished,
-                        OverrunMode = state.overrunProtectionMode,
-                        CancelPending = state.CancelPending,
-                        RouteLocked = state.RouteLocked
-                    };
-
-                    foreach (TurnoutRequirement turnout in route.requiredTurnouts)
-                    {
-                        routeInput.RequiredTurnoutsById.Add(turnout.connectionId, turnout.requiredPosition);
-                        if (trackConnectionController != null &&
-                            trackConnectionController.TryGetState(turnout.connectionId, out var turnoutState))
-                        {
-                            input.TurnoutsById[turnout.connectionId] = turnoutState;
-                        }
+                        routeInput.IsRouteSet = true;
+                        routeInput.ProceedAllowed = state.ProceedAllowed;
+                        routeInput.PathEstablished = state.PathEstablished;
+                        routeInput.OverrunMode = state.overrunProtectionMode;
+                        routeInput.CancelPending = state.CancelPending;
+                        routeInput.RouteLocked = state.RouteLocked;
                     }
 
                     // コンパイル時と同様に、連動装置を跨いでも進路IDは一意とする。
