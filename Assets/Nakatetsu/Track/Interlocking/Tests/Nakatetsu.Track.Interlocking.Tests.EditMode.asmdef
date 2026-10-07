@@ -3,9 +3,8 @@
     "rootNamespace": "Nakatetsu.Track.Interlocking.Tests",
     "references": [
         "Nakatetsu.Track.Interlocking",
-        "Nakatetsu.Track.Interlocking.Editor",
-        "Nakatetsu.Track.Graph",
         "Nakatetsu.Track.Simulation",
+        "Nakatetsu.Track.Graph",
         "Nakatetsu.Track.Atc"
     ],
     "includePlatforms": [

@@ -15,6 +15,39 @@ namespace Nakatetsu.Train.Integration
         public bool TryReadDoorState(out bool areAllDoorsClosed)
         {
             areAllDoorsClosed = false;
+            if (!TryResolveCommunication())
+            {
+                return false;
+            }
+
+            // 集約結果が正常な場合だけ全閉状態を採用する。未取得時は前回値を使わない。
+            var bus = communication.MasterBus;
+            if (!bus.TryGetBool(TimsDoorController.HasValidStateKey, out bool hasValidState) ||
+                !hasValidState ||
+                !bus.TryGetBool(TimsDoorController.AllClosedKey, out bool allClosed))
+            {
+                return false;
+            }
+
+            areAllDoorsClosed = allClosed;
+            return true;
+        }
+
+        public bool TryReadOpeningOperationRevision(out int revision)
+        {
+            revision = 0;
+            if (!TryResolveCommunication() ||
+                !communication.TryGetComponent<TimsDoorController>(out var doors) ||
+                !doors.isActiveAndEnabled)
+            {
+                return false;
+            }
+
+            return communication.MasterBus.TryGetInt(TimsDoorController.OpeningOperationRevisionKey, out revision);
+        }
+
+        private bool TryResolveCommunication()
+        {
             if (!isActiveAndEnabled)
             {
                 return false;
@@ -42,22 +75,7 @@ namespace Nakatetsu.Train.Integration
                 }
                 communication = foundCommunication;
             }
-            if (communication == null || !communication.isActiveAndEnabled)
-            {
-                return false;
-            }
-
-            // 集約結果が正常な場合だけ全閉状態を採用する。未取得時は前回値を使わない。
-            var bus = communication.MasterBus;
-            if (!bus.TryGetBool(TimsDoorController.HasValidStateKey, out bool hasValidState) ||
-                !hasValidState ||
-                !bus.TryGetBool(TimsDoorController.AllClosedKey, out bool allClosed))
-            {
-                return false;
-            }
-
-            areAllDoorsClosed = allClosed;
-            return true;
+            return communication != null && communication.isActiveAndEnabled;
         }
     }
 }

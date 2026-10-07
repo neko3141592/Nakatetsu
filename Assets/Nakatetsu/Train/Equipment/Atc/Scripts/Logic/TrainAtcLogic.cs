@@ -22,6 +22,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             // 入力・受信判定を終えてから、防護方式とパターンを更新する。
             TrainAtcValidationLogic.UpdateValidation(context, hasReceiverChanged);
             TrainAtcProtectionModeLogic.UpdateProtectionMode(context);
+            TrainAtcValidationLogic.ValidateProtectionSettings(context);
             bool hasValidPattern = TrainAtcPatternLogic.UpdatePattern(context);
 
             // 全体の正常性だけを取りまとめる。子Stateの結果は書き換えない。

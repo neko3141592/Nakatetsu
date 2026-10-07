@@ -10,5 +10,13 @@ namespace Nakatetsu.Train.Equipment.Atc
         // 防護方式はここだけで管理する。パターン保持時はこの値を維持する。
         // isProtectionModeKnownがfalseの場合は、この値を使用しない。
         public OverrunProtectionMode overrunProtectionMode;
+
+        // Restrictedを採用した停止限界と、そのEdgeを通る終端方向。
+        public bool hasHeldOrp;
+        public string heldStopAtcEdgeId;
+        public TrackAtcTravelDirection heldStopTravelDirection;
+
+        // 開扉操作を一度だけ処理するため、確認済みの指令番号を保持する。
+        public int doorOpeningOperationRevision;
     }
 }

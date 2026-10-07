@@ -19,22 +19,6 @@ namespace Nakatetsu.Train.Equipment.Atc
             bool hasRoute = TryReadCurrentRoute(context, out var route);
             UpdateNoSignalTime(context, hasRoute);
 
-            // 今回読んだ方式、または保持する方式に必要な設定だけを確認する。
-            if (validation.isInputValid && context.State.operation.isAtcEnabled)
-            {
-                var protection = context.State.protectionMode;
-                if (hasRoute)
-                {
-                    validation.isInputValid = TrainAtcValidationHelper.AreProtectionSettingsValid(
-                        context.Settings, route.overrunProtectionMode);
-                }
-                else if (protection.isProtectionModeKnown)
-                {
-                    validation.isInputValid = TrainAtcValidationHelper.AreProtectionSettingsValid(
-                        context.Settings, protection.overrunProtectionMode);
-                }
-            }
-
             if (!validation.isInputValid || !context.State.operation.isAtcEnabled)
             {
                 return;
@@ -51,6 +35,26 @@ namespace Nakatetsu.Train.Equipment.Atc
             if (!hasReceiverChanged && CanRetainPattern(context))
             {
                 validation.result = TrainAtcValidationResult.Retain;
+            }
+        }
+
+        internal static void ValidateProtectionSettings(TrainAtcContext context)
+        {
+            var validation = context.State.validation;
+            var protection = context.State.protectionMode;
+            if (!validation.isInputValid || !context.State.operation.isAtcEnabled ||
+                !protection.isProtectionModeKnown)
+            {
+                return;
+            }
+
+            // 受信値ではなく、ORP保持・解除を反映して使用する方式の設定を確認する。
+            if (!TrainAtcValidationHelper.AreProtectionSettingsValid(
+                    context.Settings, protection.overrunProtectionMode))
+            {
+                validation.isInputValid = false;
+                validation.result = TrainAtcValidationResult.Unusable;
+                validation.routeInfomation = null;
             }
         }
 

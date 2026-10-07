@@ -19,7 +19,9 @@ namespace Nakatetsu.Train.Equipment.Tims.Door
         public static readonly TimsTagKey RightCommandKey = new("Door", "RightCommand");
         public static readonly TimsTagKey LeftCommandRevisionKey = new("Door", "LeftCommandRevision");
         public static readonly TimsTagKey RightCommandRevisionKey = new("Door", "RightCommandRevision");
+        public static readonly TimsTagKey OpeningOperationRevisionKey = new("Door", "OpeningOperationRevision");
         private int commandRevision;
+        private int openingOperationRevision;
 
         // carIndexは0始まり。指令は各車のAdapterが次の入力収集で読み取る。
         public bool Request(int carIndex, bool leftSide, DoorMotionCommand command)
@@ -67,7 +69,12 @@ namespace Nakatetsu.Train.Equipment.Tims.Door
             bus.SetInt(leftSide ? LeftCommandKey : RightCommandKey, (int)command);
             bus.SetInt(leftSide ? LeftCommandRevisionKey : RightCommandRevisionKey, unchecked(++commandRevision));
             // 接点がまだ閉じている指令受付直後も力行を許可しない。
-            if (command == DoorMotionCommand.Open) communication.MasterBus.SetBool(TractionPermittedKey, false);
+            if (command == DoorMotionCommand.Open)
+            {
+                openingOperationRevision = commandRevision;
+                communication.MasterBus.SetInt(OpeningOperationRevisionKey, openingOperationRevision);
+                communication.MasterBus.SetBool(TractionPermittedKey, false);
+            }
         }
 
         // 車両順。-1=未取得、0=未閉、1=全閉。画面側はこの値から制御しない。
@@ -95,6 +102,8 @@ namespace Nakatetsu.Train.Equipment.Tims.Door
                 hasOpenCommand |= openCommand;
             }
             var bus = communication.MasterBus;
+            // 開扉と閉扉がATCの入力収集の間に続いても、開扉操作を取りこぼさない。
+            bus.SetInt(OpeningOperationRevisionKey, openingOperationRevision);
             bus.SetBool(HasValidStateKey, valid);
             bus.SetBool(AllClosedKey, valid && allClosed);
             bus.SetBool(TractionPermittedKey, valid && allClosed && !hasOpenCommand);
@@ -121,6 +130,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Door
             bus.SetBool(TractionPermittedKey, false);
             bus.Remove(HasFaultKey);
             bus.Remove(CarClosedStatesKey);
+            bus.Remove(OpeningOperationRevisionKey);
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Nakatetsu.Track.Interlocking
         private readonly TrackInterlockingContext context = new();
 
         public TrackInterlockingContext Context => context;
-        public bool IsInitialized => context.IsInitialized;
-        public IEnumerable<InterlockingRoute> Routes => context.RoutesById.Values;
+        public bool IsInitialized => context.State.isInitialized;
+        public IEnumerable<string> RouteIds => context.Output.RoutesById.Keys;
 
-        public bool TryGetRouteState(string routeId, out TrackInterlockingRouteState state) =>
-            TrackInterlockingLogic.TryGetRouteState(context, routeId, out state);
+        public bool TryGetRouteStatus(string routeId, out TrackInterlockingRouteStatus status) =>
+            TrackInterlockingLogic.TryGetRouteStatus(context, routeId, out status);
 
         public bool TryGetCircuitPassage(string routeId, string circuitId,
             out TrackInterlockingCircuitPassageState passage) =>
@@ -29,89 +29,103 @@ namespace Nakatetsu.Track.Interlocking
         private void Awake()
         {
             if (!TryInitialize(out string error))
+            {
                 Debug.LogError($"Track interlocking initialization failed: {error}", this);
+            }
         }
 
         public bool TryInitialize(out string error)
         {
-            if (trackCircuitSimulation == null || trackConnectionController == null)
-            {
-                error = "Track circuit and connection controllers are required.";
-                return false;
-            }
-
+            CollectInput();
             return TrackInterlockingLogic.TryInitialize(context,
                 interlockingAsset != null ? interlockingAsset.Definition : null, out error);
         }
 
         public bool TryRequestRoute(string routeId, out string error)
         {
-            if (trackCircuitSimulation == null || trackConnectionController == null)
-            {
-                error = "Track circuit and connection controllers are required.";
-                return false;
-            }
-
-            return TrackInterlockingLogic.TryRequestRoute(context,
-                trackCircuitSimulation.Context.State,
-                trackConnectionController.Context,
-                routeId,
-                out error);
+            CollectInput();
+            return TrackInterlockingLogic.TryRequestRoute(context, routeId, out error);
         }
 
         public bool TryCancelRoute(string routeId, out string error)
         {
-            if (trackCircuitSimulation == null)
-            {
-                error = "Track circuit controller is required.";
-                return false;
-            }
-
-            return TrackInterlockingLogic.TryCancelRoute(context,
-                trackCircuitSimulation.Context.State,
-                routeId,
-                out error);
+            CollectInput();
+            return TrackInterlockingLogic.TryCancelRoute(context, routeId, out error);
         }
 
-        public bool CanRequestTurnoutPosition(string routeId, string connectionId) =>
-            trackCircuitSimulation != null &&
-            TrackInterlockingLogic.CanRequestTurnoutPosition(context,
-                trackCircuitSimulation.Context.State, routeId, connectionId);
+        public bool CanRequestTurnoutPosition(string routeId, string connectionId)
+        {
+            CollectInput();
+            return TrackInterlockingLogic.CanRequestTurnoutPosition(context, routeId, connectionId);
+        }
 
         public void Calculate(float deltaTimeSeconds)
         {
-            if (!IsInitialized) return;
-
-            TrackInterlockingLogic.Calculate(context,
-                trackCircuitSimulation.Context.State,
-                trackConnectionController.Context,
-                deltaTimeSeconds);
+            CollectInput();
+            TrackInterlockingLogic.Calculate(context, deltaTimeSeconds);
         }
 
         public void ApplyOutput(float deltaTimeSeconds)
         {
-            if (!IsInitialized) return;
-
-            foreach (var pair in context.RouteStatesById)
+            var revision = context.Output.StateRevision;
+            foreach (TrackInterlockingTurnoutCommand command in context.Output.TurnoutCommands)
             {
-                InterlockingRoute route = context.RoutesById[pair.Key];
-                if (pair.Value.ProceedAllowed)
-                    continue;
-
-                // 本進路に加えて、保持中の過走防護用転轍機にも転換を要求する。
-                foreach (TurnoutRequirement turnout in TrackInterlockingLogic.GetRequiredTurnouts(route, pair.Value))
+                // 操作APIで公開値が更新されたら、古い転換要求を送らない。
+                if (context.Output.StateRevision != revision)
                 {
-                    if (turnout == null || trackConnectionController == null ||
-                        !trackConnectionController.TryGetState(turnout.connectionId, out var switchState) ||
-                        switchState.IsMoving || switchState.ActualPosition == turnout.requiredPosition)
-                        continue;
+                    break;
+                }
 
-                    if (!CanRequestTurnoutPosition(pair.Key, turnout.connectionId))
-                        continue;
+                CollectInput();
+                if (!TrackInterlockingLogic.CanRequestTurnoutPosition(context,
+                    command.RouteId, command.ConnectionId))
+                {
+                    continue;
+                }
 
-                    if (!trackConnectionController.TryRequestPosition(
-                            turnout.connectionId, turnout.requiredPosition, out string error))
-                        Debug.LogError($"Switch request failed for route '{pair.Key}': {error}", this);
+                if (!trackConnectionController.TryRequestPosition(command.ConnectionId,
+                    command.RequiredPosition, out string error))
+                {
+                    Debug.LogError($"Switch request failed for route '{command.RouteId}': {error}", this);
+                }
+            }
+        }
+
+        private void CollectInput()
+        {
+            TrackInterlockingInput input = context.Input;
+            input.OccupiedByCircuitId.Clear();
+            input.ConnectionsById.Clear();
+            input.hasCircuitSource = trackCircuitSimulation != null;
+            input.hasConnectionSource = trackConnectionController != null && trackConnectionController.IsInitialized;
+
+            if (input.hasCircuitSource)
+            {
+                foreach (var pair in trackCircuitSimulation.Context.State.OccupiedByCircuitId)
+                {
+                    input.OccupiedByCircuitId.Add(pair.Key, pair.Value);
+                }
+            }
+
+            if (!input.hasConnectionSource)
+            {
+                return;
+            }
+
+            IEnumerable<string> connectionIds = IsInitialized
+                ? context.Settings.ConnectionIds
+                : interlockingAsset != null ? interlockingAsset.Definition.memberConnectionIds : null;
+            if (connectionIds == null)
+            {
+                return;
+            }
+
+            foreach (string connectionId in connectionIds)
+            {
+                if (trackConnectionController.TryGetState(connectionId, out var state))
+                {
+                    input.ConnectionsById[connectionId] = new TrackInterlockingTurnoutInput(
+                        state.ActualPosition, state.IsMoving);
                 }
             }
         }

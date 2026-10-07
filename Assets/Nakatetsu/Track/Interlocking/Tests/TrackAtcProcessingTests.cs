@@ -1,18 +1,14 @@
 using System.Collections.Generic;
 using Nakatetsu.Track.Atc;
-using Nakatetsu.Track.NewAtc;
 using Nakatetsu.Track.Simulation.Circuit;
 using NUnit.Framework;
 using EdgeDirection = Nakatetsu.Track.Graph.Edge.TrackEdgeTravelDirection;
-using NewContext = Nakatetsu.Track.NewAtc.TrackAtcContext;
-using NewLogic = Nakatetsu.Track.NewAtc.TrackAtcLogic;
-using NewRouteInput = Nakatetsu.Track.NewAtc.TrackAtcRouteInput;
 
 namespace Nakatetsu.Track.Interlocking.Tests
 {
     public sealed class TrackAtcProcessingTests
     {
-        private NewContext context;
+        private TrackAtcContext context;
         private TrackAtcGraphDefinition graph;
         private TrackAtcGraphEdge first;
         private TrackAtcGraphEdge shared;
@@ -36,7 +32,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         [Test]
         public void KnownUnsetRoutesSendSingleEdgeNoneInBothDirections()
         {
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             // 静的進路定義は片方向だけでも、未設定の停止電文は両方向へ送る。
             Assert.That(context.Output.telegrams.Count, Is.EqualTo(4));
@@ -52,11 +48,11 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void DepartureSettingExtendsPathAndUsesItsInterlockingMode()
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
 
             SetRoute(departure, OverrunProtectionMode.Normal);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
                 "First", "Shared", "Middle", "Last");
@@ -69,7 +65,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void RouteOriginAndInteriorContinueAfterEntryPermissionDrops()
         {
             SetRoute(departure, OverrunProtectionMode.Restricted).ProceedAllowed = false;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
                 "Shared", "Middle", "Last");
@@ -81,7 +77,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             SetRoute(departure, OverrunProtectionMode.Normal).ProceedAllowed = false;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             // Shared自身の起点は継続できても、上流起点の停止限界はSharedのまま。
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
@@ -96,13 +92,13 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             var before = AddEdge("Before", "BeforeNode", "A", TrackAtcEdgeControlKind.Block);
             SetRoute(arrival, OverrunProtectionMode.Restricted).ProceedAllowed = false;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before");
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
 
             context.Input.RoutesById[arrival.interlockingRouteId].ProceedAllowed = true;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
                 "Before", "First", "Shared");
         }
@@ -112,7 +108,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             var before = AddEdge("Before", "BeforeNode", "A", TrackAtcEdgeControlKind.Block);
             SetRoute(arrival, OverrunProtectionMode.Restricted).RouteLocked = false;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             // 新規進入でFirstまでは入れるが、進路内の継続には鎖錠が必要。
             AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before", "First");
@@ -126,7 +122,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             SetRoute(departure, OverrunProtectionMode.Normal).RouteLocked = false;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             // 共有Edgeで発車進路に入場できても、その先へ継続できなければ到着進路の終端に止まる。
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
@@ -146,7 +142,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             AddEdge("NextBlock", "F", "G", TrackAtcEdgeControlKind.Block);
             SetRoute(arrival, OverrunProtectionMode.Normal);
             SetRoute(departure, OverrunProtectionMode.Restricted);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None,
                 "First", "Shared", "Middle", "Last", "Block", "NextBlock");
@@ -165,7 +161,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             routeInput.PathEstablished = established;
             routeInput.RouteLocked = locked;
             routeInput.CancelPending = cancelled;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(middle, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Middle");
         }
@@ -175,7 +171,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted).CancelPending = true;
             SetRoute(departure, OverrunProtectionMode.Normal);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "First");
             AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
@@ -187,7 +183,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             context.Input.OccupiedByCircuitId[first.trackCircuitId] = true;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
         }
@@ -198,7 +194,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             shared.trackCircuitId = first.trackCircuitId;
             context.Input.OccupiedByCircuitId[first.trackCircuitId] = true;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
             AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "Shared");
@@ -210,7 +206,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             SetRoute(departure, OverrunProtectionMode.Normal);
             context.Input.OccupiedByCircuitId[middle.trackCircuitId] = true;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
             Assert.That(Result("First").endReason, Is.EqualTo(TrackAtcPathEndReason.NextCircuitOccupied));
@@ -223,7 +219,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             SetRoute(departure, OverrunProtectionMode.Normal);
             context.Input.OccupiedByCircuitId.Remove(middle.trackCircuitId);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertInvalid(first.trackCircuitId);
             Assert.That(Result("First").isPathValid, Is.False);
@@ -235,7 +231,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void MissingRouteInputFailsInsteadOfUsingNoneFallback()
         {
             context.Input.RoutesById.Remove(arrival.interlockingRouteId);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertInvalid(first.trackCircuitId);
             Assert.That(Result("First").isPathValid, Is.False);
@@ -246,7 +242,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void InvalidTerminalModeFailsWithoutChangingSuccessfulPath()
         {
             SetRoute(arrival, (OverrunProtectionMode)999);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(Result("First").isPathValid, Is.True);
             Assert.That(context.State.protectionMode.resultsByKey[Key("First")].isProtectionModeKnown, Is.False);
@@ -260,7 +256,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             first.trackCircuitId = middle.trackCircuitId;
             context.Input.RoutesById.Remove(arrival.interlockingRouteId);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(Result("Middle").isPathValid, Is.True);
             AssertInvalid(first.trackCircuitId);
@@ -273,7 +269,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetRoute(departure, OverrunProtectionMode.Normal);
             var other = AddRoute("OtherDepartureAtc", "OtherDepartureInterlocking", "Shared", "Middle", "Last");
             SetRoute(other, OverrunProtectionMode.Restricted);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertInvalid(first.trackCircuitId);
             AssertInvalid(shared.trackCircuitId);
@@ -287,7 +283,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             AddEdge("Cycle1", "A", "B", TrackAtcEdgeControlKind.Block);
             AddEdge("Cycle2", "B", "C", TrackAtcEdgeControlKind.Block);
             AddEdge("Cycle3", "C", "A", TrackAtcEdgeControlKind.Block);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(context.Output.telegrams.Count, Is.EqualTo(3));
             foreach (var edge in graph.atcEdge)
@@ -305,7 +301,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             (last.atcNodeAId, last.atcNodeBId) = (last.atcNodeBId, last.atcNodeAId);
             SetRoute(arrival, OverrunProtectionMode.Normal);
             SetRoute(departure, OverrunProtectionMode.Restricted);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
                 "First", "Shared", "Middle", "Last");
@@ -323,7 +319,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetRoute(departure, OverrunProtectionMode.Restricted);
             var reverse = AddRoute("ReverseAtc", "ReverseInterlocking", "Last", "Middle", "Shared");
             SetRoute(reverse, OverrunProtectionMode.Normal);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
                 "Shared", "Middle", "Last");
@@ -338,7 +334,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void InvalidClockCannotProduceValidTelegrams(double time)
         {
             context.Input.simulationTimeSeconds = time;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(context.State.validation.isSimulationTimeValid, Is.False);
             Assert.That(context.Output.telegrams.Count, Is.EqualTo(4));
@@ -352,11 +348,11 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void BrokenGraphClearsPreviousOutputAndLookupState()
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             Assert.That(context.Output.telegrams, Is.Not.Empty);
 
             graph.atcNode.Clear();
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(context.State.validation.isGraphValid, Is.False);
             Assert.That(context.State.validation.atcEdgesById, Is.Empty);
@@ -367,9 +363,9 @@ namespace Nakatetsu.Track.Interlocking.Tests
         [Test]
         public void NullGraphClearsPreviousOutput()
         {
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             context.Graph = null;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(context.Output.telegrams, Is.Empty);
             Assert.That(context.State.path.resultsByKey, Is.Empty);
@@ -380,13 +376,13 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             SetRoute(departure, OverrunProtectionMode.Normal);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
                 "First", "Shared", "Middle", "Last");
 
-            context.Input.RoutesById[departure.interlockingRouteId] = new NewRouteInput();
+            context.Input.RoutesById[departure.interlockingRouteId] = new TrackAtcRouteInput();
             context.Input.simulationTimeSeconds = 121d;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
             AssertRoute(middle, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Middle");
@@ -397,7 +393,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         [Test]
         public void GraphReplacementRemovesPreviousCircuitsAndResults()
         {
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             var replacement = new TrackAtcGraphDefinition();
             replacement.atcEdge.Add(new TrackAtcGraphEdge
             {
@@ -415,7 +411,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             });
             context.Graph = replacement;
             context.Input.OccupiedByCircuitId["ReplacementCircuit"] = false;
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
 
             Assert.That(context.Output.telegrams.Keys, Is.EquivalentTo(new[] { "ReplacementCircuit" }));
             Assert.That(context.State.path.resultsByKey.ContainsKey(Key("First")), Is.False);
@@ -426,7 +422,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             SetRoute(departure, OverrunProtectionMode.Normal);
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             var oldPath = GetRoute(first, TrackAtcTravelDirection.AtoB).atcEdgePath;
             var sharedPath = GetRoute(shared, TrackAtcTravelDirection.AtoB).atcEdgePath;
             oldPath.Clear();
@@ -434,7 +430,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(sharedPath, Is.EqualTo(new[] { "Shared", "Middle", "Last" }));
             Assert.That(Result("First").nextEdgeKey, Is.EqualTo(Key("Shared")));
 
-            NewLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
                 "First", "Shared", "Middle", "Last");
             Assert.That(GetRoute(first, TrackAtcTravelDirection.AtoB).atcEdgePath, Is.Not.SameAs(oldPath));
@@ -444,7 +440,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         private void CreateContext()
         {
             graph = new TrackAtcGraphDefinition { atcGraphId = "TestGraph", maximumOperatingSpeedKmh = 120f };
-            context = new NewContext { Graph = graph };
+            context = new TrackAtcContext { Graph = graph };
             context.Input.simulationTimeSeconds = 120d;
         }
 
@@ -480,13 +476,13 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 atcRouteId = atcId, interlockingRouteId = interlockingId, atcEdgeIds = new List<string>(edges)
             };
             graph.routes.Add(route);
-            context.Input.RoutesById[interlockingId] = new NewRouteInput();
+            context.Input.RoutesById[interlockingId] = new TrackAtcRouteInput();
             return route;
         }
 
-        private NewRouteInput SetRoute(TrackAtcRouteDefinition route, OverrunProtectionMode mode)
+        private TrackAtcRouteInput SetRoute(TrackAtcRouteDefinition route, OverrunProtectionMode mode)
         {
-            var routeInput = new NewRouteInput
+            var routeInput = new TrackAtcRouteInput
             {
                 IsRouteSet = true, ProceedAllowed = true, PathEstablished = true, RouteLocked = true,
                 OverrunMode = mode
