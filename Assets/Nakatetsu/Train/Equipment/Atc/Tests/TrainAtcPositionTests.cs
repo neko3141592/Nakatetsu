@@ -418,7 +418,11 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
         {
             var telegram = new TrackCircuitAtcTelegram { isValid = true };
             telegram.atcRouteInfomation.Add((id, direction),
-                new TrackCircuitAtcRouteInfomation { atcEdgePath = new List<string>(ids) });
+                new TrackCircuitAtcRouteInfomation
+                {
+                    atcEdgePath = new List<string>(ids),
+                    stopAtcEdgeId = ids[ids.Length - 1]
+                });
             return telegram;
         }
     }

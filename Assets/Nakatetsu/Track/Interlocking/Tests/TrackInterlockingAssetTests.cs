@@ -1,135 +1,103 @@
-using Nakatetsu.Track.Interlocking.Editor;
+using System.Collections.Generic;
 using Nakatetsu.Track.Simulation.Connection;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Nakatetsu.Track.Interlocking.Tests
 {
     public sealed class TrackInterlockingAssetTests
     {
-        private const string ProtectionPath = "definition.routes.Array.data[0].overrunProtection";
         private TrackInterlockingAsset asset;
         private string assetPath;
-        private EditorWindow window;
 
         [SetUp]
         public void SetUp()
         {
             asset = ScriptableObject.CreateInstance<TrackInterlockingAsset>();
-            asset.Definition.routes.Add(new InterlockingRoute { routeId = "Protected" });
-            asset.Definition.routes.Add(new InterlockingRoute { routeId = "Unprotected" });
             assetPath = AssetDatabase.GenerateUniqueAssetPath("Assets/TrackInterlockingSerializationTest.asset");
         }
 
         [TearDown]
         public void TearDown()
         {
-            if (window != null)
-                window.Close();
             AssetDatabase.DeleteAsset(assetPath);
             if (asset != null && !EditorUtility.IsPersistent(asset))
+            {
                 Object.DestroyImmediate(asset);
+            }
         }
 
         [Test]
-        public void InspectorCanCreateProtectionAndSaveAllFieldsWhilePreservingUnprotectedRoute()
+        public void DefinitionPreservesSeparateReleaseCircuitsAndProtectionTurnoutsWhenSaved()
         {
-            using var serialized = new SerializedObject(asset);
-            var property = serialized.FindProperty(ProtectionPath);
-            var gui = CreateInspector(property);
-            Assert.That(asset.Definition.routes[0].overrunProtection, Is.Null);
-            gui.Q<Toggle>().value = true;
+            var definition = asset.Definition;
+            definition.interlockingId = "Station";
+            definition.memberTrackCircuitIds.AddRange(new[] { "Entry", "Platform", "Approach", "TurnoutLock" });
+            definition.memberConnectionIds.AddRange(new[] { "Main", "Protection" });
+            definition.routes.Add(new TrackInterlockingRouteDefinition
+            {
+                routeId = "Arrival",
+                startTrackCircuitId = "Entry",
+                destinationTrackCircuitId = "Platform",
+                requiredTurnouts = new List<TurnoutRequirement>
+                {
+                    new() { connectionId = "Main", requiredPosition = TrackSwitchPosition.Normal }
+                },
+                routeClearTrackCircuitIds = new List<string> { "Entry", "Platform" },
+                routeReleaseTrackCircuitIds = new List<string> { "Entry" },
+                conflictRouteIds = new List<string> { "Departure" },
+                approachLock = new ApproachLockDefinition
+                {
+                    trackCircuitIds = new List<string> { "Approach" },
+                    releaseSeconds = 5f
+                },
+                overrunProtection = new TrackInterlockingOverrunProtectionDefinition
+                {
+                    isEnabled = true,
+                    turnoutRequirements = new List<TurnoutRequirement>
+                    {
+                        new() { connectionId = "Protection", requiredPosition = TrackSwitchPosition.Reverse }
+                    },
+                    releaseSeconds = 10f
+                }
+            });
+            definition.routes.Add(new TrackInterlockingRouteDefinition { routeId = "Departure" });
+            definition.turnoutLocks.Add(new TrackInterlockingTurnoutLockDefinition
+            {
+                connectionId = "Protection",
+                trackCircuitIds = new List<string> { "TurnoutLock" }
+            });
 
-            Assert.That(asset.Definition.routes[0].overrunProtection, Is.Not.Null);
-            Assert.That(gui.Query<UnityEditor.UIElements.PropertyField>().ToList(), Has.Count.EqualTo(3));
-            SetStringList(property.FindPropertyRelative("common.clearTrackCircuitIds"), "Common");
-            SetTurnout(property.FindPropertyRelative("common.requiredTurnouts"), "21", 1);
-            SetStringList(property.FindPropertyRelative("normalAdditional.clearTrackCircuitIds"), "Additional");
-            SetTurnout(property.FindPropertyRelative("normalAdditional.requiredTurnouts"), "22", 2);
-            property.FindPropertyRelative("release.mode").enumValueIndex = (int)OverrunReleaseMode.TimedAfterArrival;
-            property.FindPropertyRelative("release.triggerTrackCircuitId").stringValue = "Arrival";
-            property.FindPropertyRelative("release.releaseSeconds").floatValue = 45f;
-            serialized.ApplyModifiedProperties();
-
-            SaveAndReload();
-
-            var protection = asset.Definition.routes[0].overrunProtection;
-            Assert.That(protection, Is.Not.Null);
-            Assert.That(protection.common.clearTrackCircuitIds, Is.EqualTo(new[] { "Common" }));
-            Assert.That(protection.common.requiredTurnouts[0].connectionId, Is.EqualTo("21"));
-            Assert.That(protection.common.requiredTurnouts[0].requiredPosition, Is.EqualTo((TrackSwitchPosition)1));
-            Assert.That(protection.normalAdditional.clearTrackCircuitIds, Is.EqualTo(new[] { "Additional" }));
-            Assert.That(protection.normalAdditional.requiredTurnouts[0].connectionId, Is.EqualTo("22"));
-            Assert.That(protection.normalAdditional.requiredTurnouts[0].requiredPosition, Is.EqualTo((TrackSwitchPosition)2));
-            Assert.That(protection.release.mode, Is.EqualTo(OverrunReleaseMode.TimedAfterArrival));
-            Assert.That(protection.release.triggerTrackCircuitId, Is.EqualTo("Arrival"));
-            Assert.That(protection.release.releaseSeconds, Is.EqualTo(45f));
-            Assert.That(asset.Definition.routes[1].overrunProtection, Is.Null);
-        }
-
-        [Test]
-        public void InspectorCanRemoveProtectionAndPersistNull()
-        {
-            asset.Definition.routes[0].overrunProtection = new OverrunProtectionDefinition();
-            using var serialized = new SerializedObject(asset);
-            var gui = CreateInspector(serialized.FindProperty(ProtectionPath));
-            gui.Q<Toggle>().value = false;
-            Assert.That(gui.Query<UnityEditor.UIElements.PropertyField>().ToList(), Is.Empty);
-
-            SaveAndReload();
-
-            Assert.That(asset.Definition.routes[0].overrunProtection, Is.Null);
-        }
-
-        [Test]
-        public void InspectorCreationSupportsUndoAndRedo()
-        {
-            using var serialized = new SerializedObject(asset);
-            var gui = CreateInspector(serialized.FindProperty(ProtectionPath));
-            Undo.IncrementCurrentGroup();
-            gui.Q<Toggle>().value = true;
-            Undo.FlushUndoRecordObjects();
-            Undo.PerformUndo();
-            Assert.That(asset.Definition.routes[0].overrunProtection, Is.Null);
-            Undo.PerformRedo();
-            Assert.That(asset.Definition.routes[0].overrunProtection, Is.Not.Null);
-        }
-
-        private VisualElement CreateInspector(SerializedProperty property)
-        {
-            var gui = new OverrunProtectionDefinitionDrawer().CreatePropertyGUI(property);
-            window = ScriptableObject.CreateInstance<EditorWindow>();
-            window.Show();
-            window.rootVisualElement.Add(gui);
-            return gui;
-        }
-
-        private void SaveAndReload()
-        {
-            window.Close();
-            window = null;
             AssetDatabase.CreateAsset(asset, assetPath);
             AssetDatabase.SaveAssetIfDirty(asset);
             Resources.UnloadAsset(asset);
             asset = null;
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport);
             asset = AssetDatabase.LoadAssetAtPath<TrackInterlockingAsset>(assetPath);
-        }
 
-        private static void SetStringList(SerializedProperty property, string value)
-        {
-            property.arraySize = 1;
-            property.GetArrayElementAtIndex(0).stringValue = value;
-        }
-
-        private static void SetTurnout(SerializedProperty property, string connectionId, int position)
-        {
-            property.arraySize = 1;
-            var turnout = property.GetArrayElementAtIndex(0);
-            turnout.FindPropertyRelative("connectionId").stringValue = connectionId;
-            turnout.FindPropertyRelative("requiredPosition").enumValueIndex = position;
+            definition = asset.Definition;
+            var route = definition.routes[0];
+            Assert.That(definition.interlockingId, Is.EqualTo("Station"));
+            Assert.That(definition.memberTrackCircuitIds, Is.EqualTo(new[] { "Entry", "Platform", "Approach", "TurnoutLock" }));
+            Assert.That(definition.memberConnectionIds, Is.EqualTo(new[] { "Main", "Protection" }));
+            Assert.That(route.routeId, Is.EqualTo("Arrival"));
+            Assert.That(route.startTrackCircuitId, Is.EqualTo("Entry"));
+            Assert.That(route.destinationTrackCircuitId, Is.EqualTo("Platform"));
+            Assert.That(route.requiredTurnouts[0].connectionId, Is.EqualTo("Main"));
+            Assert.That(route.requiredTurnouts[0].requiredPosition, Is.EqualTo(TrackSwitchPosition.Normal));
+            Assert.That(route.routeClearTrackCircuitIds, Is.EqualTo(new[] { "Entry", "Platform" }));
+            Assert.That(route.routeReleaseTrackCircuitIds, Is.EqualTo(new[] { "Entry" }));
+            Assert.That(route.conflictRouteIds, Is.EqualTo(new[] { "Departure" }));
+            Assert.That(route.approachLock.trackCircuitIds, Is.EqualTo(new[] { "Approach" }));
+            Assert.That(route.approachLock.releaseSeconds, Is.EqualTo(5f));
+            Assert.That(route.overrunProtection.isEnabled, Is.True);
+            Assert.That(route.overrunProtection.turnoutRequirements[0].connectionId, Is.EqualTo("Protection"));
+            Assert.That(route.overrunProtection.turnoutRequirements[0].requiredPosition, Is.EqualTo(TrackSwitchPosition.Reverse));
+            Assert.That(route.overrunProtection.releaseSeconds, Is.EqualTo(10f));
+            Assert.That(definition.routes[1].overrunProtection.isEnabled, Is.False);
+            Assert.That(definition.turnoutLocks[0].connectionId, Is.EqualTo("Protection"));
+            Assert.That(definition.turnoutLocks[0].trackCircuitIds, Is.EqualTo(new[] { "TurnoutLock" }));
         }
     }
 }

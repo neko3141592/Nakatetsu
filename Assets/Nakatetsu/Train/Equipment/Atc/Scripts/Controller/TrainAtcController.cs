@@ -65,6 +65,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             // 工程1。操作・ドア・設定・質量は今回取得した値だけを取り込む。
             input.hasCabState = TryReadCabInput(out input.cab);
             input.hasDoorState = TryReadDoorState(out input.areAllDoorsClosed);
+            input.hasDoorOpeningOperation = TryReadOpeningOperationRevision(out input.doorOpeningOperationRevision);
             input.hasBrakeSettings = TryReadBrakeSettings();
             if (TryReadCarInputs() && TryReadReceiverOffsets())
             {
@@ -117,6 +118,8 @@ namespace Nakatetsu.Train.Equipment.Atc
             input.cab = default;
             input.hasDoorState = false;
             input.areAllDoorsClosed = false;
+            input.hasDoorOpeningOperation = false;
+            input.doorOpeningOperationRevision = 0;
             input.hasBrakeSettings = false;
             input.brakeSettings.brakeSubstepCount = 0;
             input.brakeSettings.maximumServiceBrakeStep = 0;
@@ -159,6 +162,27 @@ namespace Nakatetsu.Train.Equipment.Atc
         private bool TryReadDoorState(out bool areAllDoorsClosed)
         {
             areAllDoorsClosed = false;
+            ResolveDoorInputSource();
+            if (doorInputSource is ITrainAtcDoorInputSource source)
+            {
+                return source.TryReadDoorState(out areAllDoorsClosed);
+            }
+            return false;
+        }
+
+        private bool TryReadOpeningOperationRevision(out int revision)
+        {
+            revision = 0;
+            ResolveDoorInputSource();
+            if (doorInputSource is ITrainAtcDoorInputSource source)
+            {
+                return source.TryReadOpeningOperationRevision(out revision);
+            }
+            return false;
+        }
+
+        private void ResolveDoorInputSource()
+        {
             if (doorInputSource == null)
             {
                 foreach (var component in GetComponents<MonoBehaviour>())
@@ -170,12 +194,6 @@ namespace Nakatetsu.Train.Equipment.Atc
                     }
                 }
             }
-
-            if (doorInputSource is ITrainAtcDoorInputSource source)
-            {
-                return source.TryReadDoorState(out areAllDoorsClosed);
-            }
-            return false;
         }
 
         private bool TryReadCarInputs()

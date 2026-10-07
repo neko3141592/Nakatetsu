@@ -1,8 +1,8 @@
 # 地上ATC 全体処理仕様
 
-本書は、地上ATCのリファクタリングで採用する処理順、各工程の入出力とStateの担当を定める。[issue #67](https://github.com/neko3141592/Nakatetsu/issues/67)の進路未設定時の無信号化は、今回の地上工程1〜6で修正する。進路解放後の車上側のORP保持・開扉時解除は、第5節に定める確定仕様であり、今回の実装には含めない。
+本書は、地上ATCのリファクタリングで採用する処理順、各工程の入出力とStateの担当を定める。[issue #67](https://github.com/neko3141592/Nakatetsu/issues/67)の進路未設定時の無信号化は、今回の地上工程1〜6で修正する。進路解放後の車上側のORP保持・開扉時解除は、第5節の仕様に従い実装済みである。
 
-Context・Input・State・Outputと工程2〜6のLogicは、`Assets/Nakatetsu/Track/NewAtc/Scripts`の`Nakatetsu.Track.NewAtc`名前空間に実装する。既存の`Nakatetsu.Track.Atc.TrackAtcController`コンポーネントが入力収集・新しい親Logicの呼び出し・電文配信を担当する。静的Graphと外部向けの電文型は既存の型を使用する。
+Context・Input・State・Outputと工程2〜6のLogicは、`Assets/Nakatetsu/Track/Atc/Scripts`の`Nakatetsu.Track.Atc`名前空間に実装する。既存の`Nakatetsu.Track.Atc.TrackAtcController`コンポーネントが入力収集・新しい親Logicの呼び出し・電文配信を担当する。静的Graphと外部向けの電文型は既存の型を使用する。
 
 ## 1. 全体の処理順（確定）
 
@@ -25,7 +25,7 @@ Controllerが工程1の入力収集を完了し、親Logicが工程2〜5を順�
 
 今回の更新で使用する時刻・占有・連動進路の状態を取り込む。連動進路は未設定のものも含めて状態を取り込み、確認できた未設定と、状態の取得失敗を区別する。取得できなかった値を、空き・未設定・過走防護なしの正常値に置き換えない。
 
-初期化済みの連動に定義されている進路について、設定中の状態を取得できた場合は`IsRouteSet = true`で登録する。状態が登録されていないと確認できた場合は`IsRouteSet = false`で登録する。連動を参照できない・未初期化・必要な定義が不明な場合は入力未取得とし、`RoutesById`へ未設定として登録しない。
+初期化済みの連動の`RouteIds`を列挙し、`TryGetRouteStatus`が成功した進路を登録する。確認済みの未設定は`IsRouteSet = false`、防護だけが残る場合も含む設定レコードは`IsRouteSet = true`とする。連動を参照できない・未初期化・公開値が取得不能な場合は入力未取得とし、`RoutesById`へ未設定として登録しない。
 
 #### 読み書きする情報
 
@@ -238,13 +238,13 @@ Outputの書き換え可能な経路リストは、各経路情報ごとに新�
 
 ### 車上の防護方式決定でORPを保持し、開扉で解除する
 
-以下は確定した車上側の変更仕様である。今回実装する地上工程1〜6はORP保持・開扉時解除を含まず、`TrainAtcProtectionModeLogic`・State・開扉入力の変更は未実装として残る。
+以下の車上側の保持・解除は、`TrainAtcProtectionModeLogic`・`TrainAtcProtectionModeState`と、TIMSの開扉操作番号の入力に実装している。地上ATCには保持状態を追加しない。
 
 ORPを使用して到着した列車に対し、進路解放後に進路未設定となり、地上から`None`が送られた直後に通常パターンへ切り替えると、停止限界の100m以内で常用停止保持が働く。この切り替えは、車上側の防護方式を決める工程5に保持・解除規則を追加して扱う。
 
 進路解放後に進路未設定となった場合、開扉後に古いORP保持が残らないことを必要条件とする。地上は単一Edge・`None`の有効電文を送り、車上の工程5は開扉で以前の保持を解除して受信した`None`を採用する。その後、有効な`Restricted`を新たに受信した場合は、同じ終点・方向でもORPへ戻ってよい。
 
-主な変更先は`TrainAtcProtectionModeLogic`と`TrainAtcProtectionModeState`とする。受信電文・Inputを書き換えず、実際に使用する防護方式をProtectionModeStateで確定する。保持するキーは停止限界のEdge IDと、その終端Edge上の進行方向とする。現在Edgeの方向や経路の先頭Edgeの変化だけでは解除しない。
+保持・解除は`TrainAtcProtectionModeLogic`と`TrainAtcProtectionModeState`で扱う。受信電文・Inputを書き換えず、実際に使用する防護方式をProtectionModeStateで確定する。保持するキーは停止限界のEdge IDと、その終端Edge上の進行方向とする。現在Edgeの方向や経路の先頭Edgeの変化だけでは解除しない。
 
 保持対象の照合では、受信した`stopAtcEdgeId`が経路の末尾Edgeと一致することと、経路の接続から終端方向を確定できることを確認する。不整合な停止限界や経路を、過去のORP保持で使用可能にしない。
 
@@ -253,30 +253,29 @@ ORPを使用して到着した列車に対し、進路解放後に進路未設�
 | 有効な`Restricted`を採用 | 停止限界のEdge ID・終端方向を保存し、ORP保持を開始する。表示の点灯状態だけで保持を判断しない |
 | ORP保持中に、保存した停止限界・終端方向と同じ`None`または`Normal`を受信 | 使用する防護方式を`Restricted`に保持する。開扉操作ではこの以前の保持を解除する |
 | 停止限界または終端方向が変化 | 以前のORP保持を解除し、今回の指定方式を採用する。新しい指定が`Restricted`なら新しい対象を保持する |
-| 停車後の開扉操作を確認 | ORP保持を解除し、今回の受信方式を採用する。受信中の方式が`None`なら、通常パターンを生成する |
+| 新しい開扉操作番号を確認 | ORP保持を解除し、今回の受信方式を採用する。受信中の方式が`None`なら、通常パターンを生成する。停車速度や全閉状態は解除条件にしない |
 | 開扉による解除後に`None`を受信 | 以前の保持を復活させず、`None`を採用する。開扉状態が続くことだけで毎tick解除・パターン消去を繰り返さない |
-| 開扉による解除後、新たに有効な`Restricted`を受信 | 同じ停止限界・終端方向でも`Restricted`を採用し、ORP保持を開始してよい。再採用を禁止する状態は設けない |
-| キー切・レバーサ中立 | 既存の有効条件に従って照査とパターンを停止する。ORP保持対象と開扉操作の確認情報は保持する |
-| 無信号・無効電文・入力不正 | 既存の採用・保持・使用不可の判定に従う。ORP保持情報だけで使用可能にしない |
+| 開扉による解除後、次tick以降に有効な`Restricted`を受信 | 同じ停止限界・終端方向でも`Restricted`を採用し、ORP保持を開始してよい。開扉を確認したtickで再保持せず、以後の再採用を禁止する状態は設けない |
+| キー切・レバーサ中立 | 既存の有効条件に従って照査とパターンを停止する。開扉がなければORP保持対象を維持し、新しい開扉操作があれば解除する |
+| 無信号・無効電文・入力不正 | 既存の採用・保持・使用不可の判定に従い、新しい開扉操作は受信状態にかかわらず処理する。無信号猶予中はORP保持対象を解除しても既存パターンと方式を維持し、次の有効なNone受信時にNoneを採用する。ORP保持情報だけで使用可能にしない |
 
 保持するのは防護方式とその対象である。有効な新しい電文を採用した場合は、今回の経路を使用し、確定した防護方式でパターンを生成する。最初から`None`しか受信していない列車は、通常どおり`None`を使用する。
 
 #### 車上側で必要な情報と更新担当
 
-以下は車上側の変更に必要な情報であり、地上ATCのInput・Stateへは追加しない。
+以下は車上側で使用する情報であり、地上ATCのInput・Stateへは追加しない。
 
 | 区分 | 読み書き | 必要な情報・更新結果 |
 | --- | --- | --- |
-| 車上Input | 読む | 開扉操作とその取得可否：停車後の開扉をORP保持解除の契機にする。全閉未確認や取得失敗を開扉操作に置き換えない |
-| 車上Input | 読む | 確認済みの測定速度：停車後の操作であることを確認する |
+| 車上Input | 読む | `hasDoorOpeningOperation`・`doorOpeningOperationRevision`：TIMSで受け付けた開扉操作番号の取得可否と値。全閉未確認や取得失敗を開扉操作に置き換えない |
 | 車上State | 読む | `State.validation`の採用・保持・使用不可の結果と、確認した受信経路・方式 |
 | 車上State | 読む | 現在位置・照査方向・Graph：受信経路の停止限界と終端Edge上の方向を求める |
-| 車上State | 読む・更新する | `State.protectionMode`のORP保持の有無、保持対象の停止限界Edge ID・終端方向。開扉で以前の保持を解除し、新たな`Restricted`で再設定できる |
-| 車上State | 読む・更新する | `State.protectionMode`の開扉操作の確認情報。操作を一度の契機として扱い、開扉指令が継続する入力では前回の確認値も使用する |
+| 車上State | 読む・更新する | `State.protectionMode.hasHeldOrp`・`heldStopAtcEdgeId`・`heldStopTravelDirection`：ORP保持の有無と停止限界Edge ID・終端方向。開扉で以前の保持を解除し、有効な`Restricted`で再設定できる |
+| 車上State | 読む・更新する | `State.protectionMode.doorOpeningOperationRevision`：処理済みの開扉操作番号。同じ番号は再処理しない |
 | 車上State | 更新する | `State.protectionMode.isProtectionModeKnown`・`overrunProtectionMode`：保持・解除を反映した今回使用する防護方式 |
 | 車上Output | 直接変更しない | 確定した方式から、既存のパターン生成・ブレーキ判定・Output生成で反映する |
 
-現在の車上ATCのドア入力は全閉確認だけなので、開扉操作を確実に確認できる入力を追加する。方式固有の設定確認も、受信値だけではなく、ORP保持・解除を反映して今回使用する方式を基準にする。保持対象と解除の情報の更新はProtectionModeLogicが担当し、他の子Stateを変更しない。
+TIMSは最新の開扉操作番号をMasterBusへ送り、閉扉操作ではこの番号を変えない。開扉と閉扉がATCの入力収集の間に続いても、番号の変化から開扉操作を確認できる。親Logicは工程5の後、パターン生成前に`TrainAtcValidationLogic.ValidateProtectionSettings`を呼び、ORP保持・解除を反映した使用方式の設定を確認する。保持対象と解除の情報の更新はProtectionModeLogicが担当し、他の子Stateを変更しない。
 
 ### 開扉後の常用保持と後続進路成立後の緩解
 
@@ -305,5 +304,5 @@ ORPを使用して到着した列車に対し、進路解放後に進路未設�
 
 - [地上側ATC 基本仕様](TrackAtcGroundSpecification.md)：地上・車上の責務、占有、進路の接続・取消の規則。
 - [ATC Graphのコンパイル](TrackAtcGraphCompilation.md)：静的なGraphと合法な方向を求めるための進路定義。
-- [車上ATC 全体処理仕様](../../Train/Atc/TrainAtcProcessingFlow.md)：車上の工程、State・Logicの分割と実装ルール。今回の車上工程5には、本書第5節のORP保持・解除規則を追加する。
+- [車上ATC 全体処理仕様](../../Train/Atc/TrainAtcProcessingFlow.md)：車上の工程、State・Logicの分割と実装ルール。車上工程5には、本書第5節のORP保持・解除規則を実装している。
 - [車上ATC ブレーキパターン仕様](../../Train/Atc/TrainAtcBrakePatternSpecification.md)：パターン生成、常用・非常、停止保持と緩解の詳細。

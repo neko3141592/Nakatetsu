@@ -28,7 +28,7 @@ namespace Nakatetsu.Track.Atc
 
             private bool ReadRoutes()
             {
-                var interlockingRoutes = new Dictionary<string, InterlockingRoute>();
+                var interlockingRoutes = new Dictionary<string, TrackInterlockingRouteDefinition>();
                 if (interlockings != null)
                 {
                     foreach (var interlocking in interlockings)

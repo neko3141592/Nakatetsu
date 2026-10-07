@@ -10,6 +10,7 @@ namespace Nakatetsu.Train.Equipment.Atc
     public interface ITrainAtcDoorInputSource
     {
         bool TryReadDoorState(out bool areAllDoorsClosed);
+        bool TryReadOpeningOperationRevision(out int revision);
     }
 
     public interface ITrainAtcMassInputSource

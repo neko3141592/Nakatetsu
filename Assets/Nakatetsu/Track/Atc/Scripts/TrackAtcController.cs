@@ -5,7 +5,6 @@ using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using UnityEngine;
-using NewAtc = Nakatetsu.Track.NewAtc;
 
 namespace Nakatetsu.Track.Atc
 {
@@ -18,9 +17,9 @@ namespace Nakatetsu.Track.Atc
         [SerializeField] private MonoBehaviour worldTimeSource;
         [SerializeField] private List<TrackInterlockingController> interlockings = new();
 
-        private readonly NewAtc.TrackAtcContext context = new();
+        private readonly TrackAtcContext context = new();
 
-        public NewAtc.TrackAtcContext Context => context;
+        public TrackAtcContext Context => context;
 
         public void SetWorldTimeSource(MonoBehaviour source) => worldTimeSource = source;
 
@@ -28,12 +27,12 @@ namespace Nakatetsu.Track.Atc
         {
             context.Graph = atcGraphAsset != null ? atcGraphAsset.Definition : null;
             CollectInput();
-            NewAtc.TrackAtcLogic.Calculate(context);
+            TrackAtcLogic.Calculate(context);
         }
 
         private void CollectInput()
         {
-            NewAtc.TrackAtcInput input = context.Input;
+            TrackAtcInput input = context.Input;
             input.simulationTimeSeconds = worldTimeSource != null && worldTimeSource is IWorldTimeSource clock
                 ? clock.WorldTimeSeconds
                 : double.NaN;
@@ -55,23 +54,26 @@ namespace Nakatetsu.Track.Atc
                     continue;
                 }
 
-                foreach (InterlockingRoute route in interlocking.Routes)
+                foreach (string routeId in interlocking.RouteIds)
                 {
-                    // 初期化済み連動の定義にあり、状態がない進路は確認済みの未設定。
-                    // 連動を参照できない場合の未登録とは区別し、全定義を毎回写す。
-                    var routeInput = new NewAtc.TrackAtcRouteInput();
-                    if (interlocking.TryGetRouteState(route.routeId, out var state))
+                    if (!interlocking.TryGetRouteStatus(routeId, out var status))
                     {
-                        routeInput.IsRouteSet = true;
-                        routeInput.ProceedAllowed = state.ProceedAllowed;
-                        routeInput.PathEstablished = state.PathEstablished;
-                        routeInput.OverrunMode = state.overrunProtectionMode;
-                        routeInput.CancelPending = state.CancelPending;
-                        routeInput.RouteLocked = state.RouteLocked;
+                        continue;
                     }
 
+                    // 確認済みの未設定も登録し、状態取得不能の未登録と区別する。
+                    var routeInput = new TrackAtcRouteInput
+                    {
+                        IsRouteSet = status.IsRouteSet,
+                        ProceedAllowed = status.ProceedAllowed,
+                        PathEstablished = status.PathEstablished,
+                        OverrunMode = status.OverrunMode,
+                        CancelPending = status.CancelPending,
+                        RouteLocked = status.RouteLocked
+                    };
+
                     // コンパイル時と同様に、連動装置を跨いでも進路IDは一意とする。
-                    input.RoutesById.Add(route.routeId, routeInput);
+                    input.RoutesById.Add(routeId, routeInput);
                 }
             }
         }

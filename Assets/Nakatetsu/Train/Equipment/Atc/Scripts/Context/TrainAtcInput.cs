@@ -20,6 +20,10 @@ namespace Nakatetsu.Train.Equipment.Atc
         // TIMSで確認した編成全体のドア全閉状態。
         public bool areAllDoorsClosed;
 
+        public bool hasDoorOpeningOperation;
+        // 受け付けた開扉操作の番号。閉扉しても直前の開扉番号を維持する。
+        public int doorOpeningOperationRevision;
+
         // 両端の受信結果。未受信側はnullとし、前回の電文を残さない。
         public TrackCircuitAtcTelegram frontTelegram;
         public TrackCircuitAtcTelegram rearTelegram;
