@@ -11,64 +11,105 @@ namespace Nakatetsu.Train.Simulation.Atc
             string trackEdgeId,
             float distanceOnEdgeM,
             bool frontFacesAtoB,
-            out TrainAtcPosition position)
+            out TrainAtcPosition position,
+            string selectedAtcEdgeId = null)
         {
-            position = default;
+            position = null;
             if (graph == null || graph.atcEdge == null || string.IsNullOrWhiteSpace(trackEdgeId) ||
-                float.IsNaN(distanceOnEdgeM) || float.IsInfinity(distanceOnEdgeM))
+                float.IsNaN(distanceOnEdgeM) || float.IsInfinity(distanceOnEdgeM) || distanceOnEdgeM < 0f)
             {
                 return false;
             }
 
-            TrackAtcGraphEdge matchedEdge = null;
-            TrackAtcGraphEdge endEdge = null;
-            bool hasMultipleEndEdges = false;
+            TrainAtcPosition matchedPosition = null;
+            TrainAtcPosition endPosition = null;
+            bool hasMultipleMatches = false;
+            bool hasMultipleEndMatches = false;
             foreach (var edge in graph.atcEdge)
             {
-                if (edge == null || edge.trackEdgeId != trackEdgeId) continue;
-                if (string.IsNullOrWhiteSpace(edge.atcEdgeId) ||
-                    float.IsNaN(edge.startDistanceOnEdgeM) || float.IsInfinity(edge.startDistanceOnEdgeM) ||
-                    float.IsNaN(edge.endDistanceOnEdgeM) || float.IsInfinity(edge.endDistanceOnEdgeM) ||
-                    edge.startDistanceOnEdgeM < 0f || edge.endDistanceOnEdgeM <= edge.startDistanceOnEdgeM)
+                if (!TryMapPosition(edge, trackEdgeId, distanceOnEdgeM, frontFacesAtoB,
+                    out var candidate, out bool isUpperBoundary))
+                {
+                    continue;
+                }
+
+                // 共通区間の定位・反位は、受信した選択済みEdgeで一意に決める。
+                if (edge.atcEdgeId == selectedAtcEdgeId)
+                {
+                    position = candidate;
+                    return true;
+                }
+                if (isUpperBoundary)
+                {
+                    hasMultipleEndMatches |= endPosition != null;
+                    endPosition = candidate;
+                }
+                else
+                {
+                    hasMultipleMatches |= matchedPosition != null;
+                    matchedPosition = candidate;
+                }
+            }
+
+            // 物理区間の共有境界は距離の大きい側。続きがない終端だけ終点を採用する。
+            if (hasMultipleMatches || matchedPosition == null && hasMultipleEndMatches)
+            {
+                return false;
+            }
+            position = matchedPosition ?? endPosition;
+            return position != null;
+        }
+
+        private static bool TryMapPosition(
+            TrackAtcGraphEdge edge, string trackEdgeId, float distanceOnEdgeM, bool frontFacesAtoB,
+            out TrainAtcPosition position, out bool isUpperBoundary)
+        {
+            position = null;
+            isUpperBoundary = false;
+            if (edge == null || string.IsNullOrEmpty(edge.atcEdgeId) || edge.physicalSpans == null ||
+                float.IsNaN(edge.lengthM) || float.IsInfinity(edge.lengthM) || edge.lengthM <= 0f)
+            {
+                return false;
+            }
+
+            float startOnAtcEdgeM = 0f;
+            foreach (var span in edge.physicalSpans)
+            {
+                if (span == null || string.IsNullOrEmpty(span.trackEdgeId) ||
+                    float.IsNaN(span.startDistanceOnEdgeM) || float.IsInfinity(span.startDistanceOnEdgeM) ||
+                    float.IsNaN(span.endDistanceOnEdgeM) || float.IsInfinity(span.endDistanceOnEdgeM) ||
+                    span.startDistanceOnEdgeM < 0f || span.endDistanceOnEdgeM < 0f ||
+                    span.startDistanceOnEdgeM == span.endDistanceOnEdgeM)
                 {
                     return false;
                 }
-                if (distanceOnEdgeM < edge.startDistanceOnEdgeM || distanceOnEdgeM > edge.endDistanceOnEdgeM)
-                {
-                    continue;
-                }
 
-                // 境界は始点側の区間に含める。続きがない終端だけ終点側の区間を使う。
-                if (distanceOnEdgeM == edge.endDistanceOnEdgeM)
+                float lowerM = Math.Min(span.startDistanceOnEdgeM, span.endDistanceOnEdgeM);
+                float upperM = Math.Max(span.startDistanceOnEdgeM, span.endDistanceOnEdgeM);
+                if (span.trackEdgeId == trackEdgeId && distanceOnEdgeM >= lowerM && distanceOnEdgeM <= upperM)
                 {
-                    if (endEdge != null) hasMultipleEndEdges = true;
-                    endEdge = edge;
-                    continue;
+                    if (position != null)
+                    {
+                        return false;
+                    }
+                    position = new TrainAtcPosition
+                    {
+                        atcEdgeId = edge.atcEdgeId,
+                        distanceOnAtcEdgeM = startOnAtcEdgeM + Math.Abs(distanceOnEdgeM - span.startDistanceOnEdgeM),
+                        frontFacesAtoB = frontFacesAtoB == (span.endDistanceOnEdgeM > span.startDistanceOnEdgeM)
+                    };
+                    isUpperBoundary = distanceOnEdgeM == upperM;
                 }
-                if (matchedEdge != null) return false;
-                matchedEdge = edge;
+                startOnAtcEdgeM += upperM - lowerM;
             }
 
-            if (matchedEdge == null)
-            {
-                if (hasMultipleEndEdges) return false;
-                matchedEdge = endEdge;
-            }
-            if (matchedEdge == null || float.IsNaN(matchedEdge.lengthM) ||
-                float.IsInfinity(matchedEdge.lengthM) || matchedEdge.lengthM <= 0f)
+            // 結合区間の実距離を使う。勾配・速度プロファイルと同じATC座標にする。
+            if (position == null || Math.Abs(startOnAtcEdgeM - edge.lengthM) > 0.001f ||
+                position.distanceOnAtcEdgeM > edge.lengthM + 0.001f)
             {
                 return false;
             }
-
-            float distanceOnAtcEdgeM = distanceOnEdgeM - matchedEdge.startDistanceOnEdgeM;
-            if (distanceOnAtcEdgeM > matchedEdge.lengthM + 0.001f) return false;
-            // コンパイル済みATC EdgeのA→Bは、物理Edgeの距離が増える方向と一致する。
-            position = new TrainAtcPosition
-            {
-                atcEdgeId = matchedEdge.atcEdgeId,
-                distanceOnAtcEdgeM = Math.Min(distanceOnAtcEdgeM, matchedEdge.lengthM),
-                frontFacesAtoB = frontFacesAtoB
-            };
+            position.distanceOnAtcEdgeM = Math.Min(position.distanceOnAtcEdgeM, edge.lengthM);
             return true;
         }
     }

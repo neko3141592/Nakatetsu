@@ -39,13 +39,15 @@ namespace Nakatetsu.Train.Equipment.Atc
                 protection.hasHeldOrp = false;
             }
 
-            if (protection.hasHeldOrp)
+            if (mode == OverrunProtectionMode.None && protection.hasHeldOrp)
             {
-                mode = OverrunProtectionMode.Restricted;
+                mode = protection.heldProtectionMode;
             }
-            else if (mode == OverrunProtectionMode.Restricted && !hasNewOpeningOperation)
+            else if (mode != OverrunProtectionMode.None && !hasNewOpeningOperation)
             {
+                // 明示された防護方式で更新し、Noneになった後も同じ着点・方向の間だけ使う。
                 protection.hasHeldOrp = true;
+                protection.heldProtectionMode = mode;
                 protection.heldStopAtcEdgeId = stopAtcEdgeId;
                 protection.heldStopTravelDirection = stopDirection;
             }

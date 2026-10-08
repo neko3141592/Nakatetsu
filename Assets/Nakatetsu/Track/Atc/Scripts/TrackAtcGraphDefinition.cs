@@ -70,11 +70,17 @@ namespace Nakatetsu.Track.Atc
         public string atcNodeBId;
 
 
-        // シミュレーター上の情報(本来ATCからは読めない)
+        // ATCのA→B順に並ぶ線路上の対応区間。逆向きの区間は始点距離が終点距離より大きい。
+        public List<TrackAtcPhysicalSpan> physicalSpans = new();
+
+    }
+
+    [Serializable]
+    public sealed class TrackAtcPhysicalSpan
+    {
         public string trackEdgeId;
         public float startDistanceOnEdgeM;
         public float endDistanceOnEdgeM;
-
     }
 
     [Serializable]
@@ -90,7 +96,10 @@ namespace Nakatetsu.Track.Atc
         public string atcRouteId;
         public string interlockingRouteId;
 
-        // 順序付き
+        // 先頭Edgeへ進入する方向。1本だけの進路でも方向を表せる。
+        public TrackAtcTravelDirection entryDirection;
+
+        // 進行順。
         public List<string> atcEdgeIds = new();
 
 

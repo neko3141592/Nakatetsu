@@ -205,9 +205,9 @@ Inputの`frontTelegram`・`rearTelegram`は、工程2の位置解決に使う両
 
 新しい情報を採用する場合は、受電器から取得した経路情報の`Normal`・`Restricted`・`None`に、ORP保持・開扉時解除を反映し、今回使用する方式を確定する。
 
-有効な`Restricted`を採用したとき、停止限界のEdge IDと、その終端Edge上の進行方向を保持する。停止限界・終端方向が同じ間は、受信方式が`None`や`Normal`へ変わっても`Restricted`を使用する。現在Edgeや経路の先頭が変わったことだけでは解除しない。新しい経路は今回の受信値を使用し、受信電文やInputを書き換えない。
+有効な`Normal`・`Restricted`を採用したとき、その方式、停止限界のEdge IDと、その終端Edge上の進行方向を保持する。停止限界・終端方向が同じ間に`None`を受信した場合だけ、以前の方式を使用する。新しい有効な`Normal`・`Restricted`を受信したら、同じ対象でも使用方式と保持方式を更新する。現在Edgeや経路の先頭が変わったことだけでは解除しない。新しい経路は今回の受信値を使用し、受信電文やInputを書き換えない。
 
-停止限界または終端方向が変わると以前の保持を解除する。開扉操作でも保持を解除し、今回の受信方式を採用する。開扉操作を確認したtickでは再保持しないが、次tick以降に有効な`Restricted`を採用すれば、同じ停止限界・終端方向でも保持を開始できる。
+停止限界または終端方向が変わると以前の保持を解除する。開扉操作でも保持を解除し、今回の受信方式を採用する。開扉操作を確認したtickでは再保持しないが、次tick以降に有効な`Normal`・`Restricted`を採用すれば、同じ停止限界・終端方向でも保持を開始できる。
 
 #### 読み書きする情報（確定）
 
@@ -218,7 +218,7 @@ Inputの`frontTelegram`・`rearTelegram`は、工程2の位置解決に使う両
 | Input | 読む | `hasDoorOpeningOperation`・`doorOpeningOperationRevision`：開扉操作番号の取得可否と、今回確認した番号 |
 | State | 読む | 工程4の採用・保持・使用不可の判定結果と、採用候補の経路情報 |
 | State・Graph | 読む | 現在位置・照査方向とEdgeの接続。停止限界が経路末尾と一致することを確認し、終端方向を求める |
-| State | 読む・更新する | `hasHeldOrp`・`heldStopAtcEdgeId`・`heldStopTravelDirection`：Restricted保持の有無と対象 |
+| State | 読む・更新する | `hasHeldOrp`・`heldProtectionMode`・`heldStopAtcEdgeId`・`heldStopTravelDirection`：防護方式保持の有無・方式・対象 |
 | State | 読む・更新する | `doorOpeningOperationRevision`：処理済みの開扉番号。同じ操作を繰り返し解除の契機にしない |
 | State | 読む・更新する | `overrunProtectionMode`：保持・解除を反映した今回使用する方式。パターン保持時は前回値を維持する |
 | State | 更新する | `isProtectionModeKnown`：方式の確定結果。取得失敗や使用不可の場合はfalseにする |
@@ -432,7 +432,7 @@ ORP表示中は`pattern.isSpeedIndicated`をfalseにし、UI側で速度現示�
 | 2 | `TrainAtcPositionState` | 両端の受電器位置、編成の向き、位置の初期化・更新結果 |
 | 3 | `TrainAtcOperationState` | 操作状態の確認結果、ATC有効状態、使用受電器、選択した位置・進行方向・電文 |
 | 4 | `TrainAtcValidationState` | 入力・受信状態の判定結果、無信号の積算時間、採用・保持・使用不可の判断、採用候補の経路 |
-| 5 | `TrainAtcProtectionModeState` | 使用する防護方式と確定結果、Restricted保持の有無・停止限界・終端方向、処理済み開扉操作番号 |
+| 5 | `TrainAtcProtectionModeState` | 使用する防護方式と確定結果、Normal・Restricted保持の有無・保持方式・停止限界・終端方向、処理済み開扉操作番号 |
 | 6 | `TrainAtcPatternState` | 採用済みの経路・パターン、現在位置の許容速度・目標速度・接近状態 |
 | 7 | `TrainAtcBrakeState` | 常用・非常の要求、目標段・現在段、段変更の経過時間、非常保持 |
 

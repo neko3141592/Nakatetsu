@@ -35,7 +35,19 @@ namespace Nakatetsu.Track.Simulation.Circuit
 
         public bool isValid;
 
-        public readonly Dictionary<(string atcEdgeId, TrackAtcTravelDirection direction), TrackCircuitAtcRouteInfomation> atcRouteInfomation = new();
+        // 地上で選択したEdgeを起点とする、各進行方向の経路。
+        public TrackCircuitAtcRouteInfomation routeAtoB;
+        public TrackCircuitAtcRouteInfomation routeBtoA;
+
+        public TrackCircuitAtcRouteInfomation GetRoute(TrackAtcTravelDirection direction)
+        {
+            return direction switch
+            {
+                TrackAtcTravelDirection.AtoB => routeAtoB,
+                TrackAtcTravelDirection.BtoA => routeBtoA,
+                _ => null
+            };
+        }
 
         // 受信・転送時点の内容を保持するため、進路のリストも複製する。
         public TrackCircuitAtcTelegram Clone()
@@ -43,24 +55,26 @@ namespace Nakatetsu.Track.Simulation.Circuit
             var copy = new TrackCircuitAtcTelegram
             {
                 issuedAtSeconds = issuedAtSeconds,
-                isValid = isValid
+                isValid = isValid,
+                routeAtoB = CopyRoute(routeAtoB),
+                routeBtoA = CopyRoute(routeBtoA)
             };
-            foreach (var pair in atcRouteInfomation)
-            {
-                if (pair.Value == null)
-                {
-                    copy.atcRouteInfomation.Add(pair.Key, null);
-                    continue;
-                }
-
-                copy.atcRouteInfomation.Add(pair.Key, new TrackCircuitAtcRouteInfomation
-                {
-                    atcEdgePath = pair.Value.atcEdgePath == null ? null : new List<string>(pair.Value.atcEdgePath),
-                    stopAtcEdgeId = pair.Value.stopAtcEdgeId,
-                    overrunProtectionMode = pair.Value.overrunProtectionMode
-                });
-            }
             return copy;
+        }
+
+        private static TrackCircuitAtcRouteInfomation CopyRoute(TrackCircuitAtcRouteInfomation route)
+        {
+            if (route == null)
+            {
+                return null;
+            }
+
+            return new TrackCircuitAtcRouteInfomation
+            {
+                atcEdgePath = route.atcEdgePath == null ? null : new List<string>(route.atcEdgePath),
+                stopAtcEdgeId = route.stopAtcEdgeId,
+                overrunProtectionMode = route.overrunProtectionMode
+            };
         }
     }
 }

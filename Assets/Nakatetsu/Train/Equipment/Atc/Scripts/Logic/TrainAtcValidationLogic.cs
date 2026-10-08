@@ -125,10 +125,11 @@ namespace Nakatetsu.Train.Equipment.Atc
                 return false;
             }
 
-            // 電文には軌道回路IDがないため、現在Edgeと照査方向のキーで対応を確認する。
+            // 地上で選択済みの経路を照査方向から読み、現在Edgeと起点を照合する。
             // 接続不正や方式不正は、読めた後の工程5・6で判定する。
-            return telegram.atcRouteInfomation.TryGetValue(
-                (position.atcEdgeId, operation.currentTravelDirection), out route) && route != null;
+            route = telegram.GetRoute(operation.currentTravelDirection);
+            return route != null && route.atcEdgePath != null && route.atcEdgePath.Count > 0 &&
+                route.atcEdgePath[0] == position.atcEdgeId;
         }
 
         private static void UpdateNoSignalTime(TrainAtcContext context, bool hasRoute)

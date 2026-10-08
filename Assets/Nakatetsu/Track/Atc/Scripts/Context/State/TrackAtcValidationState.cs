@@ -21,7 +21,7 @@ namespace Nakatetsu.Track.Atc
         public Dictionary<string, TrackAtcRouteDefinition> atcRoutesById = new();
 
         // 進路の設定状態に依存しない、Edgeごとの経路探索に使用できる方向。
-        // BlockはEdge定義、Interlockingは静的な進路定義から求め、重複を除く。
+        // BlockはEdge定義、Interlockingは進路の進入方向とEdge列から求め、重複を除く。
         // 進路未設定時の単一Edge・Noneの双方向停止結果は、工程3で別途生成する。
         public Dictionary<string, HashSet<TrackEdgeTravelDirection>> directionsByAtcEdgeId = new();
 

@@ -47,37 +47,25 @@ MonoBehaviour:
     routes:
     - atcRouteId: 21T-1RT
       interlockingRouteId: 21T-1RT
-      path:
-      - trackEdgeId: nt-approach
-        entryDistanceOnGeometryM: 1000
-        exitDistanceOnGeometryM: 1020
-      - trackEdgeId: nt-loop
-        entryDistanceOnGeometryM: 1020
-        exitDistanceOnGeometryM: 1400
+      trackCircuitIds:
+      - 21T
+      - 1RT
+      entryDirection: 0
     - atcRouteId: 21T-2RT
       interlockingRouteId: 21T-2RT
-      path:
-      - trackEdgeId: nt-approach
-        entryDistanceOnGeometryM: 1000
-        exitDistanceOnGeometryM: 1020
-      - trackEdgeId: nt-main
-        entryDistanceOnGeometryM: 1020
-        exitDistanceOnGeometryM: 1400
+      trackCircuitIds:
+      - 21T
+      - 2RT
+      entryDirection: 0
     - atcRouteId: 1RT-22T
       interlockingRouteId: 1RT-22T
-      path:
-      - trackEdgeId: nt-loop
-        entryDistanceOnGeometryM: 1120
-        exitDistanceOnGeometryM: 1500
-      - trackEdgeId: nt-exit
-        entryDistanceOnGeometryM: 1500
-        exitDistanceOnGeometryM: 1520
+      trackCircuitIds:
+      - 1RT
+      - 22T
+      entryDirection: 0
     - atcRouteId: 2RT-22T
       interlockingRouteId: 2RT-22T
-      path:
-      - trackEdgeId: nt-main
-        entryDistanceOnGeometryM: 1120
-        exitDistanceOnGeometryM: 1500
-      - trackEdgeId: nt-exit
-        entryDistanceOnGeometryM: 1500
-        exitDistanceOnGeometryM: 1520
+      trackCircuitIds:
+      - 2RT
+      - 22T
+      entryDirection: 0

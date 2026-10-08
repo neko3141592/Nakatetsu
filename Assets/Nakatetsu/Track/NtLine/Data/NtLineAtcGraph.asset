@@ -20,7 +20,81 @@ MonoBehaviour:
     atcGraphId: NtLineAtc
     maximumOperatingSpeedKmh: 105
     atcEdge:
-    - atcEdgeId: edge:nt-approach:0:1000
+    - atcEdgeId: edge:1RT
+      trackCircuitId: 1RT
+      controlKind: 2
+      direction: 0
+      lengthM: 280
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 280
+        speedLimitKmh: 45
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      atcNodeAId: boundary:nt-loop:100.665337
+      atcNodeBId: boundary:nt-loop:380.665344
+      physicalSpans:
+      - trackEdgeId: nt-loop
+        startDistanceOnEdgeM: 100.66534
+        endDistanceOnEdgeM: 380.66534
+    - atcEdgeId: edge:20T
       trackCircuitId: 20T
       controlKind: 1
       direction: 1
@@ -234,17 +308,70 @@ MonoBehaviour:
         gradientPermille: 0
       atcNodeAId: node:nt-start
       atcNodeBId: boundary:nt-approach:1000
-      trackEdgeId: nt-approach
-      startDistanceOnEdgeM: 0
-      endDistanceOnEdgeM: 1000
-    - atcEdgeId: edge:nt-approach:1000:1020
+      physicalSpans:
+      - trackEdgeId: nt-approach
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 1000
+    - atcEdgeId: edge:21T:0
       trackCircuitId: 21T
       controlKind: 2
       direction: 0
-      lengthM: 20
+      lengthM: 120.66534
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
         endDistanceOnAtcEdgeM: 20
+        speedLimitKmh: 120
+      - startDistanceOnAtcEdgeM: 20
+        endDistanceOnAtcEdgeM: 120.66534
+        speedLimitKmh: 25
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70.33267
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.66534
+        gradientPermille: 0
+      atcNodeAId: boundary:nt-approach:1000
+      atcNodeBId: boundary:nt-loop:100.665337
+      physicalSpans:
+      - trackEdgeId: nt-approach
+        startDistanceOnEdgeM: 1000
+        endDistanceOnEdgeM: 1020
+      - trackEdgeId: nt-loop
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 100.66534
+    - atcEdgeId: edge:21T:1
+      trackCircuitId: 21T
+      controlKind: 2
+      direction: 0
+      lengthM: 120
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 120
         speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
@@ -253,19 +380,46 @@ MonoBehaviour:
         gradientPermille: 0
       - distanceOnAtcEdgeM: 20
         gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
       atcNodeAId: boundary:nt-approach:1000
-      atcNodeBId: node:turnout-21
-      trackEdgeId: nt-approach
-      startDistanceOnEdgeM: 1000
-      endDistanceOnEdgeM: 1020
-    - atcEdgeId: edge:nt-exit:0:20
+      atcNodeBId: boundary:nt-main:100
+      physicalSpans:
+      - trackEdgeId: nt-approach
+        startDistanceOnEdgeM: 1000
+        endDistanceOnEdgeM: 1020
+      - trackEdgeId: nt-main
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 100
+    - atcEdgeId: edge:22T:0
       trackCircuitId: 22T
       controlKind: 2
       direction: 0
-      lengthM: 20
+      lengthM: 120.665344
       speedLimitSections:
       - startDistanceOnAtcEdgeM: 0
-        endDistanceOnAtcEdgeM: 20
+        endDistanceOnAtcEdgeM: 100.665344
+        speedLimitKmh: 25
+      - startDistanceOnAtcEdgeM: 100.665344
+        endDistanceOnAtcEdgeM: 120.665344
         speedLimitKmh: 120
       gradientProfiles:
       - distanceOnAtcEdgeM: 0
@@ -274,12 +428,85 @@ MonoBehaviour:
         gradientPermille: 0
       - distanceOnAtcEdgeM: 20
         gradientPermille: 0
-      atcNodeAId: node:turnout-22
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50.332672
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100.665344
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.665344
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.665344
+        gradientPermille: 0
+      atcNodeAId: boundary:nt-loop:380.665344
       atcNodeBId: boundary:nt-exit:20
-      trackEdgeId: nt-exit
-      startDistanceOnEdgeM: 0
-      endDistanceOnEdgeM: 20
-    - atcEdgeId: edge:nt-exit:20:1020
+      physicalSpans:
+      - trackEdgeId: nt-loop
+        startDistanceOnEdgeM: 380.66534
+        endDistanceOnEdgeM: 481.3307
+      - trackEdgeId: nt-exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 20
+    - atcEdgeId: edge:22T:1
+      trackCircuitId: 22T
+      controlKind: 2
+      direction: 0
+      lengthM: 120
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 120
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      atcNodeAId: boundary:nt-main:380
+      atcNodeBId: boundary:nt-exit:20
+      physicalSpans:
+      - trackEdgeId: nt-main
+        startDistanceOnEdgeM: 380
+        endDistanceOnEdgeM: 480
+      - trackEdgeId: nt-exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 20
+    - atcEdgeId: edge:23T
       trackCircuitId: 23T
       controlKind: 1
       direction: 1
@@ -493,202 +720,11 @@ MonoBehaviour:
         gradientPermille: 0
       atcNodeAId: boundary:nt-exit:20
       atcNodeBId: node:nt-end
-      trackEdgeId: nt-exit
-      startDistanceOnEdgeM: 20
-      endDistanceOnEdgeM: 1020
-    - atcEdgeId: edge:nt-loop:0:100.665337
-      trackCircuitId: 21T
-      controlKind: 2
-      direction: 0
-      lengthM: 100.66534
-      speedLimitSections:
-      - startDistanceOnAtcEdgeM: 0
-        endDistanceOnAtcEdgeM: 100.66534
-        speedLimitKmh: 25
-      gradientProfiles:
-      - distanceOnAtcEdgeM: 0
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 10
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 20
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 30
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 40
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50.33267
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 60
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 70
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 80
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 90
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100.66534
-        gradientPermille: 0
-      atcNodeAId: node:turnout-21
-      atcNodeBId: boundary:nt-loop:100.665337
-      trackEdgeId: nt-loop
-      startDistanceOnEdgeM: 0
-      endDistanceOnEdgeM: 100.66534
-    - atcEdgeId: edge:nt-loop:100.665337:380.665344
-      trackCircuitId: 1RT
-      controlKind: 2
-      direction: 0
-      lengthM: 280
-      speedLimitSections:
-      - startDistanceOnAtcEdgeM: 0
-        endDistanceOnAtcEdgeM: 280
-        speedLimitKmh: 45
-      gradientProfiles:
-      - distanceOnAtcEdgeM: 0
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 10
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 20
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 30.000008
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 40.000008
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50.000008
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 60.000008
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 70.00001
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 80.00001
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 90.00001
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100.00001
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 110.00001
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 120.00001
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 130
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 140
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 150
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 160
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 170
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 180
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 190
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 200
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 210
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 220
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 230
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 240
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 250
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 260
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 270
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 280
-        gradientPermille: 0
-      atcNodeAId: boundary:nt-loop:100.665337
-      atcNodeBId: boundary:nt-loop:380.665344
-      trackEdgeId: nt-loop
-      startDistanceOnEdgeM: 100.66534
-      endDistanceOnEdgeM: 380.66534
-    - atcEdgeId: edge:nt-loop:380.665344:481.3307
-      trackCircuitId: 22T
-      controlKind: 2
-      direction: 0
-      lengthM: 100.665344
-      speedLimitSections:
-      - startDistanceOnAtcEdgeM: 0
-        endDistanceOnAtcEdgeM: 100.665344
-        speedLimitKmh: 25
-      gradientProfiles:
-      - distanceOnAtcEdgeM: 0
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 10
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 20
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 30
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 40
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50.332672
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 60
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 70
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 80
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 90
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100.665344
-        gradientPermille: 0
-      atcNodeAId: boundary:nt-loop:380.665344
-      atcNodeBId: node:turnout-22
-      trackEdgeId: nt-loop
-      startDistanceOnEdgeM: 380.66534
-      endDistanceOnEdgeM: 481.3307
-    - atcEdgeId: edge:nt-main:0:100
-      trackCircuitId: 21T
-      controlKind: 2
-      direction: 0
-      lengthM: 100
-      speedLimitSections:
-      - startDistanceOnAtcEdgeM: 0
-        endDistanceOnAtcEdgeM: 100
-        speedLimitKmh: 120
-      gradientProfiles:
-      - distanceOnAtcEdgeM: 0
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 10
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 20
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 30
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 40
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 60
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 70
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 80
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 90
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100
-        gradientPermille: 0
-      atcNodeAId: node:turnout-21
-      atcNodeBId: boundary:nt-main:100
-      trackEdgeId: nt-main
-      startDistanceOnEdgeM: 0
-      endDistanceOnEdgeM: 100
-    - atcEdgeId: edge:nt-main:100:380
+      physicalSpans:
+      - trackEdgeId: nt-exit
+        startDistanceOnEdgeM: 20
+        endDistanceOnEdgeM: 1020
+    - atcEdgeId: edge:2RT
       trackCircuitId: 2RT
       controlKind: 2
       direction: 0
@@ -758,109 +794,65 @@ MonoBehaviour:
         gradientPermille: 0
       atcNodeAId: boundary:nt-main:100
       atcNodeBId: boundary:nt-main:380
-      trackEdgeId: nt-main
-      startDistanceOnEdgeM: 100
-      endDistanceOnEdgeM: 380
-    - atcEdgeId: edge:nt-main:380:480
-      trackCircuitId: 22T
-      controlKind: 2
-      direction: 0
-      lengthM: 100
-      speedLimitSections:
-      - startDistanceOnAtcEdgeM: 0
-        endDistanceOnAtcEdgeM: 100
-        speedLimitKmh: 120
-      gradientProfiles:
-      - distanceOnAtcEdgeM: 0
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 10
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 20
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 30
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 40
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 50
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 60
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 70
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 80
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 90
-        gradientPermille: 0
-      - distanceOnAtcEdgeM: 100
-        gradientPermille: 0
-      atcNodeAId: boundary:nt-main:380
-      atcNodeBId: node:turnout-22
-      trackEdgeId: nt-main
-      startDistanceOnEdgeM: 380
-      endDistanceOnEdgeM: 480
+      physicalSpans:
+      - trackEdgeId: nt-main
+        startDistanceOnEdgeM: 100
+        endDistanceOnEdgeM: 380
     atcNode:
-    - atcNodeId: node:nt-start
-      connectedAtcEdgeIds:
-      - edge:nt-approach:0:1000
-    - atcNodeId: boundary:nt-approach:1000
-      connectedAtcEdgeIds:
-      - edge:nt-approach:0:1000
-      - edge:nt-approach:1000:1020
-    - atcNodeId: node:turnout-21
-      connectedAtcEdgeIds:
-      - edge:nt-approach:1000:1020
-      - edge:nt-loop:0:100.665337
-      - edge:nt-main:0:100
-    - atcNodeId: node:turnout-22
-      connectedAtcEdgeIds:
-      - edge:nt-exit:0:20
-      - edge:nt-loop:380.665344:481.3307
-      - edge:nt-main:380:480
-    - atcNodeId: boundary:nt-exit:20
-      connectedAtcEdgeIds:
-      - edge:nt-exit:0:20
-      - edge:nt-exit:20:1020
-    - atcNodeId: node:nt-end
-      connectedAtcEdgeIds:
-      - edge:nt-exit:20:1020
     - atcNodeId: boundary:nt-loop:100.665337
       connectedAtcEdgeIds:
-      - edge:nt-loop:0:100.665337
-      - edge:nt-loop:100.665337:380.665344
+      - edge:1RT
+      - edge:21T:0
     - atcNodeId: boundary:nt-loop:380.665344
       connectedAtcEdgeIds:
-      - edge:nt-loop:100.665337:380.665344
-      - edge:nt-loop:380.665344:481.3307
+      - edge:1RT
+      - edge:22T:0
+    - atcNodeId: node:nt-start
+      connectedAtcEdgeIds:
+      - edge:20T
+    - atcNodeId: boundary:nt-approach:1000
+      connectedAtcEdgeIds:
+      - edge:20T
+      - edge:21T:0
+      - edge:21T:1
     - atcNodeId: boundary:nt-main:100
       connectedAtcEdgeIds:
-      - edge:nt-main:0:100
-      - edge:nt-main:100:380
+      - edge:21T:1
+      - edge:2RT
+    - atcNodeId: boundary:nt-exit:20
+      connectedAtcEdgeIds:
+      - edge:22T:0
+      - edge:22T:1
+      - edge:23T
     - atcNodeId: boundary:nt-main:380
       connectedAtcEdgeIds:
-      - edge:nt-main:100:380
-      - edge:nt-main:380:480
+      - edge:22T:1
+      - edge:2RT
+    - atcNodeId: node:nt-end
+      connectedAtcEdgeIds:
+      - edge:23T
     routes:
     - atcRouteId: 1RT-22T
       interlockingRouteId: 1RT-22T
+      entryDirection: 1
       atcEdgeIds:
-      - edge:nt-loop:100.665337:380.665344
-      - edge:nt-loop:380.665344:481.3307
-      - edge:nt-exit:0:20
+      - edge:1RT
+      - edge:22T:0
     - atcRouteId: 21T-1RT
       interlockingRouteId: 21T-1RT
+      entryDirection: 1
       atcEdgeIds:
-      - edge:nt-approach:1000:1020
-      - edge:nt-loop:0:100.665337
-      - edge:nt-loop:100.665337:380.665344
+      - edge:21T:0
+      - edge:1RT
     - atcRouteId: 21T-2RT
       interlockingRouteId: 21T-2RT
+      entryDirection: 1
       atcEdgeIds:
-      - edge:nt-approach:1000:1020
-      - edge:nt-main:0:100
-      - edge:nt-main:100:380
+      - edge:21T:1
+      - edge:2RT
     - atcRouteId: 2RT-22T
       interlockingRouteId: 2RT-22T
+      entryDirection: 1
       atcEdgeIds:
-      - edge:nt-main:100:380
-      - edge:nt-main:380:480
-      - edge:nt-exit:0:20
+      - edge:2RT
+      - edge:22T:1

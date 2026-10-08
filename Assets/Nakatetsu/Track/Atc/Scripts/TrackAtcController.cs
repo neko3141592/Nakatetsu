@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nakatetsu.Core.Simulation;
 using Nakatetsu.Core.Time;
+using Nakatetsu.Track.Graph;
 using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
@@ -38,6 +39,7 @@ namespace Nakatetsu.Track.Atc
                 : double.NaN;
             input.OccupiedByCircuitId.Clear();
             input.RoutesById.Clear();
+            input.PhysicalPathAvailableByAtcEdgeId.Clear();
 
             if (trackCircuitSimulation != null)
             {
@@ -46,6 +48,8 @@ namespace Nakatetsu.Track.Atc
                     input.OccupiedByCircuitId.Add(pair.Key, pair.Value);
                 }
             }
+
+            CollectPhysicalPathAvailability(input);
 
             foreach (TrackInterlockingController interlocking in interlockings)
             {
@@ -75,6 +79,66 @@ namespace Nakatetsu.Track.Atc
                     // コンパイル時と同様に、連動装置を跨いでも進路IDは一意とする。
                     input.RoutesById.Add(routeId, routeInput);
                 }
+            }
+        }
+
+        private void CollectPhysicalPathAvailability(TrackAtcInput input)
+        {
+            if (trackConnectionController == null || !trackConnectionController.IsInitialized ||
+                context.Graph?.atcEdge == null)
+            {
+                return;
+            }
+
+            var graphController = trackConnectionController.GetComponent<TrackGraphController>();
+            var trackGraph = graphController != null ? graphController.Context : null;
+            if (trackGraph == null || !trackGraph.IsInitialized)
+            {
+                return;
+            }
+
+            foreach (var edge in context.Graph.atcEdge)
+            {
+                if (edge?.physicalSpans == null || edge.physicalSpans.Count < 2)
+                {
+                    continue;
+                }
+
+                bool connected = true;
+                for (int i = 1; i < edge.physicalSpans.Count; i++)
+                {
+                    var previous = edge.physicalSpans[i - 1];
+                    var next = edge.physicalSpans[i];
+                    if (previous == null || next == null ||
+                        !trackGraph.TryGetEdge(previous.trackEdgeId, out var previousEdge) ||
+                        !trackGraph.TryGetEdge(next.trackEdgeId, out var nextEdge))
+                    {
+                        connected = false;
+                        break;
+                    }
+
+                    if (previous.trackEdgeId == next.trackEdgeId)
+                    {
+                        connected = previous.endDistanceOnEdgeM == next.startDistanceOnEdgeM;
+                    }
+                    else
+                    {
+                        string previousExit = previous.endDistanceOnEdgeM > previous.startDistanceOnEdgeM
+                            ? previousEdge.nodeBId : previousEdge.nodeAId;
+                        string nextEntry = next.endDistanceOnEdgeM > next.startDistanceOnEdgeM
+                            ? nextEdge.nodeAId : nextEdge.nodeBId;
+                        connected = previousExit == nextEntry &&
+                            trackConnectionController.TryResolveNextEdge(previousExit, previous.trackEdgeId,
+                                out string connectedEdgeId, out _) && connectedEdgeId == next.trackEdgeId;
+                    }
+
+                    if (!connected)
+                    {
+                        break;
+                    }
+                }
+
+                input.PhysicalPathAvailableByAtcEdgeId[edge.atcEdgeId] = connected;
             }
         }
 

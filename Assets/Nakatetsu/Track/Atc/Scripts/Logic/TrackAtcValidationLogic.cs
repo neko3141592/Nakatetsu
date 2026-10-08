@@ -176,7 +176,8 @@ namespace Nakatetsu.Track.Atc
             {
                 if (route == null || string.IsNullOrWhiteSpace(route.atcRouteId)
                     || string.IsNullOrWhiteSpace(route.interlockingRouteId)
-                    || route.atcEdgeIds == null || route.atcEdgeIds.Count < 2
+                    || route.atcEdgeIds == null || route.atcEdgeIds.Count == 0
+                    || !TryConvertDirection(route.entryDirection, out _)
                     || !state.atcRoutesById.TryAdd(route.atcRouteId, route))
                 {
                     failureReason = "ATC進路のID、連動進路ID、Edge列、またはIDの一意性が不正。";
@@ -254,6 +255,11 @@ namespace Nakatetsu.Track.Atc
             out TrackEdgeTravelDirection[] directions)
         {
             directions = new TrackEdgeTravelDirection[route.atcEdgeIds.Count];
+            if (!TryConvertDirection(route.entryDirection, out directions[0]))
+            {
+                return false;
+            }
+
             for (int i = 0; i < route.atcEdgeIds.Count - 1; i++)
             {
                 var current = edgesById[route.atcEdgeIds[i]];
@@ -270,7 +276,7 @@ namespace Nakatetsu.Track.Atc
                 var currentDirection = sharedA
                     ? TrackEdgeTravelDirection.BtoA
                     : TrackEdgeTravelDirection.AtoB;
-                if (i > 0 && directions[i] != currentDirection)
+                if (directions[i] != currentDirection)
                 {
                     // 同じ端点から進入・退出する列は、途中Edgeを逆転するため進路にできない。
                     return false;

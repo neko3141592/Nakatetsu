@@ -126,17 +126,17 @@ TIMSの`BrakeControlDeviceTimsBusSource.MassKgKey`は空車質量を含む測定
 
 両端の受電器はSimulation側で物理位置にある軌道回路から電文を取得する。車上ATCはその受電結果を直接参照し、車上の両端保持位置は測定速度で更新する。
 
-電文の経路キーは`(atcEdgeId, TrackAtcTravelDirection)`とする。`TrackAtcTravelDirection`と`OverrunProtectionMode`はCircuit側の定義を使用する。電文自体には軌道回路IDがないため、現在Edgeの軌道回路IDが定義されていることを確認し、Edge IDと照査方向のキーに対応する経路を読む。
+電文は地上で選択したEdgeを起点とする`routeAtoB`・`routeBtoA`を直接持つ。車上は照査方向で`GetRoute()`から経路を取得し、`atcEdgePath[0]`が現在位置のEdgeと一致することを確認する。Edge ID・方向をキーとする辞書は使わない。`TrackAtcTravelDirection`と`OverrunProtectionMode`はCircuit側の定義を使用する。
 
 ## 位置の初期化・更新
 
 `TrainSimulationController`は編成内のATCを一つ収集し、固定前後の受電器と速度センサーを接続する。固定前側の速度センサーを優先し、存在しなければ号車indexが最小のセンサーを使用する。
 
-最初の`Calculate()`で移動処理より前に一度だけ受電器位置の`TrainTrackSample`を取得する。`TrainAtcInitializationLogic.TryResolvePosition()`が物理Edge ID・位置をATC Edge ID・Edge内位置へ変換し、`FrontFacesAtoB`を編成の向きとして渡す。変換はSimulation側に置き、車上Logicから物理状態を読み直さない。
+最初の電文を受信してから、受電器位置の`TrainTrackSample`を初期位置へ変換する。`TrainAtcInitializationLogic.TryResolvePosition()`が物理Edge ID・位置をATC Edge ID・Edge内位置へ変換し、`FrontFacesAtoB`を編成の向きとして渡す。結合Edgeの`physicalSpans`で累積距離と向きを変換する。共通部分で複数のEdgeに対応する場合は、受信経路の先頭Edgeを選択の手掛かりにする。変換はSimulation側に置き、車上Logicから物理状態を読み直さない。
 
-ATC Graphは`TrainSimulationController`の`Atc Graph Asset`に割り当てる。`TrainAtcLogic.TryInitializePosition()`はGraphからEdge辞書を作り、Graphと線区最高速度をContextへ設定して、PositionLogicへ初期位置を渡す。初期化・位置補正の成功は戻り値で確認する。開始時の自動初期化を繰り返す処理は設けない。
+ATC Graphは`TrainSimulationController`の`Atc Graph Asset`に割り当てる。`TrainAtcLogic.TryInitializePosition()`はGraphからEdge辞書を作り、Graphと線区最高速度をContextへ設定して、PositionLogicへ初期位置を渡す。初期化・位置補正の成功は戻り値で確認する。開始時にまだ位置を一意に解決できない場合は、受信が揃ってから初期化する。初期化完了後に実位置から自動補正する処理は設けない。
 
-以降は`TrainAtcPositionLogic.UpdatePosition()`が測定速度×経過時間で両端位置を更新する。実際の移動方向は測定速度の符号から決める。Edge境界では両端電文・前回採用経路・Graphの順に分岐を解決し、移動先を一意に特定できる場合は進路未開通でも更新する。
+以降は`TrainAtcPositionLogic.UpdatePosition()`が測定速度×経過時間で両端位置を更新する。共通部分で選択Edgeが変わった場合は、保持位置を旧Edgeの物理区間へ対応させ、新Edge上の同じ位置へ変換する。分岐後に他方の枝へ位置を付け替えない。実際の移動方向は測定速度の符号から決める。Edge境界では両端電文・前回採用経路・Graphの順に分岐を解決し、移動先を一意に特定できる場合は進路未開通でも更新する。
 
 両端の更新が成功した場合だけ新しい位置を採用する。失敗時は最後に確認できた両端位置を保持し、`State.position.isPositionKnown`をfalseにする。位置不明からの復帰は`TryCorrectPosition()`で明示的に行う。
 
@@ -160,7 +160,7 @@ ATC Graphは`TrainSimulationController`の`Atc Graph Asset`に割り当てる。
 | `State.position` | `TrainAtcPositionLogic`。両端位置、初期化済み・位置把握の結果 |
 | `State.operation` | `TrainAtcOperationLogic`。操作状態、電源・有効状態、使用受電器、現在の照査位置・方向・電文 |
 | `State.validation` | `TrainAtcValidationLogic`。入力正常性、無信号時間、Adopt・Retain・Unusable、候補経路と確認済みの計算入力 |
-| `State.protectionMode` | `TrainAtcProtectionModeLogic`。Normal・Restricted・Noneと、その確定結果 |
+| `State.protectionMode` | `TrainAtcProtectionModeLogic`。Normal・Restricted・Noneと、その確定結果、保持方式・停止限界・終端方向、処理済み開扉操作番号 |
 | `State.pattern` | `TrainAtcPatternLogic`。採用経路、常用・非常・独立ORPのサンプル、現在位置の許容・目標速度、接近・降下状態 |
 | `State.brake` | `TrainAtcBrakeLogic`。常用・非常要求、非常保持、目標段・現在段、ヒステリシス履歴と待ち時間 |
 | `State.isAtcHealthy` | `TrainAtcLogic`。各工程で確定した結果を集約した全体の正常性 |

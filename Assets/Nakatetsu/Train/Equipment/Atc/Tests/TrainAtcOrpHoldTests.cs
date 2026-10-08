@@ -8,49 +8,63 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
 {
     public sealed class TrainAtcOrpHoldTests
     {
-        [TestCase(OverrunProtectionMode.None)]
-        [TestCase(OverrunProtectionMode.Normal)]
-        public void SameTerminalRetainsRestrictedAndDoesNotRewriteTelegram(OverrunProtectionMode receivedMode)
+        [Test]
+        public void SameTerminalRetainsRestrictedAndDoesNotRewriteTelegram()
         {
             var context = CreateContext();
             Receive(context, OverrunProtectionMode.Restricted, TrackAtcTravelDirection.AtoB, "a", "b", "c");
-            Receive(context, receivedMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
 
             AssertRestricted(context);
-            Assert.That(context.Input.frontTelegram.atcRouteInfomation[("a", TrackAtcTravelDirection.AtoB)]
-                .overrunProtectionMode, Is.EqualTo(receivedMode));
+            Assert.That(context.Input.frontTelegram.routeAtoB
+                .overrunProtectionMode, Is.EqualTo(OverrunProtectionMode.None));
             TrainAtcLogic.Calculate(context);
             AssertRestricted(context);
         }
 
         [Test]
-        public void NormalAndInitiallyNoneDoNotStartOrpHold()
+        public void InitiallyNoneDoesNotStartProtectionHold()
         {
             var context = CreateContext();
-            Receive(context, OverrunProtectionMode.Normal, TrackAtcTravelDirection.AtoB, "a", "b", "c");
-            Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
-            AssertNone(context);
-
-            context = CreateContext();
             Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             AssertNone(context);
         }
 
-        [Test]
-        public void NewTerminalAdoptsReceivedMode()
+        [TestCase(OverrunProtectionMode.Normal, OverrunProtectionMode.Restricted)]
+        [TestCase(OverrunProtectionMode.Restricted, OverrunProtectionMode.Normal)]
+        public void ExplicitProtectionModeReplacesHeldModeAndNoneRetainsLatest(
+            OverrunProtectionMode initialMode, OverrunProtectionMode newMode)
         {
             var context = CreateContext();
-            Receive(context, OverrunProtectionMode.Restricted, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            Receive(context, initialMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            AssertProtection(context, initialMode);
+
+            Receive(context, newMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            AssertProtection(context, newMode);
+            Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            AssertProtection(context, newMode);
+            Assert.That(context.Input.frontTelegram.routeAtoB.overrunProtectionMode,
+                Is.EqualTo(OverrunProtectionMode.None));
+        }
+
+        [TestCase(OverrunProtectionMode.Normal)]
+        [TestCase(OverrunProtectionMode.Restricted)]
+        public void NewTerminalAdoptsReceivedMode(OverrunProtectionMode initialMode)
+        {
+            var context = CreateContext();
+            Receive(context, initialMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b");
             AssertNone(context);
             Assert.That(context.State.pattern.atcEdgePath, Is.EqualTo(new[] { "a", "b" }));
         }
 
-        [Test]
-        public void OppositeDirectionOnSameTerminalAdoptsReceivedMode()
+        [TestCase(OverrunProtectionMode.Normal)]
+        [TestCase(OverrunProtectionMode.Restricted)]
+        public void OppositeDirectionOnSameTerminalAdoptsReceivedMode(OverrunProtectionMode initialMode)
         {
             var context = CreateContext();
-            Receive(context, OverrunProtectionMode.Restricted, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            Receive(context, initialMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             Correct(context, "c", false);
             Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.BtoA, "c");
             AssertNone(context);
@@ -80,20 +94,21 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             Assert.That(context.State.pattern.atcEdgePath, Is.EqualTo(new[] { terminal }));
         }
 
-        [Test]
-        public void OpeningReleasesOldHoldAndLaterRestrictedCanHoldSameTargetAgain()
+        [TestCase(OverrunProtectionMode.Normal)]
+        [TestCase(OverrunProtectionMode.Restricted)]
+        public void OpeningReleasesOldHoldAndLaterProtectionCanHoldSameTargetAgain(OverrunProtectionMode initialMode)
         {
             var context = CreateContext();
-            Receive(context, OverrunProtectionMode.Restricted, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            Receive(context, initialMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             context.Input.doorOpeningOperationRevision++;
             context.Input.areAllDoorsClosed = false;
             Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             AssertNone(context);
 
             // 開扉状態が続くだけでは毎tick解除しない。同じ着点でも新たに保持できる。
-            Receive(context, OverrunProtectionMode.Restricted, TrackAtcTravelDirection.AtoB, "a", "b", "c");
+            Receive(context, initialMode, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             Receive(context, OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
-            AssertRestricted(context);
+            AssertProtection(context, initialMode);
         }
 
         [TestCase(false)]
@@ -177,7 +192,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             var context = CreateContext();
             Receive(context, OverrunProtectionMode.Restricted, TrackAtcTravelDirection.AtoB, "a", "b", "c");
             var telegram = Telegram(OverrunProtectionMode.None, TrackAtcTravelDirection.AtoB, "a", "b", "c");
-            var route = telegram.atcRouteInfomation[("a", TrackAtcTravelDirection.AtoB)];
+            var route = telegram.routeAtoB;
             switch (invalidPart)
             {
                 case "mode": route.overrunProtectionMode = (OverrunProtectionMode)99; break;
@@ -298,12 +313,20 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             OverrunProtectionMode mode, TrackAtcTravelDirection direction, params string[] path)
         {
             var telegram = new TrackCircuitAtcTelegram { isValid = true };
-            telegram.atcRouteInfomation.Add((path[0], direction), new TrackCircuitAtcRouteInfomation
+            var route = new TrackCircuitAtcRouteInfomation
             {
                 atcEdgePath = new List<string>(path),
                 stopAtcEdgeId = path[path.Length - 1],
                 overrunProtectionMode = mode
-            });
+            };
+            if (direction == TrackAtcTravelDirection.AtoB)
+            {
+                telegram.routeAtoB = route;
+            }
+            else
+            {
+                telegram.routeBtoA = route;
+            }
             return telegram;
         }
 
@@ -314,6 +337,24 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             Assert.That(context.State.protectionMode.overrunProtectionMode, Is.EqualTo(OverrunProtectionMode.Restricted));
             Assert.That(context.State.pattern.isValid, Is.True);
             Assert.That(context.State.pattern.orpPattern.samples.Count, Is.GreaterThan(1));
+        }
+
+        private static void AssertProtection(TrainAtcContext context, OverrunProtectionMode mode)
+        {
+            Assert.That(context.State.isAtcHealthy, Is.True);
+            Assert.That(context.State.protectionMode.isProtectionModeKnown, Is.True);
+            Assert.That(context.State.protectionMode.overrunProtectionMode, Is.EqualTo(mode));
+            Assert.That(context.State.protectionMode.hasHeldOrp, Is.True);
+            Assert.That(context.State.protectionMode.heldProtectionMode, Is.EqualTo(mode));
+            Assert.That(context.State.pattern.isValid, Is.True);
+            if (mode == OverrunProtectionMode.Restricted)
+            {
+                Assert.That(context.State.pattern.orpPattern.samples.Count, Is.GreaterThan(1));
+            }
+            else
+            {
+                Assert.That(context.State.pattern.orpPattern.samples, Is.Empty);
+            }
         }
 
         private static void AssertNone(TrainAtcContext context)

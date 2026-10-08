@@ -167,7 +167,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             context.Input.brakeSettings.maximumServiceBrakeStep = 1;
             context.Input.brakeSettings.brakeTargetDecelerationsMps2.Add(0.5f);
             context.Input.frontTelegram = Telegram("a", TrackAtcTravelDirection.AtoB, "a", "c");
-            context.Input.frontTelegram.atcRouteInfomation[("a", TrackAtcTravelDirection.AtoB)]
+            context.Input.frontTelegram.routeAtoB
                 .overrunProtectionMode = OverrunProtectionMode.Normal;
             context.Input.deltaTimeSeconds = 0f;
             TrainAtcLogic.Calculate(context);
@@ -355,6 +355,151 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(50f));
         }
 
+        [TestCase(0f, 15f, 5f)]
+        [TestCase(10f, 25f, 15f)]
+        public void CommonSpanRebindsBothEndsToSelectedBranchBeforeOdometry(
+            float signedSpeedMps, float expectedFront, float expectedRear)
+        {
+            var context = CreateContext(CreateCompositeTurnout(), 15f, 5f, true, "normal");
+            context.Input.signedSpeedMps = signedSpeedMps;
+            context.Input.frontTelegram = Telegram("reverse", TrackAtcTravelDirection.AtoB, "reverse");
+            context.Input.rearTelegram = context.Input.frontTelegram.Clone();
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.position.frontPosition.atcEdgeId, Is.EqualTo("reverse"));
+            Assert.That(context.State.position.rearPosition.atcEdgeId, Is.EqualTo("reverse"));
+            Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(expectedFront));
+            Assert.That(context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(expectedRear));
+            Assert.That(context.State.position.frontPosition.frontFacesAtoB, Is.True);
+            Assert.That(context.State.position.isPositionKnown, Is.True);
+        }
+
+        [Test]
+        public void PositionAfterBranchDoesNotRebindToOtherBranch()
+        {
+            var context = CreateContext(CreateCompositeTurnout(), 45f, 30f, true, "normal");
+            context.Input.signedSpeedMps = 10f;
+            context.Input.frontTelegram = Telegram("reverse", TrackAtcTravelDirection.AtoB, "reverse");
+            context.Input.rearTelegram = context.Input.frontTelegram.Clone();
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.position.frontPosition.atcEdgeId, Is.EqualTo("normal"));
+            Assert.That(context.State.position.rearPosition.atcEdgeId, Is.EqualTo("normal"));
+            Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(55f));
+            Assert.That(context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(40f));
+            Assert.That(context.State.position.isPositionKnown, Is.True);
+        }
+
+        [Test]
+        public void SharedSpanBoundaryCanStillAdoptSelectedEdge()
+        {
+            var context = CreateContext(CreateCompositeTurnout(), 20f, 20f, true, "normal");
+            context.Input.signedSpeedMps = 0f;
+            context.Input.frontTelegram = Telegram("reverse", TrackAtcTravelDirection.AtoB, "reverse");
+            context.Input.rearTelegram = context.Input.frontTelegram.Clone();
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.position.frontPosition.atcEdgeId, Is.EqualTo("reverse"));
+            Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(20f));
+        }
+
+        [TestCase(false, "normal")]
+        [TestCase(true, "reverse")]
+        public void ZeroElapsedTimeRebindsWithKeyOffOnlyWhenTelegramIsValid(bool valid, string expectedEdge)
+        {
+            var context = CreateContext(CreateCompositeTurnout(), 15f, 5f, true, "normal");
+            context.Input.deltaTimeSeconds = 0f;
+            context.Input.hasSpeedMeasurement = false;
+            context.Input.cab.isKeyInserted = false;
+            context.Input.frontTelegram = Telegram("reverse", TrackAtcTravelDirection.AtoB, "reverse");
+            context.Input.frontTelegram.isValid = valid;
+            context.Input.rearTelegram = context.Input.frontTelegram.Clone();
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.position.frontPosition.atcEdgeId, Is.EqualTo(expectedEdge));
+            Assert.That(context.State.position.rearPosition.atcEdgeId, Is.EqualTo(expectedEdge));
+            Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(15f));
+            Assert.That(context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(5f));
+            Assert.That(context.State.position.isPositionKnown, Is.True);
+        }
+
+        [TestCase(10f, 125f, 135f)]
+        [TestCase(-3f, 138f, 148f)]
+        public void RebindingToReversedCompositeCoordinatesPreservesConsistOrientation(
+            float signedSpeedMps, float expectedFront, float expectedRear)
+        {
+            var graph = CreateCompositeTurnout(true);
+            var context = CreateContext(graph, 15f, 5f, true, "normal");
+            context.Input.signedSpeedMps = signedSpeedMps;
+            context.Input.frontTelegram = Telegram("reverse", TrackAtcTravelDirection.BtoA, "reverse");
+            context.Input.rearTelegram = context.Input.frontTelegram.Clone();
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.position.frontPosition.atcEdgeId, Is.EqualTo("reverse"));
+            Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(expectedFront));
+            Assert.That(context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(expectedRear));
+            Assert.That(context.State.position.frontPosition.frontFacesAtoB, Is.False);
+            Assert.That(context.State.position.rearPosition.frontFacesAtoB, Is.False);
+            Assert.That(context.State.position.isPositionKnown, Is.True);
+        }
+
+        [Test]
+        public void AdjacentCircuitTelegramSelectsTurnoutEntryBeforePositionCrossesBoundary()
+        {
+            var graph = CreateCompositeTurnout();
+            graph.atcEdge.Add(Edge("approach", "start", "common-node"));
+            var context = CreateContext(graph, 95f, 50f, true, "approach");
+            context.Input.signedSpeedMps = 10f;
+            context.Input.frontTelegram = Telegram("reverse", TrackAtcTravelDirection.AtoB, "reverse");
+            TrainAtcLogic.Calculate(context);
+            Assert.That(context.State.position.frontPosition.atcEdgeId, Is.EqualTo("reverse"));
+            Assert.That(context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(5f));
+            Assert.That(context.State.position.rearPosition.atcEdgeId, Is.EqualTo("approach"));
+            Assert.That(context.State.position.isPositionKnown, Is.True);
+        }
+
+        private static TrackAtcGraphDefinition CreateCompositeTurnout(bool reverseCompositeCoordinates = false)
+        {
+            var graph = new TrackAtcGraphDefinition();
+            var normal = Edge("normal", "common-node", "normal-node");
+            normal.trackCircuitId = "21T";
+            normal.lengthM = 120f;
+            normal.physicalSpans.Add(new TrackAtcPhysicalSpan
+            {
+                trackEdgeId = "common", startDistanceOnEdgeM = 0f, endDistanceOnEdgeM = 20f
+            });
+            normal.physicalSpans.Add(new TrackAtcPhysicalSpan
+            {
+                trackEdgeId = "normal-track", startDistanceOnEdgeM = 0f, endDistanceOnEdgeM = 100f
+            });
+            graph.atcEdge.Add(normal);
+
+            var reverse = Edge("reverse", "common-node", "reverse-node");
+            reverse.trackCircuitId = "21T";
+            reverse.lengthM = 150f;
+            if (reverseCompositeCoordinates)
+            {
+                reverse.atcNodeAId = "reverse-node";
+                reverse.atcNodeBId = "common-node";
+                reverse.physicalSpans.Add(new TrackAtcPhysicalSpan
+                {
+                    trackEdgeId = "reverse-track", startDistanceOnEdgeM = 130f, endDistanceOnEdgeM = 0f
+                });
+                reverse.physicalSpans.Add(new TrackAtcPhysicalSpan
+                {
+                    trackEdgeId = "common", startDistanceOnEdgeM = 20f, endDistanceOnEdgeM = 0f
+                });
+            }
+            else
+            {
+                reverse.physicalSpans.Add(new TrackAtcPhysicalSpan
+                {
+                    trackEdgeId = "common", startDistanceOnEdgeM = 0f, endDistanceOnEdgeM = 20f
+                });
+                reverse.physicalSpans.Add(new TrackAtcPhysicalSpan
+                {
+                    trackEdgeId = "reverse-track", startDistanceOnEdgeM = 0f, endDistanceOnEdgeM = 130f
+                });
+            }
+            graph.atcEdge.Add(reverse);
+            return graph;
+        }
+
         private static TrainAtcContext CreateContext(
             TrackAtcGraphDefinition graph, float frontDistance, float rearDistance,
             bool frontFacesAtoB = true, string edgeId = "a")
@@ -417,12 +562,19 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
         private static TrackCircuitAtcTelegram Telegram(string id, TrackAtcTravelDirection direction, params string[] ids)
         {
             var telegram = new TrackCircuitAtcTelegram { isValid = true };
-            telegram.atcRouteInfomation.Add((id, direction),
-                new TrackCircuitAtcRouteInfomation
-                {
-                    atcEdgePath = new List<string>(ids),
-                    stopAtcEdgeId = ids[ids.Length - 1]
-                });
+            var route = new TrackCircuitAtcRouteInfomation
+            {
+                atcEdgePath = new List<string>(ids),
+                stopAtcEdgeId = ids[ids.Length - 1]
+            };
+            if (direction == TrackAtcTravelDirection.AtoB)
+            {
+                telegram.routeAtoB = route;
+            }
+            else
+            {
+                telegram.routeBtoA = route;
+            }
             return telegram;
         }
     }
