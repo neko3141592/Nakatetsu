@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TrainAtcSettings
   m_EditorClassIdentifier: Nakatetsu.Train::Nakatetsu.Train.Equipment.Atc.TrainAtcSettingsAsset
   settings:
-    noSignalTimeoutSeconds: 1
+    noSignalTimeoutSeconds: 1.7
     maximumSamplingIntervalM: 5
     patternApproachWarningTimeSeconds: 5
     serviceDecelerationMps2: 0.7
