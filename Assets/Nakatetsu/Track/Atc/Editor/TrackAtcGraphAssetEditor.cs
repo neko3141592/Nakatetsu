@@ -69,7 +69,7 @@ namespace Nakatetsu.Track.Atc.Editor
                 return false;
             }
 
-            var definitions = new List<TrackInterlockingDefinition>();
+            var definitions = new List<TrackStationInterlockingDefinition>();
             for (int i = 0; i < asset.Interlockings.Count; i++)
             {
                 var interlocking = asset.Interlockings[i];

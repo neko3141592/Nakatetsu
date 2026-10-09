@@ -15,7 +15,7 @@ namespace Nakatetsu.Track.Atc
         // Track Edgeの距離表は、TrackGraphCompilerで事前に生成・反映しておく。
         public static bool TryCompile(TrackGraphDefinition track,
             TrackAtcGraphCompileDefinition source,
-            IReadOnlyList<TrackInterlockingDefinition> interlockings,
+            IReadOnlyList<TrackStationInterlockingDefinition> interlockings,
             out TrackAtcGraphDefinition result, List<string> errors)
         {
             result = null;
@@ -98,7 +98,7 @@ namespace Nakatetsu.Track.Atc
             private readonly TrackGraphDefinition track;
             private readonly TrackGraphContext graph;
             private readonly TrackAtcGraphCompileDefinition source;
-            private readonly IReadOnlyList<TrackInterlockingDefinition> interlockings;
+            private readonly IReadOnlyList<TrackStationInterlockingDefinition> interlockings;
             private readonly Dictionary<string, EdgeWork> edges = new();
             private readonly Dictionary<string, TrackAtcGraphNode> nodes = new();
             private readonly HashSet<string> routedEdgeIds = new();
@@ -110,7 +110,7 @@ namespace Nakatetsu.Track.Atc
             public TrackAtcGraphDefinition Result { get; }
 
             public Compilation(TrackGraphDefinition track, TrackGraphContext graph,
-                TrackAtcGraphCompileDefinition source, IReadOnlyList<TrackInterlockingDefinition> interlockings)
+                TrackAtcGraphCompileDefinition source, IReadOnlyList<TrackStationInterlockingDefinition> interlockings)
             {
                 this.track = track;
                 this.graph = graph;
