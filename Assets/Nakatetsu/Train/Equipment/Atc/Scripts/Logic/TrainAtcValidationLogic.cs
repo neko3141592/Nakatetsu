@@ -66,7 +66,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             var validation = context.State.validation;
 
             // 工程2・3の確認結果を利用し、計算に必要な基本入力をここにまとめる。
-            if (!operation.hasCabState || !position.isPositionInitialized || !position.isPositionKnown ||
+            if (!operation.hasCabState || !position.isPositionInitialized ||
                 context.Graph == null || !input.hasSpeedMeasurement ||
                 !TrainAtcValidationHelper.IsFinite(input.signedSpeedMps) ||
                 !TrainAtcValidationHelper.IsNonNegativeFinite(input.deltaTimeSeconds) ||
@@ -86,6 +86,10 @@ namespace Nakatetsu.Train.Equipment.Atc
             // キー切・中立でも、取得できた入力の正常性は確認する。電文は要求しない。
             if (!operation.isAtcEnabled)
             {
+                if (!position.isFrontPositionKnown && !position.isRearPositionKnown)
+                {
+                    return false;
+                }
                 validation.totalMassKg = totalMassKg;
                 return true;
             }
