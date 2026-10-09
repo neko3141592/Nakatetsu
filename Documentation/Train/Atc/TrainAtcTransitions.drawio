@@ -484,14 +484,17 @@
         <mxCell id="HasEmergencyBrakeCause" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;HasEmergencyBrakeCause&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;不正／無効／パターンなし、非常許容速度超過、&lt;br&gt;Restricted時の独立ORP許容速度超過を確認。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="HasEmergencyBrakeCause" owner="TrainAtcBrakeLogic">
           <mxGeometry x="80" y="420" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="UpdateNormalBrakeState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateNormalBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;全閉未確認は転動防止として常用最大。&lt;br&gt;全閉後は速度超過・緩解と停止保持を通常判定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateNormalBrakeState" owner="TrainAtcBrakeLogic">
+        <mxCell id="UpdateNormalBrakeState" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;UpdateNormalBrakeState&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;全閉未確認・停止保持は常用最大刻み段の半分。&lt;br&gt;全閉後は速度超過・緩解と停止保持を通常判定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="UpdateNormalBrakeState" owner="TrainAtcBrakeLogic">
           <mxGeometry x="700" y="800" width="500" height="160" as="geometry" />
         </mxCell>
         <mxCell id="ClearNormalBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;ClearNormalBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;要求なしの場合に常用段を0にし、&lt;br&gt;テーブル履歴と待ち時間を消去。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="ClearNormalBrakeStep" owner="TrainAtcBrakeLogic">
           <mxGeometry x="80" y="800" width="500" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="SetMaximumServiceBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;SetMaximumServiceBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;不正／パターンなし／転動防止／停止保持／非降下時の介入／&lt;br&gt;基準段取得失敗は、常用最大へ即時切替。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="SetMaximumServiceBrakeStep" owner="TrainAtcBrakeLogic">
+        <mxCell id="SetMaximumServiceBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;SetMaximumServiceBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;不正／パターンなし／非降下時の介入／&lt;br&gt;基準段取得失敗は、常用最大へ即時切替。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="SetMaximumServiceBrakeStep" owner="TrainAtcBrakeLogic">
           <mxGeometry x="1320" y="800" width="500" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="SetHalfServiceBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;SetHalfServiceBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;転動防止・停止保持は常用最大刻み段の半分。&lt;br&gt;整数除算で端数切り捨て。段数は即時設定。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="SetHalfServiceBrakeStep" owner="TrainAtcBrakeLogic">
+          <mxGeometry x="1320" y="1020" width="500" height="140" as="geometry" />
         </mxCell>
         <mxCell id="TryGetBaseBrakeStep" parent="1" value="&lt;b style=&quot;font-size:17px&quot;&gt;TryGetBaseBrakeStep&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;現在の勾配補正前減速度に最も近い&lt;br&gt;基準刻み段を取得。失敗時は常用最大。&lt;/span&gt;" vertex="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=16;spacingTop=10;spacingBottom=10;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;strokeColor=#222222;strokeWidth=1.5;fillColor=#ffffff;" function="TryGetBaseBrakeStep" owner="TrainAtcBrakeLogic">
           <mxGeometry x="700" y="1180" width="500" height="140" as="geometry" />
@@ -525,7 +528,7 @@
         <mxCell id="edge-6" parent="1" source="UpdateNormalBrakeState" target="ClearNormalBrakeStep" value="要求なし" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-7" parent="1" source="UpdateNormalBrakeState" target="SetMaximumServiceBrakeStep" value="最大常用" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+        <mxCell id="edge-7" parent="1" source="UpdateNormalBrakeState" target="SetMaximumServiceBrakeStep" value="非降下時の介入" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edge-8" parent="1" source="UpdateNormalBrakeState" target="TryGetBaseBrakeStep" value="介入中・降下区間" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
@@ -536,6 +539,14 @@
         </mxCell>
         <mxCell id="edge-10" parent="1" source="UpdateTargetBrakeStep" target="UpdateCurrentBrakeStep" value="" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-half-service" parent="1" source="UpdateNormalBrakeState" target="SetHalfServiceBrakeStep" value="転動防止／停止保持" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontSize=13;fontFamily=Hiragino Kaku Gothic ProN;fontColor=#222222;labelBackgroundColor=#ffffff;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="960" />
+              <mxPoint x="1260" y="1090" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

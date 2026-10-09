@@ -104,7 +104,7 @@ TIMSの`BrakeControlDeviceTimsBusSource.MassKgKey`は空車質量を含む測定
 
 `ITrainAtcDoorInputSource.TryReadDoorState(out bool areAllDoorsClosed)`で取得する。`TrainAtcDoorInputAdapter`は同じTrainRootのTIMS MasterBusを参照し、`Door/HasValidState`がtrueの場合に`Door/AllClosed`を採用する。ATC PrefabにAdapterとControllerの参照を設定する。
 
-取得失敗時は`hasDoorState`をfalseとし、前回の全閉状態を残さない。ドア未全閉・取得失敗のどちらも全閉未確認として転動防止を要求する。ドア状態だけの取得失敗を理由にATC全体を故障扱いにはせず、常用最大で保持する。
+取得失敗時は`hasDoorState`をfalseとし、前回の全閉状態を残さない。ドア未全閉・取得失敗のどちらも全閉未確認として転動防止を要求する。ドア状態だけの取得失敗を理由にATC全体を故障扱いにはせず、常用最大刻み段の半分（整数除算で端数切り捨て）で保持する。
 
 ### 常用ブレーキ設定
 
