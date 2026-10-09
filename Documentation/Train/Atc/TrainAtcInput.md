@@ -124,7 +124,7 @@ TIMSの`BrakeControlDeviceTimsBusSource.MassKgKey`は空車質量を含む測定
 
 `SpeedSensor.TryGetSignedMeasuredSpeedMps()`を直接読む。固定前方向を正とする符号付き速度を位置積算に使い、照査には速度の絶対値を使う。TIMS経由の表示速度を位置更新へ戻さない。
 
-両端の受電器はSimulation側で物理位置にある軌道回路から電文を取得する。車上ATCはその受電結果を直接参照し、車上の両端保持位置は測定速度で更新する。
+両端の受電器はSimulation側で物理位置にある軌道回路から電文を取得する。車上ATCはその受電結果を直接参照し、車上は使用側の保持位置を測定速度で更新し、非使用側をその最新位置と受電器間隔から求め直す。
 
 電文は地上で選択したEdgeを起点とする`routeAtoB`・`routeBtoA`を直接持つ。車上は照査方向で`GetRoute()`から経路を取得し、`atcEdgePath[0]`が現在位置のEdgeと一致することを確認する。Edge ID・方向をキーとする辞書は使わない。`TrackAtcTravelDirection`と`OverrunProtectionMode`はCircuit側の定義を使用する。
 
@@ -136,11 +136,19 @@ TIMSの`BrakeControlDeviceTimsBusSource.MassKgKey`は空車質量を含む測定
 
 ATC Graphは`TrainSimulationController`の`Atc Graph Asset`に割り当てる。`TrainAtcLogic.TryInitializePosition()`はGraphからEdge辞書を作り、Graphと線区最高速度をContextへ設定して、PositionLogicへ初期位置を渡す。初期化・位置補正の成功は戻り値で確認する。開始時にまだ位置を一意に解決できない場合は、受信が揃ってから初期化する。初期化完了後に実位置から自動補正する処理は設けない。
 
-以降は`TrainAtcPositionLogic.UpdatePosition()`が測定速度×経過時間で両端位置を更新する。共通部分で選択Edgeが変わった場合は、保持位置を旧Edgeの物理区間へ対応させ、新Edge上の同じ位置へ変換する。分岐後に他方の枝へ位置を付け替えない。実際の移動方向は測定速度の符号から決める。Edge境界では両端電文・前回採用経路・Graphの順に分岐を解決し、移動先を一意に特定できる場合は進路未開通でも更新する。
+以降の更新は、親Logicが前回の使用受電器を保存し、`TrainAtcOperationLogic.UpdateOperation()` → `TrainAtcPositionLogic.UpdatePosition()` → `TrainAtcOperationLogic.UpdateCurrentPosition()`の順に呼ぶ。OperationLogicは先に操作・有効状態・使用受電器・電文を選択し、照査位置と方向を消去する。PositionLogicが位置を更新した後、OperationLogicが既知の選択端から照査位置と方向を設定する。
 
-両端の更新が成功した場合だけ新しい位置を採用する。失敗時は最後に確認できた両端位置を保持し、`State.position.isPositionKnown`をfalseにする。位置不明からの復帰は`TryCorrectPosition()`で明示的に行う。
+PositionLogicは既知の使用側を優先して基準端にする。使用側が不明でも他側が既知なら、その位置を基準にする。基準端を測定速度×今回の経過時間で進める。共通部分で選択Edgeが変わった場合は同じ物理区間へ対応し直すが、分岐後に他方の枝へ位置を付け替えない。実際の移動方向は測定速度の符号と編成の向きから求める。境界では基準端側の受信電文・前回採用経路・Graphから一意な接続を解決する。受信時刻との整合を目的とする積分式変更は今回の対象に含めない。
 
-キー切・レバーサ中立でも固定前後の位置は更新を続ける。照査に使用する受電器・位置・電文・方向はOperationLogicが別に選択し、無効時は選択結果を消去する。
+非使用側は独立して速度積算せず、毎tick基準端の最新位置から他端を相対解決する。固定前方向の変位は「基準端の`ReceiverDistanceFromFrontM` − 他端の`ReceiverDistanceFromFrontM`」で求める。同じEdge内でも複数Edgeを跨ぐ場合でも、基準端側の電文・保持経路・Graphから一意に辿れる場合だけ新しい位置を採用する。
+
+相対解決は`hasCarMasses`がtrue、両端の取り付け距離が有限・非負、固定後側距離が固定前側距離以上の場合に行う。間隔0も許可する。距離条件の不正や分岐の曖昧さで解決できなければ、相対解決の対象端だけを不明にし、最後の位置を診断用に残す。使用側が既知ならその側の照査を続ける。片側が不明でも既知の他側を基準に相対解決を毎tick再試行し、解決できれば使用側・非使用側によらず自然に既知へ戻る。不明端の過去の保持位置から積算を再開する復帰は認めない。
+
+固定前後の位置把握は`State.position.isFrontPositionKnown`・`isRearPositionKnown`で個別に管理する。読み取り専用の`IsPositionKnown`は両フラグのANDで、診断用に残す。ATC有効時は選択端だけの既知を必要とし、非使用側の不明や`IsPositionKnown=false`だけを故障原因にしない。基準端自身の位置更新失敗や、経過時間不正、または経過時間が正のときの速度欠損・不正では両端を不明にする。経過時間0では位置を進めず、PositionLogicは速度欠損だけで既知フラグを落とさないが、ValidationLogicは速度欠損を入力不正とする。今回の最新位置を確定できない古い他端の既知フラグは残さない。両端不明からの復帰は明示補正だけとする。最後に確認できた位置は、既知フラグがfalseの間は制御に使わない。
+
+キー切・レバーサ中立でも位置更新は継続する。操作状態を取得済みならその運転台側の既知位置を優先し、不明なら他側の既知位置を基準にする。操作状態を取得できない場合は既知の固定前側を優先する。固定後側だけが既知なら固定後側を基準にする。ATC無効時の位置入力は片側以上が既知なら正常、両側不明なら不正とする。無効時の照査用受電器・位置・方向・電文は未選択とする。
+
+受電器切替時の特別な位置初期化は行わない。新しい使用側が既知ならその位置で更新と照査を始める。不明でも他側が既知なら今回の相対解決を試し、解決できなければ使用不可とする。切替時は旧パターンを保持せず、新しい側の有効電文からパターンを生成し直す。
 
 | 有効運転台 | レバーサ | 照査する編成の固定方向 |
 | --- | --- | --- |
@@ -157,8 +165,8 @@ ATC Graphは`TrainSimulationController`の`Atc Graph Asset`に割り当てる。
 
 | Stateの参照先 | 担当Logic・保持する情報 |
 | --- | --- |
-| `State.position` | `TrainAtcPositionLogic`。両端位置、初期化済み・位置把握の結果 |
-| `State.operation` | `TrainAtcOperationLogic`。操作状態、電源・有効状態、使用受電器、現在の照査位置・方向・電文 |
+| `State.position` | `TrainAtcPositionLogic`。両端位置、初期化済み、`isFrontPositionKnown`・`isRearPositionKnown`。`IsPositionKnown`は両端既知のANDを返す診断用プロパティ |
+| `State.operation` | `TrainAtcOperationLogic`。位置更新前に操作状態・電源・有効状態・使用受電器・電文を選び、更新後に照査位置・方向を確定する |
 | `State.validation` | `TrainAtcValidationLogic`。入力正常性、無信号時間、Adopt・Retain・Unusable、候補経路と確認済みの計算入力 |
 | `State.protectionMode` | `TrainAtcProtectionModeLogic`。Normal・Restricted・Noneと、その確定結果、保持方式・停止限界・終端方向、処理済み開扉操作番号 |
 | `State.pattern` | `TrainAtcPatternLogic`。採用経路、常用・非常・独立ORPのサンプル、現在位置の許容・目標速度、接近・降下状態 |

@@ -9,8 +9,8 @@
 | 順番 | 工程 | 役割 |
 | --- | --- | --- |
 | 1 | 入力をスナップショット | 操作状態・測定速度・両端の受電結果などを、今回の更新で使用する入力として取り込む |
-| 2 | 列車位置を更新 | 前回の位置と今回の測定値から、両端の受電器位置を更新する |
-| 3 | 有効状態・使用受電器を決定 | マスコンキー・運転台方向・レバーサから、ATCの有効状態と使用受電器を決める |
+| 2 | 有効状態・使用受電器を決定 | マスコンキー・運転台方向・レバーサから、ATCの有効状態、使用受電器と電文を決める |
+| 3 | 列車位置を更新し、照査位置を確定 | 既知の使用側を優先して基準端を進め、他端を受電器間隔から再解決する。その後、使用側の最新位置と照査方向を確定する |
 | 4 | 入力・受信状態を判定 | 入力の取得可否と基本的な正常性、使用受電器の電文を確認し、採用・保持・使用不可を判定する |
 | 5 | 防護方式を確定 | 受信したNormal・Restricted・Noneに、停止限界・終端方向によるORP保持と開扉操作による解除を反映する |
 | 6 | パターンを更新 | 防護方式に応じて常用・非常・ORPパターンを生成し、現在位置の許容速度・目標速度・接近状態を求める |
@@ -23,113 +23,112 @@
 
 今回の更新で使用する操作状態・測定速度・両端の受電結果・計算用入力を取り込む。取得できたかどうかも保持し、取得失敗による初期値を正常な操作状態として扱わない。
 
-両端の受電結果を取り込み、使用する受電器の選択は工程3で行う。無信号時に、受信電文を前回の電文で置き換えない。
+両端の受電結果を取り込み、使用する受電器の選択は工程2で行う。無信号時に、受信電文を前回の電文で置き換えない。
 
 開扉操作は`hasDoorOpeningOperation`と`doorOpeningOperationRevision`で取り込む。TIMSが受け付けた開扉指令の番号を使用し、閉扉指令ではこの番号を変えない。全閉未確認やドア状態の取得失敗を、開扉操作として扱わない。
 
-### 2. 列車位置を更新
+### 2. 有効状態・使用受電器を決定
 
-前回位置と今回の測定値から、両端の受電器位置を更新する。位置更新は、工程3で使用受電器を決める前に行う。
-
-#### 読み書きする情報（確定）
-
-前回採用した経路は`State.pattern.atcEdgePath`と`pathStartTravelDirection`に保持する。
-
-| 区分 | 読み書き | 必要な情報・更新結果 |
-| --- | --- | --- |
-| Input | 読む | `hasSpeedMeasurement`：測定速度を取得できたか |
-| Input | 読む | `signedSpeedMps`：編成の固定前方向を正とする測定速度[m/s] |
-| Input | 読む | `deltaTimeSeconds`：今回の移動量を求める経過時間[s] |
-| Input | 読む | `frontTelegram`・`rearTelegram`：両端の受信電文。Edge境界で移動先を特定するための経路情報を参照する |
-| State | 読む | `isPositionInitialized`：初期位置と編成の向きが設定済みか |
-| State | 読む | `frontPosition`・`rearPosition`：両端の前回のEdge ID・Edge内位置・編成の向き |
-| State | 読む | `State.pattern.atcEdgePath`・`pathStartTravelDirection`：前回採用した経路と始点方向 |
-| State | 読む・更新する | `isPositionKnown`：位置を把握できているか。位置更新・解決に失敗した場合は、その結果を後続工程へ渡す |
-| State | 更新する | `frontPosition`・`rearPosition`：今回のEdge ID・Edge内位置・編成の向き |
-| その他の参照 | 読む | `Graph`・`atcEdgesById`：Edgeの長さ、接続、定義済み経路を取得する |
-| Output | 読み書きしない | 外部向けの表示情報・ブレーキ指令は工程8で生成する |
-
-前側・後側は編成の固定前側・固定後側を意味する。運転台変更によって、工程2で更新する両端の位置を入れ替えない。
-
-#### 移動量と方向
-
-今回の移動量は、次の式で求める。
-
-```text
-符号付き移動距離[m] = signedSpeedMps[m/s] × deltaTimeSeconds[s]
-```
-
-移動方向は実際の測定速度の符号から求める。各受電器位置に保持した`frontFacesAtoB`を使い、編成の固定前後方向を現在EdgeのA→B・B→Aへ変換する。Edgeを越えた場合は、新しいEdgeに対する編成の向きも更新する。
-
-レバーサから決める照査方向と、照査に使用する`currentPosition`の選択は工程3で行う。
-
-#### 経路の参照と工程4との役割分担
-
-工程2では、分岐先を特定するために両端の受信電文内の経路を参照する。無信号時は前回採用した経路を使用し、Graphの接続や定義済み経路から移動先が一意に特定できる場合も位置更新を行う。進路の開通状態だけを理由に、一意に特定できる移動先の解決を省略しない。
-
-この工程では、経路の接続など、位置解決に必要な確認を行う。無信号時間の積算・猶予の判定と、電文や前回パターンを今回の制御に使用できるかの判定は工程4で行う。
-
-位置を更新・解決できなかった場合は、その結果を後続工程へ渡す。
-
-### 3. 有効状態・使用受電器を決定
-
-今回のマスコンキー・運転台方向・レバーサから、ATCの有効状態、使用する受電器、照査に使用する位置と進行方向を決定する。有効状態は`isAtcPowerOn`と`isAtcEnabled`で表す。
+`TrainAtcOperationLogic.UpdateOperation()`は今回のマスコンキー・運転台方向・レバーサから、ATCの有効状態、使用受電器と電文を決定する。位置更新より先に呼び、前回の照査位置と方向は消去する。今回の照査位置は、工程3の位置更新後に同じLogicの`UpdateCurrentPosition()`で確定する。
 
 #### ATCの有効条件（確定）
 
 | 項目 | 条件・動作 |
 | --- | --- |
-| `isAtcPowerOn` | どのような状態でも常にtrue。キー切・レバーサ中立・操作状態の取得失敗によってfalseにしない |
+| `isAtcPowerOn` | 常にtrue。キー切・レバーサ中立・操作状態の取得失敗によってfalseにしない |
 | `isAtcEnabled` | 操作状態を確認でき、マスコンキーが投入され、レバーサが前進または後退の場合にtrueとする |
-| キー切・レバーサ中立 | `isAtcEnabled`をfalseとし、速度照査を行わない |
-| 操作状態の取得失敗 | 正常なキー切・中立と区別し、取得失敗の結果を後続工程へ渡す |
-| 両端の位置更新 | `isAtcEnabled`に関係なく工程2で継続する |
+| キー切・レバーサ中立 | `isAtcEnabled`をfalseとし、速度照査を行わない。位置更新は継続する |
+| 操作状態の取得失敗 | 正常なキー切・中立と区別し、取得失敗の結果を工程4へ渡す |
+| `selectedReceiver` | ATC有効時は有効運転台側の固定前側・固定後側を選ぶ。レバーサの方向で受電器を切り替えない |
 
 この有効条件と、工程5で決定するNormal・Restricted・Noneの防護方式は別の情報として扱う。
 
 #### 読み書きする情報
 
-以下の状態は`State.operation`に保持する。使用受電器は`selectedReceiver`で識別する。
+以下の状態は`State.operation`に保持する。PositionLogicはこの選択結果を参照し、OperationStateを書き換えない。
 
 | 区分 | 読み書き | 必要な情報・更新結果 |
 | --- | --- | --- |
-| Input | 読む | `hasCabState`：操作状態を取得できたか |
-| Input | 読む | `cab.carIndex`・`cab.isFrontCab`：有効運転台の号車と編成の前後側 |
-| Input | 読む | `cab.isKeyInserted`・`cab.reverserPosition`：マスコンキーの投入状態とレバーサ位置 |
+| Input | 読む | `hasCabState`・`cab`：有効運転台の号車・前後側、マスコンキー、レバーサ、マスコン非常位置 |
 | Input | 読む | `frontTelegram`・`rearTelegram`：使用受電器側の電文を選択するための両端の受信結果 |
-| State | 読む | `isPositionInitialized`・`isPositionKnown`：照査に使用する位置を選択できるか |
-| State | 読む | `frontPosition`・`rearPosition`：工程2で更新した両端の位置と編成の向き |
 | State | 更新する | `hasCabState`・`cab`：確認した操作状態と、その確認結果 |
-| State | 更新する | `isAtcPowerOn`・`isAtcEnabled`：今回のATCの電源状態と有効状態 |
-| State | 更新する | `selectedReceiver`：使用受電器の選択結果 |
-| State | 更新する | `hasCurrentPosition`・`currentPosition`：照査に使用する位置と、その位置を選択できたか |
-| State | 更新する | `currentTravelDirection`：運転台側・レバーサ・編成の向きから求める照査方向 |
-| State | 更新する | `currentTelegram`：選択した受電器側の受信電文。無信号時はnullとして工程4へ渡す |
+| State | 更新する | `isAtcPowerOn`・`isAtcEnabled`：今回の電源状態と有効状態 |
+| State | 更新する | `selectedReceiver`・`currentTelegram`：使用受電器と、その側の今回の電文。未受信はnull |
+| State | 消去後に更新する | `hasCurrentPosition`・`currentPosition`・`currentTravelDirection`：`UpdateOperation()`で消去し、位置更新後の`UpdateCurrentPosition()`で確定する |
+| State | 読む | `State.position.isPositionInitialized`、選択端の位置既知フラグと位置：`UpdateCurrentPosition()`で使用する |
 | Output | 読み書きしない | 外部向けの表示情報・ブレーキ指令は工程8で生成する |
 
-照査方向は運転台側とレバーサから編成の前後方向を求め、選択位置の`frontFacesAtoB`でEdge上のA→B・B→Aへ変換する。工程2で移動方向に使う測定速度の符号とは役割を分ける。
+照査方向は運転台側とレバーサから編成の固定前後方向を求め、選択端の最新位置の`frontFacesAtoB`でEdge上のA→B・B→Aへ変換する。選択端が不明なら照査位置は設定せず、方向をUnspecifiedにする。非使用側だけが不明の場合は、既知の使用側から照査位置を設定できる。
 
-#### キー切・レバーサ中立時の保持・消去（確定）
+キー切・レバーサ中立では照査用受電器を未選択とし、`hasCurrentPosition=false`、`currentPosition=null`、`currentTelegram=null`、`currentTravelDirection=Unspecified`とする。Inputの両端電文やPositionStateの保持位置は消去しない。位置更新の基準端は工程3で決める。
 
-キー切・レバーサ中立でも、工程2で両端の受電器位置を保持し、列車の移動に応じて更新を続ける。照査用の受電器選択は解除し、工程3では`currentPosition`・`currentTelegram`を残さない。
+親Logicは`UpdateOperation()`前の`selectedReceiver`を保存し、今回の選択結果との差から受電器変更を判定する。工程4へ引数で渡し、PatternStateへ運転台側などの写しを追加しない。
 
-| State | キー切・レバーサ中立時の扱い |
-| --- | --- |
-| `frontPosition`・`rearPosition` | 保持し、工程2で更新を続ける |
-| `isPositionKnown` | キー切・レバーサ中立そのものを理由にfalseにしない。工程2の位置更新結果を維持する |
-| 使用受電器の選択結果 | 未選択にする |
-| `hasCurrentPosition` | falseにする |
-| `currentPosition` | 初期値へ戻す |
-| `currentTelegram` | nullにする |
-| `currentTravelDirection` | 照査位置の選択解除に合わせてUnspecifiedにする |
+### 3. 列車位置を更新し、照査位置を確定
 
-Inputの`frontTelegram`・`rearTelegram`は、工程2の位置解決に使う両端の受信スナップショットとして扱う。キー切・レバーサ中立時に工程3の選択結果を消す処理とは分ける。
+`TrainAtcPositionLogic.UpdatePosition()`は、工程2で選んだ使用側が既知ならその側を基準にする。使用側が不明でも他側が既知なら、その既知側を基準にする。基準端を測定速度で進めた後、その最新位置と両端受電器の取り付け距離の差から、他端の位置を毎tick求め直す。両端を独立して速度積算する方式は使用しない。
 
-無信号時間と、電文や前回パターンを今回の制御に使用できるかは工程4で判定する。使用受電器は有効運転台側を選ぶ。
+位置更新直後、親Logicが`TrainAtcOperationLogic.UpdateCurrentPosition()`を呼ぶ。最新の選択端が既知の場合だけ、今回の照査位置と方向をOperationStateへ設定する。子Logic同士は呼び合わない。
+
+#### 読み書きする情報（確定）
+
+| 区分 | 読み書き | 必要な情報・更新結果 |
+| --- | --- | --- |
+| Input | 読む | `hasSpeedMeasurement`・`signedSpeedMps`・`deltaTimeSeconds`：使用側の移動量 |
+| Input | 読む | `frontTelegram`・`rearTelegram`：位置を一意に解決するための受信経路 |
+| Input | 読む | `hasCarMasses`・`frontReceiverDistanceFromFrontM`・`rearReceiverDistanceFromFrontM`：取り付け距離の取得可否と、非使用側を再解決する受電器間隔 |
+| State | 読む | `State.operation.selectedReceiver`・`isAtcEnabled`・`hasCabState`・`cab`：位置更新の基準端を決める操作結果 |
+| State | 読む・更新する | `isPositionInitialized`・`isFrontPositionKnown`・`isRearPositionKnown`：初期化と固定前後それぞれの位置把握の結果 |
+| State | 読む・更新する | `frontPosition`・`rearPosition`：各端の最後に確認できたEdge ID・Edge内距離・編成の向き |
+| State | 読む | `IsPositionKnown`：`isFrontPositionKnown && isRearPositionKnown`を返す読み取り専用の診断集約。照査の有効条件には使用しない |
+| State | 読む | `State.pattern.atcEdgePath`・`pathStartTravelDirection`：前回採用した経路と始点方向 |
+| その他の参照 | 読む | `Graph`・`atcEdgesById`：Edgeの長さ、接続、定義済み経路 |
+| Output | 読み書きしない | 外部向けの表示情報・ブレーキ指令は工程8で生成する |
+
+前側・後側は編成の固定前側・固定後側である。運転台変更や後退によって、保持位置や既知フラグの前後を入れ替えない。位置把握の結果はPositionStateだけが所有する。位置不明側の保持位置は診断記録であり、制御用の既知位置として使わない。
+
+#### 基準端と移動量
+
+ATC有効時は、`selectedReceiver`が既知なら基準にする。選択端が不明なら他端の既知位置を基準にして、選択端を相対再解決する。無効時は、操作状態を取得できていればその運転台側の既知位置を優先し、不明なら他端の既知位置を使う。操作状態が取得できない場合は既知の固定前側を優先し、固定後側だけが既知なら固定後側を使う。両端が不明なら位置更新できず、明示補正が必要となる。基準端を表す別のStateは保存しない。
+
+今回の基準端の移動量は、既存の式を維持する。
+
+```text
+符号付き移動距離[m] = signedSpeedMps[m/s] × deltaTimeSeconds[s]
+```
+
+実際の移動方向は測定速度の符号と基準端の`frontFacesAtoB`から求める。Edge境界では受信経路・前回採用経路・Graphを参照し、一意な移動先を解決する。共通部分で選択Edgeが変わった場合は同じ物理区間へ対応し直すが、分岐後に別の枝へ位置を付け替えない。
+
+基準端が既知で移動解決も成功した場合、その端の最新位置を採用する。不明端の最後に確認できた位置は速度積算に使わない。基準端自身の移動解決に失敗した場合、そのtickの新しい相対位置も確定できないため両端を不明にし、古い他端の既知フラグを残さない。経過時間が不正な場合、または経過時間が正のときに測定速度を取得できない・値が不正な場合も両端を不明にする。両端不明からの復帰は明示的な`TryCorrectPosition()`による補正だけとする。経過時間0の位置更新では移動距離を0とし、PositionLogicは速度欠損だけで既知フラグを落とさない。工程4の速度入力確認は別に行い、速度欠損・不正は入力不正とする。
+
+この変更では、受信時刻と速度積分の時刻を揃えるための積分式変更は行わない。
+
+#### 他端の相対解決と復帰
+
+基準端を更新した後、固定前端からの取り付け距離を使って次の相対変位を求める。
+
+```text
+基準端から他端への固定前方向の変位[m]
+    = 基準端のReceiverDistanceFromFrontM − 他端のReceiverDistanceFromFrontM
+```
+
+基準端の最新位置をコピーし、その編成の向きに沿って相対変位を辿る。同じEdge内で収まる場合は距離から求め、Edgeを跨ぐ場合は基準端側の今回の電文、保持経路、Graphから一意な接続を順に解決する。複数のEdgeを跨ぐ場合も同じ手順で扱う。解決できた位置だけを採用し、対象端の既知フラグをtrueにする。
+
+`hasCarMasses`による取得確認、両端距離の有限・非負、固定後側距離が固定前側距離以上であることを相対解決の条件にする。間隔0も許可する。これらの条件を満たさない場合や、一意に辿れない分岐では、相対解決の対象端だけを不明にし、最後に確認できた位置を診断用に残す。既知の使用側を基準にできている場合、その位置、パターン、照査を非使用側の失敗で止めない。使用側自身が相対解決の対象であり、今回も不明のままなら、その側の照査は使用不可となる。使用側固有の入力不正は、工程4の既存の入力判定に従う。
+
+片側だけが不明なら、毎tickその時点の既知基準端の最新位置から再解決する。使用受電器かどうかによらず、経路を一意に解決できれば明示補正や実位置の読み直しなしで既知へ戻る。不明端の過去の保持位置から速度積算を再開して復帰することはない。基準端の最新位置が得られなければ、新しい相対位置は採用できない。
+
+受電器切替時に実位置を取り直す処理や特別な初期化は行わない。新しい使用側が既知なら、その保持位置を今回の基準にして更新する。不明でも他側が既知なら相対再解決を試し、今回も不明のままなら工程4以降で使用不可として扱う。切替時の旧パターン保持は禁止し、新しい側の有効電文から生成し直す。
+
+#### 工程4との役割分担
+
+工程3の経路参照は位置解決だけに使用する。進路の開通状態だけを理由に、一意に特定できる位置の解決を省略しない。無信号の積算・猶予、電文・パターンの採用可否は工程4で判定する。
+
+工程4はATC有効時に選択端だけの既知フラグと`hasCurrentPosition`を要求する。非使用側の不明や、診断用`IsPositionKnown=false`だけを理由に入力不正としない。ATC無効時は、少なくとも片側が既知なら位置入力を正常とし、両側不明を正常な無効状態へ置き換えない。
 
 ### 4. 入力・受信状態を判定
 
-入力の取得可否と基本的な正常性をまとめて確認し、工程3で選択した受電器の電文を確認する。無信号時間、電文の使用可否、前回パターンの保持可否から、今回の処理を決定する。
+入力の取得可否と基本的な正常性をまとめて確認し、工程2で選択した受電器の電文を確認する。無信号時間、電文の使用可否、前回パターンの保持可否から、今回の処理を決定する。
 
 #### 読み書きする情報
 
@@ -142,10 +141,10 @@ Inputの`frontTelegram`・`rearTelegram`は、工程2の位置解決に使う両
 | Input | 読む | `hasCarMasses`・`cars`：各車両の質量と中心位置の取得可否、および計算用の値 |
 | Input | 読む | `frontReceiverDistanceFromFrontM`・`rearReceiverDistanceFromFrontM`：受電器の取り付け位置。使用する側の計算用位置を確認する |
 | Input | 読む | `hasBrakeSettings`・`brakeSettings`：ブレーキ設定の取得可否、刻み段数・常用最大段・設定減速度 |
-| State | 読む | `hasCabState`・`cab`・`isAtcEnabled`：工程3で確認した操作状態と有効状態 |
-| State | 読む | `isPositionInitialized`・`isPositionKnown`・`hasCurrentPosition`：工程2・3の位置確認結果 |
+| State | 読む | `hasCabState`・`cab`・`isAtcEnabled`：工程2で確認した操作状態と有効状態 |
+| State | 読む | `isPositionInitialized`・`isFrontPositionKnown`・`isRearPositionKnown`・`hasCurrentPosition`：工程3で確定した選択端の位置確認結果。無効時は片側以上の既知を要求する |
 | State | 読む | `currentPosition`・`currentTravelDirection`：今回の電文に対応する経路情報を取得するための位置と照査方向 |
-| State | 読む | `currentTelegram`：工程3で選択した受電器側の電文 |
+| State | 読む | `currentTelegram`：工程2で選択した受電器側の電文 |
 | その他の参照 | 読む | `Graph`・`atcEdgesById`：現在の受電器位置のEdgeに対応する軌道回路を取得する |
 | State | 読む | 前回採用したパターン・経路・始点方向：選択した受電器が経路上にあり、照査方向が経路の方向と一致するかを確認する |
 | State | 読む・更新する | `noSignalElapsedSeconds`：連続した無信号時間[s] |
@@ -171,7 +170,7 @@ Inputの`frontTelegram`・`rearTelegram`は、工程2の位置解決に使う両
 
 無信号時は、設定した猶予内で、前回の有効なパターンを引き続き使用できる場合だけ保持する。猶予を超えた場合、または保持できるパターンがない場合は使用不可とする。
 
-使用受電器を切り替えた場合は、取り付け位置を基準にした勾配補正の条件が変わるため、旧パターンを保持しない。新しい電文があれば生成し直す。受電器の変更は工程3の前後の選択結果を`TrainAtcLogic`で比較し、工程4へ引数で渡す。PatternStateへ運転台側などの写しを追加しない。
+使用受電器を切り替えた場合は、取り付け位置を基準にした勾配補正の条件が変わるため、旧パターンを保持しない。新しい電文があれば生成し直す。受電器の変更は工程2の前後の選択結果を`TrainAtcLogic`で比較し、工程4へ引数で渡す。PatternStateへ運転台側などの写しを追加しない。
 
 #### 無信号の定義とタイマー（確定）
 
@@ -419,7 +418,7 @@ ORP表示中は`pattern.isSpeedIndicated`をfalseにし、UI側で速度現示�
 - 保持中も現在位置のパターン情報とブレーキ要求を更新する。
 - Outputは処理の最後に生成し、各計算工程の入力にはしない。
 - 防護方式は`TrainAtcProtectionModeState`だけで管理する。各工程用のStateへ同じ値を重複して保存しない。
-- 現在の運転台操作は工程3の操作状態を参照し、PatternStateに採用時の運転台側・レバーサを重複して保存しない。経路の始点方向は、現在Edgeでの照査方向とは別の情報として保持する。
+- 現在の運転台操作は工程2の操作状態を参照し、PatternStateに採用時の運転台側・レバーサを重複して保存しない。経路の始点方向は、現在Edgeでの照査方向とは別の情報として保持する。
 
 ## 4. ContextとStateの分割（確定）
 
@@ -429,8 +428,8 @@ ORP表示中は`pattern.isSpeedIndicated`をfalseにし、UI側で速度現示�
 
 | 工程 | State | 保持する状態 |
 | --- | --- | --- |
-| 2 | `TrainAtcPositionState` | 両端の受電器位置、編成の向き、位置の初期化・更新結果 |
-| 3 | `TrainAtcOperationState` | 操作状態の確認結果、ATC有効状態、使用受電器、選択した位置・進行方向・電文 |
+| 2・3の位置更新後 | `TrainAtcOperationState` | 操作状態、ATC有効状態、使用受電器・電文、更新後に確定する照査位置・方向 |
+| 3 | `TrainAtcPositionState` | 固定前後の位置と個別の既知フラグ、編成の向き、初期化結果。両端既知のANDは読み取り専用の診断情報 |
 | 4 | `TrainAtcValidationState` | 入力・受信状態の判定結果、無信号の積算時間、採用・保持・使用不可の判断、採用候補の経路 |
 | 5 | `TrainAtcProtectionModeState` | 使用する防護方式と確定結果、Normal・Restricted保持の有無・保持方式・停止限界・終端方向、処理済み開扉操作番号 |
 | 6 | `TrainAtcPatternState` | 採用済みの経路・パターン、現在位置の許容速度・目標速度・接近状態 |
@@ -520,15 +519,16 @@ Inputは工程1のスナップショット時に取り込み、LogicとHelperか
 | 工程 | 実装の入口 | 更新先 |
 | --- | --- | --- |
 | 1 | `TrainAtcController.CollectInput` | Input。`Calculate`で今回の経過時間を設定する |
-| 2 | `TrainAtcPositionLogic.UpdatePosition` | `State.position` |
-| 3 | `TrainAtcOperationLogic.UpdateOperation` | `State.operation` |
+| 2 | `TrainAtcOperationLogic.UpdateOperation` | `State.operation`。有効状態・使用受電器・電文を選び、前回照査位置を消去する |
+| 3 | `TrainAtcPositionLogic.UpdatePosition` | `State.position`。基準端を更新し、他端を相対再解決する |
+| 3の位置更新後 | `TrainAtcOperationLogic.UpdateCurrentPosition` | `State.operation`。既知の選択端の最新位置・照査方向を確定する |
 | 4 | `TrainAtcValidationLogic.UpdateValidation` | `State.validation` |
 | 5 | `TrainAtcProtectionModeLogic.UpdateProtectionMode` | `State.protectionMode` |
 | 6 | `TrainAtcPatternLogic.UpdatePattern` | `State.pattern` |
 | 7 | `TrainAtcBrakeLogic.UpdateBrakeState` | `State.brake` |
 | 8 | `TrainAtcOutputLogic.UpdateAtcOutput` | Output |
 
-工程2〜8の呼び出し順は`TrainAtcLogic.Calculate`に集約する。工程5の後に`TrainAtcValidationLogic.ValidateProtectionSettings`を呼び、工程6までの結果から全体の`State.isAtcHealthy`を決め、失敗時にも工程7・8を実行する。
+工程2〜8の呼び出し順は`TrainAtcLogic.Calculate`に集約する。前回の使用受電器を保存し、`UpdateOperation` → `UpdatePosition` → `UpdateCurrentPosition` → `UpdateValidation`の順に呼ぶ。工程5の後に`TrainAtcValidationLogic.ValidateProtectionSettings`を呼び、工程6までの結果から全体の`State.isAtcHealthy`を決め、失敗時にも工程7・8を実行する。
 
 - 受電器は旧ATCと同じく、有効運転台側を選ぶ。照査方向は運転台側・レバーサ・受電器位置の編成の向きから決める。
 - 入力・共通設定の基本値は工程4で確認する。ORP固有の設定やNoneの停止余裕は、工程5で確定した使用方式を基準に`ValidateProtectionSettings`で確認する。

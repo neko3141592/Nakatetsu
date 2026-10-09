@@ -6,8 +6,11 @@ namespace Nakatetsu.Train.Equipment.Atc
         // ゲーム開始時に、両端受電器の初期位置と編成の向きを設定済みか。
         public bool isPositionInitialized;
 
-        // 現在の受電器位置を正しく更新できているか。
-        public bool isPositionKnown;
+        // 固定前側・固定後側の最新位置を、今回の更新で解決できているか。
+        public bool isFrontPositionKnown;
+        public bool isRearPositionKnown;
+        // 両端既知の診断用集約。照査には選択した側の結果を使う。
+        public bool IsPositionKnown => isFrontPositionKnown && isRearPositionKnown;
         public TrainAtcPosition frontPosition;
         public TrainAtcPosition rearPosition;
 

@@ -67,24 +67,52 @@ namespace Nakatetsu.Train.Equipment.Atc
         private static void SelectReceiver(TrainAtcContext context)
         {
             var operation = context.State.operation;
-            var position = context.State.position;
 
             // 旧ATCと同じく、有効運転台側の受電器を使用する。
-            TrainAtcPosition receiverPosition;
             if (operation.cab.isFrontCab)
             {
                 operation.selectedReceiver = TrainAtcReceiverSide.Front;
                 operation.currentTelegram = context.Input.frontTelegram;
-                receiverPosition = position.frontPosition;
             }
             else
             {
                 operation.selectedReceiver = TrainAtcReceiverSide.Rear;
                 operation.currentTelegram = context.Input.rearTelegram;
-                receiverPosition = position.rearPosition;
+            }
+        }
+
+        internal static void UpdateCurrentPosition(TrainAtcContext context)
+        {
+            var operation = context.State.operation;
+            var position = context.State.position;
+            operation.hasCurrentPosition = false;
+            operation.currentPosition = null;
+            operation.currentTravelDirection = TrackAtcTravelDirection.Unspecified;
+
+            if (!operation.isAtcEnabled || !position.isPositionInitialized)
+            {
+                return;
             }
 
-            if (!position.isPositionInitialized || !position.isPositionKnown || receiverPosition == null)
+            // 位置更新後の選択端だけを確認し、非使用側の不明を照査へ持ち込まない。
+            TrainAtcPosition receiverPosition;
+            bool isPositionKnown;
+            if (operation.selectedReceiver == TrainAtcReceiverSide.Front)
+            {
+                receiverPosition = position.frontPosition;
+                isPositionKnown = position.isFrontPositionKnown;
+            }
+            else if (operation.selectedReceiver == TrainAtcReceiverSide.Rear)
+            {
+                receiverPosition = position.rearPosition;
+                isPositionKnown = position.isRearPositionKnown;
+            }
+            else
+            {
+                return;
+            }
+
+            if (!isPositionKnown || receiverPosition == null)
             {
                 return;
             }

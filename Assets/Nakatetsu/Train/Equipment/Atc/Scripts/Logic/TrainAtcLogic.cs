@@ -14,9 +14,10 @@ namespace Nakatetsu.Train.Equipment.Atc
             }
 
             // 工程1のスナップショットはControllerで完了している。
-            TrainAtcPositionLogic.UpdatePosition(context);
             var previousReceiver = context.State.operation.selectedReceiver;
             TrainAtcOperationLogic.UpdateOperation(context);
+            TrainAtcPositionLogic.UpdatePosition(context);
+            TrainAtcOperationLogic.UpdateCurrentPosition(context);
             bool hasReceiverChanged = previousReceiver != context.State.operation.selectedReceiver;
 
             // 入力・受信判定を終えてから、防護方式とパターンを更新する。
