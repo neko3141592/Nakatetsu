@@ -1,0 +1,202 @@
+<mxfile host="Electron">
+  <diagram name="CTC・PRC構成案" id="GU_OizjEF6nDnIO3FGwi">
+    <mxGraphModel dx="1563" dy="1329" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2280" pageHeight="1380" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-50" parent="1" style="rounded=1;arcSize=3;html=1;strokeWidth=1;locked=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;" value="" vertex="1">
+          <mxGeometry height="260" width="630" x="50" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-27" parent="1" style="rounded=1;arcSize=3;html=1;strokeWidth=1;locked=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;" value="" vertex="1">
+          <mxGeometry height="300" width="1420" x="800" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-26" parent="1" style="rounded=1;arcSize=3;html=1;strokeWidth=1;locked=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;" value="" vertex="1">
+          <mxGeometry height="830" width="1420" x="800" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=28;fontStyle=0;spacing=0;" value="中鉄運行管理システム" vertex="1">
+          <mxGeometry height="42" width="1100" x="60" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="central-heading" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontStyle=0;spacing=0;" value="運行管理サーバー" vertex="1">
+          <mxGeometry height="30" width="180" x="820" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-56" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0;exitY=0.25;entryX=0.25;entryY=0;" target="OlrPzIv32AEe4uj7CrYp-51" value="">
+          <mxGeometry relative="1" y="-18" as="geometry">
+            <Array as="points">
+              <mxPoint x="165" y="217.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-57" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0;exitY=0.5;entryX=0.25;entryY=0;" target="OlrPzIv32AEe4uj7CrYp-52" value="">
+          <mxGeometry relative="1" y="18" as="geometry">
+            <Array as="points">
+              <mxPoint x="445" y="245" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-28" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="CTC中央装置" vertex="1">
+          <mxGeometry height="110" width="260" x="940" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-32" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="PRC" vertex="1">
+          <mxGeometry height="110" width="280" x="1690" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-5" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="地上信号装置" vertex="1">
+          <mxGeometry height="100" width="260" x="940" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-16" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="連動管理部" vertex="1">
+          <mxGeometry height="90" width="720" x="1410" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-6" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="A駅連動装置" vertex="1">
+          <mxGeometry height="90" width="220" x="1410" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-14" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="B駅連動装置" vertex="1">
+          <mxGeometry height="90" width="220" x="1660" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-15" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="C駅連動装置" vertex="1">
+          <mxGeometry height="90" width="220" x="1910" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-2" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="軌道回路" vertex="1">
+          <mxGeometry height="85" width="260" x="940" y="1230" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-34" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=1;exitY=0.18181818181818182;exitDx=0;exitDy=0;entryX=0;entryY=0.18181818181818182;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-32" value="在線情報・進路状態・要求結果">
+          <mxGeometry relative="1" y="-14" as="geometry" />
+        </mxCell>
+        <mxCell id="prc-tracking-result" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0;exitY=0.5454545454545454;exitDx=0;exitDy=0;entryX=1;entryY=0.5454545454545454;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-28" value="列車追跡情報">
+          <mxGeometry relative="1" y="14" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-35" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0;exitY=0.9090909090909091;exitDx=0;exitDy=0;entryX=1;entryY=0.9090909090909091;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-28" value="進路設定・取消要求&lt;br&gt;出発時機・案内指令">
+          <mxGeometry relative="1" y="24" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-29" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-28" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-31" parent="1" style="text;html=1;whiteSpace=wrap;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;" value="在線情報&lt;br&gt;ATC電文情報" vertex="1">
+          <mxGeometry height="58" width="170" x="820" y="427" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-38" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.8461538461538461;exitY=1;exitDx=0;exitDy=0;entryX=0.9236111111111112;entryY=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-16" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1160" y="385" />
+              <mxPoint x="2075" y="385" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-39" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;" value="進路要求" vertex="1">
+          <mxGeometry height="28" width="300" x="1520" y="353" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-30" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.3472222222222222;exitY=0;exitDx=0;exitDy=0;entryX=0.5961538461538461;entryY=1;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-28" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1660" y="480" />
+              <mxPoint x="1095" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-33" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;" value="進路状態・要求結果" vertex="1">
+          <mxGeometry height="28" width="400" x="1185" y="448" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-22" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.45;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-5" value="進路状態">
+          <mxGeometry relative="1" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="request-station-6" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.0763888888888889;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-6" value="要求">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-10" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.22916666666666666;entryY=1;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-16" value="状態・結果">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="request-station-14" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.4236111111111111;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-14" value="要求">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-19" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5763888888888888;entryY=1;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-16" value="状態・結果">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="request-station-15" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.7708333333333334;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-15" value="要求">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-20" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.9236111111111112;entryY=1;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-16" value="状態・結果">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-4" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0" target="OlrPzIv32AEe4uj7CrYp-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-9" parent="1" style="text;html=1;whiteSpace=wrap;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;" value="在線情報" vertex="1">
+          <mxGeometry height="38" width="165" x="825" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-7" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;entryX=0;entryY=0.75;" target="OlrPzIv32AEe4uj7CrYp-6" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="1272.5" />
+              <mxPoint x="1395" y="907.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="occupancy-station-b" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;entryX=0;entryY=0.75;" target="OlrPzIv32AEe4uj7CrYp-14" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1645" y="1272.5" />
+              <mxPoint x="1645" y="907.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="occupancy-station-c" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=17;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;entryX=0;entryY=0.75;" target="OlrPzIv32AEe4uj7CrYp-15" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1895" y="1272.5" />
+              <mxPoint x="1895" y="907.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="occupancy-junction-760" parent="1" style="ellipse;html=1;resizable=0;fontStyle=0;rotation=-5;" value="" vertex="1">
+          <mxGeometry height="7" width="7" x="1391.5" y="1269" as="geometry" />
+        </mxCell>
+        <mxCell id="occupancy-junction-1010" parent="1" style="ellipse;html=1;resizable=0;fontStyle=0" value="" vertex="1">
+          <mxGeometry height="7" width="7" x="1641.5" y="1269" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-8" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;" value="在線情報" vertex="1">
+          <mxGeometry height="30" width="560" x="1470" y="1287" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-station-a" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="A駅転轍機" vertex="1">
+          <mxGeometry height="90" width="220" x="1410" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-request-a" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0.25;exitY=1;entryX=0.25;entryY=0;" target="turnout-station-a" value="転換要求">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-state-a" edge="1" parent="1" source="turnout-station-a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0.75;exitY=0;entryX=0.75;entryY=1;" target="OlrPzIv32AEe4uj7CrYp-6" value="実位置・&lt;br&gt;転換状態">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-station-b" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="B駅転轍機" vertex="1">
+          <mxGeometry height="90" width="220" x="1660" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-request-b" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0.25;exitY=1;entryX=0.25;entryY=0;" target="turnout-station-b" value="転換要求">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-state-b" edge="1" parent="1" source="turnout-station-b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0.75;exitY=0;entryX=0.75;entryY=1;" target="OlrPzIv32AEe4uj7CrYp-14" value="実位置・&lt;br&gt;転換状態">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-station-c" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="C駅転轍機" vertex="1">
+          <mxGeometry height="90" width="220" x="1910" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-request-c" edge="1" parent="1" source="OlrPzIv32AEe4uj7CrYp-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#BB690D;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0.25;exitY=1;entryX=0.25;entryY=0;" target="turnout-station-c" value="転換要求">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="turnout-state-c" edge="1" parent="1" source="turnout-station-c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;startArrow=none;exitDx=0;exitDy=0;entryDx=0;entryDy=0;fontFamily=Hiragino Sans;fontSize=16;fontColor=#246DA8;labelBackgroundColor=#FFFFFF;spacing=3;fontStyle=0;exitX=0.75;exitY=0;entryX=0.75;entryY=1;" target="OlrPzIv32AEe4uj7CrYp-15" value="実位置・&lt;br&gt;転換状態">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-51" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="出発時機表示器" vertex="1">
+          <mxGeometry height="100" width="260" x="100" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="OlrPzIv32AEe4uj7CrYp-52" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;strokeWidth=1.8;fontFamily=Hiragino Sans;fontSize=23;fontStyle=0;align=center;verticalAlign=middle;spacing=10;" value="駅案内設備" vertex="1">
+          <mxGeometry height="100" width="260" x="380" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="station-equipment-heading" parent="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontStyle=0;spacing=0;" value="駅設備" vertex="1">
+          <mxGeometry height="30" width="180" x="70" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="departure-display-command-label" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;fontColor=#BB690D;" value="出発時機表示指令" vertex="1">
+          <mxGeometry height="28" width="280" x="200" y="181" as="geometry" />
+        </mxCell>
+        <mxCell id="station-guidance-command-label" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=17;fontStyle=0;spacing=0;fontColor=#BB690D;" value="表示・放送指令" vertex="1">
+          <mxGeometry height="28" width="250" x="490" y="257" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

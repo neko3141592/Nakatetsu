@@ -13,6 +13,9 @@ namespace Nakatetsu.Track.Atc
 
         // 連動進路IDをキーとする。確認済みの未設定も登録し、取得失敗と区別する。
         public Dictionary<string, TrackAtcRouteInput> RoutesById = new();
+
+        // 初回のEdge選択に使う線路接続の照合結果。未登録は接続入力の未取得。
+        public Dictionary<string, bool> PhysicalPathAvailableByAtcEdgeId = new();
     }
 
     public sealed class TrackAtcRouteInput

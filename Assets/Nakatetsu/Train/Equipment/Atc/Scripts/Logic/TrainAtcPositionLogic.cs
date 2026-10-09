@@ -136,6 +136,8 @@ namespace Nakatetsu.Train.Equipment.Atc
             }
 
             position = CopyPosition(previousPosition);
+            // 共通の線路区間では選択されたATC Edgeへ対応し直す。分岐後は物理区間が一致しない。
+            RebindSelectedEdge(context, telegram, position);
             if (signedDistanceM == 0d)
             {
                 return true;
@@ -237,12 +239,19 @@ namespace Nakatetsu.Train.Equipment.Atc
             }
 
             // ここでは分岐先の解決にだけ電文を使う。無信号の猶予・採用可否は工程4で判定する。
-            if (telegram != null && telegram.isValid &&
-                telegram.atcRouteInfomation.TryGetValue((atcEdgeId, direction), out var route) &&
-                route != null && TryResolveNextOnPath(context.atcEdgesById, route.atcEdgePath,
-                    atcEdgeId, exitNodeId, out nextEdge))
+            var route = telegram != null && telegram.isValid ? telegram.GetRoute(direction) : null;
+            if (route != null && TryResolveNextOnPath(context.atcEdgesById, route.atcEdgePath,
+                atcEdgeId, exitNodeId, out nextEdge))
             {
                 // 同じ更新で次のEdgeも越える場合は、読み取った経路を引き継ぐ。
+                atcEdgePath = route.atcEdgePath;
+                return true;
+            }
+
+            // 受電器が先に隣の回路へ入った場合、その回路の選択済みEdgeを使う。
+            if (TryResolveSelectedOrigin(context, telegram, atcEdgeId, exitNodeId,
+                out nextEdge, out route))
+            {
                 atcEdgePath = route.atcEdgePath;
                 return true;
             }
@@ -254,6 +263,131 @@ namespace Nakatetsu.Train.Equipment.Atc
             }
 
             return TryResolveNextOnGraph(context, atcEdgeId, exitNodeId, out nextEdge);
+        }
+
+        private static void RebindSelectedEdge(
+            TrainAtcContext context, TrackCircuitAtcTelegram telegram, TrainAtcPosition position)
+        {
+            var route = telegram != null && telegram.isValid ? telegram.routeAtoB ?? telegram.routeBtoA : null;
+            if (route == null || route.atcEdgePath == null || route.atcEdgePath.Count == 0 ||
+                route.atcEdgePath[0] == position.atcEdgeId ||
+                !TryGetAtcEdge(context.atcEdgesById, position.atcEdgeId, out var currentEdge) ||
+                !TryGetAtcEdge(context.atcEdgesById, route.atcEdgePath[0], out var selectedEdge) ||
+                string.IsNullOrEmpty(currentEdge.trackCircuitId) ||
+                selectedEdge.trackCircuitId != currentEdge.trackCircuitId || currentEdge.physicalSpans == null)
+            {
+                return;
+            }
+
+            float startOnAtcEdgeM = 0f;
+            foreach (var span in currentEdge.physicalSpans)
+            {
+                if (!IsValidSpan(span))
+                {
+                    return;
+                }
+                float lengthM = Math.Abs(span.endDistanceOnEdgeM - span.startDistanceOnEdgeM);
+                if (position.distanceOnAtcEdgeM >= startOnAtcEdgeM &&
+                    position.distanceOnAtcEdgeM <= startOnAtcEdgeM + lengthM)
+                {
+                    bool spanFacesAtoB = span.endDistanceOnEdgeM > span.startDistanceOnEdgeM;
+                    float distanceOnSpanM = position.distanceOnAtcEdgeM - startOnAtcEdgeM;
+                    float physicalDistanceM = span.startDistanceOnEdgeM +
+                        (spanFacesAtoB ? distanceOnSpanM : -distanceOnSpanM);
+                    bool physicalFrontFacesAtoB = position.frontFacesAtoB == spanFacesAtoB;
+                    if (TryMapPhysicalPosition(selectedEdge, span.trackEdgeId, physicalDistanceM,
+                        physicalFrontFacesAtoB, out float mappedDistanceM, out bool mappedFrontFacesAtoB))
+                    {
+                        position.atcEdgeId = selectedEdge.atcEdgeId;
+                        position.distanceOnAtcEdgeM = mappedDistanceM;
+                        position.frontFacesAtoB = mappedFrontFacesAtoB;
+                        return;
+                    }
+                }
+                startOnAtcEdgeM += lengthM;
+            }
+        }
+
+        private static bool TryMapPhysicalPosition(
+            TrackAtcGraphEdge edge, string trackEdgeId, float distanceOnEdgeM,
+            bool frontFacesPhysicalAtoB, out float mappedDistanceM, out bool mappedFrontFacesAtoB)
+        {
+            mappedDistanceM = 0f;
+            mappedFrontFacesAtoB = false;
+            if (edge.physicalSpans == null)
+            {
+                return false;
+            }
+
+            float startOnAtcEdgeM = 0f;
+            bool found = false;
+            foreach (var span in edge.physicalSpans)
+            {
+                if (!IsValidSpan(span))
+                {
+                    return false;
+                }
+                float lengthM = Math.Abs(span.endDistanceOnEdgeM - span.startDistanceOnEdgeM);
+                if (span.trackEdgeId == trackEdgeId &&
+                    distanceOnEdgeM >= Math.Min(span.startDistanceOnEdgeM, span.endDistanceOnEdgeM) &&
+                    distanceOnEdgeM <= Math.Max(span.startDistanceOnEdgeM, span.endDistanceOnEdgeM))
+                {
+                    if (found)
+                    {
+                        return false;
+                    }
+                    bool spanFacesAtoB = span.endDistanceOnEdgeM > span.startDistanceOnEdgeM;
+                    mappedDistanceM = startOnAtcEdgeM + Math.Abs(distanceOnEdgeM - span.startDistanceOnEdgeM);
+                    mappedFrontFacesAtoB = frontFacesPhysicalAtoB == spanFacesAtoB;
+                    found = true;
+                }
+                startOnAtcEdgeM += lengthM;
+            }
+            return found && mappedDistanceM <= edge.lengthM;
+        }
+
+        private static bool IsValidSpan(TrackAtcPhysicalSpan span)
+        {
+            return span != null && !string.IsNullOrEmpty(span.trackEdgeId) &&
+                !float.IsNaN(span.startDistanceOnEdgeM) && !float.IsInfinity(span.startDistanceOnEdgeM) &&
+                !float.IsNaN(span.endDistanceOnEdgeM) && !float.IsInfinity(span.endDistanceOnEdgeM) &&
+                span.startDistanceOnEdgeM >= 0f && span.endDistanceOnEdgeM >= 0f &&
+                span.startDistanceOnEdgeM != span.endDistanceOnEdgeM;
+        }
+
+        private static bool TryResolveSelectedOrigin(
+            TrainAtcContext context, TrackCircuitAtcTelegram telegram, string currentEdgeId,
+            string exitNodeId, out TrackAtcGraphEdge nextEdge, out TrackCircuitAtcRouteInfomation route)
+        {
+            nextEdge = null;
+            route = null;
+            if (telegram == null || !telegram.isValid ||
+                !TryGetAtcEdge(context.atcEdgesById, currentEdgeId, out var currentEdge))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                var direction = i == 0 ? TrackAtcTravelDirection.AtoB : TrackAtcTravelDirection.BtoA;
+                var candidateRoute = telegram.GetRoute(direction);
+                if (candidateRoute == null || candidateRoute.atcEdgePath == null ||
+                    candidateRoute.atcEdgePath.Count == 0 ||
+                    !TryGetAtcEdge(context.atcEdgesById, candidateRoute.atcEdgePath[0], out var candidate) ||
+                    candidate.atcEdgeId == currentEdgeId || candidate.trackCircuitId == currentEdge.trackCircuitId)
+                {
+                    continue;
+                }
+                string entryNodeId = direction == TrackAtcTravelDirection.AtoB
+                    ? candidate.atcNodeAId : candidate.atcNodeBId;
+                if (entryNodeId == exitNodeId)
+                {
+                    nextEdge = candidate;
+                    route = candidateRoute;
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static bool TryResolveNextOnPath(
@@ -322,10 +456,17 @@ namespace Nakatetsu.Train.Equipment.Atc
         {
             nextEdge = null;
             int candidateCount = 0;
+            context.atcEdgesById.TryGetValue(atcEdgeId, out var currentEdge);
             foreach (var edge in context.atcEdgesById.Values)
             {
                 if (edge == null || edge.atcEdgeId == atcEdgeId)
                 {
+                    continue;
+                }
+                if (currentEdge != null && !string.IsNullOrEmpty(currentEdge.trackCircuitId) &&
+                    edge.trackCircuitId == currentEdge.trackCircuitId)
+                {
+                    // 同じ回路の定位・反位は代替経路であり、相互に続くEdgeではない。
                     continue;
                 }
                 if (edge.atcNodeAId != exitNodeId && edge.atcNodeBId != exitNodeId)

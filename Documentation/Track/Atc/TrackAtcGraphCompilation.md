@@ -22,7 +22,7 @@
 
 `Compiled Graph` は読み取り専用の表示。入力や生成元は書き換えない。失敗時は理由をInspectorとConsoleに表示し、前回の生成結果を保持する。成功時の置換はUndoに対応する。Play Modeではコンパイルできない。
 
-NtLine用は `Assets/Nakatetsu/Track/NtLine/Data/NtLineAtcGraph.asset` に入力3種類を割り当て済み。追加時点では未コンパイルなので、Inspectorでボタンを押して生成する。入力を変更しても自動更新はしないため、変更後は再コンパイルする。
+NtLine用は `Assets/Nakatetsu/Track/NtLine/Data/NtLineAtcGraph.asset` に入力3種類を割り当て済み。生成済みの定義も保存している。入力を変更しても自動更新はしないため、変更後は再コンパイルする。
 
 ## コードから呼び出す
 
@@ -41,32 +41,35 @@ if (TrackAtcGraphCompiler.TryCompile(
 
 - `circuits`：軌道回路IDごとの制御方式と基本速度制限[km/h]。全回路に設定する。`Unspecified`は設定漏れとしてエラー。`Block`は個別の進路設定が不要な区間、`Interlocking`は連動進路に従う区間、`Yard`は構内モードで通行する区間。列挙値はそれぞれ1・2・3を維持する。
 - `speedLimits`：物理Edge IDとGeometry距離の区間で指定する追加速度制限。区間の両端は昇順・降順どちらでもよい。回路の基本速度と重複する全区間の制限から、最も低い値を採用する。0 km/hも有効な制限。
-- `routes`：ATC進路ID、連動進路ID、通過順の`path`。各区間は物理Edge IDと、入口・出口のGeometry距離を持つ。入口→出口の順序が進行方向になる。同じ回路を通る直進・分岐の進路も、この経路によって区別する。
+- `routes`：ATC進路ID、連動進路ID、通過順の`trackCircuitIds`。Connectionの接続ペアと対応する連動進路の`requiredTurnouts`から、定位・反位のATC Edgeを解決する。単一回路の進路だけは`entryDirection`でA→B・B→Aを指定する。複数回路なら順序から入口方向を求める。
 - `gradientSampleIntervalM`：勾配サンプル間隔。既定10 m。Edge実距離を基準に採取する。
 
 速度制限の保存キーに生成済みATC Edge IDを使わないので、軌道回路や進路境界を変更して再分割しても制限を再配置できる。物理Edge IDやGeometry距離の基準自体を変更した場合は、生成元も修正する。
 
-## 分割と接続
+## 結合と接続
 
-1. 物理Edgeの両端、軌道回路区間の境界、進路区間の入口・出口を分割点にする。
-2. 各区間を距離表でEdge実距離へ変換する。Geometry距離が減少するEdgeにも対応する。
-3. 区間ごとにATC Edgeを作り、所属する軌道回路IDを持たせる。
-4. 物理Nodeを共有する端点は、同じATC Nodeへ接続する。Edge内部の境界はそのEdgeだけのNodeとする。
-5. 速度境界ではEdgeを分割せず、Edge内の`speedLimitSections`に変換する。
+線路用GraphのEdge・Node・Connection・軌道回路区間は変更しない。ATC Graphだけを生成する。
 
-転轍機の共通側・直進側・分岐側を1つの軌道回路Pで覆った場合、それぞれのATC Edgeは同じ`trackCircuitId = P`を持つ。直進進路は共通側→直進側、分岐進路は共通側→分岐側のEdge列になる。回路Pを枝ごとに別の占有状態へ分けることはない。
+1. 軌道回路境界で線路用Edgeを区切り、距離表でGeometry距離をEdge実距離へ変換する。
+2. 同一軌道回路内の接続可能な区間を結合し、回路の入口から出口までを一つのATC Edgeにする。
+3. 転轍機回路ではConnectionの定位・反位ペアごとに、common＋normalとcommon＋reverseの二つのATC Edgeを作る。共通区間は同じ線路用区間を参照する。
+4. 複数のATC Edgeも同じ`trackCircuitId`へ所属させ、占有は回路全体で扱う。
+5. 速度制限・勾配は結合後の距離へ変換する。速度境界ではEdgeを分割しない。
 
-物理Nodeの接続には`Connection`が必要。進路の経路は`edgePairs`と連動進路の`requiredTurnouts`で検証する。現在の転轍機位置から進路を推測しない。直進側→分岐側のように定義されたペアにない接続はエラーになる。
+各ATC Edgeの`physicalSpans`は、ATCのA→B方向に並べた線路用区間を保持する。各区間は`trackEdgeId`と`startDistanceOnEdgeM`・`endDistanceOnEdgeM`を持ち、線路用Edgeを逆方向に通る場合は始点距離が終点距離より大きくなる。ATC上の区間長は両距離の差の絶対値で、その累積がATC Edge内の位置になる。転轍機IDや必要位置はATC Edgeへ重複保存しない。
 
-生成IDは物理IDと区間端のEdge実距離から決める。同じ入力の再コンパイルやリストの並べ替えで変わらない。分割点や距離表を変更した場合は変わり得る。
+例えば生成元は`21T → 2RT`と連動進路IDを指定するだけでよい。21定位を要求する連動進路なら、21Tの定位用Edgeと2RTのEdgeへ解決する。人が生成済みEdge IDや三つの物理区間を並べる必要はない。
+
+Connectionにない接続、連動進路の転轍機条件と矛盾する経路、一意に解決できない進路は生成失敗とする。現在の転轍機位置や連動の実行時状態から静的進路を生成しない。
+
+生成IDは軌道回路と静的な物理経路から決め、定位・反位で異なるIDにする。同じ入力の再コンパイルやリストの並べ替えで変わらない。IDの接尾辞から転轍機位置を判定しない。
 
 ## 方向と進路
 
-- ATC EdgeのA→Bは物理EdgeのA→Bと一致する。
-- 非連動区間は物理Edgeの`travelDirection`を使う。`AtoB`または`BtoA`を必須とし、双方向は生成しない。
-- 進路に含まれる区間は`direction = Unspecified`とし、順序付きの`atcEdgeIds`から方向を読む。非自動閉塞や構内運転の区分から、連動進路を自動的に作ることはない。
-- 出力の進路は入口Nodeや方向フィールドを持たないため、先頭2本の共通Nodeが1つになる経路を必要とする。1本だけの進路、先頭2本が両端のNodeを共有する経路、同じATC Edgeを再度通る経路はエラー。
-- 分岐Nodeに接するATC Edgeは進路への所属を必須とする。実行時の探索では、分岐Nodeの隣接リストから自由に枝を選ばず、許可された進路のEdge列に沿って辿る。
+- 同じ共通物理区間を含む定位・反位Edgeは、その共通区間の向きを揃える。
+- 非連動区間は物理区間の`travelDirection`をATC Edgeの向きへ変換する。
+- 進路に含まれるEdgeの`direction`は`Unspecified`とする。進路は順序付き`atcEdgeIds`と先頭Edgeの`entryDirection`を持ち、以降の方向は接続から求める。単一Edgeの進路にも対応する。
+- 地上の探索では、成立した連動進路に沿って回路の送信対象Edgeを選択する。未成立の進路へ新規進入させず、手前のEdge終端で停止する。既に選択Edge内にいる列車は、そのEdge終端まで進行できる。
 
 ## 勾配
 

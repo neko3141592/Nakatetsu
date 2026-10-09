@@ -215,7 +215,6 @@ namespace Nakatetsu.Train.Simulation.Orchestration
 
         public void Calculate(float deltaTimeSeconds)
         {
-            InitializeAtcPosition();
             // 測定、機器制御、物理モデル、編成物理、線路位置の順に1ステップ実行する。
             float signedVelocityMps = physicsController != null
                 ? physicsController.Context.State.signedVelocityMps
@@ -224,6 +223,7 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             CollectPhysicalMeasurements(signedVelocityMps);
             StepSpeedSensors(deltaTimeSeconds);
             StepAtcReceivers(deltaTimeSeconds);
+            InitializeAtcPosition();
 
             StepEquipment(deltaTimeSeconds);
 
@@ -259,8 +259,6 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             {
                 return;
             }
-            hasAttemptedAtcInitialization = true;
-
             if (atcController == null || atcController.Context.State.position.isPositionInitialized)
             {
                 return;
@@ -275,29 +273,53 @@ namespace Nakatetsu.Train.Simulation.Orchestration
             }
             if (atcGraphAsset == null || frontReceiver == null || rearReceiver == null)
             {
+                hasAttemptedAtcInitialization = true;
                 Debug.LogError("車上ATCの初期設定に必要なATCグラフまたは両端の受信機がありません。", this);
                 return;
             }
             if (!frontReceiver.TryGetTrackSample(out var frontSample) ||
                 !rearReceiver.TryGetTrackSample(out var rearSample))
             {
+                hasAttemptedAtcInitialization = true;
                 Debug.LogError("車上ATCの初期位置をTrackSampleから取得できません。列車の初期配置を確認してください。", this);
                 return;
             }
 
             var graph = atcGraphAsset.Definition;
+            string frontSelectedEdgeId = GetSelectedAtcEdgeId(frontReceiver);
+            string rearSelectedEdgeId = GetSelectedAtcEdgeId(rearReceiver);
             if (!TrainAtcInitializationLogic.TryResolvePosition(graph,
-                    frontSample.EdgeId, frontSample.DistanceOnEdgeM, frontSample.FrontFacesAtoB, out var frontPosition) ||
+                    frontSample.EdgeId, frontSample.DistanceOnEdgeM, frontSample.FrontFacesAtoB,
+                    out var frontPosition, frontSelectedEdgeId) ||
                 !TrainAtcInitializationLogic.TryResolvePosition(graph,
-                    rearSample.EdgeId, rearSample.DistanceOnEdgeM, rearSample.FrontFacesAtoB, out var rearPosition))
+                    rearSample.EdgeId, rearSample.DistanceOnEdgeM, rearSample.FrontFacesAtoB,
+                    out var rearPosition, rearSelectedEdgeId))
             {
+                // 共通区間では最初の選択電文が届くまで初期位置を決めない。
+                if (frontSelectedEdgeId == null || rearSelectedEdgeId == null)
+                {
+                    return;
+                }
+                hasAttemptedAtcInitialization = true;
                 Debug.LogError("車上ATCの初期位置に対応するATC Edgeを決定できません。ATCグラフを確認してください。", this);
                 return;
             }
+            hasAttemptedAtcInitialization = true;
             if (!atcController.TryInitializePosition(graph, frontPosition, rearPosition))
             {
                 Debug.LogError("車上ATCの初期位置が不正です。ATCグラフを確認してください。", this);
             }
+        }
+
+        private static string GetSelectedAtcEdgeId(TrainAtcReceiverController receiver)
+        {
+            if (!receiver.TryGetTelegram(out var telegram) || !telegram.isValid)
+            {
+                return null;
+            }
+            var route = telegram.routeAtoB ?? telegram.routeBtoA;
+            return route != null && route.atcEdgePath != null && route.atcEdgePath.Count > 0
+                ? route.atcEdgePath[0] : null;
         }
 
         private void CollectPhysicalMeasurements(float signedVelocityMps)

@@ -61,14 +61,18 @@ namespace Nakatetsu.Train.Simulation.Atc.Tests
             var circuits = new TrackCircuitSimulationState();
             circuits.SetAtcTelegrams(new Dictionary<string, TrackCircuitAtcTelegram> { ["a"] = source });
             TrainAtcReceiverLogic.Calculate(context, CreateGraph(), circuits);
-            source.atcRouteInfomation.Clear();
+            source.routeAtoB.atcEdgePath.Clear();
+            source.routeBtoA = null;
 
             Assert.That(TrainAtcReceiverLogic.TryGetTelegram(context, out var received), Is.True);
             Assert.That(received.isValid, Is.EqualTo(valid));
             Assert.That(received.issuedAtSeconds, Is.EqualTo(43200.125d));
-            Assert.That(received.atcRouteInfomation.Count, Is.EqualTo(2));
-            received.atcRouteInfomation.Clear();
-            Assert.That(context.Output.telegram.atcRouteInfomation.Count, Is.EqualTo(2));
+            Assert.That(received.routeAtoB.atcEdgePath, Is.EqualTo(new[] { "one", "two" }));
+            Assert.That(received.routeBtoA.atcEdgePath, Is.EqualTo(new[] { "one" }));
+            received.routeAtoB.atcEdgePath.Clear();
+            received.routeBtoA = null;
+            Assert.That(context.Output.telegram.routeAtoB.atcEdgePath.Count, Is.EqualTo(2));
+            Assert.That(context.Output.telegram.routeBtoA, Is.Not.Null);
 
             circuits.SetAtcTelegrams(null);
             TrainAtcReceiverLogic.Calculate(context, CreateGraph(), circuits);
@@ -89,16 +93,16 @@ namespace Nakatetsu.Train.Simulation.Atc.Tests
         public static TrackCircuitAtcTelegram NewTelegram(bool valid = true)
         {
             var telegram = new TrackCircuitAtcTelegram { issuedAtSeconds = 43200.125d, isValid = valid };
-            telegram.atcRouteInfomation.Add(("one", TrackAtcTravelDirection.AtoB), new TrackCircuitAtcRouteInfomation
+            telegram.routeAtoB = new TrackCircuitAtcRouteInfomation
             {
                 atcEdgePath = new List<string> { "one", "two" },
                 stopAtcEdgeId = "two",
                 overrunProtectionMode = OverrunProtectionMode.Restricted
-            });
-            telegram.atcRouteInfomation.Add(("one", TrackAtcTravelDirection.BtoA), new TrackCircuitAtcRouteInfomation
+            };
+            telegram.routeBtoA = new TrackCircuitAtcRouteInfomation
             {
                 atcEdgePath = new List<string> { "one" }, stopAtcEdgeId = "one"
-            });
+            };
             return telegram;
         }
 

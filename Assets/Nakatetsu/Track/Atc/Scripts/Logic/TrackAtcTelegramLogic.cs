@@ -13,6 +13,11 @@ namespace Nakatetsu.Track.Atc
             }
 
             CreateCircuitTargets(context);
+            foreach (var pair in context.State.path.selectionFailureByCircuitId)
+            {
+                InvalidateCircuit(GetOrCreateCircuit(telegram, pair.Key), pair.Value);
+            }
+
             AggregateRouteResults(context);
             FinalizeCircuitValidity(context);
         }

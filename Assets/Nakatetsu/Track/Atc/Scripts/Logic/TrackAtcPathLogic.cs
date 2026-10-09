@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Nakatetsu.Track.Graph.Edge;
+using Nakatetsu.Track.Simulation.Circuit;
 
 namespace Nakatetsu.Track.Atc
 {
@@ -11,19 +12,161 @@ namespace Nakatetsu.Track.Atc
         {
             var path = context.State.path;
             path.resultsByKey.Clear();
+            path.selectionFailureByCircuitId.Clear();
             if (!context.State.validation.isGraphValid)
             {
+                path.selectedEdgeByCircuitId.Clear();
                 return;
             }
 
+            SelectCircuitEdges(context);
             ExploreAllOrigins(context);
             ValidateNextEdgeChains(context);
+        }
+
+        private static void SelectCircuitEdges(TrackAtcContext context)
+        {
+            var edgesByCircuit = new Dictionary<string, List<TrackAtcGraphEdge>>();
+            foreach (var edge in context.State.validation.atcEdgesById.Values)
+            {
+                if (!edgesByCircuit.TryGetValue(edge.trackCircuitId, out var edges))
+                {
+                    edges = new List<TrackAtcGraphEdge>();
+                    edgesByCircuit.Add(edge.trackCircuitId, edges);
+                }
+
+                edges.Add(edge);
+            }
+
+            var path = context.State.path;
+            foreach (string previousCircuitId in new List<string>(path.selectedEdgeByCircuitId.Keys))
+            {
+                if (!edgesByCircuit.ContainsKey(previousCircuitId))
+                {
+                    path.selectedEdgeByCircuitId.Remove(previousCircuitId);
+                }
+            }
+
+            foreach (var pair in edgesByCircuit)
+            {
+                if (TrySelectCircuitEdge(context, pair.Key, pair.Value, out var selected, out var failureReason))
+                {
+                    path.selectedEdgeByCircuitId[pair.Key] = selected.atcEdgeId;
+                }
+                else
+                {
+                    path.selectionFailureByCircuitId.Add(pair.Key, failureReason);
+                }
+            }
+        }
+
+        private static bool TrySelectCircuitEdge(
+            TrackAtcContext context,
+            string circuitId,
+            List<TrackAtcGraphEdge> candidates,
+            out TrackAtcGraphEdge selected,
+            out string failureReason)
+        {
+            selected = null;
+            failureReason = string.Empty;
+            if (candidates.Count == 1)
+            {
+                selected = candidates[0];
+                return true;
+            }
+
+            // 開通済み進路のEdgeを採用し、同じ回路の非選択側は探索しない。
+            foreach (var route in context.State.validation.atcRoutesById.Values)
+            {
+                bool containsCandidate = false;
+                foreach (var candidate in candidates)
+                {
+                    containsCandidate |= route.atcEdgeIds.Contains(candidate.atcEdgeId);
+                }
+
+                if (!containsCandidate)
+                {
+                    continue;
+                }
+
+                if (!TryGetRouteInput(context, route, out var input, out failureReason))
+                {
+                    return false;
+                }
+
+                if (!CanContinue(input))
+                {
+                    continue;
+                }
+
+                foreach (var candidate in candidates)
+                {
+                    if (!route.atcEdgeIds.Contains(candidate.atcEdgeId))
+                    {
+                        continue;
+                    }
+
+                    if (selected != null && selected.atcEdgeId != candidate.atcEdgeId)
+                    {
+                        failureReason = $"Multiple established ATC edges belong to circuit '{circuitId}'.";
+                        return false;
+                    }
+
+                    selected = candidate;
+                }
+            }
+
+            if (selected != null)
+            {
+                return true;
+            }
+
+            if (context.Input.OccupiedByCircuitId.TryGetValue(circuitId, out bool occupied) && occupied &&
+                context.State.path.selectedEdgeByCircuitId.TryGetValue(circuitId, out string previousEdgeId))
+            {
+                selected = candidates.Find(edge => edge.atcEdgeId == previousEdgeId);
+                if (selected != null)
+                {
+                    return true;
+                }
+            }
+
+            // 進路未設定で履歴もない場合だけ、既存の確定済み線路接続を使う。
+            foreach (var candidate in candidates)
+            {
+                if (!context.Input.PhysicalPathAvailableByAtcEdgeId.TryGetValue(candidate.atcEdgeId,
+                        out bool available) || !available)
+                {
+                    continue;
+                }
+
+                if (selected != null)
+                {
+                    failureReason = $"Multiple connected ATC edges belong to circuit '{circuitId}'.";
+                    return false;
+                }
+
+                selected = candidate;
+            }
+
+            if (selected == null)
+            {
+                failureReason = $"No selected ATC edge is available for circuit '{circuitId}'.";
+                return false;
+            }
+
+            return true;
         }
 
         private static void ExploreAllOrigins(TrackAtcContext context)
         {
             foreach (var edge in context.State.validation.atcEdgesById.Values)
             {
+                if (!IsSelectedEdge(context, edge))
+                {
+                    continue;
+                }
+
                 if (edge.controlKind == TrackAtcEdgeControlKind.Interlocking ||
                     edge.controlKind == TrackAtcEdgeControlKind.Yard)
                 {
@@ -49,6 +192,7 @@ namespace Nakatetsu.Track.Atc
             context.State.path.resultsByKey.Add(key, ExploreOrigin(context, key));
         }
 
+        // ATCエッジ・方向を起点に経路を探索
         private static TrackAtcPathResult ExploreOrigin(TrackAtcContext context, TrackAtcEdgeKey origin)
         {
             var result = new TrackAtcPathResult();
@@ -63,7 +207,8 @@ namespace Nakatetsu.Track.Atc
 
             var originEndReason = TrackAtcPathEndReason.RouteNotSet;
             string originFailure = string.Empty;
-            if (originEdge.controlKind == TrackAtcEdgeControlKind.Interlocking &&
+            if (originEdge.controlKind != TrackAtcEdgeControlKind.Yard &&
+                // 見ているエッジが連動進路内の時、そのエッジを起点とする進路が成立しているか探索する
                 !TrySelectOriginRoute(context, origin, out currentRoute, out routeIndex,
                     out originEndReason, out originFailure))
             {
@@ -101,6 +246,11 @@ namespace Nakatetsu.Track.Atc
                 }
 
                 var nextEdge = validation.atcEdgesById[nextKey.Value.atcEdgeId];
+                if (!IsSelectedEdge(context, nextEdge))
+                {
+                    return Fail(result, circuits, $"Next edge '{nextEdge.atcEdgeId}' is not selected for its circuit.");
+                }
+
                 if (!HasCircuitInput(context, nextEdge.trackCircuitId))
                 {
                     circuits.Add(nextEdge.trackCircuitId);
@@ -153,6 +303,22 @@ namespace Nakatetsu.Track.Atc
 
             if (edge.controlKind == TrackAtcEdgeControlKind.Block)
             {
+                if (currentRoute != null && routeIndex < currentRoute.atcEdgeIds.Count - 1)
+                {
+                    // Blockから連動区間へ入る際は、既存の進路内継続条件ではなく新規進入条件を使う。
+                    var routeInput = context.Input.RoutesById[currentRoute.interlockingRouteId];
+                    if (!CanEnter(routeInput))
+                    {
+                        endReason = GetUnavailableReason(routeInput);
+                        return true;
+                    }
+
+                    nextRoute = currentRoute;
+                    nextRouteIndex = routeIndex + 1;
+                    nextKey = GetRouteKey(context, currentRoute, nextRouteIndex);
+                    return true;
+                }
+
                 return TryFindConnectedEdge(context, currentKey, true, out nextKey,
                     out nextRoute, out nextRouteIndex, out endReason, out failureReason);
             }
@@ -197,6 +363,12 @@ namespace Nakatetsu.Track.Atc
                 }
 
                 nextRoute = successor;
+                if (successor.atcEdgeIds.Count == 1)
+                {
+                    return TryFindConnectedEdge(context, currentKey, true, out nextKey,
+                        out nextRoute, out nextRouteIndex, out endReason, out failureReason);
+                }
+
                 nextRouteIndex = 1;
                 nextKey = GetRouteKey(context, successor, nextRouteIndex);
                 return true;
@@ -243,12 +415,23 @@ namespace Nakatetsu.Track.Atc
                 }
 
                 var candidate = validation.atcEdgesById[candidateId];
+                if (candidate.trackCircuitId == edge.trackCircuitId)
+                {
+                    // 定位・反位は同じ回路の代替Edgeであり、相互の継続先ではない。
+                    continue;
+                }
+
                 var direction = candidate.atcNodeAId == exitNode
                     ? TrackEdgeTravelDirection.AtoB : TrackEdgeTravelDirection.BtoA;
                 var key = new TrackAtcEdgeKey(candidateId, direction);
                 TrackAtcRouteDefinition route = null;
                 if (candidate.controlKind == TrackAtcEdgeControlKind.Block)
                 {
+                    if (!IsSelectedEdge(context, candidate))
+                    {
+                        continue;
+                    }
+
                     if (!validation.directionsByAtcEdgeId[candidateId].Contains(direction))
                     {
                         continue;
@@ -276,6 +459,12 @@ namespace Nakatetsu.Track.Atc
                         }
 
                         continue;
+                    }
+
+                    if (!IsSelectedEdge(context, candidate))
+                    {
+                        failureReason = $"Established route enters an unselected edge '{candidate.atcEdgeId}'.";
+                        return false;
                     }
                 }
                 else
@@ -325,7 +514,10 @@ namespace Nakatetsu.Track.Atc
                     return false;
                 }
 
-                if (!CanContinue(input))
+                var originEdge = context.State.validation.atcEdgesById[key.atcEdgeId];
+                bool canUseRoute = originEdge.controlKind == TrackAtcEdgeControlKind.Block
+                    ? CanEnter(input) : CanContinue(input);
+                if (!canUseRoute)
                 {
                     if (input.IsRouteSet)
                     {
@@ -392,7 +584,7 @@ namespace Nakatetsu.Track.Atc
                     return false;
                 }
 
-                if (!input.IsRouteSet || !input.ProceedAllowed || !input.PathEstablished || input.CancelPending)
+                if (!CanEnter(input))
                 {
                     if (input.IsRouteSet)
                     {
@@ -569,9 +761,21 @@ namespace Nakatetsu.Track.Atc
             return context.State.validation.hasCircuitInputById.TryGetValue(circuitId, out bool available) && available;
         }
 
+        private static bool IsSelectedEdge(TrackAtcContext context, TrackAtcGraphEdge edge)
+        {
+            return !context.State.path.selectionFailureByCircuitId.ContainsKey(edge.trackCircuitId) &&
+                context.State.path.selectedEdgeByCircuitId.TryGetValue(edge.trackCircuitId, out string selectedId) &&
+                selectedId == edge.atcEdgeId;
+        }
+
         private static bool CanContinue(TrackAtcRouteInput input)
         {
             return input.IsRouteSet && input.PathEstablished && input.RouteLocked && !input.CancelPending;
+        }
+
+        private static bool CanEnter(TrackAtcRouteInput input)
+        {
+            return input.IsRouteSet && input.ProceedAllowed && input.PathEstablished && !input.CancelPending;
         }
 
         private static TrackAtcPathEndReason GetUnavailableReason(TrackAtcRouteInput input)
@@ -591,6 +795,13 @@ namespace Nakatetsu.Track.Atc
         {
             var edges = context.State.validation.atcEdgesById;
             var edge = edges[route.atcEdgeIds[index]];
+            if (route.atcEdgeIds.Count == 1)
+            {
+                var singleDirection = route.entryDirection == TrackAtcTravelDirection.AtoB
+                    ? TrackEdgeTravelDirection.AtoB : TrackEdgeTravelDirection.BtoA;
+                return new TrackAtcEdgeKey(edge.atcEdgeId, singleDirection);
+            }
+
             var adjacent = edges[route.atcEdgeIds[index < route.atcEdgeIds.Count - 1 ? index + 1 : index - 1]];
             bool sharedA = edge.atcNodeAId == adjacent.atcNodeAId || edge.atcNodeAId == adjacent.atcNodeBId;
             var direction = index < route.atcEdgeIds.Count - 1

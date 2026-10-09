@@ -38,11 +38,19 @@ namespace Nakatetsu.Track.Atc
                     // 通常の有効性は工程5で確定している。工程間の不整合で変換
                     // できない場合もStateは変更せず、部分的な有効電文を外へ出さない。
                     telegram.isValid = false;
-                    telegram.atcRouteInfomation.Clear();
+                    telegram.routeAtoB = null;
+                    telegram.routeBtoA = null;
                     return telegram;
                 }
 
-                telegram.atcRouteInfomation.Add((routeKey.atcEdgeId, direction), routeInformation);
+                if (direction == TrackAtcTravelDirection.AtoB)
+                {
+                    telegram.routeAtoB = routeInformation;
+                }
+                else
+                {
+                    telegram.routeBtoA = routeInformation;
+                }
             }
 
             return telegram;

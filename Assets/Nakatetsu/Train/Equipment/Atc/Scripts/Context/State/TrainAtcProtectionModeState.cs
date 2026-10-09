@@ -11,8 +11,9 @@ namespace Nakatetsu.Train.Equipment.Atc
         // isProtectionModeKnownがfalseの場合は、この値を使用しない。
         public OverrunProtectionMode overrunProtectionMode;
 
-        // Restrictedを採用した停止限界と、そのEdgeを通る終端方向。
+        // Normal・Restrictedを採用した方式、停止限界、そのEdgeを通る終端方向。
         public bool hasHeldOrp;
+        public OverrunProtectionMode heldProtectionMode;
         public string heldStopAtcEdgeId;
         public TrackAtcTravelDirection heldStopTravelDirection;
 

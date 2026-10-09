@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Nakatetsu.Track.Simulation.Circuit;
 
 namespace Nakatetsu.Track.Atc
 {
@@ -39,16 +40,10 @@ namespace Nakatetsu.Track.Atc
     {
         public string atcRouteId;
         public string interlockingRouteId;
-        // 進行順。軌道回路IDだけでは分岐のどの枝を通るか決まらないため、物理区間を指定する。
-        public List<TrackAtcRouteSourceSpan> path = new();
-    }
+        // 進行順。分岐側は連動進路の転轍機条件と線路の接続情報から解決する。
+        public List<string> trackCircuitIds = new();
 
-    [Serializable]
-    public sealed class TrackAtcRouteSourceSpan
-    {
-        public string trackEdgeId;
-        // 入口→出口。Geometryの増加方向と逆向きでも指定できる。
-        public float entryDistanceOnGeometryM;
-        public float exitDistanceOnGeometryM;
+        // 軌道回路が1つだけの場合の進入方向。複数の場合は回路の並びから求める。
+        public TrackAtcTravelDirection entryDirection;
     }
 }

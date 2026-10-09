@@ -7,6 +7,12 @@ namespace Nakatetsu.Track.Atc
     {
         // 探索起点のEdge ID・方向ごとの今回の計算結果。初期状態は空。
         public Dictionary<TrackAtcEdgeKey, TrackAtcPathResult> resultsByKey = new();
+
+        // 回路に送るEdge。進路解放後も、その回路の占有中は前回の選択を保持する。
+        public Dictionary<string, string> selectedEdgeByCircuitId = new();
+
+        // 今回の選択不能理由。前回選択を有効な今回の結果の代わりに使わない。
+        public Dictionary<string, string> selectionFailureByCircuitId = new();
     }
 
     public sealed class TrackAtcPathResult

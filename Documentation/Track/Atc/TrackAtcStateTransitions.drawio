@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Codex">
   <diagram id="atc-1" name="関数呼び出し">
-    <mxGraphModel dx="2684" dy="1504" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="840" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="3609" dy="2169" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="840" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -40,7 +40,7 @@
           <mxGeometry height="68" width="360" x="910" y="460" as="geometry" />
         </mxCell>
         <mxCell id="atc-1-exit" function="TryGetRouteExitNode" parent="1" style="rounded=1;arcSize=10;align=left;whiteSpace=wrap;html=1;verticalAlign=middle;spacingLeft=16;spacingRight=12;fontFamily=Noto Sans JP;fontColor=#222222;fillColor=#ffffff;strokeColor=#222222;strokeWidth=1.5;" value="&lt;b style=&quot;font-size:15px&quot;&gt;TryGetRouteExitNode&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px&quot;&gt;進路の接続順から現在エッジの退出側を取得&lt;/span&gt;" vertex="1">
-          <mxGeometry height="68" width="360" x="1340" y="460" as="geometry" />
+          <mxGeometry height="68" width="360" x="1700" y="460" as="geometry" />
         </mxCell>
         <mxCell id="atc-1-edge-interlocking" edge="1" parent="1" source="atc-1-next" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;jumpSize=8;html=1;endArrow=block;endFill=1;strokeColor=#222222;strokeWidth=1.5;fontColor=#222222;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="atc-1-interlocking" value="">
           <mxGeometry relative="1" as="geometry">
@@ -85,9 +85,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="660" y="220" />
-              <mxPoint x="1305" y="220" />
-              <mxPoint x="1305" y="430" />
-              <mxPoint x="1520" y="430" />
+              <mxPoint x="1880" y="220" />
             </Array>
           </mxGeometry>
         </mxCell>
