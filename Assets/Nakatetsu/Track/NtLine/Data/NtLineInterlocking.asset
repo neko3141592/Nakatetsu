@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
   m_Name: NtLineInterlocking
-  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackInterlockingAsset
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackStationInterlockingAsset
   definition:
     interlockingId: NtLineStation
     memberTrackCircuitIds:

@@ -8,7 +8,7 @@
 | --- | --- |
 | `track` | `TrackGraphDefinition`。Geometry、Node、Edge、Connection、Circuit。Edgeの距離表は生成済みであること |
 | `source` | 保存して編集する`TrackAtcGraphCompileDefinition`。閉塞区分、速度制限、順序付きの進路経路 |
-| `interlockings` | 参照する`TrackInterlockingDefinition`の一覧。進路IDと転轍機の要求位置を検証する。連動進路がなければ空の一覧でよい |
+| `interlockings` | 参照する`TrackStationInterlockingDefinition`の一覧。進路IDと転轍機の要求位置を検証する。連動進路がなければ空の一覧でよい |
 
 生成元と生成結果は別に保存する。再コンパイルの入力は常に`source`であり、生成結果への直接編集は引き継がない。
 
@@ -16,7 +16,7 @@
 
 1. `Create > Nakatetsu > Track > ATC Graph` で `TrackAtcGraphAsset` を作成する。
 2. `Track Graph` に物理線路の `TrackGraphAsset`、`Source` に `TrackAtcGraphCompileAsset` を指定する。
-3. `Interlockings` に参照する `TrackInterlockingAsset` を追加する。複数指定できるが、進路IDは全連動装置で一意にする。連動進路がなければ空の一覧でよい。
+3. `Interlockings` に参照する `TrackStationInterlockingAsset` を追加する。複数指定できるが、進路IDは全連動装置で一意にする。連動進路がなければ空の一覧でよい。
 4. 線形を変更した場合は物理線路側で `Compile Distance Maps` を実行する。
 5. `Compile ATC Graph` を押す。成功すると、このAssetの `Definition` に生成結果を保存し、Edge・Node・進路の件数を表示する。
 

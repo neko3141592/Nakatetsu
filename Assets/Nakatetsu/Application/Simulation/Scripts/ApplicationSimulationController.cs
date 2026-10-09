@@ -14,7 +14,7 @@ namespace Nakatetsu.Application.Simulation
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackAtcController trackAtc;
-        [SerializeField] private TrackInterlockingController[] interlockings = new TrackInterlockingController[0];
+        [SerializeField] private TrackStationInterlockingController[] interlockings = new TrackStationInterlockingController[0];
         [SerializeField] private float tickDurationSeconds;
         [SerializeField] private bool isPaused;
         [SerializeField, Min(1)] private int maxTicksPerFrame = 100;
@@ -57,8 +57,8 @@ namespace Nakatetsu.Application.Simulation
                 }
             }
 
-            var registeredInterlockings = new HashSet<TrackInterlockingController>();
-            foreach (TrackInterlockingController interlocking in interlockings)
+            var registeredInterlockings = new HashSet<TrackStationInterlockingController>();
+            foreach (TrackStationInterlockingController interlocking in interlockings)
             {
                 if (interlocking == null || !registeredInterlockings.Add(interlocking))
                 {
@@ -135,7 +135,7 @@ namespace Nakatetsu.Application.Simulation
             if (!UnityEngine.Application.isPlaying || !isInitialized) return false;
             foreach (TrainSimulationController train in trains)
                 if (train == null || !train.IsInitialized) return false;
-            foreach (TrackInterlockingController interlocking in interlockings)
+            foreach (TrackStationInterlockingController interlocking in interlockings)
                 if (interlocking == null || !interlocking.IsInitialized) return false;
             return true;
         }
@@ -152,7 +152,7 @@ namespace Nakatetsu.Application.Simulation
             if (trackCircuitSimulation != null)
                 AdvanceSimulation(trackCircuitSimulation);
 
-            foreach (TrackInterlockingController interlocking in interlockings)
+            foreach (TrackStationInterlockingController interlocking in interlockings)
                 AdvanceSimulation(interlocking);
 
             // 占有と連動の更新後に電文を作り、次tickの車上制御へ渡す。

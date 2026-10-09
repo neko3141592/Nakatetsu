@@ -1,12 +1,12 @@
 # 連動装置の全体処理仕様
 
-2026-10-07の定義見直しとリファクタリング後の実装を記述する。連動装置は車上ATC・地上ATCと同じく、Input・Settings・工程別State・Logic・Outputで構成する。
+2026-10-07の定義見直しとリファクタリング後の実装を記述する。2026-10-09にStationへ移設し、駅側の型名を`TrackStationInterlocking`へ変更した。処理内容は変更していない。連動装置は車上ATC・地上ATCと同じく、Input・Settings・工程別State・Logic・Outputで構成する。
 
 基本ルールは[実装ルール](../../Architecture/ImplementationRules.md)と[機器Logicの分割と実装ルール](../../Architecture/EquipmentLogicImplementationRules.md)に従う。地上ATCの処理は[地上ATC全体処理仕様](../Atc/TrackAtcProcessingFlow.md)、車上側は[車上ATC全体処理仕様](../../Train/Atc/TrainAtcProcessingFlow.md)を参照する。
 
 ## 1. 構成と更新担当
 
-名前空間は`Nakatetsu.Track.Interlocking`。編集用の[TrackInterlockingAsset](../../../Assets/Nakatetsu/Track/Interlocking/TrackInterlockingAsset.cs)と[Controller](../../../Assets/Nakatetsu/Track/Interlocking/TrackInterlockingController.cs)を維持し、Definition・Context・Logicは`Assets/Nakatetsu/Track/Interlocking/Scripts`へ置く。
+名前空間は`Nakatetsu.Track.Interlocking`。編集用の[TrackStationInterlockingAsset](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/TrackStationInterlockingAsset.cs)と[Controller](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/TrackStationInterlockingController.cs)を維持し、Definition・Context・Logicは`Assets/Nakatetsu/Track/Interlocking/Station/Scripts`へ置く。
 
 | 要素 | 内容・担当 |
 | --- | --- |
@@ -18,25 +18,25 @@
 | 子Logic | 自分の工程Stateだけを初期化・登録・更新・削除 |
 | OutputLogic | 確定済みStateから新しいOutputを生成 |
 
-[TrackInterlockingContext](../../../Assets/Nakatetsu/Track/Interlocking/Scripts/Context/TrackInterlockingContext.cs)を全工程で共有する。子Logic同士は呼び合わず、Controllerは親[TrackInterlockingLogic](../../../Assets/Nakatetsu/Track/Interlocking/Scripts/Logic/TrackInterlockingLogic.cs)を呼ぶ。API処理もtick処理も、同じStateの所有者を通す。
+[TrackStationInterlockingContext](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Context/TrackStationInterlockingContext.cs)を全工程で共有する。子Logic同士は呼び合わず、Controllerは親[TrackStationInterlockingLogic](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Logic/TrackStationInterlockingLogic.cs)を呼ぶ。API処理もtick処理も、同じStateの所有者を通す。
 
 | State | Logic | 保持する情報 |
 | --- | --- | --- |
-| `validation` | `TrackInterlockingValidationLogic` | 定義の有効性、時間入力の有効性、進路ごとの入力取得可否 |
-| `passage` | `TrackInterlockingPassageLogic` | 回路別の通過履歴、当該予約への進入済みラッチ |
-| `approachLock` | `TrackInterlockingApproachLockLogic` | 接近鎖錠と取消時素の残り時間 |
-| `routeLock` | `TrackInterlockingRouteLockLogic` | 本進路鎖錠、取消要求、解錠理由 |
-| `overrunProtection` | `TrackInterlockingOverrunProtectionLogic` | 選択方式、防護phase、残り時間 |
-| `reservation` | `TrackInterlockingReservationLogic` | 回路・転轍機の予約者、保持理由、要求位置 |
-| `signal` | `TrackInterlockingSignalLogic` | 公開可否、開通、新規進入許可、転換要求 |
+| `validation` | `TrackStationInterlockingValidationLogic` | 定義の有効性、時間入力の有効性、進路ごとの入力取得可否 |
+| `passage` | `TrackStationInterlockingPassageLogic` | 回路別の通過履歴、当該予約への進入済みラッチ |
+| `approachLock` | `TrackStationInterlockingApproachLockLogic` | 接近鎖錠と取消時素の残り時間 |
+| `routeLock` | `TrackStationInterlockingRouteLockLogic` | 本進路鎖錠、取消要求、解錠理由 |
+| `overrunProtection` | `TrackStationInterlockingOverrunProtectionLogic` | 選択方式、防護phase、残り時間 |
+| `reservation` | `TrackStationInterlockingReservationLogic` | 回路・転轍機の予約者、保持理由、要求位置 |
+| `signal` | `TrackStationInterlockingSignalLogic` | 公開可否、開通、新規進入許可、転換要求 |
 
 工程の予約レコードは`routeId`で管理する。全保持が終了して削除された後の再設定では、新しいレコードを登録し、前の通過履歴・時素を引き継がない。
 
 ## 2. Definition
 
-[全体定義](../../../Assets/Nakatetsu/Track/Interlocking/Scripts/Definition/TrackInterlockingDefinition.cs)は`interlockingId`、`memberTrackCircuitIds`、`memberConnectionIds`、`routes`、`turnoutLocks`を持つ。SettingsはDefinitionのリストと子レコードをコピーし、実行中のAsset編集を取り込まない。
+[全体定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingDefinition.cs)は`interlockingId`、`memberTrackCircuitIds`、`memberConnectionIds`、`routes`、`turnoutLocks`を持つ。SettingsはDefinitionのリストと子レコードをコピーし、実行中のAsset編集を取り込まない。
 
-[進路定義](../../../Assets/Nakatetsu/Track/Interlocking/Scripts/Definition/TrackInterlockingRouteDefinition.cs)の役割は次のとおり。
+[進路定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingRouteDefinition.cs)の役割は次のとおり。
 
 | 項目 | 役割 |
 | --- | --- |
@@ -52,9 +52,9 @@
 
 例えば場内進路の設定照査を`[21T, 1RT]`、解錠照査を`[21T]`にする。設定時は入口区間と到着ホームの空きを要求するが、列車後端が21Tを抜ければ、1RTに停車中でも本進路を解錠できる。
 
-[過走防護定義](../../../Assets/Nakatetsu/Track/Interlocking/Scripts/Definition/TrackInterlockingOverrunProtectionDefinition.cs)は`isEnabled`、`turnoutRequirements`、`releaseSeconds`の3項目。Normal・Restricted共通で必要な転轍機は本進路の`requiredTurnouts`へ入れる。防護専用の軌道回路、到着トリガ回路、`common`・`normalAdditional`は設けない。
+[過走防護定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingOverrunProtectionDefinition.cs)は`isEnabled`、`turnoutRequirements`、`releaseSeconds`の3項目。Normal・Restricted共通で必要な転轍機は本進路の`requiredTurnouts`へ入れる。防護専用の軌道回路、到着トリガ回路、`common`・`normalAdditional`は設けない。
 
-[轍査鎖錠定義](../../../Assets/Nakatetsu/Track/Interlocking/Scripts/Definition/TrackInterlockingTurnoutLockDefinition.cs)は`connectionId`と`trackCircuitIds`を持つ。対象回路の在線・取得不能時はその転轍機の転換要求を抑止する。本進路・防護の解錠を永久停止するラッチには使わない。
+[轍査鎖錠定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingTurnoutLockDefinition.cs)は`connectionId`と`trackCircuitIds`を持つ。対象回路の在線・取得不能時はその転轍機の転換要求を抑止する。本進路・防護の解錠を永久停止するラッチには使わない。
 
 初期化で参照ID、進路IDの重複、転轍機要求位置、轍査鎖錠の参照、解錠対象の部分集合、有限かつ非負の時素を検証する。本進路と防護が同じ転轍機へ異なる位置を要求する定義は受け付けない。
 

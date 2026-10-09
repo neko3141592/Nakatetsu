@@ -16,7 +16,7 @@ namespace Nakatetsu.Track.Atc
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackConnectionController trackConnectionController;
         [SerializeField] private MonoBehaviour worldTimeSource;
-        [SerializeField] private List<TrackInterlockingController> interlockings = new();
+        [SerializeField] private List<TrackStationInterlockingController> interlockings = new();
 
         private readonly TrackAtcContext context = new();
 
@@ -51,7 +51,7 @@ namespace Nakatetsu.Track.Atc
 
             CollectPhysicalPathAvailability(input);
 
-            foreach (TrackInterlockingController interlocking in interlockings)
+            foreach (TrackStationInterlockingController interlocking in interlockings)
             {
                 if (interlocking == null || !interlocking.IsInitialized)
                 {

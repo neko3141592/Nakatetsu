@@ -10,12 +10,12 @@ namespace Nakatetsu.Track.Atc
     {
         [SerializeField] private TrackGraphAsset trackGraph;
         [SerializeField] private TrackAtcGraphCompileAsset source;
-        [SerializeField] private List<TrackInterlockingAsset> interlockings = new();
+        [SerializeField] private List<TrackStationInterlockingAsset> interlockings = new();
         [SerializeField, HideInInspector] private TrackAtcGraphDefinition definition;
 
         public TrackGraphAsset TrackGraph => trackGraph;
         public TrackAtcGraphCompileAsset Source => source;
-        public IReadOnlyList<TrackInterlockingAsset> Interlockings => interlockings;
+        public IReadOnlyList<TrackStationInterlockingAsset> Interlockings => interlockings;
         public TrackAtcGraphDefinition Definition => definition;
 
 #if UNITY_EDITOR
