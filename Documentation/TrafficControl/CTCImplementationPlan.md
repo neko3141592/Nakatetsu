@@ -8,31 +8,31 @@
 
 | 対象 | 現状 | 次に必要な接続 |
 | --- | --- | --- |
-| 駅連動装置 | 設定・取消、競合照査、予約・鎖錠、転轍機への要求、接近鎖錠、過走防護、公開進路状態がある | 要求の拒否理由と関連設備IDを構造化して返す |
-| 連動管理部 | 駅IDとControllerの登録検証、全駅の公開進路状態の集約、独立した状態スナップショットがある | 全線で一意の進路IDから担当駅を選ぶ窓口、駅更新の取りまとめ、世界tickへの接続 |
-| 世界tickと地上ATC | ApplicationとATCが各駅を直接参照する | 駅更新と進路状態取得を連動管理部へ集約する |
-| 共通通信型 | 設定・取消要求、受付結果、全駅・各進路の状態、固定理由コードを定義済み | 内部Outputとの変換、通信ヘッダ、在線・転轍機・列車の通信型 |
+| 駅連動装置 | 設定・取消、競合照査、予約・鎖錠、接近鎖錠、過走防護、公開進路状態に加え、固定理由コードと関連設備IDを含む要求結果を返す | 通信経由の要求・結果との接続 |
+| 連動管理部 | 駅IDとControllerの登録検証、要求窓口TryRouteRequest、駅更新の取りまとめ、公開状態の集約がある | 複数駅での進路ID重複検証と通信窓口への接続 |
+| 世界tickと地上ATC | Applicationが管理部を更新し、ATCが管理部の公開進路状態を読む。NtLine Sceneも接続済み | 実Sceneで進路・転轍機・ATC電文を通した試運転 |
+| 共通通信型 | 連動の要求・結果・状態に加え、Message/MessageHeaderとWorldTimeInformationを定義済み。TickCountは世界tickと同じlong型 | 内部Outputとの変換、在線・転轍機・列車の通信型、JSON往復検証 |
 | 運行管理サーバー | ASP.NET Core、.NET 10、Contracts参照と起動設定がある。処理はGET /のHello Worldのみ | 状態受信、要求配送、結果保持、CTC画面 |
 | 試験線と列車 | 保存済みNtLineに10001F・10002Fを世界tickへ登録済み | 列番・番線対応、列車別の在線回路、追跡状態の送信 |
 | PRCとダイヤ | 専用の自動進路判断・試験ダイヤ・列番追跡は未実装 | 手動CTC完成後に追跡と試験ダイヤから実装する |
 
 主な実装根拠は、[駅Controller](../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/TrackStationInterlockingController.cs)、[管理部Controller](../../Assets/Nakatetsu/Track/Interlocking/Management/Scripts/TrackInterlockingManagementController.cs)、[世界tick](../../Assets/Nakatetsu/Application/Simulation/Scripts/ApplicationSimulationController.cs)、[地上ATC Controller](../../Assets/Nakatetsu/Track/Atc/Scripts/TrackAtcController.cs)、[通信型](../../Shared/Contracts/Interlocking/Scripts)、[サーバー入口](../../Server/Nakatetsu.TrafficControl.Server/Program.cs)、[保存済みScene](../../Assets/Scenes/NtLine.unity)にある。
 
-管理部は独自のUpdateを持たず、現在のApplicationからも更新されていない。Sceneへ追加するだけでは状態は更新されない。また、状態集約だけではCTCから設定・取消を実行できない。
+管理部は独自のUpdateを持たず、Applicationの世界tickからCalculateとApplyOutputを呼ぶ。管理部が各駅を更新して状態を集約し、その後に地上ATCが公開状態を読み取る。TryRouteRequestはStationIdで担当駅を選び、設定・取消の受付結果を返す。サーバーやCTC画面からこの窓口へ要求を配送する通信処理はまだない。
 
-`dotnet build Server/Nakatetsu.TrafficControl.slnx --no-restore`は警告0・エラー0で成功している。Unity側のコンパイル・EditMode・PlayMode・試運転は今回実行していないため、保安基盤の動作確認は後述の各段階の合格条件に含める。ServerとSharedは現在Git未追跡の作業中ファイルとして存在する。
+`dotnet build Server/Nakatetsu.TrafficControl.slnx --no-restore`は警告0・エラー0で成功した。ServerとSharedの土台はPR #77でmainへ取り込み済み。今回の追加では、重複していた世界時間DTOをToServer/WorldTimeInformation.csへ統一した。Unity 6000.4.0f1のコンパイルもエラー・警告0。関連EditMode 163件とApplication統合PlayMode 4件は全成功した。EditModeで自動通知されないOnDisableはテスト側で明示実行し、PlayModeでは実際の無効化通知による公開状態の撤去を確認した。実Sceneの試運転はM0の残確認とする。
 
 ## 最初に完成させる連動管理部
 
 最初の実装単位は、CTCの手動要求を渡せる管理部と、そこを使う世界tick・地上ATCの一式とする。処理の安全判断は駅連動装置に残す。
 
-1. 管理部に全駅を通じて一意な進路IDと担当駅の対応表を作る。通信要求のStationIdと担当駅も照合する。空ID・重複ID・未初期化・対象駅の不一致を拒否する。
-2. 管理部に設定・取消の窓口を追加し、担当駅へ同期転送する。駅Logicから受付可否・固定理由コード・関連する進路／回路／転轍機IDを返し、ApplicationのAdapterで通信型へ変換する。エラー文の解析で理由コードを決めない。
-3. Applicationの駅配列による更新を管理部の更新入口へ置き換える。管理部が登録順に各駅のCalculate→ApplyOutputを1回ずつ実行し、その後に公開状態を集約する。従来の駅更新を同時に残さない。
+1. 管理部ControllerにInterlockingRouteRequestを受け取り、InterlockingRouteRequestResultを返すTryRouteRequestを追加する。既存のregisteredStationsByIdでStationIdから担当駅を取得し、RouteIdをその駅へ渡す。空ID・不正な操作種別・未知駅・未初期化を拒否する。要求にStationIdがあるため、振り分け用の「進路ID→担当駅」対応表は追加しない。全駅を通じた進路IDの一意性は必要だが、現在の管理部の登録検証では未確認。複数駅へ拡張する前に検証を追加する。
+2. Operationに応じて担当駅の設定・取消APIへ同期転送し、結果に同じRequestIdと対象IDを付けて返す。各駅のLogicから受付可否・固定理由コード・関連する進路／回路／転轍機IDを返すように改修する。管理部のLogicは値の検証と状態集約を担当し、駅ControllerのAPIを呼ぶ処理は管理部Controllerに置く。エラー文の解析で理由コードを決めない。管理部でContractsを直接使うため、Nakatetsu.Track.InterlockingのAssembly参照へNakatetsu.Contractsを追加する。
+3. Applicationの駅配列による更新を管理部の更新入口へ置き換える。管理部が各駅のCalculateを1回ずつ実行し、ApplyOutputの段階で計算した駅へ1回ずつ適用して公開状態を集約する。従来の駅更新を同時に残さない。
 4. 地上ATCの進路状態取得先を管理部へ切り替える。正常取得した未設定進路は入力に含め、駅欠落・IsAvailable=falseは入力未取得として扱う。在線と物理経路の供給元は既存のものを使う。
 5. NtLine Sceneへ管理部を登録し、実際の進路・転轍機・ATC電文の一連の動作を確認する。
 
-管理部のAwake時に駅の初期化が終わっているとは限らない。担当進路表は駅の初期化後に確定し、管理部のAwakeが先でも全進路が登録されることを確認する。内部状態の取得や通信型への変換では、駅の更新・時素進行を行わない。
+管理部のAwake時に駅の初期化が終わっているとは限らない。駅ID辞書は現在のTryInitializeで構築する。今後追加する進路一覧の重複検証は各駅の初期化後に行う。管理部のAwakeが先でも正常に登録・検証されることを確認する。内部状態の取得や通信型への変換では、駅の更新・時素進行を行わない。
 
 この段階の合格条件は、管理部経由の設定・取消が従来の駅直接操作と同じ結果になり、各駅の更新が1tickに1回、ATC電文と接近鎖錠の時素が従来どおり進むこと。複数駅と重複進路IDの試験は小さなテスト用定義で行い、新しい駅の制作を前提にしない。
 
@@ -122,4 +122,4 @@ CTC初版の完成範囲はM0〜M3とする。M4の2列車自動運行は、NPC�
 
 既存計画の10月11日・10月18日は進捗判定日として使う。10月11日はM0の接続と通信契約を確認し、M1以降の残工数を見積もる。10月18日はM0〜M3の手動CTCと列車表示を優先して判定し、PRCによる2列車運行はM4とNPCの準備が整った場合に追加判定する。現在の未接続範囲から、10月11日の手動CTC完成や10月18日の自動運行完成を確約しない。
 
-次の作業はM0の「管理部の進路対応表と設定・取消窓口」を実装し、駅更新・ATC入力先の切替まで一つの完成単位にまとめる。CTC画面はその後に実状態の一覧から作る。全線制作・汎用ダイヤ編集・snapshot保存復元・案内設備・指令卓の作り込みは、この初版の合格後に進める。
+M0の要求窓口、駅側の結果構造化、駅更新・ATC入力先の切替は実装済み。次は実Sceneでの試運転と複数駅の進路ID重複検証を完了し、M1のUnity通信・状態変換・サーバー最新状態保持へ進む。CTC画面は実状態の一覧から作る。全線制作・汎用ダイヤ編集・snapshot保存復元・案内設備・指令卓の作り込みは、この初版の合格後に進める。

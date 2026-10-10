@@ -3,6 +3,7 @@
     "rootNamespace": "Nakatetsu.Track.Interlocking",
     "references": [
         "Nakatetsu.Core",
+        "Nakatetsu.Contracts",
         "Nakatetsu.Track.Simulation"
     ],
     "autoReferenced": true

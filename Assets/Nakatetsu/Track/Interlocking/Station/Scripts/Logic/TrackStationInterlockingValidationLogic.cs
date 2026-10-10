@@ -129,18 +129,49 @@ namespace Nakatetsu.Track.Interlocking
                 HasTurnoutInputs(context.Input, route.overrunProtection.turnoutRequirements);
         }
 
+        internal static bool TryGetUnavailableRouteInput(TrackStationInterlockingContext context,
+            TrackStationInterlockingRouteDefinition route, out string circuitId, out string turnoutId)
+        {
+            circuitId = null;
+            turnoutId = null;
+            foreach (string requiredCircuitId in route.routeClearTrackCircuitIds)
+            {
+                if (!context.Input.hasCircuitSource ||
+                    !context.Input.OccupiedByCircuitId.ContainsKey(requiredCircuitId))
+                {
+                    circuitId = requiredCircuitId;
+                    return true;
+                }
+            }
+            if (TryGetUnavailableTurnoutInput(context.Input, route.requiredTurnouts, out turnoutId))
+            {
+                return true;
+            }
+            return route.overrunProtection != null && route.overrunProtection.isEnabled &&
+                TryGetUnavailableTurnoutInput(context.Input, route.overrunProtection.turnoutRequirements,
+                    out turnoutId);
+        }
+
         private static bool HasTurnoutInputs(TrackStationInterlockingInput input, List<TurnoutRequirement> turnouts)
         {
+            return !TryGetUnavailableTurnoutInput(input, turnouts, out _);
+        }
+
+        private static bool TryGetUnavailableTurnoutInput(TrackStationInterlockingInput input,
+            List<TurnoutRequirement> turnouts, out string turnoutId)
+        {
+            turnoutId = null;
             foreach (var turnout in turnouts)
             {
                 if (!input.hasConnectionSource || !input.ConnectionsById.TryGetValue(turnout.connectionId, out var value) ||
                     (value.ActualPosition != TrackSwitchPosition.Normal && value.ActualPosition != TrackSwitchPosition.Reverse &&
                      !(value.ActualPosition == TrackSwitchPosition.Unknown && value.IsMoving)))
                 {
-                    return false;
+                    turnoutId = turnout.connectionId;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         private static bool ContainsIds(HashSet<string> members, List<string> ids)

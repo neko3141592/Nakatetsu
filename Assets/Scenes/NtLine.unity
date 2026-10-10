@@ -463,8 +463,7 @@ MonoBehaviour:
   - {fileID: 2068220029}
   trackCircuitSimulation: {fileID: 2000000006}
   trackAtc: {fileID: 920413740}
-  interlockings:
-  - {fileID: 2000000102}
+  interlockingManagement: {fileID: 1133685519}
   tickDurationSeconds: 0.015
   isPaused: 0
   maxTicksPerFrame: 100
@@ -1356,8 +1355,7 @@ MonoBehaviour:
   trackCircuitSimulation: {fileID: 2000000006}
   trackConnectionController: {fileID: 2000000005}
   worldTimeSource: {fileID: 282171584}
-  interlockings:
-  - {fileID: 2000000102}
+  interlockingManagement: {fileID: 1133685519}
 --- !u!1 &1004262140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1502,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1133685518}
+  - component: {fileID: 1133685519}
   m_Layer: 0
   m_Name: Interlocking
   m_TagString: Untagged
@@ -1527,6 +1526,21 @@ Transform:
   - {fileID: 2000000101}
   m_Father: {fileID: 1148146697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1133685519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133685517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7965163d39574ed0865eec3272705130, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.Management.TrackInterlockingManagementController
+  stations:
+  - stationId: NtLineStation
+    interlocking: {fileID: 2000000102}
 --- !u!1 &1148146696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2926,7 +2940,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Track.Debug::Nakatetsu.Track.Debugging.TrackStationInterlockingDebugDisplay
   interlocking: {fileID: 2000000102}
   circuits: {fileID: 2000000006}
-  connections: {fileID: 2000000005}
   showInGameView: 1
 --- !u!1 &2000000200
 GameObject:

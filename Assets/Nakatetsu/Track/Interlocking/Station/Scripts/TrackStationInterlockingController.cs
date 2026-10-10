@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Core.Simulation;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
@@ -41,16 +42,16 @@ namespace Nakatetsu.Track.Interlocking
                 interlockingAsset != null ? interlockingAsset.Definition : null, out error);
         }
 
-        public bool TryRequestRoute(string routeId, out string error)
+        public InterlockingRouteRequestResult TryRequestRoute(InterlockingRouteRequest request)
         {
             CollectInput();
-            return TrackStationInterlockingLogic.TryRequestRoute(context, routeId, out error);
+            return TrackStationInterlockingLogic.TryRequestRoute(context, request);
         }
 
-        public bool TryCancelRoute(string routeId, out string error)
+        public InterlockingRouteRequestResult TryCancelRoute(InterlockingRouteRequest request)
         {
             CollectInput();
-            return TrackStationInterlockingLogic.TryCancelRoute(context, routeId, out error);
+            return TrackStationInterlockingLogic.TryCancelRoute(context, request);
         }
 
         public bool CanRequestTurnoutPosition(string routeId, string connectionId)

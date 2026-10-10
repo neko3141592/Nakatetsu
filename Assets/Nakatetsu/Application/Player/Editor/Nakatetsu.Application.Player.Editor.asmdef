@@ -2,6 +2,8 @@
     "name": "Nakatetsu.Application.Player.Editor",
     "references": [
         "Nakatetsu.Application",
+        "Nakatetsu.Track.Interlocking",
+        "Nakatetsu.Track.Atc",
         "Nakatetsu.Train",
         "Nakatetsu.Train.Integration",
         "Unity.InputSystem",

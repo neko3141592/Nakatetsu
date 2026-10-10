@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using UnityEngine;
@@ -63,13 +64,25 @@ namespace Nakatetsu.Track.Debugging
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Request"))
                 {
-                    lastResult = interlocking.TryRequestRoute(routeId, out string requestError)
-                        ? $"{routeId}: requested" : requestError;
+                    var result = interlocking.TryRequestRoute(new InterlockingRouteRequest
+                    {
+                        RouteId = routeId,
+                        Operation = InterlockingRouteOperation.Set
+                    });
+                    lastResult = result.Accepted
+                        ? $"{routeId}: requested"
+                        : $"{result.ErrorCode}: {result.Message}";
                 }
                 if (GUILayout.Button("Cancel"))
                 {
-                    lastResult = interlocking.TryCancelRoute(routeId, out string cancelError)
-                        ? $"{routeId}: cancel accepted" : cancelError;
+                    var result = interlocking.TryCancelRoute(new InterlockingRouteRequest
+                    {
+                        RouteId = routeId,
+                        Operation = InterlockingRouteOperation.Cancel
+                    });
+                    lastResult = result.Accepted
+                        ? $"{routeId}: cancel accepted"
+                        : $"{result.ErrorCode}: {result.Message}";
                 }
                 GUILayout.EndHorizontal();
                 GUILayout.EndVertical();

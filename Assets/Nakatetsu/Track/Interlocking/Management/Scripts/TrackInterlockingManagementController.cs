@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Core.Simulation;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Nakatetsu.Track.Interlocking.Management
 
         private readonly TrackInterlockingManagementContext context = new();
         private readonly Dictionary<string, TrackStationInterlockingController> registeredStationsById = new();
+        private readonly List<TrackStationInterlockingController> calculatedStations = new();
 
         public TrackInterlockingManagementContext Context => context;
         public bool IsInitialized => context.State.IsInitialized;
@@ -29,6 +31,7 @@ namespace Nakatetsu.Track.Interlocking.Management
             TrackInterlockingManagementLogic.Reset(context);
             context.Input.StationsById.Clear();
             registeredStationsById.Clear();
+            calculatedStations.Clear();
 
             if (!TryPrepareRegistrations(out var registrations, out error))
             {
@@ -48,7 +51,7 @@ namespace Nakatetsu.Track.Interlocking.Management
         {
             var input = context.Input;
             input.StationsById.Clear();
-            if (!IsInitialized)
+            if (!IsInitialized || !isActiveAndEnabled)
             {
                 return;
             }
@@ -65,13 +68,76 @@ namespace Nakatetsu.Track.Interlocking.Management
 
         public void Calculate(float deltaTimeSeconds)
         {
-            CollectInput();
-            TrackInterlockingManagementLogic.Calculate(context);
+            calculatedStations.Clear();
+            if (IsInitialized && isActiveAndEnabled)
+            {
+                AdvanceStationInterlockingSimulation(deltaTimeSeconds);
+            }
+            UpdatePublishedOutput();
         }
 
         public void ApplyOutput(float deltaTimeSeconds)
         {
-            // 集約結果はContext.Outputから公開する。
+            try
+            {
+                for (int i = 0; IsInitialized && isActiveAndEnabled && i < calculatedStations.Count; i++)
+                {
+                    var station = calculatedStations[i];
+                    if (CanAdvanceStation(station))
+                    {
+                        station.ApplyOutput(deltaTimeSeconds);
+                    }
+                }
+            }
+            finally
+            {
+                // 計算しなかった駅や、前回の転換要求を再適用しない。
+                calculatedStations.Clear();
+                UpdatePublishedOutput(retainOnlyPublishedStations: true);
+            }
+        }
+
+        private void AdvanceStationInterlockingSimulation(float deltaTimeSeconds)
+        {
+            foreach (var pair in registeredStationsById)
+            {
+                var interlocking = pair.Value;
+                if (!CanAdvanceStation(interlocking))
+                {
+                    continue;
+                }
+                interlocking.Calculate(deltaTimeSeconds);
+                calculatedStations.Add(interlocking);
+            }
+        }
+
+        private static bool CanAdvanceStation(TrackStationInterlockingController station)
+        {
+            return station != null && station.isActiveAndEnabled && station.IsInitialized;
+        }
+
+        private void UpdatePublishedOutput(bool retainOnlyPublishedStations = false)
+        {
+            var previousOutput = context.Output;
+            CollectInput();
+            if (retainOnlyPublishedStations)
+            {
+                foreach (var pair in registeredStationsById)
+                {
+                    // 計算をスキップした駅の古い公開値は、再有効化されても次のCalculateまで使わない。
+                    if (!previousOutput.StationsById.ContainsKey(pair.Key))
+                    {
+                        context.Input.StationsById.Remove(pair.Key);
+                    }
+                }
+            }
+            TrackInterlockingManagementLogic.Calculate(context);
+        }
+
+        private void OnDisable()
+        {
+            calculatedStations.Clear();
+            UpdatePublishedOutput();
         }
 
         private bool TryPrepareRegistrations(
@@ -112,6 +178,37 @@ namespace Nakatetsu.Track.Interlocking.Management
                 registrations.Add(station.StationId, station.Interlocking);
             }
             return true;
+        }
+
+        public InterlockingRouteRequestResult TryRouteRequest(InterlockingRouteRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.RequestId) ||
+                string.IsNullOrWhiteSpace(request.StationId) || string.IsNullOrWhiteSpace(request.RouteId) ||
+                (request.Operation != InterlockingRouteOperation.Set &&
+                    request.Operation != InterlockingRouteOperation.Cancel))
+            {
+                return InterlockingRouteRequestResultUtility.CreateInvalidRequestError(request,
+                    "要求ID、駅ID、進路IDと設定・取消の操作種別を指定してください。");
+            }
+            if (!IsInitialized)
+            {
+                return InterlockingRouteRequestResultUtility.CreateNotInitializedError(request,
+                    "連動管理部が初期化されていない。");
+            }
+            if (!registeredStationsById.TryGetValue(request.StationId, out var interlocking))
+            {
+                return InterlockingRouteRequestResultUtility.CreateUnknownStationError(request,
+                    $"駅 '{request.StationId}' が登録されていない。");
+            }
+            if (interlocking == null || !interlocking.isActiveAndEnabled)
+            {
+                return InterlockingRouteRequestResultUtility.CreateInputUnavailableError(request,
+                    $"駅 '{request.StationId}' の連動装置を利用できない。");
+            }
+
+            return request.Operation == InterlockingRouteOperation.Set
+                ? interlocking.TryRequestRoute(request)
+                : interlocking.TryCancelRoute(request);
         }
     }
 
