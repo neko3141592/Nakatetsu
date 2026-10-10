@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MagicOnion;
+using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Contracts.World;
 
 namespace Nakatetsu.Contracts.Communication
@@ -10,5 +11,8 @@ namespace Nakatetsu.Contracts.Communication
     {
         Task UpdateWorldTimeAsync(
             Message<WorldTimeInformation> message);
+
+        Task UpdateInterlockingSnapshotAsync(
+            Message<InterlockingSnapshot> message);
     }
 }

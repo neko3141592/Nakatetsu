@@ -34,6 +34,7 @@ namespace Nakatetsu.Application.Simulation
 
         public long CompletedTickCount { get; private set; }
         public double ElapsedTimeSeconds => CompletedTickCount * (double)fixedTickSeconds;
+        public float TickDurationSeconds => fixedTickSeconds;
         public bool IsPaused => isPaused;
         public float PlaybackSpeed => playbackSpeed;
 
