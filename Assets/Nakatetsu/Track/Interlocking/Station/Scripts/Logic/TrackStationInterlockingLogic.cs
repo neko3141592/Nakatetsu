@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
+using OverrunProtectionMode = Nakatetsu.Track.Simulation.Circuit.OverrunProtectionMode;
 
 namespace Nakatetsu.Track.Interlocking
 {
@@ -32,30 +34,47 @@ namespace Nakatetsu.Track.Interlocking
             return true;
         }
 
-        public static bool TryRequestRoute(TrackStationInterlockingContext context, string routeId, out string error)
+        public static InterlockingRouteRequestResult TryRequestRoute(
+            TrackStationInterlockingContext context, InterlockingRouteRequest request)
         {
-            error = string.Empty;
+            if (request == null || string.IsNullOrWhiteSpace(request.RouteId) ||
+                request.Operation != InterlockingRouteOperation.Set)
+            {
+                if (context.State.isInitialized)
+                {
+                    UpdateAfterOperation(context);
+                }
+                return InterlockingRouteRequestResultUtility.CreateInvalidRequestError(request,
+                    "進路IDと設定操作を指定してください。");
+            }
             if (!context.State.isInitialized)
             {
-                error = "連動装置が初期化されていない。";
-                return false;
+                return InterlockingRouteRequestResultUtility.CreateNotInitializedError(request,
+                    "連動装置が初期化されていない。");
             }
 
+            string routeId = request.RouteId;
+            InterlockingRouteRequestResult result;
             TrackStationInterlockingValidationLogic.Update(context, 0f);
-            if (string.IsNullOrEmpty(routeId) || !context.Settings.routesById.TryGetValue(routeId, out var route))
+            if (!context.Settings.routesById.TryGetValue(routeId, out var route))
             {
-                error = "進路が定義されていない。";
+                result = InterlockingRouteRequestResultUtility.CreateUnknownRouteError(request,
+                    "進路が定義されていない。");
             }
             else if (context.State.routeLock.routes.ContainsKey(routeId))
             {
-                error = "進路は設定済み。";
+                result = InterlockingRouteRequestResultUtility.CreateAlreadySetError(request,
+                    "進路は設定済み。");
             }
             else if (!context.State.validation.availableByRouteId[routeId] ||
                 !TrackStationInterlockingValidationLogic.HasProtectionInput(context, route))
             {
-                error = "進路に必要な入力を取得できない。";
+                TrackStationInterlockingValidationLogic.TryGetUnavailableRouteInput(context, route,
+                    out string circuitId, out string turnoutId);
+                result = InterlockingRouteRequestResultUtility.CreateInputUnavailableError(request,
+                    "進路に必要な入力を取得できない。", circuitId, turnoutId);
             }
-            else if (TrackStationInterlockingReservationLogic.CanReserveMain(context, routeId, out error))
+            else if (TrackStationInterlockingReservationLogic.CanReserveMain(context, request, out result))
             {
                 var mode = route.overrunProtection == null || !route.overrunProtection.isEnabled
                     ? OverrunProtectionMode.None
@@ -67,38 +86,66 @@ namespace Nakatetsu.Track.Interlocking
                 TrackStationInterlockingRouteLockLogic.Register(context, routeId);
                 TrackStationInterlockingOverrunProtectionLogic.Register(context, routeId, mode);
                 TrackStationInterlockingSignalLogic.Register(context, routeId);
-                UpdateAfterOperation(context);
-                return true;
+                result = CreateAcceptedResult(request);
             }
             UpdateAfterOperation(context);
-            return false;
+            return result;
         }
 
-        public static bool TryCancelRoute(TrackStationInterlockingContext context, string routeId, out string error)
+        public static InterlockingRouteRequestResult TryCancelRoute(
+            TrackStationInterlockingContext context, InterlockingRouteRequest request)
         {
-            error = string.Empty;
-            if (!context.State.isInitialized || string.IsNullOrEmpty(routeId) ||
-                !context.State.routeLock.routes.TryGetValue(routeId, out var route))
+            if (request == null || string.IsNullOrWhiteSpace(request.RouteId) ||
+                request.Operation != InterlockingRouteOperation.Cancel)
             {
-                error = "進路が設定されていない。";
-                return false;
+                return InterlockingRouteRequestResultUtility.CreateInvalidRequestError(request,
+                    "進路IDと取消操作を指定してください。");
+            }
+            if (!context.State.isInitialized)
+            {
+                return InterlockingRouteRequestResultUtility.CreateNotInitializedError(request,
+                    "連動装置が初期化されていない。");
+            }
+
+            string routeId = request.RouteId;
+            if (!context.Settings.routesById.ContainsKey(routeId))
+            {
+                return InterlockingRouteRequestResultUtility.CreateUnknownRouteError(request,
+                    "進路が定義されていない。");
+            }
+            if (!context.State.routeLock.routes.TryGetValue(routeId, out var route))
+            {
+                return InterlockingRouteRequestResultUtility.CreateNotSetError(request,
+                    "進路が設定されていない。");
             }
             // 同じ取消を繰り返しても、時素と公開値を再更新しない。
             if (route.cancelPending)
             {
-                return true;
+                return CreateAcceptedResult(request);
             }
             if (!context.Input.hasCircuitSource)
             {
-                error = "軌道回路の入力を取得できない。";
                 UpdateAfterOperation(context);
-                return false;
+                return InterlockingRouteRequestResultUtility.CreateInputUnavailableError(request,
+                    "軌道回路の入力を取得できない。");
             }
 
             TrackStationInterlockingRouteLockLogic.RecordCancel(context, routeId);
             TrackStationInterlockingApproachLockLogic.BeginCancel(context, routeId);
             UpdateAfterOperation(context);
-            return true;
+            return CreateAcceptedResult(request);
+        }
+
+        private static InterlockingRouteRequestResult CreateAcceptedResult(InterlockingRouteRequest request)
+        {
+            return new InterlockingRouteRequestResult
+            {
+                RequestId = request.RequestId ?? string.Empty,
+                StationId = request.StationId ?? string.Empty,
+                RouteId = request.RouteId,
+                Accepted = true,
+                ErrorCode = InterlockingRouteErrorCode.None
+            };
         }
 
         public static void Calculate(TrackStationInterlockingContext context, float deltaTimeSeconds)

@@ -125,7 +125,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
             PassMainRoute();
             Assert.That(Status().RouteLocked, Is.False);
             Assert.That(Status().OverrunReleaseRemainingSeconds, Is.EqualTo(10f));
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, "ReuseMain", out _), Is.False);
+            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context,
+                CreateRequest("ReuseMain")).Accepted, Is.False);
 
             Tick(10f);
             Assert.That(Status().IsRouteSet, Is.False);

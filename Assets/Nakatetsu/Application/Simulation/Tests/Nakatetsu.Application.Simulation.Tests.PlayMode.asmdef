@@ -1,0 +1,12 @@
+{
+    "name": "Nakatetsu.Application.Simulation.Tests.PlayMode",
+    "rootNamespace": "Nakatetsu.Application.Simulation.Tests",
+    "references": [
+        "Nakatetsu.Application",
+        "Nakatetsu.Track.Interlocking"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "autoReferenced": false
+}

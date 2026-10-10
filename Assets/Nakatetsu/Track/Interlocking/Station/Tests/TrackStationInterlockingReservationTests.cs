@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using NUnit.Framework;
+using InterlockingRouteErrorCode = Nakatetsu.Contracts.Interlocking.InterlockingRouteErrorCode;
+using InterlockingRouteOperation = Nakatetsu.Contracts.Interlocking.InterlockingRouteOperation;
+using InterlockingRouteRequest = Nakatetsu.Contracts.Interlocking.InterlockingRouteRequest;
+using InterlockingRouteRequestResult = Nakatetsu.Contracts.Interlocking.InterlockingRouteRequestResult;
 
 namespace Nakatetsu.Track.Interlocking.Tests
 {
@@ -33,7 +37,10 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetOccupied("Platform", true);
             Initialize();
 
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, ArrivalRouteId, out _), Is.False);
+            var result = TrackStationInterlockingLogic.TryRequestRoute(context, CreateRequest());
+            Assert.That(result.Accepted, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo(InterlockingRouteErrorCode.CircuitOccupied));
+            Assert.That(result.RelatedCircuitId, Is.EqualTo("Platform"));
             Assert.That(Status().IsRouteSet, Is.False);
         }
 
@@ -43,7 +50,11 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Initialize();
             Request();
 
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, "ReuseMain", out _), Is.False);
+            var result = TrackStationInterlockingLogic.TryRequestRoute(context, CreateRequest("ReuseMain"));
+            Assert.That(result.Accepted, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo(InterlockingRouteErrorCode.CircuitReserved));
+            Assert.That(result.RelatedCircuitId, Is.EqualTo("Entry"));
+            Assert.That(result.RelatedRouteId, Is.EqualTo(ArrivalRouteId));
             Assert.That(Status("ReuseMain").IsRouteSet, Is.False);
             Assert.That(Status().RouteLocked, Is.True);
             Assert.That(Status().OverrunMode, Is.EqualTo(OverrunProtectionMode.Normal));
@@ -61,7 +72,15 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Initialize();
             Request();
 
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, "ReuseMain", out _), Is.EqualTo(accepted));
+            var result = TrackStationInterlockingLogic.TryRequestRoute(context, CreateRequest("ReuseMain"));
+            Assert.That(result.Accepted, Is.EqualTo(accepted));
+            Assert.That(result.ErrorCode, Is.EqualTo(accepted
+                ? InterlockingRouteErrorCode.None : InterlockingRouteErrorCode.TurnoutPositionConflict));
+            if (!accepted)
+            {
+                Assert.That(result.RelatedTurnoutId, Is.EqualTo("Main"));
+                Assert.That(result.RelatedRouteId, Is.EqualTo(ArrivalRouteId));
+            }
             Assert.That(Status("ReuseMain").IsRouteSet, Is.EqualTo(accepted));
             Assert.That(Status().RouteLocked, Is.True);
         }
@@ -71,9 +90,10 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             Initialize();
             Request("ReuseProtection");
-            Request();
+            var result = Request();
             Tick();
 
+            Assert.That(result.ErrorCode, Is.EqualTo(InterlockingRouteErrorCode.None));
             Assert.That(Status().OverrunMode, Is.EqualTo(OverrunProtectionMode.Restricted));
             Assert.That(Status().PathEstablished, Is.True);
             Assert.That(Status().ProceedAllowed, Is.True);
@@ -188,14 +208,33 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(TrackStationInterlockingLogic.TryInitialize(context, definition, out string error), Is.True, error);
         }
 
-        protected void Request(string routeId = ArrivalRouteId)
+        protected static InterlockingRouteRequest CreateRequest(string routeId = ArrivalRouteId,
+            InterlockingRouteOperation operation = InterlockingRouteOperation.Set)
         {
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, routeId, out string error), Is.True, error);
+            return new InterlockingRouteRequest
+            {
+                RequestId = "Request",
+                StationId = "Station",
+                RouteId = routeId,
+                Operation = operation
+            };
         }
 
-        protected void Cancel(string routeId = ArrivalRouteId)
+        protected InterlockingRouteRequestResult Request(string routeId = ArrivalRouteId)
         {
-            Assert.That(TrackStationInterlockingLogic.TryCancelRoute(context, routeId, out string error), Is.True, error);
+            var result = TrackStationInterlockingLogic.TryRequestRoute(context, CreateRequest(routeId));
+            Assert.That(result.Accepted, Is.True, result.Message);
+            Assert.That(result.ErrorCode, Is.EqualTo(InterlockingRouteErrorCode.None));
+            return result;
+        }
+
+        protected InterlockingRouteRequestResult Cancel(string routeId = ArrivalRouteId)
+        {
+            var result = TrackStationInterlockingLogic.TryCancelRoute(context,
+                CreateRequest(routeId, InterlockingRouteOperation.Cancel));
+            Assert.That(result.Accepted, Is.True, result.Message);
+            Assert.That(result.ErrorCode, Is.EqualTo(InterlockingRouteErrorCode.None));
+            return result;
         }
 
         protected TrackStationInterlockingRouteStatus Status(string routeId = ArrivalRouteId)

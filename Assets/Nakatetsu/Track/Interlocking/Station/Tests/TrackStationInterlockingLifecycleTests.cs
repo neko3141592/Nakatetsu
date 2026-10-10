@@ -21,7 +21,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(releasedMain.OverrunPhase, Is.EqualTo(OverrunProtectionPhase.ReleaseTiming));
             Assert.That(releasedMain.OverrunReleaseRemainingSeconds, Is.EqualTo(10f));
             Assert.That(context.Input.OccupiedByCircuitId["Platform"], Is.True);
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, "ReuseProtection", out _), Is.False);
+            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context,
+                CreateRequest("ReuseProtection")).Accepted, Is.False);
             Request("ReuseMain");
 
             Tick(9f);
@@ -128,7 +129,11 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Tick(2f);
             Assert.That(Status().ApproachReleaseRemainingSeconds, Is.EqualTo(3f));
             context.Input.hasCircuitSource = false;
+            var published = context.Output;
+            long revision = published.StateRevision;
             Cancel();
+            Assert.That(context.Output, Is.SameAs(published));
+            Assert.That(context.Output.StateRevision, Is.EqualTo(revision));
             Assert.That(Status().ApproachReleaseRemainingSeconds, Is.EqualTo(3f));
             context.Input.hasCircuitSource = true;
             Tick(3f);
@@ -204,7 +209,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
             var previousOutput = context.Output;
             var previousStatus = Status();
             SetOccupied("Entry", true);
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, "ReuseProtection", out _), Is.False);
+            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context,
+                CreateRequest("ReuseProtection")).Accepted, Is.False);
 
             Assert.That(Status().ProceedAllowed, Is.False);
             Assert.That(TrackStationInterlockingLogic.TryGetCircuitPassage(context, ArrivalRouteId, "Entry", out var passage), Is.True);
@@ -227,7 +233,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
 
             Assert.That(TrackStationInterlockingLogic.TryInitialize(context, definition, out _), Is.False);
             Assert.That(Status().RouteLocked, Is.True);
-            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context, "ReuseMain", out _), Is.False);
+            Assert.That(TrackStationInterlockingLogic.TryRequestRoute(context,
+                CreateRequest("ReuseMain")).Accepted, Is.False);
         }
 
         [TestCase(false)]

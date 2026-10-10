@@ -2,6 +2,7 @@
     "name": "Nakatetsu.Track.Interlocking.Tests.EditMode",
     "rootNamespace": "Nakatetsu.Track.Interlocking.Tests",
     "references": [
+        "Nakatetsu.Contracts",
         "Nakatetsu.Track.Interlocking",
         "Nakatetsu.Track.Simulation",
         "Nakatetsu.Track.Graph",

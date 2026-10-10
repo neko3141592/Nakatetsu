@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using Nakatetsu.Core.Simulation;
 using Nakatetsu.Core.Time;
 using Nakatetsu.Track.Graph;
-using Nakatetsu.Track.Interlocking;
+using Nakatetsu.Track.Interlocking.Management;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Nakatetsu.Track.Atc
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackConnectionController trackConnectionController;
         [SerializeField] private MonoBehaviour worldTimeSource;
-        [SerializeField] private List<TrackStationInterlockingController> interlockings = new();
+        [SerializeField] private TrackInterlockingManagementController interlockingManagement;
 
         private readonly TrackAtcContext context = new();
 
@@ -51,16 +50,23 @@ namespace Nakatetsu.Track.Atc
 
             CollectPhysicalPathAvailability(input);
 
-            foreach (TrackStationInterlockingController interlocking in interlockings)
+            if (interlockingManagement == null || !interlockingManagement.isActiveAndEnabled ||
+                !interlockingManagement.IsInitialized)
             {
-                if (interlocking == null || !interlocking.IsInitialized)
+                return;
+            }
+
+            foreach (var station in interlockingManagement.Context.Output.StationsById.Values)
+            {
+                if (station == null || !station.IsInitialized || !station.HasOutput)
                 {
                     continue;
                 }
 
-                foreach (string routeId in interlocking.RouteIds)
+                foreach (var pair in station.RoutesById)
                 {
-                    if (!interlocking.TryGetRouteStatus(routeId, out var status))
+                    var status = pair.Value;
+                    if (status == null || !status.IsAvailable)
                     {
                         continue;
                     }
@@ -77,7 +83,7 @@ namespace Nakatetsu.Track.Atc
                     };
 
                     // コンパイル時と同様に、連動装置を跨いでも進路IDは一意とする。
-                    input.RoutesById.Add(routeId, routeInput);
+                    input.RoutesById.Add(pair.Key, routeInput);
                 }
             }
         }

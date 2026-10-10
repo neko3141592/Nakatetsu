@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
+using OverrunProtectionMode = Nakatetsu.Track.Simulation.Circuit.OverrunProtectionMode;
 
 namespace Nakatetsu.Track.Interlocking
 {
@@ -11,21 +13,31 @@ namespace Nakatetsu.Track.Interlocking
             context.State.reservation.turnouts.Clear();
         }
 
-        internal static bool CanReserveMain(TrackStationInterlockingContext context, string routeId, out string error)
+        internal static bool CanReserveMain(TrackStationInterlockingContext context,
+            InterlockingRouteRequest request, out InterlockingRouteRequestResult error)
         {
+            string routeId = request.RouteId;
             TrackStationInterlockingRouteDefinition route = context.Settings.routesById[routeId];
             foreach (string circuitId in route.routeClearTrackCircuitIds)
             {
                 if (!context.Input.hasCircuitSource ||
-                    !context.Input.OccupiedByCircuitId.TryGetValue(circuitId, out bool occupied) || occupied)
+                    !context.Input.OccupiedByCircuitId.TryGetValue(circuitId, out bool occupied))
                 {
-                    error = $"Track circuit '{circuitId}' is occupied or unavailable.";
+                    error = InterlockingRouteRequestResultUtility.CreateInputUnavailableError(request,
+                        $"Track circuit '{circuitId}' is unavailable.", circuitId);
+                    return false;
+                }
+                if (occupied)
+                {
+                    error = InterlockingRouteRequestResultUtility.CreateCircuitOccupiedError(request,
+                        circuitId, $"Track circuit '{circuitId}' is occupied.");
                     return false;
                 }
 
                 if (context.State.reservation.circuits.TryGetValue(circuitId, out var holds) && holds.Count > 0)
                 {
-                    error = $"Track circuit '{circuitId}' is reserved.";
+                    error = InterlockingRouteRequestResultUtility.CreateCircuitReservedError(request,
+                        circuitId, holds[0].RouteId, $"Track circuit '{circuitId}' is reserved.");
                     return false;
                 }
             }
@@ -47,16 +59,19 @@ namespace Nakatetsu.Track.Interlocking
                 TrackStationInterlockingRouteDefinition existing = context.Settings.routesById[pair.Key];
                 if (route.conflictRouteIds.Contains(pair.Key) || existing.conflictRouteIds.Contains(routeId))
                 {
-                    error = $"Route '{routeId}' conflicts with '{pair.Key}'.";
+                    error = InterlockingRouteRequestResultUtility.CreateRouteConflictError(request,
+                        pair.Key, $"Route '{routeId}' conflicts with '{pair.Key}'.");
                     return false;
                 }
             }
 
             foreach (TurnoutRequirement turnout in route.requiredTurnouts)
             {
-                if (HasOppositeTurnoutHold(context.State.reservation, turnout))
+                if (TryGetOppositeTurnoutHold(context.State.reservation, turnout, out var hold))
                 {
-                    error = $"Turnout '{turnout.connectionId}' is reserved at another position.";
+                    error = InterlockingRouteRequestResultUtility.CreateTurnoutPositionConflictError(request,
+                        turnout.connectionId, hold.RouteId,
+                        $"Turnout '{turnout.connectionId}' is reserved at another position.");
                     return false;
                 }
             }
@@ -127,6 +142,13 @@ namespace Nakatetsu.Track.Interlocking
         private static bool HasOppositeTurnoutHold(TrackStationInterlockingReservationState reservation,
             TurnoutRequirement turnout)
         {
+            return TryGetOppositeTurnoutHold(reservation, turnout, out _);
+        }
+
+        private static bool TryGetOppositeTurnoutHold(TrackStationInterlockingReservationState reservation,
+            TurnoutRequirement turnout, out TrackStationInterlockingEquipmentHold oppositeHold)
+        {
+            oppositeHold = default;
             if (!reservation.turnouts.TryGetValue(turnout.connectionId, out var holds))
             {
                 return false;
@@ -135,6 +157,7 @@ namespace Nakatetsu.Track.Interlocking
             {
                 if (hold.Position != turnout.requiredPosition)
                 {
+                    oppositeHold = hold;
                     return true;
                 }
             }
