@@ -65,6 +65,13 @@ Nakatetsu/
 │   ├── Settings/
 │   └── ThirdParty/
 ├── SourceAssets/
+├── Shared/
+│   ├── Nakatetsu.Contracts.csproj
+│   └── Contracts/
+├── Server/
+│   ├── Nakatetsu.TrafficControl.slnx
+│   ├── Nakatetsu.TrafficControl.code-workspace
+│   └── Nakatetsu.TrafficControl.Server/
 ├── Documentation/
 │   └── Architecture/
 │       └── DirectoryStructure.md
@@ -99,6 +106,8 @@ Nakatetsu/
 | `Assets/Settings` | 既存テンプレートのURPなどの設定アセット |
 | `Assets/ThirdParty` | 外部アセット。自作コード・素材と分け、ライセンス情報を保持する |
 | `SourceAssets` | Blender・Illustrator・Photoshopなどの制作元ファイル |
+| `Shared/Contracts` | Unityと運行管理サーバーで共有する通信型。Unity依存を持たないローカルパッケージ |
+| `Server/Nakatetsu.TrafficControl.Server` | ASP.NET Coreによる運行管理サーバー |
 | `Documentation` | 設計文書、移植記録、駅・路線・車両の参考資料 |
 | `Packages` | パッケージの依存設定 |
 | `ProjectSettings` | Unityプロジェクト全体の設定 |
@@ -135,6 +144,23 @@ ControllerはUnityとの接続、Logicは計算・判定、Contextは状態・�
 ## Assembly Definition
 
 `Nakatetsu.Train.asmdef` と `Nakatetsu.Train.Equipment.Tims.asmdef` は、それぞれの機能ツリーを包含できる機能ルートに置く。TIMSは `Equipment` 配下でも独立Assemblyとし、テストは機能別の `Tests` に分散させ、`asmref` で `Nakatetsu.Train.Equipment.Tims.Tests.EditMode` を参照する。
+
+## 運行管理サーバーと共通型
+
+サーバー開発では `Server/Nakatetsu.TrafficControl.code-workspace` をVS Codeで開く。専用ソリューション `Server/Nakatetsu.TrafficControl.slnx` にサーバーと共通型の2プロジェクトを登録している。既定のビルドタスクと `TrafficControl Server` のデバッグ構成を用意している。
+
+サーバーは.NET 10、共通型の `Shared/Nakatetsu.Contracts.csproj` は.NET Standard 2.1を使う。連動の通信型は `Shared/Contracts/Interlocking/Scripts` 配下に置き、Unity側を基準に、サーバーから受ける進路要求を `FromServer`、サーバーへ送る状態・要求結果を `ToServer`、enumを `Enums` に分ける。
+
+Unityは `Packages/manifest.json` の `file:../Shared/Contracts` から同じソースを読み込み、`Nakatetsu.Application` が `Nakatetsu.Contracts` を明示参照する。共通型のプロジェクトは `Contracts/**/*.cs` だけをコンパイルする。`.csproj` とその `bin`・`obj` はパッケージの親に置き、Unityへ生成コードが混入しないようにする。
+
+リポジトリのルートからの確認・起動コマンドは次のとおり。
+
+```bash
+dotnet build Server/Nakatetsu.TrafficControl.slnx
+dotnet run --project Server/Nakatetsu.TrafficControl.Server/Nakatetsu.TrafficControl.Server.csproj --launch-profile http
+```
+
+Unity側の編集ではルートの `Nakatetsu.slnx` を引き続き使う。Unityが生成するソリューションへのサーバー側プロジェクトの手動追加は行わない。
 
 ## 必要になったら追加する構成
 

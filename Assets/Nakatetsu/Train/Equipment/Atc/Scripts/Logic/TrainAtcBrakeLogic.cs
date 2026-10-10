@@ -26,7 +26,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             }
 
             // 毎tick全閉確認を更新し、前回の転動防止状態を残さない。
-            // ドア状態を取得できない間も、全閉未確認として常用最大を要求する。
+            // ドア状態を取得できない間も、全閉未確認として常用最大刻み段の半分を要求する。
             context.State.brake.isRollingPreventing =
                 !context.Input.hasDoorState || !context.Input.areAllDoorsClosed;
 
@@ -97,14 +97,14 @@ namespace Nakatetsu.Train.Equipment.Atc
             // 全閉確認後は、この分岐を通らず通常の介入・緩解判定へ戻る。
             if (brake.isRollingPreventing)
             {
-                SetMaximumServiceBrakeStep(context);
+                SetHalfServiceBrakeStep(context);
                 return;
             }
 
             // 常用パターンが5km/h未満で停車中の場合は、緩解条件より停止保持を優先する。
             if (speedKmh <= StoppedSpeedKmh && normalAllowSpeedKmh < StopHoldPatternSpeedKmh)
             {
-                SetMaximumServiceBrakeStep(context);
+                SetHalfServiceBrakeStep(context);
                 return;
             }
 
@@ -246,6 +246,18 @@ namespace Nakatetsu.Train.Equipment.Atc
             int maximumServiceBrakeStep = context.Input.brakeSettings?.maximumServiceBrakeStep ?? 0;
             brake.isNormalBrakeRequired = true;
             brake.targetBrakeStep = Math.Max(0, maximumServiceBrakeStep);
+            brake.currentBrakeStep = brake.targetBrakeStep;
+            brake.brakeStepTableIndex = -1;
+            brake.brakeChangeElapsedSeconds = 0f;
+        }
+
+        private static void SetHalfServiceBrakeStep(TrainAtcContext context)
+        {
+            var brake = context.State.brake;
+            // 不正入力時にも非常判定を続ける。常用設定がなければ、常用段は0とする。
+            int maximumServiceBrakeStep = context.Input.brakeSettings?.maximumServiceBrakeStep ?? 0;
+            brake.isNormalBrakeRequired = true;
+            brake.targetBrakeStep = Math.Max(0, Mathf.CeilToInt(maximumServiceBrakeStep / 2));
             brake.currentBrakeStep = brake.targetBrakeStep;
             brake.brakeStepTableIndex = -1;
             brake.brakeChangeElapsedSeconds = 0f;

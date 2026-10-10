@@ -6,6 +6,8 @@ using Nakatetsu.Train.Consist;
 using Nakatetsu.Train.Equipment.Operation;
 using Nakatetsu.Train.Equipment.Shared;
 using Nakatetsu.Train.Equipment.SpeedMeasurement;
+using Nakatetsu.Train.Equipment.Tims.Brake;
+using Nakatetsu.Train.Equipment.Tims.Communication;
 using Nakatetsu.Train.Equipment.Tims.Operation;
 using Nakatetsu.Train.Simulation.Atc;
 using Nakatetsu.Train.Simulation.Orchestration;
@@ -37,6 +39,8 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             consist = ScriptableObject.CreateInstance<ConsistDefinitionAsset>();
             car = ScriptableObject.CreateInstance<CarDefinitionAsset>();
             car.carType = CarType.Tc1;
+            car.lengthM = 20f;
+            car.emptyMassKg = 30000f;
             car.atcReceiverPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(ReceiverPrefabPath);
             car.additionalEquipmentPrefabs = new GameObject[0];
             consist.cars.Add(car);
@@ -52,6 +56,13 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             tims.transform.SetParent(train.transform, false);
             direction = tims.AddComponent<TimsDirectionController>();
             direction.Output.activatedCabPosition = ActivatedCabPosition.Front;
+            var communication = tims.AddComponent<TimsCommunicationController>();
+            typeof(TimsCommunicationController).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(communication, null);
+            for (int carIndex = 0; carIndex < consist.CarCount; carIndex++)
+            {
+                communication.GetLocalBus(carIndex).SetFloat(BrakeControlDeviceTimsBusSource.MassKgKey, car.emptyMassKg);
+            }
             CreateMaster(0);
             CreateMaster(1);
             simulation = train.AddComponent<TrainSimulationController>();
@@ -189,7 +200,7 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             graph.atcEdge.Add(new TrackAtcGraphEdge { atcEdgeId = "edge", lengthM = 100f });
             Assert.That(atc.TryInitializePosition(graph,
                 new TrainAtcPosition { atcEdgeId = "edge", distanceOnAtcEdgeM = 50f, frontFacesAtoB = true },
-                new TrainAtcPosition { atcEdgeId = "edge", distanceOnAtcEdgeM = 20f, frontFacesAtoB = true }), Is.True);
+                new TrainAtcPosition { atcEdgeId = "edge", distanceOnAtcEdgeM = 30f, frontFacesAtoB = true }), Is.True);
             var sensorObject = new GameObject("SpeedSensor");
             sensorObject.transform.SetParent(train.transform, false);
             var sensor = sensorObject.AddComponent<SpeedSensor>();
@@ -208,8 +219,8 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
             atc.Calculate(0.5f);
             Assert.That(atc.Context.Input.signedSpeedMps, Is.EqualTo(-10f));
             Assert.That(atc.Context.State.position.frontPosition.distanceOnAtcEdgeM, Is.EqualTo(45f));
-            Assert.That(atc.Context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(15f));
-            Assert.That(atc.Context.State.position.isPositionKnown, Is.True);
+            Assert.That(atc.Context.State.position.rearPosition.distanceOnAtcEdgeM, Is.EqualTo(25f));
+            Assert.That(atc.Context.State.position.IsPositionKnown, Is.True);
             Assert.That(atc.Context.State.operation.isAtcEnabled, Is.False);
         }
 

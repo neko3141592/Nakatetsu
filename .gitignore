@@ -69,6 +69,15 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+# Hand-maintained server and shared projects
+!/Server/**/*.csproj
+!/Server/Nakatetsu.TrafficControl.slnx
+!/Shared/**/*.csproj
+/Server/**/[Bb]in/
+/Server/**/[Oo]bj/
+/Shared/[Bb]in/
+/Shared/[Oo]bj/
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta

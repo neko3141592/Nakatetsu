@@ -29,7 +29,8 @@ namespace Nakatetsu.Train.Equipment.Atc
             state.frontPosition = CopyPosition(frontPosition);
             state.rearPosition = CopyPosition(rearPosition);
             state.isPositionInitialized = true;
-            state.isPositionKnown = true;
+            state.isFrontPositionKnown = true;
+            state.isRearPositionKnown = true;
             return true;
         }
 
@@ -51,10 +52,11 @@ namespace Nakatetsu.Train.Equipment.Atc
                 return false;
             }
 
-            // 位置不明からの復帰は、両端の位置を明示的に補正した場合だけ認める。
+            // 基準にできる位置が両端とも不明の場合も、明示的な補正で復帰できる。
             state.frontPosition = CopyPosition(frontPosition);
             state.rearPosition = CopyPosition(rearPosition);
-            state.isPositionKnown = true;
+            state.isFrontPositionKnown = true;
+            state.isRearPositionKnown = true;
             return true;
         }
 
@@ -66,34 +68,149 @@ namespace Nakatetsu.Train.Equipment.Atc
             }
 
             var state = context.State.position;
-            if (!state.isPositionInitialized || !state.isPositionKnown)
+            if (!state.isPositionInitialized)
             {
-                // 位置不明になった後は、TrackSampleから自動で取り直さない。
-                state.isPositionKnown = false;
+                ClearPositionKnown(state);
                 return;
             }
 
             if (!TryGetMovementDistance(context.Input, out double signedDistanceM))
             {
-                state.isPositionKnown = false;
+                ClearPositionKnown(state);
                 return;
             }
 
-            // 運転台やキーの状態によらず、固定前側・固定後側の両端を更新する。
-            var retainedPath = context.State.pattern.atcEdgePath;
-            bool frontUpdated = TryAdvancePosition(context, state.frontPosition,
-                context.Input.frontTelegram, retainedPath, signedDistanceM, out var frontPosition);
-            bool rearUpdated = TryAdvancePosition(context, state.rearPosition,
-                context.Input.rearTelegram, retainedPath, signedDistanceM, out var rearPosition);
-            if (!frontUpdated || !rearUpdated)
+            // 既知の使用側を優先する。片側が不明でも、他側が既知なら相対再解決を続ける。
+            var referenceReceiver = SelectReferenceReceiver(context.State.operation, state);
+            if (referenceReceiver == TrainAtcReceiverSide.None)
             {
-                // 片側だけ更新しない。最後に確認できた両端の位置は記録として残す。
-                state.isPositionKnown = false;
                 return;
             }
 
-            state.frontPosition = frontPosition;
-            state.rearPosition = rearPosition;
+            if (!UpdateReferencePosition(context, referenceReceiver, signedDistanceM))
+            {
+                // 基準の移動に失敗したtickの古い位置を、他側の最新位置として使わない。
+                ClearPositionKnown(state);
+                return;
+            }
+
+            // 非基準側は過去の位置から積算せず、毎tick基準の最新位置から求め直す。
+            UpdateRelativePosition(context, referenceReceiver);
+        }
+
+        private static TrainAtcReceiverSide SelectReferenceReceiver(
+            TrainAtcOperationState operation, TrainAtcPositionState position)
+        {
+            var preferredReceiver = operation.selectedReceiver;
+            if (preferredReceiver == TrainAtcReceiverSide.None && operation.hasCabState)
+            {
+                preferredReceiver = operation.cab.isFrontCab
+                    ? TrainAtcReceiverSide.Front : TrainAtcReceiverSide.Rear;
+            }
+
+            if (preferredReceiver == TrainAtcReceiverSide.Front && position.isFrontPositionKnown)
+            {
+                return TrainAtcReceiverSide.Front;
+            }
+            if (preferredReceiver == TrainAtcReceiverSide.Rear && position.isRearPositionKnown)
+            {
+                return TrainAtcReceiverSide.Rear;
+            }
+
+            if (position.isFrontPositionKnown)
+            {
+                return TrainAtcReceiverSide.Front;
+            }
+            if (position.isRearPositionKnown)
+            {
+                return TrainAtcReceiverSide.Rear;
+            }
+            return TrainAtcReceiverSide.None;
+        }
+
+        private static bool UpdateReferencePosition(
+            TrainAtcContext context, TrainAtcReceiverSide referenceReceiver, double signedDistanceM)
+        {
+            var state = context.State.position;
+            bool isFrontReference = referenceReceiver == TrainAtcReceiverSide.Front;
+            var previousPosition = isFrontReference ? state.frontPosition : state.rearPosition;
+            var telegram = isFrontReference ? context.Input.frontTelegram : context.Input.rearTelegram;
+            if (!TryAdvancePosition(context, previousPosition, telegram,
+                context.State.pattern.atcEdgePath, signedDistanceM, out var position))
+            {
+                return false;
+            }
+
+            if (isFrontReference)
+            {
+                state.frontPosition = position;
+                state.isFrontPositionKnown = true;
+            }
+            else
+            {
+                state.rearPosition = position;
+                state.isRearPositionKnown = true;
+            }
+            return true;
+        }
+
+        private static void UpdateRelativePosition(
+            TrainAtcContext context, TrainAtcReceiverSide referenceReceiver)
+        {
+            var state = context.State.position;
+            bool isFrontReference = referenceReceiver == TrainAtcReceiverSide.Front;
+            var referencePosition = isFrontReference ? state.frontPosition : state.rearPosition;
+            var telegram = isFrontReference ? context.Input.frontTelegram : context.Input.rearTelegram;
+            TrainAtcPosition position = null;
+            bool isKnown = TryGetRelativeDistance(context.Input, isFrontReference, out double signedDistanceM) &&
+                TryAdvancePosition(context, referencePosition, telegram,
+                    context.State.pattern.atcEdgePath, signedDistanceM, out position);
+
+            // 不明側の最後の位置は診断として残し、成功した今回の結果だけを採用する。
+            if (isFrontReference)
+            {
+                state.isRearPositionKnown = isKnown;
+                if (isKnown)
+                {
+                    state.rearPosition = position;
+                }
+            }
+            else
+            {
+                state.isFrontPositionKnown = isKnown;
+                if (isKnown)
+                {
+                    state.frontPosition = position;
+                }
+            }
+        }
+
+        private static bool TryGetRelativeDistance(
+            TrainAtcInput input, bool isFrontReference, out double signedDistanceM)
+        {
+            signedDistanceM = 0d;
+            float frontDistanceM = input.frontReceiverDistanceFromFrontM;
+            float rearDistanceM = input.rearReceiverDistanceFromFrontM;
+            if (!input.hasCarMasses || float.IsNaN(frontDistanceM) || float.IsInfinity(frontDistanceM) ||
+                float.IsNaN(rearDistanceM) || float.IsInfinity(rearDistanceM) ||
+                frontDistanceM < 0f || rearDistanceM < frontDistanceM)
+            {
+                return false;
+            }
+
+            // 固定前方向が正。レバーサや移動方向では取り付け距離の符号を変えない。
+            signedDistanceM = (double)rearDistanceM - frontDistanceM;
+            if (isFrontReference)
+            {
+                signedDistanceM = -signedDistanceM;
+            }
+            return true;
+        }
+
+        private static void ClearPositionKnown(TrainAtcPositionState position)
+        {
+            position.isFrontPositionKnown = false;
+            position.isRearPositionKnown = false;
         }
 
         private static bool TryGetMovementDistance(TrainAtcInput input, out double signedDistanceM)

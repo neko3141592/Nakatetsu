@@ -34905,36 +34905,36 @@ MonoBehaviour:
     carNumber: 1
     deviceName: ATC
     itemName: IsPowerOn
-    backgroundOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    labelOnColor: {r: 0.47058824, g: 0.9098039, b: 0.2627451, a: 1}
+    backgroundOnColor: {r: 0.47058824, g: 0.9098039, b: 0.2627451, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: "ATC\u96FB\u6E90"
   - busTarget: 0
     carNumber: 1
     deviceName: ATC
     itemName: IsEnabled
-    backgroundOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    labelOnColor: {r: 0.9647059, g: 0.59607846, b: 0.3372549, a: 1}
+    backgroundOnColor: {r: 0.9647059, g: 0.59607846, b: 0.3372549, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: ATC
   - busTarget: 0
     carNumber: 1
     deviceName: ATC
     itemName: IsNormalBrakeRequired
-    backgroundOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    labelOnColor: {r: 0.9647059, g: 0.59607846, b: 0.3372549, a: 1}
+    backgroundOnColor: {r: 0.9647059, g: 0.59607846, b: 0.3372549, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: "ATC\u5E38\u7528"
   - busTarget: 0
     carNumber: 1
     deviceName: ATC
     itemName: IsEmergencyBrakeRequired
-    backgroundOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    labelOnColor: {r: 0.94509804, g: 0.3529412, b: 0.3529412, a: 1}
+    backgroundOnColor: {r: 0.94509804, g: 0.3529412, b: 0.3529412, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: "ATC\u975E\u5E38"
   - busTarget: 0
     carNumber: 1
     deviceName: 
     itemName: 
-    backgroundOnColor: {r: 0, g: 0, b: 0, a: 0}
-    labelOnColor: {r: 0, g: 0, b: 0, a: 0}
+    backgroundOnColor: {r: 0.94509804, g: 0.3529412, b: 0.3529412, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: "ATC\u958B\u653E"
   - busTarget: 0
     carNumber: 1
@@ -34947,8 +34947,8 @@ MonoBehaviour:
     carNumber: 1
     deviceName: ATC
     itemName: IsRollingPreventing
-    backgroundOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    labelOnColor: {r: 0.9647059, g: 0.59607846, b: 0.3372549, a: 1}
+    backgroundOnColor: {r: 0.94509804, g: 0.3529412, b: 0.3529412, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: "\u8EE2\u52D5\u9632\u6B62"
   - busTarget: 0
     carNumber: 1
@@ -34961,8 +34961,8 @@ MonoBehaviour:
     carNumber: 1
     deviceName: ATC
     itemName: HasFault
-    backgroundOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
-    labelOnColor: {r: 0.94509804, g: 0.3529412, b: 0.3529412, a: 1}
+    backgroundOnColor: {r: 0.94509804, g: 0.3529412, b: 0.3529412, a: 1}
+    labelOnColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
     label: "\u6545\u3000\u969C"
   verticalSpacing: 54
   horizontalSpacing: 178
@@ -50878,7 +50878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6519106692811907449, guid: b0209b00a76934a4d80f0b105f711d2c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 514
       objectReference: {fileID: 0}
     - target: {fileID: 7318711033088781445, guid: b0209b00a76934a4d80f0b105f711d2c, type: 3}
       propertyPath: m_Pivot.x

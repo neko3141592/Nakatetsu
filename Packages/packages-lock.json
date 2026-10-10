@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.nakatetsu.contracts": {
+      "version": "file:../Shared/Contracts",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.ai.inference": {
       "version": "2.6.1",
       "depth": 0,
