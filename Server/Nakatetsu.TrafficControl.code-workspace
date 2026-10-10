@@ -1,0 +1,42 @@
+{
+  "folders": [
+    { "name": "Server", "path": "." },
+    { "name": "Shared", "path": "../Shared" }
+  ],
+  "settings": {
+    "dotnet.defaultSolution": "Nakatetsu.TrafficControl.slnx",
+    "dotnet.enableWorkspaceBasedDevelopment": false,
+    "files.exclude": {
+      "**/bin": true,
+      "**/obj": true,
+      "**/*.meta": true
+    }
+  },
+  "extensions": {
+    "recommendations": ["ms-dotnettools.csdevkit"]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "TrafficControl: build",
+        "type": "process",
+        "command": "dotnet",
+        "args": ["build", "${workspaceFolder:Server}/Nakatetsu.TrafficControl.slnx"],
+        "problemMatcher": "$msCompile",
+        "group": { "kind": "build", "isDefault": true }
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "TrafficControl Server",
+        "type": "dotnet",
+        "request": "launch",
+        "projectPath": "${workspaceFolder:Server}/Nakatetsu.TrafficControl.Server/Nakatetsu.TrafficControl.Server.csproj"
+      }
+    ]
+  }
+}

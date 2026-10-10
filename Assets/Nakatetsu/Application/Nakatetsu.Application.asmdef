@@ -3,6 +3,7 @@
     "rootNamespace": "Nakatetsu.Application",
     "references": [
         "Nakatetsu.Core",
+        "Nakatetsu.Contracts",
         "Unity.InputSystem",
         "Unity.TextMeshPro",
         "Unity.ugui",
