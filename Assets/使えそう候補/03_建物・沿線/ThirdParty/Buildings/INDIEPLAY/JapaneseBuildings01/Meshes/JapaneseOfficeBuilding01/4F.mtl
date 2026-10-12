@@ -1,0 +1,44 @@
+newmtl Metal041A_1K
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal041A_1K-JPG_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 1 1
+d 1
+
+newmtl Metal041A_1K_1
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 1 1
+d 1
+
+newmtl bricks02_1KWhiteMat
+map_Kd -o 0 0 -s 0.7 0.7 bricks02 diffuse 1k 1.jpg
+map_Pm -o 0 0 -s 1 1 bricks02 roughness 1k 1.jpg
+bump -o 0 0 -s 1 1 bricks02 normal 1k 1.jpg
+disp -o 0 0 -s 1 1 bricks02 height 1k 1.jpg
+Kd 1 1 1
+d 1
+
+newmtl concrete03Mat4
+map_Kd -o 0 0 -s 1 1 concrete03 roughness 1k 1.jpg
+bump -o 0 0 -s 1 1 concrete03 normal 1k 1.jpg
+disp -o 0 0 -s 1 1 concrete03 height 1k 1.jpg
+map_d -o 0 0 -s 1 1 concrete03 ao 1k 1.jpg
+Kd 1 1 1
+d 1
+
+newmtl Facade009_1K
+map_Kd -o 0 0 -s 1 1 Facade009_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Facade009_1K-JPG_Metalness.jpg
+bump -o 0 0 -s 1 1 Facade009_1K-JPG_NormalDX.jpg
+disp -o 0 0 -s 1 1 Facade009_1K-JPG_Displacement.jpg
+map_Ke -o 0 0 -s 1 1 Facade009_1K-JPG_Emission.jpg
+Kd 1 1 1
+d 1
+
+newmtl Facade006_2KMat_1
+map_Kd -o 0 0 -s 1 1 Facade006_2K_Color 1.jpg
+map_Pm -o 0 0 -s 1 1 Facade006_2K_Roughness 1.jpg
+bump -o 0 0 -s 1 1 Facade006_2K_Normal 1.jpg
+Kd 0.6132076 0.6132076 0.6132076
+d 1

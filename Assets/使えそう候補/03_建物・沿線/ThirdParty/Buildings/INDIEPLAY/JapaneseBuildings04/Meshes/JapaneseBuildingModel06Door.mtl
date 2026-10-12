@@ -1,0 +1,11 @@
+newmtl JPBM6Facade001_2KMatTransparency
+map_Kd -o 0.031 0.05 -s 0.02 0.01 Facade001_2K_Color.jpg
+bump -o 0 0 -s 1 1 Facade001_2K_Normal.jpg
+Kd 1 1 1
+d 0.3490196
+
+newmtl JPBM6Metal041A_1KB
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 0.8679245 0.8528728 0.7901388
+d 1

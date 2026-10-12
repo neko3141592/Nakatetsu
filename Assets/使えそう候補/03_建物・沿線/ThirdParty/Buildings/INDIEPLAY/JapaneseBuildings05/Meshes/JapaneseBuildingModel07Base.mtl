@@ -1,0 +1,48 @@
+newmtl JPBM6Metal003_2KMat
+map_Kd -o 0 0 -s 1 1 Metal003_2K_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal003_2K_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal003_2K_Normal.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM7LampMatOff
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+Kd 0.9622642 0.9565258 0.9304913
+d 1
+
+newmtl JPBM7Plaster001_2KMatY
+map_Kd -o 0 0 -s 0.5 0.5 Plaster001_2K_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plaster001_2K_Roughness.jpg
+bump -o 0 0 -s 1 1 Plaster001_2K_Normal.jpg
+Kd 0.9528302 0.9466636 0.9213688
+d 1
+
+newmtl JPBM7concrete03Mat
+map_Kd -o 0 0 -s 0.5 0.5 concrete03ao1k.jpg
+map_Pm -o 0 0 -s 1 1 concrete03roughness1k.jpg
+bump -o 0 0 -s 1 1 concrete03normal1k.jpg
+disp -o 0 0 -s 1 1 concrete03height1k.jpg
+Kd 0.6226415 0.61435 0.5727127
+d 1
+
+newmtl RoofingTiles015B_1K
+map_Kd -o 0 0 -s 0.2 0.2 RoofingTiles015B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 RoofingTiles015B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 RoofingTiles015B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 RoofingTiles015B_1K-JPG_Displacement.jpg
+Kd 1 1 1
+d 1
+
+newmtl Plastic013B_1K
+map_Kd -o 0 0 -s 1 1 Plastic013B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plastic013B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 Plastic013B_1K-JPG_Displacement.jpg
+Kd 0.9056604 0.9056604 0.9056604
+d 1
+
+newmtl JPBM7Metal041A_1
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 1 1
+d 1

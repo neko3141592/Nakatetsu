@@ -1,0 +1,19 @@
+newmtl Wood056_1KMatDark
+map_Kd -o 0 0 -s 0.3 0.3 Wood056_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Wood056_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Wood056_1K-JPG_NormalDX.jpg
+Kd 0.6132076 0.5132586 0.3210662
+d 1
+
+newmtl Metal003_2KMat
+map_Kd -o 0 0 -s 1 1 Metal003_2K_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal003_2K_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal003_2K_Normal.jpg
+Kd 1 1 1
+d 1
+
+newmtl MosaicGlass
+map_Kd -o 0 0 -s 0.1 0.1 glass-texture-abstract-background.jpg
+bump -o 0 0 -s 1 1 glass-texture-abstract-backgroundN.jpg
+Kd 1 1 1
+d 0.6862745

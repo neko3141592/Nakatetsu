@@ -1,0 +1,22 @@
+newmtl DiamondPlate007D_1KMat
+map_Kd -o 0 0 -s 1 1 DiamondPlate007D_1K-PNG_Color.png
+map_Pm -o 0 0 -s 1 1 DiamondPlate007D_1K-PNG_Roughness.png
+bump -o 0 0 -s 1 1 DiamondPlate007D_1K-PNG_NormalGL.png
+disp -o 0 0 -s 1 1 DiamondPlate007D_1K-PNG_Metalness.png
+Kd 1 1 1
+d 1
+
+newmtl Metal003_2KMat
+map_Kd -o 0 0 -s 1 1 Metal003_2K_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal003_2K_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal003_2K_Normal.jpg
+Kd 1 1 1
+d 1
+
+newmtl Plastic010_1KMat
+map_Kd -o 0 0 -s 1 1 Plastic010_1K-PNG_Color.png
+map_Pm -o 0 0 -s 1 1 Plastic010_1K-PNG_Roughness.png
+bump -o 0 0 -s 1 1 Plastic010_1K-PNG_NormalGL.png
+disp -o 0 0 -s 1 1 Plastic010_1K-PNG_Displacement.png
+Kd 1 1 1
+d 1

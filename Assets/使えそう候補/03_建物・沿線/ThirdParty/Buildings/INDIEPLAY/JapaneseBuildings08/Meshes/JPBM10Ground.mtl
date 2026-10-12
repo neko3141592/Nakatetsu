@@ -1,0 +1,14 @@
+newmtl JPBM10tiles05
+map_Kd -o 0 0 -s 1 1 tiles05_diffuse_1k.jpg
+map_Pm -o 0 0 -s 1 1 tiles05_roughness_1k.jpg
+bump -o 0 0 -s 1 1 tiles05_normal_1k.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM10PavingStones086_1KMat
+map_Kd -o 0 0 -s 0.5 0.5 PavingStones086_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 PavingStones086_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 PavingStones086_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 PavingStones086_1K-JPG_Displacement.jpg
+Kd 1 1 1
+d 1

@@ -1,0 +1,25 @@
+newmtl JPBM10Metal041A
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal041A_1K-JPG_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM10GlassDark
+Kd 0 0 0
+d 0.8352941
+
+newmtl Black
+Kd 0 0 0
+d 1
+
+newmtl JPBM10Metal041ALGreen
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal041A_1K-JPG_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 0.9887972 0.9103774
+d 1
+
+newmtl JPBM10GlassBlue
+Kd 0.1787558 0.226048 0.3679245
+d 1

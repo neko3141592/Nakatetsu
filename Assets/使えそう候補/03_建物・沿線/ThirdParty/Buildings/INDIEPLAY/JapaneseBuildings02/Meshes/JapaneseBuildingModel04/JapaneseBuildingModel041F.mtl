@@ -1,0 +1,20 @@
+newmtl JPBM05concrete03Mat
+map_Kd -o 0 0 -s 1 1 concrete03roughness1k.jpg
+bump -o 0 0 -s 1 1 concrete03normal1k.jpg
+disp -o 0 0 -s 1 1 concrete03height1k.jpg
+map_d -o 0 0 -s 1 1 concrete03ao1k.jpg
+Kd 1 1 1
+d 1
+
+newmtl SteelShutterMat
+map_Kd -o 0 0 -s 1 1 SteelShutter.jpg
+bump -o 0 0 -s 1 1 SteelShutterN.jpg
+Kd 1 1 1
+d 1
+
+newmtl tiles05MatOrange
+map_Kd -o 0 0 -s 1 1 tiles05 roughness 1k.jpg
+bump -o 0 0 -s 1 1 tiles05 normal 1k.jpg
+map_d -o 0 0 -s 1 1 tiles05 ao 1k.jpg
+Kd 0.8962264 0.7290191 0.4692506
+d 1

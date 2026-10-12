@@ -1,0 +1,13 @@
+newmtl Plastic013B_1K
+map_Kd -o 0 0 -s 1 1 Plastic013B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plastic013B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 Plastic013B_1K-JPG_Displacement.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM6Facade001_2KMat
+map_Kd -o 0.031 0.05 -s 0.03 0.04 Facade001_2K_Color.jpg
+bump -o 0 0 -s 1 1 Facade001_2K_Normal.jpg
+Kd 1 1 1
+d 1

@@ -1,0 +1,20 @@
+newmtl concrete03Mat
+map_Kd -o 0 0 -s 1 1 concrete03roughness1k.jpg
+bump -o 0 0 -s 1 1 concrete03normal1k.jpg
+disp -o 0 0 -s 1 1 concrete03height1k.jpg
+map_d -o 0 0 -s 1 1 concrete03ao1k.jpg
+Kd 1 1 1
+d 1
+
+newmtl Metal041A_1KB
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 1 1
+d 1
+
+newmtl Metal041A_1K
+map_Kd -o 0 0 -s 1 1 Metal041A_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal041A_1K-JPG_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal041A_1K-JPG_NormalDX.jpg
+Kd 1 1 1
+d 1
