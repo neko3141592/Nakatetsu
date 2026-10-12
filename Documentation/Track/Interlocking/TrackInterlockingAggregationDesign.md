@@ -70,7 +70,7 @@ Management/Scriptsのasmrefは既存の`Nakatetsu.Track.Interlocking`を参照�
 
 駅が未初期化、参照が破棄された、コンポーネントが無効、または公開Outputが取得できない場合は、正常取得の旗を立てず進路情報を空にする。その駅のInputは今回の取得結果を表し、集約LogicがOutputから駅IDごと除外する。取得失敗時に前回のInputやOutputを使い続けない。管理部自身が未初期化の場合はInputを空にする。
 
-Controllerは既存の`ISimulationController`を実装する。`Calculate(deltaTimeSeconds)`で`CollectInput`→管理部Logicの`Calculate`を呼ぶ。集約結果は`Context.Output`から公開し、`ApplyOutput`で外部を更新しない。入力収集では駅の`Calculate`・`ApplyOutput`・進路操作APIを呼ばず、時素やStateRevisionを進めない。独自のUpdate/FixedUpdateも持たない。シミュレーションからの呼び出しとシーン上の参照設定は、接続作業で行う。
+Controllerは既存の`ISimulationController`を実装する。`Calculate(deltaTimeSeconds)`は有効・初期化済みの登録駅の`Calculate`を1回ずつ呼んだ後、`CollectInput`→管理部Logicの`Calculate`で今回の公開値を集約する。`ApplyOutput`は今回計算した駅の転換要求だけを1回反映し、駅の公開値を再収集する。入力収集自体は駅の計算・出力反映・進路操作APIを呼ばず、時素やStateRevisionを進めない。管理部に独自のUpdate/FixedUpdateは持たせず、Applicationの世界tickから進める。NtLineのシーン参照とEditorセットアップは接続済みである。
 
 ## State・Outputと最小の集約処理
 
@@ -81,7 +81,7 @@ Controllerは既存の`ISimulationController`を実装する。`Calculate(deltaT
 処理の入口と順序は次のとおり。
 
 1. `TrackInterlockingManagementLogic.Initialize(context)`で管理部を初期化済みにし、OutputLogicでOutputを空にする。再初期化でも前回Outputを消去し、Inputは保持する。
-2. 管理部Controllerの`CollectInput`でInputに1ステップ分の駅情報を収集する。
+2. 管理部Controllerの`Calculate`で各駅を更新し、`CollectInput`でInputに同じステップの駅情報を収集する。
 3. `TrackInterlockingManagementLogic.Calculate(context)`からOutputLogicの`UpdateOutput`を呼び、入力スナップショットを集約する。
 
 Controllerの再初期化では古い登録・Inputを消し、親Logicの`Reset`で管理部を未初期化にしてOutputも空にする。登録確認が失敗した場合はこの状態を維持し、成功した場合だけ`Initialize`して入力を収集する。
@@ -162,7 +162,7 @@ PRC → CTC中央装置 → 連動管理部 → 担当駅の連動装置
 
 ## 地上ATCへの接続変更
 
-現在は[地上ATC Controller](../../../Assets/Nakatetsu/Track/Atc/Scripts/TrackAtcController.cs)が各駅連動装置の一覧を持ち、直接進路状態を集めている。集約後は連動管理部を参照し、登録進路の列挙と状態取得を行う。
+[地上ATC Controller](../../../Assets/Nakatetsu/Track/Atc/Scripts/TrackAtcController.cs)は連動管理部を参照し、公開Outputの`StationsById`と各駅の`RoutesById`を列挙する構成へ移行済みである。各駅連動装置への直接参照・状態照会は行わない。
 
 地上ATCへ渡す既存の進路入力を維持する。
 
@@ -177,7 +177,7 @@ PRC → CTC中央装置 → 連動管理部 → 担当駅の連動装置
 
 ## シミュレーションの更新
 
-現在は[ApplicationSimulationController](../../../Assets/Nakatetsu/Application/Simulation/Scripts/ApplicationSimulationController.cs)も駅連動装置の一覧を持ち、各駅を更新している。この更新窓口を連動管理部へ集約する。
+[ApplicationSimulationController](../../../Assets/Nakatetsu/Application/Simulation/Scripts/ApplicationSimulationController.cs)の各駅更新の窓口も連動管理部へ集約済みである。Applicationと地上ATCは同じ管理部を参照する。
 
 ```text
 列車の更新

@@ -18,7 +18,7 @@
 Context・工程別State・Logicは`Assets/Nakatetsu/Track/Atc/Scripts`の`Nakatetsu.Track.Atc`名前空間に実装する。既存の`Nakatetsu.Track.Atc.TrackAtcController`コンポーネントが、新しいContextへ入力を集め、新しい親Logicを呼び、Outputを軌道回路へ配信する。
 
 - 毎tick、入力をスナップショットし、ATC Graphと入力を確認して探索用辞書を初期化する。回路ごとに選択したEdgeを起点として方向別に計算し、探索済みのEdgeを別の起点から通過したことを理由に、そのEdge自身の計算を省略しない。
-- 初期化済みの連動で確認できた未設定は`RoutesById`へ`IsRouteSet = false`で登録し、入力未取得の未登録・`null`と区別する。設定中の状態を取得できた場合は`IsRouteSet = true`とし、進行許可・開通・鎖錠・取消・防護方式を取り込む。
+- 進路状態は`TrackInterlockingManagementController`の駅別・進路別Outputから取得する。管理部が有効・初期化済みで、駅の`IsInitialized && HasOutput`と進路の`IsAvailable`を満たす状態を採用する。確認できた未設定は`RoutesById`へ`IsRouteSet = false`で登録し、入力未取得の未登録・`null`と区別する。設定中の状態を取得できた場合は`IsRouteSet = true`とし、進行許可・開通・鎖錠・取消・防護方式を取り込む。取得不能になった駅・進路の前回値は残さない。
 - Blockは定義方向、Interlockingは両方向に結果を用意する。Interlockingの静的進路が一方向だけでも、反対方向の単一Edge・`None`停止結果を用意する。設定済み進路に沿う延伸には、静的進路の定義方向と使用条件の一致を要求する。
 - 進路内を起点にする探索では、採用済み進路とそのEdgeのindexを引き継ぐ。先頭Edgeでも `ProceedAllowed` の低下だけでは探索を打ち切らない。末尾Edgeも起点にでき、次回路の占有で経路が切れている場合も、そのEdgeの停止限界を送る。
 - 探索結果はStateへ次EdgeのID・方向、起点ごとの停止限界・終了結果として保存する。Output生成時に次Edge参照を辿り、最初の起点の停止限界で打ち切ってEdge列を組み立てる。
@@ -26,9 +26,9 @@ Context・工程別State・Logicは`Assets/Nakatetsu/Track/Atc/Scripts`の`Nakat
 - `Output.telegrams` は軌道回路IDをキーにする。各電文は発行時刻・有効フラグと、選択Edgeを起点とする`routeAtoB`・`routeBtoA`の経路情報を直接持つ。
 - 経路情報は残りのEdge列・停止限界のEdge ID・過走防護方式を持つ。停止限界は終端Edgeの進行方向の退出端とし、距離を地上で計算しない。
 - 探索や方式の確定に失敗した軌道回路は無効とし、同じ更新内の別経路の成功では有効に戻さない。必要な入力欠落・方向不明・接続不整合・探索上限到達・未対応のYardは正常停止と区別する。Graphを使用できなければ送信対象を空にし、時刻が不正なら全送信対象を無効とする。無効電文に部分的な成功経路は含めない。
-- アプリの更新順は列車・占有・連動・地上ATCとし、生成した電文は次tickの車上制御で利用する。発行時刻は共通のシミュレーション時計から取得する。
+- アプリの更新順は列車・占有・連動管理部の`Calculate / ApplyOutput`・地上ATCとする。各駅の更新と集約は管理部が担当し、地上ATCは同じtickの管理部Outputを入力にする。生成した電文は次tickの車上制御で利用する。発行時刻は共通のシミュレーション時計から取得する。
 - 配信時に軌道回路の電文を置き換え、前回だけ存在した電文は残さない。ATCの無効化時にも電文を取り下げる。
-- シーンではApplicationのATC参照と、ATC ControllerのGraph・軌道回路・連動の参照を設定する。時計はApplicationからATCへ設定する。
+- シーンではApplicationのATC参照と、ATC ControllerのGraph・軌道回路・Connection・連動管理部の参照を設定する。ApplicationとATCは同じ管理部を参照し、駅連動装置の一覧は管理部だけが所有する。NtLineの参照は移行済みで、Editorの`InterlockingSimulationSceneSetup`も同じ構成を設定する。時計はApplicationからATCへ設定する。
 
 旧実装の「未設定の連動Edgeを単独探索しない」「方向を含めず探索済みを管理する」「探索結果を直接Outputへ保存する」構成は、新しい工程別Stateと選択Edge・方向別計算へ置き換える。
 

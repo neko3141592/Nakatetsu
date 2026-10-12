@@ -1,0 +1,4423 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585529130f654818a199f6b814bfcf72, type: 3}
+  m_Name: NakatetsuAtcGraph
+  m_EditorClassIdentifier: Nakatetsu.Track.Atc::Nakatetsu.Track.Atc.TrackAtcGraphAsset
+  trackGraph: {fileID: 11400000, guid: 1c7d406810fa7446c92df33811a94027, type: 2}
+  source: {fileID: 11400000, guid: 7de62682f0a3841ab9272e27d1db7a19, type: 2}
+  interlockings:
+  - {fileID: 11400000, guid: 176d74bc52fb548809dce3c3ab95c14e, type: 2}
+  - {fileID: 11400000, guid: 1afac038d14d5404aa0806273764b6d1, type: 2}
+  definition:
+    atcGraphId: NakatetsuAtc
+    maximumOperatingSpeedKmh: 105
+    atcEdge:
+    - atcEdgeId: edge:NT01_1RT
+      trackCircuitId: NT01_1RT
+      controlKind: 2
+      direction: 0
+      lengthM: 310.00186
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 310.00186
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310.00186
+        gradientPermille: 0
+      atcNodeAId: node:NT01_buffer1
+      atcNodeBId: boundary:NT01_track1:310.001862
+      physicalSpans:
+      - trackEdgeId: NT01_track1
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 310.00186
+    - atcEdgeId: edge:NT01_21AT:0
+      trackCircuitId: NT01_21AT
+      controlKind: 2
+      direction: 0
+      lengthM: 76.13837
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 76.13837
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 37.604156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 47.604156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 57.604156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 62.5897
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 67.60416
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 76.13837
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track2_throat:37.604187
+      atcNodeBId: boundary:NT01_crossover21:38.534214
+      physicalSpans:
+      - trackEdgeId: NT01_track2_throat
+        startDistanceOnEdgeM: 37.604187
+        endDistanceOnEdgeM: 75.20834
+      - trackEdgeId: NT01_crossover21
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 38.534214
+    - atcEdgeId: edge:NT01_21AT:1
+      trackCircuitId: NT01_21AT
+      controlKind: 2
+      direction: 0
+      lengthM: 74.06253
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 74.06253
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 37.604156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 47.604156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 57.604156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 67.60416
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 74.06253
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track2_throat:37.604187
+      atcNodeBId: boundary:NT01_track2_scissors:36.458374
+      physicalSpans:
+      - trackEdgeId: NT01_track2_throat
+        startDistanceOnEdgeM: 37.604187
+        endDistanceOnEdgeM: 75.20834
+      - trackEdgeId: NT01_track2_scissors
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 36.458374
+    - atcEdgeId: edge:NT01_21BT:0
+      trackCircuitId: NT01_21BT
+      controlKind: 2
+      direction: 0
+      lengthM: 91.46713
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 91.46713
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 9.534695
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 29.999996
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 34.520237
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 41.60355
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 44.520237
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 54.520237
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 64.52023
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 74.52023
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 84.52023
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 91.46713
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_crossover21:38.534214
+      atcNodeBId: node:NT01_exit3
+      physicalSpans:
+      - trackEdgeId: NT01_crossover21
+        startDistanceOnEdgeM: 38.534214
+        endDistanceOnEdgeM: 73.05445
+      - trackEdgeId: NT01_track3_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 56.9469
+    - atcEdgeId: edge:NT01_21BT:1
+      trackCircuitId: NT01_21BT
+      controlKind: 2
+      direction: 0
+      lengthM: 93.40521
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 93.40521
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 36.458313
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 43.541626
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 46.458313
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 56.458313
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 66.45831
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 76.45831
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 86.45831
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 93.40521
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track3_scissors:36.458374
+      atcNodeBId: node:NT01_exit3
+      physicalSpans:
+      - trackEdgeId: NT01_track3_scissors
+        startDistanceOnEdgeM: 36.458374
+        endDistanceOnEdgeM: 72.91669
+      - trackEdgeId: NT01_track3_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 56.9469
+    - atcEdgeId: edge:NT01_22AT:0
+      trackCircuitId: NT01_22AT
+      controlKind: 2
+      direction: 0
+      lengthM: 58.534214
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 58.534214
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 44.985542
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 58.534214
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track3:500.119934
+      atcNodeBId: boundary:NT01_crossover22:38.534214
+      physicalSpans:
+      - trackEdgeId: NT01_track3
+        startDistanceOnEdgeM: 500.11993
+        endDistanceOnEdgeM: 520.11993
+      - trackEdgeId: NT01_crossover22
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 38.534214
+    - atcEdgeId: edge:NT01_22AT:1
+      trackCircuitId: NT01_22AT
+      controlKind: 2
+      direction: 0
+      lengthM: 56.458374
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 56.458374
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 56.458374
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track3:500.119934
+      atcNodeBId: boundary:NT01_track3_scissors:36.458374
+      physicalSpans:
+      - trackEdgeId: NT01_track3
+        startDistanceOnEdgeM: 500.11993
+        endDistanceOnEdgeM: 520.11993
+      - trackEdgeId: NT01_track3_scissors
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 36.458374
+    - atcEdgeId: edge:NT01_22BT:0
+      trackCircuitId: NT01_22BT
+      controlKind: 2
+      direction: 0
+      lengthM: 91.609924
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 91.609924
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 9.534695
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 29.999996
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 34.520237
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 41.60355
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 44.520237
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 54.520237
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 64.52023
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 74.52023
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 84.52023
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 91.609924
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_crossover22:38.534214
+      atcNodeBId: node:NT01_exit2
+      physicalSpans:
+      - trackEdgeId: NT01_crossover22
+        startDistanceOnEdgeM: 38.534214
+        endDistanceOnEdgeM: 73.05445
+      - trackEdgeId: NT01_track2_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 57.08969
+    - atcEdgeId: edge:NT01_22BT:1
+      trackCircuitId: NT01_22BT
+      controlKind: 2
+      direction: 0
+      lengthM: 93.548004
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 93.548004
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 36.458313
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 43.541626
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 46.458313
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 56.458313
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 66.45831
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 76.45831
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 86.45831
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 93.548004
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track2_scissors:36.458374
+      atcNodeBId: node:NT01_exit2
+      physicalSpans:
+      - trackEdgeId: NT01_track2_scissors
+        startDistanceOnEdgeM: 36.458374
+        endDistanceOnEdgeM: 72.91669
+      - trackEdgeId: NT01_track2_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 57.08969
+    - atcEdgeId: edge:NT01_23T:0
+      trackCircuitId: NT01_23T
+      controlKind: 2
+      direction: 0
+      lengthM: 172.78174
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 172.78174
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 14.983673
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.19202
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.17755
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.17755
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.17755
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.17755
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 172.78174
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track1:310.001862
+      atcNodeBId: boundary:NT01_track2_throat:37.604187
+      physicalSpans:
+      - trackEdgeId: NT01_track1
+        startDistanceOnEdgeM: 310.00186
+        endDistanceOnEdgeM: 445.1794
+      - trackEdgeId: NT01_track2_throat
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 37.604187
+    - atcEdgeId: edge:NT01_23T:1
+      trackCircuitId: NT01_23T
+      controlKind: 2
+      direction: 0
+      lengthM: 172.39584
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 172.39584
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 134.79166
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 144.79166
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 154.79166
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 164.79166
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 172.39584
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_track2_platform:310
+      atcNodeBId: boundary:NT01_track2_throat:37.604187
+      physicalSpans:
+      - trackEdgeId: NT01_track2_platform
+        startDistanceOnEdgeM: 310
+        endDistanceOnEdgeM: 444.79166
+      - trackEdgeId: NT01_track2_throat
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 37.604187
+    - atcEdgeId: edge:NT01_2RT
+      trackCircuitId: NT01_2RT
+      controlKind: 2
+      direction: 0
+      lengthM: 310
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 310
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      atcNodeAId: node:NT01_buffer2
+      atcNodeBId: boundary:NT01_track2_platform:310
+      physicalSpans:
+      - trackEdgeId: NT01_track2_platform
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 310
+    - atcEdgeId: edge:NT01_3RT
+      trackCircuitId: NT01_3RT
+      controlKind: 2
+      direction: 0
+      lengthM: 500.11993
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 500.11993
+        speedLimitKmh: 40
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 410
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 420
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 430
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 440
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 450
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 470
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 480
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 480.11993
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 490
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 500
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 500.11993
+        gradientPermille: 0
+      atcNodeAId: node:NT01_buffer3
+      atcNodeBId: boundary:NT01_track3:500.119934
+      physicalSpans:
+      - trackEdgeId: NT01_track3
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 500.11993
+    - atcEdgeId: edge:NT01_NT02_D1T
+      trackCircuitId: NT01_NT02_D1T
+      controlKind: 1
+      direction: 1
+      lengthM: 160.19711
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 160.19711
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50.197132
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160.19711
+        gradientPermille: 0
+      atcNodeAId: node:NT01_exit2
+      atcNodeBId: boundary:NT01_NT02_down:160.197113
+      physicalSpans:
+      - trackEdgeId: NT01_NT02_down
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 160.19711
+    - atcEdgeId: edge:NT01_NT02_D2T
+      trackCircuitId: NT01_NT02_D2T
+      controlKind: 1
+      direction: 1
+      lengthM: 160.00006
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 160.00006
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160.00006
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_NT02_down:160.197113
+      atcNodeBId: boundary:NT01_NT02_down:320.197174
+      physicalSpans:
+      - trackEdgeId: NT01_NT02_down
+        startDistanceOnEdgeM: 160.19711
+        endDistanceOnEdgeM: 320.19717
+    - atcEdgeId: edge:NT01_NT02_D3T
+      trackCircuitId: NT01_NT02_D3T
+      controlKind: 1
+      direction: 1
+      lengthM: 170.54208
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 170.54208
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 61.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 162.54208
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170.54208
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_NT02_down:320.197174
+      atcNodeBId: node:NT02_entry1
+      physicalSpans:
+      - trackEdgeId: NT01_NT02_down
+        startDistanceOnEdgeM: 320.19717
+        endDistanceOnEdgeM: 490.73926
+    - atcEdgeId: edge:NT01_NT02_U1T
+      trackCircuitId: NT01_NT02_U1T
+      controlKind: 1
+      direction: 2
+      lengthM: 158.51132
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 158.51132
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 49.772346
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 158.51132
+        gradientPermille: 0
+      atcNodeAId: node:NT01_exit3
+      atcNodeBId: boundary:NT01_NT02_up:158.511322
+      physicalSpans:
+      - trackEdgeId: NT01_NT02_up
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 158.51132
+    - atcEdgeId: edge:NT01_NT02_U2T
+      trackCircuitId: NT01_NT02_U2T
+      controlKind: 1
+      direction: 2
+      lengthM: 158.17148
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 158.17148
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 158.17148
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_NT02_up:158.511322
+      atcNodeBId: boundary:NT01_NT02_up:316.6828
+      physicalSpans:
+      - trackEdgeId: NT01_NT02_up
+        startDistanceOnEdgeM: 158.51132
+        endDistanceOnEdgeM: 316.6828
+    - atcEdgeId: edge:NT01_NT02_U3T
+      trackCircuitId: NT01_NT02_U3T
+      controlKind: 1
+      direction: 2
+      lengthM: 169.26212
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 169.26212
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 61.291443
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 161.26596
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 169.26212
+        gradientPermille: 0
+      atcNodeAId: boundary:NT01_NT02_up:316.6828
+      atcNodeBId: node:NT02_entry2
+      physicalSpans:
+      - trackEdgeId: NT01_NT02_up
+        startDistanceOnEdgeM: 316.6828
+        endDistanceOnEdgeM: 485.94492
+    - atcEdgeId: edge:NT02_DT
+      trackCircuitId: NT02_DT
+      controlKind: 1
+      direction: 1
+      lengthM: 400.00012
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 400.00012
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400.00012
+        gradientPermille: 0
+      atcNodeAId: node:NT02_entry1
+      atcNodeBId: node:NT02_exit1
+      physicalSpans:
+      - trackEdgeId: NT02_track1
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 400.00012
+    - atcEdgeId: edge:NT02_NT03_D1T
+      trackCircuitId: NT02_NT03_D1T
+      controlKind: 1
+      direction: 1
+      lengthM: 167.15604
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 167.15604
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 45.00006
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.15602
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 167.15604
+        gradientPermille: 0
+      atcNodeAId: node:NT02_exit1
+      atcNodeBId: boundary:NT02_NT03_down:167.156036
+      physicalSpans:
+      - trackEdgeId: NT02_NT03_down
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 167.15604
+    - atcEdgeId: edge:NT02_NT03_D2T
+      trackCircuitId: NT02_NT03_D2T
+      controlKind: 1
+      direction: 1
+      lengthM: 167.00006
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 167.00006
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 167.00006
+        gradientPermille: 0
+      atcNodeAId: boundary:NT02_NT03_down:167.156036
+      atcNodeBId: boundary:NT02_NT03_down:334.1561
+      physicalSpans:
+      - trackEdgeId: NT02_NT03_down
+        startDistanceOnEdgeM: 167.15604
+        endDistanceOnEdgeM: 334.1561
+    - atcEdgeId: edge:NT02_NT03_D3T
+      trackCircuitId: NT02_NT03_D3T
+      controlKind: 1
+      direction: 1
+      lengthM: 166.4154
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 166.4154
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 49
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 149.41544
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 166.4154
+        gradientPermille: 0
+      atcNodeAId: boundary:NT02_NT03_down:334.1561
+      atcNodeBId: node:NT03_entry1
+      physicalSpans:
+      - trackEdgeId: NT02_NT03_down
+        startDistanceOnEdgeM: 334.1561
+        endDistanceOnEdgeM: 500.5715
+    - atcEdgeId: edge:NT02_NT03_U1T
+      trackCircuitId: NT02_NT03_U1T
+      controlKind: 1
+      direction: 2
+      lengthM: 167.87608
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 167.87608
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 45.00006
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.65344
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 167.87608
+        gradientPermille: 0
+      atcNodeAId: node:NT02_exit2
+      atcNodeBId: boundary:NT02_NT03_up:167.876083
+      physicalSpans:
+      - trackEdgeId: NT02_NT03_up
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 167.87608
+    - atcEdgeId: edge:NT02_NT03_U2T
+      trackCircuitId: NT02_NT03_U2T
+      controlKind: 1
+      direction: 2
+      lengthM: 168.67012
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 168.67012
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 168.67012
+        gradientPermille: 0
+      atcNodeAId: boundary:NT02_NT03_up:167.876083
+      atcNodeBId: boundary:NT02_NT03_up:336.5462
+      physicalSpans:
+      - trackEdgeId: NT02_NT03_up
+        startDistanceOnEdgeM: 167.87608
+        endDistanceOnEdgeM: 336.5462
+    - atcEdgeId: edge:NT02_NT03_U3T
+      trackCircuitId: NT02_NT03_U3T
+      controlKind: 1
+      direction: 2
+      lengthM: 167.40546
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 167.40546
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 49.48999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.40286
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 167.40546
+        gradientPermille: 0
+      atcNodeAId: boundary:NT02_NT03_up:336.5462
+      atcNodeBId: node:NT03_entry2
+      physicalSpans:
+      - trackEdgeId: NT02_NT03_up
+        startDistanceOnEdgeM: 336.5462
+        endDistanceOnEdgeM: 503.95166
+    - atcEdgeId: edge:NT02_UT
+      trackCircuitId: NT02_UT
+      controlKind: 1
+      direction: 2
+      lengthM: 400.00015
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 400.00015
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400.00015
+        gradientPermille: 0
+      atcNodeAId: node:NT02_entry2
+      atcNodeBId: node:NT02_exit2
+      physicalSpans:
+      - trackEdgeId: NT02_track2
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 400.00015
+    - atcEdgeId: edge:NT03_DT
+      trackCircuitId: NT03_DT
+      controlKind: 1
+      direction: 1
+      lengthM: 400.00027
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 400.00027
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400.00027
+        gradientPermille: 0
+      atcNodeAId: node:NT03_entry1
+      atcNodeBId: node:NT03_exit1
+      physicalSpans:
+      - trackEdgeId: NT03_track1
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 400.00027
+    - atcEdgeId: edge:NT03_NT04_D1T
+      trackCircuitId: NT03_NT04_D1T
+      controlKind: 1
+      direction: 1
+      lengthM: 150.00015
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 150.00015
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.00015
+        gradientPermille: 0
+      atcNodeAId: node:NT03_exit1
+      atcNodeBId: boundary:NT03_NT04_down:150.000153
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_down
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 150.00015
+    - atcEdgeId: edge:NT03_NT04_D2T
+      trackCircuitId: NT03_NT04_D2T
+      controlKind: 1
+      direction: 1
+      lengthM: 150.00012
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 150.00012
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.00012
+        gradientPermille: 0
+      atcNodeAId: boundary:NT03_NT04_down:150.000153
+      atcNodeBId: boundary:NT03_NT04_down:300.000275
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_down
+        startDistanceOnEdgeM: 150.00015
+        endDistanceOnEdgeM: 300.00027
+    - atcEdgeId: edge:NT03_NT04_D3T
+      trackCircuitId: NT03_NT04_D3T
+      controlKind: 1
+      direction: 1
+      lengthM: 140.00696
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 140.00696
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 39.00006
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 89.002045
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 139.00696
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140.00696
+        gradientPermille: 0
+      atcNodeAId: boundary:NT03_NT04_down:300.000275
+      atcNodeBId: boundary:NT03_NT04_down:440.007233
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_down
+        startDistanceOnEdgeM: 300.00027
+        endDistanceOnEdgeM: 440.00723
+    - atcEdgeId: edge:NT03_NT04_D4T
+      trackCircuitId: NT03_NT04_D4T
+      controlKind: 1
+      direction: 1
+      lengthM: 140.00693
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 140.00693
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 49.001953
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 79.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 89.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 99.00687
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 99.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 109.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 119.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 129.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 139.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140.00693
+        gradientPermille: 0
+      atcNodeAId: boundary:NT03_NT04_down:440.007233
+      atcNodeBId: node:NT04_entry1
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_down
+        startDistanceOnEdgeM: 440.00723
+        endDistanceOnEdgeM: 580.01416
+    - atcEdgeId: edge:NT03_NT04_U1T
+      trackCircuitId: NT03_NT04_U1T
+      controlKind: 1
+      direction: 2
+      lengthM: 150.00015
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 150.00015
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.00015
+        gradientPermille: 0
+      atcNodeAId: node:NT03_exit2
+      atcNodeBId: boundary:NT03_NT04_up:150.000153
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_up
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 150.00015
+    - atcEdgeId: edge:NT03_NT04_U2T
+      trackCircuitId: NT03_NT04_U2T
+      controlKind: 1
+      direction: 2
+      lengthM: 150.00012
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 150.00012
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.00012
+        gradientPermille: 0
+      atcNodeAId: boundary:NT03_NT04_up:150.000153
+      atcNodeBId: boundary:NT03_NT04_up:300.000275
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_up
+        startDistanceOnEdgeM: 150.00015
+        endDistanceOnEdgeM: 300.00027
+    - atcEdgeId: edge:NT03_NT04_U3T
+      trackCircuitId: NT03_NT04_U3T
+      controlKind: 1
+      direction: 2
+      lengthM: 139.85327
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 139.85327
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 39.00006
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 88.92526
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 138.85327
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 139.85327
+        gradientPermille: 0
+      atcNodeAId: boundary:NT03_NT04_up:300.000275
+      atcNodeBId: boundary:NT03_NT04_up:439.853546
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_up
+        startDistanceOnEdgeM: 300.00027
+        endDistanceOnEdgeM: 439.85355
+    - atcEdgeId: edge:NT03_NT04_U4T
+      trackCircuitId: NT03_NT04_U4T
+      controlKind: 1
+      direction: 2
+      lengthM: 140.16074
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 140.16074
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 49.078735
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 79.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 89.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 99.160736
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 99.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 109.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 119.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 129.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 139.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140.16074
+        gradientPermille: 0
+      atcNodeAId: boundary:NT03_NT04_up:439.853546
+      atcNodeBId: node:NT04_entry2
+      physicalSpans:
+      - trackEdgeId: NT03_NT04_up
+        startDistanceOnEdgeM: 439.85355
+        endDistanceOnEdgeM: 580.0143
+    - atcEdgeId: edge:NT03_UT
+      trackCircuitId: NT03_UT
+      controlKind: 1
+      direction: 2
+      lengthM: 400.00024
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 400.00024
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400.00024
+        gradientPermille: 0
+      atcNodeAId: node:NT03_entry2
+      atcNodeBId: node:NT03_exit2
+      physicalSpans:
+      - trackEdgeId: NT03_track2
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 400.00024
+    - atcEdgeId: edge:NT04_DT
+      trackCircuitId: NT04_DT
+      controlKind: 1
+      direction: 1
+      lengthM: 639.3308
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 639.3308
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.03036
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 351.0305
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 410
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 420
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 430
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 440
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 450
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 450.84113
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 459.79138
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 470
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 480
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 490
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 500
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 510
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 520
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 530
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 540
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 550
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 560
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 570
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 580
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 590
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 600
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 610
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 620
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 630
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 639.3308
+        gradientPermille: 0
+      atcNodeAId: node:NT04_entry1
+      atcNodeBId: node:NT04_exit1
+      physicalSpans:
+      - trackEdgeId: NT04_track1
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 639.3308
+    - atcEdgeId: edge:NT04_NT05_D1T
+      trackCircuitId: NT04_NT05_D1T
+      controlKind: 1
+      direction: 1
+      lengthM: 39.999893
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 39.999893
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 39.999893
+        gradientPermille: 0
+      atcNodeAId: node:NT04_exit1
+      atcNodeBId: node:NT05_entry2
+      physicalSpans:
+      - trackEdgeId: NT04_NT05_down
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 39.999893
+    - atcEdgeId: edge:NT04_NT05_U1T
+      trackCircuitId: NT04_NT05_U1T
+      controlKind: 1
+      direction: 2
+      lengthM: 40.290985
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 40.290985
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40.290985
+        gradientPermille: 0
+      atcNodeAId: node:NT04_exit2
+      atcNodeBId: node:NT05_entry3
+      physicalSpans:
+      - trackEdgeId: NT04_NT05_up
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 40.290985
+    - atcEdgeId: edge:NT04_UT
+      trackCircuitId: NT04_UT
+      controlKind: 1
+      direction: 2
+      lengthM: 642.694
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 642.694
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.03024
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 351.03033
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 410
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 420
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 430
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 440
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 450
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 451.74765
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460.864
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 470
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 480
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 490
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 500
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 510
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 520
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 530
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 540
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 550
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 560
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 570
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 580
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 590
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 600
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 610
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 620
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 630
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 640
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 642.694
+        gradientPermille: 0
+      atcNodeAId: node:NT04_entry2
+      atcNodeBId: node:NT04_exit2
+      physicalSpans:
+      - trackEdgeId: NT04_track2
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 642.694
+    - atcEdgeId: edge:NT05_1RT
+      trackCircuitId: NT05_1RT
+      controlKind: 2
+      direction: 0
+      lengthM: 240.17151
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 240.17151
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 18.687355
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 48.629707
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 68.63032
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 171.54156
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 191.54211
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 221.4848
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240.17151
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track1:115.953941
+      atcNodeBId: boundary:NT05_track1:356.125458
+      physicalSpans:
+      - trackEdgeId: NT05_track1
+        startDistanceOnEdgeM: 115.95394
+        endDistanceOnEdgeM: 356.12546
+    - atcEdgeId: edge:NT05_21T:0
+      trackCircuitId: NT05_21T
+      controlKind: 2
+      direction: 0
+      lengthM: 220.56323
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 220.56323
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 27.000124
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 104.60929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 114.60929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 124.60929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 127.24067
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 129.68344
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 134.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 144.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 154.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 164.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 174.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 184.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 194.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 204.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 214.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 219.18964
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220.56323
+        gradientPermille: 0
+      atcNodeAId: node:NT05_entry2
+      atcNodeBId: boundary:NT05_track1:115.953941
+      physicalSpans:
+      - trackEdgeId: NT05_track2_entry
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 104.60929
+      - trackEdgeId: NT05_track1
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 115.95394
+    - atcEdgeId: edge:NT05_21T:1
+      trackCircuitId: NT05_21T
+      controlKind: 2
+      direction: 0
+      lengthM: 220.22018
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 220.22018
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 27.000124
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 104.60929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 114.60929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 124.60929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 127.220215
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 134.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 144.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 154.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 164.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 174.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 184.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 194.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 204.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 214.60928
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220.22018
+        gradientPermille: 0
+      atcNodeAId: node:NT05_entry2
+      atcNodeBId: boundary:NT05_track2:115.6109
+      physicalSpans:
+      - trackEdgeId: NT05_track2_entry
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 104.60929
+      - trackEdgeId: NT05_track2
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 115.6109
+    - atcEdgeId: edge:NT05_22T:0
+      trackCircuitId: NT05_22T
+      controlKind: 2
+      direction: 0
+      lengthM: 220.34476
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 220.34476
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 1.3739929
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.87955
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 115.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 125.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 175.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 183.34412
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 185.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 195.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 205.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 215.86554
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220.34476
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track1:356.125458
+      atcNodeBId: node:NT05_exit2
+      physicalSpans:
+      - trackEdgeId: NT05_track1
+        startDistanceOnEdgeM: 356.12546
+        endDistanceOnEdgeM: 471.991
+      - trackEdgeId: NT05_track2_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 104.47921
+    - atcEdgeId: edge:NT05_22T:1
+      trackCircuitId: NT05_22T
+      controlKind: 2
+      direction: 0
+      lengthM: 220.00085
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 220.00085
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 115.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 125.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 175.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 183.00021
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 185.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 195.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 205.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 215.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220.00085
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track2:355.611084
+      atcNodeBId: node:NT05_exit2
+      physicalSpans:
+      - trackEdgeId: NT05_track2
+        startDistanceOnEdgeM: 355.61108
+        endDistanceOnEdgeM: 471.13272
+      - trackEdgeId: NT05_track2_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 104.47921
+    - atcEdgeId: edge:NT05_23T:0
+      trackCircuitId: NT05_23T
+      controlKind: 2
+      direction: 0
+      lengthM: 220.78012
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 220.78012
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 27.196484
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 105.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 115.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 125.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 127.779144
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 175.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 185.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 195.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 205.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 215.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220.78012
+        gradientPermille: 0
+      atcNodeAId: node:NT05_entry3
+      atcNodeBId: boundary:NT05_track3:115.630089
+      physicalSpans:
+      - trackEdgeId: NT05_track3_entry
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 105.15004
+      - trackEdgeId: NT05_track3
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 115.63009
+    - atcEdgeId: edge:NT05_23T:1
+      trackCircuitId: NT05_23T
+      controlKind: 2
+      direction: 0
+      lengthM: 221.12497
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 221.12497
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 27.196484
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 105.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 115.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 125.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 127.80098
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130.24522
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 175.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 185.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 195.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 205.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 215.15004
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 219.75131
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 221.12497
+        gradientPermille: 0
+      atcNodeAId: node:NT05_entry3
+      atcNodeBId: boundary:NT05_track4:115.974922
+      physicalSpans:
+      - trackEdgeId: NT05_track3_entry
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 105.15004
+      - trackEdgeId: NT05_track4
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 115.97492
+    - atcEdgeId: edge:NT05_24T:0
+      trackCircuitId: NT05_24T
+      controlKind: 2
+      direction: 0
+      lengthM: 219.95122
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 219.95122
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 115.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 125.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 175.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 183.00021
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 185.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 195.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 205.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 215.52164
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 219.95122
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track3:355.63028
+      atcNodeBId: node:NT05_exit3
+      physicalSpans:
+      - trackEdgeId: NT05_track3
+        startDistanceOnEdgeM: 355.63028
+        endDistanceOnEdgeM: 471.15192
+      - trackEdgeId: NT05_track3_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 104.42958
+    - atcEdgeId: edge:NT05_24T:1
+      trackCircuitId: NT05_24T
+      controlKind: 2
+      direction: 0
+      lengthM: 220.29506
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 220.29506
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 1.3739624
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.87964
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 115.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 125.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 135.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 145.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 155.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 165.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 175.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 183.34406
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 185.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 195.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 205.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 215.86548
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220.29506
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track4:356.146423
+      atcNodeBId: node:NT05_exit3
+      physicalSpans:
+      - trackEdgeId: NT05_track4
+        startDistanceOnEdgeM: 356.14642
+        endDistanceOnEdgeM: 472.0119
+      - trackEdgeId: NT05_track3_exit
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 104.42958
+    - atcEdgeId: edge:NT05_2RT
+      trackCircuitId: NT05_2RT
+      controlKind: 2
+      direction: 0
+      lengthM: 240.00018
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 240.00018
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240.00018
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track2:115.6109
+      atcNodeBId: boundary:NT05_track2:355.611084
+      physicalSpans:
+      - trackEdgeId: NT05_track2
+        startDistanceOnEdgeM: 115.6109
+        endDistanceOnEdgeM: 355.61108
+    - atcEdgeId: edge:NT05_3LT
+      trackCircuitId: NT05_3LT
+      controlKind: 2
+      direction: 0
+      lengthM: 240.00018
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 240.00018
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60.000008
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.00001
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240.00018
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track3:115.630089
+      atcNodeBId: boundary:NT05_track3:355.63028
+      physicalSpans:
+      - trackEdgeId: NT05_track3
+        startDistanceOnEdgeM: 115.63009
+        endDistanceOnEdgeM: 355.63028
+    - atcEdgeId: edge:NT05_4LT
+      trackCircuitId: NT05_4LT
+      controlKind: 2
+      direction: 0
+      lengthM: 240.17151
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 240.17151
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 18.687263
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 19.999992
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 29.999992
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 39.999992
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 48.629448
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 49.999992
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 59.999992
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 68.63003
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 69.99999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 79.99999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 89.99999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 99.99999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 109.99999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 119.99999
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 171.54129
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 191.5419
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 221.48468
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240.17151
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_track4:115.974922
+      atcNodeBId: boundary:NT05_track4:356.146423
+      physicalSpans:
+      - trackEdgeId: NT05_track4
+        startDistanceOnEdgeM: 115.97492
+        endDistanceOnEdgeM: 356.14642
+    - atcEdgeId: edge:NT05_NT06_D1T
+      trackCircuitId: NT05_NT06_D1T
+      controlKind: 1
+      direction: 1
+      lengthM: 180.08208
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 180.08208
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 63.08191
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.08208
+        gradientPermille: 0
+      atcNodeAId: node:NT05_exit2
+      atcNodeBId: boundary:NT05_NT06_down:180.082077
+      physicalSpans:
+      - trackEdgeId: NT05_NT06_down
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 180.08208
+    - atcEdgeId: edge:NT05_NT06_D2T
+      trackCircuitId: NT05_NT06_D2T
+      controlKind: 1
+      direction: 1
+      lengthM: 180.0001
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 180.0001
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120.000015
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.00002
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.0001
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_NT06_down:180.082077
+      atcNodeBId: boundary:NT05_NT06_down:360.082184
+      physicalSpans:
+      - trackEdgeId: NT05_NT06_down
+        startDistanceOnEdgeM: 180.08208
+        endDistanceOnEdgeM: 360.08218
+    - atcEdgeId: edge:NT05_NT06_D3T
+      trackCircuitId: NT05_NT06_D3T
+      controlKind: 1
+      direction: 1
+      lengthM: 180.00485
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 180.00485
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 158.00003
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 159.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 169.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 179.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.00485
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_NT06_down:360.082184
+      atcNodeBId: node:NT06_entry1
+      physicalSpans:
+      - trackEdgeId: NT05_NT06_down
+        startDistanceOnEdgeM: 360.08218
+        endDistanceOnEdgeM: 540.08704
+    - atcEdgeId: edge:NT05_NT06_U1T
+      trackCircuitId: NT05_NT06_U1T
+      controlKind: 1
+      direction: 2
+      lengthM: 178.91725
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 178.91725
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 62.76909
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 178.91725
+        gradientPermille: 0
+      atcNodeAId: node:NT05_exit3
+      atcNodeBId: boundary:NT05_NT06_up:178.917252
+      physicalSpans:
+      - trackEdgeId: NT05_NT06_up
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 178.91725
+    - atcEdgeId: edge:NT05_NT06_U2T
+      trackCircuitId: NT05_NT06_U2T
+      controlKind: 1
+      direction: 2
+      lengthM: 178.6913
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 178.6913
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 79.999985
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 89.999985
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 99.999985
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 109.999985
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 119.999985
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 129.99998
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 139.99998
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 149.99998
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 159.99998
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 169.99998
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 178.6913
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_NT06_up:178.917252
+      atcNodeBId: boundary:NT05_NT06_up:357.608551
+      physicalSpans:
+      - trackEdgeId: NT05_NT06_up
+        startDistanceOnEdgeM: 178.91725
+        endDistanceOnEdgeM: 357.60855
+    - atcEdgeId: edge:NT05_NT06_U3T
+      trackCircuitId: NT05_NT06_U3T
+      controlKind: 1
+      direction: 2
+      lengthM: 178.71371
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 178.71371
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 156.85123
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 159.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 169.99997
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 178.71371
+        gradientPermille: 0
+      atcNodeAId: boundary:NT05_NT06_up:357.608551
+      atcNodeBId: node:NT06_entry2
+      physicalSpans:
+      - trackEdgeId: NT05_NT06_up
+        startDistanceOnEdgeM: 357.60855
+        endDistanceOnEdgeM: 536.32227
+    - atcEdgeId: edge:NT06_DT
+      trackCircuitId: NT06_DT
+      controlKind: 1
+      direction: 1
+      lengthM: 640.2932
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 640.2932
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 78.23977
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.26003
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 410
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 420
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 430
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 440
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 450
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460.26154
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 470
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 480
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 490
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 500
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 510
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 520
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 530
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 540
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 550
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 560
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 570
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 580
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 590
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 600
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 610
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 620
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 630
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 640
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 640.2932
+        gradientPermille: 0
+      atcNodeAId: node:NT06_entry1
+      atcNodeBId: node:NT06_exit1
+      physicalSpans:
+      - trackEdgeId: NT06_track1
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 640.2932
+    - atcEdgeId: edge:NT06_UT
+      trackCircuitId: NT06_UT
+      controlKind: 1
+      direction: 2
+      lengthM: 640.04553
+      speedLimitSections:
+      - startDistanceOnAtcEdgeM: 0
+        endDistanceOnAtcEdgeM: 640.04553
+        speedLimitKmh: 120
+      gradientProfiles:
+      - distanceOnAtcEdgeM: 0
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 10
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 20
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 30
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 40
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 50
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 60
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 70
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 77.99422
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 80
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 90
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 100
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 110
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 120
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 130
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 140
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 150
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 160
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 170
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 180.01247
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 190
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 200
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 210
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 220
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 230
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 240
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 250
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 260
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 270
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 280
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 290
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 300
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 310
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 320
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 330
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 340
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 350
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 360
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 370
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 380
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 390
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 400
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 410
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 420
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 430
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 440
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 450
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 460.01398
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 470
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 480
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 490
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 500
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 510
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 520
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 530
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 540
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 550
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 560
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 570
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 580
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 590
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 600
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 610
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 620
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 630
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 640
+        gradientPermille: 0
+      - distanceOnAtcEdgeM: 640.04553
+        gradientPermille: 0
+      atcNodeAId: node:NT06_entry2
+      atcNodeBId: node:NT06_exit2
+      physicalSpans:
+      - trackEdgeId: NT06_track2
+        startDistanceOnEdgeM: 0
+        endDistanceOnEdgeM: 640.04553
+    atcNode:
+    - atcNodeId: node:NT01_buffer1
+      connectedAtcEdgeIds:
+      - edge:NT01_1RT
+    - atcNodeId: boundary:NT01_track1:310.001862
+      connectedAtcEdgeIds:
+      - edge:NT01_1RT
+      - edge:NT01_23T:0
+    - atcNodeId: boundary:NT01_track2_throat:37.604187
+      connectedAtcEdgeIds:
+      - edge:NT01_21AT:0
+      - edge:NT01_21AT:1
+      - edge:NT01_23T:0
+      - edge:NT01_23T:1
+    - atcNodeId: boundary:NT01_crossover21:38.534214
+      connectedAtcEdgeIds:
+      - edge:NT01_21AT:0
+      - edge:NT01_21BT:0
+    - atcNodeId: boundary:NT01_track2_scissors:36.458374
+      connectedAtcEdgeIds:
+      - edge:NT01_21AT:1
+      - edge:NT01_22BT:1
+    - atcNodeId: node:NT01_exit3
+      connectedAtcEdgeIds:
+      - edge:NT01_21BT:0
+      - edge:NT01_21BT:1
+      - edge:NT01_NT02_U1T
+    - atcNodeId: boundary:NT01_track3_scissors:36.458374
+      connectedAtcEdgeIds:
+      - edge:NT01_21BT:1
+      - edge:NT01_22AT:1
+    - atcNodeId: boundary:NT01_track3:500.119934
+      connectedAtcEdgeIds:
+      - edge:NT01_22AT:0
+      - edge:NT01_22AT:1
+      - edge:NT01_3RT
+    - atcNodeId: boundary:NT01_crossover22:38.534214
+      connectedAtcEdgeIds:
+      - edge:NT01_22AT:0
+      - edge:NT01_22BT:0
+    - atcNodeId: node:NT01_exit2
+      connectedAtcEdgeIds:
+      - edge:NT01_22BT:0
+      - edge:NT01_22BT:1
+      - edge:NT01_NT02_D1T
+    - atcNodeId: boundary:NT01_track2_platform:310
+      connectedAtcEdgeIds:
+      - edge:NT01_23T:1
+      - edge:NT01_2RT
+    - atcNodeId: node:NT01_buffer2
+      connectedAtcEdgeIds:
+      - edge:NT01_2RT
+    - atcNodeId: node:NT01_buffer3
+      connectedAtcEdgeIds:
+      - edge:NT01_3RT
+    - atcNodeId: boundary:NT01_NT02_down:160.197113
+      connectedAtcEdgeIds:
+      - edge:NT01_NT02_D1T
+      - edge:NT01_NT02_D2T
+    - atcNodeId: boundary:NT01_NT02_down:320.197174
+      connectedAtcEdgeIds:
+      - edge:NT01_NT02_D2T
+      - edge:NT01_NT02_D3T
+    - atcNodeId: node:NT02_entry1
+      connectedAtcEdgeIds:
+      - edge:NT01_NT02_D3T
+      - edge:NT02_DT
+    - atcNodeId: boundary:NT01_NT02_up:158.511322
+      connectedAtcEdgeIds:
+      - edge:NT01_NT02_U1T
+      - edge:NT01_NT02_U2T
+    - atcNodeId: boundary:NT01_NT02_up:316.6828
+      connectedAtcEdgeIds:
+      - edge:NT01_NT02_U2T
+      - edge:NT01_NT02_U3T
+    - atcNodeId: node:NT02_entry2
+      connectedAtcEdgeIds:
+      - edge:NT01_NT02_U3T
+      - edge:NT02_UT
+    - atcNodeId: node:NT02_exit1
+      connectedAtcEdgeIds:
+      - edge:NT02_DT
+      - edge:NT02_NT03_D1T
+    - atcNodeId: boundary:NT02_NT03_down:167.156036
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_D1T
+      - edge:NT02_NT03_D2T
+    - atcNodeId: boundary:NT02_NT03_down:334.1561
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_D2T
+      - edge:NT02_NT03_D3T
+    - atcNodeId: node:NT03_entry1
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_D3T
+      - edge:NT03_DT
+    - atcNodeId: node:NT02_exit2
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_U1T
+      - edge:NT02_UT
+    - atcNodeId: boundary:NT02_NT03_up:167.876083
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_U1T
+      - edge:NT02_NT03_U2T
+    - atcNodeId: boundary:NT02_NT03_up:336.5462
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_U2T
+      - edge:NT02_NT03_U3T
+    - atcNodeId: node:NT03_entry2
+      connectedAtcEdgeIds:
+      - edge:NT02_NT03_U3T
+      - edge:NT03_UT
+    - atcNodeId: node:NT03_exit1
+      connectedAtcEdgeIds:
+      - edge:NT03_DT
+      - edge:NT03_NT04_D1T
+    - atcNodeId: boundary:NT03_NT04_down:150.000153
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_D1T
+      - edge:NT03_NT04_D2T
+    - atcNodeId: boundary:NT03_NT04_down:300.000275
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_D2T
+      - edge:NT03_NT04_D3T
+    - atcNodeId: boundary:NT03_NT04_down:440.007233
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_D3T
+      - edge:NT03_NT04_D4T
+    - atcNodeId: node:NT04_entry1
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_D4T
+      - edge:NT04_DT
+    - atcNodeId: node:NT03_exit2
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_U1T
+      - edge:NT03_UT
+    - atcNodeId: boundary:NT03_NT04_up:150.000153
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_U1T
+      - edge:NT03_NT04_U2T
+    - atcNodeId: boundary:NT03_NT04_up:300.000275
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_U2T
+      - edge:NT03_NT04_U3T
+    - atcNodeId: boundary:NT03_NT04_up:439.853546
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_U3T
+      - edge:NT03_NT04_U4T
+    - atcNodeId: node:NT04_entry2
+      connectedAtcEdgeIds:
+      - edge:NT03_NT04_U4T
+      - edge:NT04_UT
+    - atcNodeId: node:NT04_exit1
+      connectedAtcEdgeIds:
+      - edge:NT04_DT
+      - edge:NT04_NT05_D1T
+    - atcNodeId: node:NT05_entry2
+      connectedAtcEdgeIds:
+      - edge:NT04_NT05_D1T
+      - edge:NT05_21T:0
+      - edge:NT05_21T:1
+    - atcNodeId: node:NT04_exit2
+      connectedAtcEdgeIds:
+      - edge:NT04_NT05_U1T
+      - edge:NT04_UT
+    - atcNodeId: node:NT05_entry3
+      connectedAtcEdgeIds:
+      - edge:NT04_NT05_U1T
+      - edge:NT05_23T:0
+      - edge:NT05_23T:1
+    - atcNodeId: boundary:NT05_track1:115.953941
+      connectedAtcEdgeIds:
+      - edge:NT05_1RT
+      - edge:NT05_21T:0
+    - atcNodeId: boundary:NT05_track1:356.125458
+      connectedAtcEdgeIds:
+      - edge:NT05_1RT
+      - edge:NT05_22T:0
+    - atcNodeId: boundary:NT05_track2:115.6109
+      connectedAtcEdgeIds:
+      - edge:NT05_21T:1
+      - edge:NT05_2RT
+    - atcNodeId: node:NT05_exit2
+      connectedAtcEdgeIds:
+      - edge:NT05_22T:0
+      - edge:NT05_22T:1
+      - edge:NT05_NT06_D1T
+    - atcNodeId: boundary:NT05_track2:355.611084
+      connectedAtcEdgeIds:
+      - edge:NT05_22T:1
+      - edge:NT05_2RT
+    - atcNodeId: boundary:NT05_track3:115.630089
+      connectedAtcEdgeIds:
+      - edge:NT05_23T:0
+      - edge:NT05_3LT
+    - atcNodeId: boundary:NT05_track4:115.974922
+      connectedAtcEdgeIds:
+      - edge:NT05_23T:1
+      - edge:NT05_4LT
+    - atcNodeId: boundary:NT05_track3:355.63028
+      connectedAtcEdgeIds:
+      - edge:NT05_24T:0
+      - edge:NT05_3LT
+    - atcNodeId: node:NT05_exit3
+      connectedAtcEdgeIds:
+      - edge:NT05_24T:0
+      - edge:NT05_24T:1
+      - edge:NT05_NT06_U1T
+    - atcNodeId: boundary:NT05_track4:356.146423
+      connectedAtcEdgeIds:
+      - edge:NT05_24T:1
+      - edge:NT05_4LT
+    - atcNodeId: boundary:NT05_NT06_down:180.082077
+      connectedAtcEdgeIds:
+      - edge:NT05_NT06_D1T
+      - edge:NT05_NT06_D2T
+    - atcNodeId: boundary:NT05_NT06_down:360.082184
+      connectedAtcEdgeIds:
+      - edge:NT05_NT06_D2T
+      - edge:NT05_NT06_D3T
+    - atcNodeId: node:NT06_entry1
+      connectedAtcEdgeIds:
+      - edge:NT05_NT06_D3T
+      - edge:NT06_DT
+    - atcNodeId: boundary:NT05_NT06_up:178.917252
+      connectedAtcEdgeIds:
+      - edge:NT05_NT06_U1T
+      - edge:NT05_NT06_U2T
+    - atcNodeId: boundary:NT05_NT06_up:357.608551
+      connectedAtcEdgeIds:
+      - edge:NT05_NT06_U2T
+      - edge:NT05_NT06_U3T
+    - atcNodeId: node:NT06_entry2
+      connectedAtcEdgeIds:
+      - edge:NT05_NT06_U3T
+      - edge:NT06_UT
+    - atcNodeId: node:NT06_exit1
+      connectedAtcEdgeIds:
+      - edge:NT06_DT
+    - atcNodeId: node:NT06_exit2
+      connectedAtcEdgeIds:
+      - edge:NT06_UT
+    routes:
+    - atcRouteId: 101L
+      interlockingRouteId: 101L
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT01_21BT:0
+      - edge:NT01_21AT:0
+      - edge:NT01_23T:0
+      - edge:NT01_1RT
+    - atcRouteId: 101R
+      interlockingRouteId: 101R
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT01_1RT
+      - edge:NT01_23T:0
+      - edge:NT01_21AT:1
+      - edge:NT01_22BT:1
+    - atcRouteId: 102L
+      interlockingRouteId: 102L
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT01_21BT:0
+      - edge:NT01_21AT:0
+      - edge:NT01_23T:1
+      - edge:NT01_2RT
+    - atcRouteId: 102R
+      interlockingRouteId: 102R
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT01_2RT
+      - edge:NT01_23T:1
+      - edge:NT01_21AT:1
+      - edge:NT01_22BT:1
+    - atcRouteId: 103L
+      interlockingRouteId: 103L
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT01_21BT:1
+      - edge:NT01_22AT:1
+      - edge:NT01_3RT
+    - atcRouteId: 103R
+      interlockingRouteId: 103R
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT01_3RT
+      - edge:NT01_22AT:0
+      - edge:NT01_22BT:0
+    - atcRouteId: NT05_101L
+      interlockingRouteId: NT05_101L
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT05_1RT
+      - edge:NT05_22T:0
+    - atcRouteId: NT05_101R
+      interlockingRouteId: NT05_101R
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT05_21T:0
+      - edge:NT05_1RT
+    - atcRouteId: NT05_102L
+      interlockingRouteId: NT05_102L
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT05_2RT
+      - edge:NT05_22T:1
+    - atcRouteId: NT05_102R
+      interlockingRouteId: NT05_102R
+      entryDirection: 1
+      atcEdgeIds:
+      - edge:NT05_21T:1
+      - edge:NT05_2RT
+    - atcRouteId: NT05_103L
+      interlockingRouteId: NT05_103L
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT05_24T:0
+      - edge:NT05_3LT
+    - atcRouteId: NT05_103R
+      interlockingRouteId: NT05_103R
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT05_3LT
+      - edge:NT05_23T:0
+    - atcRouteId: NT05_104L
+      interlockingRouteId: NT05_104L
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT05_24T:1
+      - edge:NT05_4LT
+    - atcRouteId: NT05_104R
+      interlockingRouteId: NT05_104R
+      entryDirection: 2
+      atcEdgeIds:
+      - edge:NT05_4LT
+      - edge:NT05_23T:1

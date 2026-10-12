@@ -185,9 +185,6 @@ namespace Nakatetsu.Train.Equipment.Traction.Vvvf
                 {
                     if (!directionSource.TryGetTractionDirection(out int direction) || direction == 0)
                         targetTractionForceN = 0f;
-                    else if (Mathf.Abs(context.Input.vehicleSpeedMps) > 0.01f &&
-                             Mathf.Sign(context.Input.vehicleSpeedMps) != direction)
-                        targetTractionForceN = 0f; // 走行中の逆方向への力行は受け付けない。
                     else if (targetTractionForceN > 0f)
                         ForceDirectionSign = direction;
                 }

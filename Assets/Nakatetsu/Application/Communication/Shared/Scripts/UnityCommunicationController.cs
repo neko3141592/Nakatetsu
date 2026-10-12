@@ -5,6 +5,8 @@ using Cysharp.Net.Http;
 using Grpc.Net.Client;
 using MagicOnion.Client;
 using Nakatetsu.Contracts.Communication;
+using System.Threading.Tasks;
+using Grpc.Core;
 using UnityEngine;
 
 namespace Nakatetsu.Application.Communication
@@ -12,6 +14,7 @@ namespace Nakatetsu.Application.Communication
     public sealed class UnityCommunicationController : MonoBehaviour, IUnityHubReceiver
     {
         [SerializeField] private string serverAddress = "http://localhost:5188";
+        [SerializeField, Min(0.1f)] private float retryIntervalSeconds = 3f;
 
         private GrpcChannel? channel;
         private IUnityHub? hub;
@@ -19,37 +22,68 @@ namespace Nakatetsu.Application.Communication
         public string SessionId { get; } = Guid.NewGuid().ToString("N");
         public bool IsConnected => hub != null && !hub.WaitForDisconnect().IsCompleted;
 
+
         private async void Start()
         {
             var cancellationToken = destroyCancellationToken;
+
             try
             {
-                channel = GrpcChannel.ForAddress(serverAddress, new GrpcChannelOptions
+                while(!cancellationToken.IsCancellationRequested)
                 {
-                    HttpHandler = new YetAnotherHttpHandler { Http2Only = true },
-                    DisposeHttpClient = true
-                });
+                    try
+                    {
+                        channel = GrpcChannel.ForAddress(
+                            serverAddress,
+                            new GrpcChannelOptions
+                            {
+                                HttpHandler = new YetAnotherHttpHandler
+                                {
+                                    Http2Only = true
+                                },
+                                DisposeHttpClient = true
+                            }
+                        );
 
-                var connectedHub = await StreamingHubClient.ConnectAsync<IUnityHub, IUnityHubReceiver>(
-                    channel, this, cancellationToken: cancellationToken);
+                        hub = await StreamingHubClient.ConnectAsync<IUnityHub, IUnityHubReceiver>(
+                            channel, 
+                            this, 
+                            option: new CallOptions(cancellationToken: cancellationToken),
+                            cancellationToken: cancellationToken
+                        );
 
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    await connectedHub.DisposeAsync();
-                    return;
+                        // キャンセルされていればここで処理を止める
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        Debug.Log("CTCサーバーに接続しました。", this);
+
+                        // 接続中はここで待つ。切断されると先へ進む。
+                        await hub.WaitForDisconnect();
+                    }
+                    catch (Exception exception)
+                    {
+                        if (!cancellationToken.IsCancellationRequested)
+                        {
+                            Debug.LogWarning(
+                                $"CTC接続を再試行します: {exception.Message}",
+                                this);
+                        }
+                    }
+                    finally
+                    {
+                        await DisconnectAsync();
+                    }
+
+                    // 指定した時間後に再接続
+                    await Task.Delay(
+                        TimeSpan.FromSeconds(Mathf.Max(0.1f, retryIntervalSeconds)),
+                        cancellationToken
+                    );
                 }
-
-                hub = connectedHub;
-                Debug.Log("CTCサーバーに接続しました。", this);
-            }
+            } 
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-            }
-            catch (Exception exception)
-            {
-                channel?.Dispose();
-                channel = null;
-                Debug.LogException(exception, this);
+                // オブジェクトが破棄されたので終了する。
             }
         }
 
@@ -63,10 +97,11 @@ namespace Nakatetsu.Application.Communication
             return hub!;
         }
 
-        private async void OnDestroy()
+        private async Task DisconnectAsync()
         {
             var connectedHub = hub;
             hub = null;
+
             try
             {
                 if (connectedHub != null)

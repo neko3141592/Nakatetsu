@@ -111,6 +111,32 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.TrainStatus
         public int GeneratedCarCount => cars.Count;
         public RectTransform GeneratedRoot => generatedRoot;
 
+        /// <summary>車両の中心を指定Rectの座標へ変換する。号車に対応するグラフなどで配置を共有する。</summary>
+        public bool TryGetCarCenter(int carIndex, RectTransform relativeTo, out Vector2 position)
+        {
+            position = default;
+            if (relativeTo == null || carIndex < 0 || carIndex >= cars.Count) return false;
+            Image image = cars[carIndex].image;
+            if (image == null) return false;
+            // ScreenSpaceCameraのCanvasは初回描画までscale=0になる場合がある。
+            // 共通の親より下で変換し、Canvasの未確定なワールド変換を経由しない。
+            Transform common = image.transform;
+            while (common != null && !relativeTo.IsChildOf(common)) common = common.parent;
+            Matrix4x4 imageToCommon = LocalToAncestor(image.transform, common);
+            Matrix4x4 plotToCommon = LocalToAncestor(relativeTo, common);
+            if (Mathf.Abs(plotToCommon.determinant) < 1e-8f) return false;
+            position = plotToCommon.inverse.MultiplyPoint3x4(imageToCommon.MultiplyPoint3x4(Vector3.zero));
+            return true;
+        }
+
+        private static Matrix4x4 LocalToAncestor(Transform source, Transform ancestor)
+        {
+            Matrix4x4 matrix = Matrix4x4.identity;
+            for (Transform current = source; current != ancestor; current = current.parent)
+                matrix = Matrix4x4.TRS(current.localPosition, current.localRotation, current.localScale) * matrix;
+            return matrix;
+        }
+
         private void OnEnable()
         {
             if (Application.isPlaying && editorSample != null) editorSample.SetActive(false);

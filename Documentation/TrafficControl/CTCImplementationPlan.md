@@ -1,6 +1,6 @@
 # CTCの実装順と完成目標
 
-2026年10月10日時点。最初に連動管理部の要求振り分け・駅更新・地上ATCへの接続を完成させ、その窓口に運行管理サーバーと手動CTCを接続する。初版の完成目標は、既存のNtLine試験線で設備状態を監視し、ブラウザーから進路を設定・取消して、Unityの連動・ATCへの反映を確認できることとする。
+2026年10月11日更新。連動管理部の要求振り分け・駅更新・地上ATC接続、Unityからサーバーへの世界時刻・連動状態の一括送信・保存と、Web向けの一括取得APIまで実装した。初版の完成目標は、既存のNtLine試験線で設備状態を監視し、ブラウザーから進路を設定・取消して、Unityの連動・ATCへの反映を確認できることとする。
 
 既存の[全体実装計画](../implementation-plan-2026-11-17.md)を具体化する。[連動管理部の設計](../Track/Interlocking/TrackInterlockingAggregationDesign.md)と[システム構成図](../References/中鉄運行管理システム構成図（仮）.drawio)に合わせ、CTCは設備監視・手動操作・要求中継、PRCは列車追跡・ダイヤ照合・自動進路判断を担当する。CTCに表示する列番・位置の対応は、PRCへ渡せる独立した追跡機能として作る。
 
@@ -11,8 +11,9 @@
 | 駅連動装置 | 設定・取消、競合照査、予約・鎖錠、接近鎖錠、過走防護、公開進路状態に加え、固定理由コードと関連設備IDを含む要求結果を返す | 通信経由の要求・結果との接続 |
 | 連動管理部 | 駅IDとControllerの登録検証、要求窓口TryRouteRequest、駅更新の取りまとめ、公開状態の集約がある | 複数駅での進路ID重複検証と通信窓口への接続 |
 | 世界tickと地上ATC | Applicationが管理部を更新し、ATCが管理部の公開進路状態を読む。NtLine Sceneも接続済み | 実Sceneで進路・転轍機・ATC電文を通した試運転 |
-| 共通通信型 | 連動の要求・結果・状態に加え、Message/MessageHeaderとWorldTimeInformationを定義済み。TickCountは世界tickと同じlong型 | 内部Outputとの変換、在線・転轍機・列車の通信型、JSON往復検証 |
-| 運行管理サーバー | ASP.NET Core、.NET 10、Contracts参照と起動設定がある。処理はGET /のHello Worldのみ | 状態受信、要求配送、結果保持、CTC画面 |
+| 共通通信型 | Message/MessageHeader、WorldTimeInformation、InterlockingSnapshotをMessagePack対応済み。同じ完了Tickの時刻・連動をUnitySnapshotにまとめ、IUnityHubのUpdateSnapshotAsyncで送る。Web APIでも同じメッセージをJSONで取得できる | 在線・転轍機・列車の通信型、通信失効の表現 |
+| Unity通信 | MagicOnion接続と自動再試行、Inspector指定間隔の定期送信がある。完了Tickの出力を保持し、LateUpdateで時刻と連動を1回送信する | 実Sceneで新しい一括送信を確認、表示用設備情報の追加 |
+| 運行管理サーバー | ASP.NET Core・.NET 10。UnityHubで受信してUnitySnapshotStoreへ一括保存。CTCContext/Logic/Controllerを最小構成で追加し、共有Contextをlockで保護。CTCEndpointからControllerを通じてGET /api/ctc/snapshotを取得できる。未受信は503 | 通信失効判定、要求配送、結果保持、CTC画面 |
 | 試験線と列車 | 保存済みNtLineに10001F・10002Fを世界tickへ登録済み | 列番・番線対応、列車別の在線回路、追跡状態の送信 |
 | PRCとダイヤ | 専用の自動進路判断・試験ダイヤ・列番追跡は未実装 | 手動CTC完成後に追跡と試験ダイヤから実装する |
 
@@ -20,7 +21,9 @@
 
 管理部は独自のUpdateを持たず、Applicationの世界tickからCalculateとApplyOutputを呼ぶ。管理部が各駅を更新して状態を集約し、その後に地上ATCが公開状態を読み取る。TryRouteRequestはStationIdで担当駅を選び、設定・取消の受付結果を返す。サーバーやCTC画面からこの窓口へ要求を配送する通信処理はまだない。
 
-`dotnet build Server/Nakatetsu.TrafficControl.slnx --no-restore`は警告0・エラー0で成功した。ServerとSharedの土台はPR #77でmainへ取り込み済み。今回の追加では、重複していた世界時間DTOをToServer/WorldTimeInformation.csへ統一した。Unity 6000.4.0f1のコンパイルもエラー・警告0。関連EditMode 163件とApplication統合PlayMode 4件は全成功した。EditModeで自動通知されないOnDisableはテスト側で明示実行し、PlayModeでは実際の無効化通知による公開状態の撤去を確認した。実Sceneの試運転はM0の残確認とする。
+ServerとSharedの土台はPR #77でmainへ取り込み済み。連動管理部接続時の過去の検証では、関連EditMode 163件とApplication統合PlayMode 4件が成功した。EditModeで自動通知されないOnDisableはテスト側で明示実行し、PlayModeでは実際の無効化通知による公開状態の撤去を確認した。
+
+10月11日の一括送信・保存の変更では、Server/ContractsのビルドとUnity 6000.4.0f1の実参照を使ったContracts/Applicationコンパイルが警告0・エラー0で成功した。実MagicOnion通信、MessagePack往復、深いコピー、並行保存・読み取りの整合も確認した。今回Unity EditorのPlayModeで上記既存テストを再実行したわけではない。詳細な変更箇所・保証範囲・検証内容は[同一Tickスナップショットの実装記録](UnitySnapshotSynchronization.md)を参照する。実Sceneの試運転は残確認とする。
 
 ## 最初に完成させる連動管理部
 
@@ -38,7 +41,7 @@
 
 ## 通信と更新順
 
-初版はローカルHTTPとJSONのポーリングで接続する方針を提案する。Unityが状態を送信し、サーバーに届いた操作要求を取得する。サーバーはCTC画面とUnityの間で状態・要求・結果を取り次ぐ。
+UnityとサーバーはMagicOnionのStreamingHubとMessagePackで接続する。世界時刻と連動状態は1つのUnitySnapshotとして定期送信し、サーバーは1つのStoreに一括保存する。ブラウザー向けにはCTCEndpointのGET /api/ctc/snapshotから同じメッセージをJSONで一括取得できる。応答と確認手順は[Web取得APIの実装記録](CTCWebSnapshotApi.md)を参照。サーバーからUnityへの操作要求の配送はまだ未実装であり、以下は要求配送を追加する際の更新順とする。
 
 ```text
 ブラウザーの手動操作
@@ -47,11 +50,14 @@
   → 世界tick内で連動管理部へ同期転送
   → 駅連動装置
 
-駅・軌道回路・転轍機・列車の確定状態
-  → Applicationで通信型へ変換
-  → サーバーの最新状態
+完了Tickの時刻・連動状態（実装済み）
+  → UnitySnapshotSenderで通信型へ同期コピー
+  → MagicOnionで1回送信
+  → UnitySnapshotStoreでメッセージ全体を保存
   → CTCの表示
 ```
+
+軌道回路・転轍機・列車状態と、CTCの表示画面は今後追加する。Unity側はTick完了時の連動出力を保持し、LateUpdateで時刻と一緒にコピーする。Tick内で通信を待たず、送信周期ごとに最新の完了Tickを送る。サーバーで時刻と連動を使う際は、GetLatest()を1回呼んで返された同じメッセージから読む。
 
 通信待ちで世界tickを止めない。通信で受けた要求はUnityのメインスレッドへ渡し、全列車の移動と在線確定の後、駅連動更新の前に適用する。管理部の要求転送自体は同期処理とし、競合要求の再要求判断は手動操作側または将来のPRCが行う。
 
@@ -68,7 +74,7 @@
 
 停止中は要求を保留し、再開またはStepOnceで適用する。通信と表示は停止中も動かし、同じtickの更新通知と停止状態を送る。接近鎖錠などの時素を通信周期で進めない。
 
-通信契約には次を含める。
+最終的な通信契約には次を含める。現在実装済みなのは、SessionId・SchemaVersion・世界時間情報と、駅・進路の状態を一括で送信・保存する部分。通信鮮度、要求の配送・重複防止、設備定義一覧などは未実装である。
 
 - シミュレーションのSessionId、SchemaVersion、TickCount、WorldTimeSeconds、停止状態。サーバー受信時刻による通信の鮮度と、シミュレーション時刻を分ける。
 - RequestIdと要求対象のSessionId。同じID・同じ内容の再配送は1回だけ実行し、同じ結果を返す。同じIDで内容が違う要求と、以前のSessionIdの要求は拒否する。
@@ -76,7 +82,7 @@
 - 登録される駅・進路・回路・転轍機の定義一覧。取得不能の駅が最新スナップショットから消えても、画面はその設備を取得不能として表示する。
 - 軌道回路の取得可否、在線、転轍機の実位置・転換中。現在の回路boolは位置取得失敗時の安全側占有も含むため、CTC向けには取得失敗と実際の在線を区別する情報を追加する。
 
-共通DTOはpublic propertyとDictionaryを使うため、対応できるJSONシリアライザーとenum・null・欠損の表現を通信実装前に決める。JsonUtilityはフィールドのみを対象としDictionaryに対応しないため、そのままでは現在のDTOを送受信できない。[Unity 6.4のJSON仕様](https://docs.unity3d.com/6000.4/Documentation/Manual/json-serialization.html)を参照。プロジェクトのpackages-lockにはNewtonsoft JSONが間接依存として存在するため、採用時は明示依存とAssembly参照を確認し、Unityとサーバーの往復テストで値の一致を確かめる。
+Unity向け共通DTOにはMessagePackObject/Keyを付け、時刻・Dictionary・enumを含む実通信の往復を検証した。ブラウザー向けHTTPでは、未受信は503のproblem JSON、受信済みは200のMessage<UnitySnapshot>を返す。接続状態・通信失効の表現は今後追加する。
 
 ## 段階別の完成目標
 
@@ -122,4 +128,4 @@ CTC初版の完成範囲はM0〜M3とする。M4の2列車自動運行は、NPC�
 
 既存計画の10月11日・10月18日は進捗判定日として使う。10月11日はM0の接続と通信契約を確認し、M1以降の残工数を見積もる。10月18日はM0〜M3の手動CTCと列車表示を優先して判定し、PRCによる2列車運行はM4とNPCの準備が整った場合に追加判定する。現在の未接続範囲から、10月11日の手動CTC完成や10月18日の自動運行完成を確約しない。
 
-M0の要求窓口、駅側の結果構造化、駅更新・ATC入力先の切替は実装済み。次は実Sceneでの試運転と複数駅の進路ID重複検証を完了し、M1のUnity通信・状態変換・サーバー最新状態保持へ進む。CTC画面は実状態の一覧から作る。全線制作・汎用ダイヤ編集・snapshot保存復元・案内設備・指令卓の作り込みは、この初版の合格後に進める。
+M0の要求窓口、駅側の結果構造化、駅更新・ATC入力先の切替と、M1のUnity通信・連動状態変換・サーバー最新状態保持・Web API取得まで実装済み。次は実Sceneから送信した情報のブラウザー確認、実状態の一覧画面と定期取得、通信の失効判定へ進む。M0の実Scene試運転と複数駅の進路ID重複検証、M1の設備定義・在線・転轍機表示も残っているため、M0/M1全体の合格とはまだ判定しない。全線制作・汎用ダイヤ編集・snapshot保存復元・案内設備・指令卓の作り込みは、この初版の合格後に進める。
