@@ -6,6 +6,7 @@ using Nakatetsu.Train.Equipment.Tims.Presentation.Readout;
 using Nakatetsu.Train.Equipment.Tims.Presentation.Signal;
 using Nakatetsu.Train.Equipment.Tims.Presentation.TrainStatus;
 using Nakatetsu.Train.Equipment.Tims.Presentation.DoorStatus;
+using Nakatetsu.Train.Equipment.Tims.Presentation.BrakeStatus;
 using Nakatetsu.Train.Presentation.Gauges;
 using UnityEngine;
 
@@ -54,6 +55,7 @@ namespace Nakatetsu.Train.Equipment.Tims.Presentation.Monitors
             foreach (var display in GetComponentsInChildren<TimsTextReadout>(true)) display.SetTimsSource(source);
             foreach (var display in GetComponentsInChildren<TimsTrainStatusDisplay>(true)) display.SetTimsSource(source);
             foreach (var display in GetComponentsInChildren<TimsDoorStatusDisplay>(true)) display.SetTimsSource(source);
+            foreach (var display in GetComponentsInChildren<TimsBrakeStatusDisplay>(true)) display.SetTimsSource(source);
         }
 
         private void LateUpdate()

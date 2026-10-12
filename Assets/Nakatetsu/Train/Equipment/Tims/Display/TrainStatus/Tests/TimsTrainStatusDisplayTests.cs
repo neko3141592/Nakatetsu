@@ -276,6 +276,67 @@ namespace Nakatetsu.Train.Presentation.Tests
             Assert.That(display.GeneratedRoot.Find("Pantograph_10").gameObject.activeSelf, Is.False);
         }
 
+        [Test]
+        public void CarCentersFollowRenderedImagesAcrossPivotsAndCoordinateSpaces()
+        {
+            var relative = new GameObject("Graph", typeof(RectTransform));
+            relative.transform.SetParent(train.transform, false);
+            try
+            {
+                var statusRect = (RectTransform)display.transform;
+                statusRect.sizeDelta = new Vector2(1000f, 200f);
+                statusRect.pivot = new Vector2(.2f, .7f);
+                statusRect.anchoredPosition = new Vector2(45f, 320f);
+                statusRect.localScale = new Vector3(1.2f, .8f, 1f);
+                var graphRect = (RectTransform)relative.transform;
+                graphRect.anchoredPosition = new Vector2(-60f, -120f);
+                graphRect.localScale = new Vector3(.8f, 1.4f, 1f);
+                display.Refresh();
+                for (int i = 0; i < display.GeneratedCarCount; i++)
+                {
+                    Assert.That(display.TryGetCarCenter(i, graphRect, out Vector2 center), Is.True);
+                    Vector3 actual = Car(i).rectTransform.TransformPoint(Vector3.zero);
+                    Vector3 converted = graphRect.TransformPoint(center);
+                    Assert.That(converted.x, Is.EqualTo(actual.x).Within(.001f));
+                    Assert.That(converted.y, Is.EqualTo(actual.y).Within(.001f));
+                }
+                Assert.That(display.TryGetCarCenter(-1, graphRect, out _), Is.False);
+                Assert.That(display.TryGetCarCenter(display.GeneratedCarCount, graphRect, out _), Is.False);
+                Assert.That(display.TryGetCarCenter(0, null, out _), Is.False);
+            }
+            finally { Object.DestroyImmediate(relative); }
+        }
+
+        [Test]
+        public void CarCentersKeepTheirSpacingBeforeTheCanvasHasBeenSized()
+        {
+            var canvas = new GameObject("UnsizedCanvas", typeof(RectTransform));
+            canvas.transform.SetParent(train.transform, false);
+            var graph = new GameObject("Graph", typeof(RectTransform));
+            graph.transform.SetParent(canvas.transform, false);
+            try
+            {
+                display.transform.SetParent(canvas.transform, false);
+                ((RectTransform)display.transform).sizeDelta = new Vector2(1536f, 175f);
+                canvas.transform.localScale = Vector3.zero;
+                var graphRect = (RectTransform)graph.transform;
+                graphRect.anchoredPosition = new Vector2(30f, 25f);
+                Set("centerPosition", new Vector2(125f, -35f));
+                Set("spacingX", 80f);
+                display.Refresh();
+                Assert.That(display.TryGetCarCenter(0, graphRect, out Vector2 first), Is.True);
+                Assert.That(display.TryGetCarCenter(9, graphRect, out Vector2 last), Is.True);
+                Assert.That(first.x, Is.EqualTo(-265f).Within(.001f));
+                Assert.That(last.x, Is.EqualTo(455f).Within(.001f));
+                Assert.That(last.x - first.x, Is.EqualTo(720f).Within(.001f));
+            }
+            finally
+            {
+                display.transform.SetParent(train.transform, false);
+                Object.DestroyImmediate(canvas);
+            }
+        }
+
         private Sprite NewSprite() => Sprite.Create(texture, new Rect(0, 0, 4, 4), Vector2.one * .5f);
         private Image Car(int index) => display.GeneratedRoot.Find($"Car_{index + 1:00}").GetComponent<Image>();
         private TMP_Text Number(int index) => display.GeneratedRoot.Find($"CarNumber_{index + 1:00}").GetComponent<TMP_Text>();
