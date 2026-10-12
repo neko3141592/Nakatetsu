@@ -241,8 +241,15 @@ namespace Nakatetsu.Track.Atc
                 if (edge.controlKind == TrackAtcEdgeControlKind.Interlocking
                     && state.directionsByAtcEdgeId[edge.atcEdgeId].Count == 0)
                 {
-                    failureReason = $"Interlocking Edge {edge.atcEdgeId} の方向を静的進路から確定できない。";
-                    return false;
+                    // 未使用の分岐にもCompilerが通常方向を設定する。進路から方向を
+                    // 得られないEdgeに限って採用し、進入許可は従来どおり連動進路で照査する。
+                    if (!TryConvertDirection(edge.direction, out var direction))
+                    {
+                        failureReason = $"Interlocking Edge {edge.atcEdgeId} の方向を静的進路または通常方向から確定できない。";
+                        return false;
+                    }
+
+                    state.directionsByAtcEdgeId[edge.atcEdgeId].Add(direction);
                 }
             }
 

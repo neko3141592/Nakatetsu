@@ -14,33 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Track.Atc::Nakatetsu.Track.Atc.TrackAtcGraphCompileAsset
   definition:
     atcGraphId: NakatetsuAtc
-    maximumOperatingSpeedKmh: 120
+    maximumOperatingSpeedKmh: 105
     gradientSampleIntervalM: 10
     circuits:
     - trackCircuitId: NT01_1RT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_2RT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_3RT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_23T
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_21AT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_22AT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_21BT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_22BT
       controlKind: 2
-      speedLimitKmh: 120
+      speedLimitKmh: 40
     - trackCircuitId: NT01_NT02_D1T
       controlKind: 1
       speedLimitKmh: 120
@@ -173,6 +173,114 @@ MonoBehaviour:
     - trackCircuitId: NT06_UT
       controlKind: 1
       speedLimitKmh: 120
+    - trackCircuitId: NT07_21AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_22AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_22BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_21BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_23T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_24T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_2RT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_27T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_1RT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_25AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_3LT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_30T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_4LT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_32AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_26BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_31BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_28AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_29AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_26AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_31AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_25BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_32BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_29BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_28BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_DEPOT_1T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_DEPOT_2T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_DE1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_DL1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_UE1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_UL1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT06_NT07_D1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT06_NT07_D2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT06_NT07_D3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT06_NT07_U1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT06_NT07_U2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT06_NT07_U3T
+      controlKind: 1
+      speedLimitKmh: 120
     speedLimits: []
     routes:
     - atcRouteId: 101L
@@ -268,4 +376,188 @@ MonoBehaviour:
       trackCircuitIds:
       - NT05_4LT
       - NT05_23T
+      entryDirection: 2
+    - atcRouteId: NT07_101RA
+      interlockingRouteId: NT07_101RA
+      trackCircuitIds:
+      - NT07_21AT
+      - NT07_22BT
+      entryDirection: 1
+    - atcRouteId: NT07_101RB
+      interlockingRouteId: NT07_101RB
+      trackCircuitIds:
+      - NT07_21AT
+      - NT07_21BT
+      entryDirection: 1
+    - atcRouteId: NT07_201R
+      interlockingRouteId: NT07_201R
+      trackCircuitIds:
+      - NT07_23T
+      - NT07_1RT
+      entryDirection: 1
+    - atcRouteId: NT07_202R
+      interlockingRouteId: NT07_202R
+      trackCircuitIds:
+      - NT07_23T
+      - NT07_2RT
+      entryDirection: 1
+    - atcRouteId: NT07_203R
+      interlockingRouteId: NT07_203R
+      trackCircuitIds:
+      - NT07_24T
+      - NT07_3LT
+      entryDirection: 1
+    - atcRouteId: NT07_204R
+      interlockingRouteId: NT07_204R
+      trackCircuitIds:
+      - NT07_24T
+      - NT07_4LT
+      entryDirection: 1
+    - atcRouteId: NT07_205RE
+      interlockingRouteId: NT07_205RE
+      trackCircuitIds:
+      - NT07_1RT
+      - NT07_25AT
+      - NT07_26BT
+      entryDirection: 1
+    - atcRouteId: NT07_205RL
+      interlockingRouteId: NT07_205RL
+      trackCircuitIds:
+      - NT07_1RT
+      - NT07_25AT
+      - NT07_25BT
+      entryDirection: 1
+    - atcRouteId: NT07_206RE
+      interlockingRouteId: NT07_206RE
+      trackCircuitIds:
+      - NT07_2RT
+      - NT07_27T
+      - NT07_26AT
+      - NT07_26BT
+      entryDirection: 1
+    - atcRouteId: NT07_206RL
+      interlockingRouteId: NT07_206RL
+      trackCircuitIds:
+      - NT07_2RT
+      - NT07_27T
+      - NT07_26AT
+      - NT07_25BT
+      entryDirection: 1
+    - atcRouteId: NT07_207LE
+      interlockingRouteId: NT07_207LE
+      trackCircuitIds:
+      - NT07_31BT
+      - NT07_31AT
+      - NT07_30T
+      - NT07_3LT
+      entryDirection: 2
+    - atcRouteId: NT07_207LL
+      interlockingRouteId: NT07_207LL
+      trackCircuitIds:
+      - NT07_32BT
+      - NT07_31AT
+      - NT07_30T
+      - NT07_3LT
+      entryDirection: 2
+    - atcRouteId: NT07_208LE
+      interlockingRouteId: NT07_208LE
+      trackCircuitIds:
+      - NT07_31BT
+      - NT07_32AT
+      - NT07_4LT
+      entryDirection: 2
+    - atcRouteId: NT07_208LL
+      interlockingRouteId: NT07_208LL
+      trackCircuitIds:
+      - NT07_32BT
+      - NT07_32AT
+      - NT07_4LT
+      entryDirection: 2
+    - atcRouteId: NT07_203L
+      interlockingRouteId: NT07_203L
+      trackCircuitIds:
+      - NT07_3LT
+      - NT07_24T
+      - NT07_21BT
+      - NT07_22AT
+      entryDirection: 2
+    - atcRouteId: NT07_204L
+      interlockingRouteId: NT07_204L
+      trackCircuitIds:
+      - NT07_4LT
+      - NT07_24T
+      - NT07_21BT
+      - NT07_22AT
+      entryDirection: 2
+    - atcRouteId: NT07_301RA
+      interlockingRouteId: NT07_301RA
+      trackCircuitIds:
+      - NT07_2RT
+      - NT07_27T
+      - NT07_28AT
+      - NT07_29BT
+      - NT07_DEPOT_1T
+      entryDirection: 1
+    - atcRouteId: NT07_301RB
+      interlockingRouteId: NT07_301RB
+      trackCircuitIds:
+      - NT07_2RT
+      - NT07_27T
+      - NT07_28AT
+      - NT07_28BT
+      - NT07_DEPOT_2T
+      entryDirection: 1
+    - atcRouteId: NT07_302RA
+      interlockingRouteId: NT07_302RA
+      trackCircuitIds:
+      - NT07_3LT
+      - NT07_30T
+      - NT07_29AT
+      - NT07_29BT
+      - NT07_DEPOT_1T
+      entryDirection: 1
+    - atcRouteId: NT07_302RB
+      interlockingRouteId: NT07_302RB
+      trackCircuitIds:
+      - NT07_3LT
+      - NT07_30T
+      - NT07_29AT
+      - NT07_28BT
+      - NT07_DEPOT_2T
+      entryDirection: 1
+    - atcRouteId: NT07_303LA
+      interlockingRouteId: NT07_303LA
+      trackCircuitIds:
+      - NT07_DEPOT_1T
+      - NT07_29BT
+      - NT07_28AT
+      - NT07_27T
+      - NT07_2RT
+      entryDirection: 2
+    - atcRouteId: NT07_303LB
+      interlockingRouteId: NT07_303LB
+      trackCircuitIds:
+      - NT07_DEPOT_1T
+      - NT07_29BT
+      - NT07_29AT
+      - NT07_30T
+      - NT07_3LT
+      entryDirection: 2
+    - atcRouteId: NT07_304LA
+      interlockingRouteId: NT07_304LA
+      trackCircuitIds:
+      - NT07_DEPOT_2T
+      - NT07_28BT
+      - NT07_28AT
+      - NT07_27T
+      - NT07_2RT
+      entryDirection: 2
+    - atcRouteId: NT07_304LB
+      interlockingRouteId: NT07_304LB
+      trackCircuitIds:
+      - NT07_DEPOT_2T
+      - NT07_28BT
+      - NT07_29AT
+      - NT07_30T
+      - NT07_3LT
       entryDirection: 2

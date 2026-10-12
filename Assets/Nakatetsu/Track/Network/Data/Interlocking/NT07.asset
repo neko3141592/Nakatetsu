@@ -1,0 +1,971 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
+  m_Name: NT07
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackStationInterlockingAsset
+  definition:
+    interlockingId: NT07
+    memberTrackCircuitIds:
+    - NT07_21AT
+    - NT07_22AT
+    - NT07_22BT
+    - NT07_21BT
+    - NT07_23T
+    - NT07_24T
+    - NT07_2RT
+    - NT07_27T
+    - NT07_1RT
+    - NT07_25AT
+    - NT07_3LT
+    - NT07_30T
+    - NT07_4LT
+    - NT07_32AT
+    - NT07_26BT
+    - NT07_31BT
+    - NT07_28AT
+    - NT07_29AT
+    - NT07_26AT
+    - NT07_31AT
+    - NT07_25BT
+    - NT07_32BT
+    - NT07_29BT
+    - NT07_28BT
+    - NT07_DEPOT_1T
+    - NT07_DEPOT_2T
+    - NT07_NT08_DE1T
+    - NT07_NT08_DL1T
+    - NT07_NT08_UE1T
+    - NT07_NT08_UL1T
+    - NT06_NT07_D3T
+    memberConnectionIds:
+    - NT07_21A
+    - NT07_21B
+    - NT07_22A
+    - NT07_22B
+    - NT07_23
+    - NT07_24
+    - NT07_25A
+    - NT07_25B
+    - NT07_26A
+    - NT07_26B
+    - NT07_27
+    - NT07_28A
+    - NT07_28B
+    - NT07_29A
+    - NT07_29B
+    - NT07_30
+    - NT07_31A
+    - NT07_31B
+    - NT07_32A
+    - NT07_32B
+    routes:
+    - routeId: NT07_101RA
+      startTrackCircuitId: NT07_21AT
+      destinationTrackCircuitId: NT07_22BT
+      requiredTurnouts:
+      - connectionId: NT07_21A
+        requiredPosition: 1
+      - connectionId: NT07_21B
+        requiredPosition: 1
+      - connectionId: NT07_22A
+        requiredPosition: 1
+      - connectionId: NT07_22B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_21AT
+      - NT07_22BT
+      routeReleaseTrackCircuitIds:
+      - NT07_21AT
+      - NT07_22BT
+      approachLock:
+        trackCircuitIds:
+        - NT06_NT07_D3T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_101RB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_101RB
+      startTrackCircuitId: NT07_21AT
+      destinationTrackCircuitId: NT07_21BT
+      requiredTurnouts:
+      - connectionId: NT07_21A
+        requiredPosition: 2
+      - connectionId: NT07_21B
+        requiredPosition: 2
+      - connectionId: NT07_22A
+        requiredPosition: 1
+      - connectionId: NT07_22B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_21AT
+      - NT07_21BT
+      routeReleaseTrackCircuitIds:
+      - NT07_21AT
+      - NT07_21BT
+      approachLock:
+        trackCircuitIds:
+        - NT06_NT07_D3T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_101RA
+      - NT07_203L
+      - NT07_204L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_201R
+      startTrackCircuitId: NT07_22BT
+      destinationTrackCircuitId: NT07_1RT
+      requiredTurnouts:
+      - connectionId: NT07_23
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT07_23T
+      - NT07_1RT
+      routeReleaseTrackCircuitIds:
+      - NT07_23T
+      approachLock:
+        trackCircuitIds:
+        - NT07_22BT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_202R
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_202R
+      startTrackCircuitId: NT07_22BT
+      destinationTrackCircuitId: NT07_2RT
+      requiredTurnouts:
+      - connectionId: NT07_23
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_23T
+      - NT07_2RT
+      routeReleaseTrackCircuitIds:
+      - NT07_23T
+      approachLock:
+        trackCircuitIds:
+        - NT07_22BT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_201R
+      - NT07_303LA
+      - NT07_304LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_203R
+      startTrackCircuitId: NT07_21BT
+      destinationTrackCircuitId: NT07_3LT
+      requiredTurnouts:
+      - connectionId: NT07_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_24T
+      - NT07_3LT
+      routeReleaseTrackCircuitIds:
+      - NT07_24T
+      approachLock:
+        trackCircuitIds:
+        - NT07_21BT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_204R
+      - NT07_207LE
+      - NT07_207LL
+      - NT07_203L
+      - NT07_204L
+      - NT07_303LB
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_204R
+      startTrackCircuitId: NT07_21BT
+      destinationTrackCircuitId: NT07_4LT
+      requiredTurnouts:
+      - connectionId: NT07_24
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT07_24T
+      - NT07_4LT
+      routeReleaseTrackCircuitIds:
+      - NT07_24T
+      approachLock:
+        trackCircuitIds:
+        - NT07_21BT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_203R
+      - NT07_208LE
+      - NT07_208LL
+      - NT07_203L
+      - NT07_204L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_205RE
+      startTrackCircuitId: NT07_1RT
+      destinationTrackCircuitId: NT07_26BT
+      requiredTurnouts:
+      - connectionId: NT07_25A
+        requiredPosition: 1
+      - connectionId: NT07_25B
+        requiredPosition: 1
+      - connectionId: NT07_26A
+        requiredPosition: 1
+      - connectionId: NT07_26B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_25AT
+      - NT07_26BT
+      routeReleaseTrackCircuitIds:
+      - NT07_25AT
+      - NT07_26BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_1RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_205RL
+      - NT07_206RE
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_205RL
+      startTrackCircuitId: NT07_1RT
+      destinationTrackCircuitId: NT07_25BT
+      requiredTurnouts:
+      - connectionId: NT07_25A
+        requiredPosition: 2
+      - connectionId: NT07_25B
+        requiredPosition: 2
+      - connectionId: NT07_26A
+        requiredPosition: 1
+      - connectionId: NT07_26B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_25AT
+      - NT07_25BT
+      routeReleaseTrackCircuitIds:
+      - NT07_25AT
+      - NT07_25BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_1RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_205RE
+      - NT07_206RE
+      - NT07_206RL
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_206RE
+      startTrackCircuitId: NT07_2RT
+      destinationTrackCircuitId: NT07_26BT
+      requiredTurnouts:
+      - connectionId: NT07_25A
+        requiredPosition: 1
+      - connectionId: NT07_25B
+        requiredPosition: 1
+      - connectionId: NT07_26A
+        requiredPosition: 2
+      - connectionId: NT07_26B
+        requiredPosition: 2
+      - connectionId: NT07_27
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT07_27T
+      - NT07_26AT
+      - NT07_26BT
+      routeReleaseTrackCircuitIds:
+      - NT07_27T
+      - NT07_26AT
+      - NT07_26BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_2RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_205RE
+      - NT07_205RL
+      - NT07_206RL
+      - NT07_301RA
+      - NT07_301RB
+      - NT07_303LA
+      - NT07_304LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_206RL
+      startTrackCircuitId: NT07_2RT
+      destinationTrackCircuitId: NT07_25BT
+      requiredTurnouts:
+      - connectionId: NT07_25A
+        requiredPosition: 1
+      - connectionId: NT07_25B
+        requiredPosition: 1
+      - connectionId: NT07_26A
+        requiredPosition: 1
+      - connectionId: NT07_26B
+        requiredPosition: 1
+      - connectionId: NT07_27
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT07_27T
+      - NT07_26AT
+      - NT07_25BT
+      routeReleaseTrackCircuitIds:
+      - NT07_27T
+      - NT07_26AT
+      - NT07_25BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_2RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_205RL
+      - NT07_206RE
+      - NT07_301RA
+      - NT07_301RB
+      - NT07_303LA
+      - NT07_304LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_207LE
+      startTrackCircuitId: NT07_31BT
+      destinationTrackCircuitId: NT07_3LT
+      requiredTurnouts:
+      - connectionId: NT07_30
+        requiredPosition: 2
+      - connectionId: NT07_31A
+        requiredPosition: 2
+      - connectionId: NT07_31B
+        requiredPosition: 2
+      - connectionId: NT07_32A
+        requiredPosition: 1
+      - connectionId: NT07_32B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_31BT
+      - NT07_31AT
+      - NT07_30T
+      - NT07_3LT
+      routeReleaseTrackCircuitIds:
+      - NT07_31BT
+      - NT07_31AT
+      - NT07_30T
+      approachLock:
+        trackCircuitIds:
+        - NT07_NT08_UE1T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_203R
+      - NT07_207LL
+      - NT07_208LE
+      - NT07_208LL
+      - NT07_302RA
+      - NT07_302RB
+      - NT07_303LB
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_207LL
+      startTrackCircuitId: NT07_32BT
+      destinationTrackCircuitId: NT07_3LT
+      requiredTurnouts:
+      - connectionId: NT07_30
+        requiredPosition: 2
+      - connectionId: NT07_31A
+        requiredPosition: 1
+      - connectionId: NT07_31B
+        requiredPosition: 1
+      - connectionId: NT07_32A
+        requiredPosition: 1
+      - connectionId: NT07_32B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_32BT
+      - NT07_31AT
+      - NT07_30T
+      - NT07_3LT
+      routeReleaseTrackCircuitIds:
+      - NT07_32BT
+      - NT07_31AT
+      - NT07_30T
+      approachLock:
+        trackCircuitIds:
+        - NT07_NT08_UL1T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_203R
+      - NT07_207LE
+      - NT07_208LL
+      - NT07_302RA
+      - NT07_302RB
+      - NT07_303LB
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_208LE
+      startTrackCircuitId: NT07_31BT
+      destinationTrackCircuitId: NT07_4LT
+      requiredTurnouts:
+      - connectionId: NT07_31A
+        requiredPosition: 1
+      - connectionId: NT07_31B
+        requiredPosition: 1
+      - connectionId: NT07_32A
+        requiredPosition: 1
+      - connectionId: NT07_32B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_31BT
+      - NT07_32AT
+      - NT07_4LT
+      routeReleaseTrackCircuitIds:
+      - NT07_31BT
+      - NT07_32AT
+      approachLock:
+        trackCircuitIds:
+        - NT07_NT08_UE1T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_204R
+      - NT07_207LE
+      - NT07_208LL
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_208LL
+      startTrackCircuitId: NT07_32BT
+      destinationTrackCircuitId: NT07_4LT
+      requiredTurnouts:
+      - connectionId: NT07_31A
+        requiredPosition: 1
+      - connectionId: NT07_31B
+        requiredPosition: 1
+      - connectionId: NT07_32A
+        requiredPosition: 2
+      - connectionId: NT07_32B
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT07_32BT
+      - NT07_32AT
+      - NT07_4LT
+      routeReleaseTrackCircuitIds:
+      - NT07_32BT
+      - NT07_32AT
+      approachLock:
+        trackCircuitIds:
+        - NT07_NT08_UL1T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - NT07_204R
+      - NT07_207LE
+      - NT07_207LL
+      - NT07_208LE
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_203L
+      startTrackCircuitId: NT07_3LT
+      destinationTrackCircuitId: NT07_22AT
+      requiredTurnouts:
+      - connectionId: NT07_21A
+        requiredPosition: 1
+      - connectionId: NT07_21B
+        requiredPosition: 1
+      - connectionId: NT07_22A
+        requiredPosition: 1
+      - connectionId: NT07_22B
+        requiredPosition: 1
+      - connectionId: NT07_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_24T
+      - NT07_21BT
+      - NT07_22AT
+      routeReleaseTrackCircuitIds:
+      - NT07_24T
+      - NT07_21BT
+      - NT07_22AT
+      approachLock:
+        trackCircuitIds:
+        - NT07_3LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_101RB
+      - NT07_203R
+      - NT07_204R
+      - NT07_204L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_204L
+      startTrackCircuitId: NT07_4LT
+      destinationTrackCircuitId: NT07_22AT
+      requiredTurnouts:
+      - connectionId: NT07_21A
+        requiredPosition: 1
+      - connectionId: NT07_21B
+        requiredPosition: 1
+      - connectionId: NT07_22A
+        requiredPosition: 1
+      - connectionId: NT07_22B
+        requiredPosition: 1
+      - connectionId: NT07_24
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT07_24T
+      - NT07_21BT
+      - NT07_22AT
+      routeReleaseTrackCircuitIds:
+      - NT07_24T
+      - NT07_21BT
+      - NT07_22AT
+      approachLock:
+        trackCircuitIds:
+        - NT07_4LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_101RB
+      - NT07_203R
+      - NT07_204R
+      - NT07_203L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_301RA
+      startTrackCircuitId: NT07_2RT
+      destinationTrackCircuitId: NT07_DEPOT_1T
+      requiredTurnouts:
+      - connectionId: NT07_27
+        requiredPosition: 1
+      - connectionId: NT07_28A
+        requiredPosition: 1
+      - connectionId: NT07_28B
+        requiredPosition: 1
+      - connectionId: NT07_29A
+        requiredPosition: 1
+      - connectionId: NT07_29B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_27T
+      - NT07_28AT
+      - NT07_29BT
+      - NT07_DEPOT_1T
+      routeReleaseTrackCircuitIds:
+      - NT07_27T
+      - NT07_28AT
+      - NT07_29BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_2RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_206RE
+      - NT07_206RL
+      - NT07_301RB
+      - NT07_302RA
+      - NT07_303LA
+      - NT07_303LB
+      - NT07_304LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_301RB
+      startTrackCircuitId: NT07_2RT
+      destinationTrackCircuitId: NT07_DEPOT_2T
+      requiredTurnouts:
+      - connectionId: NT07_27
+        requiredPosition: 1
+      - connectionId: NT07_28A
+        requiredPosition: 2
+      - connectionId: NT07_28B
+        requiredPosition: 2
+      - connectionId: NT07_29A
+        requiredPosition: 1
+      - connectionId: NT07_29B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_27T
+      - NT07_28AT
+      - NT07_28BT
+      - NT07_DEPOT_2T
+      routeReleaseTrackCircuitIds:
+      - NT07_27T
+      - NT07_28AT
+      - NT07_28BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_2RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_206RE
+      - NT07_206RL
+      - NT07_301RA
+      - NT07_302RA
+      - NT07_302RB
+      - NT07_303LA
+      - NT07_303LB
+      - NT07_304LA
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_302RA
+      startTrackCircuitId: NT07_3LT
+      destinationTrackCircuitId: NT07_DEPOT_1T
+      requiredTurnouts:
+      - connectionId: NT07_28A
+        requiredPosition: 1
+      - connectionId: NT07_28B
+        requiredPosition: 1
+      - connectionId: NT07_29A
+        requiredPosition: 2
+      - connectionId: NT07_29B
+        requiredPosition: 2
+      - connectionId: NT07_30
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_30T
+      - NT07_29AT
+      - NT07_29BT
+      - NT07_DEPOT_1T
+      routeReleaseTrackCircuitIds:
+      - NT07_30T
+      - NT07_29AT
+      - NT07_29BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_3LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_207LE
+      - NT07_207LL
+      - NT07_301RA
+      - NT07_301RB
+      - NT07_302RB
+      - NT07_303LA
+      - NT07_303LB
+      - NT07_304LA
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_302RB
+      startTrackCircuitId: NT07_3LT
+      destinationTrackCircuitId: NT07_DEPOT_2T
+      requiredTurnouts:
+      - connectionId: NT07_28A
+        requiredPosition: 1
+      - connectionId: NT07_28B
+        requiredPosition: 1
+      - connectionId: NT07_29A
+        requiredPosition: 1
+      - connectionId: NT07_29B
+        requiredPosition: 1
+      - connectionId: NT07_30
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_30T
+      - NT07_29AT
+      - NT07_28BT
+      - NT07_DEPOT_2T
+      routeReleaseTrackCircuitIds:
+      - NT07_30T
+      - NT07_29AT
+      - NT07_28BT
+      approachLock:
+        trackCircuitIds:
+        - NT07_3LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_207LE
+      - NT07_207LL
+      - NT07_301RB
+      - NT07_302RA
+      - NT07_303LB
+      - NT07_304LA
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_303LA
+      startTrackCircuitId: NT07_DEPOT_1T
+      destinationTrackCircuitId: NT07_2RT
+      requiredTurnouts:
+      - connectionId: NT07_27
+        requiredPosition: 1
+      - connectionId: NT07_28A
+        requiredPosition: 1
+      - connectionId: NT07_28B
+        requiredPosition: 1
+      - connectionId: NT07_29A
+        requiredPosition: 1
+      - connectionId: NT07_29B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_29BT
+      - NT07_28AT
+      - NT07_27T
+      - NT07_2RT
+      routeReleaseTrackCircuitIds:
+      - NT07_29BT
+      - NT07_28AT
+      - NT07_27T
+      approachLock:
+        trackCircuitIds:
+        - NT07_DEPOT_1T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_202R
+      - NT07_206RE
+      - NT07_206RL
+      - NT07_301RA
+      - NT07_301RB
+      - NT07_302RA
+      - NT07_303LB
+      - NT07_304LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_303LB
+      startTrackCircuitId: NT07_DEPOT_1T
+      destinationTrackCircuitId: NT07_3LT
+      requiredTurnouts:
+      - connectionId: NT07_28A
+        requiredPosition: 1
+      - connectionId: NT07_28B
+        requiredPosition: 1
+      - connectionId: NT07_29A
+        requiredPosition: 2
+      - connectionId: NT07_29B
+        requiredPosition: 2
+      - connectionId: NT07_30
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_29BT
+      - NT07_29AT
+      - NT07_30T
+      - NT07_3LT
+      routeReleaseTrackCircuitIds:
+      - NT07_29BT
+      - NT07_29AT
+      - NT07_30T
+      approachLock:
+        trackCircuitIds:
+        - NT07_DEPOT_1T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_203R
+      - NT07_207LE
+      - NT07_207LL
+      - NT07_301RA
+      - NT07_301RB
+      - NT07_302RA
+      - NT07_302RB
+      - NT07_303LA
+      - NT07_304LA
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_304LA
+      startTrackCircuitId: NT07_DEPOT_2T
+      destinationTrackCircuitId: NT07_2RT
+      requiredTurnouts:
+      - connectionId: NT07_27
+        requiredPosition: 1
+      - connectionId: NT07_28A
+        requiredPosition: 2
+      - connectionId: NT07_28B
+        requiredPosition: 2
+      - connectionId: NT07_29A
+        requiredPosition: 1
+      - connectionId: NT07_29B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_28BT
+      - NT07_28AT
+      - NT07_27T
+      - NT07_2RT
+      routeReleaseTrackCircuitIds:
+      - NT07_28BT
+      - NT07_28AT
+      - NT07_27T
+      approachLock:
+        trackCircuitIds:
+        - NT07_DEPOT_2T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_202R
+      - NT07_206RE
+      - NT07_206RL
+      - NT07_301RA
+      - NT07_301RB
+      - NT07_302RA
+      - NT07_302RB
+      - NT07_303LA
+      - NT07_303LB
+      - NT07_304LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT07_304LB
+      startTrackCircuitId: NT07_DEPOT_2T
+      destinationTrackCircuitId: NT07_3LT
+      requiredTurnouts:
+      - connectionId: NT07_28A
+        requiredPosition: 1
+      - connectionId: NT07_28B
+        requiredPosition: 1
+      - connectionId: NT07_29A
+        requiredPosition: 1
+      - connectionId: NT07_29B
+        requiredPosition: 1
+      - connectionId: NT07_30
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT07_28BT
+      - NT07_29AT
+      - NT07_30T
+      - NT07_3LT
+      routeReleaseTrackCircuitIds:
+      - NT07_28BT
+      - NT07_29AT
+      - NT07_30T
+      approachLock:
+        trackCircuitIds:
+        - NT07_DEPOT_2T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - NT07_203R
+      - NT07_207LE
+      - NT07_207LL
+      - NT07_301RB
+      - NT07_302RA
+      - NT07_302RB
+      - NT07_303LB
+      - NT07_304LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    turnoutLocks:
+    - connectionId: NT07_21A
+      trackCircuitIds:
+      - NT07_21AT
+      - NT07_21BT
+    - connectionId: NT07_21B
+      trackCircuitIds:
+      - NT07_21AT
+      - NT07_21BT
+    - connectionId: NT07_22A
+      trackCircuitIds:
+      - NT07_22AT
+      - NT07_22BT
+    - connectionId: NT07_22B
+      trackCircuitIds:
+      - NT07_22AT
+      - NT07_22BT
+    - connectionId: NT07_23
+      trackCircuitIds:
+      - NT07_23T
+    - connectionId: NT07_24
+      trackCircuitIds:
+      - NT07_24T
+    - connectionId: NT07_25A
+      trackCircuitIds:
+      - NT07_25AT
+      - NT07_25BT
+    - connectionId: NT07_25B
+      trackCircuitIds:
+      - NT07_25AT
+      - NT07_25BT
+    - connectionId: NT07_26A
+      trackCircuitIds:
+      - NT07_26AT
+      - NT07_26BT
+    - connectionId: NT07_26B
+      trackCircuitIds:
+      - NT07_26AT
+      - NT07_26BT
+    - connectionId: NT07_27
+      trackCircuitIds:
+      - NT07_27T
+    - connectionId: NT07_28A
+      trackCircuitIds:
+      - NT07_28AT
+      - NT07_28BT
+    - connectionId: NT07_28B
+      trackCircuitIds:
+      - NT07_28AT
+      - NT07_28BT
+    - connectionId: NT07_29A
+      trackCircuitIds:
+      - NT07_29AT
+      - NT07_29BT
+    - connectionId: NT07_29B
+      trackCircuitIds:
+      - NT07_29AT
+      - NT07_29BT
+    - connectionId: NT07_30
+      trackCircuitIds:
+      - NT07_30T
+    - connectionId: NT07_31A
+      trackCircuitIds:
+      - NT07_31AT
+      - NT07_31BT
+    - connectionId: NT07_31B
+      trackCircuitIds:
+      - NT07_31AT
+      - NT07_31BT
+    - connectionId: NT07_32A
+      trackCircuitIds:
+      - NT07_32AT
+      - NT07_32BT
+    - connectionId: NT07_32B
+      trackCircuitIds:
+      - NT07_32AT
+      - NT07_32BT
