@@ -11,6 +11,9 @@ namespace Nakatetsu.Application.Simulation
 {
     public sealed class ApplicationSimulationController : MonoBehaviour, IWorldTimeSource
     {
+        private static readonly TrackInterlockingManagementOutput EmptyInterlockingOutput =
+            new TrackInterlockingManagementContext().Output;
+
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackAtcController trackAtc;
@@ -33,6 +36,8 @@ namespace Nakatetsu.Application.Simulation
         private bool isInitialized;
 
         public long CompletedTickCount { get; private set; }
+        public TrackInterlockingManagementOutput CompletedInterlockingOutput { get; private set; } =
+            EmptyInterlockingOutput;
         public double ElapsedTimeSeconds => CompletedTickCount * (double)fixedTickSeconds;
         public float TickDurationSeconds => fixedTickSeconds;
         public bool IsPaused => isPaused;
@@ -155,6 +160,10 @@ namespace Nakatetsu.Application.Simulation
             if (trackAtc != null && trackAtc.isActiveAndEnabled)
                 AdvanceSimulation(trackAtc);
 
+            // Tick外の管理部更新とは分け、完了したTickの出力を時刻と一緒に公開する。
+            CompletedInterlockingOutput = interlockingManagement != null
+                ? interlockingManagement.Context.Output
+                : EmptyInterlockingOutput;
             CompletedTickCount++;
         }
 

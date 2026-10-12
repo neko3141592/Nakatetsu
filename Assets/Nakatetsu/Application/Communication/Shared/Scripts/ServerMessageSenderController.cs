@@ -26,7 +26,7 @@ namespace Nakatetsu.Application.Communication
             }
         }
 
-        private async void Update()
+        private async void LateUpdate()
         {
             if (!communicationController.IsConnected)
             {

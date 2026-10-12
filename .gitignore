@@ -78,6 +78,15 @@ ExportedObj/
 /Shared/[Bb]in/
 /Shared/[Oo]bj/
 
+# Local timetable database and SQLite journal files
+/Server/Nakatetsu.TrafficControl.Server/Data/*.sqlite
+/Server/Nakatetsu.TrafficControl.Server/Data/*.sqlite-shm
+/Server/Nakatetsu.TrafficControl.Server/Data/*.sqlite-wal
+
+# Office lock files and draw.io recovery backups
+/Documentation/**/~$*
+/Documentation/**/.$*.drawio.bkp
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta

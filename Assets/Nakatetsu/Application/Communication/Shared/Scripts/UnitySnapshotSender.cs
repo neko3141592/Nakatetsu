@@ -1,66 +1,74 @@
 using System;
 using System.Threading.Tasks;
+using Nakatetsu.Application.Simulation;
 using Nakatetsu.Contracts.Communication;
 using Nakatetsu.Contracts.Interlocking;
+using Nakatetsu.Contracts.World;
 using Nakatetsu.Track.Interlocking.Management;
 using UnityEngine;
 
-
 namespace Nakatetsu.Application.Communication
 {
-    public sealed class InterlockingSnapshotSender : MonoBehaviour, IServerMessageSender
+    public sealed class UnitySnapshotSender : MonoBehaviour, IServerMessageSender
     {
-        private TrackInterlockingManagementController interlocking;
+        private ApplicationSimulationController simulation;
         private UnityCommunicationController communicationController;
 
         private void Awake()
         {
             communicationController = GetComponentInParent<UnityCommunicationController>();
-            interlocking = FindAnyObjectByType<TrackInterlockingManagementController>();
+            simulation = FindAnyObjectByType<ApplicationSimulationController>();
         }
 
         public Task SendAsync()
         {
-            if (interlocking == null)
+            if (simulation == null)
             {
-                throw new InvalidOperationException("シーン内にTrackInterlockingManagementControllerが見つかりません。");
+                throw new InvalidOperationException("シーン内にApplicationSimulationControllerが見つかりません。");
             }
+
             if (communicationController == null)
             {
                 throw new InvalidOperationException("親階層にUnityCommunicationControllerが見つかりません。");
             }
 
-            InterlockingSnapshot snapshot = CreateSnapshot(interlocking.Context.Output);
+            // メインスレッドで完了済みTickの時刻と連動出力をコピーしてから送信する。
+            var snapshot = new UnitySnapshot
+            {
+                WorldTime = new WorldTimeInformation
+                {
+                    TickCount = simulation.CompletedTickCount,
+                    WorldTimeSeconds = (float)simulation.WorldTimeSeconds,
+                    TickDurationSeconds = simulation.TickDurationSeconds,
+                    IsPaused = simulation.IsPaused,
+                    PlaybackSpeed = simulation.PlaybackSpeed
+                },
+                Interlocking = CreateInterlockingSnapshot(simulation.CompletedInterlockingOutput)
+            };
 
-            var message = new Message<InterlockingSnapshot>
+            var message = new Message<UnitySnapshot>
             {
                 Header = new MessageHeader
                 {
                     SessionId = communicationController.SessionId,
-                    MessageType = "Interlocking"
+                    MessageType = "UnitySnapshot"
                 },
                 Payload = snapshot
             };
 
-
             var hub = communicationController.GetConnectedHub();
-            return hub.UpdateInterlockingSnapshotAsync(message);
-
-
-
+            return hub.UpdateSnapshotAsync(message);
         }
 
-        private static InterlockingSnapshot CreateSnapshot(
+        private static InterlockingSnapshot CreateInterlockingSnapshot(
             TrackInterlockingManagementOutput output)
         {
-            InterlockingSnapshot snapshot = new();
-
+            var snapshot = new InterlockingSnapshot();
 
             foreach (var pair in output.StationsById)
             {
                 string stationId = pair.Key;
                 var station = pair.Value;
-
                 var stationSnapshot = new InterlockingStationStatus
                 {
                     IsInitialized = station.IsInitialized,
@@ -71,7 +79,6 @@ namespace Nakatetsu.Application.Communication
                 {
                     string routeId = routePair.Key;
                     var route = routePair.Value;
-
                     var routeSnapshot = new InterlockingRouteStatus
                     {
                         IsAvailable = route.IsAvailable,
@@ -91,11 +98,9 @@ namespace Nakatetsu.Application.Communication
                 }
 
                 snapshot.StationsById.Add(stationId, stationSnapshot);
-
             }
 
             return snapshot;
         }
-
     }
 }
