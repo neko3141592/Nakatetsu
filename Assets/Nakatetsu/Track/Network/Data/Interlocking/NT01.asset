@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
+  m_Name: NT01
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackStationInterlockingAsset
+  definition:
+    interlockingId: NT01
+    memberTrackCircuitIds:
+    - NT01_1RT
+    - NT01_2RT
+    - NT01_3RT
+    - NT01_23T
+    - NT01_21AT
+    - NT01_22AT
+    - NT01_21BT
+    - NT01_22BT
+    - NT01_NT02_U1T
+    memberConnectionIds:
+    - NT01_21A
+    - NT01_21B
+    - NT01_22A
+    - NT01_22B
+    - NT01_23
+    routes:
+    - routeId: 101L
+      startTrackCircuitId: NT01_21BT
+      destinationTrackCircuitId: NT01_1RT
+      requiredTurnouts:
+      - connectionId: NT01_21A
+        requiredPosition: 2
+      - connectionId: NT01_21B
+        requiredPosition: 2
+      - connectionId: NT01_22A
+        requiredPosition: 1
+      - connectionId: NT01_22B
+        requiredPosition: 1
+      - connectionId: NT01_23
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT01_21BT
+      - NT01_21AT
+      - NT01_23T
+      - NT01_1RT
+      routeReleaseTrackCircuitIds:
+      - NT01_21BT
+      - NT01_21AT
+      - NT01_23T
+      approachLock:
+        trackCircuitIds:
+        - NT01_NT02_U1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 102L
+      startTrackCircuitId: NT01_21BT
+      destinationTrackCircuitId: NT01_2RT
+      requiredTurnouts:
+      - connectionId: NT01_21A
+        requiredPosition: 2
+      - connectionId: NT01_21B
+        requiredPosition: 2
+      - connectionId: NT01_22A
+        requiredPosition: 1
+      - connectionId: NT01_22B
+        requiredPosition: 1
+      - connectionId: NT01_23
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT01_21BT
+      - NT01_21AT
+      - NT01_23T
+      - NT01_2RT
+      routeReleaseTrackCircuitIds:
+      - NT01_21BT
+      - NT01_21AT
+      - NT01_23T
+      approachLock:
+        trackCircuitIds:
+        - NT01_NT02_U1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 103L
+      startTrackCircuitId: NT01_21BT
+      destinationTrackCircuitId: NT01_3RT
+      requiredTurnouts:
+      - connectionId: NT01_21A
+        requiredPosition: 1
+      - connectionId: NT01_21B
+        requiredPosition: 1
+      - connectionId: NT01_22A
+        requiredPosition: 1
+      - connectionId: NT01_22B
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT01_21BT
+      - NT01_22AT
+      - NT01_3RT
+      routeReleaseTrackCircuitIds:
+      - NT01_21BT
+      - NT01_22AT
+      approachLock:
+        trackCircuitIds:
+        - NT01_NT02_U1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 101R
+      startTrackCircuitId: NT01_1RT
+      destinationTrackCircuitId: NT01_22BT
+      requiredTurnouts:
+      - connectionId: NT01_21A
+        requiredPosition: 1
+      - connectionId: NT01_21B
+        requiredPosition: 1
+      - connectionId: NT01_22A
+        requiredPosition: 1
+      - connectionId: NT01_22B
+        requiredPosition: 1
+      - connectionId: NT01_23
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT01_23T
+      - NT01_21AT
+      - NT01_22BT
+      routeReleaseTrackCircuitIds:
+      - NT01_23T
+      - NT01_21AT
+      - NT01_22BT
+      approachLock:
+        trackCircuitIds:
+        - NT01_1RT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 102R
+      startTrackCircuitId: NT01_2RT
+      destinationTrackCircuitId: NT01_22BT
+      requiredTurnouts:
+      - connectionId: NT01_21A
+        requiredPosition: 1
+      - connectionId: NT01_21B
+        requiredPosition: 1
+      - connectionId: NT01_22A
+        requiredPosition: 1
+      - connectionId: NT01_22B
+        requiredPosition: 1
+      - connectionId: NT01_23
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT01_23T
+      - NT01_21AT
+      - NT01_22BT
+      routeReleaseTrackCircuitIds:
+      - NT01_23T
+      - NT01_21AT
+      - NT01_22BT
+      approachLock:
+        trackCircuitIds:
+        - NT01_2RT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 103R
+      startTrackCircuitId: NT01_3RT
+      destinationTrackCircuitId: NT01_22BT
+      requiredTurnouts:
+      - connectionId: NT01_21A
+        requiredPosition: 1
+      - connectionId: NT01_21B
+        requiredPosition: 1
+      - connectionId: NT01_22A
+        requiredPosition: 2
+      - connectionId: NT01_22B
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT01_22AT
+      - NT01_22BT
+      routeReleaseTrackCircuitIds:
+      - NT01_22AT
+      - NT01_22BT
+      approachLock:
+        trackCircuitIds:
+        - NT01_3RT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    turnoutLocks:
+    - connectionId: NT01_21A
+      trackCircuitIds:
+      - NT01_21AT
+      - NT01_21BT
+    - connectionId: NT01_21B
+      trackCircuitIds:
+      - NT01_21AT
+      - NT01_21BT
+    - connectionId: NT01_22A
+      trackCircuitIds:
+      - NT01_22AT
+      - NT01_22BT
+    - connectionId: NT01_22B
+      trackCircuitIds:
+      - NT01_22AT
+      - NT01_22BT
+    - connectionId: NT01_23
+      trackCircuitIds:
+      - NT01_23T

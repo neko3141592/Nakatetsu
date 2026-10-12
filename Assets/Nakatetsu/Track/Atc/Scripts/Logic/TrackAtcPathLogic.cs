@@ -374,7 +374,9 @@ namespace Nakatetsu.Track.Atc
                 return true;
             }
 
-            if (!TryFindConnectedEdge(context, currentKey, false, out nextKey,
+            // 信号機を回路境界に置くと、後続進路は隣接Edgeから始まる。
+            // 共有Edgeの場合と同じく、確認済みの新規進入許可を照査する。
+            if (!TryFindConnectedEdge(context, currentKey, true, out nextKey,
                 out nextRoute, out nextRouteIndex, out _, out failureReason))
             {
                 return false;

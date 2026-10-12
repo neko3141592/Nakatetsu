@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
+  m_Name: NT05
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackStationInterlockingAsset
+  definition:
+    interlockingId: NT05
+    memberTrackCircuitIds:
+    - NT05_1RT
+    - NT05_2RT
+    - NT05_3LT
+    - NT05_4LT
+    - NT05_21T
+    - NT05_22T
+    - NT05_23T
+    - NT05_24T
+    - NT04_NT05_D1T
+    - NT05_NT06_U1T
+    memberConnectionIds:
+    - NT05_21
+    - NT05_22
+    - NT05_23
+    - NT05_24
+    routes:
+    - routeId: NT05_101R
+      startTrackCircuitId: NT05_21T
+      destinationTrackCircuitId: NT05_1RT
+      requiredTurnouts:
+      - connectionId: NT05_21
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT05_21T
+      - NT05_1RT
+      routeReleaseTrackCircuitIds:
+      - NT05_21T
+      approachLock:
+        trackCircuitIds:
+        - NT04_NT05_D1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_102R
+      startTrackCircuitId: NT05_21T
+      destinationTrackCircuitId: NT05_2RT
+      requiredTurnouts:
+      - connectionId: NT05_21
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT05_21T
+      - NT05_2RT
+      routeReleaseTrackCircuitIds:
+      - NT05_21T
+      approachLock:
+        trackCircuitIds:
+        - NT04_NT05_D1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_103L
+      startTrackCircuitId: NT05_24T
+      destinationTrackCircuitId: NT05_3LT
+      requiredTurnouts:
+      - connectionId: NT05_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT05_24T
+      - NT05_3LT
+      routeReleaseTrackCircuitIds:
+      - NT05_24T
+      approachLock:
+        trackCircuitIds:
+        - NT05_NT06_U1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_104L
+      startTrackCircuitId: NT05_24T
+      destinationTrackCircuitId: NT05_4LT
+      requiredTurnouts:
+      - connectionId: NT05_24
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT05_24T
+      - NT05_4LT
+      routeReleaseTrackCircuitIds:
+      - NT05_24T
+      approachLock:
+        trackCircuitIds:
+        - NT05_NT06_U1T
+        releaseSeconds: 60
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_101L
+      startTrackCircuitId: NT05_1RT
+      destinationTrackCircuitId: NT05_22T
+      requiredTurnouts:
+      - connectionId: NT05_22
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT05_22T
+      routeReleaseTrackCircuitIds:
+      - NT05_22T
+      approachLock:
+        trackCircuitIds:
+        - NT05_1RT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_102L
+      startTrackCircuitId: NT05_2RT
+      destinationTrackCircuitId: NT05_22T
+      requiredTurnouts:
+      - connectionId: NT05_22
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT05_22T
+      routeReleaseTrackCircuitIds:
+      - NT05_22T
+      approachLock:
+        trackCircuitIds:
+        - NT05_2RT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_103R
+      startTrackCircuitId: NT05_3LT
+      destinationTrackCircuitId: NT05_23T
+      requiredTurnouts:
+      - connectionId: NT05_23
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT05_23T
+      routeReleaseTrackCircuitIds:
+      - NT05_23T
+      approachLock:
+        trackCircuitIds:
+        - NT05_3LT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: NT05_104R
+      startTrackCircuitId: NT05_4LT
+      destinationTrackCircuitId: NT05_23T
+      requiredTurnouts:
+      - connectionId: NT05_23
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT05_23T
+      routeReleaseTrackCircuitIds:
+      - NT05_23T
+      approachLock:
+        trackCircuitIds:
+        - NT05_4LT
+        releaseSeconds: 30
+      conflictRouteIds: []
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    turnoutLocks:
+    - connectionId: NT05_21
+      trackCircuitIds:
+      - NT05_21T
+    - connectionId: NT05_22
+      trackCircuitIds:
+      - NT05_22T
+    - connectionId: NT05_23
+      trackCircuitIds:
+      - NT05_23T
+    - connectionId: NT05_24
+      trackCircuitIds:
+      - NT05_24T

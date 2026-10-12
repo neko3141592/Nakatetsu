@@ -13,6 +13,7 @@
 | 水平Segmentの`EvaluateDerivative()` | 全4形状で実装済み。姿勢評価への接続は未実装 |
 | 縦断Segmentの高さ変化量・`EvaluateDerivative()` | 一定勾配・線形勾配で実装済み |
 | 一定オフセットの値と微分 | 実装済み。値は一定、微分は0 |
+| Cubicオフセットの値と微分 | 実装済み。3次補間で始終点の相対的な傾きは0 |
 | Geometryとオフセットの解析微分の合成 | 未実装 |
 | Edge実距離のLUT生成・距離変換・走行評価 | 未実装。LUT保存用の型は用意済み |
 
@@ -25,6 +26,7 @@
 - 勾配・高さの式：[一定勾配](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryConstantGradientSegment.cs)、[線形勾配](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryLinearGradientSegment.cs)。
 - [TrackGeometryProfileCalculator.cs](../../../Assets/Nakatetsu/Track/Graph/Geometry/Scripts/TrackGeometryProfileCalculator.cs)：縦断区間選択・高さ積算・区間外の勾配延長。
 - [TrackEdgeOffsetSegment.cs](../../../Assets/Nakatetsu/Track/Graph/Edge/Scripts/TrackEdgeOffsetSegment.cs)：オフセットの共通契約。
+- [TrackEdgeCubicOffsetSegment.cs](../../../Assets/Nakatetsu/Track/Graph/Edge/Scripts/TrackEdgeCubicOffsetSegment.cs)：始終点を3次式でつなぐ横オフセット。
 - [線路上の位置・方向・移動結果の契約](../../Architecture/TrackMovement.md)：列車位置と移動距離の符号。
 
 ## 2. 記号と座標
@@ -236,7 +238,20 @@ o(S) = o₀ + (o₁ − o₀) × (S − S₀) / (S₁ − S₀)
 o'(S) = (o₁ − o₀) / (S₁ − S₀)
 ```
 
-### 7.1 解析接線に合わせた右方向の式
+### 7.1 Cubicオフセット
+
+`TrackEdgeCubicOffsetSegment`を`TrackEdgeDefinition.offsetSegments`へ追加して使う。入力は開始・終了Geometry距離と、開始・終了横オフセット。区間長を`L = S₁ − S₀ > 0`、区間内の比率を`t = (S − S₀) / L`とする。
+
+```text
+o(S) = o₀ + (o₁ − o₀) × (3t² − 2t³)
+o'(S) = (o₁ − o₀) / L × 6t(1 − t)
+```
+
+両端で横オフセットの傾きが0になり、一定オフセットの区間へ接線を合わせて接続できる。曲率の連続や一定半径は保証しない。旧TD-ATCのCubicは5次式だったが、新側は3次式を採用しており、同じ始終点でも途中の形状は異なる。
+
+位置・姿勢評価と距離表生成には既存のEdge共通処理を使う。距離表の生成・更新は[Edge距離LUTのエディター生成](TrackDistanceMapCompilation.md)を参照。
+
+### 7.2 解析接線に合わせた右方向の式
 
 世界の`+Z`から右回りの水平角を`θ(S)`とすると、
 

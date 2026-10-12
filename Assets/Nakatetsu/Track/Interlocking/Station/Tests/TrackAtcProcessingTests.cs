@@ -88,6 +88,111 @@ namespace Nakatetsu.Track.Interlocking.Tests
         }
 
         [Test]
+        public void AdjacentSuccessorExtendsAcrossTheSignalCircuitBoundary()
+        {
+            departure.atcEdgeIds.Remove("Shared");
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            TrackAtcLogic.Calculate(context);
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle", "Last");
+            Assert.That(Result("Shared").nextEdgeKey, Is.EqualTo(Key("Middle")));
+
+            context.Input.RoutesById[departure.interlockingRouteId] = new TrackAtcRouteInput();
+            TrackAtcLogic.Calculate(context);
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+            Assert.That(Result("Shared").nextEdgeKey, Is.Null);
+        }
+
+        [TestCase("unset")]
+        [TestCase("no_proceed")]
+        [TestCase("path_not_established")]
+        [TestCase("cancelled")]
+        public void AdjacentSuccessorNeedsConfirmedEntryPermission(string unavailable)
+        {
+            departure.atcEdgeIds.Remove("Shared");
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            var successor = SetRoute(departure, OverrunProtectionMode.Normal);
+            switch (unavailable)
+            {
+                case "unset": successor.IsRouteSet = false; break;
+                case "no_proceed": successor.ProceedAllowed = false; break;
+                case "path_not_established": successor.PathEstablished = false; break;
+                case "cancelled": successor.CancelPending = true; break;
+            }
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+            Assert.That(Result("Shared").nextEdgeKey, Is.Null);
+        }
+
+        [Test]
+        public void AdjacentSuccessorCannotExtendWithoutTheCurrentRoute()
+        {
+            departure.atcEdgeIds.Remove("Shared");
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "First");
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Shared");
+        }
+
+        [Test]
+        public void AdjacentSuccessorWithIncompatibleTurnoutPathDoesNotExtend()
+        {
+            CreateContext();
+            var entry = AddEdge("Entry", "Start", "Signal");
+            var normal = AddEdge("Normal", "Signal", "NormalExit");
+            var reverse = AddEdge("Reverse", "Signal", "ReverseExit");
+            normal.trackCircuitId = reverse.trackCircuitId = "Turnout";
+            context.Input.OccupiedByCircuitId["Turnout"] = false;
+            context.Input.OccupiedByCircuitId.Remove("Normal");
+            context.Input.OccupiedByCircuitId.Remove("Reverse");
+            var entryRoute = AddRoute("EntryAtc", "EntryInterlocking", "Entry");
+            AddRoute("NormalAtc", "NormalInterlocking", "Normal");
+            var reverseRoute = AddRoute("ReverseAtc", "ReverseInterlocking", "Reverse");
+            context.Input.PhysicalPathAvailableByAtcEdgeId[normal.atcEdgeId] = true;
+            context.Input.PhysicalPathAvailableByAtcEdgeId[reverse.atcEdgeId] = false;
+            SetRoute(entryRoute, OverrunProtectionMode.Restricted);
+            // 連動装置は転轍機が要求位置へ開通するまでPathEstablishedを返さない。
+            SetRoute(reverseRoute, OverrunProtectionMode.Normal).PathEstablished = false;
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(entry, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "Entry");
+            Assert.That(Result("Entry").nextEdgeKey, Is.Null);
+            Assert.That(context.State.path.selectedEdgeByCircuitId["Turnout"], Is.EqualTo("Normal"));
+        }
+
+        [Test]
+        public void AdjacentSuccessorInTheOppositeDirectionDoesNotExtend()
+        {
+            departure.atcEdgeIds = new List<string> { "Last", "Middle" };
+            departure.entryDirection = TrackAtcTravelDirection.BtoA;
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+            Assert.That(Result("Shared").nextEdgeKey, Is.Null);
+        }
+
+        [Test]
+        public void EstablishedRouteOnDisconnectedTracksDoesNotExtend()
+        {
+            var unrelated = AddEdge("Unrelated", "OtherStart", "OtherEnd");
+            var route = AddRoute("UnrelatedAtc", "UnrelatedInterlocking", "Unrelated");
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(route, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+            AssertRoute(unrelated, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal, "Unrelated");
+        }
+
+        [Test]
         public void EntryFromBlockRequiresProceedPermission()
         {
             var before = AddEdge("Before", "BeforeNode", "A", TrackAtcEdgeControlKind.Block);
