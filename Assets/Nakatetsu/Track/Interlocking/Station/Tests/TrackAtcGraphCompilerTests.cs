@@ -36,6 +36,9 @@ namespace Nakatetsu.Track.Interlocking.Tests
 
             var normal = compiled.routes.Single(route => route.atcRouteId == "normal");
             var reverse = compiled.routes.Single(route => route.atcRouteId == "reverse");
+            // 駅IDのない旧生成元も、一意に解決できれば明示した駅ID付きで生成する。
+            Assert.That(normal.interlockingStationId, Is.EqualTo("test"));
+            Assert.That(reverse.interlockingStationId, Is.EqualTo("test"));
             Assert.That(normal.atcEdgeIds.Count, Is.EqualTo(2));
             Assert.That(reverse.atcEdgeIds.Count, Is.EqualTo(2));
             Assert.That(normal.atcEdgeIds[0], Is.Not.EqualTo(reverse.atcEdgeIds[0]));
@@ -83,6 +86,33 @@ namespace Nakatetsu.Track.Interlocking.Tests
             var route = compiled.routes.Single(item => item.atcRouteId == "normal");
             Assert.That(route.atcEdgeIds.Count, Is.EqualTo(1));
             Assert.That(route.entryDirection, Is.EqualTo(TrackAtcTravelDirection.BtoA));
+        }
+
+        [Test]
+        public void SinglePlatformRoutePreservesTheControlStartCircuitOutsideItsAtcPath()
+        {
+            Create(out var track, out var source, out var interlocking);
+            source.routes[0].trackCircuitIds = new List<string> { "2RT" };
+            source.routes[0].entryDirection = TrackAtcTravelDirection.AtoB;
+            var compiled = Compile(track, source, interlocking);
+            var route = compiled.routes.Single(item => item.atcRouteId == "normal");
+
+            Assert.That(route.interlockingStartTrackCircuitId, Is.EqualTo("21T"));
+            Assert.That(compiled.atcEdge.Single(edge => edge.atcEdgeId == route.atcEdgeIds[0])
+                .trackCircuitId, Is.EqualTo("2RT"));
+        }
+
+        [TestCase(null)]
+        [TestCase("MissingCircuit")]
+        public void MissingInterlockingControlStartCircuitIsRejected(string startCircuitId)
+        {
+            Create(out var track, out var source, out var interlocking);
+            interlocking.routes[0].startTrackCircuitId = startCircuitId;
+            var errors = new List<string>();
+            Assert.That(TrackAtcGraphCompiler.TryCompile(track, source, new[] { interlocking },
+                out var compiled, errors), Is.False);
+            Assert.That(compiled, Is.Null);
+            Assert.That(errors, Has.Some.Contains("control start circuit"));
         }
 
         [Test]
@@ -141,6 +171,91 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 Is.EqualTo(first.atcEdge.Select(edge => edge.atcEdgeId)));
             Assert.That(second.routes.Select(route => string.Join(",", route.atcEdgeIds)),
                 Is.EqualTo(first.routes.Select(route => string.Join(",", route.atcEdgeIds))));
+        }
+
+        [Test]
+        public void SameLocalRouteIdInTwoStationsUsesEachStationsTurnoutRequirements()
+        {
+            CreateSharedRouteIds(out var track, out var source, out var first, out var second);
+            var errors = new List<string>();
+            Assert.That(TrackAtcGraphCompiler.TryCompile(track, source, new[] { first, second },
+                out var compiled, errors), Is.True, string.Join("; ", errors));
+
+            var normal = compiled.routes.Single(route => route.atcRouteId == "normal");
+            var reverse = compiled.routes.Single(route => route.atcRouteId == "reverse");
+            Assert.That(normal.InterlockingKey, Is.EqualTo(("FirstStation", "1R")));
+            Assert.That(reverse.InterlockingKey, Is.EqualTo(("SecondStation", "1R")));
+            Assert.That(compiled.atcEdge.Single(edge => edge.atcEdgeId == normal.atcEdgeIds[0])
+                .physicalSpans[1].trackEdgeId, Is.EqualTo("normal"));
+            Assert.That(compiled.atcEdge.Single(edge => edge.atcEdgeId == reverse.atcEdgeIds[0])
+                .physicalSpans[1].trackEdgeId, Is.EqualTo("reverse"));
+        }
+
+        [Test]
+        public void BareReferenceToSameRouteIdInTwoStationsIsRejectedAsAmbiguous()
+        {
+            CreateSharedRouteIds(out var track, out var source, out var first, out var second);
+            source.routes[0].interlockingStationId = null;
+            var errors = new List<string>();
+            Assert.That(TrackAtcGraphCompiler.TryCompile(track, source, new[] { first, second },
+                out var compiled, errors), Is.False);
+            Assert.That(compiled, Is.Null);
+            Assert.That(errors, Has.Some.Contains("ambiguous"));
+        }
+
+        [Test]
+        public void ExplicitMissingStationNeverFallsBackToAnotherStationsSameRoute()
+        {
+            CreateSharedRouteIds(out var track, out var source, out var first, out var second);
+            source.routes[0].interlockingStationId = "MissingStation";
+            var errors = new List<string>();
+            Assert.That(TrackAtcGraphCompiler.TryCompile(track, source, new[] { first, second },
+                out var compiled, errors), Is.False);
+            Assert.That(compiled, Is.Null);
+            Assert.That(errors, Has.Some.Contains("MissingStation/1R"));
+        }
+
+        [Test]
+        public void DuplicateLocalRouteIdsInOneStationAreRejected()
+        {
+            Create(out var track, out var source, out var interlocking);
+            interlocking.routes[1].routeId = interlocking.routes[0].routeId;
+            var errors = new List<string>();
+            Assert.That(TrackAtcGraphCompiler.TryCompile(track, source, new[] { interlocking },
+                out var compiled, errors), Is.False);
+            Assert.That(compiled, Is.Null);
+            Assert.That(errors, Has.Some.Contains("unique within station"));
+        }
+
+        [Test]
+        public void DuplicateStationIdsAreRejectedEvenWithDifferentLocalRouteIds()
+        {
+            Create(out var track, out var source, out var interlocking);
+            var duplicate = new TrackStationInterlockingDefinition { interlockingId = interlocking.interlockingId };
+            var errors = new List<string>();
+            Assert.That(TrackAtcGraphCompiler.TryCompile(track, source, new[] { interlocking, duplicate },
+                out var compiled, errors), Is.False);
+            Assert.That(compiled, Is.Null);
+            Assert.That(errors, Has.Some.Contains("unique station IDs"));
+        }
+
+        private static void CreateSharedRouteIds(out TrackGraphDefinition track,
+            out TrackAtcGraphCompileDefinition source, out TrackStationInterlockingDefinition first,
+            out TrackStationInterlockingDefinition second)
+        {
+            Create(out track, out source, out first);
+            first.interlockingId = "FirstStation";
+            second = new TrackStationInterlockingDefinition { interlockingId = "SecondStation" };
+            second.routes.Add(first.routes[1]);
+            first.routes.RemoveAt(1);
+            first.routes[0].routeId = "1R";
+            second.routes[0].routeId = "1R";
+            source.routes[0].interlockingStationId = first.interlockingId;
+            source.routes[1].interlockingStationId = second.interlockingId;
+            foreach (var route in source.routes)
+            {
+                route.interlockingRouteId = "1R";
+            }
         }
 
         private static TrackAtcGraphDefinition Compile(TrackGraphDefinition track,
@@ -208,11 +323,11 @@ namespace Nakatetsu.Track.Interlocking.Tests
             interlocking = new TrackStationInterlockingDefinition { interlockingId = "test" };
             interlocking.routes.Add(new TrackStationInterlockingRouteDefinition
             {
-                routeId = "normal", requiredTurnouts = new() { new() { connectionId = "21", requiredPosition = TrackSwitchPosition.Normal } }
+                routeId = "normal", startTrackCircuitId = "21T", requiredTurnouts = new() { new() { connectionId = "21", requiredPosition = TrackSwitchPosition.Normal } }
             });
             interlocking.routes.Add(new TrackStationInterlockingRouteDefinition
             {
-                routeId = "reverse", requiredTurnouts = new() { new() { connectionId = "21", requiredPosition = TrackSwitchPosition.Reverse } }
+                routeId = "reverse", startTrackCircuitId = "21T", requiredTurnouts = new() { new() { connectionId = "21", requiredPosition = TrackSwitchPosition.Reverse } }
             });
         }
 

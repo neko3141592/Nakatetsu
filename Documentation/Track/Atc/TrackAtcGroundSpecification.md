@@ -22,7 +22,9 @@ Context・工程別State・Logicは`Assets/Nakatetsu/Track/Atc/Scripts`の`Nakat
 - Blockは定義方向、Interlockingは両方向に結果を用意する。Interlockingの静的進路が一方向だけでも、反対方向の単一Edge・`None`停止結果を用意する。設定済み進路に沿う延伸には、静的進路の定義方向と使用条件の一致を要求する。
 - 進路内を起点にする探索では、採用済み進路とそのEdgeのindexを引き継ぐ。先頭Edgeでも `ProceedAllowed` の低下だけでは探索を打ち切らない。末尾Edgeも起点にでき、次回路の占有で経路が切れている場合も、そのEdgeの停止限界を送る。
 - 探索結果はStateへ次EdgeのID・方向、起点ごとの停止限界・終了結果として保存する。Output生成時に次Edge参照を辿り、最初の起点の停止限界で打ち切ってEdge列を組み立てる。
-- 防護方式は、`terminalAtcRouteId`から静的ATC進路定義の`interlockingRouteId`を解決し、その連動進路Inputの`OverrunMode`を採用する。停止限界に終端進路が対応しない正常停止は`None`とし、必要な入力欠落や不正な方式と区別する。
+- 連動進路の参照は`(interlockingStationId, interlockingRouteId)`の組とする。Inputの`RoutesById`と入力取得可否はこの組で管理し、異なる駅の同名進路を許容する。生成済みGraphの連動駅ID省略は認めない。
+- 生成済み進路には制御発点回路の`interlockingStartTrackCircuitId`も保持する。次回路への場内進入と、その次回路を起点とする出発を区別し、出発だけが設定済みでも未設定の場内制御境界を越えない。
+- 防護方式は、`terminalAtcRouteId`から静的ATC進路定義の`InterlockingKey`を解決し、その連動進路Inputの`OverrunMode`を採用する。停止限界に終端進路が対応しない正常停止は`None`とし、必要な入力欠落や不正な方式と区別する。
 - `Output.telegrams` は軌道回路IDをキーにする。各電文は発行時刻・有効フラグと、選択Edgeを起点とする`routeAtoB`・`routeBtoA`の経路情報を直接持つ。
 - 経路情報は残りのEdge列・停止限界のEdge ID・過走防護方式を持つ。停止限界は終端Edgeの進行方向の退出端とし、距離を地上で計算しない。
 - 探索や方式の確定に失敗した軌道回路は無効とし、同じ更新内の別経路の成功では有効に戻さない。必要な入力欠落・方向不明・接続不整合・探索上限到達・未対応のYardは正常停止と区別する。Graphを使用できなければ送信対象を空にし、時刻が不正なら全送信対象を無効とする。無効電文に部分的な成功経路は含めない。
@@ -83,7 +85,7 @@ Context・工程別State・Logicは`Assets/Nakatetsu/Track/Atc/Scripts`の`Nakat
 
 ### 過走防護方式と車上の停止目標（確定）
 
-連動進路の末尾まで探索し、後続進路にもBlockにも進めない場合は、`terminalAtcRouteId`を静的ATC進路定義で解決し、その`interlockingRouteId`に対応する連動進路Inputの`OverrunMode`を確認する。その停止限界に対する制限条件を、各起点に対応する地上電文へ反映する。
+連動進路の末尾まで探索し、後続進路にもBlockにも進めない場合は、`terminalAtcRouteId`を静的ATC進路定義で解決し、その`InterlockingKey`に対応する連動進路Inputの`OverrunMode`を確認する。その停止限界に対する制限条件を、各起点に対応する地上電文へ反映する。
 
 | 終端進路の過走防護 | 車上側の扱い |
 | --- | --- |

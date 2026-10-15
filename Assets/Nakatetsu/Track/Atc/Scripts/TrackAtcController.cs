@@ -56,8 +56,9 @@ namespace Nakatetsu.Track.Atc
                 return;
             }
 
-            foreach (var station in interlockingManagement.Context.Output.StationsById.Values)
+            foreach (var stationPair in interlockingManagement.Context.Output.StationsById)
             {
+                var station = stationPair.Value;
                 if (station == null || !station.IsInitialized || !station.HasOutput)
                 {
                     continue;
@@ -82,8 +83,7 @@ namespace Nakatetsu.Track.Atc
                         RouteLocked = status.RouteLocked
                     };
 
-                    // コンパイル時と同様に、連動装置を跨いでも進路IDは一意とする。
-                    input.RoutesById.Add(pair.Key, routeInput);
+                    input.RoutesById.Add((stationPair.Key, pair.Key), routeInput);
                 }
             }
         }

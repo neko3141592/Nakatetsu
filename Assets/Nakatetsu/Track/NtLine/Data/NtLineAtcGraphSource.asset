@@ -46,24 +46,28 @@ MonoBehaviour:
       speedLimitKmh: 25
     routes:
     - atcRouteId: 21T-1RT
+      interlockingStationId: NtLineStation
       interlockingRouteId: 21T-1RT
       trackCircuitIds:
       - 21T
       - 1RT
       entryDirection: 0
     - atcRouteId: 21T-2RT
+      interlockingStationId: NtLineStation
       interlockingRouteId: 21T-2RT
       trackCircuitIds:
       - 21T
       - 2RT
       entryDirection: 0
     - atcRouteId: 1RT-22T
+      interlockingStationId: NtLineStation
       interlockingRouteId: 1RT-22T
       trackCircuitIds:
       - 1RT
       - 22T
       entryDirection: 0
     - atcRouteId: 2RT-22T
+      interlockingStationId: NtLineStation
       interlockingRouteId: 2RT-22T
       trackCircuitIds:
       - 2RT

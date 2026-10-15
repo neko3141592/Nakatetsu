@@ -172,15 +172,23 @@ namespace Nakatetsu.Track.Atc
             out string failureReason)
         {
             failureReason = string.Empty;
+            var circuitIds = new HashSet<string>();
+            foreach (var edge in state.atcEdgesById.Values)
+            {
+                circuitIds.Add(edge.trackCircuitId);
+            }
             foreach (var route in graph.routes)
             {
                 if (route == null || string.IsNullOrWhiteSpace(route.atcRouteId)
+                    || string.IsNullOrWhiteSpace(route.interlockingStationId)
                     || string.IsNullOrWhiteSpace(route.interlockingRouteId)
+                    || string.IsNullOrWhiteSpace(route.interlockingStartTrackCircuitId)
+                    || !circuitIds.Contains(route.interlockingStartTrackCircuitId)
                     || route.atcEdgeIds == null || route.atcEdgeIds.Count == 0
                     || !TryConvertDirection(route.entryDirection, out _)
                     || !state.atcRoutesById.TryAdd(route.atcRouteId, route))
                 {
-                    failureReason = "ATC進路のID、連動進路ID、Edge列、またはIDの一意性が不正。";
+                    failureReason = "ATC進路のID、連動駅ID、連動進路ID、制御発点回路、Edge列、またはIDの一意性が不正。";
                     return false;
                 }
 
@@ -356,8 +364,8 @@ namespace Nakatetsu.Track.Atc
             foreach (var route in state.atcRoutesById.Values)
             {
                 // 登録済みのIsRouteSet=falseは、取得失敗ではなく確認済みの未設定。
-                state.hasRouteInputById[route.interlockingRouteId] = input?.RoutesById != null
-                    && input.RoutesById.TryGetValue(route.interlockingRouteId, out var routeInput)
+                state.hasRouteInputById[route.InterlockingKey] = input?.RoutesById != null
+                    && input.RoutesById.TryGetValue(route.InterlockingKey, out var routeInput)
                     && routeInput != null;
             }
         }

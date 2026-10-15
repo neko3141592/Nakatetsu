@@ -67,9 +67,44 @@ MonoBehaviour:
     - NT07_31B
     - NT07_32A
     - NT07_32B
+    destinations:
+    - code: A
+      displayName: "1\u756A\u7DDA"
+      trackCircuitId: NT07_1RT
+    - code: B
+      displayName: "2\u756A\u7DDA"
+      trackCircuitId: NT07_2RT
+    - code: C
+      displayName: "3\u756A\u7DDA"
+      trackCircuitId: NT07_3LT
+    - code: D
+      displayName: "4\u756A\u7DDA"
+      trackCircuitId: NT07_4LT
+    - code: E
+      displayName: "\u4E0B\u308A\u7B2C1\u5834\u518522\u30ED\u5074"
+      trackCircuitId: NT07_22BT
+    - code: F
+      displayName: "\u4E0B\u308A\u7B2C1\u5834\u518521\u30ED\u5074"
+      trackCircuitId: NT07_21BT
+    - code: G
+      displayName: "\u96FB\u75591\u7DDA"
+      trackCircuitId: NT07_DEPOT_1T
+    - code: H
+      displayName: "\u96FB\u75592\u7DDA"
+      trackCircuitId: NT07_DEPOT_2T
+    - code: I
+      displayName: "\u4E0B\u308A\u6025\u884C\u7DDA\u51FA\u53E3"
+      trackCircuitId: NT07_26BT
+    - code: J
+      displayName: "\u4E0B\u308A\u7DE9\u884C\u7DDA\u51FA\u53E3"
+      trackCircuitId: NT07_25BT
+    - code: K
+      displayName: "\u4E0A\u308A\u672C\u7DDA\u51FA\u53E3"
+      trackCircuitId: NT07_22AT
     routes:
-    - routeId: NT07_101RA
+    - routeId: 1RE
       startTrackCircuitId: NT07_21AT
+      destinationCode: E
       destinationTrackCircuitId: NT07_22BT
       requiredTurnouts:
       - connectionId: NT07_21A
@@ -91,13 +126,14 @@ MonoBehaviour:
         - NT06_NT07_D3T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_101RB
+      - 1RF
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_101RB
+    - routeId: 1RF
       startTrackCircuitId: NT07_21AT
+      destinationCode: F
       destinationTrackCircuitId: NT07_21BT
       requiredTurnouts:
       - connectionId: NT07_21A
@@ -119,15 +155,16 @@ MonoBehaviour:
         - NT06_NT07_D3T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_101RA
-      - NT07_203L
-      - NT07_204L
+      - 1RE
+      - 3L
+      - 4L
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_201R
+    - routeId: 2RA
       startTrackCircuitId: NT07_22BT
+      destinationCode: A
       destinationTrackCircuitId: NT07_1RT
       requiredTurnouts:
       - connectionId: NT07_23
@@ -142,13 +179,14 @@ MonoBehaviour:
         - NT07_22BT
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_202R
+      - 2RB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_202R
+    - routeId: 2RB
       startTrackCircuitId: NT07_22BT
+      destinationCode: B
       destinationTrackCircuitId: NT07_2RT
       requiredTurnouts:
       - connectionId: NT07_23
@@ -163,15 +201,16 @@ MonoBehaviour:
         - NT07_22BT
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_201R
-      - NT07_303LA
-      - NT07_304LA
+      - 2RA
+      - 12LB
+      - 13LB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_203R
+    - routeId: 3RC
       startTrackCircuitId: NT07_21BT
+      destinationCode: C
       destinationTrackCircuitId: NT07_3LT
       requiredTurnouts:
       - connectionId: NT07_24
@@ -186,19 +225,20 @@ MonoBehaviour:
         - NT07_21BT
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_204R
-      - NT07_207LE
-      - NT07_207LL
-      - NT07_203L
-      - NT07_204L
-      - NT07_303LB
-      - NT07_304LB
+      - 3RD
+      - 1LC
+      - 2LC
+      - 3L
+      - 4L
+      - 12LC
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_204R
+    - routeId: 3RD
       startTrackCircuitId: NT07_21BT
+      destinationCode: D
       destinationTrackCircuitId: NT07_4LT
       requiredTurnouts:
       - connectionId: NT07_24
@@ -213,17 +253,18 @@ MonoBehaviour:
         - NT07_21BT
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_203R
-      - NT07_208LE
-      - NT07_208LL
-      - NT07_203L
-      - NT07_204L
+      - 3RC
+      - 1LD
+      - 2LD
+      - 3L
+      - 4L
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_205RE
+    - routeId: 4RI
       startTrackCircuitId: NT07_1RT
+      destinationCode: I
       destinationTrackCircuitId: NT07_26BT
       requiredTurnouts:
       - connectionId: NT07_25A
@@ -245,14 +286,15 @@ MonoBehaviour:
         - NT07_1RT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_205RL
-      - NT07_206RE
+      - 4RJ
+      - 5RI
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_205RL
+    - routeId: 4RJ
       startTrackCircuitId: NT07_1RT
+      destinationCode: J
       destinationTrackCircuitId: NT07_25BT
       requiredTurnouts:
       - connectionId: NT07_25A
@@ -274,15 +316,16 @@ MonoBehaviour:
         - NT07_1RT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_205RE
-      - NT07_206RE
-      - NT07_206RL
+      - 4RI
+      - 5RI
+      - 5RJ
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_206RE
+    - routeId: 5RI
       startTrackCircuitId: NT07_2RT
+      destinationCode: I
       destinationTrackCircuitId: NT07_26BT
       requiredTurnouts:
       - connectionId: NT07_25A
@@ -308,19 +351,20 @@ MonoBehaviour:
         - NT07_2RT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_205RE
-      - NT07_205RL
-      - NT07_206RL
-      - NT07_301RA
-      - NT07_301RB
-      - NT07_303LA
-      - NT07_304LA
+      - 4RI
+      - 4RJ
+      - 5RJ
+      - 10RG
+      - 10RH
+      - 12LB
+      - 13LB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_206RL
+    - routeId: 5RJ
       startTrackCircuitId: NT07_2RT
+      destinationCode: J
       destinationTrackCircuitId: NT07_25BT
       requiredTurnouts:
       - connectionId: NT07_25A
@@ -346,18 +390,19 @@ MonoBehaviour:
         - NT07_2RT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_205RL
-      - NT07_206RE
-      - NT07_301RA
-      - NT07_301RB
-      - NT07_303LA
-      - NT07_304LA
+      - 4RJ
+      - 5RI
+      - 10RG
+      - 10RH
+      - 12LB
+      - 13LB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_207LE
+    - routeId: 1LC
       startTrackCircuitId: NT07_31BT
+      destinationCode: C
       destinationTrackCircuitId: NT07_3LT
       requiredTurnouts:
       - connectionId: NT07_30
@@ -384,20 +429,21 @@ MonoBehaviour:
         - NT07_NT08_UE1T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_203R
-      - NT07_207LL
-      - NT07_208LE
-      - NT07_208LL
-      - NT07_302RA
-      - NT07_302RB
-      - NT07_303LB
-      - NT07_304LB
+      - 3RC
+      - 2LC
+      - 1LD
+      - 2LD
+      - 11RG
+      - 11RH
+      - 12LC
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_207LL
+    - routeId: 2LC
       startTrackCircuitId: NT07_32BT
+      destinationCode: C
       destinationTrackCircuitId: NT07_3LT
       requiredTurnouts:
       - connectionId: NT07_30
@@ -424,19 +470,20 @@ MonoBehaviour:
         - NT07_NT08_UL1T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_203R
-      - NT07_207LE
-      - NT07_208LL
-      - NT07_302RA
-      - NT07_302RB
-      - NT07_303LB
-      - NT07_304LB
+      - 3RC
+      - 1LC
+      - 2LD
+      - 11RG
+      - 11RH
+      - 12LC
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_208LE
+    - routeId: 1LD
       startTrackCircuitId: NT07_31BT
+      destinationCode: D
       destinationTrackCircuitId: NT07_4LT
       requiredTurnouts:
       - connectionId: NT07_31A
@@ -459,15 +506,16 @@ MonoBehaviour:
         - NT07_NT08_UE1T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_204R
-      - NT07_207LE
-      - NT07_208LL
+      - 3RD
+      - 1LC
+      - 2LD
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_208LL
+    - routeId: 2LD
       startTrackCircuitId: NT07_32BT
+      destinationCode: D
       destinationTrackCircuitId: NT07_4LT
       requiredTurnouts:
       - connectionId: NT07_31A
@@ -490,16 +538,17 @@ MonoBehaviour:
         - NT07_NT08_UL1T
         releaseSeconds: 60
       conflictRouteIds:
-      - NT07_204R
-      - NT07_207LE
-      - NT07_207LL
-      - NT07_208LE
+      - 3RD
+      - 1LC
+      - 2LC
+      - 1LD
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_203L
+    - routeId: 3L
       startTrackCircuitId: NT07_3LT
+      destinationCode: K
       destinationTrackCircuitId: NT07_22AT
       requiredTurnouts:
       - connectionId: NT07_21A
@@ -525,16 +574,17 @@ MonoBehaviour:
         - NT07_3LT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_101RB
-      - NT07_203R
-      - NT07_204R
-      - NT07_204L
+      - 1RF
+      - 3RC
+      - 3RD
+      - 4L
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_204L
+    - routeId: 4L
       startTrackCircuitId: NT07_4LT
+      destinationCode: K
       destinationTrackCircuitId: NT07_22AT
       requiredTurnouts:
       - connectionId: NT07_21A
@@ -560,16 +610,17 @@ MonoBehaviour:
         - NT07_4LT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_101RB
-      - NT07_203R
-      - NT07_204R
-      - NT07_203L
+      - 1RF
+      - 3RC
+      - 3RD
+      - 3L
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_301RA
+    - routeId: 10RG
       startTrackCircuitId: NT07_2RT
+      destinationCode: G
       destinationTrackCircuitId: NT07_DEPOT_1T
       requiredTurnouts:
       - connectionId: NT07_27
@@ -596,19 +647,20 @@ MonoBehaviour:
         - NT07_2RT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_206RE
-      - NT07_206RL
-      - NT07_301RB
-      - NT07_302RA
-      - NT07_303LA
-      - NT07_303LB
-      - NT07_304LA
+      - 5RI
+      - 5RJ
+      - 10RH
+      - 11RG
+      - 12LB
+      - 12LC
+      - 13LB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_301RB
+    - routeId: 10RH
       startTrackCircuitId: NT07_2RT
+      destinationCode: H
       destinationTrackCircuitId: NT07_DEPOT_2T
       requiredTurnouts:
       - connectionId: NT07_27
@@ -635,21 +687,22 @@ MonoBehaviour:
         - NT07_2RT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_206RE
-      - NT07_206RL
-      - NT07_301RA
-      - NT07_302RA
-      - NT07_302RB
-      - NT07_303LA
-      - NT07_303LB
-      - NT07_304LA
-      - NT07_304LB
+      - 5RI
+      - 5RJ
+      - 10RG
+      - 11RG
+      - 11RH
+      - 12LB
+      - 12LC
+      - 13LB
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_302RA
+    - routeId: 11RG
       startTrackCircuitId: NT07_3LT
+      destinationCode: G
       destinationTrackCircuitId: NT07_DEPOT_1T
       requiredTurnouts:
       - connectionId: NT07_28A
@@ -676,21 +729,22 @@ MonoBehaviour:
         - NT07_3LT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_207LE
-      - NT07_207LL
-      - NT07_301RA
-      - NT07_301RB
-      - NT07_302RB
-      - NT07_303LA
-      - NT07_303LB
-      - NT07_304LA
-      - NT07_304LB
+      - 1LC
+      - 2LC
+      - 10RG
+      - 10RH
+      - 11RH
+      - 12LB
+      - 12LC
+      - 13LB
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_302RB
+    - routeId: 11RH
       startTrackCircuitId: NT07_3LT
+      destinationCode: H
       destinationTrackCircuitId: NT07_DEPOT_2T
       requiredTurnouts:
       - connectionId: NT07_28A
@@ -717,19 +771,20 @@ MonoBehaviour:
         - NT07_3LT
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_207LE
-      - NT07_207LL
-      - NT07_301RB
-      - NT07_302RA
-      - NT07_303LB
-      - NT07_304LA
-      - NT07_304LB
+      - 1LC
+      - 2LC
+      - 10RH
+      - 11RG
+      - 12LC
+      - 13LB
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_303LA
+    - routeId: 12LB
       startTrackCircuitId: NT07_DEPOT_1T
+      destinationCode: B
       destinationTrackCircuitId: NT07_2RT
       requiredTurnouts:
       - connectionId: NT07_27
@@ -756,20 +811,21 @@ MonoBehaviour:
         - NT07_DEPOT_1T
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_202R
-      - NT07_206RE
-      - NT07_206RL
-      - NT07_301RA
-      - NT07_301RB
-      - NT07_302RA
-      - NT07_303LB
-      - NT07_304LA
+      - 2RB
+      - 5RI
+      - 5RJ
+      - 10RG
+      - 10RH
+      - 11RG
+      - 12LC
+      - 13LB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_303LB
+    - routeId: 12LC
       startTrackCircuitId: NT07_DEPOT_1T
+      destinationCode: C
       destinationTrackCircuitId: NT07_3LT
       requiredTurnouts:
       - connectionId: NT07_28A
@@ -796,22 +852,23 @@ MonoBehaviour:
         - NT07_DEPOT_1T
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_203R
-      - NT07_207LE
-      - NT07_207LL
-      - NT07_301RA
-      - NT07_301RB
-      - NT07_302RA
-      - NT07_302RB
-      - NT07_303LA
-      - NT07_304LA
-      - NT07_304LB
+      - 3RC
+      - 1LC
+      - 2LC
+      - 10RG
+      - 10RH
+      - 11RG
+      - 11RH
+      - 12LB
+      - 13LB
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_304LA
+    - routeId: 13LB
       startTrackCircuitId: NT07_DEPOT_2T
+      destinationCode: B
       destinationTrackCircuitId: NT07_2RT
       requiredTurnouts:
       - connectionId: NT07_27
@@ -838,22 +895,23 @@ MonoBehaviour:
         - NT07_DEPOT_2T
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_202R
-      - NT07_206RE
-      - NT07_206RL
-      - NT07_301RA
-      - NT07_301RB
-      - NT07_302RA
-      - NT07_302RB
-      - NT07_303LA
-      - NT07_303LB
-      - NT07_304LB
+      - 2RB
+      - 5RI
+      - 5RJ
+      - 10RG
+      - 10RH
+      - 11RG
+      - 11RH
+      - 12LB
+      - 12LC
+      - 13LC
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT07_304LB
+    - routeId: 13LC
       startTrackCircuitId: NT07_DEPOT_2T
+      destinationCode: C
       destinationTrackCircuitId: NT07_3LT
       requiredTurnouts:
       - connectionId: NT07_28A
@@ -880,14 +938,14 @@ MonoBehaviour:
         - NT07_DEPOT_2T
         releaseSeconds: 30
       conflictRouteIds:
-      - NT07_203R
-      - NT07_207LE
-      - NT07_207LL
-      - NT07_301RB
-      - NT07_302RA
-      - NT07_302RB
-      - NT07_303LB
-      - NT07_304LA
+      - 3RC
+      - 1LC
+      - 2LC
+      - 10RH
+      - 11RG
+      - 11RH
+      - 12LC
+      - 13LB
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []

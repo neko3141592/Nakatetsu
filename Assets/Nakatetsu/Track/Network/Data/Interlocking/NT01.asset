@@ -30,9 +30,23 @@ MonoBehaviour:
     - NT01_22A
     - NT01_22B
     - NT01_23
+    destinations:
+    - code: A
+      displayName: "1\u756A\u7DDA"
+      trackCircuitId: NT01_1RT
+    - code: B
+      displayName: "2\u756A\u7DDA"
+      trackCircuitId: NT01_2RT
+    - code: C
+      displayName: "3\u756A\u7DDA"
+      trackCircuitId: NT01_3RT
+    - code: D
+      displayName: "\u4E0B\u308A\u672C\u7DDA\u51FA\u53E3"
+      trackCircuitId: NT01_22BT
     routes:
-    - routeId: 101L
+    - routeId: 1LA
       startTrackCircuitId: NT01_21BT
+      destinationCode: A
       destinationTrackCircuitId: NT01_1RT
       requiredTurnouts:
       - connectionId: NT01_21A
@@ -63,8 +77,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: 102L
+    - routeId: 1LB
       startTrackCircuitId: NT01_21BT
+      destinationCode: B
       destinationTrackCircuitId: NT01_2RT
       requiredTurnouts:
       - connectionId: NT01_21A
@@ -95,8 +110,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: 103L
+    - routeId: 1LC
       startTrackCircuitId: NT01_21BT
+      destinationCode: C
       destinationTrackCircuitId: NT01_3RT
       requiredTurnouts:
       - connectionId: NT01_21A
@@ -123,8 +139,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: 101R
+    - routeId: 1R
       startTrackCircuitId: NT01_1RT
+      destinationCode: D
       destinationTrackCircuitId: NT01_22BT
       requiredTurnouts:
       - connectionId: NT01_21A
@@ -154,8 +171,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: 102R
+    - routeId: 2R
       startTrackCircuitId: NT01_2RT
+      destinationCode: D
       destinationTrackCircuitId: NT01_22BT
       requiredTurnouts:
       - connectionId: NT01_21A
@@ -185,8 +203,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: 103R
+    - routeId: 3R
       startTrackCircuitId: NT01_3RT
+      destinationCode: D
       destinationTrackCircuitId: NT01_22BT
       requiredTurnouts:
       - connectionId: NT01_21A

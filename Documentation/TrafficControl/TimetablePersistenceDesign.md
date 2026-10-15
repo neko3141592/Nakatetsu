@@ -1,5 +1,7 @@
 # ダイヤデータのORM選定と実装方針
 
+> 2026年10月15日：CTCサーバー再構築に向け、以下のEF Core/SQLite実装とサーバープロジェクトを削除した。この文書とER図は設計資料として残す。新サーバーのDBアクセス方式・スキーマ適用手順は再選定する。
+
 2026年10月12日決定。ダイヤの永続化には **Entity Framework Core 10とSQLite** を採用する。ORMは.NET 10の運行管理サーバーだけに導入し、PRCには読み込み・検証済みのダイヤをメモリ上の値として渡す。現在のローカルサーバー1台での運用を対象とする。
 
 基準となるER図は [TimetableDatabaseDesign.drawio](TimetableDatabaseDesign.drawio)。既存の [CTC実装計画](CTCImplementationPlan.md)、[連動管理部の設計](../Track/Interlocking/TrackInterlockingAggregationDesign.md)、[ディレクトリ構成](../Architecture/DirectoryStructure.md)に合わせ、設備の実状態と安全判断はUnity側、列車追跡・ダイヤ照合・自動進路要求はサーバー側のPRCが担当する。
@@ -56,7 +58,7 @@ DBの設備カタログは、初期にはNtLineの明示した定義データか
 
 複合主キーと複合外部キーはFluent APIで明示する。プロパティの順序は参照先と参照元でそろえる。[EF Coreの外部キーと参照先キー](https://learn.microsoft.com/en-us/ef/core/modeling/relationships/foreign-and-principal-keys)
 
-既存のCTC実装計画には全駅を通した進路IDの一意性を要求する記述があるが、ダイヤDBではこのER図の複合キーを採用する。既存の要求APIも駅IDで振り分けてから進路IDを検索する構成である。複数駅対応の実装時には、全駅一意を前提としたチェックと文書をこの方針にそろえる。回路IDは現在のUnity側で単独のキーとして扱われるため、回路の駅別同名対応は別途通信・設備定義を含めて設計する。
+ダイヤDB・CTC要求・地上ATCの連動進路参照には、このER図と同じ駅ID・駅内進路IDの複合キーを採用する。要求APIは駅IDで振り分けてから進路IDを検索し、異なる駅の同名進路を許容する。地上ATCの生成元と生成済み定義は`interlockingStationId`と`interlockingRouteId`を持ち、実行時状態もその組で参照する。回路IDは現在のUnity側で単独のキーとして扱われるため、回路の駅別同名対応は別途通信・設備定義を含めて設計する。
 
 ## 時刻と地点の検証
 

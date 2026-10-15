@@ -28,6 +28,8 @@ namespace Nakatetsu.Track.Interlocking
 
         // 発点・着点
         public string startTrackCircuitId;
+        // 単一進路でrouteIdの末尾を省略しても、着点との対応を保持する。
+        public string destinationCode;
         public string destinationTrackCircuitId;
 
         // 進路確保時に鎖錠する転轍機

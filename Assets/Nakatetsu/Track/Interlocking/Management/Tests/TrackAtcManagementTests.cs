@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Reflection;
-using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Core.Time;
 using Nakatetsu.Track.Atc;
 using Nakatetsu.Track.Interlocking.Management;
@@ -90,14 +89,14 @@ namespace Nakatetsu.Track.Interlocking.Tests
             route.OverrunMode = (OverrunProtectionMode)999;
             atc.Calculate(0f);
 
-            var input = atc.Context.Input.RoutesById["FirstRoute"];
+            var input = atc.Context.Input.RoutesById[("FirstStation", "FirstRoute")];
             Assert.That(input.IsRouteSet, Is.EqualTo(isSet));
             Assert.That(input.ProceedAllowed, Is.EqualTo(proceed));
             Assert.That(input.PathEstablished, Is.EqualTo(established));
             Assert.That(input.RouteLocked, Is.EqualTo(locked));
             Assert.That(input.CancelPending, Is.EqualTo(cancelled));
             Assert.That(input.OverrunMode, Is.EqualTo(mode));
-            Assert.That(atc.Context.Input.RoutesById.ContainsKey("SecondRoute"), Is.True);
+            Assert.That(atc.Context.Input.RoutesById.ContainsKey(("SecondStation", "SecondRoute")), Is.True);
         }
 
         [Test]
@@ -107,7 +106,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             atc.ApplyOutput(0f);
 
             Assert.That(atc.Context.Input.RoutesById.Keys,
-                Is.EquivalentTo(new[] { "FirstRoute", "SecondRoute" }));
+                Is.EquivalentTo(new[] { ("FirstStation", "FirstRoute"), ("SecondStation", "SecondRoute") }));
             AssertTelegram("First", OverrunProtectionMode.None);
             AssertTelegram("Second", OverrunProtectionMode.None);
         }
@@ -133,6 +132,50 @@ namespace Nakatetsu.Track.Interlocking.Tests
             AssertTelegram("Second", OverrunProtectionMode.Normal);
         }
 
+        [Test]
+        public void IdenticalLocalRouteIdsKeepStationStatesSeparateAndNeverReuseMissingInput()
+        {
+            var graph = GetField<TrackAtcGraphAsset>(atc, "atcGraphAsset");
+            foreach (var route in graph.Definition.routes)
+            {
+                route.interlockingRouteId = "1R";
+            }
+            first.RoutesById.Clear();
+            second.RoutesById.Clear();
+            SetActiveRoute(first, "1R", OverrunProtectionMode.Restricted);
+            SetActiveRoute(second, "1R", OverrunProtectionMode.Normal);
+            PublishSnapshot();
+            atc.Calculate(0f);
+            atc.ApplyOutput(0f);
+
+            Assert.That(atc.Context.Input.RoutesById.Keys,
+                Is.EquivalentTo(new[] { ("FirstStation", "1R"), ("SecondStation", "1R") }));
+            AssertTelegram("First", OverrunProtectionMode.Restricted);
+            AssertTelegram("Second", OverrunProtectionMode.Normal);
+
+            first.RoutesById["1R"].IsAvailable = false;
+            PublishSnapshot();
+            atc.Calculate(0f);
+            atc.ApplyOutput(0f);
+
+            Assert.That(atc.Context.State.validation.hasRouteInputById[("FirstStation", "1R")], Is.False);
+            Assert.That(atc.Context.State.validation.hasRouteInputById[("SecondStation", "1R")], Is.True);
+            Assert.That(atc.Context.Output.telegrams["First"].isValid, Is.False);
+            AssertTelegram("Second", OverrunProtectionMode.Normal);
+        }
+
+        [Test]
+        public void CompiledRouteWithoutStationIdCannotReadAnUnqualifiedRouteInput()
+        {
+            var graph = GetField<TrackAtcGraphAsset>(atc, "atcGraphAsset");
+            graph.Definition.routes[0].interlockingStationId = null;
+            atc.Calculate(0f);
+
+            Assert.That(atc.Context.State.validation.isGraphValid, Is.False);
+            Assert.That(atc.Context.Output.telegrams, Is.Empty);
+            Assert.That(atc.Context.State.validation.failureReason, Does.Contain("連動駅ID"));
+        }
+
         [TestCase("uninitialized")]
         [TestCase("output_missing")]
         [TestCase("station_missing")]
@@ -142,7 +185,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         public void MissingStationOrRouteWithdrawsItsOldInputAndInvalidatesOnlyItsTelegram(string failure)
         {
             atc.Calculate(0f);
-            Assert.That(atc.Context.Input.RoutesById.ContainsKey("FirstRoute"), Is.True);
+            Assert.That(atc.Context.Input.RoutesById.ContainsKey(("FirstStation", "FirstRoute")), Is.True);
             switch (failure)
             {
                 case "uninitialized":
@@ -168,8 +211,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
             atc.Calculate(0f);
             atc.ApplyOutput(0f);
 
-            Assert.That(atc.Context.Input.RoutesById.Keys, Is.EquivalentTo(new[] { "SecondRoute" }));
-            Assert.That(atc.Context.State.validation.hasRouteInputById["FirstRoute"], Is.False);
+            Assert.That(atc.Context.Input.RoutesById.Keys, Is.EquivalentTo(new[] { ("SecondStation", "SecondRoute") }));
+            Assert.That(atc.Context.State.validation.hasRouteInputById[("FirstStation", "FirstRoute")], Is.False);
             Assert.That(atc.Context.Output.telegrams["First"].isValid, Is.False);
             AssertTelegram("Second", OverrunProtectionMode.None);
         }
@@ -220,7 +263,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             manager.Calculate(0f);
             manager.ApplyOutput(0f);
             atc.Calculate(0f);
-            Assert.That(atc.Context.Input.RoutesById["FirstRoute"].IsRouteSet, Is.False);
+            Assert.That(atc.Context.Input.RoutesById[("FirstStation", "FirstRoute")].IsRouteSet, Is.False);
 
             foreach (string id in new[] { "First", "Second" })
             {
@@ -243,7 +286,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(secondStation.Context.State.stateRevision, Is.EqualTo(secondRevision + 1));
             foreach (string id in new[] { "First", "Second" })
             {
-                var input = atc.Context.Input.RoutesById[id + "Route"];
+                var input = atc.Context.Input.RoutesById[(id + "Station", id + "Route")];
                 Assert.That(input.IsRouteSet, Is.True);
                 Assert.That(input.ProceedAllowed, Is.True);
                 Assert.That(input.PathEstablished, Is.True);
@@ -304,7 +347,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 });
                 graph.routes.Add(new TrackAtcRouteDefinition
                 {
-                    atcRouteId = id + "AtcRoute", interlockingRouteId = id + "Route",
+                    atcRouteId = id + "AtcRoute", interlockingStationId = id + "Station", interlockingRouteId = id + "Route",
+                    interlockingStartTrackCircuitId = id,
                     entryDirection = TrackAtcTravelDirection.AtoB, atcEdgeIds = new List<string> { id }
                 });
             }

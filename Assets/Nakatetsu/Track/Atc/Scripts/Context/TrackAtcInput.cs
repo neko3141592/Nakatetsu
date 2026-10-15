@@ -11,8 +11,8 @@ namespace Nakatetsu.Track.Atc
         // キーがない回路は占有状態を取得できていない。
         public Dictionary<string, bool> OccupiedByCircuitId = new();
 
-        // 連動進路IDをキーとする。確認済みの未設定も登録し、取得失敗と区別する。
-        public Dictionary<string, TrackAtcRouteInput> RoutesById = new();
+        // 駅IDと駅内進路IDの組をキーとする。確認済みの未設定も登録する。
+        public Dictionary<(string StationId, string RouteId), TrackAtcRouteInput> RoutesById = new();
 
         // 初回のEdge選択に使う線路接続の照合結果。未登録は接続入力の未取得。
         public Dictionary<string, bool> PhysicalPathAvailableByAtcEdgeId = new();

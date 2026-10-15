@@ -35,10 +35,17 @@ namespace Nakatetsu.Track.Interlocking.Tests
             definition.interlockingId = "Station";
             definition.memberTrackCircuitIds.AddRange(new[] { "Entry", "Platform", "Approach", "TurnoutLock" });
             definition.memberConnectionIds.AddRange(new[] { "Main", "Protection" });
+            definition.destinations.Add(new TrackStationInterlockingDestinationDefinition
+            {
+                code = "A",
+                displayName = "1番線",
+                trackCircuitId = "Platform"
+            });
             definition.routes.Add(new TrackStationInterlockingRouteDefinition
             {
                 routeId = "Arrival",
                 startTrackCircuitId = "Entry",
+                destinationCode = "A",
                 destinationTrackCircuitId = "Platform",
                 requiredTurnouts = new List<TurnoutRequirement>
                 {
@@ -83,6 +90,10 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(definition.memberConnectionIds, Is.EqualTo(new[] { "Main", "Protection" }));
             Assert.That(route.routeId, Is.EqualTo("Arrival"));
             Assert.That(route.startTrackCircuitId, Is.EqualTo("Entry"));
+            Assert.That(route.destinationCode, Is.EqualTo("A"));
+            Assert.That(definition.destinations[0].code, Is.EqualTo("A"));
+            Assert.That(definition.destinations[0].displayName, Is.EqualTo("1番線"));
+            Assert.That(definition.destinations[0].trackCircuitId, Is.EqualTo("Platform"));
             Assert.That(route.destinationTrackCircuitId, Is.EqualTo("Platform"));
             Assert.That(route.requiredTurnouts[0].connectionId, Is.EqualTo("Main"));
             Assert.That(route.requiredTurnouts[0].requiredPosition, Is.EqualTo(TrackSwitchPosition.Normal));

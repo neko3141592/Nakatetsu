@@ -63,18 +63,19 @@ namespace Nakatetsu.Track.Atc
             }
 
             var interlockingRouteId = route.interlockingRouteId;
+            string routeName = $"{route.interlockingStationId}/{interlockingRouteId}";
             if (string.IsNullOrEmpty(interlockingRouteId) ||
-                !validation.hasRouteInputById.TryGetValue(interlockingRouteId, out var hasInput) ||
+                !validation.hasRouteInputById.TryGetValue(route.InterlockingKey, out var hasInput) ||
                 !hasInput ||
-                !context.Input.RoutesById.TryGetValue(interlockingRouteId, out var input) || input == null)
+                !context.Input.RoutesById.TryGetValue(route.InterlockingKey, out var input) || input == null)
             {
-                failureReason = $"Terminal route input '{interlockingRouteId}' is unavailable.";
+                failureReason = $"Terminal route input '{routeName}' is unavailable.";
                 return false;
             }
 
             if (!input.IsRouteSet)
             {
-                failureReason = $"Terminal route '{interlockingRouteId}' is not set.";
+                failureReason = $"Terminal route '{routeName}' is not set.";
                 return false;
             }
 
@@ -82,7 +83,7 @@ namespace Nakatetsu.Track.Atc
                 input.OverrunMode != OverrunProtectionMode.Normal &&
                 input.OverrunMode != OverrunProtectionMode.Restricted)
             {
-                failureReason = $"Terminal route '{interlockingRouteId}' has an invalid protection mode.";
+                failureReason = $"Terminal route '{routeName}' has an invalid protection mode.";
                 return false;
             }
 

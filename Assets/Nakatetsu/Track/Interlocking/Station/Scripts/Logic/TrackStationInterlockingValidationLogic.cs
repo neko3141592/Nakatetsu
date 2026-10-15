@@ -19,6 +19,24 @@ namespace Nakatetsu.Track.Interlocking
 
             var circuits = new HashSet<string>(definition.memberTrackCircuitIds);
             var connections = new HashSet<string>(definition.memberConnectionIds);
+            var destinations = new Dictionary<string, TrackStationInterlockingDestinationDefinition>();
+            if (definition.destinations == null)
+            {
+                error = "着点一覧を取得できない。";
+                return false;
+            }
+            foreach (var destination in definition.destinations)
+            {
+                if (destination == null || !ValidDestinationCode(destination.code) ||
+                    string.IsNullOrWhiteSpace(destination.displayName) ||
+                    string.IsNullOrWhiteSpace(destination.trackCircuitId) ||
+                    !circuits.Contains(destination.trackCircuitId) ||
+                    !destinations.TryAdd(destination.code, destination))
+                {
+                    error = "着点符号、名称、または参照回路が不正。";
+                    return false;
+                }
+            }
             foreach (var turnoutLock in definition.turnoutLocks)
             {
                 if (turnoutLock == null || string.IsNullOrWhiteSpace(turnoutLock.connectionId) ||
@@ -49,6 +67,18 @@ namespace Nakatetsu.Track.Interlocking
                 {
                     error = $"進路 '{route.routeId}' の接近鎖錠定義が不正。";
                     return false;
+                }
+
+                // 台帳を持たない既存定義は従来どおり読み込める。
+                if (destinations.Count > 0 || !string.IsNullOrEmpty(route.destinationCode))
+                {
+                    if (string.IsNullOrEmpty(route.destinationCode) ||
+                        !destinations.TryGetValue(route.destinationCode, out var destination) ||
+                        destination.trackCircuitId != route.destinationTrackCircuitId)
+                    {
+                        error = $"進路 '{route.routeId}' の着点符号と着点回路が一致しない。";
+                        return false;
+                    }
                 }
 
                 var protection = route.overrunProtection;
@@ -212,6 +242,22 @@ namespace Nakatetsu.Track.Interlocking
         private static bool ValidSeconds(float seconds)
         {
             return !float.IsNaN(seconds) && !float.IsInfinity(seconds) && seconds >= 0f;
+        }
+
+        private static bool ValidDestinationCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return false;
+            }
+            foreach (char value in code)
+            {
+                if (value < 'A' || value > 'Z')
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

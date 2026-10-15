@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using UnityEngine;

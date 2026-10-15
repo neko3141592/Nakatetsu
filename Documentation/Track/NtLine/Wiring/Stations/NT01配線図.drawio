@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Codex">
   <diagram id="xP2Ue2DsGh_J8aOFDBQD" name="NT01 中鉄中央">
-    <mxGraphModel dx="1849" dy="1329" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="800" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="1849" dy="1329" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="920" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -444,6 +444,35 @@
         </mxCell>
         <mxCell id="normal-legend-label" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=15;fontColor=#334155;" value="定位" vertex="1">
           <mxGeometry height="26" width="65" x="1152" y="42" as="geometry" />
+        </mxCell>
+        <object id="destination-NT01-p1-D" label="D" destinationStationId="NT01" destinationCode="D" destinationCircuit="22ロT" tooltip="着点 D：22ロT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1303" y="370" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT01-p1-A" label="A" destinationStationId="NT01" destinationCode="A" destinationCircuit="1RT" tooltip="着点 A：1RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="508" y="251" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT01-p1-B" label="B" destinationStationId="NT01" destinationCode="B" destinationCircuit="2RT" tooltip="着点 B：2RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="508" y="417" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT01-p1-C" label="C" destinationStationId="NT01" destinationCode="C" destinationCircuit="3RT" tooltip="着点 C：3RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="508" y="633" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="destination-NT01-p1-legend-title" value="丸枠の英字＝着点符号" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="818" width="1480" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT01-p1-legend-row-1" value="A＝1RT　　B＝2RT　　C＝3RT　　D＝22ロT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="848" width="1480" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT01-p1-legend-note" value="着点は論理的な領域。停止位置・信号位置は別定義。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontSize=14;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="60" y="874" width="1480" height="24" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

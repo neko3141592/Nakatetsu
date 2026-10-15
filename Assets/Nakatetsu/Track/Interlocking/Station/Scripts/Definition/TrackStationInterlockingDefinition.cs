@@ -11,6 +11,8 @@ namespace Nakatetsu.Track.Interlocking
         public List<string> memberTrackCircuitIds = new();
         public List<string> memberConnectionIds = new();
 
+        // 着点符号は駅内の論理的な着線・中間着点・出口を識別する。
+        public List<TrackStationInterlockingDestinationDefinition> destinations = new();
         public List<TrackStationInterlockingRouteDefinition> routes = new();
         public List<TrackStationInterlockingTurnoutLockDefinition> turnoutLocks = new();
 

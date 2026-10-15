@@ -69,20 +69,6 @@ ExportedObj/
 *.opendb
 *.VC.db
 
-# Hand-maintained server and shared projects
-!/Server/**/*.csproj
-!/Server/Nakatetsu.TrafficControl.slnx
-!/Shared/**/*.csproj
-/Server/**/[Bb]in/
-/Server/**/[Oo]bj/
-/Shared/[Bb]in/
-/Shared/[Oo]bj/
-
-# Local timetable database and SQLite journal files
-/Server/Nakatetsu.TrafficControl.Server/Data/*.sqlite
-/Server/Nakatetsu.TrafficControl.Server/Data/*.sqlite-shm
-/Server/Nakatetsu.TrafficControl.Server/Data/*.sqlite-wal
-
 # Office lock files and draw.io recovery backups
 /Documentation/**/~$*
 /Documentation/**/.$*.drawio.bkp

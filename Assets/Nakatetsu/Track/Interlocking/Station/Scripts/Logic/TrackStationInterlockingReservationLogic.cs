@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Track.Simulation.Circuit;
 using OverrunProtectionMode = Nakatetsu.Track.Simulation.Circuit.OverrunProtectionMode;
 

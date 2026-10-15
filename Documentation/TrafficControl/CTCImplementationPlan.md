@@ -1,5 +1,7 @@
 # CTCの実装順と完成目標
 
+> 2026年10月15日：CTCサーバー再構築に向け、旧C#サーバー・共有通信パッケージ・UnityのCTC通信処理を削除した。以下は削除前の実装計画・検証記録であり、記載の通信/APIは現構成には存在しない。Unityの連動・ATC・世界tickは維持し、進路要求と結果の型はUnity内へ移した。
+
 2026年10月11日更新。連動管理部の要求振り分け・駅更新・地上ATC接続、Unityからサーバーへの世界時刻・連動状態の一括送信・保存と、Web向けの一括取得APIまで実装した。初版の完成目標は、既存のNtLine試験線で設備状態を監視し、ブラウザーから進路を設定・取消して、Unityの連動・ATCへの反映を確認できることとする。
 
 既存の[全体実装計画](../implementation-plan-2026-11-17.md)を具体化する。[連動管理部の設計](../Track/Interlocking/TrackInterlockingAggregationDesign.md)と[システム構成図](../References/中鉄運行管理システム構成図（仮）.drawio)に合わせ、CTCは設備監視・手動操作・要求中継、PRCは列車追跡・ダイヤ照合・自動進路判断を担当する。CTCに表示する列番・位置の対応は、PRCへ渡せる独立した追跡機能として作る。
@@ -29,7 +31,7 @@ ServerとSharedの土台はPR #77でmainへ取り込み済み。連動管理部�
 
 最初の実装単位は、CTCの手動要求を渡せる管理部と、そこを使う世界tick・地上ATCの一式とする。処理の安全判断は駅連動装置に残す。
 
-1. 管理部ControllerにInterlockingRouteRequestを受け取り、InterlockingRouteRequestResultを返すTryRouteRequestを追加する。既存のregisteredStationsByIdでStationIdから担当駅を取得し、RouteIdをその駅へ渡す。空ID・不正な操作種別・未知駅・未初期化を拒否する。要求にStationIdがあるため、振り分け用の「進路ID→担当駅」対応表は追加しない。全駅を通じた進路IDの一意性は必要だが、現在の管理部の登録検証では未確認。複数駅へ拡張する前に検証を追加する。
+1. 管理部ControllerにInterlockingRouteRequestを受け取り、InterlockingRouteRequestResultを返すTryRouteRequestを追加する。既存のregisteredStationsByIdでStationIdから担当駅を取得し、RouteIdをその駅へ渡す。空ID・不正な操作種別・未知駅・未初期化を拒否する。要求にStationIdがあるため、振り分け用の「進路ID→担当駅」対応表は追加しない。進路IDは駅内で一意とし、異なる駅の同名進路を許容する。参照・保存・状態取得では`(StationId, RouteId)`を使う。
 2. Operationに応じて担当駅の設定・取消APIへ同期転送し、結果に同じRequestIdと対象IDを付けて返す。各駅のLogicから受付可否・固定理由コード・関連する進路／回路／転轍機IDを返すように改修する。管理部のLogicは値の検証と状態集約を担当し、駅ControllerのAPIを呼ぶ処理は管理部Controllerに置く。エラー文の解析で理由コードを決めない。管理部でContractsを直接使うため、Nakatetsu.Track.InterlockingのAssembly参照へNakatetsu.Contractsを追加する。
 3. Applicationの駅配列による更新を管理部の更新入口へ置き換える。管理部が各駅のCalculateを1回ずつ実行し、ApplyOutputの段階で計算した駅へ1回ずつ適用して公開状態を集約する。従来の駅更新を同時に残さない。
 4. 地上ATCの進路状態取得先を管理部へ切り替える。正常取得した未設定進路は入力に含め、駅欠落・IsAvailable=falseは入力未取得として扱う。在線と物理経路の供給元は既存のものを使う。

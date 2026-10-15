@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Nakatetsu.Contracts.Interlocking;
 using NUnit.Framework;
 
 namespace Nakatetsu.Track.Interlocking.Tests

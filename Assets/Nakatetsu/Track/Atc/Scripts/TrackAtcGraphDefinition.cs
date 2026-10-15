@@ -94,7 +94,14 @@ namespace Nakatetsu.Track.Atc
     public sealed class TrackAtcRouteDefinition
     {
         public string atcRouteId;
+        public string interlockingStationId;
         public string interlockingRouteId;
+        // 制御境界の発点回路。ATC Edge列の先頭回路と異なる場合もある。
+        public string interlockingStartTrackCircuitId;
+
+        // 駅間で同じ進路IDを使えるよう、状態参照には必ず両方を使う。
+        public (string StationId, string RouteId) InterlockingKey =>
+            (interlockingStationId, interlockingRouteId);
 
         // 先頭Edgeへ進入する方向。1本だけの進路でも方向を表せる。
         public TrackAtcTravelDirection entryDirection;

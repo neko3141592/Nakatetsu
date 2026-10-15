@@ -1,0 +1,6822 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-13",
+  "distance_reference": "NT01_baseline: NT01車止めを0mとする共通Geometry距離s。走行実距離・営業キロとは区別。",
+  "asset_reflected": true,
+  "source_asset": "Assets/Nakatetsu/Track/Network/Data/NakatetsuGraph.asset",
+  "source_sha256": "9c41dc27564fbbdc7084cb6cf4653f4924f67dce4dfa917b2d679da4ada60b41",
+  "scope": "210mホーム・220m駅回路は分岐器なしのNT02/03/04/06/08/09/10のみ。NT01/05/07/11のホームは240mを維持。",
+  "stations": [
+    {
+      "code": "NT01",
+      "name": "中鉄中央",
+      "center": 140,
+      "geometry_start": 0,
+      "geometry_end": 650,
+      "platform_start": 20,
+      "platform_end": 260,
+      "platform_length": 240,
+      "geometry_asset_reflected": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT02",
+      "name": "豊島橋",
+      "center": 1340,
+      "geometry_start": 1230,
+      "geometry_end": 1450,
+      "platform_start": 1235,
+      "platform_end": 1445,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "station_edge_matches_circuit": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT03",
+      "name": "新桜町",
+      "center": 2240,
+      "geometry_start": 2130,
+      "geometry_end": 2350,
+      "platform_start": 2135,
+      "platform_end": 2345,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "station_edge_matches_circuit": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT04",
+      "name": "千海",
+      "center": 3340,
+      "geometry_start": 3140,
+      "geometry_end": 3540,
+      "platform_start": 3235,
+      "platform_end": 3445,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT05",
+      "name": "東長野",
+      "center": 4040,
+      "geometry_start": 3700,
+      "geometry_end": 4380,
+      "platform_start": 3920,
+      "platform_end": 4160,
+      "platform_length": 240,
+      "geometry_asset_reflected": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT06",
+      "name": "山田橋",
+      "center": 5240,
+      "geometry_start": 4920,
+      "geometry_end": 5560,
+      "platform_start": 5135,
+      "platform_end": 5345,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT07",
+      "name": "小泉公園",
+      "center": 6640,
+      "geometry_start": 6120,
+      "geometry_end": 7320,
+      "platform_start": 6520,
+      "platform_end": 6760,
+      "platform_length": 240,
+      "geometry_asset_reflected": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT08",
+      "name": "古谷",
+      "center": 8040,
+      "geometry_start": 7930,
+      "geometry_end": 8150,
+      "platform_start": 7935,
+      "platform_end": 8145,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "station_edge_matches_circuit": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT09",
+      "name": "秋杉",
+      "center": 8840,
+      "geometry_start": 8730,
+      "geometry_end": 8950,
+      "platform_start": 8735,
+      "platform_end": 8945,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "station_edge_matches_circuit": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT10",
+      "name": "東福岡",
+      "center": 9840,
+      "geometry_start": 9730,
+      "geometry_end": 9950,
+      "platform_start": 9735,
+      "platform_end": 9945,
+      "platform_length": 210,
+      "geometry_asset_reflected": true,
+      "station_edge_matches_circuit": true,
+      "platform_dimension_only": true
+    },
+    {
+      "code": "NT11",
+      "name": "猿沼",
+      "center": 10740,
+      "geometry_start": 10140,
+      "geometry_end": 11860,
+      "platform_start": 10620,
+      "platform_end": 10860,
+      "platform_length": 240,
+      "geometry_asset_reflected": true,
+      "platform_dimension_only": true
+    }
+  ],
+  "groups": [
+    {
+      "kind": "station",
+      "station": 2,
+      "title": "NT02 豊島橋",
+      "blocks": [
+        {
+          "start": 1230.0,
+          "end": 1450.0,
+          "ids": [
+            "NT02_DT",
+            "NT02_UT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "station",
+      "station": 3,
+      "title": "NT03 新桜町",
+      "blocks": [
+        {
+          "start": 2130.0,
+          "end": 2350.0,
+          "ids": [
+            "NT03_DT",
+            "NT03_UT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "station",
+      "station": 4,
+      "title": "NT04 千海",
+      "blocks": [
+        {
+          "start": 3230.0,
+          "end": 3450.0,
+          "ids": [
+            "NT04_DT",
+            "NT04_UT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "station",
+      "station": 6,
+      "title": "NT06 山田橋",
+      "blocks": [
+        {
+          "start": 5130.0,
+          "end": 5350.0,
+          "ids": [
+            "NT06_DT",
+            "NT06_UT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "station",
+      "station": 8,
+      "title": "NT08 古谷",
+      "blocks": [
+        {
+          "start": 7930.0,
+          "end": 8150.0,
+          "ids": [
+            "NT08_1RT",
+            "NT08_2RT",
+            "NT08_3LT",
+            "NT08_4LT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "station",
+      "station": 9,
+      "title": "NT09 秋杉",
+      "blocks": [
+        {
+          "start": 8730.0,
+          "end": 8950.0,
+          "ids": [
+            "NT09_1RT",
+            "NT09_2RT",
+            "NT09_3LT",
+            "NT09_4LT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "station",
+      "station": 10,
+      "title": "NT10 東福岡",
+      "blocks": [
+        {
+          "start": 9730.0,
+          "end": 9950.0,
+          "ids": [
+            "NT10_1RT",
+            "NT10_2RT",
+            "NT10_3LT",
+            "NT10_4LT"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 1,
+      "to_station": 2,
+      "title": "NT01—NT02",
+      "blocks": [
+        {
+          "start": 650.0,
+          "end": 810.0,
+          "ids": [
+            "NT01_NT02_D1T",
+            "NT01_NT02_U1T"
+          ]
+        },
+        {
+          "start": 810.0,
+          "end": 970.0,
+          "ids": [
+            "NT01_NT02_D2T",
+            "NT01_NT02_U2T"
+          ]
+        },
+        {
+          "start": 970.0,
+          "end": 1230.0,
+          "ids": [
+            "NT01_NT02_D3T",
+            "NT01_NT02_U3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 2,
+      "to_station": 3,
+      "title": "NT02—NT03",
+      "blocks": [
+        {
+          "start": 1450.0,
+          "end": 1707.0,
+          "ids": [
+            "NT02_NT03_D1T",
+            "NT02_NT03_U1T"
+          ]
+        },
+        {
+          "start": 1707.0,
+          "end": 1874.0,
+          "ids": [
+            "NT02_NT03_D2T",
+            "NT02_NT03_U2T"
+          ]
+        },
+        {
+          "start": 1874.0,
+          "end": 2130.0,
+          "ids": [
+            "NT02_NT03_D3T",
+            "NT02_NT03_U3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 3,
+      "to_station": 4,
+      "title": "NT03—NT04",
+      "blocks": [
+        {
+          "start": 2350.0,
+          "end": 2590.0,
+          "ids": [
+            "NT03_NT04_D1T",
+            "NT03_NT04_U1T"
+          ]
+        },
+        {
+          "start": 2590.0,
+          "end": 2740.0,
+          "ids": [
+            "NT03_NT04_D2T",
+            "NT03_NT04_U2T"
+          ]
+        },
+        {
+          "start": 2740.0,
+          "end": 2880.0,
+          "ids": [
+            "NT03_NT04_D3T",
+            "NT03_NT04_U3T"
+          ]
+        },
+        {
+          "start": 2880.0,
+          "end": 3230.0,
+          "ids": [
+            "NT03_NT04_D4T",
+            "NT03_NT04_U4T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 4,
+      "to_station": 5,
+      "title": "NT04—NT05",
+      "blocks": [
+        {
+          "start": 3450.0,
+          "end": 3700.0,
+          "ids": [
+            "NT04_NT05_D1T",
+            "NT04_NT05_U1T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 5,
+      "to_station": 6,
+      "title": "NT05—NT06",
+      "blocks": [
+        {
+          "start": 4380.0,
+          "end": 4560.0,
+          "ids": [
+            "NT05_NT06_D1T",
+            "NT05_NT06_U1T"
+          ]
+        },
+        {
+          "start": 4560.0,
+          "end": 4740.0,
+          "ids": [
+            "NT05_NT06_D2T",
+            "NT05_NT06_U2T"
+          ]
+        },
+        {
+          "start": 4740.0,
+          "end": 5130.0,
+          "ids": [
+            "NT05_NT06_D3T",
+            "NT05_NT06_U3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 6,
+      "to_station": 7,
+      "title": "NT06—NT07",
+      "blocks": [
+        {
+          "start": 5350.0,
+          "end": 5746.66650390625,
+          "ids": [
+            "NT06_NT07_D1T",
+            "NT06_NT07_U1T"
+          ]
+        },
+        {
+          "start": 5746.66650390625,
+          "end": 5933.33349609375,
+          "ids": [
+            "NT06_NT07_D2T",
+            "NT06_NT07_U2T"
+          ]
+        },
+        {
+          "start": 5933.33349609375,
+          "end": 6120.0,
+          "ids": [
+            "NT06_NT07_D3T",
+            "NT06_NT07_U3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 7,
+      "to_station": 8,
+      "title": "NT07—NT08",
+      "blocks": [
+        {
+          "start": 7020.0,
+          "end": 7930.0,
+          "ids": [
+            "NT07_NT08_DE1T",
+            "NT07_NT08_DL1T",
+            "NT07_NT08_UL1T",
+            "NT07_NT08_UE1T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 8,
+      "to_station": 9,
+      "title": "NT08—NT09",
+      "blocks": [
+        {
+          "start": 8150.0,
+          "end": 8340.0,
+          "ids": [
+            "NT08_NT09_DE1T",
+            "NT08_NT09_DL1T",
+            "NT08_NT09_UL1T",
+            "NT08_NT09_UE1T"
+          ]
+        },
+        {
+          "start": 8340.0,
+          "end": 8540.0,
+          "ids": [
+            "NT08_NT09_DE2T",
+            "NT08_NT09_DL2T",
+            "NT08_NT09_UL2T",
+            "NT08_NT09_UE2T"
+          ]
+        },
+        {
+          "start": 8540.0,
+          "end": 8730.0,
+          "ids": [
+            "NT08_NT09_DE3T",
+            "NT08_NT09_DL3T",
+            "NT08_NT09_UL3T",
+            "NT08_NT09_UE3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 9,
+      "to_station": 10,
+      "title": "NT09—NT10",
+      "blocks": [
+        {
+          "start": 8950.0,
+          "end": 9210.0,
+          "ids": [
+            "NT09_NT10_DE1T",
+            "NT09_NT10_DL1T",
+            "NT09_NT10_UL1T",
+            "NT09_NT10_UE1T"
+          ]
+        },
+        {
+          "start": 9210.0,
+          "end": 9470.0,
+          "ids": [
+            "NT09_NT10_DE2T",
+            "NT09_NT10_DL2T",
+            "NT09_NT10_UL2T",
+            "NT09_NT10_UE2T"
+          ]
+        },
+        {
+          "start": 9470.0,
+          "end": 9730.0,
+          "ids": [
+            "NT09_NT10_DE3T",
+            "NT09_NT10_DL3T",
+            "NT09_NT10_UL3T",
+            "NT09_NT10_UE3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    },
+    {
+      "kind": "section",
+      "from_station": 10,
+      "to_station": 11,
+      "title": "NT10—NT11",
+      "blocks": [
+        {
+          "start": 9950.0,
+          "end": 10010.0,
+          "ids": [
+            "NT10_NT11_DE1T",
+            "NT10_NT11_DL1T",
+            "NT10_NT11_UL1T",
+            "NT10_NT11_UE1T"
+          ]
+        },
+        {
+          "start": 10010.0,
+          "end": 10070.0,
+          "ids": [
+            "NT10_NT11_DE2T",
+            "NT10_NT11_DL2T",
+            "NT10_NT11_UL2T",
+            "NT10_NT11_UE2T"
+          ]
+        },
+        {
+          "start": 10070.0,
+          "end": 10140.0,
+          "ids": [
+            "NT10_NT11_DE3T",
+            "NT10_NT11_DL3T",
+            "NT10_NT11_UL3T",
+            "NT10_NT11_UE3T"
+          ]
+        }
+      ],
+      "asset_reflected": true
+    }
+  ],
+  "edges": [
+    {
+      "id": "NT01_track1",
+      "start": 0.0,
+      "end": 444.7916564941406,
+      "length": 445.1794128417969,
+      "nodeA": "NT01_buffer1",
+      "nodeB": "NT01_point23",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_platform",
+      "start": 0.0,
+      "end": 444.7916564941406,
+      "length": 444.7916564941406,
+      "nodeA": "NT01_buffer2",
+      "nodeB": "NT01_point23",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_throat",
+      "start": 444.7916564941406,
+      "end": 520.0,
+      "length": 75.20834350585938,
+      "nodeA": "NT01_point23",
+      "nodeB": "NT01_point21A",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track3",
+      "start": 0.0,
+      "end": 520.0,
+      "length": 520.1199340820312,
+      "nodeA": "NT01_buffer3",
+      "nodeB": "NT01_point22A",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_scissors",
+      "start": 520.0,
+      "end": 592.9166870117188,
+      "length": 72.91668701171875,
+      "nodeA": "NT01_point21A",
+      "nodeB": "NT01_point22B",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track3_scissors",
+      "start": 520.0,
+      "end": 592.9166870117188,
+      "length": 72.91668701171875,
+      "nodeA": "NT01_point22A",
+      "nodeB": "NT01_point21B",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_crossover21",
+      "start": 520.0,
+      "end": 592.9166870117188,
+      "length": 73.05445098876953,
+      "nodeA": "NT01_point21A",
+      "nodeB": "NT01_point21B",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_crossover22",
+      "start": 520.0,
+      "end": 592.9166870117188,
+      "length": 73.05445098876953,
+      "nodeA": "NT01_point22A",
+      "nodeB": "NT01_point22B",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_exit",
+      "start": 592.9166870117188,
+      "end": 650.0,
+      "length": 57.089691162109375,
+      "nodeA": "NT01_point22B",
+      "nodeB": "NT01_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track3_exit",
+      "start": 592.9166870117188,
+      "end": 650.0,
+      "length": 56.9468994140625,
+      "nodeA": "NT01_point21B",
+      "nodeB": "NT01_exit3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_track1",
+      "start": 1230.0,
+      "end": 1450.0,
+      "length": 220.00010681152344,
+      "nodeA": "NT02_entry1",
+      "nodeB": "NT02_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_track2",
+      "start": 1230.0,
+      "end": 1450.0,
+      "length": 220.0001220703125,
+      "nodeA": "NT02_entry2",
+      "nodeB": "NT02_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_track1",
+      "start": 2130.0,
+      "end": 2350.0,
+      "length": 220.000244140625,
+      "nodeA": "NT03_entry1",
+      "nodeB": "NT03_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_track2",
+      "start": 2130.0,
+      "end": 2350.0,
+      "length": 220.000244140625,
+      "nodeA": "NT03_entry2",
+      "nodeB": "NT03_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_track1",
+      "start": 3140.0,
+      "end": 3540.0,
+      "length": 399.89471435546875,
+      "nodeA": "NT04_entry1",
+      "nodeB": "NT04_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_track2",
+      "start": 3140.0,
+      "end": 3540.0,
+      "length": 401.28045654296875,
+      "nodeA": "NT04_entry2",
+      "nodeB": "NT04_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track2_entry",
+      "start": 3700.0,
+      "end": 3804.478759765625,
+      "length": 104.60929107666016,
+      "nodeA": "NT05_entry2",
+      "nodeB": "NT05_point21",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track2",
+      "start": 3804.478759765625,
+      "end": 4275.521484375,
+      "length": 471.1327209472656,
+      "nodeA": "NT05_point21",
+      "nodeB": "NT05_point22",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track2_exit",
+      "start": 4275.521484375,
+      "end": 4380.0,
+      "length": 104.47920989990234,
+      "nodeA": "NT05_point22",
+      "nodeB": "NT05_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track3_entry",
+      "start": 3700.0,
+      "end": 3804.478759765625,
+      "length": 105.15003967285156,
+      "nodeA": "NT05_entry3",
+      "nodeB": "NT05_point23",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track3",
+      "start": 3804.478759765625,
+      "end": 4275.521484375,
+      "length": 471.15191650390625,
+      "nodeA": "NT05_point23",
+      "nodeB": "NT05_point24",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track3_exit",
+      "start": 4275.521484375,
+      "end": 4380.0,
+      "length": 104.42958068847656,
+      "nodeA": "NT05_point24",
+      "nodeB": "NT05_exit3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track1",
+      "start": 3804.478759765625,
+      "end": 4275.521484375,
+      "length": 471.9909973144531,
+      "nodeA": "NT05_point21",
+      "nodeB": "NT05_point22",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track4",
+      "start": 3804.478759765625,
+      "end": 4275.521484375,
+      "length": 472.01190185546875,
+      "nodeA": "NT05_point23",
+      "nodeB": "NT05_point24",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_NT02_down",
+      "start": 650.0,
+      "end": 1230.0,
+      "length": 580.7393188476562,
+      "nodeA": "NT01_exit2",
+      "nodeB": "NT02_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_NT02_up",
+      "start": 650.0,
+      "end": 1230.0,
+      "length": 575.9449462890625,
+      "nodeA": "NT01_exit3",
+      "nodeB": "NT02_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_NT03_down",
+      "start": 1450.0,
+      "end": 2130.0,
+      "length": 680.571533203125,
+      "nodeA": "NT02_exit1",
+      "nodeB": "NT03_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_NT03_up",
+      "start": 1450.0,
+      "end": 2130.0,
+      "length": 683.9517211914062,
+      "nodeA": "NT02_exit2",
+      "nodeB": "NT03_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_NT04_down",
+      "start": 2350.0,
+      "end": 3140.0,
+      "length": 790.0142822265625,
+      "nodeA": "NT03_exit1",
+      "nodeB": "NT04_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_NT04_up",
+      "start": 2350.0,
+      "end": 3140.0,
+      "length": 790.014404296875,
+      "nodeA": "NT03_exit2",
+      "nodeB": "NT04_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_NT05_down",
+      "start": 3540.0,
+      "end": 3700.0,
+      "length": 160.0000457763672,
+      "nodeA": "NT04_exit1",
+      "nodeB": "NT05_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_NT05_up",
+      "start": 3540.0,
+      "end": 3700.0,
+      "length": 161.16384887695312,
+      "nodeA": "NT04_exit2",
+      "nodeB": "NT05_entry3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_NT06_down",
+      "start": 4380.0,
+      "end": 4920.0,
+      "length": 540.0870361328125,
+      "nodeA": "NT05_exit2",
+      "nodeB": "NT06_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_NT06_up",
+      "start": 4380.0,
+      "end": 4920.0,
+      "length": 536.322265625,
+      "nodeA": "NT05_exit3",
+      "nodeB": "NT06_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_track1",
+      "start": 4920.0,
+      "end": 5560.0,
+      "length": 640.293212890625,
+      "nodeA": "NT06_entry1",
+      "nodeB": "NT06_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_track2",
+      "start": 4920.0,
+      "end": 5560.0,
+      "length": 640.0455322265625,
+      "nodeA": "NT06_entry2",
+      "nodeB": "NT06_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML1_010",
+      "start": 6120.0,
+      "end": 6180.0,
+      "length": 60.000247955322266,
+      "nodeA": "NT07_entry1",
+      "nodeB": "NT07_21A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML2_010",
+      "start": 6120.0,
+      "end": 6180.0,
+      "length": 60.000247955322266,
+      "nodeA": "NT07_entry2",
+      "nodeB": "NT07_22A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_ML1_010",
+      "start": 6180.0,
+      "end": 6282.39990234375,
+      "length": 102.40042114257812,
+      "nodeA": "NT07_21A_node",
+      "nodeB": "NT07_22B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_ML2_010",
+      "start": 6180.0,
+      "end": 6282.39990234375,
+      "length": 102.40042114257812,
+      "nodeA": "NT07_22A_node",
+      "nodeB": "NT07_21B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_X12_010",
+      "start": 6180.0,
+      "end": 6282.39990234375,
+      "length": 102.54633331298828,
+      "nodeA": "NT07_21A_node",
+      "nodeB": "NT07_21B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_X21_010",
+      "start": 6180.0,
+      "end": 6282.39990234375,
+      "length": 102.54582977294922,
+      "nodeA": "NT07_22A_node",
+      "nodeB": "NT07_22B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML1_030",
+      "start": 6282.39990234375,
+      "end": 6300.0,
+      "length": 17.60042953491211,
+      "nodeA": "NT07_22B_node",
+      "nodeB": "NT07_23_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML2_030",
+      "start": 6282.39990234375,
+      "end": 6300.0,
+      "length": 17.60042953491211,
+      "nodeA": "NT07_21B_node",
+      "nodeB": "NT07_24_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_040",
+      "start": 6300.0,
+      "end": 6820.0,
+      "length": 520.00341796875,
+      "nodeA": "NT07_23_node",
+      "nodeB": "NT07_27_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_040",
+      "start": 6300.0,
+      "end": 6873.0205078125,
+      "length": 573.71533203125,
+      "nodeA": "NT07_23_node",
+      "nodeB": "NT07_25A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_045",
+      "start": 6873.0205078125,
+      "end": 6962.32373046875,
+      "length": 89.3037338256836,
+      "nodeA": "NT07_25A_node",
+      "nodeB": "NT07_26B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_050",
+      "start": 6820.0,
+      "end": 6850.0,
+      "length": 29.99995994567871,
+      "nodeA": "NT07_27_node",
+      "nodeB": "NT07_28A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_050",
+      "start": 6962.32373046875,
+      "end": 7930.0,
+      "length": 967.7154541015625,
+      "nodeA": "NT07_26B_node",
+      "nodeB": "NT07_NT08_DE_end",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_TO_P01_050",
+      "start": 6820.0,
+      "end": 6878.94921875,
+      "length": 59.170623779296875,
+      "nodeA": "NT07_27_node",
+      "nodeB": "NT07_26A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_TO_P01_060",
+      "start": 6878.94921875,
+      "end": 6962.32373046875,
+      "length": 83.76892852783203,
+      "nodeA": "NT07_26A_node",
+      "nodeB": "NT07_26B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_TO_DL_060",
+      "start": 6878.94921875,
+      "end": 6920.3212890625,
+      "length": 41.469356536865234,
+      "nodeA": "NT07_26A_node",
+      "nodeB": "NT07_P02_TO_DL_DL_060_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_DL_060",
+      "start": 6920.3212890625,
+      "end": 6975.4208984375,
+      "length": 55.1000862121582,
+      "nodeA": "NT07_P02_TO_DL_DL_060_node",
+      "nodeB": "NT07_25B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_TO_DL_060",
+      "start": 6873.0205078125,
+      "end": 6975.4208984375,
+      "length": 102.54669952392578,
+      "nodeA": "NT07_25A_node",
+      "nodeB": "NT07_25B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_DL_070",
+      "start": 6975.4208984375,
+      "end": 7930.0,
+      "length": 954.6065063476562,
+      "nodeA": "NT07_25B_node",
+      "nodeB": "NT07_NT08_DL_end",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_040",
+      "start": 6300.0,
+      "end": 6820.0,
+      "length": 520.00341796875,
+      "nodeA": "NT07_24_node",
+      "nodeB": "NT07_30_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_LEAD_040",
+      "start": 6300.0,
+      "end": 6364.529296875,
+      "length": 64.90117645263672,
+      "nodeA": "NT07_24_node",
+      "nodeB": "NT07_P04_LEAD_NT07_P04_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_040",
+      "start": 6364.529296875,
+      "end": 6873.0205078125,
+      "length": 508.8662414550781,
+      "nodeA": "NT07_P04_LEAD_NT07_P04_node",
+      "nodeB": "NT07_32A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_045",
+      "start": 6873.0205078125,
+      "end": 6962.32373046875,
+      "length": 89.3037338256836,
+      "nodeA": "NT07_32A_node",
+      "nodeB": "NT07_31B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_050",
+      "start": 6820.0,
+      "end": 6850.0,
+      "length": 29.99995994567871,
+      "nodeA": "NT07_30_node",
+      "nodeB": "NT07_29A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_P02_060",
+      "start": 6850.0,
+      "end": 6947.39892578125,
+      "length": 97.39954376220703,
+      "nodeA": "NT07_28A_node",
+      "nodeB": "NT07_29B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_P03_060",
+      "start": 6850.0,
+      "end": 6947.39892578125,
+      "length": 97.39954376220703,
+      "nodeA": "NT07_29A_node",
+      "nodeB": "NT07_28B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_X23_060",
+      "start": 6850.0,
+      "end": 6947.39892578125,
+      "length": 97.55158996582031,
+      "nodeA": "NT07_28A_node",
+      "nodeB": "NT07_28B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_X32_060",
+      "start": 6850.0,
+      "end": 6947.39892578125,
+      "length": 97.55109405517578,
+      "nodeA": "NT07_29A_node",
+      "nodeB": "NT07_29B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_070",
+      "start": 6947.39892578125,
+      "end": 7280.0,
+      "length": 332.60357666015625,
+      "nodeA": "NT07_29B_node",
+      "nodeB": "NT07_depot1_end",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_070",
+      "start": 6947.39892578125,
+      "end": 7280.0,
+      "length": 332.60357666015625,
+      "nodeA": "NT07_28B_node",
+      "nodeB": "NT07_depot2_end",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_050",
+      "start": 6962.32373046875,
+      "end": 7930.0,
+      "length": 967.7152709960938,
+      "nodeA": "NT07_31B_node",
+      "nodeB": "NT07_NT08_UE_end",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_TO_P04_050",
+      "start": 6820.0,
+      "end": 6878.94921875,
+      "length": 59.170597076416016,
+      "nodeA": "NT07_30_node",
+      "nodeB": "NT07_31A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_TO_P04_060",
+      "start": 6878.94921875,
+      "end": 6962.32373046875,
+      "length": 83.76921844482422,
+      "nodeA": "NT07_31A_node",
+      "nodeB": "NT07_31B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_TO_UL_060",
+      "start": 6878.94921875,
+      "end": 6920.3212890625,
+      "length": 41.469512939453125,
+      "nodeA": "NT07_31A_node",
+      "nodeB": "NT07_P03_TO_UL_UL_060_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_UL_060",
+      "start": 6920.3212890625,
+      "end": 6975.4208984375,
+      "length": 55.1000862121582,
+      "nodeA": "NT07_P03_TO_UL_UL_060_node",
+      "nodeB": "NT07_32B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_TO_UL_060",
+      "start": 6873.0205078125,
+      "end": 6975.4208984375,
+      "length": 102.54660034179688,
+      "nodeA": "NT07_32A_node",
+      "nodeB": "NT07_32B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_UL_070",
+      "start": 6975.4208984375,
+      "end": 7930.0,
+      "length": 954.6062622070312,
+      "nodeA": "NT07_32B_node",
+      "nodeB": "NT07_NT08_UL_end",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_NT07_down",
+      "start": 5560.0,
+      "end": 6120.0,
+      "length": 560.0048217773438,
+      "nodeA": "NT06_exit1",
+      "nodeB": "NT07_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_NT07_up",
+      "start": 5560.0,
+      "end": 6120.0,
+      "length": 560.005126953125,
+      "nodeA": "NT06_exit2",
+      "nodeB": "NT07_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track1",
+      "start": 7930.0,
+      "end": 8150.0,
+      "length": 220.0010986328125,
+      "nodeA": "NT07_NT08_DE_end",
+      "nodeB": "NT08_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_DE",
+      "start": 8150.0,
+      "end": 8730.0,
+      "length": 580.0032958984375,
+      "nodeA": "NT08_exit1",
+      "nodeB": "NT09_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track2",
+      "start": 7930.0,
+      "end": 8150.0,
+      "length": 220.0010986328125,
+      "nodeA": "NT07_NT08_DL_end",
+      "nodeB": "NT08_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_DL",
+      "start": 8150.0,
+      "end": 8730.0,
+      "length": 580.0034790039062,
+      "nodeA": "NT08_exit2",
+      "nodeB": "NT09_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track3",
+      "start": 7930.0,
+      "end": 8150.0,
+      "length": 220.0010986328125,
+      "nodeA": "NT07_NT08_UL_end",
+      "nodeB": "NT08_exit3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_UL",
+      "start": 8150.0,
+      "end": 8730.0,
+      "length": 580.003662109375,
+      "nodeA": "NT08_exit3",
+      "nodeB": "NT09_entry3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track4",
+      "start": 7930.0,
+      "end": 8150.0,
+      "length": 220.0010986328125,
+      "nodeA": "NT07_NT08_UE_end",
+      "nodeB": "NT08_exit4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_UE",
+      "start": 8150.0,
+      "end": 8730.0,
+      "length": 580.0033569335938,
+      "nodeA": "NT08_exit4",
+      "nodeB": "NT09_entry4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track1",
+      "start": 8730.0,
+      "end": 8950.0,
+      "length": 220.0023956298828,
+      "nodeA": "NT09_entry1",
+      "nodeB": "NT09_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_DE",
+      "start": 8950.0,
+      "end": 9730.0,
+      "length": 780.0076904296875,
+      "nodeA": "NT09_exit1",
+      "nodeB": "NT10_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track2",
+      "start": 8730.0,
+      "end": 8950.0,
+      "length": 220.0023956298828,
+      "nodeA": "NT09_entry2",
+      "nodeB": "NT09_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_DL",
+      "start": 8950.0,
+      "end": 9730.0,
+      "length": 780.0076904296875,
+      "nodeA": "NT09_exit2",
+      "nodeB": "NT10_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track3",
+      "start": 8730.0,
+      "end": 8950.0,
+      "length": 220.0023956298828,
+      "nodeA": "NT09_entry3",
+      "nodeB": "NT09_exit3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_UL",
+      "start": 8950.0,
+      "end": 9730.0,
+      "length": 780.0076904296875,
+      "nodeA": "NT09_exit3",
+      "nodeB": "NT10_entry3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track4",
+      "start": 8730.0,
+      "end": 8950.0,
+      "length": 220.0023956298828,
+      "nodeA": "NT09_entry4",
+      "nodeB": "NT09_exit4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_UE",
+      "start": 8950.0,
+      "end": 9730.0,
+      "length": 780.0076904296875,
+      "nodeA": "NT09_exit4",
+      "nodeB": "NT10_entry4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track1",
+      "start": 9730.0,
+      "end": 9950.0,
+      "length": 220.00221252441406,
+      "nodeA": "NT10_entry1",
+      "nodeB": "NT10_exit1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_DE",
+      "start": 9950.0,
+      "end": 10140.0,
+      "length": 190.00228881835938,
+      "nodeA": "NT10_exit1",
+      "nodeB": "NT11_entry1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track2",
+      "start": 9730.0,
+      "end": 9950.0,
+      "length": 220.00221252441406,
+      "nodeA": "NT10_entry2",
+      "nodeB": "NT10_exit2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_DL",
+      "start": 9950.0,
+      "end": 10140.0,
+      "length": 190.00228881835938,
+      "nodeA": "NT10_exit2",
+      "nodeB": "NT11_entry2",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track3",
+      "start": 9730.0,
+      "end": 9950.0,
+      "length": 220.00221252441406,
+      "nodeA": "NT10_entry3",
+      "nodeB": "NT10_exit3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_UL",
+      "start": 9950.0,
+      "end": 10140.0,
+      "length": 190.00228881835938,
+      "nodeA": "NT10_exit3",
+      "nodeB": "NT11_entry3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track4",
+      "start": 9730.0,
+      "end": 9950.0,
+      "length": 220.00221252441406,
+      "nodeA": "NT10_entry4",
+      "nodeB": "NT10_exit4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_UE",
+      "start": 9950.0,
+      "end": 10140.0,
+      "length": 190.00228881835938,
+      "nodeA": "NT10_exit4",
+      "nodeB": "NT11_entry4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track1_approach",
+      "start": 10140.0,
+      "end": 10180.0,
+      "length": 40.00032424926758,
+      "nodeA": "NT11_entry1",
+      "nodeB": "NT11_21A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track1_scissors",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.25569915771484,
+      "nodeA": "NT11_21A_node",
+      "nodeB": "NT11_22B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track2_approach",
+      "start": 10140.0,
+      "end": 10180.0,
+      "length": 40.00032424926758,
+      "nodeA": "NT11_entry2",
+      "nodeB": "NT11_22A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track2_scissors",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.25569915771484,
+      "nodeA": "NT11_22A_node",
+      "nodeB": "NT11_21B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track3_approach",
+      "start": 10140.0,
+      "end": 10180.0,
+      "length": 40.00032424926758,
+      "nodeA": "NT11_entry3",
+      "nodeB": "NT11_23A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track3_scissors",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.25569915771484,
+      "nodeA": "NT11_23A_node",
+      "nodeB": "NT11_24B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track4_approach",
+      "start": 10140.0,
+      "end": 10180.0,
+      "length": 40.00032424926758,
+      "nodeA": "NT11_entry4",
+      "nodeB": "NT11_24A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track4_scissors",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.25569915771484,
+      "nodeA": "NT11_24A_node",
+      "nodeB": "NT11_23B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track1",
+      "start": 10274.2548828125,
+      "end": 11080.0,
+      "length": 805.8477783203125,
+      "nodeA": "NT11_22B_node",
+      "nodeB": "NT11_25B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track1_stub",
+      "start": 11080.0,
+      "end": 11860.0,
+      "length": 780.2357788085938,
+      "nodeA": "NT11_25B_node",
+      "nodeB": "NT11_buffer1",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track2",
+      "start": 10274.2548828125,
+      "end": 10900.0,
+      "length": 625.756103515625,
+      "nodeA": "NT11_21B_node",
+      "nodeB": "NT11_25A_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track2_to26",
+      "start": 10900.0,
+      "end": 11160.0,
+      "length": 260.15069580078125,
+      "nodeA": "NT11_25A_node",
+      "nodeB": "NT11_26_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track3",
+      "start": 10274.2548828125,
+      "end": 11160.0,
+      "length": 885.9064331054688,
+      "nodeA": "NT11_24B_node",
+      "nodeB": "NT11_26_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track3_stub",
+      "start": 11160.0,
+      "end": 11400.0,
+      "length": 240.00465393066406,
+      "nodeA": "NT11_26_node",
+      "nodeB": "NT11_buffer3",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track4",
+      "start": 10274.2548828125,
+      "end": 11860.0,
+      "length": 1586.0828857421875,
+      "nodeA": "NT11_23B_node",
+      "nodeB": "NT11_buffer4",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover21",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.35604095458984,
+      "nodeA": "NT11_21A_node",
+      "nodeB": "NT11_21B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover22",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.35556030273438,
+      "nodeA": "NT11_22A_node",
+      "nodeB": "NT11_22B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover23",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.35541534423828,
+      "nodeA": "NT11_23A_node",
+      "nodeB": "NT11_23B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover24",
+      "start": 10180.0,
+      "end": 10274.2548828125,
+      "length": 94.35624694824219,
+      "nodeA": "NT11_24A_node",
+      "nodeB": "NT11_24B_node",
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover25",
+      "start": 10900.0,
+      "end": 11080.0,
+      "length": 180.34042358398438,
+      "nodeA": "NT11_25A_node",
+      "nodeB": "NT11_25B_node",
+      "asset_reflected": true
+    }
+  ],
+  "circuits": [
+    {
+      "id": "NT01_1RT",
+      "sections": [
+        {
+          "edge": "NT01_track1",
+          "start": 0.0,
+          "end": 310.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "1RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track1",
+          "start": 0.0,
+          "end": 310.0
+        }
+      ]
+    },
+    {
+      "id": "NT01_2RT",
+      "sections": [
+        {
+          "edge": "NT01_track2_platform",
+          "start": 0.0,
+          "end": 310.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "2RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track2_platform",
+          "start": 0.0,
+          "end": 310.0
+        }
+      ]
+    },
+    {
+      "id": "NT01_3RT",
+      "sections": [
+        {
+          "edge": "NT01_track3",
+          "start": 0.0,
+          "end": 500.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "3RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track3",
+          "start": 0.0,
+          "end": 500.0
+        }
+      ]
+    },
+    {
+      "id": "NT01_23T",
+      "sections": [
+        {
+          "edge": "NT01_track1",
+          "start": 310.0,
+          "end": 444.7916564941406
+        },
+        {
+          "edge": "NT01_track2_platform",
+          "start": 310.0,
+          "end": 444.7916564941406
+        },
+        {
+          "edge": "NT01_track2_throat",
+          "start": 444.7916564941406,
+          "end": 482.3958435058594
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "23T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track1",
+          "start": 310.0,
+          "end": 444.79166
+        },
+        {
+          "edge": "NT01_track2_platform",
+          "start": 310.0,
+          "end": 444.79166
+        },
+        {
+          "edge": "NT01_track2_throat",
+          "start": 444.79166,
+          "end": 482.39584
+        }
+      ]
+    },
+    {
+      "id": "NT01_21AT",
+      "sections": [
+        {
+          "edge": "NT01_track2_throat",
+          "start": 482.3958435058594,
+          "end": 520.0
+        },
+        {
+          "edge": "NT01_track2_scissors",
+          "start": 520.0,
+          "end": 556.4583740234375
+        },
+        {
+          "edge": "NT01_crossover21",
+          "start": 520.0,
+          "end": 558.4583740234375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "21イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track2_throat",
+          "start": 482.39584,
+          "end": 520.0
+        },
+        {
+          "edge": "NT01_track2_scissors",
+          "start": 520.0,
+          "end": 556.4584
+        },
+        {
+          "edge": "NT01_crossover21",
+          "start": 520.0,
+          "end": 558.4584
+        }
+      ]
+    },
+    {
+      "id": "NT01_22AT",
+      "sections": [
+        {
+          "edge": "NT01_track3",
+          "start": 500.0,
+          "end": 520.0
+        },
+        {
+          "edge": "NT01_track3_scissors",
+          "start": 520.0,
+          "end": 556.4583740234375
+        },
+        {
+          "edge": "NT01_crossover22",
+          "start": 520.0,
+          "end": 558.4583740234375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "22イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track3",
+          "start": 500.0,
+          "end": 520.0
+        },
+        {
+          "edge": "NT01_track3_scissors",
+          "start": 520.0,
+          "end": 556.4584
+        },
+        {
+          "edge": "NT01_crossover22",
+          "start": 520.0,
+          "end": 558.4584
+        }
+      ]
+    },
+    {
+      "id": "NT01_21BT",
+      "sections": [
+        {
+          "edge": "NT01_track3_scissors",
+          "start": 556.4583740234375,
+          "end": 592.9166870117188
+        },
+        {
+          "edge": "NT01_crossover21",
+          "start": 558.4583740234375,
+          "end": 592.9166870117188
+        },
+        {
+          "edge": "NT01_track3_exit",
+          "start": 592.9166870117188,
+          "end": 650.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "21ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track3_scissors",
+          "start": 556.4584,
+          "end": 592.9167
+        },
+        {
+          "edge": "NT01_crossover21",
+          "start": 558.4584,
+          "end": 592.9167
+        },
+        {
+          "edge": "NT01_track3_exit",
+          "start": 592.9167,
+          "end": 650.0
+        }
+      ]
+    },
+    {
+      "id": "NT01_22BT",
+      "sections": [
+        {
+          "edge": "NT01_track2_scissors",
+          "start": 556.4583740234375,
+          "end": 592.9166870117188
+        },
+        {
+          "edge": "NT01_crossover22",
+          "start": 558.4583740234375,
+          "end": 592.9166870117188
+        },
+        {
+          "edge": "NT01_track2_exit",
+          "start": 592.9166870117188,
+          "end": 650.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "22ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_track2_scissors",
+          "start": 556.4584,
+          "end": 592.9167
+        },
+        {
+          "edge": "NT01_crossover22",
+          "start": 558.4584,
+          "end": 592.9167
+        },
+        {
+          "edge": "NT01_track2_exit",
+          "start": 592.9167,
+          "end": 650.0
+        }
+      ]
+    },
+    {
+      "id": "NT01_NT02_D1T",
+      "display": "下1T",
+      "sections": [
+        {
+          "edge": "NT01_NT02_down",
+          "start": 650.0,
+          "end": 810.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_NT02_down",
+          "start": 650,
+          "end": 810
+        }
+      ]
+    },
+    {
+      "id": "NT01_NT02_U1T",
+      "display": "上1T",
+      "sections": [
+        {
+          "edge": "NT01_NT02_up",
+          "start": 650.0,
+          "end": 810.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_NT02_up",
+          "start": 650,
+          "end": 810
+        }
+      ]
+    },
+    {
+      "id": "NT01_NT02_D2T",
+      "display": "下2T",
+      "sections": [
+        {
+          "edge": "NT01_NT02_down",
+          "start": 810.0,
+          "end": 970.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_NT02_down",
+          "start": 810,
+          "end": 970
+        }
+      ]
+    },
+    {
+      "id": "NT01_NT02_U2T",
+      "display": "上2T",
+      "sections": [
+        {
+          "edge": "NT01_NT02_up",
+          "start": 810.0,
+          "end": 970.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_NT02_up",
+          "start": 810,
+          "end": 970
+        }
+      ]
+    },
+    {
+      "id": "NT01_NT02_D3T",
+      "display": "下3T",
+      "sections": [
+        {
+          "edge": "NT01_NT02_down",
+          "start": 970.0,
+          "end": 1230.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_NT02_down",
+          "start": 970,
+          "end": 1230
+        }
+      ]
+    },
+    {
+      "id": "NT01_NT02_U3T",
+      "display": "上3T",
+      "sections": [
+        {
+          "edge": "NT01_NT02_up",
+          "start": 970.0,
+          "end": 1230.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT01_NT02_up",
+          "start": 970,
+          "end": 1230
+        }
+      ]
+    },
+    {
+      "id": "NT02_DT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT02_track1",
+          "start": 1230.0,
+          "end": 1450.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_track1",
+          "start": 1230,
+          "end": 1450
+        }
+      ]
+    },
+    {
+      "id": "NT02_UT",
+      "display": "2LT",
+      "sections": [
+        {
+          "edge": "NT02_track2",
+          "start": 1230.0,
+          "end": 1450.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_track2",
+          "start": 1230,
+          "end": 1450
+        }
+      ]
+    },
+    {
+      "id": "NT02_NT03_D1T",
+      "display": "下1T",
+      "sections": [
+        {
+          "edge": "NT02_NT03_down",
+          "start": 1450.0,
+          "end": 1707.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_NT03_down",
+          "start": 1450,
+          "end": 1707
+        }
+      ]
+    },
+    {
+      "id": "NT02_NT03_U1T",
+      "display": "上1T",
+      "sections": [
+        {
+          "edge": "NT02_NT03_up",
+          "start": 1450.0,
+          "end": 1707.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_NT03_up",
+          "start": 1450,
+          "end": 1707
+        }
+      ]
+    },
+    {
+      "id": "NT02_NT03_D2T",
+      "display": "下2T",
+      "sections": [
+        {
+          "edge": "NT02_NT03_down",
+          "start": 1707.0,
+          "end": 1874.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_NT03_down",
+          "start": 1707,
+          "end": 1874
+        }
+      ]
+    },
+    {
+      "id": "NT02_NT03_U2T",
+      "display": "上2T",
+      "sections": [
+        {
+          "edge": "NT02_NT03_up",
+          "start": 1707.0,
+          "end": 1874.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_NT03_up",
+          "start": 1707,
+          "end": 1874
+        }
+      ]
+    },
+    {
+      "id": "NT02_NT03_D3T",
+      "display": "下3T",
+      "sections": [
+        {
+          "edge": "NT02_NT03_down",
+          "start": 1874.0,
+          "end": 2130.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_NT03_down",
+          "start": 1874,
+          "end": 2130
+        }
+      ]
+    },
+    {
+      "id": "NT02_NT03_U3T",
+      "display": "上3T",
+      "sections": [
+        {
+          "edge": "NT02_NT03_up",
+          "start": 1874.0,
+          "end": 2130.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT02_NT03_up",
+          "start": 1874,
+          "end": 2130
+        }
+      ]
+    },
+    {
+      "id": "NT03_DT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT03_track1",
+          "start": 2130.0,
+          "end": 2350.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_track1",
+          "start": 2130,
+          "end": 2350
+        }
+      ]
+    },
+    {
+      "id": "NT03_UT",
+      "display": "2LT",
+      "sections": [
+        {
+          "edge": "NT03_track2",
+          "start": 2130.0,
+          "end": 2350.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_track2",
+          "start": 2130,
+          "end": 2350
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_D1T",
+      "display": "下1T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2350.0,
+          "end": 2590.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2350,
+          "end": 2590
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_U1T",
+      "display": "上1T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2350.0,
+          "end": 2590.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2350,
+          "end": 2590
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_D2T",
+      "display": "下2T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2590.0,
+          "end": 2740.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2590,
+          "end": 2740
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_U2T",
+      "display": "上2T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2590.0,
+          "end": 2740.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2590,
+          "end": 2740
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_D3T",
+      "display": "下3T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2740.0,
+          "end": 2880.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2740,
+          "end": 2880
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_U3T",
+      "display": "上3T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2740.0,
+          "end": 2880.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2740,
+          "end": 2880
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_D4T",
+      "display": "下4T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2880.0,
+          "end": 3140.0
+        },
+        {
+          "edge": "NT04_track1",
+          "start": 3140.0,
+          "end": 3230.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_down",
+          "start": 2880,
+          "end": 3140
+        },
+        {
+          "edge": "NT04_track1",
+          "start": 3140,
+          "end": 3230
+        }
+      ]
+    },
+    {
+      "id": "NT03_NT04_U4T",
+      "display": "上4T",
+      "sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2880.0,
+          "end": 3140.0
+        },
+        {
+          "edge": "NT04_track2",
+          "start": 3140.0,
+          "end": 3230.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT03_NT04_up",
+          "start": 2880,
+          "end": 3140
+        },
+        {
+          "edge": "NT04_track2",
+          "start": 3140,
+          "end": 3230
+        }
+      ]
+    },
+    {
+      "id": "NT04_DT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT04_track1",
+          "start": 3230.0,
+          "end": 3450.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT04_track1",
+          "start": 3230,
+          "end": 3450
+        }
+      ]
+    },
+    {
+      "id": "NT04_UT",
+      "display": "2LT",
+      "sections": [
+        {
+          "edge": "NT04_track2",
+          "start": 3230.0,
+          "end": 3450.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT04_track2",
+          "start": 3230,
+          "end": 3450
+        }
+      ]
+    },
+    {
+      "id": "NT04_NT05_D1T",
+      "display": "下1T",
+      "sections": [
+        {
+          "edge": "NT04_track1",
+          "start": 3450.0,
+          "end": 3540.0
+        },
+        {
+          "edge": "NT04_NT05_down",
+          "start": 3540.0,
+          "end": 3700.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT04_track1",
+          "start": 3450,
+          "end": 3540
+        },
+        {
+          "edge": "NT04_NT05_down",
+          "start": 3540,
+          "end": 3700
+        }
+      ]
+    },
+    {
+      "id": "NT04_NT05_U1T",
+      "display": "上1T",
+      "sections": [
+        {
+          "edge": "NT04_track2",
+          "start": 3450.0,
+          "end": 3540.0
+        },
+        {
+          "edge": "NT04_NT05_up",
+          "start": 3540.0,
+          "end": 3700.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT04_track2",
+          "start": 3450,
+          "end": 3540
+        },
+        {
+          "edge": "NT04_NT05_up",
+          "start": 3540,
+          "end": 3700
+        }
+      ]
+    },
+    {
+      "id": "NT05_21T",
+      "sections": [
+        {
+          "edge": "NT05_track2_entry",
+          "start": 3700.0,
+          "end": 3804.478759765625
+        },
+        {
+          "edge": "NT05_track2",
+          "start": 3804.478759765625,
+          "end": 3920.0
+        },
+        {
+          "edge": "NT05_track1",
+          "start": 3804.478759765625,
+          "end": 3920.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "21T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track2_entry",
+          "start": 3700.0,
+          "end": 3804.4788
+        },
+        {
+          "edge": "NT05_track2",
+          "start": 3804.4788,
+          "end": 3920.0
+        },
+        {
+          "edge": "NT05_track1",
+          "start": 3804.4788,
+          "end": 3920.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_23T",
+      "sections": [
+        {
+          "edge": "NT05_track3_entry",
+          "start": 3700.0,
+          "end": 3804.478759765625
+        },
+        {
+          "edge": "NT05_track3",
+          "start": 3804.478759765625,
+          "end": 3920.0
+        },
+        {
+          "edge": "NT05_track4",
+          "start": 3804.478759765625,
+          "end": 3920.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "23T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track3_entry",
+          "start": 3700.0,
+          "end": 3804.4788
+        },
+        {
+          "edge": "NT05_track3",
+          "start": 3804.4788,
+          "end": 3920.0
+        },
+        {
+          "edge": "NT05_track4",
+          "start": 3804.4788,
+          "end": 3920.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_1RT",
+      "sections": [
+        {
+          "edge": "NT05_track1",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "1RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track1",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_2RT",
+      "sections": [
+        {
+          "edge": "NT05_track2",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "2RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track2",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_3LT",
+      "sections": [
+        {
+          "edge": "NT05_track3",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "3LT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track3",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_4LT",
+      "sections": [
+        {
+          "edge": "NT05_track4",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "4LT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track4",
+          "start": 3920.0,
+          "end": 4160.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_22T",
+      "sections": [
+        {
+          "edge": "NT05_track2",
+          "start": 4160.0,
+          "end": 4275.521484375
+        },
+        {
+          "edge": "NT05_track1",
+          "start": 4160.0,
+          "end": 4275.521484375
+        },
+        {
+          "edge": "NT05_track2_exit",
+          "start": 4275.521484375,
+          "end": 4380.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "22T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track2",
+          "start": 4160.0,
+          "end": 4275.5215
+        },
+        {
+          "edge": "NT05_track1",
+          "start": 4160.0,
+          "end": 4275.5215
+        },
+        {
+          "edge": "NT05_track2_exit",
+          "start": 4275.5215,
+          "end": 4380.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_24T",
+      "sections": [
+        {
+          "edge": "NT05_track3",
+          "start": 4160.0,
+          "end": 4275.521484375
+        },
+        {
+          "edge": "NT05_track4",
+          "start": 4160.0,
+          "end": 4275.521484375
+        },
+        {
+          "edge": "NT05_track3_exit",
+          "start": 4275.521484375,
+          "end": 4380.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "24T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_track3",
+          "start": 4160.0,
+          "end": 4275.5215
+        },
+        {
+          "edge": "NT05_track4",
+          "start": 4160.0,
+          "end": 4275.5215
+        },
+        {
+          "edge": "NT05_track3_exit",
+          "start": 4275.5215,
+          "end": 4380.0
+        }
+      ]
+    },
+    {
+      "id": "NT05_NT06_D1T",
+      "display": "下1T",
+      "sections": [
+        {
+          "edge": "NT05_NT06_down",
+          "start": 4380.0,
+          "end": 4560.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_NT06_down",
+          "start": 4380,
+          "end": 4560
+        }
+      ]
+    },
+    {
+      "id": "NT05_NT06_U1T",
+      "display": "上1T",
+      "sections": [
+        {
+          "edge": "NT05_NT06_up",
+          "start": 4380.0,
+          "end": 4560.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_NT06_up",
+          "start": 4380,
+          "end": 4560
+        }
+      ]
+    },
+    {
+      "id": "NT05_NT06_D2T",
+      "display": "下2T",
+      "sections": [
+        {
+          "edge": "NT05_NT06_down",
+          "start": 4560.0,
+          "end": 4740.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_NT06_down",
+          "start": 4560,
+          "end": 4740
+        }
+      ]
+    },
+    {
+      "id": "NT05_NT06_U2T",
+      "display": "上2T",
+      "sections": [
+        {
+          "edge": "NT05_NT06_up",
+          "start": 4560.0,
+          "end": 4740.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_NT06_up",
+          "start": 4560,
+          "end": 4740
+        }
+      ]
+    },
+    {
+      "id": "NT05_NT06_D3T",
+      "display": "下3T",
+      "sections": [
+        {
+          "edge": "NT05_NT06_down",
+          "start": 4740.0,
+          "end": 4920.0
+        },
+        {
+          "edge": "NT06_track1",
+          "start": 4920.0,
+          "end": 5130.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_NT06_down",
+          "start": 4740,
+          "end": 4920
+        },
+        {
+          "edge": "NT06_track1",
+          "start": 4920,
+          "end": 5130
+        }
+      ]
+    },
+    {
+      "id": "NT05_NT06_U3T",
+      "display": "上3T",
+      "sections": [
+        {
+          "edge": "NT05_NT06_up",
+          "start": 4740.0,
+          "end": 4920.0
+        },
+        {
+          "edge": "NT06_track2",
+          "start": 4920.0,
+          "end": 5130.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT05_NT06_up",
+          "start": 4740,
+          "end": 4920
+        },
+        {
+          "edge": "NT06_track2",
+          "start": 4920,
+          "end": 5130
+        }
+      ]
+    },
+    {
+      "id": "NT06_DT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT06_track1",
+          "start": 5130.0,
+          "end": 5350.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_track1",
+          "start": 5130,
+          "end": 5350
+        }
+      ]
+    },
+    {
+      "id": "NT06_UT",
+      "display": "2LT",
+      "sections": [
+        {
+          "edge": "NT06_track2",
+          "start": 5130.0,
+          "end": 5350.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_track2",
+          "start": 5130,
+          "end": 5350
+        }
+      ]
+    },
+    {
+      "id": "NT06_NT07_D1T",
+      "display": "下1T",
+      "sections": [
+        {
+          "edge": "NT06_track1",
+          "start": 5350.0,
+          "end": 5560.0
+        },
+        {
+          "edge": "NT06_NT07_down",
+          "start": 5560.0,
+          "end": 5746.66650390625
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_track1",
+          "start": 5350,
+          "end": 5560
+        },
+        {
+          "edge": "NT06_NT07_down",
+          "start": 5560,
+          "end": 5746.6665
+        }
+      ]
+    },
+    {
+      "id": "NT06_NT07_U1T",
+      "display": "上1T",
+      "sections": [
+        {
+          "edge": "NT06_track2",
+          "start": 5350.0,
+          "end": 5560.0
+        },
+        {
+          "edge": "NT06_NT07_up",
+          "start": 5560.0,
+          "end": 5746.66650390625
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_track2",
+          "start": 5350,
+          "end": 5560
+        },
+        {
+          "edge": "NT06_NT07_up",
+          "start": 5560,
+          "end": 5746.6665
+        }
+      ]
+    },
+    {
+      "id": "NT06_NT07_D2T",
+      "display": "下2T",
+      "sections": [
+        {
+          "edge": "NT06_NT07_down",
+          "start": 5746.66650390625,
+          "end": 5933.33349609375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_NT07_down",
+          "start": 5746.6665,
+          "end": 5933.3335
+        }
+      ]
+    },
+    {
+      "id": "NT06_NT07_U2T",
+      "display": "上2T",
+      "sections": [
+        {
+          "edge": "NT06_NT07_up",
+          "start": 5746.66650390625,
+          "end": 5933.33349609375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_NT07_up",
+          "start": 5746.6665,
+          "end": 5933.3335
+        }
+      ]
+    },
+    {
+      "id": "NT06_NT07_D3T",
+      "display": "下3T",
+      "sections": [
+        {
+          "edge": "NT06_NT07_down",
+          "start": 5933.33349609375,
+          "end": 6120.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_NT07_down",
+          "start": 5933.3335,
+          "end": 6120
+        }
+      ]
+    },
+    {
+      "id": "NT06_NT07_U3T",
+      "display": "上3T",
+      "sections": [
+        {
+          "edge": "NT06_NT07_up",
+          "start": 5933.33349609375,
+          "end": 6120.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT06_NT07_up",
+          "start": 5933.3335,
+          "end": 6120
+        }
+      ]
+    },
+    {
+      "id": "NT07_21AT",
+      "sections": [
+        {
+          "edge": "NT07_ML1_010",
+          "start": 6120.0,
+          "end": 6180.0
+        },
+        {
+          "edge": "NT07_X01_ML1_010",
+          "start": 6180.0,
+          "end": 6231.2001953125
+        },
+        {
+          "edge": "NT07_X01_X12_010",
+          "start": 6180.0,
+          "end": 6231.2001953125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "21イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_ML1_010",
+          "start": 6120.0,
+          "end": 6180.0
+        },
+        {
+          "edge": "NT07_X01_ML1_010",
+          "start": 6180.0,
+          "end": 6231.2
+        },
+        {
+          "edge": "NT07_X01_X12_010",
+          "start": 6180.0,
+          "end": 6231.2
+        }
+      ]
+    },
+    {
+      "id": "NT07_22AT",
+      "sections": [
+        {
+          "edge": "NT07_ML2_010",
+          "start": 6120.0,
+          "end": 6180.0
+        },
+        {
+          "edge": "NT07_X01_ML2_010",
+          "start": 6180.0,
+          "end": 6231.2001953125
+        },
+        {
+          "edge": "NT07_X01_X21_010",
+          "start": 6180.0,
+          "end": 6231.2001953125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "22イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_ML2_010",
+          "start": 6120.0,
+          "end": 6180.0
+        },
+        {
+          "edge": "NT07_X01_ML2_010",
+          "start": 6180.0,
+          "end": 6231.2
+        },
+        {
+          "edge": "NT07_X01_X21_010",
+          "start": 6180.0,
+          "end": 6231.2
+        }
+      ]
+    },
+    {
+      "id": "NT07_21BT",
+      "sections": [
+        {
+          "edge": "NT07_X01_ML2_010",
+          "start": 6231.2001953125,
+          "end": 6282.39990234375
+        },
+        {
+          "edge": "NT07_X01_X12_010",
+          "start": 6231.2001953125,
+          "end": 6282.39990234375
+        },
+        {
+          "edge": "NT07_ML2_030",
+          "start": 6282.39990234375,
+          "end": 6291.2001953125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "21ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_X01_ML2_010",
+          "start": 6231.2,
+          "end": 6282.4
+        },
+        {
+          "edge": "NT07_X01_X12_010",
+          "start": 6231.2,
+          "end": 6282.4
+        },
+        {
+          "edge": "NT07_ML2_030",
+          "start": 6282.4,
+          "end": 6291.2
+        }
+      ]
+    },
+    {
+      "id": "NT07_22BT",
+      "sections": [
+        {
+          "edge": "NT07_X01_ML1_010",
+          "start": 6231.2001953125,
+          "end": 6282.39990234375
+        },
+        {
+          "edge": "NT07_X01_X21_010",
+          "start": 6231.2001953125,
+          "end": 6282.39990234375
+        },
+        {
+          "edge": "NT07_ML1_030",
+          "start": 6282.39990234375,
+          "end": 6291.2001953125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "22ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_X01_ML1_010",
+          "start": 6231.2,
+          "end": 6282.4
+        },
+        {
+          "edge": "NT07_X01_X21_010",
+          "start": 6231.2,
+          "end": 6282.4
+        },
+        {
+          "edge": "NT07_ML1_030",
+          "start": 6282.4,
+          "end": 6291.2
+        }
+      ]
+    },
+    {
+      "id": "NT07_23T",
+      "sections": [
+        {
+          "edge": "NT07_ML1_030",
+          "start": 6291.2001953125,
+          "end": 6300.0
+        },
+        {
+          "edge": "NT07_P02_040",
+          "start": 6300.0,
+          "end": 6470.0
+        },
+        {
+          "edge": "NT07_P01_040",
+          "start": 6300.0,
+          "end": 6470.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "23T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_ML1_030",
+          "start": 6291.2,
+          "end": 6300.0
+        },
+        {
+          "edge": "NT07_P02_040",
+          "start": 6300.0,
+          "end": 6470.0
+        },
+        {
+          "edge": "NT07_P01_040",
+          "start": 6300.0,
+          "end": 6470.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_24T",
+      "sections": [
+        {
+          "edge": "NT07_ML2_030",
+          "start": 6291.2001953125,
+          "end": 6300.0
+        },
+        {
+          "edge": "NT07_P03_040",
+          "start": 6300.0,
+          "end": 6470.0
+        },
+        {
+          "edge": "NT07_P04_LEAD_040",
+          "start": 6300.0,
+          "end": 6364.529296875
+        },
+        {
+          "edge": "NT07_P04_040",
+          "start": 6364.529296875,
+          "end": 6470.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "24T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_ML2_030",
+          "start": 6291.2,
+          "end": 6300.0
+        },
+        {
+          "edge": "NT07_P03_040",
+          "start": 6300.0,
+          "end": 6470.0
+        },
+        {
+          "edge": "NT07_P04_LEAD_040",
+          "start": 6300.0,
+          "end": 6364.5293
+        },
+        {
+          "edge": "NT07_P04_040",
+          "start": 6364.5293,
+          "end": 6470.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_1RT",
+      "sections": [
+        {
+          "edge": "NT07_P01_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "1RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P01_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_2RT",
+      "sections": [
+        {
+          "edge": "NT07_P02_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "2RT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P02_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_3LT",
+      "sections": [
+        {
+          "edge": "NT07_P03_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "3LT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P03_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_4LT",
+      "sections": [
+        {
+          "edge": "NT07_P04_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "4LT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P04_040",
+          "start": 6470.0,
+          "end": 6790.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_25AT",
+      "sections": [
+        {
+          "edge": "NT07_P01_040",
+          "start": 6790.0,
+          "end": 6873.0205078125
+        },
+        {
+          "edge": "NT07_P01_045",
+          "start": 6873.0205078125,
+          "end": 6917.67236328125
+        },
+        {
+          "edge": "NT07_P01_TO_DL_060",
+          "start": 6873.0205078125,
+          "end": 6924.220703125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "25イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P01_040",
+          "start": 6790.0,
+          "end": 6873.0205
+        },
+        {
+          "edge": "NT07_P01_045",
+          "start": 6873.0205,
+          "end": 6917.6724
+        },
+        {
+          "edge": "NT07_P01_TO_DL_060",
+          "start": 6873.0205,
+          "end": 6924.2207
+        }
+      ]
+    },
+    {
+      "id": "NT07_27T",
+      "sections": [
+        {
+          "edge": "NT07_P02_040",
+          "start": 6790.0,
+          "end": 6820.0
+        },
+        {
+          "edge": "NT07_P02_050",
+          "start": 6820.0,
+          "end": 6835.0
+        },
+        {
+          "edge": "NT07_P02_TO_P01_050",
+          "start": 6820.0,
+          "end": 6849.474609375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "27T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P02_040",
+          "start": 6790.0,
+          "end": 6820.0
+        },
+        {
+          "edge": "NT07_P02_050",
+          "start": 6820.0,
+          "end": 6835.0
+        },
+        {
+          "edge": "NT07_P02_TO_P01_050",
+          "start": 6820.0,
+          "end": 6849.4746
+        }
+      ]
+    },
+    {
+      "id": "NT07_30T",
+      "sections": [
+        {
+          "edge": "NT07_P03_040",
+          "start": 6790.0,
+          "end": 6820.0
+        },
+        {
+          "edge": "NT07_P03_050",
+          "start": 6820.0,
+          "end": 6835.0
+        },
+        {
+          "edge": "NT07_P03_TO_P04_050",
+          "start": 6820.0,
+          "end": 6849.474609375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "30T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P03_040",
+          "start": 6790.0,
+          "end": 6820.0
+        },
+        {
+          "edge": "NT07_P03_050",
+          "start": 6820.0,
+          "end": 6835.0
+        },
+        {
+          "edge": "NT07_P03_TO_P04_050",
+          "start": 6820.0,
+          "end": 6849.4746
+        }
+      ]
+    },
+    {
+      "id": "NT07_32AT",
+      "sections": [
+        {
+          "edge": "NT07_P04_040",
+          "start": 6790.0,
+          "end": 6873.0205078125
+        },
+        {
+          "edge": "NT07_P04_045",
+          "start": 6873.0205078125,
+          "end": 6917.67236328125
+        },
+        {
+          "edge": "NT07_P04_TO_UL_060",
+          "start": 6873.0205078125,
+          "end": 6924.220703125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "32イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P04_040",
+          "start": 6790.0,
+          "end": 6873.0205
+        },
+        {
+          "edge": "NT07_P04_045",
+          "start": 6873.0205,
+          "end": 6917.6724
+        },
+        {
+          "edge": "NT07_P04_TO_UL_060",
+          "start": 6873.0205,
+          "end": 6924.2207
+        }
+      ]
+    },
+    {
+      "id": "NT07_28AT",
+      "sections": [
+        {
+          "edge": "NT07_P02_050",
+          "start": 6835.0,
+          "end": 6850.0
+        },
+        {
+          "edge": "NT07_X02_P02_060",
+          "start": 6850.0,
+          "end": 6898.69921875
+        },
+        {
+          "edge": "NT07_X02_X23_060",
+          "start": 6850.0,
+          "end": 6898.69921875
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "28イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P02_050",
+          "start": 6835.0,
+          "end": 6850.0
+        },
+        {
+          "edge": "NT07_X02_P02_060",
+          "start": 6850.0,
+          "end": 6898.699
+        },
+        {
+          "edge": "NT07_X02_X23_060",
+          "start": 6850.0,
+          "end": 6898.699
+        }
+      ]
+    },
+    {
+      "id": "NT07_29AT",
+      "sections": [
+        {
+          "edge": "NT07_P03_050",
+          "start": 6835.0,
+          "end": 6850.0
+        },
+        {
+          "edge": "NT07_X02_P03_060",
+          "start": 6850.0,
+          "end": 6898.69921875
+        },
+        {
+          "edge": "NT07_X02_X32_060",
+          "start": 6850.0,
+          "end": 6898.69921875
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "29イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P03_050",
+          "start": 6835.0,
+          "end": 6850.0
+        },
+        {
+          "edge": "NT07_X02_P03_060",
+          "start": 6850.0,
+          "end": 6898.699
+        },
+        {
+          "edge": "NT07_X02_X32_060",
+          "start": 6850.0,
+          "end": 6898.699
+        }
+      ]
+    },
+    {
+      "id": "NT07_26AT",
+      "sections": [
+        {
+          "edge": "NT07_P02_TO_P01_050",
+          "start": 6849.474609375,
+          "end": 6878.94921875
+        },
+        {
+          "edge": "NT07_P02_TO_P01_060",
+          "start": 6878.94921875,
+          "end": 6920.63623046875
+        },
+        {
+          "edge": "NT07_P02_TO_DL_060",
+          "start": 6878.94921875,
+          "end": 6920.3212890625
+        },
+        {
+          "edge": "NT07_DL_060",
+          "start": 6920.3212890625,
+          "end": 6927.18505859375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "26イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P02_TO_P01_050",
+          "start": 6849.4746,
+          "end": 6878.949
+        },
+        {
+          "edge": "NT07_P02_TO_P01_060",
+          "start": 6878.949,
+          "end": 6920.636
+        },
+        {
+          "edge": "NT07_P02_TO_DL_060",
+          "start": 6878.949,
+          "end": 6920.3213
+        },
+        {
+          "edge": "NT07_DL_060",
+          "start": 6920.3213,
+          "end": 6927.185
+        }
+      ]
+    },
+    {
+      "id": "NT07_31AT",
+      "sections": [
+        {
+          "edge": "NT07_P03_TO_P04_050",
+          "start": 6849.474609375,
+          "end": 6878.94921875
+        },
+        {
+          "edge": "NT07_P03_TO_P04_060",
+          "start": 6878.94921875,
+          "end": 6920.63623046875
+        },
+        {
+          "edge": "NT07_P03_TO_UL_060",
+          "start": 6878.94921875,
+          "end": 6920.3212890625
+        },
+        {
+          "edge": "NT07_UL_060",
+          "start": 6920.3212890625,
+          "end": 6927.18505859375
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "31イT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P03_TO_P04_050",
+          "start": 6849.4746,
+          "end": 6878.949
+        },
+        {
+          "edge": "NT07_P03_TO_P04_060",
+          "start": 6878.949,
+          "end": 6920.636
+        },
+        {
+          "edge": "NT07_P03_TO_UL_060",
+          "start": 6878.949,
+          "end": 6920.3213
+        },
+        {
+          "edge": "NT07_UL_060",
+          "start": 6920.3213,
+          "end": 6927.185
+        }
+      ]
+    },
+    {
+      "id": "NT07_28BT",
+      "sections": [
+        {
+          "edge": "NT07_X02_P03_060",
+          "start": 6898.69921875,
+          "end": 6947.39892578125
+        },
+        {
+          "edge": "NT07_X02_X23_060",
+          "start": 6898.69921875,
+          "end": 6947.39892578125
+        },
+        {
+          "edge": "NT07_P03_070",
+          "start": 6947.39892578125,
+          "end": 7000.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "28ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_X02_P03_060",
+          "start": 6898.699,
+          "end": 6947.399
+        },
+        {
+          "edge": "NT07_X02_X23_060",
+          "start": 6898.699,
+          "end": 6947.399
+        },
+        {
+          "edge": "NT07_P03_070",
+          "start": 6947.399,
+          "end": 7000.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_29BT",
+      "sections": [
+        {
+          "edge": "NT07_X02_P02_060",
+          "start": 6898.69921875,
+          "end": 6947.39892578125
+        },
+        {
+          "edge": "NT07_X02_X32_060",
+          "start": 6898.69921875,
+          "end": 6947.39892578125
+        },
+        {
+          "edge": "NT07_P02_070",
+          "start": 6947.39892578125,
+          "end": 7000.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "29ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_X02_P02_060",
+          "start": 6898.699,
+          "end": 6947.399
+        },
+        {
+          "edge": "NT07_X02_X32_060",
+          "start": 6898.699,
+          "end": 6947.399
+        },
+        {
+          "edge": "NT07_P02_070",
+          "start": 6947.399,
+          "end": 7000.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_26BT",
+      "sections": [
+        {
+          "edge": "NT07_P01_045",
+          "start": 6917.67236328125,
+          "end": 6962.32373046875
+        },
+        {
+          "edge": "NT07_P02_TO_P01_060",
+          "start": 6920.63623046875,
+          "end": 6962.32373046875
+        },
+        {
+          "edge": "NT07_P01_050",
+          "start": 6962.32373046875,
+          "end": 7020.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "26ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P01_045",
+          "start": 6917.6724,
+          "end": 6962.3237
+        },
+        {
+          "edge": "NT07_P02_TO_P01_060",
+          "start": 6920.636,
+          "end": 6962.3237
+        },
+        {
+          "edge": "NT07_P01_050",
+          "start": 6962.3237,
+          "end": 7020.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_31BT",
+      "sections": [
+        {
+          "edge": "NT07_P04_045",
+          "start": 6917.67236328125,
+          "end": 6962.32373046875
+        },
+        {
+          "edge": "NT07_P03_TO_P04_060",
+          "start": 6920.63623046875,
+          "end": 6962.32373046875
+        },
+        {
+          "edge": "NT07_P04_050",
+          "start": 6962.32373046875,
+          "end": 7020.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "31ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P04_045",
+          "start": 6917.6724,
+          "end": 6962.3237
+        },
+        {
+          "edge": "NT07_P03_TO_P04_060",
+          "start": 6920.636,
+          "end": 6962.3237
+        },
+        {
+          "edge": "NT07_P04_050",
+          "start": 6962.3237,
+          "end": 7020.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_25BT",
+      "sections": [
+        {
+          "edge": "NT07_DL_060",
+          "start": 6927.18505859375,
+          "end": 6975.4208984375
+        },
+        {
+          "edge": "NT07_P01_TO_DL_060",
+          "start": 6924.220703125,
+          "end": 6975.4208984375
+        },
+        {
+          "edge": "NT07_DL_070",
+          "start": 6975.4208984375,
+          "end": 7020.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "25ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_DL_060",
+          "start": 6927.185,
+          "end": 6975.421
+        },
+        {
+          "edge": "NT07_P01_TO_DL_060",
+          "start": 6924.2207,
+          "end": 6975.421
+        },
+        {
+          "edge": "NT07_DL_070",
+          "start": 6975.421,
+          "end": 7020.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_32BT",
+      "sections": [
+        {
+          "edge": "NT07_UL_060",
+          "start": 6927.18505859375,
+          "end": 6975.4208984375
+        },
+        {
+          "edge": "NT07_P04_TO_UL_060",
+          "start": 6924.220703125,
+          "end": 6975.4208984375
+        },
+        {
+          "edge": "NT07_UL_070",
+          "start": 6975.4208984375,
+          "end": 7020.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "32ロT",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_UL_060",
+          "start": 6927.185,
+          "end": 6975.421
+        },
+        {
+          "edge": "NT07_P04_TO_UL_060",
+          "start": 6924.2207,
+          "end": 6975.421
+        },
+        {
+          "edge": "NT07_UL_070",
+          "start": 6975.421,
+          "end": 7020.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_DEPOT_1T",
+      "sections": [
+        {
+          "edge": "NT07_P02_070",
+          "start": 7000.0,
+          "end": 7280.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "電留1T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P02_070",
+          "start": 7000.0,
+          "end": 7280.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_DEPOT_2T",
+      "sections": [
+        {
+          "edge": "NT07_P03_070",
+          "start": 7000.0,
+          "end": 7280.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "display": "電留2T",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT07_P03_070",
+          "start": 7000.0,
+          "end": 7280.0
+        }
+      ]
+    },
+    {
+      "id": "NT07_NT08_DE1T",
+      "display": "下急1T",
+      "sections": [
+        {
+          "edge": "NT07_P01_050",
+          "start": 7020.0,
+          "end": 7930.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "extension_note": "図面案のみ。既存NT07 outgoing Edgeに7900–7930mの同横位置Constant区間を追加し、保存済みGraphは7900mまでを維持する。",
+      "logical_sections": [
+        {
+          "edge": "NT07_P01_050",
+          "start": 7020,
+          "end": 7930
+        }
+      ],
+      "previous_saved_asset_sections": [
+        {
+          "edge": "NT07_P01_050",
+          "start": 7020,
+          "end": 7900
+        }
+      ]
+    },
+    {
+      "id": "NT07_NT08_DL1T",
+      "display": "下緩1T",
+      "sections": [
+        {
+          "edge": "NT07_DL_070",
+          "start": 7020.0,
+          "end": 7930.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "extension_note": "図面案のみ。既存NT07 outgoing Edgeに7900–7930mの同横位置Constant区間を追加し、保存済みGraphは7900mまでを維持する。",
+      "logical_sections": [
+        {
+          "edge": "NT07_DL_070",
+          "start": 7020,
+          "end": 7930
+        }
+      ],
+      "previous_saved_asset_sections": [
+        {
+          "edge": "NT07_DL_070",
+          "start": 7020,
+          "end": 7900
+        }
+      ]
+    },
+    {
+      "id": "NT07_NT08_UE1T",
+      "display": "上急1T",
+      "sections": [
+        {
+          "edge": "NT07_P04_050",
+          "start": 7020.0,
+          "end": 7930.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "extension_note": "図面案のみ。既存NT07 outgoing Edgeに7900–7930mの同横位置Constant区間を追加し、保存済みGraphは7900mまでを維持する。",
+      "logical_sections": [
+        {
+          "edge": "NT07_P04_050",
+          "start": 7020,
+          "end": 7930
+        }
+      ],
+      "previous_saved_asset_sections": [
+        {
+          "edge": "NT07_P04_050",
+          "start": 7020,
+          "end": 7900
+        }
+      ]
+    },
+    {
+      "id": "NT07_NT08_UL1T",
+      "display": "上緩1T",
+      "sections": [
+        {
+          "edge": "NT07_UL_070",
+          "start": 7020.0,
+          "end": 7930.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "extension_note": "図面案のみ。既存NT07 outgoing Edgeに7900–7930mの同横位置Constant区間を追加し、保存済みGraphは7900mまでを維持する。",
+      "logical_sections": [
+        {
+          "edge": "NT07_UL_070",
+          "start": 7020,
+          "end": 7930
+        }
+      ],
+      "previous_saved_asset_sections": [
+        {
+          "edge": "NT07_UL_070",
+          "start": 7020,
+          "end": 7900
+        }
+      ]
+    },
+    {
+      "id": "NT08_1RT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT08_track1",
+          "start": 7930.0,
+          "end": 8150.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_track1",
+          "start": 7930,
+          "end": 8150
+        }
+      ]
+    },
+    {
+      "id": "NT08_2RT",
+      "display": "2RT",
+      "sections": [
+        {
+          "edge": "NT08_track2",
+          "start": 7930.0,
+          "end": 8150.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_track2",
+          "start": 7930,
+          "end": 8150
+        }
+      ]
+    },
+    {
+      "id": "NT08_3LT",
+      "display": "3LT",
+      "sections": [
+        {
+          "edge": "NT08_track3",
+          "start": 7930.0,
+          "end": 8150.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_track3",
+          "start": 7930,
+          "end": 8150
+        }
+      ]
+    },
+    {
+      "id": "NT08_4LT",
+      "display": "4LT",
+      "sections": [
+        {
+          "edge": "NT08_track4",
+          "start": 7930.0,
+          "end": 8150.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_track4",
+          "start": 7930,
+          "end": 8150
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_DE1T",
+      "display": "下急1T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_DE",
+          "start": 8150.0,
+          "end": 8340.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_DE",
+          "start": 8150,
+          "end": 8340
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_DL1T",
+      "display": "下緩1T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_DL",
+          "start": 8150.0,
+          "end": 8340.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_DL",
+          "start": 8150,
+          "end": 8340
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_UE1T",
+      "display": "上急1T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_UE",
+          "start": 8150.0,
+          "end": 8340.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_UE",
+          "start": 8150,
+          "end": 8340
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_UL1T",
+      "display": "上緩1T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_UL",
+          "start": 8150.0,
+          "end": 8340.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_UL",
+          "start": 8150,
+          "end": 8340
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_DE2T",
+      "display": "下急2T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_DE",
+          "start": 8340.0,
+          "end": 8540.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_DE",
+          "start": 8340,
+          "end": 8540
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_DL2T",
+      "display": "下緩2T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_DL",
+          "start": 8340.0,
+          "end": 8540.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_DL",
+          "start": 8340,
+          "end": 8540
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_UE2T",
+      "display": "上急2T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_UE",
+          "start": 8340.0,
+          "end": 8540.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_UE",
+          "start": 8340,
+          "end": 8540
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_UL2T",
+      "display": "上緩2T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_UL",
+          "start": 8340.0,
+          "end": 8540.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_UL",
+          "start": 8340,
+          "end": 8540
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_DE3T",
+      "display": "下急3T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_DE",
+          "start": 8540.0,
+          "end": 8730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_DE",
+          "start": 8540,
+          "end": 8730
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_DL3T",
+      "display": "下緩3T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_DL",
+          "start": 8540.0,
+          "end": 8730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_DL",
+          "start": 8540,
+          "end": 8730
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_UE3T",
+      "display": "上急3T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_UE",
+          "start": 8540.0,
+          "end": 8730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_UE",
+          "start": 8540,
+          "end": 8730
+        }
+      ]
+    },
+    {
+      "id": "NT08_NT09_UL3T",
+      "display": "上緩3T",
+      "sections": [
+        {
+          "edge": "NT08_NT09_UL",
+          "start": 8540.0,
+          "end": 8730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT08_NT09_UL",
+          "start": 8540,
+          "end": 8730
+        }
+      ]
+    },
+    {
+      "id": "NT09_1RT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT09_track1",
+          "start": 8730.0,
+          "end": 8950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_track1",
+          "start": 8730,
+          "end": 8950
+        }
+      ]
+    },
+    {
+      "id": "NT09_2RT",
+      "display": "2RT",
+      "sections": [
+        {
+          "edge": "NT09_track2",
+          "start": 8730.0,
+          "end": 8950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_track2",
+          "start": 8730,
+          "end": 8950
+        }
+      ]
+    },
+    {
+      "id": "NT09_3LT",
+      "display": "3LT",
+      "sections": [
+        {
+          "edge": "NT09_track3",
+          "start": 8730.0,
+          "end": 8950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_track3",
+          "start": 8730,
+          "end": 8950
+        }
+      ]
+    },
+    {
+      "id": "NT09_4LT",
+      "display": "4LT",
+      "sections": [
+        {
+          "edge": "NT09_track4",
+          "start": 8730.0,
+          "end": 8950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_track4",
+          "start": 8730,
+          "end": 8950
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_DE1T",
+      "display": "下急1T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_DE",
+          "start": 8950.0,
+          "end": 9210.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_DE",
+          "start": 8950,
+          "end": 9210
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_DL1T",
+      "display": "下緩1T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_DL",
+          "start": 8950.0,
+          "end": 9210.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_DL",
+          "start": 8950,
+          "end": 9210
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_UE1T",
+      "display": "上急1T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_UE",
+          "start": 8950.0,
+          "end": 9210.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_UE",
+          "start": 8950,
+          "end": 9210
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_UL1T",
+      "display": "上緩1T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_UL",
+          "start": 8950.0,
+          "end": 9210.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_UL",
+          "start": 8950,
+          "end": 9210
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_DE2T",
+      "display": "下急2T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_DE",
+          "start": 9210.0,
+          "end": 9470.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_DE",
+          "start": 9210,
+          "end": 9470
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_DL2T",
+      "display": "下緩2T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_DL",
+          "start": 9210.0,
+          "end": 9470.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_DL",
+          "start": 9210,
+          "end": 9470
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_UE2T",
+      "display": "上急2T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_UE",
+          "start": 9210.0,
+          "end": 9470.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_UE",
+          "start": 9210,
+          "end": 9470
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_UL2T",
+      "display": "上緩2T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_UL",
+          "start": 9210.0,
+          "end": 9470.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_UL",
+          "start": 9210,
+          "end": 9470
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_DE3T",
+      "display": "下急3T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_DE",
+          "start": 9470.0,
+          "end": 9730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_DE",
+          "start": 9470,
+          "end": 9730
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_DL3T",
+      "display": "下緩3T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_DL",
+          "start": 9470.0,
+          "end": 9730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_DL",
+          "start": 9470,
+          "end": 9730
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_UE3T",
+      "display": "上急3T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_UE",
+          "start": 9470.0,
+          "end": 9730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_UE",
+          "start": 9470,
+          "end": 9730
+        }
+      ]
+    },
+    {
+      "id": "NT09_NT10_UL3T",
+      "display": "上緩3T",
+      "sections": [
+        {
+          "edge": "NT09_NT10_UL",
+          "start": 9470.0,
+          "end": 9730.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT09_NT10_UL",
+          "start": 9470,
+          "end": 9730
+        }
+      ]
+    },
+    {
+      "id": "NT10_1RT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT10_track1",
+          "start": 9730.0,
+          "end": 9950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_track1",
+          "start": 9730,
+          "end": 9950
+        }
+      ]
+    },
+    {
+      "id": "NT10_2RT",
+      "display": "2RT",
+      "sections": [
+        {
+          "edge": "NT10_track2",
+          "start": 9730.0,
+          "end": 9950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_track2",
+          "start": 9730,
+          "end": 9950
+        }
+      ]
+    },
+    {
+      "id": "NT10_3LT",
+      "display": "3LT",
+      "sections": [
+        {
+          "edge": "NT10_track3",
+          "start": 9730.0,
+          "end": 9950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_track3",
+          "start": 9730,
+          "end": 9950
+        }
+      ]
+    },
+    {
+      "id": "NT10_4LT",
+      "display": "4LT",
+      "sections": [
+        {
+          "edge": "NT10_track4",
+          "start": 9730.0,
+          "end": 9950.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_track4",
+          "start": 9730,
+          "end": 9950
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_DE1T",
+      "display": "下急1T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_DE",
+          "start": 9950.0,
+          "end": 10010.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_DE",
+          "start": 9950,
+          "end": 10010
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_DL1T",
+      "display": "下緩1T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_DL",
+          "start": 9950.0,
+          "end": 10010.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_DL",
+          "start": 9950,
+          "end": 10010
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_UE1T",
+      "display": "上急1T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_UE",
+          "start": 9950.0,
+          "end": 10010.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_UE",
+          "start": 9950,
+          "end": 10010
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_UL1T",
+      "display": "上緩1T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_UL",
+          "start": 9950.0,
+          "end": 10010.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_UL",
+          "start": 9950,
+          "end": 10010
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_DE2T",
+      "display": "下急2T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_DE",
+          "start": 10010.0,
+          "end": 10070.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_DE",
+          "start": 10010,
+          "end": 10070
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_DL2T",
+      "display": "下緩2T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_DL",
+          "start": 10010.0,
+          "end": 10070.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_DL",
+          "start": 10010,
+          "end": 10070
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_UE2T",
+      "display": "上急2T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_UE",
+          "start": 10010.0,
+          "end": 10070.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_UE",
+          "start": 10010,
+          "end": 10070
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_UL2T",
+      "display": "上緩2T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_UL",
+          "start": 10010.0,
+          "end": 10070.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_UL",
+          "start": 10010,
+          "end": 10070
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_DE3T",
+      "display": "下急3T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_DE",
+          "start": 10070.0,
+          "end": 10140.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_DE",
+          "start": 10070,
+          "end": 10140
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_DL3T",
+      "display": "下緩3T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_DL",
+          "start": 10070.0,
+          "end": 10140.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_DL",
+          "start": 10070,
+          "end": 10140
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_UE3T",
+      "display": "上急3T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_UE",
+          "start": 10070.0,
+          "end": 10140.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_UE",
+          "start": 10070,
+          "end": 10140
+        }
+      ]
+    },
+    {
+      "id": "NT10_NT11_UL3T",
+      "display": "上緩3T",
+      "sections": [
+        {
+          "edge": "NT10_NT11_UL",
+          "start": 10070.0,
+          "end": 10140.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT10_NT11_UL",
+          "start": 10070,
+          "end": 10140
+        }
+      ]
+    },
+    {
+      "id": "NT11_21AT",
+      "display": "21イT",
+      "sections": [
+        {
+          "edge": "NT11_track1_approach",
+          "start": 10140.0,
+          "end": 10180.0
+        },
+        {
+          "edge": "NT11_track1_scissors",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        },
+        {
+          "edge": "NT11_crossover21",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 10140,
+          "end": 10227.127487
+        },
+        {
+          "edge": "NT11_crossover21",
+          "start": 10180,
+          "end": 10227.127487
+        }
+      ]
+    },
+    {
+      "id": "NT11_22AT",
+      "display": "22イT",
+      "sections": [
+        {
+          "edge": "NT11_track2_approach",
+          "start": 10140.0,
+          "end": 10180.0
+        },
+        {
+          "edge": "NT11_track2_scissors",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        },
+        {
+          "edge": "NT11_crossover22",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 10140,
+          "end": 10227.127487
+        },
+        {
+          "edge": "NT11_crossover22",
+          "start": 10180,
+          "end": 10227.127487
+        }
+      ]
+    },
+    {
+      "id": "NT11_23AT",
+      "display": "23イT",
+      "sections": [
+        {
+          "edge": "NT11_track3_approach",
+          "start": 10140.0,
+          "end": 10180.0
+        },
+        {
+          "edge": "NT11_track3_scissors",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        },
+        {
+          "edge": "NT11_crossover23",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track3",
+          "start": 10140,
+          "end": 10227.127487
+        },
+        {
+          "edge": "NT11_crossover23",
+          "start": 10180,
+          "end": 10227.127487
+        }
+      ]
+    },
+    {
+      "id": "NT11_24AT",
+      "display": "24イT",
+      "sections": [
+        {
+          "edge": "NT11_track4_approach",
+          "start": 10140.0,
+          "end": 10180.0
+        },
+        {
+          "edge": "NT11_track4_scissors",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        },
+        {
+          "edge": "NT11_crossover24",
+          "start": 10180.0,
+          "end": 10227.1279296875
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track4",
+          "start": 10140,
+          "end": 10227.127487
+        },
+        {
+          "edge": "NT11_crossover24",
+          "start": 10180,
+          "end": 10227.127487
+        }
+      ]
+    },
+    {
+      "id": "NT11_21BT",
+      "display": "21ロT",
+      "sections": [
+        {
+          "edge": "NT11_track2_scissors",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        },
+        {
+          "edge": "NT11_track2",
+          "start": 10274.2548828125,
+          "end": 10590.0
+        },
+        {
+          "edge": "NT11_crossover21",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 10227.127487,
+          "end": 10590
+        },
+        {
+          "edge": "NT11_crossover21",
+          "start": 10227.127487,
+          "end": 10274.254973
+        }
+      ]
+    },
+    {
+      "id": "NT11_22BT",
+      "display": "22ロT",
+      "sections": [
+        {
+          "edge": "NT11_track1_scissors",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        },
+        {
+          "edge": "NT11_track1",
+          "start": 10274.2548828125,
+          "end": 10590.0
+        },
+        {
+          "edge": "NT11_crossover22",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 10227.127487,
+          "end": 10590
+        },
+        {
+          "edge": "NT11_crossover22",
+          "start": 10227.127487,
+          "end": 10274.254973
+        }
+      ]
+    },
+    {
+      "id": "NT11_23BT",
+      "display": "23ロT",
+      "sections": [
+        {
+          "edge": "NT11_track4_scissors",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        },
+        {
+          "edge": "NT11_track4",
+          "start": 10274.2548828125,
+          "end": 10590.0
+        },
+        {
+          "edge": "NT11_crossover23",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track4",
+          "start": 10227.127487,
+          "end": 10590
+        },
+        {
+          "edge": "NT11_crossover23",
+          "start": 10227.127487,
+          "end": 10274.254973
+        }
+      ]
+    },
+    {
+      "id": "NT11_24BT",
+      "display": "24ロT",
+      "sections": [
+        {
+          "edge": "NT11_track3_scissors",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        },
+        {
+          "edge": "NT11_track3",
+          "start": 10274.2548828125,
+          "end": 10590.0
+        },
+        {
+          "edge": "NT11_crossover24",
+          "start": 10227.1279296875,
+          "end": 10274.2548828125
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track3",
+          "start": 10227.127487,
+          "end": 10590
+        },
+        {
+          "edge": "NT11_crossover24",
+          "start": 10227.127487,
+          "end": 10274.254973
+        }
+      ]
+    },
+    {
+      "id": "NT11_1RT",
+      "display": "1RT",
+      "sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 10590.0,
+          "end": 10890.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 10590,
+          "end": 10890
+        }
+      ]
+    },
+    {
+      "id": "NT11_2RT",
+      "display": "2RT",
+      "sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 10590.0,
+          "end": 10890.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 10590,
+          "end": 10890
+        }
+      ]
+    },
+    {
+      "id": "NT11_3LT",
+      "display": "3LT",
+      "sections": [
+        {
+          "edge": "NT11_track3",
+          "start": 10590.0,
+          "end": 10890.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track3",
+          "start": 10590,
+          "end": 10890
+        }
+      ]
+    },
+    {
+      "id": "NT11_4LT",
+      "display": "4LT",
+      "sections": [
+        {
+          "edge": "NT11_track4",
+          "start": 10590.0,
+          "end": 10890.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track4",
+          "start": 10590,
+          "end": 10890
+        }
+      ]
+    },
+    {
+      "id": "NT11_25AT",
+      "display": "25イT",
+      "sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 10890.0,
+          "end": 10900.0
+        },
+        {
+          "edge": "NT11_track2_to26",
+          "start": 10900.0,
+          "end": 11020.0126953125
+        },
+        {
+          "edge": "NT11_crossover25",
+          "start": 10900.0,
+          "end": 10990.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 10890,
+          "end": 11020.012484399373
+        },
+        {
+          "edge": "NT11_crossover25",
+          "start": 10900,
+          "end": 10990
+        }
+      ]
+    },
+    {
+      "id": "NT11_25BT",
+      "display": "25ロT",
+      "sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 10890.0,
+          "end": 11080.0
+        },
+        {
+          "edge": "NT11_track1_stub",
+          "start": 11080.0,
+          "end": 11110.0
+        },
+        {
+          "edge": "NT11_crossover25",
+          "start": 10990.0,
+          "end": 11080.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 10890,
+          "end": 11110
+        },
+        {
+          "edge": "NT11_crossover25",
+          "start": 10990,
+          "end": 11080
+        }
+      ]
+    },
+    {
+      "id": "NT11_26T",
+      "display": "26T",
+      "sections": [
+        {
+          "edge": "NT11_track2_to26",
+          "start": 11020.0126953125,
+          "end": 11160.0
+        },
+        {
+          "edge": "NT11_track3",
+          "start": 10890.0,
+          "end": 11160.0
+        },
+        {
+          "edge": "NT11_track3_stub",
+          "start": 11160.0,
+          "end": 11180.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track2",
+          "start": 11020.012484399373,
+          "end": 11160
+        },
+        {
+          "edge": "NT11_track3",
+          "start": 10890,
+          "end": 11180
+        }
+      ]
+    },
+    {
+      "id": "NT11_DEPOT_T",
+      "display": "電留T",
+      "sections": [
+        {
+          "edge": "NT11_track3_stub",
+          "start": 11180.0,
+          "end": 11400.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track3",
+          "start": 11180,
+          "end": 11400
+        }
+      ]
+    },
+    {
+      "id": "NT11_1_STUB_T",
+      "display": "1引T",
+      "sections": [
+        {
+          "edge": "NT11_track1_stub",
+          "start": 11110.0,
+          "end": 11860.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track1",
+          "start": 11110,
+          "end": 11860
+        }
+      ]
+    },
+    {
+      "id": "NT11_4_STUB_T",
+      "display": "4引T",
+      "sections": [
+        {
+          "edge": "NT11_track4",
+          "start": 10890.0,
+          "end": 11860.0
+        }
+      ],
+      "status": "Graph・ATC反映済み（Native保存値）",
+      "asset_reflected": true,
+      "logical_sections": [
+        {
+          "edge": "NT11_track4",
+          "start": 10890,
+          "end": 11860
+        }
+      ]
+    }
+  ],
+  "asset_reflection_status": "Graph_ATC_Interlocking_published",
+  "source_previous_sha256": "b0b045948498a2eae304c969ad5c5eecae3c659955a46b7b5a8912542bf352f5",
+  "reflected_station_updates": [
+    "NT02",
+    "NT03",
+    "NT04",
+    "NT06",
+    "NT08",
+    "NT09",
+    "NT10",
+    "NT11"
+  ],
+  "reflected_section_updates": [
+    "NT01_NT02",
+    "NT02_NT03",
+    "NT03_NT04",
+    "NT04_NT05",
+    "NT05_NT06",
+    "NT06_NT07",
+    "NT07_NT08",
+    "NT08_NT09",
+    "NT09_NT10",
+    "NT10_NT11"
+  ],
+  "unreflected_plan_scopes": [],
+  "platform_asset_note": "ホーム長・縁・停止車体は寸法資料。Graphにホーム項目はなく、ホームMesh・Prefab・ホームのScene配置は未作成。NtLine.sceneにはNT11連動ControllerとManager登録を追加済み。",
+  "source_snapshot_before_station_edge_sync_sha256": "07728cf654ba5f22aca897555b1b41f4393a45efa96f05db8cfe56a46e1ec200",
+  "station_edge_alignment_reflected": [
+    "NT02",
+    "NT03",
+    "NT08",
+    "NT09",
+    "NT10"
+  ],
+  "station_edge_alignment_proposed": [],
+  "edge_boundary_policy": "NT02/03/08/09/10: station Edge = 220m station circuit. NT04/06: preserve widened station Edges and separate circuit boundaries.",
+  "nt11_circuit_plan_note": "ユーザー更新NT11配線図の回路名・分割をGraph/ATC/連動へ反映済み。入口主線/斜線の共通境界はNative保存値10227.1279296875m（理論10227.127487m）。26はn=10の中央x=0、左右対称Arc両開き。略図pxをsへ換算しない。ホーム240mは資料寸法。",
+  "nt11_centered_turnout26": {
+    "asset_reflected": true,
+    "point_id": "26",
+    "point_s": 11160.0,
+    "point_local_x": 0,
+    "turnout_number_proposal": 10,
+    "half_angle_rad": 0.049958395721942765,
+    "half_angle_deg": 2.862405226111748,
+    "full_angle_deg": 5.724810452223496,
+    "angle_formula": "full_angle=2*atan(1/(2*n)); half_angle=atan(1/(2*n))",
+    "angle_reference": "https://patents.google.com/patent/JP5773780B2/ja#description",
+    "angle_reference_note": "JP5773780B2式1。R400と連絡部の形状はゲーム用の寸法案。",
+    "radius_m_proposal": 400.0,
+    "branch2_segments": [
+      {
+        "type": "Arc",
+        "start": 11020.012484399373,
+        "end": 11039.98753117693,
+        "local_offset_start": -6,
+        "local_offset_end": -5.500935551137859,
+        "signed_radius_m": 400,
+        "start_heading_deg": 0
+      },
+      {
+        "type": "Linear",
+        "start": 11039.98753117693,
+        "end": 11140.024953222442,
+        "local_offset_start": -5.500935551137859,
+        "local_offset_end": -0.49906444886214096,
+        "slope": 0.05
+      },
+      {
+        "type": "Arc",
+        "start": 11140.024953222442,
+        "end": 11160.0,
+        "local_offset_start": -0.49906444886214096,
+        "local_offset_end": 0,
+        "signed_radius_m": -400,
+        "start_heading_deg": 2.862405226111748
+      }
+    ],
+    "branch3_segments": [
+      {
+        "type": "Arc",
+        "start": 11020.012484399373,
+        "end": 11039.98753117693,
+        "local_offset_start": 6,
+        "local_offset_end": 5.500935551137859,
+        "signed_radius_m": -400,
+        "start_heading_deg": 0
+      },
+      {
+        "type": "Linear",
+        "start": 11039.98753117693,
+        "end": 11140.024953222442,
+        "local_offset_start": 5.500935551137859,
+        "local_offset_end": 0.49906444886214096,
+        "slope": -0.05
+      },
+      {
+        "type": "Arc",
+        "start": 11140.024953222442,
+        "end": 11160.0,
+        "local_offset_start": 0.49906444886214096,
+        "local_offset_end": 0,
+        "signed_radius_m": 400,
+        "start_heading_deg": -2.862405226111748
+      }
+    ],
+    "station_side_arc_note": "既存の平行線への接続調整",
+    "common_side_arc_note": "26の両開き分岐曲線、定位側も曲線",
+    "branch_projection_length_m": 139.98751560062738,
+    "branch_actual_length_m": 140.1291073439299,
+    "diagonal_actual_length_m": 100.1623907663757,
+    "diagonal_projection_length_m": 100.03742204551236,
+    "common_stub": {
+      "edge": "NT11_track3_stub",
+      "start": 11160.0,
+      "end": 11400,
+      "local_offset": 0,
+      "unity_offset": 2,
+      "logical_edge": "NT11_track3"
+    },
+    "normal": "3番線ホーム側 ↔ 中央の電留線",
+    "reverse": "2番線ホーム側 ↔ 中央の電留線",
+    "depot_circuit": {
+      "id": "NT11_DEPOT_T",
+      "start": 11180,
+      "end": 11400,
+      "length": 220
+    },
+    "stopped_body": {
+      "start": 11190,
+      "end": 11390,
+      "length": 200,
+      "depot_circuit_margin_each_m": 10,
+      "rear_clearance_from_point26_m": 30,
+      "front_clearance_to_buffer_m": 10,
+      "note": "RangesOverlapは境界一致もoccupied。26T末端11180を車体が占有しないよう電留回路の内側へ各10m離す。",
+      "occupied_depot_runtime_validation": {
+        "status": "PASS",
+        "depot_circuit_occupied": true,
+        "point26_circuit_occupied": false,
+        "routes": [
+          "NT11_306LA",
+          "NT11_306LB"
+        ],
+        "checks": [
+          "発点電留在線のままRouteSet/PathEstablished/ProceedAllowed",
+          "全154ATC電文valid",
+          "通常取消29秒鎖錠保持・31秒解放"
+        ],
+        "previous_boundary_body_11180_11380": "26T占有を再現。11190〜11390mへ注記を修正。"
+      }
+    },
+    "dimension_values": "理論設計値。Nativeの保存値はedges/circuitsとlogical_to_native_edge_mapを参照。",
+    "native_branch2_edge": "NT11_track2_to26",
+    "native_branch3_edge": "NT11_track3",
+    "saved_circuit_boundary_s": 11020.0126953125
+  },
+  "implementation_stage": "native_saved_reloaded_published_and_runtime_verified",
+  "logical_edges": [
+    {
+      "id": "NT01_NT02_down",
+      "start": 650,
+      "end": 1230,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_NT02_up",
+      "start": 650,
+      "end": 1230,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_crossover21",
+      "start": 520.0,
+      "end": 592.9167,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_crossover22",
+      "start": 520.0,
+      "end": 592.9167,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track1",
+      "start": 0.0,
+      "end": 444.79166,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_exit",
+      "start": 592.9167,
+      "end": 650.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_platform",
+      "start": 0.0,
+      "end": 444.79166,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_scissors",
+      "start": 520.0,
+      "end": 592.9167,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track2_throat",
+      "start": 444.79166,
+      "end": 520.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track3",
+      "start": 0.0,
+      "end": 520.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track3_exit",
+      "start": 592.9167,
+      "end": 650.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT01_track3_scissors",
+      "start": 520.0,
+      "end": 592.9167,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_NT03_down",
+      "start": 1450,
+      "end": 2130,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_NT03_up",
+      "start": 1450,
+      "end": 2130,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_track1",
+      "start": 1230,
+      "end": 1450,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT02_track2",
+      "start": 1230,
+      "end": 1450,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_NT04_down",
+      "start": 2350,
+      "end": 3140,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_NT04_up",
+      "start": 2350,
+      "end": 3140,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_track1",
+      "start": 2130,
+      "end": 2350,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT03_track2",
+      "start": 2130,
+      "end": 2350,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_NT05_down",
+      "start": 3540,
+      "end": 3700,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_NT05_up",
+      "start": 3540,
+      "end": 3700,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_track1",
+      "start": 3140,
+      "end": 3540,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT04_track2",
+      "start": 3140,
+      "end": 3540,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_NT06_down",
+      "start": 4380,
+      "end": 4920,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_NT06_up",
+      "start": 4380,
+      "end": 4920,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track1",
+      "start": 3804.4788,
+      "end": 4275.5215,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track2",
+      "start": 3804.4788,
+      "end": 4275.5215,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track2_entry",
+      "start": 3700.0,
+      "end": 3804.4788,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track2_exit",
+      "start": 4275.5215,
+      "end": 4380.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track3",
+      "start": 3804.4788,
+      "end": 4275.5215,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track3_entry",
+      "start": 3700.0,
+      "end": 3804.4788,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track3_exit",
+      "start": 4275.5215,
+      "end": 4380.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT05_track4",
+      "start": 3804.4788,
+      "end": 4275.5215,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_NT07_down",
+      "start": 5560,
+      "end": 6120,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_NT07_up",
+      "start": 5560,
+      "end": 6120,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_track1",
+      "start": 4920,
+      "end": 5560,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT06_track2",
+      "start": 4920,
+      "end": 5560,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_DL_060",
+      "start": 6920.3213,
+      "end": 6975.421,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_DL_070",
+      "start": 6975.421,
+      "end": 7930,
+      "asset_reflected": true,
+      "previous_saved_asset_end": 7900,
+      "implemented_extension": {
+        "start": 7900,
+        "end": 7930,
+        "type": "ConstantOffset",
+        "unity_offset_m": -4
+      }
+    },
+    {
+      "id": "NT07_ML1_010",
+      "start": 6120.0,
+      "end": 6180.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML1_030",
+      "start": 6282.4,
+      "end": 6300.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML2_010",
+      "start": 6120.0,
+      "end": 6180.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_ML2_030",
+      "start": 6282.4,
+      "end": 6300.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_040",
+      "start": 6300.0,
+      "end": 6873.0205,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_045",
+      "start": 6873.0205,
+      "end": 6962.3237,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P01_050",
+      "start": 6962.3237,
+      "end": 7930,
+      "asset_reflected": true,
+      "previous_saved_asset_end": 7900,
+      "implemented_extension": {
+        "start": 7900,
+        "end": 7930,
+        "type": "ConstantOffset",
+        "unity_offset_m": -8
+      }
+    },
+    {
+      "id": "NT07_P01_TO_DL_060",
+      "start": 6873.0205,
+      "end": 6975.421,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_040",
+      "start": 6300.0,
+      "end": 6820.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_050",
+      "start": 6820.0,
+      "end": 6850.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_070",
+      "start": 6947.399,
+      "end": 7280.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_TO_DL_060",
+      "start": 6878.949,
+      "end": 6920.3213,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_TO_P01_050",
+      "start": 6820.0,
+      "end": 6878.949,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P02_TO_P01_060",
+      "start": 6878.949,
+      "end": 6962.3237,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_040",
+      "start": 6300.0,
+      "end": 6820.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_050",
+      "start": 6820.0,
+      "end": 6850.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_070",
+      "start": 6947.399,
+      "end": 7280.0,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_TO_P04_050",
+      "start": 6820.0,
+      "end": 6878.949,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_TO_P04_060",
+      "start": 6878.949,
+      "end": 6962.3237,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P03_TO_UL_060",
+      "start": 6878.949,
+      "end": 6920.3213,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_040",
+      "start": 6364.5293,
+      "end": 6873.0205,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_045",
+      "start": 6873.0205,
+      "end": 6962.3237,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_050",
+      "start": 6962.3237,
+      "end": 7930,
+      "asset_reflected": true,
+      "previous_saved_asset_end": 7900,
+      "implemented_extension": {
+        "start": 7900,
+        "end": 7930,
+        "type": "ConstantOffset",
+        "unity_offset_m": 12
+      }
+    },
+    {
+      "id": "NT07_P04_LEAD_040",
+      "start": 6300.0,
+      "end": 6364.5293,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_P04_TO_UL_060",
+      "start": 6873.0205,
+      "end": 6975.421,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_UL_060",
+      "start": 6920.3213,
+      "end": 6975.421,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_UL_070",
+      "start": 6975.421,
+      "end": 7930,
+      "asset_reflected": true,
+      "previous_saved_asset_end": 7900,
+      "implemented_extension": {
+        "start": 7900,
+        "end": 7930,
+        "type": "ConstantOffset",
+        "unity_offset_m": 8
+      }
+    },
+    {
+      "id": "NT07_X01_ML1_010",
+      "start": 6180.0,
+      "end": 6282.4,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_ML2_010",
+      "start": 6180.0,
+      "end": 6282.4,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_X12_010",
+      "start": 6180.0,
+      "end": 6282.4,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X01_X21_010",
+      "start": 6180.0,
+      "end": 6282.4,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_P02_060",
+      "start": 6850.0,
+      "end": 6947.399,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_P03_060",
+      "start": 6850.0,
+      "end": 6947.399,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_X23_060",
+      "start": 6850.0,
+      "end": 6947.399,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT07_X02_X32_060",
+      "start": 6850.0,
+      "end": 6947.399,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_DE",
+      "start": 8150,
+      "end": 8730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_DL",
+      "start": 8150,
+      "end": 8730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_UE",
+      "start": 8150,
+      "end": 8730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_NT09_UL",
+      "start": 8150,
+      "end": 8730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track1",
+      "start": 7930,
+      "end": 8150,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track2",
+      "start": 7930,
+      "end": 8150,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track3",
+      "start": 7930,
+      "end": 8150,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT08_track4",
+      "start": 7930,
+      "end": 8150,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_DE",
+      "start": 8950,
+      "end": 9730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_DL",
+      "start": 8950,
+      "end": 9730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_UE",
+      "start": 8950,
+      "end": 9730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_NT10_UL",
+      "start": 8950,
+      "end": 9730,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track1",
+      "start": 8730,
+      "end": 8950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track2",
+      "start": 8730,
+      "end": 8950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track3",
+      "start": 8730,
+      "end": 8950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT09_track4",
+      "start": 8730,
+      "end": 8950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_DE",
+      "start": 9950,
+      "end": 10140,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_DL",
+      "start": 9950,
+      "end": 10140,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_UE",
+      "start": 9950,
+      "end": 10140,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_NT11_UL",
+      "start": 9950,
+      "end": 10140,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track1",
+      "start": 9730,
+      "end": 9950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track2",
+      "start": 9730,
+      "end": 9950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track3",
+      "start": 9730,
+      "end": 9950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT10_track4",
+      "start": 9730,
+      "end": 9950,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover21",
+      "start": 10180,
+      "end": 10274.254973,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover22",
+      "start": 10180,
+      "end": 10274.254973,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover23",
+      "start": 10180,
+      "end": 10274.254973,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover24",
+      "start": 10180,
+      "end": 10274.254973,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_crossover25",
+      "start": 10900,
+      "end": 11080,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track1",
+      "start": 10140,
+      "end": 11860,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track2",
+      "start": 10140,
+      "end": 11160,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track3",
+      "start": 10140,
+      "end": 11400,
+      "asset_reflected": true
+    },
+    {
+      "id": "NT11_track4",
+      "start": 10140,
+      "end": 11860,
+      "asset_reflected": true
+    }
+  ],
+  "logical_to_native_edge_map": {
+    "NT07_P01_050": [
+      {
+        "id": "NT07_P01_050",
+        "start": 6962.32373046875,
+        "end": 7930.0
+      }
+    ],
+    "NT07_DL_070": [
+      {
+        "id": "NT07_DL_070",
+        "start": 6975.4208984375,
+        "end": 7930.0
+      }
+    ],
+    "NT07_UL_070": [
+      {
+        "id": "NT07_UL_070",
+        "start": 6975.4208984375,
+        "end": 7930.0
+      }
+    ],
+    "NT07_P04_050": [
+      {
+        "id": "NT07_P04_050",
+        "start": 6962.32373046875,
+        "end": 7930.0
+      }
+    ],
+    "NT08_track1": [
+      {
+        "id": "NT08_track1",
+        "start": 7930.0,
+        "end": 8150.0
+      }
+    ],
+    "NT08_NT09_DE": [
+      {
+        "id": "NT08_NT09_DE",
+        "start": 8150.0,
+        "end": 8730.0
+      }
+    ],
+    "NT08_track2": [
+      {
+        "id": "NT08_track2",
+        "start": 7930.0,
+        "end": 8150.0
+      }
+    ],
+    "NT08_NT09_DL": [
+      {
+        "id": "NT08_NT09_DL",
+        "start": 8150.0,
+        "end": 8730.0
+      }
+    ],
+    "NT08_track3": [
+      {
+        "id": "NT08_track3",
+        "start": 7930.0,
+        "end": 8150.0
+      }
+    ],
+    "NT08_NT09_UL": [
+      {
+        "id": "NT08_NT09_UL",
+        "start": 8150.0,
+        "end": 8730.0
+      }
+    ],
+    "NT08_track4": [
+      {
+        "id": "NT08_track4",
+        "start": 7930.0,
+        "end": 8150.0
+      }
+    ],
+    "NT08_NT09_UE": [
+      {
+        "id": "NT08_NT09_UE",
+        "start": 8150.0,
+        "end": 8730.0
+      }
+    ],
+    "NT09_track1": [
+      {
+        "id": "NT09_track1",
+        "start": 8730.0,
+        "end": 8950.0
+      }
+    ],
+    "NT09_NT10_DE": [
+      {
+        "id": "NT09_NT10_DE",
+        "start": 8950.0,
+        "end": 9730.0
+      }
+    ],
+    "NT09_track2": [
+      {
+        "id": "NT09_track2",
+        "start": 8730.0,
+        "end": 8950.0
+      }
+    ],
+    "NT09_NT10_DL": [
+      {
+        "id": "NT09_NT10_DL",
+        "start": 8950.0,
+        "end": 9730.0
+      }
+    ],
+    "NT09_track3": [
+      {
+        "id": "NT09_track3",
+        "start": 8730.0,
+        "end": 8950.0
+      }
+    ],
+    "NT09_NT10_UL": [
+      {
+        "id": "NT09_NT10_UL",
+        "start": 8950.0,
+        "end": 9730.0
+      }
+    ],
+    "NT09_track4": [
+      {
+        "id": "NT09_track4",
+        "start": 8730.0,
+        "end": 8950.0
+      }
+    ],
+    "NT09_NT10_UE": [
+      {
+        "id": "NT09_NT10_UE",
+        "start": 8950.0,
+        "end": 9730.0
+      }
+    ],
+    "NT10_track1": [
+      {
+        "id": "NT10_track1",
+        "start": 9730.0,
+        "end": 9950.0
+      }
+    ],
+    "NT10_NT11_DE": [
+      {
+        "id": "NT10_NT11_DE",
+        "start": 9950.0,
+        "end": 10140.0
+      }
+    ],
+    "NT10_track2": [
+      {
+        "id": "NT10_track2",
+        "start": 9730.0,
+        "end": 9950.0
+      }
+    ],
+    "NT10_NT11_DL": [
+      {
+        "id": "NT10_NT11_DL",
+        "start": 9950.0,
+        "end": 10140.0
+      }
+    ],
+    "NT10_track3": [
+      {
+        "id": "NT10_track3",
+        "start": 9730.0,
+        "end": 9950.0
+      }
+    ],
+    "NT10_NT11_UL": [
+      {
+        "id": "NT10_NT11_UL",
+        "start": 9950.0,
+        "end": 10140.0
+      }
+    ],
+    "NT10_track4": [
+      {
+        "id": "NT10_track4",
+        "start": 9730.0,
+        "end": 9950.0
+      }
+    ],
+    "NT10_NT11_UE": [
+      {
+        "id": "NT10_NT11_UE",
+        "start": 9950.0,
+        "end": 10140.0
+      }
+    ],
+    "NT11_track1": [
+      {
+        "id": "NT11_track1_approach",
+        "start": 10140.0,
+        "end": 10180.0
+      },
+      {
+        "id": "NT11_track1_scissors",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      },
+      {
+        "id": "NT11_track1",
+        "start": 10274.2548828125,
+        "end": 11080.0
+      },
+      {
+        "id": "NT11_track1_stub",
+        "start": 11080.0,
+        "end": 11860.0
+      }
+    ],
+    "NT11_track2": [
+      {
+        "id": "NT11_track2_approach",
+        "start": 10140.0,
+        "end": 10180.0
+      },
+      {
+        "id": "NT11_track2_scissors",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      },
+      {
+        "id": "NT11_track2",
+        "start": 10274.2548828125,
+        "end": 10900.0
+      },
+      {
+        "id": "NT11_track2_to26",
+        "start": 10900.0,
+        "end": 11160.0
+      }
+    ],
+    "NT11_track3": [
+      {
+        "id": "NT11_track3_approach",
+        "start": 10140.0,
+        "end": 10180.0
+      },
+      {
+        "id": "NT11_track3_scissors",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      },
+      {
+        "id": "NT11_track3",
+        "start": 10274.2548828125,
+        "end": 11160.0
+      },
+      {
+        "id": "NT11_track3_stub",
+        "start": 11160.0,
+        "end": 11400.0
+      }
+    ],
+    "NT11_track4": [
+      {
+        "id": "NT11_track4_approach",
+        "start": 10140.0,
+        "end": 10180.0
+      },
+      {
+        "id": "NT11_track4_scissors",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      },
+      {
+        "id": "NT11_track4",
+        "start": 10274.2548828125,
+        "end": 11860.0
+      }
+    ],
+    "NT11_crossover21": [
+      {
+        "id": "NT11_crossover21",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      }
+    ],
+    "NT11_crossover22": [
+      {
+        "id": "NT11_crossover22",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      }
+    ],
+    "NT11_crossover23": [
+      {
+        "id": "NT11_crossover23",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      }
+    ],
+    "NT11_crossover24": [
+      {
+        "id": "NT11_crossover24",
+        "start": 10180.0,
+        "end": 10274.2548828125
+      }
+    ],
+    "NT11_crossover25": [
+      {
+        "id": "NT11_crossover25",
+        "start": 10900.0,
+        "end": 11080.0
+      }
+    ]
+  },
+  "published_assets_sha256": {
+    "Assets/Nakatetsu/Track/Network/Data/Interlocking/NT11.asset.meta": "67646534f569fa2a5610a7aabc7fddaa0261cc1b67747f0d46d79cf801b2ba48",
+    "Assets/Nakatetsu/Track/Network/Data/Interlocking/NT11.asset": "3857d2196909c9172a4e1be3d2721f11e9f3b3a070d426470e8562f7249182fd",
+    "Assets/Nakatetsu/Track/Network/Data/ATC/NakatetsuAtcGraphSource.asset": "cf695d83da02c15e24f34658c25f32da15e405eb5afec1bc48f5227e2417d7a3",
+    "Assets/Nakatetsu/Track/Network/Data/NakatetsuGraph.asset": "9c41dc27564fbbdc7084cb6cf4653f4924f67dce4dfa917b2d679da4ada60b41",
+    "Assets/Nakatetsu/Track/Network/Data/ATC/NakatetsuAtcGraph.asset": "96755d8010070dd0f50b7feeea384ec6d2000045f798e79282f14f25eb317603",
+    "Assets/Scenes/NtLine.unity": "c7bcb06acf04c7e4ff01d22ed6120c822957af4c01ac75fe4784d6ee1a2fd337"
+  },
+  "native_counts": {
+    "edges": 119,
+    "nodes": 103,
+    "connections": 95,
+    "track_circuits": 154,
+    "circuit_sections": 245
+  },
+  "atc_counts": {
+    "edges": 194,
+    "nodes": 178,
+    "routes": 56
+  },
+  "atc_graph_id": "NakatetsuAtc",
+  "interlocking_stations": [
+    "NT01",
+    "NT05",
+    "NT07",
+    "NT11"
+  ],
+  "nt11_interlocking_counts": {
+    "routes": 18,
+    "turnout_locks": 11,
+    "member_track_circuits": 20
+  },
+  "platform_mesh_created": false,
+  "scene_nt11_interlocking_registered": true
+}
