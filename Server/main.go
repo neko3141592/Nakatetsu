@@ -4,8 +4,10 @@ import (
 	"flag"
 	"log"
 	"net"
+	"net/http"
 
 	"github.com/neko3141592/Nakatetsu/Server/gen/ctcv1"
+	"github.com/neko3141592/Nakatetsu/Server/internal/api"
 	"google.golang.org/grpc"
 
 	grpcserver "github.com/neko3141592/Nakatetsu/Server/internal/communication"
@@ -27,10 +29,22 @@ func main() {
 	if err != nil {
 		log.Fatalf("進路定義の読み込みに失敗: %v", err)
 	}
-	
+
+	// CTCサーバーの起動
 	ctcCore := ctc.New(definitions, routes)
 	log.Printf("軌道回路定義を読み込み: %d回路", len(definitions))
 	log.Printf("進路定義を読み込み: %d進路", len(routes))
+
+	webServer := &api.Server{CTC: ctcCore}
+	mux := http.NewServeMux()
+	mux.HandleFunc("/ws", webServer.HandleWebSocket)
+
+	go func() {
+		log.Println("Web配信サーバー起動: 127.0.0.1:8080")
+		if err := http.ListenAndServe("127.0.0.1:8080", mux); err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	listener, err := net.Listen("tcp", "127.0.0.1:50051")
 	if err != nil {

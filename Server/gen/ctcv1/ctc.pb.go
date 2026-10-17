@@ -1116,6 +1116,199 @@ func (x *InterlockingRouteRequestResult) GetMessage() string {
 	return ""
 }
 
+// CTCからWebへ送る追跡状態。差分ではなく全体を置き換える。
+type CtcSnapshot struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IsInitialized bool                   `protobuf:"varint,1,opt,name=is_initialized,json=isInitialized,proto3" json:"is_initialized,omitempty"`
+	NeedsReset    bool                   `protobuf:"varint,2,opt,name=needs_reset,json=needsReset,proto3" json:"needs_reset,omitempty"`
+	// 軌道回路IDをキーにする。
+	CircuitsById map[string]*CtcCircuitState `protobuf:"bytes,3,rep,name=circuits_by_id,json=circuitsById,proto3" json:"circuits_by_id,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// CTC内部の追跡用TrainIDをキーにする。
+	TrainsById    map[string]*CtcTrainState `protobuf:"bytes,4,rep,name=trains_by_id,json=trainsById,proto3" json:"trains_by_id,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CtcSnapshot) Reset() {
+	*x = CtcSnapshot{}
+	mi := &file_ctc_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CtcSnapshot) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CtcSnapshot) ProtoMessage() {}
+
+func (x *CtcSnapshot) ProtoReflect() protoreflect.Message {
+	mi := &file_ctc_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CtcSnapshot.ProtoReflect.Descriptor instead.
+func (*CtcSnapshot) Descriptor() ([]byte, []int) {
+	return file_ctc_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *CtcSnapshot) GetIsInitialized() bool {
+	if x != nil {
+		return x.IsInitialized
+	}
+	return false
+}
+
+func (x *CtcSnapshot) GetNeedsReset() bool {
+	if x != nil {
+		return x.NeedsReset
+	}
+	return false
+}
+
+func (x *CtcSnapshot) GetCircuitsById() map[string]*CtcCircuitState {
+	if x != nil {
+		return x.CircuitsById
+	}
+	return nil
+}
+
+func (x *CtcSnapshot) GetTrainsById() map[string]*CtcTrainState {
+	if x != nil {
+		return x.TrainsById
+	}
+	return nil
+}
+
+type CtcCircuitState struct {
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	IsOccupied bool                   `protobuf:"varint,1,opt,name=is_occupied,json=isOccupied,proto3" json:"is_occupied,omitempty"`
+	// 最後尾側の基準回路にだけ保持する。未登録なら空文字。
+	TrainId       string `protobuf:"bytes,2,opt,name=train_id,json=trainId,proto3" json:"train_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CtcCircuitState) Reset() {
+	*x = CtcCircuitState{}
+	mi := &file_ctc_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CtcCircuitState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CtcCircuitState) ProtoMessage() {}
+
+func (x *CtcCircuitState) ProtoReflect() protoreflect.Message {
+	mi := &file_ctc_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CtcCircuitState.ProtoReflect.Descriptor instead.
+func (*CtcCircuitState) Descriptor() ([]byte, []int) {
+	return file_ctc_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *CtcCircuitState) GetIsOccupied() bool {
+	if x != nil {
+		return x.IsOccupied
+	}
+	return false
+}
+
+func (x *CtcCircuitState) GetTrainId() string {
+	if x != nil {
+		return x.TrainId
+	}
+	return ""
+}
+
+type CtcTrainState struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Unityの編成ID。未判明なら省略する。
+	ConsistId       *string `protobuf:"bytes,1,opt,name=consist_id,json=consistId,proto3,oneof" json:"consist_id,omitempty"`
+	ConsistNumber   string  `protobuf:"bytes,2,opt,name=consist_number,json=consistNumber,proto3" json:"consist_number,omitempty"`
+	TrainNumber     string  `protobuf:"bytes,3,opt,name=train_number,json=trainNumber,proto3" json:"train_number,omitempty"`
+	OperationNumber string  `protobuf:"bytes,4,opt,name=operation_number,json=operationNumber,proto3" json:"operation_number,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *CtcTrainState) Reset() {
+	*x = CtcTrainState{}
+	mi := &file_ctc_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CtcTrainState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CtcTrainState) ProtoMessage() {}
+
+func (x *CtcTrainState) ProtoReflect() protoreflect.Message {
+	mi := &file_ctc_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CtcTrainState.ProtoReflect.Descriptor instead.
+func (*CtcTrainState) Descriptor() ([]byte, []int) {
+	return file_ctc_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *CtcTrainState) GetConsistId() string {
+	if x != nil && x.ConsistId != nil {
+		return *x.ConsistId
+	}
+	return ""
+}
+
+func (x *CtcTrainState) GetConsistNumber() string {
+	if x != nil {
+		return x.ConsistNumber
+	}
+	return ""
+}
+
+func (x *CtcTrainState) GetTrainNumber() string {
+	if x != nil {
+		return x.TrainNumber
+	}
+	return ""
+}
+
+func (x *CtcTrainState) GetOperationNumber() string {
+	if x != nil {
+		return x.OperationNumber
+	}
+	return ""
+}
+
 var File_ctc_proto protoreflect.FileDescriptor
 
 const file_ctc_proto_rawDesc = "" +
@@ -1210,7 +1403,31 @@ const file_ctc_proto_rawDesc = "" +
 	"\x13_related_circuit_idB\x15\n" +
 	"\x13_related_turnout_idB\n" +
 	"\n" +
-	"\b_message*\x92\x01\n" +
+	"\b_message\"\xc1\x03\n" +
+	"\vCtcSnapshot\x12%\n" +
+	"\x0eis_initialized\x18\x01 \x01(\bR\risInitialized\x12\x1f\n" +
+	"\vneeds_reset\x18\x02 \x01(\bR\n" +
+	"needsReset\x12U\n" +
+	"\x0ecircuits_by_id\x18\x03 \x03(\v2/.nakatetsu.ctc.v1.CtcSnapshot.CircuitsByIdEntryR\fcircuitsById\x12O\n" +
+	"\ftrains_by_id\x18\x04 \x03(\v2-.nakatetsu.ctc.v1.CtcSnapshot.TrainsByIdEntryR\n" +
+	"trainsById\x1ab\n" +
+	"\x11CircuitsByIdEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x127\n" +
+	"\x05value\x18\x02 \x01(\v2!.nakatetsu.ctc.v1.CtcCircuitStateR\x05value:\x028\x01\x1a^\n" +
+	"\x0fTrainsByIdEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x125\n" +
+	"\x05value\x18\x02 \x01(\v2\x1f.nakatetsu.ctc.v1.CtcTrainStateR\x05value:\x028\x01\"M\n" +
+	"\x0fCtcCircuitState\x12\x1f\n" +
+	"\vis_occupied\x18\x01 \x01(\bR\n" +
+	"isOccupied\x12\x19\n" +
+	"\btrain_id\x18\x02 \x01(\tR\atrainId\"\xb7\x01\n" +
+	"\rCtcTrainState\x12\"\n" +
+	"\n" +
+	"consist_id\x18\x01 \x01(\tH\x00R\tconsistId\x88\x01\x01\x12%\n" +
+	"\x0econsist_number\x18\x02 \x01(\tR\rconsistNumber\x12!\n" +
+	"\ftrain_number\x18\x03 \x01(\tR\vtrainNumber\x12)\n" +
+	"\x10operation_number\x18\x04 \x01(\tR\x0foperationNumberB\r\n" +
+	"\v_consist_id*\x92\x01\n" +
 	"\x1aInterlockingRouteOperation\x12%\n" +
 	"!INTERLOCKING_ROUTE_OPERATION_NONE\x10\x00\x12$\n" +
 	" INTERLOCKING_ROUTE_OPERATION_SET\x10\x01\x12'\n" +
@@ -1256,7 +1473,7 @@ func file_ctc_proto_rawDescGZIP() []byte {
 }
 
 var file_ctc_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
-var file_ctc_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_ctc_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_ctc_proto_goTypes = []any{
 	(InterlockingRouteOperation)(0),        // 0: nakatetsu.ctc.v1.InterlockingRouteOperation
 	(InterlockingRouteErrorCode)(0),        // 1: nakatetsu.ctc.v1.InterlockingRouteErrorCode
@@ -1274,10 +1491,15 @@ var file_ctc_proto_goTypes = []any{
 	(*InterlockingRouteStatus)(nil),        // 13: nakatetsu.ctc.v1.InterlockingRouteStatus
 	(*InterlockingRouteRequest)(nil),       // 14: nakatetsu.ctc.v1.InterlockingRouteRequest
 	(*InterlockingRouteRequestResult)(nil), // 15: nakatetsu.ctc.v1.InterlockingRouteRequestResult
-	nil,                                    // 16: nakatetsu.ctc.v1.TrackCircuitSnapshot.OccupiedByCircuitIdEntry
-	nil,                                    // 17: nakatetsu.ctc.v1.InterlockingSnapshot.StationsByIdEntry
-	nil,                                    // 18: nakatetsu.ctc.v1.InterlockingStationStatus.RoutesByIdEntry
-	(*emptypb.Empty)(nil),                  // 19: google.protobuf.Empty
+	(*CtcSnapshot)(nil),                    // 16: nakatetsu.ctc.v1.CtcSnapshot
+	(*CtcCircuitState)(nil),                // 17: nakatetsu.ctc.v1.CtcCircuitState
+	(*CtcTrainState)(nil),                  // 18: nakatetsu.ctc.v1.CtcTrainState
+	nil,                                    // 19: nakatetsu.ctc.v1.TrackCircuitSnapshot.OccupiedByCircuitIdEntry
+	nil,                                    // 20: nakatetsu.ctc.v1.InterlockingSnapshot.StationsByIdEntry
+	nil,                                    // 21: nakatetsu.ctc.v1.InterlockingStationStatus.RoutesByIdEntry
+	nil,                                    // 22: nakatetsu.ctc.v1.CtcSnapshot.CircuitsByIdEntry
+	nil,                                    // 23: nakatetsu.ctc.v1.CtcSnapshot.TrainsByIdEntry
+	(*emptypb.Empty)(nil),                  // 24: google.protobuf.Empty
 }
 var file_ctc_proto_depIdxs = []int32{
 	5,  // 0: nakatetsu.ctc.v1.UnitySnapshotMessage.header:type_name -> nakatetsu.ctc.v1.MessageHeader
@@ -1287,22 +1509,26 @@ var file_ctc_proto_depIdxs = []int32{
 	9,  // 4: nakatetsu.ctc.v1.UnitySnapshot.track_circuits:type_name -> nakatetsu.ctc.v1.TrackCircuitSnapshot
 	7,  // 5: nakatetsu.ctc.v1.UnitySnapshot.train_initialization:type_name -> nakatetsu.ctc.v1.TrainInitializationSnapshot
 	8,  // 6: nakatetsu.ctc.v1.TrainInitializationSnapshot.trains:type_name -> nakatetsu.ctc.v1.TrainInitializationInfo
-	16, // 7: nakatetsu.ctc.v1.TrackCircuitSnapshot.occupied_by_circuit_id:type_name -> nakatetsu.ctc.v1.TrackCircuitSnapshot.OccupiedByCircuitIdEntry
-	17, // 8: nakatetsu.ctc.v1.InterlockingSnapshot.stations_by_id:type_name -> nakatetsu.ctc.v1.InterlockingSnapshot.StationsByIdEntry
-	18, // 9: nakatetsu.ctc.v1.InterlockingStationStatus.routes_by_id:type_name -> nakatetsu.ctc.v1.InterlockingStationStatus.RoutesByIdEntry
+	19, // 7: nakatetsu.ctc.v1.TrackCircuitSnapshot.occupied_by_circuit_id:type_name -> nakatetsu.ctc.v1.TrackCircuitSnapshot.OccupiedByCircuitIdEntry
+	20, // 8: nakatetsu.ctc.v1.InterlockingSnapshot.stations_by_id:type_name -> nakatetsu.ctc.v1.InterlockingSnapshot.StationsByIdEntry
+	21, // 9: nakatetsu.ctc.v1.InterlockingStationStatus.routes_by_id:type_name -> nakatetsu.ctc.v1.InterlockingStationStatus.RoutesByIdEntry
 	2,  // 10: nakatetsu.ctc.v1.InterlockingRouteStatus.overrun_mode:type_name -> nakatetsu.ctc.v1.OverrunProtectionMode
 	3,  // 11: nakatetsu.ctc.v1.InterlockingRouteStatus.overrun_phase:type_name -> nakatetsu.ctc.v1.OverrunProtectionPhase
 	0,  // 12: nakatetsu.ctc.v1.InterlockingRouteRequest.operation:type_name -> nakatetsu.ctc.v1.InterlockingRouteOperation
 	1,  // 13: nakatetsu.ctc.v1.InterlockingRouteRequestResult.error_code:type_name -> nakatetsu.ctc.v1.InterlockingRouteErrorCode
-	12, // 14: nakatetsu.ctc.v1.InterlockingSnapshot.StationsByIdEntry.value:type_name -> nakatetsu.ctc.v1.InterlockingStationStatus
-	13, // 15: nakatetsu.ctc.v1.InterlockingStationStatus.RoutesByIdEntry.value:type_name -> nakatetsu.ctc.v1.InterlockingRouteStatus
-	4,  // 16: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:input_type -> nakatetsu.ctc.v1.UnitySnapshotMessage
-	19, // 17: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:output_type -> google.protobuf.Empty
-	17, // [17:18] is the sub-list for method output_type
-	16, // [16:17] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	22, // 14: nakatetsu.ctc.v1.CtcSnapshot.circuits_by_id:type_name -> nakatetsu.ctc.v1.CtcSnapshot.CircuitsByIdEntry
+	23, // 15: nakatetsu.ctc.v1.CtcSnapshot.trains_by_id:type_name -> nakatetsu.ctc.v1.CtcSnapshot.TrainsByIdEntry
+	12, // 16: nakatetsu.ctc.v1.InterlockingSnapshot.StationsByIdEntry.value:type_name -> nakatetsu.ctc.v1.InterlockingStationStatus
+	13, // 17: nakatetsu.ctc.v1.InterlockingStationStatus.RoutesByIdEntry.value:type_name -> nakatetsu.ctc.v1.InterlockingRouteStatus
+	17, // 18: nakatetsu.ctc.v1.CtcSnapshot.CircuitsByIdEntry.value:type_name -> nakatetsu.ctc.v1.CtcCircuitState
+	18, // 19: nakatetsu.ctc.v1.CtcSnapshot.TrainsByIdEntry.value:type_name -> nakatetsu.ctc.v1.CtcTrainState
+	4,  // 20: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:input_type -> nakatetsu.ctc.v1.UnitySnapshotMessage
+	24, // 21: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:output_type -> google.protobuf.Empty
+	21, // [21:22] is the sub-list for method output_type
+	20, // [20:21] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_ctc_proto_init() }
@@ -1312,13 +1538,14 @@ func file_ctc_proto_init() {
 	}
 	file_ctc_proto_msgTypes[1].OneofWrappers = []any{}
 	file_ctc_proto_msgTypes[11].OneofWrappers = []any{}
+	file_ctc_proto_msgTypes[14].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_ctc_proto_rawDesc), len(file_ctc_proto_rawDesc)),
 			NumEnums:      4,
-			NumMessages:   15,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

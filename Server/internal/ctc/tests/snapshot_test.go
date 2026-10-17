@@ -84,7 +84,7 @@ func TestCTCWaitsForFirstValidSnapshot(t *testing.T) {
 			if core.IsInitialized() {
 				t.Fatal("incomplete snapshot initialized tracking")
 			}
-			if !proto.Equal(core.GetSnapshot(), snapshot) {
+			if !proto.Equal(core.GetUnitySnapshot(), snapshot) {
 				t.Fatal("raw snapshot was not retained")
 			}
 
@@ -213,7 +213,7 @@ func TestSnapshotOccupancyThroughGRPC(t *testing.T) {
 	if _, err := ctcv1.NewCtcServiceClient(client).UpdateSnapshot(ctx, message); err != nil {
 		t.Fatal(err)
 	}
-	stored := core.GetSnapshot()
+	stored := core.GetUnitySnapshot()
 	state := core.GetTrackingState()
 	trainID := state.CircuitsByID["A"].TrainID
 	if !state.IsInitialized || trainID == "" || len(state.TrainsByID) != 1 || state.TrainsByID[trainID].ConsistID == nil {
@@ -232,7 +232,7 @@ func TestSnapshotOccupancyThroughGRPC(t *testing.T) {
 		t.Fatalf("gRPC lost circuit states: %#v", occupied)
 	}
 	stored.TrackCircuits.OccupiedByCircuitId["A"] = false
-	if !core.GetSnapshot().GetTrackCircuits().GetOccupiedByCircuitId()["A"] {
+	if !core.GetUnitySnapshot().GetTrackCircuits().GetOccupiedByCircuitId()["A"] {
 		t.Fatal("returned snapshot shares the CTC's stored map")
 	}
 	// 未取得の旧形式のsnapshotも受信できる。
@@ -240,7 +240,7 @@ func TestSnapshotOccupancyThroughGRPC(t *testing.T) {
 	if _, err := ctcv1.NewCtcServiceClient(client).UpdateSnapshot(ctx, message); err != nil {
 		t.Fatal(err)
 	}
-	if core.GetSnapshot().GetTrackCircuits() != nil {
+	if core.GetUnitySnapshot().GetTrackCircuits() != nil {
 		t.Fatal("missing occupancy was changed to a present message")
 	}
 }
