@@ -1,0 +1,357 @@
+{
+  "interlockingId": "NT05",
+  "memberTrackCircuitIds": [
+    "NT05_1RT",
+    "NT05_2RT",
+    "NT05_3LT",
+    "NT05_4LT",
+    "NT05_21T",
+    "NT05_22T",
+    "NT05_23T",
+    "NT05_24T",
+    "NT04_NT05_D1T",
+    "NT05_NT06_U1T"
+  ],
+  "memberConnectionIds": [
+    "NT05_21",
+    "NT05_22",
+    "NT05_23",
+    "NT05_24"
+  ],
+  "destinations": [
+    {
+      "code": "A",
+      "displayName": "1番線",
+      "trackCircuitId": "NT05_1RT"
+    },
+    {
+      "code": "B",
+      "displayName": "2番線",
+      "trackCircuitId": "NT05_2RT"
+    },
+    {
+      "code": "C",
+      "displayName": "3番線",
+      "trackCircuitId": "NT05_3LT"
+    },
+    {
+      "code": "D",
+      "displayName": "4番線",
+      "trackCircuitId": "NT05_4LT"
+    },
+    {
+      "code": "E",
+      "displayName": "下り本線出口",
+      "trackCircuitId": "NT05_22T"
+    },
+    {
+      "code": "F",
+      "displayName": "上り本線出口",
+      "trackCircuitId": "NT05_23T"
+    }
+  ],
+  "routes": [
+    {
+      "routeId": "1RA",
+      "startTrackCircuitId": "NT05_21T",
+      "destinationCode": "A",
+      "destinationTrackCircuitId": "NT05_1RT",
+      "trackCircuitIds": [
+        "NT05_21T",
+        "NT05_1RT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_21",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_21T",
+        "NT05_1RT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_21T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT04_NT05_D1T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "1RB",
+      "startTrackCircuitId": "NT05_21T",
+      "destinationCode": "B",
+      "destinationTrackCircuitId": "NT05_2RT",
+      "trackCircuitIds": [
+        "NT05_21T",
+        "NT05_2RT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_21",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_21T",
+        "NT05_2RT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_21T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT04_NT05_D1T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "1LC",
+      "startTrackCircuitId": "NT05_24T",
+      "destinationCode": "C",
+      "destinationTrackCircuitId": "NT05_3LT",
+      "trackCircuitIds": [
+        "NT05_24T",
+        "NT05_3LT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_24T",
+        "NT05_3LT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_24T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT05_NT06_U1T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "1LD",
+      "startTrackCircuitId": "NT05_24T",
+      "destinationCode": "D",
+      "destinationTrackCircuitId": "NT05_4LT",
+      "trackCircuitIds": [
+        "NT05_24T",
+        "NT05_4LT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_24",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_24T",
+        "NT05_4LT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_24T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT05_NT06_U1T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "2R",
+      "startTrackCircuitId": "NT05_1RT",
+      "destinationCode": "E",
+      "destinationTrackCircuitId": "NT05_22T",
+      "trackCircuitIds": [
+        "NT05_1RT",
+        "NT05_22T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_22",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_22T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_22T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT05_1RT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "3R",
+      "startTrackCircuitId": "NT05_2RT",
+      "destinationCode": "E",
+      "destinationTrackCircuitId": "NT05_22T",
+      "trackCircuitIds": [
+        "NT05_2RT",
+        "NT05_22T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_22",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_22T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_22T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT05_2RT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "2L",
+      "startTrackCircuitId": "NT05_3LT",
+      "destinationCode": "F",
+      "destinationTrackCircuitId": "NT05_23T",
+      "trackCircuitIds": [
+        "NT05_3LT",
+        "NT05_23T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_23",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_23T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_23T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT05_3LT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "3L",
+      "startTrackCircuitId": "NT05_4LT",
+      "destinationCode": "F",
+      "destinationTrackCircuitId": "NT05_23T",
+      "trackCircuitIds": [
+        "NT05_4LT",
+        "NT05_23T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT05_23",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT05_23T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT05_23T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT05_4LT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    }
+  ],
+  "turnoutLocks": [
+    {
+      "connectionId": "NT05_21",
+      "trackCircuitIds": [
+        "NT05_21T"
+      ]
+    },
+    {
+      "connectionId": "NT05_22",
+      "trackCircuitIds": [
+        "NT05_22T"
+      ]
+    },
+    {
+      "connectionId": "NT05_23",
+      "trackCircuitIds": [
+        "NT05_23T"
+      ]
+    },
+    {
+      "connectionId": "NT05_24",
+      "trackCircuitIds": [
+        "NT05_24T"
+      ]
+    }
+  ]
+}

@@ -13,6 +13,7 @@ namespace Nakatetsu.Track.Simulation.Circuit
         private readonly List<ITrackOccupancySource> sources = new();
         private readonly List<TrackOccupiedEdgeSpan> sourceEdges = new();
         private readonly List<TrackOccupiedEdgeSpan> allOccupiedEdges = new();
+        private bool sourceRegistrationCompleted;
         public TrackCircuitSimulationContext Context => context;
 
         public void SetTrackGraphController(TrackGraphController controller)
@@ -35,11 +36,15 @@ namespace Nakatetsu.Track.Simulation.Circuit
             return true;
         }
 
+        // 登録完了後の0本は、ソース未設定とは区別して全回路非在線にできる。
+        public void CompleteSourceRegistration() => sourceRegistrationCompleted = true;
+
         // 登録された列車に直接問い合わせ、同じ時点の占有状態を確定する。
         public void Calculate(float deltaTimeSeconds)
         {
             TrackGraphContext graph = trackGraphController != null ? trackGraphController.Context : null;
-            bool complete = graph != null && graph.IsInitialized && sources.Count > 0;
+            bool complete = graph != null && graph.IsInitialized &&
+                (sources.Count > 0 || sourceRegistrationCompleted);
             allOccupiedEdges.Clear();
             if (complete)
             {

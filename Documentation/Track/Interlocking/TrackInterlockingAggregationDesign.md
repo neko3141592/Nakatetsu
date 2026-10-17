@@ -208,3 +208,11 @@ PRC → CTC中央装置 → 連動管理部 → 担当駅の連動装置
 - 複数の拒否条件が成立する場合の返却優先順と、関連IDの選び方。
 - 初期化・登録の失敗と、進路要求の拒否・状態照会の失敗を表す型の分け方。
 - 連動管理部から各駅を更新する具体的な呼出方法。
+
+## 連動定義のJSON
+
+`SourceAssets/Track/Network/NakatetsuInterlocking/interlocking.json`に、使用するTrackGraphのJSON、駅ID、駅ごとのJSONファイル、出力Assetのパスを指定する。`Stations/NT01.json`などの各駅ファイルは、既存の`TrackStationInterlockingDefinition`と同じフィールドを持つ。NT01・NT05・NT07・NT11の既存定義を移行している。
+
+Unityの`Nakatetsu > Track > Generate Interlocking from JSON > All Stations`で全駅、`Select Station...`で選択した駅だけを生成できる。駅単位の読み込みでは、一覧に登録された他駅のJSONを読み込まない。既存AssetはGUIDを維持して更新する。
+
+生成前に既存の連動ロジックで定義を検証し、所属する軌道回路・接続がTrackGraphのJSONに存在することも確認する。全駅生成では全駅の入力と出力先を検証してから更新する。各駅ファイルにはGoの列車追跡用に、進入元を含む進行方向順の`trackCircuitIds`も保持する。Unityの連動Importerはこの項目を使用しない。ATC進路定義は引き続き別に管理する。

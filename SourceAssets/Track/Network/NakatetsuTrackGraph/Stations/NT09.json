@@ -1,0 +1,275 @@
+{
+  "geometries": [],
+  "nodes": [
+    {
+      "nodeId": "NT09_entry1",
+      "connectedEdgeIds": [
+        "NT08_NT09_DE",
+        "NT09_track1"
+      ]
+    },
+    {
+      "nodeId": "NT09_entry2",
+      "connectedEdgeIds": [
+        "NT08_NT09_DL",
+        "NT09_track2"
+      ]
+    },
+    {
+      "nodeId": "NT09_entry3",
+      "connectedEdgeIds": [
+        "NT08_NT09_UL",
+        "NT09_track3"
+      ]
+    },
+    {
+      "nodeId": "NT09_entry4",
+      "connectedEdgeIds": [
+        "NT08_NT09_UE",
+        "NT09_track4"
+      ]
+    },
+    {
+      "nodeId": "NT09_exit1",
+      "connectedEdgeIds": [
+        "NT09_track1",
+        "NT09_NT10_DE"
+      ]
+    },
+    {
+      "nodeId": "NT09_exit2",
+      "connectedEdgeIds": [
+        "NT09_track2",
+        "NT09_NT10_DL"
+      ]
+    },
+    {
+      "nodeId": "NT09_exit3",
+      "connectedEdgeIds": [
+        "NT09_track3",
+        "NT09_NT10_UL"
+      ]
+    },
+    {
+      "nodeId": "NT09_exit4",
+      "connectedEdgeIds": [
+        "NT09_track4",
+        "NT09_NT10_UE"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "NT09_track1",
+      "nodeAId": "NT09_entry1",
+      "nodeBId": "NT09_exit1",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 8730,
+      "endDistanceOnGeometryM": 8950,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950,
+          "offsetM": -8
+        }
+      ]
+    },
+    {
+      "edgeId": "NT09_track2",
+      "nodeAId": "NT09_entry2",
+      "nodeBId": "NT09_exit2",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 8730,
+      "endDistanceOnGeometryM": 8950,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950,
+          "offsetM": -4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT09_track3",
+      "nodeAId": "NT09_entry3",
+      "nodeBId": "NT09_exit3",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 8730,
+      "endDistanceOnGeometryM": 8950,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950,
+          "offsetM": 8
+        }
+      ]
+    },
+    {
+      "edgeId": "NT09_track4",
+      "nodeAId": "NT09_entry4",
+      "nodeBId": "NT09_exit4",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 8730,
+      "endDistanceOnGeometryM": 8950,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950,
+          "offsetM": 12
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "connectionId": "NT09_entry1",
+      "nodeId": "NT09_entry1",
+      "edgePairs": [
+        {
+          "pairId": "NT09_entry1_always",
+          "edgeAId": "NT08_NT09_DE",
+          "edgeBId": "NT09_track1",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_exit1",
+      "nodeId": "NT09_exit1",
+      "edgePairs": [
+        {
+          "pairId": "NT09_exit1_always",
+          "edgeAId": "NT09_track1",
+          "edgeBId": "NT09_NT10_DE",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_entry2",
+      "nodeId": "NT09_entry2",
+      "edgePairs": [
+        {
+          "pairId": "NT09_entry2_always",
+          "edgeAId": "NT08_NT09_DL",
+          "edgeBId": "NT09_track2",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_exit2",
+      "nodeId": "NT09_exit2",
+      "edgePairs": [
+        {
+          "pairId": "NT09_exit2_always",
+          "edgeAId": "NT09_track2",
+          "edgeBId": "NT09_NT10_DL",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_entry3",
+      "nodeId": "NT09_entry3",
+      "edgePairs": [
+        {
+          "pairId": "NT09_entry3_always",
+          "edgeAId": "NT08_NT09_UL",
+          "edgeBId": "NT09_track3",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_exit3",
+      "nodeId": "NT09_exit3",
+      "edgePairs": [
+        {
+          "pairId": "NT09_exit3_always",
+          "edgeAId": "NT09_track3",
+          "edgeBId": "NT09_NT10_UL",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_entry4",
+      "nodeId": "NT09_entry4",
+      "edgePairs": [
+        {
+          "pairId": "NT09_entry4_always",
+          "edgeAId": "NT08_NT09_UE",
+          "edgeBId": "NT09_track4",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT09_exit4",
+      "nodeId": "NT09_exit4",
+      "edgePairs": [
+        {
+          "pairId": "NT09_exit4_always",
+          "edgeAId": "NT09_track4",
+          "edgeBId": "NT09_NT10_UE",
+          "condition": 1
+        }
+      ]
+    }
+  ],
+  "circuits": [
+    {
+      "circuitId": "NT09_1RT",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT09_track1",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950
+        }
+      ]
+    },
+    {
+      "circuitId": "NT09_2RT",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT09_track2",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950
+        }
+      ]
+    },
+    {
+      "circuitId": "NT09_3LT",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT09_track3",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950
+        }
+      ]
+    },
+    {
+      "circuitId": "NT09_4LT",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT09_track4",
+          "startDistanceOnGeometryM": 8730,
+          "endDistanceOnGeometryM": 8950
+        }
+      ]
+    }
+  ]
+}

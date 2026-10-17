@@ -15,6 +15,11 @@
 #
 .DS_Store
 
+# Restored NuGet assemblies and downloaded code generation tools
+/Assets/Packages/
+/Assets/Packages.meta
+/.tools/
+
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/

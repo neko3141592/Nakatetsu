@@ -11,6 +11,9 @@ namespace Nakatetsu.Application.Simulation
 {
     public sealed class ApplicationSimulationController : MonoBehaviour, IWorldTimeSource
     {
+        private static readonly TrackInterlockingManagementOutput EmptyInterlockingOutput =
+            new TrackInterlockingManagementContext().Output;
+
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackAtcController trackAtc;
@@ -33,6 +36,12 @@ namespace Nakatetsu.Application.Simulation
         private bool isInitialized;
 
         public long CompletedTickCount { get; private set; }
+        public TrackInterlockingManagementOutput CompletedInterlockingOutput { get; private set; } =
+            EmptyInterlockingOutput;
+        // 未取得はnull。完了Tickの全回路を保持し、非在線のfalseも含める。
+        public IReadOnlyDictionary<string, bool> CompletedOccupiedByCircuitId { get; private set; }
+        // 全列車分が未取得ならnull。取得済み0本は空のリスト。
+        public IReadOnlyList<TrainInitializationInfo> CompletedTrainInitialization { get; private set; }
         public double ElapsedTimeSeconds => CompletedTickCount * (double)fixedTickSeconds;
         public float TickDurationSeconds => fixedTickSeconds;
         public bool IsPaused => isPaused;
@@ -119,6 +128,7 @@ namespace Nakatetsu.Application.Simulation
                     return;
                 }
             }
+            trackCircuitSimulation.CompleteSourceRegistration();
         }
 
         [ContextMenu("Step Once")]
@@ -155,7 +165,41 @@ namespace Nakatetsu.Application.Simulation
             if (trackAtc != null && trackAtc.isActiveAndEnabled)
                 AdvanceSimulation(trackAtc);
 
+            // Tick外の管理部更新とは分け、完了したTickの出力を時刻と一緒に公開する。
+            CompletedInterlockingOutput = interlockingManagement != null
+                ? interlockingManagement.Context.Output
+                : EmptyInterlockingOutput;
+            if (trackCircuitSimulation != null)
+            {
+                var occupied = new Dictionary<string, bool>();
+                foreach (var pair in trackCircuitSimulation.Context.State.OccupiedByCircuitId)
+                    occupied.Add(pair.Key, pair.Value);
+                CompletedOccupiedByCircuitId =
+                    new System.Collections.ObjectModel.ReadOnlyDictionary<string, bool>(occupied);
+            }
+            else
+            {
+                CompletedOccupiedByCircuitId = null;
+            }
+            CompletedTrainInitialization = CaptureTrainInitialization();
             CompletedTickCount++;
+        }
+
+        private IReadOnlyList<TrainInitializationInfo> CaptureTrainInitialization()
+        {
+            if (CompletedOccupiedByCircuitId == null) return null;
+            var result = new List<TrainInitializationInfo>();
+            foreach (var train in trains)
+            {
+                var root = train != null ? train.TrainRoot : null;
+                if (root == null) return null;
+
+                // 手動設定をそのまま送り、初期登録時の検証はGo側で行う。
+                result.Add(new TrainInitializationInfo(root.TrainId ?? string.Empty, root.ConsistNumber,
+                    root.TrainNumber, root.OperationNumber, root.InitialCircuitId));
+            }
+
+            return result.AsReadOnly();
         }
 
         private void AdvanceSimulation(ISimulationController controller)

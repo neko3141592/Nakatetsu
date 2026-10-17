@@ -1,0 +1,177 @@
+syntax = "proto3";
+
+package nakatetsu.ctc.v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/neko3141592/Nakatetsu/Server/gen/ctcv1";
+option csharp_namespace = "Namespace.Protocol.Ctc.V1";
+
+// 旧C# Contractsのデータ項目・列挙値を移植した定義。
+// MessagePackのKey(n)はフィールド番号(n + 1)に対応するが、通信形式の互換性はない。
+service CtcService {
+  // 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
+  rpc UpdateSnapshot(UnitySnapshotMessage) returns (google.protobuf.Empty);
+}
+
+// 旧Message<UnitySnapshot>。Protobufではジェネリック型を具体型に展開する。
+// headerとpayloadは送信時に設定する。
+message UnitySnapshotMessage {
+  MessageHeader header = 1;
+  UnitySnapshot payload = 2;
+}
+
+// 通信メッセージに共通する識別情報。
+message MessageHeader {
+  // 旧C#の初期値は1。proto3では自動適用されない。
+  // 未指定を判別できるようにし、送受信側で明示的に設定・補完する。
+  optional int32 schema_version = 1;
+  string session_id = 2;
+  // UnitySnapshot送信時は "UnitySnapshot"。
+  string message_type = 3;
+}
+
+// 同じ完了Tickの世界時刻・連動状態・在線状態。差分ではなく全体を置き換える。
+// world_timeとinterlockingは送信時に設定する。連動状態が空でも省略しない。
+message UnitySnapshot {
+  WorldTimeInformation world_time = 1;
+  InterlockingSnapshot interlocking = 2;
+  // 完了Tickの在線情報が未取得なら省略する。省略を全回路非在線と解釈しない。
+  TrackCircuitSnapshot track_circuits = 3;
+  // 同じTickの全列車の初期登録候補。未取得なら省略し、取得済み0本なら空のメッセージを送る。
+  // Unityは取得できる間は毎回送り、Goは初期登録が成功するまでだけ採用する。
+  TrainInitializationSnapshot train_initialization = 4;
+}
+
+message TrainInitializationSnapshot {
+  // 初期回路はUnityのTrainRootで手動設定する。現段階では各列車が単一回路に収まる前提。
+  repeated TrainInitializationInfo trains = 1;
+}
+
+message TrainInitializationInfo {
+  // Unity内の個体ID（TrainRoot.TrainId）。CTC内部の追跡用TrainIDとは別。
+  string consist_id = 1;
+  string consist_number = 2;
+  // 列番・運用番号は未設定なら空文字でよい。
+  string train_number = 3;
+  string operation_number = 4;
+  // 手動設定した初期回路ID。未設定・定義外・非在線ならGo側で初期化エラーにする。
+  string reference_circuit_id = 5;
+}
+
+message TrackCircuitSnapshot {
+  // 全回路の状態を送り、非在線のfalseも含める。存在しないIDは未取得。
+  map<string, bool> occupied_by_circuit_id = 1;
+}
+
+// Unityからサーバーへ渡す世界の時間情報。
+message WorldTimeInformation {
+  int64 tick_count = 1;
+  float world_time_seconds = 2;
+  float tick_duration_seconds = 3;
+  bool is_paused = 4;
+  float playback_speed = 5;
+}
+
+message InterlockingSnapshot {
+  // 登録済み駅のIDが存在しない場合、その駅の状態は取得できていない。
+  map<string, InterlockingStationStatus> stations_by_id = 1;
+}
+
+message InterlockingStationStatus {
+  bool is_initialized = 1;
+  bool has_output = 2;
+  map<string, InterlockingRouteStatus> routes_by_id = 3;
+}
+
+message InterlockingRouteStatus {
+  // falseの進路も、取得済みの進路状態として辞書に保持する。
+  bool is_available = 1;
+  bool is_route_set = 2;
+  bool path_established = 3;
+  bool proceed_allowed = 4;
+  bool route_locked = 5;
+  bool cancel_pending = 6;
+  bool approach_locked = 7;
+  float approach_release_remaining_seconds = 8;
+  OverrunProtectionMode overrun_mode = 9;
+  OverrunProtectionPhase overrun_phase = 10;
+  float overrun_release_remaining_seconds = 11;
+}
+
+// サーバーからUnityへの進路要求。旧Contractsでは配送RPCは未定義だった。
+message InterlockingRouteRequest {
+  // 要求と結果を対応付ける、空でない一意のID。
+  string request_id = 1;
+  string station_id = 2;
+  string route_id = 3;
+  InterlockingRouteOperation operation = 4;
+}
+
+// 進路要求の受付結果。開通・解錠の完了は進路状態で確認する。
+message InterlockingRouteRequestResult {
+  string request_id = 1;
+  string station_id = 2;
+  string route_id = 3;
+  // 受付時はtrueとErrorCodeのNone、拒否時はfalseとNone以外の理由を設定する。
+  bool accepted = 4;
+  // 旧C#の初期値はInvalidRequest (1)。proto3では自動適用されない。
+  // 未指定とNone (0)を区別し、送受信側で明示的に設定・補完する。
+  optional InterlockingRouteErrorCode error_code = 5;
+
+  // 旧C#のnullable文字列。未指定と空文字を区別する。
+  optional string related_route_id = 6;
+  optional string related_circuit_id = 7;
+  // 既存の駅連動装置では転轍機をConnectionIdで識別する。
+  optional string related_turnout_id = 8;
+  // 表示・ログ向けの補足。処理の分岐にはerror_codeを使用する。
+  optional string message = 9;
+}
+
+enum InterlockingRouteOperation {
+  // 未指定。要求を処理する側でInvalidRequestとして拒否する。
+  INTERLOCKING_ROUTE_OPERATION_NONE = 0;
+  INTERLOCKING_ROUTE_OPERATION_SET = 1;
+  INTERLOCKING_ROUTE_OPERATION_CANCEL = 2;
+}
+
+enum InterlockingRouteErrorCode {
+  // 拒否理由なし。要求を受付。
+  INTERLOCKING_ROUTE_ERROR_CODE_NONE = 0;
+  // 必須IDや操作種別などの要求内容が不正。
+  INTERLOCKING_ROUTE_ERROR_CODE_INVALID_REQUEST = 1;
+  // 対象の駅が登録されていない。
+  INTERLOCKING_ROUTE_ERROR_CODE_UNKNOWN_STATION = 2;
+  // 対象の進路が定義されていない。
+  INTERLOCKING_ROUTE_ERROR_CODE_UNKNOWN_ROUTE = 3;
+  // 要求処理に必要な装置が未初期化。
+  INTERLOCKING_ROUTE_ERROR_CODE_NOT_INITIALIZED = 4;
+  // 必要な設備情報を取得できない。
+  INTERLOCKING_ROUTE_ERROR_CODE_INPUT_UNAVAILABLE = 5;
+  // 設定対象の進路が設定済み。
+  INTERLOCKING_ROUTE_ERROR_CODE_ALREADY_SET = 6;
+  // 取消対象の進路が未設定。
+  INTERLOCKING_ROUTE_ERROR_CODE_NOT_SET = 7;
+  // 設定照査に必要な軌道回路が在線。
+  INTERLOCKING_ROUTE_ERROR_CODE_CIRCUIT_OCCUPIED = 8;
+  // 必要な軌道回路を他進路が予約中。
+  INTERLOCKING_ROUTE_ERROR_CODE_CIRCUIT_RESERVED = 9;
+  // 他進路と競合。
+  INTERLOCKING_ROUTE_ERROR_CODE_ROUTE_CONFLICT = 10;
+  // 転轍機の要求位置が他進路の保持位置と競合。
+  INTERLOCKING_ROUTE_ERROR_CODE_TURNOUT_POSITION_CONFLICT = 11;
+}
+
+enum OverrunProtectionMode {
+  OVERRUN_PROTECTION_MODE_NONE = 0;
+  OVERRUN_PROTECTION_MODE_NORMAL = 1;
+  OVERRUN_PROTECTION_MODE_RESTRICTED = 2;
+}
+
+enum OverrunProtectionPhase {
+  OVERRUN_PROTECTION_PHASE_NONE = 0;
+  OVERRUN_PROTECTION_PHASE_SETTING = 1;
+  OVERRUN_PROTECTION_PHASE_ESTABLISHED = 2;
+  OVERRUN_PROTECTION_PHASE_RELEASE_TIMING = 3;
+  OVERRUN_PROTECTION_PHASE_RELEASED = 4;
+}
