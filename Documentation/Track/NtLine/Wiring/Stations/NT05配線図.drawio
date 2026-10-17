@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="Electron" agent="Codex" pages="1">
   <diagram id="page-1" name="NT05 東長野">
-    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1020" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -388,6 +388,45 @@
         </mxCell>
         <mxCell id="normal-legend-label" parent="1" vertex="1" value="定位" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=15;fontColor=#334155;">
           <mxGeometry as="geometry" x="1152" y="42" width="65" height="26" />
+        </mxCell>
+        <object id="destination-NT05-p1-B" label="B" destinationStationId="NT05" destinationCode="B" destinationCircuit="2RT" tooltip="着点 B：2RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="848" y="406" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT05-p1-E" label="E" destinationStationId="NT05" destinationCode="E" destinationCircuit="22T" tooltip="着点 E：22T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1458" y="363" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT05-p1-A" label="A" destinationStationId="NT05" destinationCode="A" destinationCircuit="1RT" tooltip="着点 A：1RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="848" y="200" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT05-p1-F" label="F" destinationStationId="NT05" destinationCode="F" destinationCircuit="23T" tooltip="着点 F：23T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="258" y="523" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT05-p1-C" label="C" destinationStationId="NT05" destinationCode="C" destinationCircuit="3LT" tooltip="着点 C：3LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="848" y="480" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT05-p1-D" label="D" destinationStationId="NT05" destinationCode="D" destinationCircuit="4LT" tooltip="着点 D：4LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="848" y="686" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="destination-NT05-p1-legend-title" value="丸枠の英字＝着点符号" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="918" width="1480" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT05-p1-legend-row-1" value="A＝1RT　　B＝2RT　　C＝3LT　　D＝4LT　　E＝22T　　F＝23T" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="948" width="1480" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT05-p1-legend-note" value="着点は論理的な領域。停止位置・信号位置は別定義。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontSize=14;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="60" y="974" width="1480" height="24" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

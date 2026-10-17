@@ -52,7 +52,7 @@ Sceneの `Track/Graph/IslandPlatform_240m` が簡易ホーム。Geometry距離1,
 
 ## 連動進路
 
-`NtLineInterlocking.asset` の進路IDは発点・着点をそのまま使用する。
+`NtLineInterlocking.asset` の連動制御駅IDは`NtLineStation`。この試験線の進路IDは発点・着点をそのまま使用する。
 
 | 進路ID | 種別 | 転轍機位置 | 進路鎖錠回路 | 接近鎖錠の照査回路 |
 | --- | --- | --- | --- | --- |
@@ -65,7 +65,7 @@ Sceneの `Track/Graph/IslandPlatform_240m` が簡易ホーム。Geometry距離1,
 
 ## 自動閉そく・ATC入力
 
-`NtLineAtcGraphSource.asset` は既存の `TrackAtcGraphCompileDefinition` を保存する入力Asset。連動進路は上記進路IDと順序付きの物理区間で指定する。制御方式は20T・23Tが `Block`、21T・22T・1RT・2RTが `Interlocking`。生成済みの `NtLineAtcGraph.asset` も同じ区分にそろえる。この試験線に `Yard` 区間はない。
+`NtLineAtcGraphSource.asset` は既存の `TrackAtcGraphCompileDefinition` を保存する入力Asset。連動進路は`interlockingStationId = NtLineStation`、上記駅内進路ID、通過順の`trackCircuitIds`で指定する。生成済みの進路にも同じ駅IDを保持する。実行時に管理部へ登録する駅IDも`NtLineStation`にそろえる。制御方式は20T・23Tが `Block`、21T・22T・1RT・2RTが `Interlocking`。生成済みの `NtLineAtcGraph.asset` も同じ区分にそろえる。この試験線に `Yard` 区間はない。
 
 - 20T・23Tは連動進路に含めず、物理Edgeの `travelDirection = AtoB` を使用する。
 - 場内進路は21T共通部から指定枝のホーム回路末端まで。出発進路は発点ホーム回路から22T共通部末端まで。

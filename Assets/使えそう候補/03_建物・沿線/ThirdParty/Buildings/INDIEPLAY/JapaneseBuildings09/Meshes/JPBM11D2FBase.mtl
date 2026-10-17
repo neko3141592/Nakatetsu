@@ -1,0 +1,44 @@
+newmtl Black
+Kd 0 0 0
+d 1
+
+newmtl JPBM11RoofingTiles015B_1K
+map_Kd -o 0 0 -s 0.2 0.2 RoofingTiles015B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 RoofingTiles015B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 RoofingTiles015B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 RoofingTiles015B_1K-JPG_Displacement.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM11Plastic013BGray
+map_Kd -o 0 0 -s 1 1 Plastic013B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plastic013B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 Plastic013B_1K-JPG_Displacement.jpg
+Kd 0.509434 0.509434 0.502225
+d 1
+
+newmtl JPBM8concrete03Mat
+map_Kd -o 0 0 -s 1 1 concrete03diffuse1k.jpg
+map_Pm -o 0 0 -s 1 1 concrete03roughness1k.jpg
+bump -o 0 0 -s 1 1 concrete03normal1k.jpg
+disp -o 0 0 -s 1 1 concrete03height1k.jpg
+map_d -o 0 0 -s 1 1 concrete03ao1k.jpg
+Kd 1 1 1
+d 1
+
+newmtl Planks037A_1K
+map_Kd -o 0 0 -s 0.4 0.4 Planks037A_1K-PNG_Color.png
+map_Pm -o 0 0 -s 1 1 Planks037A_1K-PNG_Roughness.png
+bump -o 0 0 -s 1 1 Planks037A_1K-PNG_NormalGL.png
+disp -o 0 0 -s 1 1 Planks037A_1K-PNG_Displacement.png
+Kd 1 1 1
+d 1
+
+newmtl Wood062_1KMat
+map_Kd -o 0 0 -s 1 1 Wood062_1K-PNG_Color.png
+map_Pm -o 0 0 -s 1 1 Wood062_1K-PNG_Roughness.png
+bump -o 0 0 -s 1 1 Wood062_1K-PNG_NormalDX.png
+disp -o 0 0 -s 1 1 Wood062_1K-PNG_Displacement.png
+Kd 1 1 1
+d 1

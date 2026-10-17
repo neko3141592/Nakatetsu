@@ -29,9 +29,9 @@ namespace Nakatetsu.Track.Atc
         // falseまたは未登録は入力未取得・未確認として扱う。
         public Dictionary<string, bool> hasCircuitInputById = new();
 
-        // キーは連動進路ID。確認済みの進路未設定もtrueとし、取得失敗と区別する。
+        // キーは駅IDと駅内進路IDの組。確認済みの進路未設定もtrueとする。
         // falseまたは未登録は入力未取得・未確認として扱う。
-        public Dictionary<string, bool> hasRouteInputById = new();
+        public Dictionary<(string StationId, string RouteId), bool> hasRouteInputById = new();
 
         // Graphや時刻を使用できない理由。個別の入力欠落は上の取得可否に保持する。
         // 初期値は空。理由が空であることだけでは、確認済み・正常と判断しない。

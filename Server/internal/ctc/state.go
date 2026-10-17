@@ -10,9 +10,17 @@ type InterlockingRouteState struct {
 	CancelPending   bool
 }
 
+type TrackCircuitState struct {
+	IsOccupied bool
+	TrainID    string // 最後尾側の基準回路にだけ保持する。未登録なら空文字。
+}
+
 type TrackingState struct {
-	// 直前に処理した在線状態。
-	OccupiedByCircuitID map[string]bool
+	// 全回路と全列車の情報を受信し、初期登録済み。
+	IsInitialized bool
+
+	// 直前に処理した在線状態と、回路に登録された追跡用ID。
+	CircuitsByID map[string]TrackCircuitState
 
 	// CTCの追跡用IDをキーに管理する。
 	TrainsByID map[string]TrainState
@@ -30,7 +38,4 @@ type TrainState struct {
 	ConsistNumber   string
 	TrainNumber     string
 	OperationNumber string
-
-	// 追跡上の基準となる、最後尾側の軌道回路。
-	CircuitID string
 }

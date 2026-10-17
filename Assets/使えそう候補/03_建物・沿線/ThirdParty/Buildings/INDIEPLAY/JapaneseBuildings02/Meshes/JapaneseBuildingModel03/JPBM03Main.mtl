@@ -1,0 +1,33 @@
+newmtl JPBM05tiles05MatGray2
+map_Kd -o 0.09 0 -s 0.25 0.07 tiles05_roughness_1k.jpg
+map_Pm -o 0 0 -s 1 1 tiles05_roughness_1k.jpg
+bump -o 0 0 -s 1 1 tiles05_normal_1k.jpg
+Kd 0.9528302 0.885413 0.885413
+d 1
+
+newmtl JPBM05tiles05MatGray1
+map_Kd -o 0 0 -s 1 1 tiles05_roughness_1k.jpg
+bump -o 0 0 -s 1 1 tiles05_normal_1k.jpg
+map_d -o 0 0 -s 1 1 tiles05_ao_1k.jpg
+Kd 0.8679245 0.8147027 0.8147027
+d 1
+
+newmtl JPBM6Facade001_2KMat
+map_Kd -o 0.031 0.05 -s 0.03 0.04 Facade001_2K_Color.jpg
+bump -o 0 0 -s 1 1 Facade001_2K_Normal.jpg
+Kd 1 1 1
+d 1
+
+newmtl SteelShutterMat
+map_Kd -o 0 0 -s 1 1 SteelShutter.jpg
+bump -o 0 0 -s 1 1 SteelShutterN.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM05concrete03Mat
+map_Kd -o 0 0 -s 1 1 concrete03roughness1k.jpg
+bump -o 0 0 -s 1 1 concrete03normal1k.jpg
+disp -o 0 0 -s 1 1 concrete03height1k.jpg
+map_d -o 0 0 -s 1 1 concrete03ao1k.jpg
+Kd 1 1 1
+d 1

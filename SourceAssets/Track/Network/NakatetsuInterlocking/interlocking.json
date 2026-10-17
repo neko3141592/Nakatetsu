@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "graphManifestPath": "../NakatetsuTrackGraph/graph.json",
+  "stations": [
+    {
+      "stationId": "NT01",
+      "file": "Stations/NT01.json",
+      "assetPath": "Assets/Nakatetsu/Track/Network/Data/Interlocking/NT01.asset"
+    },
+    {
+      "stationId": "NT05",
+      "file": "Stations/NT05.json",
+      "assetPath": "Assets/Nakatetsu/Track/Network/Data/Interlocking/NT05.asset"
+    },
+    {
+      "stationId": "NT07",
+      "file": "Stations/NT07.json",
+      "assetPath": "Assets/Nakatetsu/Track/Network/Data/Interlocking/NT07.asset"
+    },
+    {
+      "stationId": "NT11",
+      "file": "Stations/NT11.json",
+      "assetPath": "Assets/Nakatetsu/Track/Network/Data/Interlocking/NT11.asset"
+    }
+  ]
+}

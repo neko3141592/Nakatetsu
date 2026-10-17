@@ -1,7 +1,5 @@
 #nullable enable
 
-using Nakatetsu.Contracts.Interlocking;
-
 namespace Nakatetsu.Track.Interlocking
 {
     public static class InterlockingRouteRequestResultUtility

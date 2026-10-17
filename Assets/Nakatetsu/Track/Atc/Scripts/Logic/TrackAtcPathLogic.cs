@@ -306,7 +306,7 @@ namespace Nakatetsu.Track.Atc
                 if (currentRoute != null && routeIndex < currentRoute.atcEdgeIds.Count - 1)
                 {
                     // Blockから連動区間へ入る際は、既存の進路内継続条件ではなく新規進入条件を使う。
-                    var routeInput = context.Input.RoutesById[currentRoute.interlockingRouteId];
+                    var routeInput = context.Input.RoutesById[currentRoute.InterlockingKey];
                     if (!CanEnter(routeInput))
                     {
                         endReason = GetUnavailableReason(routeInput);
@@ -329,7 +329,7 @@ namespace Nakatetsu.Track.Atc
                 return true;
             }
 
-            var input = context.Input.RoutesById[currentRoute.interlockingRouteId];
+            var input = context.Input.RoutesById[currentRoute.InterlockingKey];
             if (!CanContinue(input))
             {
                 endReason = GetUnavailableReason(input);
@@ -345,7 +345,7 @@ namespace Nakatetsu.Track.Atc
             }
 
             // 前進路の終端と後続進路の起点が同じEdgeでも、新規進入条件を使う。
-            if (!TrySelectEntryRoute(context, currentKey, currentRoute.atcRouteId,
+            if (!TrySelectEntryRoute(context, currentKey, edge.trackCircuitId, currentRoute.atcRouteId,
                 out var successor, out endReason, out failureReason))
             {
                 return false;
@@ -355,7 +355,7 @@ namespace Nakatetsu.Track.Atc
             {
                 // 共有Edgeは後続進路の先頭でもある。そこから2本目へ進む際は、
                 // Blockから先頭へ入った後と同じ進路内継続条件を適用する。
-                var successorInput = context.Input.RoutesById[successor.interlockingRouteId];
+                var successorInput = context.Input.RoutesById[successor.InterlockingKey];
                 if (!CanContinue(successorInput))
                 {
                     endReason = GetUnavailableReason(successorInput);
@@ -446,7 +446,7 @@ namespace Nakatetsu.Track.Atc
                         continue;
                     }
 
-                    if (!TrySelectEntryRoute(context, key, null, out route,
+                    if (!TrySelectEntryRoute(context, key, edge.trackCircuitId, null, out route,
                         out var candidateEndReason, out failureReason))
                     {
                         return false;
@@ -565,6 +565,7 @@ namespace Nakatetsu.Track.Atc
         private static bool TrySelectEntryRoute(
             TrackAtcContext context,
             TrackAtcEdgeKey key,
+            string approachTrackCircuitId,
             string excludedAtcRouteId,
             out TrackAtcRouteDefinition selected,
             out TrackAtcPathEndReason endReason,
@@ -573,10 +574,30 @@ namespace Nakatetsu.Track.Atc
             selected = null;
             endReason = TrackAtcPathEndReason.RouteNotSet;
             failureReason = string.Empty;
+            string entryCircuitId = context.State.validation.atcEdgesById[key.atcEdgeId].trackCircuitId;
+            bool hasBoundaryControl = false;
+            if (approachTrackCircuitId != entryCircuitId)
+            {
+                foreach (var route in context.State.validation.atcRoutesById.Values)
+                {
+                    if (route.atcRouteId != excludedAtcRouteId && route.atcEdgeIds[0] == key.atcEdgeId
+                        && GetRouteKey(context, route, 0) == key
+                        && route.interlockingStartTrackCircuitId == approachTrackCircuitId)
+                    {
+                        hasBoundaryControl = true;
+                        break;
+                    }
+                }
+            }
+
+            // 回路境界から入る制御進路がある場合、その静的な境界を優先する。
+            // 同じ先頭Edgeを共有する出発進路の設定だけでは、未設定の場内を越えない。
+            string controlStartCircuitId = hasBoundaryControl ? approachTrackCircuitId : entryCircuitId;
             foreach (var route in context.State.validation.atcRoutesById.Values)
             {
                 if (route.atcRouteId == excludedAtcRouteId || route.atcEdgeIds[0] != key.atcEdgeId ||
-                    GetRouteKey(context, route, 0) != key)
+                    GetRouteKey(context, route, 0) != key ||
+                    route.interlockingStartTrackCircuitId != controlStartCircuitId)
                 {
                     continue;
                 }
@@ -747,11 +768,11 @@ namespace Nakatetsu.Track.Atc
             out string failureReason)
         {
             failureReason = string.Empty;
-            if (!context.State.validation.hasRouteInputById.TryGetValue(route.interlockingRouteId, out bool available) ||
-                !available || !context.Input.RoutesById.TryGetValue(route.interlockingRouteId, out input) || input == null)
+            if (!context.State.validation.hasRouteInputById.TryGetValue(route.InterlockingKey, out bool available) ||
+                !available || !context.Input.RoutesById.TryGetValue(route.InterlockingKey, out input) || input == null)
             {
                 input = null;
-                failureReason = $"Route input '{route.interlockingRouteId}' is unavailable.";
+                failureReason = $"Route input '{route.interlockingStationId}/{route.interlockingRouteId}' is unavailable.";
                 return false;
             }
 

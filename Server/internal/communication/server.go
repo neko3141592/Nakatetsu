@@ -2,6 +2,7 @@ package communication
 
 import (
 	"context"
+	"errors"
 
 	"github.com/neko3141592/Nakatetsu/Server/gen/ctcv1"
 	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
@@ -28,7 +29,12 @@ func (s *CtcServer) UpdateSnapshot(
 		)
 	}
 
-	s.CTC.UpdateSnapshot(snapshot)
+	if err := s.CTC.UpdateSnapshot(snapshot); err != nil {
+		if errors.Is(err, ctc.ErrTrainInitialization) {
+			return nil, status.Error(codes.FailedPrecondition, err.Error())
+		}
+		return nil, status.Error(codes.Internal, err.Error())
+	}
 
 	return &emptypb.Empty{}, nil
 }

@@ -1,0 +1,12 @@
+newmtl JPBM6Metal003_2KMat
+map_Kd -o 0 0 -s 1 1 Metal003_2K_Color.jpg
+map_Pm -o 0 0 -s 1 1 Metal003_2K_Metalness.jpg
+bump -o 0 0 -s 1 1 Metal003_2K_Normal.jpg
+Kd 1 1 1
+d 1
+
+newmtl JapaneseBuildings04PanelsMat
+map_Kd -o 0 0 -s 1 1 JapaneseBuildings04Panels.png
+bump -o 0 0 -s 1 1 Metal003_2K_Normal.jpg
+Kd 1 1 1
+d 1

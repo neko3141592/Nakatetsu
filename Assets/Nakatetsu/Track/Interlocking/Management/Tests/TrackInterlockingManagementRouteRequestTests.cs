@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Reflection;
-using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Track.Interlocking.Management;
 using NUnit.Framework;
 using UnityEngine;

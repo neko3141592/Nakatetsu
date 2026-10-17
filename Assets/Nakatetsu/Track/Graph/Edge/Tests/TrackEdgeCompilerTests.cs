@@ -94,6 +94,50 @@ namespace Nakatetsu.Track.Graph.Edge.Tests
 
         [TestCase(false)]
         [TestCase(true)]
+        public void RoundedFinalStepAtNt07ChainageKeepsEndpointOnce(bool reverse)
+        {
+            var graph = Create();
+            var geometry = graph.geometries[0];
+            geometry.lengthM = 7000f;
+            geometry.horizontalSegments[0].lengthM = 7000f;
+            geometry.verticalSegments.Clear();
+            var edge = graph.edges[0];
+            edge.startDistanceOnGeometryM = reverse ? 6206.2001953125f : 6180f;
+            edge.endDistanceOnGeometryM = reverse ? 6180f : 6206.2001953125f;
+            edge.offsetSegments[0].endDistanceOnGeometryM = 7000f;
+
+            Assert.That(TrackEdgeCompiler.TryBuildDistanceMap(edge, geometry, 0.05f, out var map, out var error), Is.True, error);
+            Assert.That(map.Count, Is.EqualTo(525));
+            Assert.That(map[map.Count - 1].distanceOnGeometryM, Is.EqualTo(edge.endDistanceOnGeometryM));
+            Assert.That(map.FindAll(s => s.distanceOnGeometryM == edge.endDistanceOnGeometryM).Count, Is.EqualTo(1));
+            Assert.That(map[map.Count - 1].distanceOnEdgeM, Is.EqualTo(26.2001953125f).Within(0.001f));
+            for (int i = 1; i < map.Count; i++)
+            {
+                Assert.That(map[i].distanceOnEdgeM, Is.GreaterThan(map[i - 1].distanceOnEdgeM));
+                Assert.That((map[i].distanceOnGeometryM - map[i - 1].distanceOnGeometryM) * (reverse ? -1f : 1f), Is.GreaterThan(0f));
+            }
+        }
+
+        [Test]
+        public void UnrepresentableIntermediateStepStillFailsWithoutOutput()
+        {
+            var graph = Create();
+            var geometry = graph.geometries[0];
+            geometry.lengthM = 7000f;
+            geometry.horizontalSegments[0].lengthM = 7000f;
+            geometry.verticalSegments.Clear();
+            var edge = graph.edges[0];
+            edge.startDistanceOnGeometryM = 6180f;
+            edge.endDistanceOnGeometryM = 6180.125f;
+            edge.offsetSegments[0].endDistanceOnGeometryM = 7000f;
+
+            Assert.That(TrackEdgeCompiler.TryBuildDistanceMap(edge, geometry, 0.0001f, out var map, out var error), Is.False);
+            Assert.That(map, Is.Null);
+            Assert.That(error, Does.Contain("float precision"));
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
         public void MissingCoverageOrOffsetJumpFails(bool jump)
         {
             var graph = Create();

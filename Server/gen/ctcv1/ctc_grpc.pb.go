@@ -30,7 +30,7 @@ const (
 // 旧C# Contractsのデータ項目・列挙値を移植した定義。
 // MessagePackのKey(n)はフィールド番号(n + 1)に対応するが、通信形式の互換性はない。
 type CtcServiceClient interface {
-	// 旧IUnityHub.UpdateSnapshotAsync。世界時刻と連動状態を一括で更新する。
+	// 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
 	UpdateSnapshot(ctx context.Context, in *UnitySnapshotMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -59,7 +59,7 @@ func (c *ctcServiceClient) UpdateSnapshot(ctx context.Context, in *UnitySnapshot
 // 旧C# Contractsのデータ項目・列挙値を移植した定義。
 // MessagePackのKey(n)はフィールド番号(n + 1)に対応するが、通信形式の互換性はない。
 type CtcServiceServer interface {
-	// 旧IUnityHub.UpdateSnapshotAsync。世界時刻と連動状態を一括で更新する。
+	// 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
 	UpdateSnapshot(context.Context, *UnitySnapshotMessage) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCtcServiceServer()
 }

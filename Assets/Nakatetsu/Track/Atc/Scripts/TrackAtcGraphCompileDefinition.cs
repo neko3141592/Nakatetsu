@@ -39,6 +39,8 @@ namespace Nakatetsu.Track.Atc
     public sealed class TrackAtcRouteSourceDefinition
     {
         public string atcRouteId;
+        // 連動管理部の駅ID。進路IDはこの駅内で一意とする。
+        public string interlockingStationId;
         public string interlockingRouteId;
         // 進行順。分岐側は連動進路の転轍機条件と線路の接続情報から解決する。
         public List<string> trackCircuitIds = new();

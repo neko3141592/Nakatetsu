@@ -1,0 +1,170 @@
+{
+  "geometries": [
+    {
+      "displayName": "NT01 中鉄中央 車止め基準",
+      "trackGeometryId": "NT01_baseline",
+      "lengthM": 11860,
+      "originPosition": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "originRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "horizontalSegments": [
+        {
+          "type": "Straight",
+          "startDistanceM": 0,
+          "lengthM": 600
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 600,
+          "lengthM": 100,
+          "radiusM": 350
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 700,
+          "lengthM": 332,
+          "radiusM": 350
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 1032,
+          "lengthM": 100,
+          "radiusM": 350
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 1132,
+          "lengthM": 453
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 1585,
+          "lengthM": 100,
+          "radiusM": -400
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 1685,
+          "lengthM": 238,
+          "radiusM": -400
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 1923,
+          "lengthM": 100,
+          "radiusM": -400
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 2023,
+          "lengthM": 756
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 2779,
+          "lengthM": 50,
+          "radiusM": 1300
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 2829,
+          "lengthM": 50,
+          "radiusM": 1300
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 2879,
+          "lengthM": 50,
+          "radiusM": -1300
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 2929,
+          "lengthM": 50,
+          "radiusM": -1300
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 2979,
+          "lengthM": 392
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 3371,
+          "lengthM": 100,
+          "radiusM": -550
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 3471,
+          "lengthM": 256,
+          "radiusM": -550
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 3727,
+          "lengthM": 100,
+          "radiusM": -550
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 3827,
+          "lengthM": 516
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 4343,
+          "lengthM": 100,
+          "radiusM": 550
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 4443,
+          "lengthM": 455,
+          "radiusM": 550
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 4898,
+          "lengthM": 100,
+          "radiusM": 550
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 4998,
+          "lengthM": 600
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 5598,
+          "lengthM": 2302
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 7900,
+          "lengthM": 3960
+        }
+      ],
+      "verticalSegments": [
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 0,
+          "lengthM": 11860,
+          "gradientPermille": 0
+        }
+      ]
+    }
+  ],
+  "nodes": [],
+  "edges": [],
+  "connections": [],
+  "circuits": []
+}

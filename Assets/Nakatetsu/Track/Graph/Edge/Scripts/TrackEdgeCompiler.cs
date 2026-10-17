@@ -165,6 +165,12 @@ namespace Nakatetsu.Track.Graph.Edge
                     float distance = i == count ? (float)to : (float)(from + direction * Math.Min(i * (double)integrationStepM, span));
                     if (distance == previousDistance)
                     {
+                        // 最後の短い区間がfloatへの丸めで既存の端点と一致した場合、端点はすでに記録済み。
+                        if (i == count && distance == (float)to)
+                        {
+                            continue;
+                        }
+
                         return Fail("Geometry float precision cannot represent the integration step.", out error);
                     }
 

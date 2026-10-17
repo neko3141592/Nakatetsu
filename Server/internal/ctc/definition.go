@@ -34,8 +34,8 @@ type RouteCircuitRef struct {
 	CircuitIndex int // TrackCircuitIDs内の位置
 }
 
-// 進路定義を読み込んだときに作り、定義を変更したら作り直す。
-func buildRouteCircuitRefs(routeDefinitions []TrackRouteDefinition) map[string][]RouteCircuitRef {
+// BuildRouteCircuitRefsは進路候補辞書を作る。進路定義を変更したら作り直す。
+func BuildRouteCircuitRefs(routeDefinitions []TrackRouteDefinition) map[string][]RouteCircuitRef {
 	refs := make(map[string][]RouteCircuitRef)
 	for routeIndex, route := range routeDefinitions {
 		for circuitIndex, circuitID := range route.TrackCircuitIDs {

@@ -1,6 +1,7 @@
 package ctc
 
-func updateTracking(
+// UpdateTrackingは前回の在線と比較して、列車追跡状態を更新する。
+func UpdateTracking(
 	state *TrackingState,
 	occupied map[string]bool,
 	definitions map[string]TrackCircuitDefinition,
@@ -13,7 +14,7 @@ func updateTracking(
 			return
 		}
 
-		wasOccupied := state.OccupiedByCircuitID[circuitID]
+		wasOccupied := state.CircuitsByID[circuitID].IsOccupied
 
 		if !wasOccupied && isOccupied {
 			// 新しく在線した場合
@@ -100,17 +101,24 @@ func handleCircuitExit(circuitID string, state *TrackingState, occupied map[stri
 		return
 	}
 
-	for trainID, train := range state.TrainsByID {
-		if train.CircuitID != circuitID {
-			continue
-		}
+	from := state.CircuitsByID[circuitID]
+	if from.TrainID != "" {
 		if !occupied[toID] {
 			state.NeedsReset = true
 			return
 		}
-		train.CircuitID = toID
-		state.TrainsByID[trainID] = train
+		to := state.CircuitsByID[toID]
+		if to.TrainID != "" && to.TrainID != from.TrainID {
+			state.NeedsReset = true
+			return
+		}
+		to.TrainID = from.TrainID
+		from.TrainID = ""
+		state.CircuitsByID[toID] = to
+		state.CircuitsByID[circuitID] = from
 	}
 
 	delete(state.DynamicLinks, circuitID)
 }
+
+

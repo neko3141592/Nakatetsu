@@ -41,10 +41,14 @@ if (TrackAtcGraphCompiler.TryCompile(
 
 - `circuits`：軌道回路IDごとの制御方式と基本速度制限[km/h]。全回路に設定する。`Unspecified`は設定漏れとしてエラー。`Block`は個別の進路設定が不要な区間、`Interlocking`は連動進路に従う区間、`Yard`は構内モードで通行する区間。列挙値はそれぞれ1・2・3を維持する。
 - `speedLimits`：物理Edge IDとGeometry距離の区間で指定する追加速度制限。区間の両端は昇順・降順どちらでもよい。回路の基本速度と重複する全区間の制限から、最も低い値を採用する。0 km/hも有効な制限。
-- `routes`：ATC進路ID、連動進路ID、通過順の`trackCircuitIds`。Connectionの接続ペアと対応する連動進路の`requiredTurnouts`から、定位・反位のATC Edgeを解決する。単一回路の進路だけは`entryDirection`でA→B・B→Aを指定する。複数回路なら順序から入口方向を求める。
+- `routes`：全Graph内で一意のATC進路ID、`interlockingStationId`（連動制御駅ID）、`interlockingRouteId`（駅内進路ID）、通過順の`trackCircuitIds`。駅IDは連動定義の`interlockingId`と一致させる。Connectionの接続ペアと対応する連動進路の`requiredTurnouts`から、定位・反位のATC Edgeを解決する。単一回路の進路だけは`entryDirection`でA→B・B→Aを指定する。複数回路なら順序から入口方向を求める。
 - `gradientSampleIntervalM`：勾配サンプル間隔。既定10 m。Edge実距離を基準に採取する。
 
 速度制限の保存キーに生成済みATC Edge IDを使わないので、軌道回路や進路境界を変更して再分割しても制限を再配置できる。物理Edge IDやGeometry距離の基準自体を変更した場合は、生成元も修正する。
+
+連動進路の参照は`(interlockingStationId, interlockingRouteId)`の組で解決する。連動定義の`interlockingId`と管理部の登録`StationId`は同じ連動制御駅IDにそろえる。異なる駅の`1R`は許容し、同じ駅の進路ID重複と連動駅ID重複は生成エラーとする。旧生成元の駅ID省略は、指定した進路IDが全入力のちょうど1駅にだけ存在する場合に限って解決できる。複数駅に一致する場合は駅IDの明示を要求し、指定した駅に進路がない場合も別駅へ置き換えない。生成済み定義には駅IDを必ず保存する。駅IDのない旧生成済みGraphは実行時検証で拒否するため、使用前に再生成する。
+
+生成済み進路の`interlockingStartTrackCircuitId`には、参照する連動進路の`startTrackCircuitId`を保存する。回路境界からホームへ入る単一回路進路では、この制御発点回路がATC Edge列の先頭回路と異なる。発点回路と実際の通過回路列を別々に保持し、同じホームEdgeから始まる場内進路と出発進路を区別する。生成元に発点回路を重複入力する必要はない。この項目も未指定の旧生成済みGraphは再生成する。
 
 ## 結合と接続
 
@@ -58,7 +62,7 @@ if (TrackAtcGraphCompiler.TryCompile(
 
 各ATC Edgeの`physicalSpans`は、ATCのA→B方向に並べた線路用区間を保持する。各区間は`trackEdgeId`と`startDistanceOnEdgeM`・`endDistanceOnEdgeM`を持ち、線路用Edgeを逆方向に通る場合は始点距離が終点距離より大きくなる。ATC上の区間長は両距離の差の絶対値で、その累積がATC Edge内の位置になる。転轍機IDや必要位置はATC Edgeへ重複保存しない。
 
-例えば生成元は`21T → 2RT`と連動進路IDを指定するだけでよい。21定位を要求する連動進路なら、21Tの定位用Edgeと2RTのEdgeへ解決する。人が生成済みEdge IDや三つの物理区間を並べる必要はない。
+例えば生成元は`21T → 2RT`と連動駅ID・駅内進路IDを指定するだけでよい。21定位を要求する連動進路なら、21Tの定位用Edgeと2RTのEdgeへ解決する。人が生成済みEdge IDや三つの物理区間を並べる必要はない。
 
 Connectionにない接続、連動進路の転轍機条件と矛盾する経路、一意に解決できない進路は生成失敗とする。現在の転轍機位置や連動の実行時状態から静的進路を生成しない。
 

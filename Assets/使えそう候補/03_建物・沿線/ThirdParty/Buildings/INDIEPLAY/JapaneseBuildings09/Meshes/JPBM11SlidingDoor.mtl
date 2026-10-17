@@ -1,0 +1,11 @@
+newmtl Wood062_1KMat
+map_Kd -o 0 0 -s 1 1 Wood062_1K-PNG_Color.png
+map_Pm -o 0 0 -s 1 1 Wood062_1K-PNG_Roughness.png
+bump -o 0 0 -s 1 1 Wood062_1K-PNG_NormalDX.png
+disp -o 0 0 -s 1 1 Wood062_1K-PNG_Displacement.png
+Kd 1 1 1
+d 1
+
+newmtl Glass
+Kd 1 1 1
+d 0.1137255

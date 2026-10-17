@@ -65,13 +65,6 @@ Nakatetsu/
 │   ├── Settings/
 │   └── ThirdParty/
 ├── SourceAssets/
-├── Shared/
-│   ├── Nakatetsu.Contracts.csproj
-│   └── Contracts/
-├── Server/
-│   ├── Nakatetsu.TrafficControl.slnx
-│   ├── Nakatetsu.TrafficControl.code-workspace
-│   └── Nakatetsu.TrafficControl.Server/
 ├── Documentation/
 │   └── Architecture/
 │       └── DirectoryStructure.md
@@ -106,8 +99,6 @@ Nakatetsu/
 | `Assets/Settings` | 既存テンプレートのURPなどの設定アセット |
 | `Assets/ThirdParty` | 外部アセット。自作コード・素材と分け、ライセンス情報を保持する |
 | `SourceAssets` | Blender・Illustrator・Photoshopなどの制作元ファイル |
-| `Shared/Contracts` | Unityと運行管理サーバーで共有する通信型。Unity依存を持たないローカルパッケージ |
-| `Server/Nakatetsu.TrafficControl.Server` | ASP.NET Coreによる運行管理サーバー |
 | `Documentation` | 設計文書、移植記録、駅・路線・車両の参考資料 |
 | `Packages` | パッケージの依存設定 |
 | `ProjectSettings` | Unityプロジェクト全体の設定 |
@@ -145,22 +136,13 @@ ControllerはUnityとの接続、Logicは計算・判定、Contextは状態・�
 
 `Nakatetsu.Train.asmdef` と `Nakatetsu.Train.Equipment.Tims.asmdef` は、それぞれの機能ツリーを包含できる機能ルートに置く。TIMSは `Equipment` 配下でも独立Assemblyとし、テストは機能別の `Tests` に分散させ、`asmref` で `Nakatetsu.Train.Equipment.Tims.Tests.EditMode` を参照する。
 
-## 運行管理サーバーと共通型
+## Unity単体の構成
 
-サーバー開発では `Server/Nakatetsu.TrafficControl.code-workspace` をVS Codeで開く。専用ソリューション `Server/Nakatetsu.TrafficControl.slnx` にサーバーと共通型の2プロジェクトを登録している。既定のビルドタスクと `TrafficControl Server` のデバッグ構成を用意している。
+2026年10月15日に、CTCサーバーを作り直すため、旧C#サーバー、共有通信パッケージ、Unity側のCTC通信処理を削除した。MagicOnion、gRPC、MessagePack、YetAnotherHttpHandlerと、それらを導入していたNuGetForUnityへの依存は持たない。
 
-サーバーは.NET 10、共通型の `Shared/Nakatetsu.Contracts.csproj` は.NET Standard 2.1を使う。連動の通信型は `Shared/Contracts/Interlocking/Scripts` 配下に置き、Unity側を基準に、サーバーから受ける進路要求を `FromServer`、サーバーへ送る状態・要求結果を `ToServer`、enumを `Enums` に分ける。
+連動装置のローカル操作にも使う進路要求・要求結果・操作種別・理由コードは、`Assets/Nakatetsu/Track/Interlocking/Shared/Scripts` の `Requests` と `Enums` に配置する。名前空間は `Nakatetsu.Track.Interlocking`、所属Assemblyは `Nakatetsu.Track.Interlocking` とする。これらの型は通信パッケージを参照しない。
 
-Unityは `Packages/manifest.json` の `file:../Shared/Contracts` から同じソースを読み込み、`Nakatetsu.Application` が `Nakatetsu.Contracts` を明示参照する。共通型のプロジェクトは `Contracts/**/*.cs` だけをコンパイルする。`.csproj` とその `bin`・`obj` はパッケージの親に置き、Unityへ生成コードが混入しないようにする。
-
-リポジトリのルートからの確認・起動コマンドは次のとおり。
-
-```bash
-dotnet build Server/Nakatetsu.TrafficControl.slnx
-dotnet run --project Server/Nakatetsu.TrafficControl.Server/Nakatetsu.TrafficControl.Server.csproj --launch-profile http
-```
-
-Unity側の編集ではルートの `Nakatetsu.slnx` を引き続き使う。Unityが生成するソリューションへのサーバー側プロジェクトの手動追加は行わない。
+Unity側の編集ではルートの `Nakatetsu.slnx` を使う。`Documentation/TrafficControl` の旧実装記録とダイヤ設計は再構築時の参考資料として残す。将来のサーバー言語・通信方式・配置は、新実装時に決める。
 
 ## 必要になったら追加する構成
 

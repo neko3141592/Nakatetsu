@@ -1,0 +1,7 @@
+newmtl JPBM10Paper003_1KMat
+map_Kd -o 0 0 -s 1 1 Paper003_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Paper003_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Paper003_1K-JPG_NormalDX.jpg
+disp -o 0 0 -s 1 1 Paper003_1K-JPG_Displacement.jpg
+Kd 0.8414472 0.9339623 0.8943129
+d 1

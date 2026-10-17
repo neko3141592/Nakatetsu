@@ -10,7 +10,7 @@ option csharp_namespace = "Namespace.Protocol.Ctc.V1";
 // 旧C# Contractsのデータ項目・列挙値を移植した定義。
 // MessagePackのKey(n)はフィールド番号(n + 1)に対応するが、通信形式の互換性はない。
 service CtcService {
-  // 旧IUnityHub.UpdateSnapshotAsync。世界時刻と連動状態を一括で更新する。
+  // 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
   rpc UpdateSnapshot(UnitySnapshotMessage) returns (google.protobuf.Empty);
 }
 
@@ -31,11 +31,37 @@ message MessageHeader {
   string message_type = 3;
 }
 
-// 同じ完了Tickの世界時刻と連動状態。差分ではなく全体を置き換える。
+// 同じ完了Tickの世界時刻・連動状態・在線状態。差分ではなく全体を置き換える。
 // world_timeとinterlockingは送信時に設定する。連動状態が空でも省略しない。
 message UnitySnapshot {
   WorldTimeInformation world_time = 1;
   InterlockingSnapshot interlocking = 2;
+  // 完了Tickの在線情報が未取得なら省略する。省略を全回路非在線と解釈しない。
+  TrackCircuitSnapshot track_circuits = 3;
+  // 同じTickの全列車の初期登録候補。未取得なら省略し、取得済み0本なら空のメッセージを送る。
+  // Unityは取得できる間は毎回送り、Goは初期登録が成功するまでだけ採用する。
+  TrainInitializationSnapshot train_initialization = 4;
+}
+
+message TrainInitializationSnapshot {
+  // 初期回路はUnityのTrainRootで手動設定する。現段階では各列車が単一回路に収まる前提。
+  repeated TrainInitializationInfo trains = 1;
+}
+
+message TrainInitializationInfo {
+  // Unity内の個体ID（TrainRoot.TrainId）。CTC内部の追跡用TrainIDとは別。
+  string consist_id = 1;
+  string consist_number = 2;
+  // 列番・運用番号は未設定なら空文字でよい。
+  string train_number = 3;
+  string operation_number = 4;
+  // 手動設定した初期回路ID。未設定・定義外・非在線ならGo側で初期化エラーにする。
+  string reference_circuit_id = 5;
+}
+
+message TrackCircuitSnapshot {
+  // 全回路の状態を送り、非在線のfalseも含める。存在しないIDは未取得。
+  map<string, bool> occupied_by_circuit_id = 1;
 }
 
 // Unityからサーバーへ渡す世界の時間情報。

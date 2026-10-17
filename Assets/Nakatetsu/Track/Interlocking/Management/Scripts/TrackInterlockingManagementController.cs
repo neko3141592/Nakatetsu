@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Nakatetsu.Contracts.Interlocking;
 using Nakatetsu.Core.Simulation;
 using UnityEngine;
 

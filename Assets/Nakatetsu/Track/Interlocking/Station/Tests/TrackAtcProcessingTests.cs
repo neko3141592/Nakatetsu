@@ -44,6 +44,130 @@ namespace Nakatetsu.Track.Interlocking.Tests
             }
         }
 
+        [TestCase(TrackAtcTravelDirection.AtoB)]
+        [TestCase(TrackAtcTravelDirection.BtoA)]
+        public void UnroutedInterlockingWithExplicitDirectionSendsStopInBothDirections(
+            TrackAtcTravelDirection direction)
+        {
+            CreateContext();
+            var unrouted = AddEdge("Unrouted", "A", "B");
+            unrouted.direction = direction;
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.validation.directionsByAtcEdgeId[unrouted.atcEdgeId],
+                Is.EquivalentTo(new[] { direction == TrackAtcTravelDirection.AtoB
+                    ? EdgeDirection.AtoB : EdgeDirection.BtoA }));
+            foreach (var travel in new[] { EdgeDirection.AtoB, EdgeDirection.BtoA })
+            {
+                AssertRoute(unrouted, travel == EdgeDirection.AtoB
+                    ? TrackAtcTravelDirection.AtoB : TrackAtcTravelDirection.BtoA,
+                    OverrunProtectionMode.None, "Unrouted");
+                Assert.That(Result("Unrouted", travel).endReason, Is.EqualTo(TrackAtcPathEndReason.RouteNotSet));
+                Assert.That(Result("Unrouted", travel).nextEdgeKey, Is.Null);
+                Assert.That(Result("Unrouted", travel).terminalAtcRouteId, Is.Null);
+            }
+        }
+
+        [TestCase(TrackAtcTravelDirection.AtoB)]
+        [TestCase(TrackAtcTravelDirection.BtoA)]
+        public void ExplicitUnroutedDirectionCannotPermitEntryOrContinuation(
+            TrackAtcTravelDirection direction)
+        {
+            CreateContext();
+            var before = AddEdge("Before", "A", "B", TrackAtcEdgeControlKind.Block);
+            var unrouted = AddEdge("Unrouted", "B", "C");
+            unrouted.direction = direction;
+            var after = AddEdge("After", "C", "D");
+            var successor = AddRoute("AfterAtc", "AfterInterlocking", "After");
+            SetRoute(successor, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before");
+            AssertRoute(unrouted, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Unrouted");
+            AssertRoute(unrouted, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.None, "Unrouted");
+            AssertRoute(after, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal, "After");
+            Assert.That(Result("Before").nextEdgeKey, Is.Null);
+            Assert.That(Result("Unrouted").nextEdgeKey, Is.Null);
+            Assert.That(Result("Unrouted", EdgeDirection.BtoA).nextEdgeKey, Is.Null);
+        }
+
+        [Test]
+        public void EstablishedRouteCannotContinueIntoUnroutedInterlockingBranch()
+        {
+            CreateContext();
+            var entry = AddEdge("Entry", "A", "B");
+            var unrouted = AddEdge("Unrouted", "B", "C");
+            unrouted.direction = TrackAtcTravelDirection.BtoA;
+            var route = AddRoute("EntryAtc", "EntryInterlocking", "Entry");
+            SetRoute(route, OverrunProtectionMode.Restricted);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            AssertRoute(entry, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "Entry");
+            Assert.That(Result("Entry").endReason, Is.EqualTo(TrackAtcPathEndReason.RouteEnd));
+            Assert.That(Result("Entry").nextEdgeKey, Is.Null);
+        }
+
+        [Test]
+        public void PhysicallySelectedUnroutedTurnoutBranchOnlyProducesStopTelegrams()
+        {
+            CreateTurnoutContext(out var before, out var normal, out var reverse, out _, out var reverseRoute);
+            graph.routes.Remove(reverseRoute);
+            context.Input.RoutesById.Remove(reverseRoute.InterlockingKey);
+            reverse.direction = TrackAtcTravelDirection.BtoA;
+            context.Input.PhysicalPathAvailableByAtcEdgeId[normal.atcEdgeId] = false;
+            context.Input.PhysicalPathAvailableByAtcEdgeId[reverse.atcEdgeId] = true;
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.path.selectedEdgeByCircuitId["21T"], Is.EqualTo(reverse.atcEdgeId));
+            AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "20T");
+            AssertRoute(reverse, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "21T_R");
+            AssertRoute(reverse, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.None, "21T_R");
+            Assert.That(context.State.path.resultsByKey.ContainsKey(Key(normal.atcEdgeId)), Is.False);
+        }
+
+        [TestCase(TrackAtcTravelDirection.Unspecified)]
+        [TestCase((TrackAtcTravelDirection)(-1))]
+        [TestCase((TrackAtcTravelDirection)3)]
+        public void UnroutedInterlockingWithoutValidExplicitDirectionInvalidatesGraph(
+            TrackAtcTravelDirection direction)
+        {
+            CreateContext();
+            var edge = AddEdge("Unrouted", "A", "B");
+            edge.direction = direction;
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.False);
+            Assert.That(context.State.validation.failureReason, Does.Contain("Unrouted"));
+            Assert.That(context.State.validation.directionsByAtcEdgeId, Is.Empty);
+            Assert.That(context.State.path.resultsByKey, Is.Empty);
+            Assert.That(context.Output.telegrams, Is.Empty);
+        }
+
+        [Test]
+        public void RoutedInterlockingUsesStaticDirectionsWithoutAddingConfiguredFallbackDirection()
+        {
+            first.direction = TrackAtcTravelDirection.BtoA;
+            shared.direction = TrackAtcTravelDirection.Unspecified;
+            var reverse = AddRoute("ReverseAtc", "ReverseInterlocking", "Last", "Middle", "Shared");
+            SetRoute(arrival, OverrunProtectionMode.Normal);
+            SetRoute(departure, OverrunProtectionMode.Restricted);
+            SetRoute(reverse, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.validation.directionsByAtcEdgeId[first.atcEdgeId],
+                Is.EquivalentTo(new[] { EdgeDirection.AtoB }));
+            Assert.That(context.State.validation.directionsByAtcEdgeId[shared.atcEdgeId],
+                Is.EquivalentTo(new[] { EdgeDirection.AtoB, EdgeDirection.BtoA }));
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
+                "First", "Shared", "Middle", "Last");
+            AssertRoute(last, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.Normal, "Last", "Middle", "Shared");
+        }
+
         [Test]
         public void DepartureSettingExtendsPathAndUsesItsInterlockingMode()
         {
@@ -101,7 +225,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 "First", "Shared", "Middle", "Last");
             Assert.That(Result("Shared").nextEdgeKey, Is.EqualTo(Key("Middle")));
 
-            context.Input.RoutesById[departure.interlockingRouteId] = new TrackAtcRouteInput();
+            context.Input.RoutesById[departure.InterlockingKey] = new TrackAtcRouteInput();
             TrackAtcLogic.Calculate(context);
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
             Assert.That(Result("Shared").nextEdgeKey, Is.Null);
@@ -138,6 +262,89 @@ namespace Nakatetsu.Track.Interlocking.Tests
 
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "First");
             AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Shared");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void BoundaryArrivalAndSharedPlatformDepartureFormOneContinuousPath(bool reverseDefinitions)
+        {
+            var secondArrival = AddBoundaryArrivalAndPlatformDeparture();
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(secondArrival, OverrunProtectionMode.Restricted);
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            if (reverseDefinitions)
+            {
+                graph.routes.Reverse();
+            }
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle", "Last");
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "Shared", "Middle", "Last");
+            Assert.That(Result("First").terminalAtcRouteId, Is.EqualTo(departure.atcRouteId));
+        }
+
+        [TestCase("unset")]
+        [TestCase("no_proceed")]
+        [TestCase("path_not_established")]
+        [TestCase("cancelled")]
+        public void PlatformDepartureCannotBypassTheBoundaryArrivalSignal(string unavailable)
+        {
+            var secondArrival = AddBoundaryArrivalAndPlatformDeparture();
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            var boundaryInput = SetRoute(secondArrival, OverrunProtectionMode.Restricted);
+            switch (unavailable)
+            {
+                case "unset": boundaryInput.IsRouteSet = false; break;
+                case "no_proceed": boundaryInput.ProceedAllowed = false; break;
+                case "path_not_established": boundaryInput.PathEstablished = false; break;
+                case "cancelled": boundaryInput.CancelPending = true; break;
+            }
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+            Assert.That(Result("Shared").nextEdgeKey, Is.Null);
+            // ホーム内を起点とする列車は、独立した出発進路を使用できる。
+            AssertRoute(middle, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal, "Middle", "Last");
+        }
+
+        [Test]
+        public void MissingBoundaryArrivalInputCannotUseThePlatformsDepartureInstead()
+        {
+            var secondArrival = AddBoundaryArrivalAndPlatformDeparture();
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            context.Input.RoutesById.Remove(secondArrival.InterlockingKey);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            AssertInvalid(first.trackCircuitId);
+            AssertInvalid(shared.trackCircuitId);
+            Assert.That(Result("First").failureReason, Does.Contain("SecondArrivalInterlocking"));
+        }
+
+        [Test]
+        public void BoundaryArrivalWithoutDepartureStopsAtThePlatform()
+        {
+            var secondArrival = AddBoundaryArrivalAndPlatformDeparture();
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(secondArrival, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle");
+            Assert.That(Result("First").terminalAtcRouteId, Is.EqualTo(secondArrival.atcRouteId));
+        }
+
+        private TrackAtcRouteDefinition AddBoundaryArrivalAndPlatformDeparture()
+        {
+            departure.atcEdgeIds.Remove("Shared");
+            departure.interlockingStartTrackCircuitId = middle.trackCircuitId;
+            var secondArrival = AddRoute("SecondArrivalAtc", "SecondArrivalInterlocking", "Middle");
+            secondArrival.interlockingStartTrackCircuitId = shared.trackCircuitId;
+            return secondArrival;
         }
 
         [Test]
@@ -202,7 +409,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before");
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
 
-            context.Input.RoutesById[arrival.interlockingRouteId].ProceedAllowed = true;
+            context.Input.RoutesById[arrival.InterlockingKey].ProceedAllowed = true;
             TrackAtcLogic.Calculate(context);
             AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
                 "Before", "First", "Shared");
@@ -335,12 +542,12 @@ namespace Nakatetsu.Track.Interlocking.Tests
         [Test]
         public void MissingRouteInputFailsInsteadOfUsingNoneFallback()
         {
-            context.Input.RoutesById.Remove(arrival.interlockingRouteId);
+            context.Input.RoutesById.Remove(arrival.InterlockingKey);
             TrackAtcLogic.Calculate(context);
 
             AssertInvalid(first.trackCircuitId);
             Assert.That(Result("First").isPathValid, Is.False);
-            Assert.That(context.State.validation.hasRouteInputById[arrival.interlockingRouteId], Is.False);
+            Assert.That(context.State.validation.hasRouteInputById[arrival.InterlockingKey], Is.False);
         }
 
         [Test]
@@ -487,7 +694,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
                 "First", "Shared", "Middle", "Last");
 
-            context.Input.RoutesById[departure.interlockingRouteId] = new TrackAtcRouteInput();
+            context.Input.RoutesById[departure.InterlockingKey] = new TrackAtcRouteInput();
             context.Input.simulationTimeSeconds = 121d;
             TrackAtcLogic.Calculate(context);
 
@@ -581,7 +788,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             context.Input.OccupiedByCircuitId["21T"] = true;
             TrackAtcLogic.Calculate(context);
 
-            context.Input.RoutesById[reverseRoute.interlockingRouteId] = new TrackAtcRouteInput();
+            context.Input.RoutesById[reverseRoute.InterlockingKey] = new TrackAtcRouteInput();
             context.Input.PhysicalPathAvailableByAtcEdgeId[normal.atcEdgeId] = true;
             context.Input.PhysicalPathAvailableByAtcEdgeId[reverse.atcEdgeId] = false;
             TrackAtcLogic.Calculate(context);
@@ -614,7 +821,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             CreateTurnoutContext(out var before, out var normal, out _, out _, out var reverseRoute);
             context.Input.PhysicalPathAvailableByAtcEdgeId[normal.atcEdgeId] = true;
-            context.Input.RoutesById.Remove(reverseRoute.interlockingRouteId);
+            context.Input.RoutesById.Remove(reverseRoute.InterlockingKey);
             TrackAtcLogic.Calculate(context);
 
             AssertInvalid("21T");
@@ -750,7 +957,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
         {
             var route = new TrackAtcRouteDefinition
             {
-                atcRouteId = atcId, interlockingRouteId = interlockingId,
+                atcRouteId = atcId, interlockingStationId = "TestStation", interlockingRouteId = interlockingId,
+                interlockingStartTrackCircuitId = graph.atcEdge.Find(edge => edge.atcEdgeId == edges[0]).trackCircuitId,
                 entryDirection = TrackAtcTravelDirection.AtoB, atcEdgeIds = new List<string>(edges)
             };
             if (edges.Length > 1)
@@ -763,7 +971,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 }
             }
             graph.routes.Add(route);
-            context.Input.RoutesById[interlockingId] = new TrackAtcRouteInput();
+            context.Input.RoutesById[route.InterlockingKey] = new TrackAtcRouteInput();
             return route;
         }
 
@@ -774,7 +982,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
                 IsRouteSet = true, ProceedAllowed = true, PathEstablished = true, RouteLocked = true,
                 OverrunMode = mode
             };
-            context.Input.RoutesById[route.interlockingRouteId] = routeInput;
+            context.Input.RoutesById[route.InterlockingKey] = routeInput;
             return routeInput;
         }
 

@@ -3,10 +3,17 @@
     "rootNamespace": "Nakatetsu.Application.Simulation.Tests",
     "references": [
         "Nakatetsu.Application",
-        "Nakatetsu.Track.Interlocking"
+        "Nakatetsu.Track.Interlocking",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Simulation"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
+    ],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Google.Protobuf.dll"
     ],
     "autoReferenced": false
 }

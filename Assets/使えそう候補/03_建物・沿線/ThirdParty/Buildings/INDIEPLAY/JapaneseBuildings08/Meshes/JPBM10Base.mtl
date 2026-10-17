@@ -1,0 +1,49 @@
+newmtl Black
+Kd 0 0 0
+d 1
+
+newmtl JPBM10PavingStones086_1KMat
+map_Kd -o 0 0 -s 0.5 0.5 PavingStones086_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 PavingStones086_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 PavingStones086_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 PavingStones086_1K-JPG_Displacement.jpg
+Kd 1 1 1
+d 1
+
+newmtl JPBM10tiles05
+map_Kd -o 0 0 -s 1 1 tiles05_diffuse_1k.jpg
+map_Pm -o 0 0 -s 1 1 tiles05_roughness_1k.jpg
+bump -o 0 0 -s 1 1 tiles05_normal_1k.jpg
+Kd 1 1 1
+d 1
+
+newmtl Plastic013B_1KBlack
+map_Kd -o 0 0 -s 1 1 Plastic013B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plastic013B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 Plastic013B_1K-JPG_Displacement.jpg
+Kd 0.1037736 0.1037736 0.1037736
+d 1
+
+newmtl JPBM10bricks02_1KGreenMat
+map_Kd -o 0 0 -s 1 1 bricks02 diffuse 1k.jpg
+map_Pm -o 0 0 -s 1 1 bricks02 roughness 1k.jpg
+bump -o 0 0 -s 1 1 bricks02 normal 1k.jpg
+disp -o 0 0 -s 1 1 bricks02 height 1k.jpg
+Kd 0.6132076 0.5880517 0.4946156
+d 1
+
+newmtl JPBM6Plaster001_2KMat
+map_Kd -o 0 0 -s 0.5 0.5 Plaster001_2K_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plaster001_2K_Roughness.jpg
+bump -o 0 0 -s 1 1 Plaster001_2K_Normal.jpg
+Kd 1 1 1
+d 1
+
+newmtl Plastic013B_1K
+map_Kd -o 0 0 -s 1 1 Plastic013B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plastic013B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 Plastic013B_1K-JPG_Displacement.jpg
+Kd 1 1 1
+d 1

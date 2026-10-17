@@ -27,9 +27,9 @@ Controllerが工程1の入力収集を完了し、親Logicが工程2〜5を順�
 
 今回の更新で使用する時刻・占有・連動進路の状態を取り込む。連動進路は未設定のものも含めて状態を取り込み、確認できた未設定と、状態の取得失敗を区別する。取得できなかった値を、空き・未設定・過走防護なしの正常値に置き換えない。
 
-`TrackInterlockingManagementController.Context.Output.StationsById`から駅別・進路別の公開スナップショットを読む。管理部が未設定・無効・未初期化の場合は進路入力を空にする。駅の`IsInitialized && HasOutput`と進路の`IsAvailable`を満たす状態だけを、連動進路IDをキーとして`RoutesById`へコピーする。地上ATCは各駅連動装置を直接参照せず、状態照会APIも呼ばない。
+`TrackInterlockingManagementController.Context.Output.StationsById`から駅別・進路別の公開スナップショットを読む。管理部が未設定・無効・未初期化の場合は進路入力を空にする。駅の`IsInitialized && HasOutput`と進路の`IsAvailable`を満たす状態だけを、`(駅ID, 駅内進路ID)`をキーとして`RoutesById`へコピーする。地上ATCは各駅連動装置を直接参照せず、状態照会APIも呼ばない。
 
-確認済みの未設定は`IsRouteSet = false`、防護だけが残る場合も含む設定レコードは`IsRouteSet = true`とする。駅のOutput欠損・未初期化・進路の取得不能は入力未取得とし、`RoutesById`へ未設定として登録しない。毎回入力辞書を消去して取り直し、前回の進路入力を残さない。進路IDはコンパイル時と同様、地上ATCが参照する駅全体で一意とする。
+確認済みの未設定は`IsRouteSet = false`、防護だけが残る場合も含む設定レコードは`IsRouteSet = true`とする。駅のOutput欠損・未初期化・進路の取得不能は入力未取得とし、`RoutesById`へ未設定として登録しない。毎回入力辞書を消去して取り直し、前回の進路入力を残さない。進路IDは駅内で一意とし、駅間の同名進路は別々の状態として扱う。Graphは`interlockingStationId`と`interlockingRouteId`を持ち、`InterlockingKey`でこの組を取得する。区切り文字で結合した文字列を辞書キーには使用しない。
 
 世界tickでは、列車・軌道回路の更新後に管理部の`Calculate`で各駅を1回更新して集約し、`ApplyOutput`で転換要求を反映して公開値を再収集する。その後に地上ATCの入力収集・計算・配信を行い、同じtickで確定した管理部Outputを読む。車上は配信済み電文を次tickで使用する。
 
@@ -59,7 +59,7 @@ flowchart TD
 | その他の参照 | 設定する | `Context.Graph`：今回参照するコンパイル済みGraph。Graphの定義自体は書き換えない |
 | Input | 更新する | `simulationTimeSeconds`：車上と共通のシミュレーション時刻[s]。取得できない場合は正常な発行時刻として扱わない |
 | Input | 更新する | `OccupiedByCircuitId`：取得できた回路IDと占有状態。キーがない回路は取得失敗・不明とし、空きと区別する |
-| Input | 更新する | `RoutesById`：取得できた連動進路IDと`TrackAtcRouteInput`。未設定の進路も登録し、キーがない場合は取得失敗・不明とする |
+| Input | 更新する | `RoutesById`：取得できた`(駅ID, 駅内進路ID)`と`TrackAtcRouteInput`。未設定の進路も登録し、キーがない場合は取得失敗・不明とする |
 | Input | 更新する | `RoutesById`内の`IsRouteSet`：設定中の状態を取得できた場合は`true`、確認済みの未設定は`false`。未登録・`null`の入力とは区別する |
 | Input | 更新する | `RoutesById`内の`ProceedAllowed`・`PathEstablished`・`RouteLocked`・`CancelPending`：進路の使用条件を判断するための今回の状態 |
 | Input | 更新する | `RoutesById`内の`OverrunMode`：連動が確定した過走防護方式。停止限界に対応する方式の採用は工程4で行う |
@@ -80,14 +80,14 @@ GraphのID・接続・進路定義を確認し、探索用辞書とEdgeごとの
 | --- | --- | --- |
 | Input | 読む | `simulationTimeSeconds`：発行時刻を取得でき、有限かつ0以上であるか確認する |
 | Input | 読む | `OccupiedByCircuitId`：Graphに必要な回路の占有状態を取得できたか確認する |
-| Input | 読む | `RoutesById`：Graphの連動進路IDに対応する状態を取得できたか確認する。進路未設定を入力不正にしない |
+| Input | 読む | `RoutesById`：Graphの連動駅ID・駅内進路IDの組に対応する状態を取得できたか確認する。進路未設定を入力不正にしない |
 | その他の参照 | 読む | `Graph.atcEdge`・`atcNode`・`routes`：IDの一意性、所属回路、端点、相互の接続、進路のEdge列を確認する |
 | State | 更新する | `validation.isGraphValid`：今回のGraphを探索に使用できるか |
 | State | 更新する | `validation.isSimulationTimeValid`：今回の時刻を有効電文の発行時刻に使用できるか |
 | State | 更新する | `validation.atcEdgesById`・`atcNodesById`：確認済みのEdge・Nodeを取得するための辞書 |
-| State | 更新する | `validation.atcRoutesById`：ATC進路IDをキーとする静的進路定義の辞書。Inputの連動進路IDとは区別する |
+| State | 更新する | `validation.atcRoutesById`：ATC進路IDをキーとする静的進路定義の辞書。Inputの連動駅ID・駅内進路IDの組とは区別する |
 | State | 更新する | `validation.directionsByAtcEdgeId`：Edgeごとの進路定義上の進行方向。未設定の進路定義からも求め、重複する方向はまとめる。単一Edge停止結果の双方向化によって、逆方向の進路延伸を許可しない |
-| State | 更新する | `validation.hasCircuitInputById`・`hasRouteInputById`：回路・連動進路ごとの入力取得可否 |
+| State | 更新する | `validation.hasCircuitInputById`・`hasRouteInputById`：回路IDごと、および連動駅ID・駅内進路IDの組ごとの入力取得可否 |
 | State | 更新する | `validation.failureReason`：Graphや時刻を使用できない理由。取得できなかった個別IDは取得可否の結果に保持する |
 | Output | 読み書きしない | 確認結果を後続へ渡し、電文は工程6で生成する |
 
@@ -126,6 +126,8 @@ Interlockingの進路未設定時には、静的な進路定義が一方向だ�
 - Blockから新規進入して進路の先頭Edgeへ到達した後は、その進路内の継続条件を適用する。`RouteLocked`を確認できなければ、先頭Edgeから次Edgeへ延ばさない。
 - 進路末尾から後続進路へ切り替える際には、新規進入許可を照査する。共有Edgeを重複追加せず、そのEdge上の進行方向も一致させる。
 - 前進路の終端Edgeが後続進路の先頭Edgeと共有されている場合は、既にそのEdgeへ到達しているため、後続進路の次Edgeへ延ばす前に、新規進入条件に加えて進路内継続条件も照査する。
+- 次回路の先頭Edgeへ入る際は、生成済み進路の`interlockingStartTrackCircuitId`で制御境界を区別する。直前の回路を制御発点とする進路がある場合、その進路で新規進入を判定する。次回路自身を発点とする出発進路の設定で、未設定の場内進路を迂回しない。この候補選択は静的定義から決め、場内の未設定・取消・入力欠落でも出発進路へ置き換えない。
+- 第1場内が中間回路まで、第2場内がホーム回路1本、出発が同じホームから先の回路列となる構成では、第1→第2の隣接Edge接続を確認してから、第2→出発の共有Edge接続を確認する。第2場内が未設定なら中間回路まで、3進路が設定済みなら出発進路の終端まで延ばす。ホーム内を起点とする列車は、独立した出発進路を使用できる。
 - 起点Edge自身の占有では止めない。同一回路内の遷移は占有を理由に禁止せず、異なる回路へ進む場合だけ次回路の占有を照査する。
 - 進路未設定、後続進路未開通、既知の次回路の占有は正常な停止条件とする。先へ進めない場合は次Edgeを追加せず、現在Edgeの退出端を停止限界にする。
 - 進路未設定・取消後の起点にほかの有効な進路がない場合は、起点Edgeの1本だけを経路とする。同一回路内でも、許可されていない枝へ探索を延ばさない。
@@ -137,7 +139,7 @@ Interlockingの進路未設定時には、静的な進路定義が一方向だ�
 
 各計算結果の停止限界に適用するNormal・Restricted・Noneを確定し、`State.protectionMode`へ保持する。終端まで辿った設定済み進路が停止限界に対応する場合は、その連動進路の`OverrunMode`を使用する。
 
-`terminalAtcRouteId`を`validation.atcRoutesById`で解決し、その静的定義の`interlockingRouteId`をキーに`Input.RoutesById`の`OverrunMode`を読む。ATC進路IDをInputのキーとして使わない。必要な終端進路入力の欠落・未設定・方式の不正は、方式の確定失敗として扱う。
+`terminalAtcRouteId`を`validation.atcRoutesById`で解決し、その静的定義の`InterlockingKey`をキーに`Input.RoutesById`の`OverrunMode`を読む。ATC進路IDをInputのキーとして使わない。必要な終端進路入力の欠落・未設定・方式の不正は、方式の確定失敗として扱う。
 
 進路未設定で終端進路が対応しない正常停止には`None`を指定する。後続進路が未設定という理由だけで、到達済みの終端進路の方式を`None`へ変更しない。
 
@@ -148,7 +150,7 @@ Interlockingの進路未設定時には、静的な進路定義が一方向だ�
 | Input | 読む | `RoutesById`内の`OverrunMode`：停止限界に対応する設定済み終端進路の方式 |
 | State | 読む | `path.resultsByKey`内の`isPathValid`・`endReason`：経路が正常に確定したかと、終了理由 |
 | State | 読む | 各結果の`terminalAtcRouteId`・`stopAtcEdgeId`・`stopTravelDirection`：停止限界と、方式を取得する終端進路 |
-| State | 読む | `validation.atcRoutesById`・`hasRouteInputById`：ATC進路IDに対応する連動進路IDと、その状態の取得可否 |
+| State | 読む | `validation.atcRoutesById`・`hasRouteInputById`：ATC進路IDに対応する連動駅ID・駅内進路IDの組と、その状態の取得可否 |
 | State | 更新する | `protectionMode.resultsByKey`：経路の計算結果と同じキーに対応する方式の確定結果 |
 | State | 更新する | 各結果の`isProtectionModeKnown`・`overrunProtectionMode`：方式を確定できたかと、今回送信する方式。方式の保持先はこのStateだけとする |
 | State | 更新する | 各結果の`failureReason`：必要な終端進路入力の欠落、不正な方式など、方式を確定できない理由 |

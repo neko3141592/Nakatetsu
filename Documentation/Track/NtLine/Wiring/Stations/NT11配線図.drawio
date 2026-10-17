@@ -1,0 +1,1947 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Codex" pages="3">
+  <diagram id="page-1" name="01 全体">
+    <mxGraphModel dx="3697" dy="2657" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2800" pageHeight="1486" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title-1" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=29;fontColor=#334155;fontStyle=1;" value="NT11 猿沼｜駅構内 配線図" vertex="1">
+          <mxGeometry height="46" width="2680" x="60" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle-2" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=18;fontColor=#64748b;fontStyle=0;" value="営業キロ 10.6 km｜方向別島式2面4線。入口の急緩シーサスと、終端側の3つの独立した車止め。" vertex="1">
+          <mxGeometry height="38" width="2680" x="60" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="west-3" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=21;fontColor=#334155;fontStyle=0;" value="NT10 東福岡へ（4線）" vertex="1">
+          <mxGeometry height="32" width="400" x="60" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="east-4" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=21;fontColor=#334155;fontStyle=0;" value="猿沼終端｜図面のみの計画" vertex="1">
+          <mxGeometry height="32" width="500" x="2240" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-down-5" parent="1" style="rounded=0;html=0;whiteSpace=wrap;fillColor=#e2e8f0;strokeColor=#94a3b8;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="下りホーム｜1・2番線" vertex="1">
+          <mxGeometry height="170" width="460" x="880" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-up-6" parent="1" style="rounded=0;html=0;whiteSpace=wrap;fillColor=#e2e8f0;strokeColor=#94a3b8;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="上りホーム｜3・4番線" vertex="1">
+          <mxGeometry height="170" width="460" x="880" y="825" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-1-line-7" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2250" y="300" />
+              <mxPoint x="2440" y="540" />
+            </Array>
+            <mxPoint x="160" y="300" as="sourcePoint" />
+            <mxPoint x="2640" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-2-line-8" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="540" as="sourcePoint" />
+            <mxPoint x="1640" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-down2-fixed-curve-9" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1640" y="540" />
+            <mxPoint as="targetPoint" x="1780" y="665" />
+            <Array as="points">
+              <mxPoint x="1641.4" y="540.051033" />
+              <mxPoint x="1642.8" y="540.204133" />
+              <mxPoint x="1644.2" y="540.459306" />
+              <mxPoint x="1645.6" y="540.816561" />
+              <mxPoint x="1647" y="541.275912" />
+              <mxPoint x="1648.4" y="541.837375" />
+              <mxPoint x="1649.8" y="542.500971" />
+              <mxPoint x="1651.2" y="543.266724" />
+              <mxPoint x="1652.6" y="544.134663" />
+              <mxPoint x="1654" y="545.10482" />
+              <mxPoint x="1655.4" y="546.17723" />
+              <mxPoint x="1656.8" y="547.351932" />
+              <mxPoint x="1658.2" y="548.628971" />
+              <mxPoint x="1659.6" y="550.008393" />
+              <mxPoint x="1659.976828" y="550.397176" />
+              <mxPoint x="1661" y="551.462885" />
+              <mxPoint x="1662.4" y="552.921088" />
+              <mxPoint x="1663.8" y="554.379292" />
+              <mxPoint x="1665.2" y="555.837495" />
+              <mxPoint x="1666.6" y="557.295698" />
+              <mxPoint x="1668" y="558.753901" />
+              <mxPoint x="1669.4" y="560.212105" />
+              <mxPoint x="1670.8" y="561.670308" />
+              <mxPoint x="1672.2" y="563.128511" />
+              <mxPoint x="1673.6" y="564.586715" />
+              <mxPoint x="1675" y="566.044918" />
+              <mxPoint x="1676.4" y="567.503121" />
+              <mxPoint x="1677.8" y="568.961324" />
+              <mxPoint x="1679.2" y="570.419528" />
+              <mxPoint x="1680.6" y="571.877731" />
+              <mxPoint x="1682" y="573.335934" />
+              <mxPoint x="1683.4" y="574.794138" />
+              <mxPoint x="1684.8" y="576.252341" />
+              <mxPoint x="1686.2" y="577.710544" />
+              <mxPoint x="1687.6" y="579.168747" />
+              <mxPoint x="1689" y="580.626951" />
+              <mxPoint x="1690.4" y="582.085154" />
+              <mxPoint x="1691.8" y="583.543357" />
+              <mxPoint x="1693.2" y="585.001561" />
+              <mxPoint x="1694.6" y="586.459764" />
+              <mxPoint x="1696" y="587.917967" />
+              <mxPoint x="1697.4" y="589.37617" />
+              <mxPoint x="1698.8" y="590.834374" />
+              <mxPoint x="1700.2" y="592.292577" />
+              <mxPoint x="1701.6" y="593.75078" />
+              <mxPoint x="1703" y="595.208984" />
+              <mxPoint x="1704.4" y="596.667187" />
+              <mxPoint x="1705.8" y="598.12539" />
+              <mxPoint x="1707.2" y="599.583593" />
+              <mxPoint x="1708.6" y="601.041797" />
+              <mxPoint x="1710" y="602.5" />
+              <mxPoint x="1711.4" y="603.958203" />
+              <mxPoint x="1712.8" y="605.416407" />
+              <mxPoint x="1714.2" y="606.87461" />
+              <mxPoint x="1715.6" y="608.332813" />
+              <mxPoint x="1717" y="609.791016" />
+              <mxPoint x="1718.4" y="611.24922" />
+              <mxPoint x="1719.8" y="612.707423" />
+              <mxPoint x="1721.2" y="614.165626" />
+              <mxPoint x="1722.6" y="615.62383" />
+              <mxPoint x="1724" y="617.082033" />
+              <mxPoint x="1725.4" y="618.540236" />
+              <mxPoint x="1726.8" y="619.998439" />
+              <mxPoint x="1728.2" y="621.456643" />
+              <mxPoint x="1729.6" y="622.914846" />
+              <mxPoint x="1731" y="624.373049" />
+              <mxPoint x="1732.4" y="625.831253" />
+              <mxPoint x="1733.8" y="627.289456" />
+              <mxPoint x="1735.2" y="628.747659" />
+              <mxPoint x="1736.6" y="630.205862" />
+              <mxPoint x="1738" y="631.664066" />
+              <mxPoint x="1739.4" y="633.122269" />
+              <mxPoint x="1740.8" y="634.580472" />
+              <mxPoint x="1742.2" y="636.038676" />
+              <mxPoint x="1743.6" y="637.496879" />
+              <mxPoint x="1745" y="638.955082" />
+              <mxPoint x="1746.4" y="640.413285" />
+              <mxPoint x="1747.8" y="641.871489" />
+              <mxPoint x="1749.2" y="643.329692" />
+              <mxPoint x="1750.6" y="644.787895" />
+              <mxPoint x="1752" y="646.246099" />
+              <mxPoint x="1753.4" y="647.704302" />
+              <mxPoint x="1754.8" y="649.162505" />
+              <mxPoint x="1756.2" y="650.620708" />
+              <mxPoint x="1757.6" y="652.078912" />
+              <mxPoint x="1759" y="653.537115" />
+              <mxPoint x="1760.023172" y="654.602824" />
+              <mxPoint x="1760.4" y="654.991607" />
+              <mxPoint x="1761.8" y="656.371029" />
+              <mxPoint x="1763.2" y="657.648068" />
+              <mxPoint x="1764.6" y="658.82277" />
+              <mxPoint x="1766" y="659.89518" />
+              <mxPoint x="1767.4" y="660.865337" />
+              <mxPoint x="1768.8" y="661.733276" />
+              <mxPoint x="1770.2" y="662.499029" />
+              <mxPoint x="1771.6" y="663.162625" />
+              <mxPoint x="1773" y="663.724088" />
+              <mxPoint x="1774.4" y="664.183439" />
+              <mxPoint x="1775.8" y="664.540694" />
+              <mxPoint x="1777.2" y="664.795867" />
+              <mxPoint x="1778.6" y="664.948967" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-3-line-10" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="160" y="790" />
+            <mxPoint as="targetPoint" x="1640" y="790" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-4-line-11" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2250" y="1030" />
+              <mxPoint x="2440" y="790" />
+            </Array>
+            <mxPoint x="160" y="1030" as="sourcePoint" />
+            <mxPoint x="2640" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-boundary-1-12" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="288" as="sourcePoint" />
+            <mxPoint x="160" y="312" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-W1-13" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="288" as="sourcePoint" />
+            <mxPoint x="760" y="312" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-E1-14" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1440" y="288" as="sourcePoint" />
+            <mxPoint x="1440" y="312" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-line-name-15" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=21;fontColor=#334155;fontStyle=0;" value="1番線｜下り急行" vertex="1">
+          <mxGeometry height="32" width="225" x="880" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-platform-circuit-16" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="1RT" vertex="1">
+          <mxGeometry height="32" width="84" x="1118" y="251" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-direction-17" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#2563eb;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="300" as="sourcePoint" />
+            <mxPoint x="1320" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-boundary-2-18" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="528" as="sourcePoint" />
+            <mxPoint x="160" y="552" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-W2-19" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="528" as="sourcePoint" />
+            <mxPoint x="760" y="552" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-E2-20" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1440" y="528" as="sourcePoint" />
+            <mxPoint x="1440" y="552" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-line-name-21" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=21;fontColor=#334155;fontStyle=0;" value="2番線｜下り緩行" vertex="1">
+          <mxGeometry height="32" width="225" x="880" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-platform-circuit-22" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="2RT" vertex="1">
+          <mxGeometry height="32" width="84" x="1118" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-direction-23" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#2563eb;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="540" as="sourcePoint" />
+            <mxPoint x="1320" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-boundary-3-24" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="778" as="sourcePoint" />
+            <mxPoint x="160" y="802" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-W3-25" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="778" as="sourcePoint" />
+            <mxPoint x="760" y="802" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-E3-26" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1440" y="778" as="sourcePoint" />
+            <mxPoint x="1440" y="802" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-line-name-27" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=21;fontColor=#334155;fontStyle=0;" value="3番線｜上り緩行" vertex="1">
+          <mxGeometry height="32" width="225" x="880" y="735" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-platform-circuit-28" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="3LT" vertex="1">
+          <mxGeometry height="32" width="84" x="1118" y="741" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-direction-29" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#0891b2;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="790" as="sourcePoint" />
+            <mxPoint x="790" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-boundary-4-30" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="1018" as="sourcePoint" />
+            <mxPoint x="160" y="1042" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-W4-31" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="1018" as="sourcePoint" />
+            <mxPoint x="760" y="1042" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-platform-E4-32" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1440" y="1018" as="sourcePoint" />
+            <mxPoint x="1440" y="1042" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-line-name-33" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=21;fontColor=#334155;fontStyle=0;" value="4番線｜上り急行" vertex="1">
+          <mxGeometry height="32" width="225" x="880" y="1055" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-platform-circuit-34" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="4LT" vertex="1">
+          <mxGeometry height="32" width="84" x="1118" y="1055" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-direction-35" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#0891b2;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="1030" as="sourcePoint" />
+            <mxPoint x="790" y="1030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-21-36" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="300" as="sourcePoint" />
+            <mxPoint x="680" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-22-37" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="540" as="sourcePoint" />
+            <mxPoint x="680" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-23-38" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="790" as="sourcePoint" />
+            <mxPoint x="680" y="1030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-24-39" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="1030" as="sourcePoint" />
+            <mxPoint x="680" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-21イ-number-40" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="21イ" vertex="1">
+          <mxGeometry height="56" width="56" x="402" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-21イ-junction-41" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="427" y="297" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-21イ-normal-42" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="442" y="300" as="sourcePoint" />
+            <mxPoint x="450" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-21イ-normal-43" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455" y="300" as="sourcePoint" />
+            <mxPoint x="463" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-21イ-normal-44" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="468" y="300" as="sourcePoint" />
+            <mxPoint x="476" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-22イ-number-45" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="22イ" vertex="1">
+          <mxGeometry height="56" width="56" x="402" y="572" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-22イ-junction-46" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="427" y="537" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-22イ-normal-47" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="442" y="540" as="sourcePoint" />
+            <mxPoint x="450" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-22イ-normal-48" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455" y="540" as="sourcePoint" />
+            <mxPoint x="463" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-22イ-normal-49" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="468" y="540" as="sourcePoint" />
+            <mxPoint x="476" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-22ロ-number-50" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="22ロ" vertex="1">
+          <mxGeometry height="56" width="56" x="652" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-22ロ-junction-51" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="677" y="297" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-22ロ-normal-52" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="668" y="300" as="sourcePoint" />
+            <mxPoint x="660" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-22ロ-normal-53" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="300" as="sourcePoint" />
+            <mxPoint x="647" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-22ロ-normal-54" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="642" y="300" as="sourcePoint" />
+            <mxPoint x="634" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-21ロ-number-55" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="21ロ" vertex="1">
+          <mxGeometry height="56" width="56" x="652" y="572" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-21ロ-junction-56" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="677" y="537" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-21ロ-normal-57" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="668" y="540" as="sourcePoint" />
+            <mxPoint x="660" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-21ロ-normal-58" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="540" as="sourcePoint" />
+            <mxPoint x="647" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-21ロ-normal-59" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="642" y="540" as="sourcePoint" />
+            <mxPoint x="634" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-23イ-number-60" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="23イ" vertex="1">
+          <mxGeometry height="56" width="56" x="402" y="706" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-23イ-junction-61" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="427" y="787" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-23イ-normal-62" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="442" y="790" as="sourcePoint" />
+            <mxPoint x="450" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-23イ-normal-63" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455" y="790" as="sourcePoint" />
+            <mxPoint x="463" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-23イ-normal-64" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="468" y="790" as="sourcePoint" />
+            <mxPoint x="476" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-24イ-number-65" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="24イ" vertex="1">
+          <mxGeometry height="56" width="56" x="402" y="1062" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-24イ-junction-66" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="427" y="1027" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-24イ-normal-67" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="442" y="1030" as="sourcePoint" />
+            <mxPoint x="450" y="1048" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-24イ-normal-68" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455" y="1030" as="sourcePoint" />
+            <mxPoint x="463" y="1048" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-24イ-normal-69" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="468" y="1030" as="sourcePoint" />
+            <mxPoint x="476" y="1048" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-24ロ-number-70" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="24ロ" vertex="1">
+          <mxGeometry height="56" width="56" x="652" y="706" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-24ロ-junction-71" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="677" y="787" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-24ロ-normal-72" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="668" y="790" as="sourcePoint" />
+            <mxPoint x="660" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-24ロ-normal-73" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="790" as="sourcePoint" />
+            <mxPoint x="647" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-24ロ-normal-74" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="642" y="790" as="sourcePoint" />
+            <mxPoint x="634" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-23ロ-number-75" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="23ロ" vertex="1">
+          <mxGeometry height="56" width="56" x="652" y="1062" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-23ロ-junction-76" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="677" y="1027" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-23ロ-normal-77" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="668" y="1030" as="sourcePoint" />
+            <mxPoint x="660" y="1048" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-23ロ-normal-78" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="1030" as="sourcePoint" />
+            <mxPoint x="647" y="1048" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-23ロ-normal-79" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="642" y="1030" as="sourcePoint" />
+            <mxPoint x="634" y="1048" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-25-80" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1500" y="540" as="sourcePoint" />
+            <mxPoint x="1670" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-25A-number-81" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="25イ" vertex="1">
+          <mxGeometry height="56" width="56" x="1472" y="572" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-25A-junction-82" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="1497" y="537" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-25A-normal-83" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1512" y="540" as="sourcePoint" />
+            <mxPoint x="1520" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-25A-normal-84" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1525" y="540" as="sourcePoint" />
+            <mxPoint x="1533" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-25A-normal-85" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1538" y="540" as="sourcePoint" />
+            <mxPoint x="1546" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-25B-number-86" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="25ロ" vertex="1">
+          <mxGeometry height="56" width="56" x="1642" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-25B-junction-87" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry height="6" width="6" x="1667" y="297" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-25B-normal-88" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1658" y="300" as="sourcePoint" />
+            <mxPoint x="1650" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-25B-normal-89" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1645" y="300" as="sourcePoint" />
+            <mxPoint x="1637" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-25B-normal-90" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1632" y="300" as="sourcePoint" />
+            <mxPoint x="1624" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-26-number-91" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" value="26" vertex="1">
+          <mxGeometry x="1752" y="697" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-26-junction-92" parent="1" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" value="" vertex="1">
+          <mxGeometry x="1777" y="662" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-point-26-normal-93" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1768" y="668.750175" />
+            <mxPoint as="targetPoint" x="1760" y="686.750175" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-26-normal-94" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1755" y="680.62918" />
+            <mxPoint as="targetPoint" x="1747" y="698.62918" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-point-26-normal-95" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1742" y="694.169639" />
+            <mxPoint as="targetPoint" x="1734" y="712.169639" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-25T-96" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="25ロT" vertex="1">
+          <mxGeometry height="32" width="84" x="1503" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-up3-stub-circuit-98" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="電留T" vertex="1">
+          <mxGeometry x="2120" y="697" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-buffer-3-99" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=5;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="2352.43" y="647" />
+            <mxPoint as="targetPoint" x="2352.43" y="683" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-buffer-1-100" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=5;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2640" y="522" as="sourcePoint" />
+            <mxPoint x="2640" y="558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-buffer-4-101" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=5;jumpStyle=arc;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2640" y="772" as="sourcePoint" />
+            <mxPoint x="2640" y="808" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-buffer1-label-102" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#334155;fontStyle=0;" value="急行1終端" vertex="1">
+          <mxGeometry height="36" width="280" x="2360" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-buffer4-label-103" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#334155;fontStyle=0;" value="急行4終端" vertex="1">
+          <mxGeometry height="36" width="280" x="2360" y="825" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-buffer3-label-104" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#334155;fontStyle=0;" value="中央引上3終端（x=0）" vertex="1">
+          <mxGeometry height="36" width="300" x="1810" y="577" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-crossing-note-105" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#64748b;fontStyle=0;" value="入口シーサス：イ／ロ境界は共通の中央、交差部は非接続" vertex="1">
+          <mxGeometry height="34" width="700" x="290" y="1140" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-note-106" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#64748b;fontStyle=0;" value="26は両開き（10番相当）。2・3番線の中央へ合流し、中央引上3はx=0。" vertex="1">
+          <mxGeometry height="34" width="1360" x="1320" y="1140" as="geometry" />
+        </mxCell>
+        <mxCell id="note-107" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" value="定位は線路上の3本線。入口21〜24はNT07と同じイ／ロ4分割（各シーサス）。主線・渡り線とも境界s=10227.12793m。" vertex="1">
+          <mxGeometry height="30" width="2680" x="60" y="1174" as="geometry" />
+        </mxCell>
+        <mxCell id="note-108" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" value="26はs=11160m・x=0。左右対称のR400 Arc＋斜直線＋逆Arc。電留Tは11180〜11400m。略図の位置から距離は換算しない。" vertex="1">
+          <mxGeometry height="30" width="2680" x="60" y="1208" as="geometry" />
+        </mxCell>
+        <object label="出典：Documentation/References/中田鉄道配線図.drawio（2026-10-13時点の現行図）。" link="../../../../References/中田鉄道配線図.drawio" id="note-109">
+          <mxCell parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+            <mxGeometry height="30" width="2680" x="60" y="1242" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="note-110" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" value="線路・回路・ATC・NT11連動はAsset反映済み。ホームは資料寸法。線路のつながりを示す略図。" vertex="1">
+          <mxGeometry height="30" width="2680" x="60" y="1276" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-26-route-note" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=18;fontColor=#64748b;fontStyle=0;" value="26定位：3番線側 ↔ 中央引上3&#10;26反位：2番線側 ↔ 中央引上3（両側ともArc）" vertex="1">
+          <mxGeometry height="62" width="420" x="1800" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="lgLTyaTqfZf5lt0MUjLm-1" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1969.77" y="653" />
+            <mxPoint as="targetPoint" x="1969.77" y="677" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lgLTyaTqfZf5lt0MUjLm-2" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1640" y="525" as="sourcePoint" />
+            <mxPoint x="1640" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lgLTyaTqfZf5lt0MUjLm-3" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="25イT" vertex="1">
+          <mxGeometry height="32" width="84" x="1570" y="473" as="geometry" />
+        </mxCell>
+        <mxCell id="lgLTyaTqfZf5lt0MUjLm-4" edge="1" parent="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1570" y="420" as="sourcePoint" />
+            <mxPoint x="1590" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lgLTyaTqfZf5lt0MUjLm-5" parent="1" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" value="26T" vertex="1">
+          <mxGeometry x="1535" y="650" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-main-mid-1" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="555" y="288" />
+            <mxPoint as="targetPoint" x="555" y="312" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-main-mid-2" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="555" y="528" />
+            <mxPoint as="targetPoint" x="555" y="552" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-main-mid-3" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="555" y="778" />
+            <mxPoint as="targetPoint" x="555" y="802" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-main-mid-4" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="555" y="1018" />
+            <mxPoint as="targetPoint" x="555" y="1042" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-diagonal-mid-21" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="571.310382" y="419.023352" />
+            <mxPoint as="targetPoint" x="554.689618" y="436.336648" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-diagonal-mid-22" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="554.689618" y="403.663352" />
+            <mxPoint as="targetPoint" x="571.310382" y="420.976648" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-21AT" parent="1" vertex="1" value="21イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="285" y="251" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-22BT" parent="1" vertex="1" value="22ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="670" y="316" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-22AT" parent="1" vertex="1" value="22イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="285" y="491" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-21BT" parent="1" vertex="1" value="21ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="670" y="491" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-diagonal-mid-23" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="571.310382" y="909.023352" />
+            <mxPoint as="targetPoint" x="554.689618" y="926.336648" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-diagonal-mid-24" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="554.689618" y="893.663352" />
+            <mxPoint as="targetPoint" x="571.310382" y="910.976648" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-23AT" parent="1" vertex="1" value="23イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="285" y="741" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-24BT" parent="1" vertex="1" value="24ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="670" y="806" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-24AT" parent="1" vertex="1" value="24イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="285" y="981" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-23BT" parent="1" vertex="1" value="23ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="670" y="981" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-up3-symmetric-arcs" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#334155;strokeWidth=3;jumpStyle=none;jumpSize=10;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1640" y="790" />
+            <mxPoint as="targetPoint" x="1780" y="665" />
+            <Array as="points">
+              <mxPoint x="1641.4" y="789.948967" />
+              <mxPoint x="1642.8" y="789.795867" />
+              <mxPoint x="1644.2" y="789.540694" />
+              <mxPoint x="1645.6" y="789.183439" />
+              <mxPoint x="1647" y="788.724088" />
+              <mxPoint x="1648.4" y="788.162625" />
+              <mxPoint x="1649.8" y="787.499029" />
+              <mxPoint x="1651.2" y="786.733276" />
+              <mxPoint x="1652.6" y="785.865337" />
+              <mxPoint x="1654" y="784.89518" />
+              <mxPoint x="1655.4" y="783.82277" />
+              <mxPoint x="1656.8" y="782.648068" />
+              <mxPoint x="1658.2" y="781.371029" />
+              <mxPoint x="1659.6" y="779.991607" />
+              <mxPoint x="1659.976828" y="779.602824" />
+              <mxPoint x="1661" y="778.537115" />
+              <mxPoint x="1662.4" y="777.078912" />
+              <mxPoint x="1663.8" y="775.620708" />
+              <mxPoint x="1665.2" y="774.162505" />
+              <mxPoint x="1666.6" y="772.704302" />
+              <mxPoint x="1668" y="771.246099" />
+              <mxPoint x="1669.4" y="769.787895" />
+              <mxPoint x="1670.8" y="768.329692" />
+              <mxPoint x="1672.2" y="766.871489" />
+              <mxPoint x="1673.6" y="765.413285" />
+              <mxPoint x="1675" y="763.955082" />
+              <mxPoint x="1676.4" y="762.496879" />
+              <mxPoint x="1677.8" y="761.038676" />
+              <mxPoint x="1679.2" y="759.580472" />
+              <mxPoint x="1680.6" y="758.122269" />
+              <mxPoint x="1682" y="756.664066" />
+              <mxPoint x="1683.4" y="755.205862" />
+              <mxPoint x="1684.8" y="753.747659" />
+              <mxPoint x="1686.2" y="752.289456" />
+              <mxPoint x="1687.6" y="750.831253" />
+              <mxPoint x="1689" y="749.373049" />
+              <mxPoint x="1690.4" y="747.914846" />
+              <mxPoint x="1691.8" y="746.456643" />
+              <mxPoint x="1693.2" y="744.998439" />
+              <mxPoint x="1694.6" y="743.540236" />
+              <mxPoint x="1696" y="742.082033" />
+              <mxPoint x="1697.4" y="740.62383" />
+              <mxPoint x="1698.8" y="739.165626" />
+              <mxPoint x="1700.2" y="737.707423" />
+              <mxPoint x="1701.6" y="736.24922" />
+              <mxPoint x="1703" y="734.791016" />
+              <mxPoint x="1704.4" y="733.332813" />
+              <mxPoint x="1705.8" y="731.87461" />
+              <mxPoint x="1707.2" y="730.416407" />
+              <mxPoint x="1708.6" y="728.958203" />
+              <mxPoint x="1710" y="727.5" />
+              <mxPoint x="1711.4" y="726.041797" />
+              <mxPoint x="1712.8" y="724.583593" />
+              <mxPoint x="1714.2" y="723.12539" />
+              <mxPoint x="1715.6" y="721.667187" />
+              <mxPoint x="1717" y="720.208984" />
+              <mxPoint x="1718.4" y="718.75078" />
+              <mxPoint x="1719.8" y="717.292577" />
+              <mxPoint x="1721.2" y="715.834374" />
+              <mxPoint x="1722.6" y="714.37617" />
+              <mxPoint x="1724" y="712.917967" />
+              <mxPoint x="1725.4" y="711.459764" />
+              <mxPoint x="1726.8" y="710.001561" />
+              <mxPoint x="1728.2" y="708.543357" />
+              <mxPoint x="1729.6" y="707.085154" />
+              <mxPoint x="1731" y="705.626951" />
+              <mxPoint x="1732.4" y="704.168747" />
+              <mxPoint x="1733.8" y="702.710544" />
+              <mxPoint x="1735.2" y="701.252341" />
+              <mxPoint x="1736.6" y="699.794138" />
+              <mxPoint x="1738" y="698.335934" />
+              <mxPoint x="1739.4" y="696.877731" />
+              <mxPoint x="1740.8" y="695.419528" />
+              <mxPoint x="1742.2" y="693.961324" />
+              <mxPoint x="1743.6" y="692.503121" />
+              <mxPoint x="1745" y="691.044918" />
+              <mxPoint x="1746.4" y="689.586715" />
+              <mxPoint x="1747.8" y="688.128511" />
+              <mxPoint x="1749.2" y="686.670308" />
+              <mxPoint x="1750.6" y="685.212105" />
+              <mxPoint x="1752" y="683.753901" />
+              <mxPoint x="1753.4" y="682.295698" />
+              <mxPoint x="1754.8" y="680.837495" />
+              <mxPoint x="1756.2" y="679.379292" />
+              <mxPoint x="1757.6" y="677.921088" />
+              <mxPoint x="1759" y="676.462885" />
+              <mxPoint x="1760.023172" y="675.397176" />
+              <mxPoint x="1760.4" y="675.008393" />
+              <mxPoint x="1761.8" y="673.628971" />
+              <mxPoint x="1763.2" y="672.351932" />
+              <mxPoint x="1764.6" y="671.17723" />
+              <mxPoint x="1766" y="670.10482" />
+              <mxPoint x="1767.4" y="669.134663" />
+              <mxPoint x="1768.8" y="668.266724" />
+              <mxPoint x="1770.2" y="667.500971" />
+              <mxPoint x="1771.6" y="666.837375" />
+              <mxPoint x="1773" y="666.275912" />
+              <mxPoint x="1774.4" y="665.816561" />
+              <mxPoint x="1775.8" y="665.459306" />
+              <mxPoint x="1777.2" y="665.204133" />
+              <mxPoint x="1778.6" y="665.051033" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-common3-stub-line" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#334155;strokeWidth=3;jumpStyle=none;jumpSize=10;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1780" y="665" />
+            <mxPoint as="targetPoint" x="2350" y="665" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25BT-end" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1732.142857" y="288" />
+            <mxPoint as="targetPoint" x="1732.142857" y="312" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-1-STUB-T" parent="1" vertex="1" value="1引T" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="1960" y="251" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-4-STUB-T" parent="1" vertex="1" value="4引T" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="1960" y="1055" width="84" height="32" as="geometry" />
+        </mxCell>
+        <object id="destination-NT11-p1-A" label="A" destinationStationId="NT11" destinationCode="A" destinationCircuit="1RT" tooltip="着点 A：1RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1214" y="250" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-B" label="B" destinationStationId="NT11" destinationCode="B" destinationCircuit="2RT" tooltip="着点 B：2RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1214" y="564" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-C" label="C" destinationStationId="NT11" destinationCode="C" destinationCircuit="3LT" tooltip="着点 C：3LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1214" y="740" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-D" label="D" destinationStationId="NT11" destinationCode="D" destinationCircuit="4LT" tooltip="着点 D：4LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1214" y="1054" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-I" label="I" destinationStationId="NT11" destinationCode="I" destinationCircuit="電留T" tooltip="着点 I：電留T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="2216" y="696" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-E" label="E" destinationStationId="NT11" destinationCode="E" destinationCircuit="22ロT" tooltip="着点 E：22ロT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="778" y="315" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-F" label="F" destinationStationId="NT11" destinationCode="F" destinationCircuit="21ロT" tooltip="着点 F：21ロT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="778" y="490" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-K" label="K" destinationStationId="NT11" destinationCode="K" destinationCircuit="23イT" tooltip="着点 K：23イT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="239" y="740" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-J" label="J" destinationStationId="NT11" destinationCode="J" destinationCircuit="24イT" tooltip="着点 J：24イT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="393" y="980" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-G" label="G" destinationStationId="NT11" destinationCode="G" destinationCircuit="1引T" tooltip="着点 G：1引T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="2056" y="250" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p1-H" label="H" destinationStationId="NT11" destinationCode="H" destinationCircuit="4引T" tooltip="着点 H：4引T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="2056" y="1054" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="destination-NT11-p1-legend-title" value="丸枠の英字＝着点符号" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1358" width="2680" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p1-legend-row-1" value="A＝1RT　　B＝2RT　　C＝3LT　　D＝4LT　　E＝22ロT　　F＝21ロT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1388" width="2680" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p1-legend-row-2" value="G＝1引T　　H＝4引T　　I＝電留T　　J＝24イT　　K＝23イT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1414" width="2680" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p1-legend-note" value="着点は論理的な領域。停止位置・信号位置は別定義。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontSize=14;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1440" width="2680" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-2" name="02 東福岡側・入口拡大">
+    <mxGraphModel dx="2200" dy="1240" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1386" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title-1" parent="1" value="NT11 猿沼｜東福岡側・入口拡大" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=29;fontColor=#334155;fontStyle=1;" vertex="1">
+          <mxGeometry x="60" y="26" width="2080" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle-2" parent="1" value="方向別の急行・緩行線にシーサス。交差部に接続点なし。反位で同方向の急緩を渡る。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=18;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="82" width="2080" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="west-3" parent="1" value="NT10 東福岡へ" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="145" width="380" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="east-4" parent="1" value="ホーム・終端側へ" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="1740" y="145" width="400" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-down-5" parent="1" value="下りホーム｜1・2番線" style="rounded=0;html=0;whiteSpace=wrap;fillColor=#e2e8f0;strokeColor=#94a3b8;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="1130" y="335" width="700" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-up-6" parent="1" value="上りホーム｜3・4番線" style="rounded=0;html=0;whiteSpace=wrap;fillColor=#e2e8f0;strokeColor=#94a3b8;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="1130" y="805" width="700" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-line1-7" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="300" as="sourcePoint" />
+            <mxPoint x="2030" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-name-8" parent="1" value="1番線｜下り急行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="1130" y="239" width="400" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-9" parent="1" value="1RT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="1648.0" y="248" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="entry-platform-boundary-1-10" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="288" as="sourcePoint" />
+            <mxPoint x="1020" y="312" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="direction-11" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#2563eb;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1870" y="300" as="sourcePoint" />
+            <mxPoint x="1950" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-line2-12" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="500" as="sourcePoint" />
+            <mxPoint x="2030" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-name-13" parent="1" value="2番線｜下り緩行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="1130" y="525" width="400" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-14" parent="1" value="2RT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="1648.0" y="525" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="entry-platform-boundary-2-15" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="488" as="sourcePoint" />
+            <mxPoint x="1020" y="512" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="direction-16" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#2563eb;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1870" y="500" as="sourcePoint" />
+            <mxPoint x="1950" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-line3-17" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="770" as="sourcePoint" />
+            <mxPoint x="2030" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-name-18" parent="1" value="3番線｜上り緩行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="1130" y="709" width="400" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-19" parent="1" value="3LT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="1648.0" y="718" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="entry-platform-boundary-3-20" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="758" as="sourcePoint" />
+            <mxPoint x="1020" y="782" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="direction-21" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#0891b2;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="770" as="sourcePoint" />
+            <mxPoint x="250" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-line4-22" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="970" as="sourcePoint" />
+            <mxPoint x="2030" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-name-23" parent="1" value="4番線｜上り急行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="1130" y="995" width="400" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-24" parent="1" value="4LT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="1648.0" y="995" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="entry-platform-boundary-4-25" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="958" as="sourcePoint" />
+            <mxPoint x="1020" y="982" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="direction-26" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=open;endSize=9;strokeColor=#0891b2;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="970" as="sourcePoint" />
+            <mxPoint x="250" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-21-27" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="300" as="sourcePoint" />
+            <mxPoint x="850" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-22-28" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="500" as="sourcePoint" />
+            <mxPoint x="850" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-23-29" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="770" as="sourcePoint" />
+            <mxPoint x="850" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-24-30" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="970" as="sourcePoint" />
+            <mxPoint x="850" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-21イ-number-31" parent="1" value="21イ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="422" y="216" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-21イ-junction-32" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="447" y="297" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-21イ-normal-33" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="462" y="300" as="sourcePoint" />
+            <mxPoint x="470" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-21イ-normal-34" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="300" as="sourcePoint" />
+            <mxPoint x="483" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-21イ-normal-35" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="488" y="300" as="sourcePoint" />
+            <mxPoint x="496" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-22イ-number-36" parent="1" value="22イ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="422" y="532" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-22イ-junction-37" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="447" y="497" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-22イ-normal-38" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="462" y="500" as="sourcePoint" />
+            <mxPoint x="470" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-22イ-normal-39" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="500" as="sourcePoint" />
+            <mxPoint x="483" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-22イ-normal-40" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="488" y="500" as="sourcePoint" />
+            <mxPoint x="496" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-22ロ-number-41" parent="1" value="22ロ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="822" y="216" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-22ロ-junction-42" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="847" y="297" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-22ロ-normal-43" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="838" y="300" as="sourcePoint" />
+            <mxPoint x="830" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-22ロ-normal-44" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="825" y="300" as="sourcePoint" />
+            <mxPoint x="817" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-22ロ-normal-45" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="812" y="300" as="sourcePoint" />
+            <mxPoint x="804" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-21ロ-number-46" parent="1" value="21ロ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="822" y="532" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-21ロ-junction-47" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="847" y="497" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-21ロ-normal-48" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="838" y="500" as="sourcePoint" />
+            <mxPoint x="830" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-21ロ-normal-49" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="825" y="500" as="sourcePoint" />
+            <mxPoint x="817" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-21ロ-normal-50" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="812" y="500" as="sourcePoint" />
+            <mxPoint x="804" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-23イ-number-51" parent="1" value="23イ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="422" y="686" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-23イ-junction-52" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="447" y="767" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-23イ-normal-53" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="462" y="770" as="sourcePoint" />
+            <mxPoint x="470" y="752" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-23イ-normal-54" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="770" as="sourcePoint" />
+            <mxPoint x="483" y="752" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-23イ-normal-55" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="488" y="770" as="sourcePoint" />
+            <mxPoint x="496" y="752" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-24イ-number-56" parent="1" value="24イ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="422" y="1002" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-24イ-junction-57" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="447" y="967" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-24イ-normal-58" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="462" y="970" as="sourcePoint" />
+            <mxPoint x="470" y="988" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-24イ-normal-59" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="970" as="sourcePoint" />
+            <mxPoint x="483" y="988" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-24イ-normal-60" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="488" y="970" as="sourcePoint" />
+            <mxPoint x="496" y="988" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-24ロ-number-61" parent="1" value="24ロ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="822" y="686" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-24ロ-junction-62" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="847" y="767" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-24ロ-normal-63" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="838" y="770" as="sourcePoint" />
+            <mxPoint x="830" y="752" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-24ロ-normal-64" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="825" y="770" as="sourcePoint" />
+            <mxPoint x="817" y="752" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-24ロ-normal-65" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="812" y="770" as="sourcePoint" />
+            <mxPoint x="804" y="752" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-23ロ-number-66" parent="1" value="23ロ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="822" y="1002" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-23ロ-junction-67" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="847" y="967" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-entry-point-23ロ-normal-68" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="838" y="970" as="sourcePoint" />
+            <mxPoint x="830" y="988" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-23ロ-normal-69" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="825" y="970" as="sourcePoint" />
+            <mxPoint x="817" y="988" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-entry-point-23ロ-normal-70" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="812" y="970" as="sourcePoint" />
+            <mxPoint x="804" y="988" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note-71" parent="1" value="定位の3本線は各番線側。入口21〜24の主線・渡り線をs=10227.12793mでイ／ロへ分割（NT07と同じ）。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="1108" width="2080" height="30" as="geometry" />
+        </mxCell>
+        <object id="note-72" label="出典：Documentation/References/中田鉄道配線図.drawio（2026-10-13時点の現行図）。" link="../../../../References/中田鉄道配線図.drawio">
+          <mxCell parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+            <mxGeometry x="60" y="1142" width="2080" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="note-73" parent="1" value="線路・回路・ATC・NT11連動はAsset反映済み。ホームは資料寸法。線路のつながりを示す略図。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="1176" width="2080" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-main-mid-1" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="650" y="288" />
+            <mxPoint as="targetPoint" x="650" y="312" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-main-mid-2" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="650" y="488" />
+            <mxPoint as="targetPoint" x="650" y="512" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-main-mid-3" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="650" y="758" />
+            <mxPoint as="targetPoint" x="650" y="782" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-main-mid-4" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="650" y="958" />
+            <mxPoint as="targetPoint" x="650" y="982" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-diagonal-mid-21" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="663.366563" y="393.266874" />
+            <mxPoint as="targetPoint" x="652.633437" y="414.733126" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-diagonal-mid-22" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="652.633437" y="385.266874" />
+            <mxPoint as="targetPoint" x="663.366563" y="406.733126" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-21AT" parent="1" vertex="1" value="21イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="305" y="251" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-22BT" parent="1" vertex="1" value="22ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="875" y="316" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-22AT" parent="1" vertex="1" value="22イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="305" y="451" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-21BT" parent="1" vertex="1" value="21ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="875" y="451" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-diagonal-mid-23" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="663.366563" y="863.266874" />
+            <mxPoint as="targetPoint" x="652.633437" y="884.733126" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-diagonal-mid-24" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="652.633437" y="855.266874" />
+            <mxPoint as="targetPoint" x="663.366563" y="876.733126" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-23AT" parent="1" vertex="1" value="23イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="305" y="721" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-24BT" parent="1" vertex="1" value="24ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="875" y="786" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-24AT" parent="1" vertex="1" value="24イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="305" y="921" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-circuit-entry-detail-23BT" parent="1" vertex="1" value="23ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="875" y="921" width="96" height="32" as="geometry" />
+        </mxCell>
+        <object id="destination-NT11-p2-A" label="A" destinationStationId="NT11" destinationCode="A" destinationCircuit="1RT" tooltip="着点 A：1RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1744" y="247" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-B" label="B" destinationStationId="NT11" destinationCode="B" destinationCircuit="2RT" tooltip="着点 B：2RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1744" y="524" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-C" label="C" destinationStationId="NT11" destinationCode="C" destinationCircuit="3LT" tooltip="着点 C：3LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1744" y="717" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-D" label="D" destinationStationId="NT11" destinationCode="D" destinationCircuit="4LT" tooltip="着点 D：4LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1744" y="994" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-E" label="E" destinationStationId="NT11" destinationCode="E" destinationCircuit="22ロT" tooltip="着点 E：22ロT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="983" y="315" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-F" label="F" destinationStationId="NT11" destinationCode="F" destinationCircuit="21ロT" tooltip="着点 F：21ロT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="983" y="450" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-K" label="K" destinationStationId="NT11" destinationCode="K" destinationCircuit="23イT" tooltip="着点 K：23イT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="259" y="720" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p2-J" label="J" destinationStationId="NT11" destinationCode="J" destinationCircuit="24イT" tooltip="着点 J：24イT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="413" y="920" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="destination-NT11-p2-legend-title" value="丸枠の英字＝着点符号" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1258" width="2080" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p2-legend-row-1" value="A＝1RT　　B＝2RT　　C＝3LT　　D＝4LT　　E＝22ロT　　F＝21ロT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1288" width="2080" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p2-legend-row-2" value="G＝1引T　　H＝4引T　　I＝電留T　　J＝24イT　　K＝23イT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1314" width="2080" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p2-legend-note" value="着点は論理的な領域。停止位置・信号位置は別定義。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontSize=14;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1340" width="2080" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-3" name="03 終端側拡大">
+    <mxGraphModel dx="2500" dy="1270" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2500" pageHeight="1416" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title-1" parent="1" value="NT11 猿沼｜終端側拡大" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=29;fontColor=#334155;fontStyle=1;" vertex="1">
+          <mxGeometry x="60" y="26" width="2380" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle-2" parent="1" value="渡り線25はイ／ロ分割。26は線間中央x=0に置く両開き10番相当・左右対称Arc。中央引上3＋急行2線の車止め。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=18;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="82" width="2380" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-down-3" parent="1" value="下りホーム&#10;1・2番線" style="rounded=0;html=0;whiteSpace=wrap;fillColor=#e2e8f0;strokeColor=#94a3b8;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="100" y="295" width="450" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-up-4" parent="1" value="上りホーム&#10;3・4番線" style="rounded=0;html=0;whiteSpace=wrap;fillColor=#e2e8f0;strokeColor=#94a3b8;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="100" y="775" width="450" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-1-5" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="260" />
+              <mxPoint x="1940" y="460" />
+            </Array>
+            <mxPoint x="100" y="260" as="sourcePoint" />
+            <mxPoint x="2350" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-2-6" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="460" as="sourcePoint" />
+            <mxPoint x="800" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-fixed-curve-7" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="800" y="460" />
+            <mxPoint as="targetPoint" x="1120" y="600" />
+            <Array as="points">
+              <mxPoint x="803.2" y="460.057157" />
+              <mxPoint x="806.4" y="460.228629" />
+              <mxPoint x="809.6" y="460.514422" />
+              <mxPoint x="812.8" y="460.914548" />
+              <mxPoint x="816" y="461.429021" />
+              <mxPoint x="819.2" y="462.05786" />
+              <mxPoint x="822.4" y="462.801087" />
+              <mxPoint x="825.6" y="463.658731" />
+              <mxPoint x="828.8" y="464.630823" />
+              <mxPoint x="832" y="465.717398" />
+              <mxPoint x="835.2" y="466.918497" />
+              <mxPoint x="838.4" y="468.234164" />
+              <mxPoint x="841.6" y="469.664447" />
+              <mxPoint x="844.8" y="471.2094" />
+              <mxPoint x="845.661322" y="471.644837" />
+              <mxPoint x="848" y="472.838431" />
+              <mxPoint x="851.2" y="474.471619" />
+              <mxPoint x="854.4" y="476.104806" />
+              <mxPoint x="857.6" y="477.737994" />
+              <mxPoint x="860.8" y="479.371182" />
+              <mxPoint x="864" y="481.00437" />
+              <mxPoint x="867.2" y="482.637557" />
+              <mxPoint x="870.4" y="484.270745" />
+              <mxPoint x="873.6" y="485.903933" />
+              <mxPoint x="876.8" y="487.53712" />
+              <mxPoint x="880" y="489.170308" />
+              <mxPoint x="883.2" y="490.803496" />
+              <mxPoint x="886.4" y="492.436683" />
+              <mxPoint x="889.6" y="494.069871" />
+              <mxPoint x="892.8" y="495.703059" />
+              <mxPoint x="896" y="497.336246" />
+              <mxPoint x="899.2" y="498.969434" />
+              <mxPoint x="902.4" y="500.602622" />
+              <mxPoint x="905.6" y="502.235809" />
+              <mxPoint x="908.8" y="503.868997" />
+              <mxPoint x="912" y="505.502185" />
+              <mxPoint x="915.2" y="507.135372" />
+              <mxPoint x="918.4" y="508.76856" />
+              <mxPoint x="921.6" y="510.401748" />
+              <mxPoint x="924.8" y="512.034935" />
+              <mxPoint x="928" y="513.668123" />
+              <mxPoint x="931.2" y="515.301311" />
+              <mxPoint x="934.4" y="516.934499" />
+              <mxPoint x="937.6" y="518.567686" />
+              <mxPoint x="940.8" y="520.200874" />
+              <mxPoint x="944" y="521.834062" />
+              <mxPoint x="947.2" y="523.467249" />
+              <mxPoint x="950.4" y="525.100437" />
+              <mxPoint x="953.6" y="526.733625" />
+              <mxPoint x="956.8" y="528.366812" />
+              <mxPoint x="960" y="530" />
+              <mxPoint x="963.2" y="531.633188" />
+              <mxPoint x="966.4" y="533.266375" />
+              <mxPoint x="969.6" y="534.899563" />
+              <mxPoint x="972.8" y="536.532751" />
+              <mxPoint x="976" y="538.165938" />
+              <mxPoint x="979.2" y="539.799126" />
+              <mxPoint x="982.4" y="541.432314" />
+              <mxPoint x="985.6" y="543.065501" />
+              <mxPoint x="988.8" y="544.698689" />
+              <mxPoint x="992" y="546.331877" />
+              <mxPoint x="995.2" y="547.965065" />
+              <mxPoint x="998.4" y="549.598252" />
+              <mxPoint x="1001.6" y="551.23144" />
+              <mxPoint x="1004.8" y="552.864628" />
+              <mxPoint x="1008" y="554.497815" />
+              <mxPoint x="1011.2" y="556.131003" />
+              <mxPoint x="1014.4" y="557.764191" />
+              <mxPoint x="1017.6" y="559.397378" />
+              <mxPoint x="1020.8" y="561.030566" />
+              <mxPoint x="1024" y="562.663754" />
+              <mxPoint x="1027.2" y="564.296941" />
+              <mxPoint x="1030.4" y="565.930129" />
+              <mxPoint x="1033.6" y="567.563317" />
+              <mxPoint x="1036.8" y="569.196504" />
+              <mxPoint x="1040" y="570.829692" />
+              <mxPoint x="1043.2" y="572.46288" />
+              <mxPoint x="1046.4" y="574.096067" />
+              <mxPoint x="1049.6" y="575.729255" />
+              <mxPoint x="1052.8" y="577.362443" />
+              <mxPoint x="1056" y="578.99563" />
+              <mxPoint x="1059.2" y="580.628818" />
+              <mxPoint x="1062.4" y="582.262006" />
+              <mxPoint x="1065.6" y="583.895194" />
+              <mxPoint x="1068.8" y="585.528381" />
+              <mxPoint x="1072" y="587.161569" />
+              <mxPoint x="1074.338678" y="588.355163" />
+              <mxPoint x="1075.2" y="588.7906" />
+              <mxPoint x="1078.4" y="590.335553" />
+              <mxPoint x="1081.6" y="591.765836" />
+              <mxPoint x="1084.8" y="593.081503" />
+              <mxPoint x="1088" y="594.282602" />
+              <mxPoint x="1091.2" y="595.369177" />
+              <mxPoint x="1094.4" y="596.341269" />
+              <mxPoint x="1097.6" y="597.198913" />
+              <mxPoint x="1100.8" y="597.94214" />
+              <mxPoint x="1104" y="598.570979" />
+              <mxPoint x="1107.2" y="599.085452" />
+              <mxPoint x="1110.4" y="599.485578" />
+              <mxPoint x="1113.6" y="599.771371" />
+              <mxPoint x="1116.8" y="599.942843" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-3-8" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="100" y="740" />
+            <mxPoint as="targetPoint" x="800" y="740" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-4-9" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="940" />
+              <mxPoint x="1940" y="740" />
+            </Array>
+            <mxPoint x="100" y="940" as="sourcePoint" />
+            <mxPoint x="2350" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25-10" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=3;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="460" as="sourcePoint" />
+            <mxPoint x="980" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25A-number-11" parent="1" value="25イ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="632" y="492" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-25A-junction-12" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="657" y="457" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-25A-normal-13" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="672" y="460" as="sourcePoint" />
+            <mxPoint x="680" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25A-normal-14" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="685" y="460" as="sourcePoint" />
+            <mxPoint x="693" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25A-normal-15" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="698" y="460" as="sourcePoint" />
+            <mxPoint x="706" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25B-number-16" parent="1" value="25ロ" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="952" y="176" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-25B-junction-17" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="977" y="257" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-25B-normal-18" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="968" y="260" as="sourcePoint" />
+            <mxPoint x="960" y="242" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25B-normal-19" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="955" y="260" as="sourcePoint" />
+            <mxPoint x="947" y="242" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25B-normal-20" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="942" y="260" as="sourcePoint" />
+            <mxPoint x="934" y="242" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-26-number-21" parent="1" value="26" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.4;fontFamily=Hiragino Sans;fontSize=19;fontColor=#9a3412;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="1092" y="632" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-26-junction-22" parent="1" value="" style="ellipse;rounded=0;html=0;whiteSpace=wrap;fillColor=#334155;strokeColor=#334155;strokeWidth=0;fontFamily=Hiragino Sans;fontSize=19;fontColor=#475569;align=center;verticalAlign=middle;" vertex="1">
+          <mxGeometry x="1117" y="597" width="6" height="6" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-26-normal-23" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1108" y="600.803797" />
+            <mxPoint as="targetPoint" x="1100" y="618.803797" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-26-normal-24" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1095" y="603.489206" />
+            <mxPoint as="targetPoint" x="1087" y="621.489206" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-26-normal-25" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=2;jumpStyle=none;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1082" y="608.063439" />
+            <mxPoint as="targetPoint" x="1074" y="626.063439" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25T-26" parent="1" value="25ロT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="995" y="308" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-fold-circuit-27" parent="1" value="26T" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="1010" y="695" width="95" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-3-stub-28" parent="1" value="電留T" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="1320" y="630" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-buffer-1-29" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=5;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2350" y="442" as="sourcePoint" />
+            <mxPoint x="2350" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-buffer-3-30" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=5;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1490" y="582" />
+            <mxPoint as="targetPoint" x="1490" y="618" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-buffer-4-31" parent="1" value="" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;endSize=9;strokeColor=#334155;strokeWidth=5;jumpStyle=arc;jumpSize=14;" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2350" y="722" as="sourcePoint" />
+            <mxPoint x="2350" y="758" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-name-32" parent="1" value="1番線｜下り急行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="100" y="196" width="275" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-33" parent="1" value="1RT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="388.0" y="211" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="line-name-34" parent="1" value="2番線｜下り緩行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="100" y="485" width="275" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-35" parent="1" value="2RT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="388.0" y="485" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="line-name-36" parent="1" value="3番線｜上り緩行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="100" y="676" width="275" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-37" parent="1" value="3LT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="388.0" y="691" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="line-name-38" parent="1" value="4番線｜上り急行" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=22;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="100" y="965" width="275" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="platform-circuit-39" parent="1" value="4LT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1e40af;align=center;verticalAlign=middle;fontStyle=1;" vertex="1">
+          <mxGeometry x="388.0" y="965" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="fixed-curve-label-40" parent="1" value="対称Arc連絡部の開始&#10;s=11020.012695m（ここに転轍機は置かない）" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=19;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="620" y="805" width="630" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="25-normal-note-41" parent="1" value="25イ定位：2番線から26のArc連絡部へ&#10;25イ反位：25ロから急行1へ" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=19;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="640" y="122" width="620" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="26-normal-note-42" parent="1" value="26定位：3番線側 ↔ 中央引上3&#10;26反位：2番線側 ↔ 中央引上3（両側とも曲線）" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=19;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="1280" y="785" width="720" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="stub-buffer-label-43" parent="1" value="中央引上3 車止め&#10;s=11400m / x=0" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="1280" y="490" width="420" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="outer-buffer1-label-44" parent="1" value="急行1 車止め&#10;s=11860m" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="2100" y="355" width="275" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="outer-buffer4-label-45" parent="1" value="急行4 車止め&#10;s=11860m" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#334155;fontStyle=0;" vertex="1">
+          <mxGeometry x="2100" y="785" width="275" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="outer-narrow-label-46" parent="1" value="急行2線の線間戻し&#10;s=11360〜11640m｜x=±16→±6m" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="1695" y="1040" width="700" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="no-down2-tail-47" parent="1" value="2・3番線は左右対称のArc連絡部で26へ。2番線の独立尾端は設けない。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=20;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="100" y="1040" width="1400" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="note-48" parent="1" value="26はs=11160m・x=0。片側角2.862405°（全角5.724810°）、Arc半径R400mはゲーム用の寸法案。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="1138" width="2380" height="30" as="geometry" />
+        </mxCell>
+        <object id="note-49" label="出典：Documentation/References/中田鉄道配線図.drawio（2026-10-13時点の現行図）。" link="../../../../References/中田鉄道配線図.drawio">
+          <mxCell parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+            <mxGeometry x="60" y="1172" width="2380" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="note-50" parent="1" value="回路名は更新全体図に統一。距離は線形定義の提案値で略図pxから換算しない。Graph・ATC・NT11連動へ反映済み（ホームMeshなし）。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#64748b;fontStyle=0;" vertex="1">
+          <mxGeometry x="60" y="1206" width="2380" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-up3-symmetric-arcs" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#334155;strokeWidth=3;jumpStyle=none;jumpSize=10;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="800" y="740" />
+            <mxPoint as="targetPoint" x="1120" y="600" />
+            <Array as="points">
+              <mxPoint x="803.2" y="739.942843" />
+              <mxPoint x="806.4" y="739.771371" />
+              <mxPoint x="809.6" y="739.485578" />
+              <mxPoint x="812.8" y="739.085452" />
+              <mxPoint x="816" y="738.570979" />
+              <mxPoint x="819.2" y="737.94214" />
+              <mxPoint x="822.4" y="737.198913" />
+              <mxPoint x="825.6" y="736.341269" />
+              <mxPoint x="828.8" y="735.369177" />
+              <mxPoint x="832" y="734.282602" />
+              <mxPoint x="835.2" y="733.081503" />
+              <mxPoint x="838.4" y="731.765836" />
+              <mxPoint x="841.6" y="730.335553" />
+              <mxPoint x="844.8" y="728.7906" />
+              <mxPoint x="845.661322" y="728.355163" />
+              <mxPoint x="848" y="727.161569" />
+              <mxPoint x="851.2" y="725.528381" />
+              <mxPoint x="854.4" y="723.895194" />
+              <mxPoint x="857.6" y="722.262006" />
+              <mxPoint x="860.8" y="720.628818" />
+              <mxPoint x="864" y="718.99563" />
+              <mxPoint x="867.2" y="717.362443" />
+              <mxPoint x="870.4" y="715.729255" />
+              <mxPoint x="873.6" y="714.096067" />
+              <mxPoint x="876.8" y="712.46288" />
+              <mxPoint x="880" y="710.829692" />
+              <mxPoint x="883.2" y="709.196504" />
+              <mxPoint x="886.4" y="707.563317" />
+              <mxPoint x="889.6" y="705.930129" />
+              <mxPoint x="892.8" y="704.296941" />
+              <mxPoint x="896" y="702.663754" />
+              <mxPoint x="899.2" y="701.030566" />
+              <mxPoint x="902.4" y="699.397378" />
+              <mxPoint x="905.6" y="697.764191" />
+              <mxPoint x="908.8" y="696.131003" />
+              <mxPoint x="912" y="694.497815" />
+              <mxPoint x="915.2" y="692.864628" />
+              <mxPoint x="918.4" y="691.23144" />
+              <mxPoint x="921.6" y="689.598252" />
+              <mxPoint x="924.8" y="687.965065" />
+              <mxPoint x="928" y="686.331877" />
+              <mxPoint x="931.2" y="684.698689" />
+              <mxPoint x="934.4" y="683.065501" />
+              <mxPoint x="937.6" y="681.432314" />
+              <mxPoint x="940.8" y="679.799126" />
+              <mxPoint x="944" y="678.165938" />
+              <mxPoint x="947.2" y="676.532751" />
+              <mxPoint x="950.4" y="674.899563" />
+              <mxPoint x="953.6" y="673.266375" />
+              <mxPoint x="956.8" y="671.633188" />
+              <mxPoint x="960" y="670" />
+              <mxPoint x="963.2" y="668.366812" />
+              <mxPoint x="966.4" y="666.733625" />
+              <mxPoint x="969.6" y="665.100437" />
+              <mxPoint x="972.8" y="663.467249" />
+              <mxPoint x="976" y="661.834062" />
+              <mxPoint x="979.2" y="660.200874" />
+              <mxPoint x="982.4" y="658.567686" />
+              <mxPoint x="985.6" y="656.934499" />
+              <mxPoint x="988.8" y="655.301311" />
+              <mxPoint x="992" y="653.668123" />
+              <mxPoint x="995.2" y="652.034935" />
+              <mxPoint x="998.4" y="650.401748" />
+              <mxPoint x="1001.6" y="648.76856" />
+              <mxPoint x="1004.8" y="647.135372" />
+              <mxPoint x="1008" y="645.502185" />
+              <mxPoint x="1011.2" y="643.868997" />
+              <mxPoint x="1014.4" y="642.235809" />
+              <mxPoint x="1017.6" y="640.602622" />
+              <mxPoint x="1020.8" y="638.969434" />
+              <mxPoint x="1024" y="637.336246" />
+              <mxPoint x="1027.2" y="635.703059" />
+              <mxPoint x="1030.4" y="634.069871" />
+              <mxPoint x="1033.6" y="632.436683" />
+              <mxPoint x="1036.8" y="630.803496" />
+              <mxPoint x="1040" y="629.170308" />
+              <mxPoint x="1043.2" y="627.53712" />
+              <mxPoint x="1046.4" y="625.903933" />
+              <mxPoint x="1049.6" y="624.270745" />
+              <mxPoint x="1052.8" y="622.637557" />
+              <mxPoint x="1056" y="621.00437" />
+              <mxPoint x="1059.2" y="619.371182" />
+              <mxPoint x="1062.4" y="617.737994" />
+              <mxPoint x="1065.6" y="616.104806" />
+              <mxPoint x="1068.8" y="614.471619" />
+              <mxPoint x="1072" y="612.838431" />
+              <mxPoint x="1074.338678" y="611.644837" />
+              <mxPoint x="1075.2" y="611.2094" />
+              <mxPoint x="1078.4" y="609.664447" />
+              <mxPoint x="1081.6" y="608.234164" />
+              <mxPoint x="1084.8" y="606.918497" />
+              <mxPoint x="1088" y="605.717398" />
+              <mxPoint x="1091.2" y="604.630823" />
+              <mxPoint x="1094.4" y="603.658731" />
+              <mxPoint x="1097.6" y="602.801087" />
+              <mxPoint x="1100.8" y="602.05786" />
+              <mxPoint x="1104" y="601.429021" />
+              <mxPoint x="1107.2" y="600.914548" />
+              <mxPoint x="1110.4" y="600.514422" />
+              <mxPoint x="1113.6" y="600.228629" />
+              <mxPoint x="1116.8" y="600.057157" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-common3-stub" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#334155;strokeWidth=3;jumpStyle=none;jumpSize=10;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1120" y="600" />
+            <mxPoint as="targetPoint" x="1490" y="600" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-home-East-1" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="600" y="248" />
+            <mxPoint as="targetPoint" x="600" y="272" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-home-East-2" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="600" y="448" />
+            <mxPoint as="targetPoint" x="600" y="472" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-home-East-3" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="600" y="728" />
+            <mxPoint as="targetPoint" x="600" y="752" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-home-East-4" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="600" y="928" />
+            <mxPoint as="targetPoint" x="600" y="952" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25AT-end" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="800" y="448" />
+            <mxPoint as="targetPoint" x="800" y="472" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-crossover25-mid" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="813.640013" y="349.82402" />
+            <mxPoint as="targetPoint" x="826.359987" y="370.17598" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25BT-end" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1048.571429" y="248" />
+            <mxPoint as="targetPoint" x="1048.571429" y="272" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-electric-start" parent="1" edge="1" style="edgeStyle=none;noEdgeStyle=1;rounded=0;html=0;startArrow=none;endArrow=none;strokeColor=#be185d;strokeWidth=1.8;jumpStyle=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="sourcePoint" x="1243.184035" y="588" />
+            <mxPoint as="targetPoint" x="1243.184035" y="612" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11-terminal-25AT" parent="1" vertex="1" value="25イT" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="715" y="497" width="96" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-1-STUB-T" parent="1" vertex="1" value="1引T" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="1450" y="211" width="84" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11-terminal-4-STUB-T" parent="1" vertex="1" value="4引T" style="rounded=1;html=0;whiteSpace=wrap;fillColor=#eff6ff;strokeColor=#bfdbfe;strokeWidth=1.2;fontFamily=Hiragino Sans;fontSize=19;fontColor=#1d4ed8;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry x="1450" y="891" width="84" height="32" as="geometry" />
+        </mxCell>
+        <object id="destination-NT11-p3-I" label="I" destinationStationId="NT11" destinationCode="I" destinationCircuit="電留T" tooltip="着点 I：電留T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1428" y="629" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p3-A" label="A" destinationStationId="NT11" destinationCode="A" destinationCircuit="1RT" tooltip="着点 A：1RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="484" y="210" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p3-B" label="B" destinationStationId="NT11" destinationCode="B" destinationCircuit="2RT" tooltip="着点 B：2RT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="484" y="484" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p3-C" label="C" destinationStationId="NT11" destinationCode="C" destinationCircuit="3LT" tooltip="着点 C：3LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="484" y="690" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p3-D" label="D" destinationStationId="NT11" destinationCode="D" destinationCircuit="4LT" tooltip="着点 D：4LT（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="484" y="964" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p3-G" label="G" destinationStationId="NT11" destinationCode="G" destinationCircuit="1引T" tooltip="着点 G：1引T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1546" y="210" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="destination-NT11-p3-H" label="H" destinationStationId="NT11" destinationCode="H" destinationCircuit="4引T" tooltip="着点 H：4引T（論理的な着点領域）">
+          <mxCell style="ellipse;html=0;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#172033;strokeWidth=2;fontFamily=Hiragino Sans;fontSize=20;fontColor=#172033;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+            <mxGeometry x="1546" y="890" width="34" height="34" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="destination-NT11-p3-legend-title" value="丸枠の英字＝着点符号" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1288" width="2380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p3-legend-row-1" value="A＝1RT　　B＝2RT　　C＝3LT　　D＝4LT　　E＝22ロT　　F＝21ロT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1318" width="2380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p3-legend-row-2" value="G＝1引T　　H＝4引T　　I＝電留T　　J＝24イT　　K＝23イT" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1344" width="2380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="destination-NT11-p3-legend-note" value="着点は論理的な領域。停止位置・信号位置は別定義。" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontSize=16;fontColor=#334155;fontSize=14;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1370" width="2380" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

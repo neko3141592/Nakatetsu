@@ -30,9 +30,29 @@ MonoBehaviour:
     - NT05_22
     - NT05_23
     - NT05_24
+    destinations:
+    - code: A
+      displayName: "1\u756A\u7DDA"
+      trackCircuitId: NT05_1RT
+    - code: B
+      displayName: "2\u756A\u7DDA"
+      trackCircuitId: NT05_2RT
+    - code: C
+      displayName: "3\u756A\u7DDA"
+      trackCircuitId: NT05_3LT
+    - code: D
+      displayName: "4\u756A\u7DDA"
+      trackCircuitId: NT05_4LT
+    - code: E
+      displayName: "\u4E0B\u308A\u672C\u7DDA\u51FA\u53E3"
+      trackCircuitId: NT05_22T
+    - code: F
+      displayName: "\u4E0A\u308A\u672C\u7DDA\u51FA\u53E3"
+      trackCircuitId: NT05_23T
     routes:
-    - routeId: NT05_101R
+    - routeId: 1RA
       startTrackCircuitId: NT05_21T
+      destinationCode: A
       destinationTrackCircuitId: NT05_1RT
       requiredTurnouts:
       - connectionId: NT05_21
@@ -51,8 +71,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_102R
+    - routeId: 1RB
       startTrackCircuitId: NT05_21T
+      destinationCode: B
       destinationTrackCircuitId: NT05_2RT
       requiredTurnouts:
       - connectionId: NT05_21
@@ -71,8 +92,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_103L
+    - routeId: 1LC
       startTrackCircuitId: NT05_24T
+      destinationCode: C
       destinationTrackCircuitId: NT05_3LT
       requiredTurnouts:
       - connectionId: NT05_24
@@ -91,8 +113,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_104L
+    - routeId: 1LD
       startTrackCircuitId: NT05_24T
+      destinationCode: D
       destinationTrackCircuitId: NT05_4LT
       requiredTurnouts:
       - connectionId: NT05_24
@@ -111,8 +134,9 @@ MonoBehaviour:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_101L
+    - routeId: 2R
       startTrackCircuitId: NT05_1RT
+      destinationCode: E
       destinationTrackCircuitId: NT05_22T
       requiredTurnouts:
       - connectionId: NT05_22
@@ -124,14 +148,15 @@ MonoBehaviour:
       approachLock:
         trackCircuitIds:
         - NT05_1RT
-        releaseSeconds: 30
+        releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_102L
+    - routeId: 3R
       startTrackCircuitId: NT05_2RT
+      destinationCode: E
       destinationTrackCircuitId: NT05_22T
       requiredTurnouts:
       - connectionId: NT05_22
@@ -143,14 +168,15 @@ MonoBehaviour:
       approachLock:
         trackCircuitIds:
         - NT05_2RT
-        releaseSeconds: 30
+        releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_103R
+    - routeId: 2L
       startTrackCircuitId: NT05_3LT
+      destinationCode: F
       destinationTrackCircuitId: NT05_23T
       requiredTurnouts:
       - connectionId: NT05_23
@@ -162,14 +188,15 @@ MonoBehaviour:
       approachLock:
         trackCircuitIds:
         - NT05_3LT
-        releaseSeconds: 30
+        releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
         isEnabled: 0
         turnoutRequirements: []
         releaseSeconds: 0
-    - routeId: NT05_104R
+    - routeId: 3L
       startTrackCircuitId: NT05_4LT
+      destinationCode: F
       destinationTrackCircuitId: NT05_23T
       requiredTurnouts:
       - connectionId: NT05_23
@@ -181,7 +208,7 @@ MonoBehaviour:
       approachLock:
         trackCircuitIds:
         - NT05_4LT
-        releaseSeconds: 30
+        releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
         isEnabled: 0

@@ -3,9 +3,6 @@
     "rootNamespace": "Nakatetsu.Application",
     "references": [
         "Nakatetsu.Core",
-        "Nakatetsu.Contracts",
-        "MagicOnion.Unity",
-        "Cysharp.Net.Http.YetAnotherHttpHandler",
         "Unity.InputSystem",
         "Unity.TextMeshPro",
         "Unity.ugui",
@@ -17,7 +14,8 @@
         "Nakatetsu.Train.Integration",
         "Nakatetsu.Train.Equipment.Tims",
         "Nakatetsu.Train.Presentation",
-        "Nakatetsu.World"
+        "Nakatetsu.World",
+        "Cysharp.Net.Http.YetAnotherHttpHandler"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

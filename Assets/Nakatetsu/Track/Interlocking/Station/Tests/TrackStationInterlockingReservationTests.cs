@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using NUnit.Framework;
-using InterlockingRouteErrorCode = Nakatetsu.Contracts.Interlocking.InterlockingRouteErrorCode;
-using InterlockingRouteOperation = Nakatetsu.Contracts.Interlocking.InterlockingRouteOperation;
-using InterlockingRouteRequest = Nakatetsu.Contracts.Interlocking.InterlockingRouteRequest;
-using InterlockingRouteRequestResult = Nakatetsu.Contracts.Interlocking.InterlockingRouteRequestResult;
+using InterlockingRouteErrorCode = Nakatetsu.Track.Interlocking.InterlockingRouteErrorCode;
+using InterlockingRouteOperation = Nakatetsu.Track.Interlocking.InterlockingRouteOperation;
+using InterlockingRouteRequest = Nakatetsu.Track.Interlocking.InterlockingRouteRequest;
+using InterlockingRouteRequestResult = Nakatetsu.Track.Interlocking.InterlockingRouteRequestResult;
 
 namespace Nakatetsu.Track.Interlocking.Tests
 {

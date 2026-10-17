@@ -1,0 +1,121 @@
+{
+  "geometries": [],
+  "nodes": [],
+  "edges": [
+    {
+      "edgeId": "NT06_NT07_down",
+      "nodeAId": "NT06_exit1",
+      "nodeBId": "NT07_entry1",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 5560,
+      "endDistanceOnGeometryM": 6120,
+      "offsetSegments": [
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 5560,
+          "endDistanceOnGeometryM": 6120,
+          "startOffsetM": 0,
+          "endOffsetM": -0.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT06_NT07_up",
+      "nodeAId": "NT06_exit2",
+      "nodeBId": "NT07_entry2",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 5560,
+      "endDistanceOnGeometryM": 6120,
+      "offsetSegments": [
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 5560,
+          "endDistanceOnGeometryM": 6120,
+          "startOffsetM": 4,
+          "endOffsetM": 4.5
+        }
+      ]
+    }
+  ],
+  "connections": [],
+  "circuits": [
+    {
+      "circuitId": "NT06_NT07_D1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT06_track1",
+          "startDistanceOnGeometryM": 5350,
+          "endDistanceOnGeometryM": 5560
+        },
+        {
+          "edgeId": "NT06_NT07_down",
+          "startDistanceOnGeometryM": 5560,
+          "endDistanceOnGeometryM": 5746.6665
+        }
+      ]
+    },
+    {
+      "circuitId": "NT06_NT07_D2T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT06_NT07_down",
+          "startDistanceOnGeometryM": 5746.6665,
+          "endDistanceOnGeometryM": 5933.3335
+        }
+      ]
+    },
+    {
+      "circuitId": "NT06_NT07_D3T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT06_NT07_down",
+          "startDistanceOnGeometryM": 5933.3335,
+          "endDistanceOnGeometryM": 6120
+        }
+      ]
+    },
+    {
+      "circuitId": "NT06_NT07_U1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT06_track2",
+          "startDistanceOnGeometryM": 5350,
+          "endDistanceOnGeometryM": 5560
+        },
+        {
+          "edgeId": "NT06_NT07_up",
+          "startDistanceOnGeometryM": 5560,
+          "endDistanceOnGeometryM": 5746.6665
+        }
+      ]
+    },
+    {
+      "circuitId": "NT06_NT07_U2T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT06_NT07_up",
+          "startDistanceOnGeometryM": 5746.6665,
+          "endDistanceOnGeometryM": 5933.3335
+        }
+      ]
+    },
+    {
+      "circuitId": "NT06_NT07_U3T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT06_NT07_up",
+          "startDistanceOnGeometryM": 5933.3335,
+          "endDistanceOnGeometryM": 6120
+        }
+      ]
+    }
+  ]
+}

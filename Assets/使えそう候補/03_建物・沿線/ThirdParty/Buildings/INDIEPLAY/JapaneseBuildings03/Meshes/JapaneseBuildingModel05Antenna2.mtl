@@ -1,0 +1,14 @@
+newmtl Plastic013B_1K
+map_Kd -o 0 0 -s 1 1 Plastic013B_1K-JPG_Color.jpg
+map_Pm -o 0 0 -s 1 1 Plastic013B_1K-JPG_Roughness.jpg
+bump -o 0 0 -s 1 1 Plastic013B_1K-JPG_NormalGL.jpg
+disp -o 0 0 -s 1 1 Plastic013B_1K-JPG_Displacement.jpg
+Kd 0.9056604 0.9056604 0.9056604
+d 1
+
+newmtl tiles05MatGray1
+map_Kd -o 0 0 -s 1 1 tiles05 roughness 1k.jpg
+bump -o 0 0 -s 1 1 tiles05 normal 1k.jpg
+map_d -o 0 0 -s 1 1 tiles05 ao 1k.jpg
+Kd 0.8679245 0.8147027 0.8147027
+d 1

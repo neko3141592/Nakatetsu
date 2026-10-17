@@ -100,13 +100,15 @@ Outputは毎回新しいスナップショットを生成し、今回取得で�
 
 ## 登録と要求の振り分け
 
-連動管理部は、登録した駅連動装置から進路IDを収集し、次の対応表を持つ。
+連動管理部は駅IDから担当駅連動装置を取得し、その駅内で進路IDを解決する。
 
 ```text
-進路ID → 担当する駅連動装置
+駅ID → 担当する駅連動装置 → 駅内進路ID
 ```
 
-進路IDは全駅を通じて一意とする。登録時に進路IDの重複を検出し、担当駅を曖昧にしない。
+進路IDは駅内で一意とし、異なる駅の同名進路を許容する。要求・状態取得・保存には`(駅ID, 進路ID)`を使う。駅IDの重複と同じ駅内の進路ID重複を拒否し、裸の進路IDから担当駅を推測する対応表は持たない。
+
+地上ATCと接続する駅では、管理部登録の`StationId`を連動定義の`interlockingId`およびATC生成元の`interlockingStationId`と一致させる。管理部Outputの駅IDとATCの参照駅IDが異なる場合、ATCは別名として解決せず、その進路の入力未取得として扱う。
 
 要求経路は次のとおり。PRCの自動要求とCTCの手動要求を、連動管理部の同じ窓口へ渡す。
 
@@ -206,3 +208,11 @@ PRC → CTC中央装置 → 連動管理部 → 担当駅の連動装置
 - 複数の拒否条件が成立する場合の返却優先順と、関連IDの選び方。
 - 初期化・登録の失敗と、進路要求の拒否・状態照会の失敗を表す型の分け方。
 - 連動管理部から各駅を更新する具体的な呼出方法。
+
+## 連動定義のJSON
+
+`SourceAssets/Track/Network/NakatetsuInterlocking/interlocking.json`に、使用するTrackGraphのJSON、駅ID、駅ごとのJSONファイル、出力Assetのパスを指定する。`Stations/NT01.json`などの各駅ファイルは、既存の`TrackStationInterlockingDefinition`と同じフィールドを持つ。NT01・NT05・NT07・NT11の既存定義を移行している。
+
+Unityの`Nakatetsu > Track > Generate Interlocking from JSON > All Stations`で全駅、`Select Station...`で選択した駅だけを生成できる。駅単位の読み込みでは、一覧に登録された他駅のJSONを読み込まない。既存AssetはGUIDを維持して更新する。
+
+生成前に既存の連動ロジックで定義を検証し、所属する軌道回路・接続がTrackGraphのJSONに存在することも確認する。全駅生成では全駅の入力と出力先を検証してから更新する。各駅ファイルにはGoの列車追跡用に、進入元を含む進行方向順の`trackCircuitIds`も保持する。Unityの連動Importerはこの項目を使用しない。ATC進路定義は引き続き別に管理する。

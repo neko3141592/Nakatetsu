@@ -34,13 +34,16 @@
 
 ## 2. Definition
 
-[全体定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingDefinition.cs)は`interlockingId`、`memberTrackCircuitIds`、`memberConnectionIds`、`routes`、`turnoutLocks`を持つ。SettingsはDefinitionのリストと子レコードをコピーし、実行中のAsset編集を取り込まない。
+[全体定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingDefinition.cs)は`interlockingId`、`memberTrackCircuitIds`、`memberConnectionIds`、`destinations`、`routes`、`turnoutLocks`を持つ。`interlockingId`には連動制御駅IDを指定し、管理部登録の`StationId`とATC生成元の`interlockingStationId`を同じIDにそろえる。Settingsは着点一覧・進路を含むDefinitionのリストと子レコードをコピーし、実行中のAsset編集を取り込まない。
+
+[着点一覧](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingDestinationDefinition.cs)の各レコードは、駅内の論理的な着線・中間着点・出口に対応する。`code`は半角大文字英字で駅内一意、`displayName`は着点の名称、`trackCircuitId`は着点の所属回路を表す。方向によって異なる制御終端や列車の停止位置を、この符号だけから決めない。
 
 [進路定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingRouteDefinition.cs)の役割は次のとおり。
 
 | 項目 | 役割 |
 | --- | --- |
-| `routeId` | 全体で一意の進路ID |
+| `routeId` | 制御駅内で一意の進路ID。駅をまたぐ参照は駅IDと組み合わせる |
+| `destinationCode` | 駅の着点一覧に対応する符号。単一進路でID末尾を省略しても保持する |
 | `startTrackCircuitId`・`destinationTrackCircuitId` | 進路の発点・着点 |
 | `requiredTurnouts` | 防護方式を問わず本進路で保持する転轍機と要求位置 |
 | `routeClearTrackCircuitIds` | 設定時の空き照査、新規進入許可、本進路の回路予約 |
@@ -57,6 +60,8 @@
 [轍査鎖錠定義](../../../Assets/Nakatetsu/Track/Interlocking/Station/Scripts/Definition/TrackStationInterlockingTurnoutLockDefinition.cs)は`connectionId`と`trackCircuitIds`を持つ。対象回路の在線・取得不能時はその転轍機の転換要求を抑止する。本進路・防護の解錠を永久停止するラッチには使わない。
 
 初期化で参照ID、進路IDの重複、転轍機要求位置、轍査鎖錠の参照、解錠対象の部分集合、有限かつ非負の時素を検証する。本進路と防護が同じ転轍機へ異なる位置を要求する定義は受け付けない。
+
+着点一覧がある定義では、全進路の`destinationCode`が一覧に存在し、その着点の`trackCircuitId`と進路の`destinationTrackCircuitId`が一致することも検証する。着点符号の重複・空の名称・未所属回路を拒否する。着点一覧が空で全進路の`destinationCode`も未指定の既存定義は従来どおり受け付ける。単一進路のIDを`1R`とする場合も、着点一覧を持つ定義では`destinationCode`を省略しない。
 
 ## 3. 外部API
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net"
 
@@ -12,13 +13,30 @@ import (
 )
 
 func main() {
+
+	manifestPath := flag.String("track-graph", "../SourceAssets/Track/Network/NakatetsuTrackGraph/graph.json", "TrackGraph JSON manifest path")
+	interlockingPath := flag.String("interlocking", "../SourceAssets/Track/Network/NakatetsuInterlocking/interlocking.json", "Interlocking JSON manifest path")
+
+	flag.Parse()
+	definitions, err := ctc.LoadTrackCircuitDefinitions(*manifestPath)
+	if err != nil {
+		log.Fatalf("軌道回路定義の読み込みに失敗: %v", err)
+	}
+
+	routes, err := ctc.LoadTrackRouteDefinitions(*interlockingPath, definitions)
+	if err != nil {
+		log.Fatalf("進路定義の読み込みに失敗: %v", err)
+	}
+	
+	ctcCore := ctc.New(definitions, routes)
+	log.Printf("軌道回路定義を読み込み: %d回路", len(definitions))
+	log.Printf("進路定義を読み込み: %d進路", len(routes))
+
 	listener, err := net.Listen("tcp", "127.0.0.1:50051")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer listener.Close()
-
-	ctcCore := &ctc.CTC{}
 
 	server := grpc.NewServer()
 	ctcv1.RegisterCtcServiceServer(server, &grpcserver.CtcServer{

@@ -1,0 +1,202 @@
+{
+  "geometries": [],
+  "nodes": [
+    {
+      "nodeId": "NT07_NT08_DE_end",
+      "connectedEdgeIds": [
+        "NT07_P01_050",
+        "NT08_track1"
+      ]
+    },
+    {
+      "nodeId": "NT07_NT08_DL_end",
+      "connectedEdgeIds": [
+        "NT07_DL_070",
+        "NT08_track2"
+      ]
+    },
+    {
+      "nodeId": "NT07_NT08_UE_end",
+      "connectedEdgeIds": [
+        "NT07_P04_050",
+        "NT08_track4"
+      ]
+    },
+    {
+      "nodeId": "NT07_NT08_UL_end",
+      "connectedEdgeIds": [
+        "NT07_UL_070",
+        "NT08_track3"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "NT07_P01_050",
+      "nodeAId": "NT07_26B_node",
+      "nodeBId": "NT07_NT08_DE_end",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 6962.3237,
+      "endDistanceOnGeometryM": 7930,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 6962.3237,
+          "endDistanceOnGeometryM": 7500,
+          "offsetM": -12.5
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 7500,
+          "endDistanceOnGeometryM": 7900,
+          "startOffsetM": -12.5,
+          "endOffsetM": -8
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 7900,
+          "endDistanceOnGeometryM": 7930,
+          "offsetM": -8
+        }
+      ]
+    },
+    {
+      "edgeId": "NT07_DL_070",
+      "nodeAId": "NT07_25B_node",
+      "nodeBId": "NT07_NT08_DL_end",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 6975.421,
+      "endDistanceOnGeometryM": 7930,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 6975.421,
+          "endDistanceOnGeometryM": 7500,
+          "offsetM": -7.5
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 7500,
+          "endDistanceOnGeometryM": 7900,
+          "startOffsetM": -7.5,
+          "endOffsetM": -4
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 7900,
+          "endDistanceOnGeometryM": 7930,
+          "offsetM": -4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT07_P04_050",
+      "nodeAId": "NT07_31B_node",
+      "nodeBId": "NT07_NT08_UE_end",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 6962.3237,
+      "endDistanceOnGeometryM": 7930,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 6962.3237,
+          "endDistanceOnGeometryM": 7500,
+          "offsetM": 16.5
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 7500,
+          "endDistanceOnGeometryM": 7900,
+          "startOffsetM": 16.5,
+          "endOffsetM": 12
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 7900,
+          "endDistanceOnGeometryM": 7930,
+          "offsetM": 12
+        }
+      ]
+    },
+    {
+      "edgeId": "NT07_UL_070",
+      "nodeAId": "NT07_32B_node",
+      "nodeBId": "NT07_NT08_UL_end",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 6975.421,
+      "endDistanceOnGeometryM": 7930,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 6975.421,
+          "endDistanceOnGeometryM": 7500,
+          "offsetM": 11.5
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 7500,
+          "endDistanceOnGeometryM": 7900,
+          "startOffsetM": 11.5,
+          "endOffsetM": 8
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 7900,
+          "endDistanceOnGeometryM": 7930,
+          "offsetM": 8
+        }
+      ]
+    }
+  ],
+  "connections": [],
+  "circuits": [
+    {
+      "circuitId": "NT07_NT08_DE1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_P01_050",
+          "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7930
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_DL1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_DL_070",
+          "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7930
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_UE1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_P04_050",
+          "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7930
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_UL1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_UL_070",
+          "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7930
+        }
+      ]
+    }
+  ]
+}

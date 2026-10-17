@@ -1,0 +1,575 @@
+{
+  "geometries": [],
+  "nodes": [
+    {
+      "nodeId": "NT01_buffer1",
+      "connectedEdgeIds": [
+        "NT01_track1"
+      ]
+    },
+    {
+      "nodeId": "NT01_point23",
+      "connectedEdgeIds": [
+        "NT01_track1",
+        "NT01_track2_platform",
+        "NT01_track2_throat"
+      ]
+    },
+    {
+      "nodeId": "NT01_buffer2",
+      "connectedEdgeIds": [
+        "NT01_track2_platform"
+      ]
+    },
+    {
+      "nodeId": "NT01_point21A",
+      "connectedEdgeIds": [
+        "NT01_track2_throat",
+        "NT01_track2_scissors",
+        "NT01_crossover21"
+      ]
+    },
+    {
+      "nodeId": "NT01_buffer3",
+      "connectedEdgeIds": [
+        "NT01_track3"
+      ]
+    },
+    {
+      "nodeId": "NT01_point22A",
+      "connectedEdgeIds": [
+        "NT01_track3",
+        "NT01_track3_scissors",
+        "NT01_crossover22"
+      ]
+    },
+    {
+      "nodeId": "NT01_point22B",
+      "connectedEdgeIds": [
+        "NT01_track2_scissors",
+        "NT01_crossover22",
+        "NT01_track2_exit"
+      ]
+    },
+    {
+      "nodeId": "NT01_point21B",
+      "connectedEdgeIds": [
+        "NT01_track3_scissors",
+        "NT01_crossover21",
+        "NT01_track3_exit"
+      ]
+    },
+    {
+      "nodeId": "NT01_exit2",
+      "connectedEdgeIds": [
+        "NT01_track2_exit",
+        "NT01_NT02_down"
+      ]
+    },
+    {
+      "nodeId": "NT01_exit3",
+      "connectedEdgeIds": [
+        "NT01_track3_exit",
+        "NT01_NT02_up"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "NT01_track1",
+      "nodeAId": "NT01_buffer1",
+      "nodeBId": "NT01_point23",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 0,
+      "endDistanceOnGeometryM": 444.79166,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 0,
+          "endDistanceOnGeometryM": 300,
+          "offsetM": -10
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 300,
+          "endDistanceOnGeometryM": 324.95667,
+          "startOffsetM": -10,
+          "radiusM": 300,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 324.95667,
+          "endDistanceOnGeometryM": 419.835,
+          "startOffsetM": -8.960138,
+          "endOffsetM": -1.0398613
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 419.835,
+          "endDistanceOnGeometryM": 444.79166,
+          "startOffsetM": -1.0398613,
+          "radiusM": -300,
+          "startHeadingDeg": 4.7718883
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track2_platform",
+      "nodeAId": "NT01_buffer2",
+      "nodeBId": "NT01_point23",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 0,
+      "endDistanceOnGeometryM": 444.79166,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 0,
+          "endDistanceOnGeometryM": 444.79166,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track2_throat",
+      "nodeAId": "NT01_point23",
+      "nodeBId": "NT01_point21A",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 444.79166,
+      "endDistanceOnGeometryM": 520,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 444.79166,
+          "endDistanceOnGeometryM": 520,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track3",
+      "nodeAId": "NT01_buffer3",
+      "nodeBId": "NT01_point22A",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 0,
+      "endDistanceOnGeometryM": 520,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 0,
+          "endDistanceOnGeometryM": 300,
+          "offsetM": 10
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 300,
+          "endDistanceOnGeometryM": 480,
+          "startOffsetM": 10,
+          "endOffsetM": 4
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 480,
+          "endDistanceOnGeometryM": 520,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track2_scissors",
+      "nodeAId": "NT01_point21A",
+      "nodeBId": "NT01_point22B",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 520,
+      "endDistanceOnGeometryM": 592.9167,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 592.9167,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track3_scissors",
+      "nodeAId": "NT01_point22A",
+      "nodeBId": "NT01_point21B",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 520,
+      "endDistanceOnGeometryM": 592.9167,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 592.9167,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_crossover21",
+      "nodeAId": "NT01_point21A",
+      "nodeBId": "NT01_point21B",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 520,
+      "endDistanceOnGeometryM": 592.9167,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 544.95667,
+          "startOffsetM": 0,
+          "radiusM": 300,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 544.95667,
+          "endDistanceOnGeometryM": 567.96,
+          "startOffsetM": 1.0398613,
+          "endOffsetM": 2.9601386
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 567.96,
+          "endDistanceOnGeometryM": 592.9167,
+          "startOffsetM": 2.9601386,
+          "radiusM": -300,
+          "startHeadingDeg": 4.7718883
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_crossover22",
+      "nodeAId": "NT01_point22A",
+      "nodeBId": "NT01_point22B",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 520,
+      "endDistanceOnGeometryM": 592.9167,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 544.95667,
+          "startOffsetM": 4,
+          "radiusM": -300,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 544.95667,
+          "endDistanceOnGeometryM": 567.96,
+          "startOffsetM": 2.9601386,
+          "endOffsetM": 1.0398613
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 567.96,
+          "endDistanceOnGeometryM": 592.9167,
+          "startOffsetM": 1.0398613,
+          "radiusM": 300,
+          "startHeadingDeg": -4.7718883
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track2_exit",
+      "nodeAId": "NT01_point22B",
+      "nodeBId": "NT01_exit2",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 592.9167,
+      "endDistanceOnGeometryM": 650,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 592.9167,
+          "endDistanceOnGeometryM": 650,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT01_track3_exit",
+      "nodeAId": "NT01_point21B",
+      "nodeBId": "NT01_exit3",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 592.9167,
+      "endDistanceOnGeometryM": 650,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 592.9167,
+          "endDistanceOnGeometryM": 650,
+          "offsetM": 4
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "connectionId": "NT01_23",
+      "nodeId": "NT01_point23",
+      "edgePairs": [
+        {
+          "pairId": "NT01_23_normal",
+          "edgeAId": "NT01_track2_throat",
+          "edgeBId": "NT01_track2_platform",
+          "condition": 2
+        },
+        {
+          "pairId": "NT01_23_reverse",
+          "edgeAId": "NT01_track2_throat",
+          "edgeBId": "NT01_track1",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT01_21A",
+      "nodeId": "NT01_point21A",
+      "edgePairs": [
+        {
+          "pairId": "NT01_21A_normal",
+          "edgeAId": "NT01_track2_throat",
+          "edgeBId": "NT01_track2_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT01_21A_reverse",
+          "edgeAId": "NT01_track2_throat",
+          "edgeBId": "NT01_crossover21",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT01_22A",
+      "nodeId": "NT01_point22A",
+      "edgePairs": [
+        {
+          "pairId": "NT01_22A_normal",
+          "edgeAId": "NT01_track3",
+          "edgeBId": "NT01_track3_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT01_22A_reverse",
+          "edgeAId": "NT01_track3",
+          "edgeBId": "NT01_crossover22",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT01_22B",
+      "nodeId": "NT01_point22B",
+      "edgePairs": [
+        {
+          "pairId": "NT01_22B_normal",
+          "edgeAId": "NT01_track2_exit",
+          "edgeBId": "NT01_track2_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT01_22B_reverse",
+          "edgeAId": "NT01_track2_exit",
+          "edgeBId": "NT01_crossover22",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT01_21B",
+      "nodeId": "NT01_point21B",
+      "edgePairs": [
+        {
+          "pairId": "NT01_21B_normal",
+          "edgeAId": "NT01_track3_exit",
+          "edgeBId": "NT01_track3_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT01_21B_reverse",
+          "edgeAId": "NT01_track3_exit",
+          "edgeBId": "NT01_crossover21",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT01_exit2_connection",
+      "nodeId": "NT01_exit2",
+      "edgePairs": [
+        {
+          "pairId": "NT01_exit2_connection_fixed",
+          "edgeAId": "NT01_track2_exit",
+          "edgeBId": "NT01_NT02_down",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT01_exit3_connection",
+      "nodeId": "NT01_exit3",
+      "edgePairs": [
+        {
+          "pairId": "NT01_exit3_connection_fixed",
+          "edgeAId": "NT01_track3_exit",
+          "edgeBId": "NT01_NT02_up",
+          "condition": 1
+        }
+      ]
+    }
+  ],
+  "circuits": [
+    {
+      "circuitId": "NT01_1RT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track1",
+          "startDistanceOnGeometryM": 0,
+          "endDistanceOnGeometryM": 310
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_2RT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track2_platform",
+          "startDistanceOnGeometryM": 0,
+          "endDistanceOnGeometryM": 310
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_3RT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track3",
+          "startDistanceOnGeometryM": 0,
+          "endDistanceOnGeometryM": 500
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_23T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track1",
+          "startDistanceOnGeometryM": 310,
+          "endDistanceOnGeometryM": 444.79166
+        },
+        {
+          "edgeId": "NT01_track2_platform",
+          "startDistanceOnGeometryM": 310,
+          "endDistanceOnGeometryM": 444.79166
+        },
+        {
+          "edgeId": "NT01_track2_throat",
+          "startDistanceOnGeometryM": 444.79166,
+          "endDistanceOnGeometryM": 482.39584
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_21AT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track2_throat",
+          "startDistanceOnGeometryM": 482.39584,
+          "endDistanceOnGeometryM": 520
+        },
+        {
+          "edgeId": "NT01_track2_scissors",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 556.4584
+        },
+        {
+          "edgeId": "NT01_crossover21",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 558.4584
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_22AT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track3",
+          "startDistanceOnGeometryM": 500,
+          "endDistanceOnGeometryM": 520
+        },
+        {
+          "edgeId": "NT01_track3_scissors",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 556.4584
+        },
+        {
+          "edgeId": "NT01_crossover22",
+          "startDistanceOnGeometryM": 520,
+          "endDistanceOnGeometryM": 558.4584
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_21BT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track3_scissors",
+          "startDistanceOnGeometryM": 556.4584,
+          "endDistanceOnGeometryM": 592.9167
+        },
+        {
+          "edgeId": "NT01_crossover21",
+          "startDistanceOnGeometryM": 558.4584,
+          "endDistanceOnGeometryM": 592.9167
+        },
+        {
+          "edgeId": "NT01_track3_exit",
+          "startDistanceOnGeometryM": 592.9167,
+          "endDistanceOnGeometryM": 650
+        }
+      ]
+    },
+    {
+      "circuitId": "NT01_22BT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT01_track2_scissors",
+          "startDistanceOnGeometryM": 556.4584,
+          "endDistanceOnGeometryM": 592.9167
+        },
+        {
+          "edgeId": "NT01_crossover22",
+          "startDistanceOnGeometryM": 558.4584,
+          "endDistanceOnGeometryM": 592.9167
+        },
+        {
+          "edgeId": "NT01_track2_exit",
+          "startDistanceOnGeometryM": 592.9167,
+          "endDistanceOnGeometryM": 650
+        }
+      ]
+    }
+  ]
+}

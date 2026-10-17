@@ -1,0 +1,12 @@
+newmtl JPBM04tiles05MatOrange
+map_Kd -o 0 0 -s 1 1 tiles05_roughness_1k.jpg
+bump -o 0 0 -s 1 1 tiles05_normal_1k.jpg
+map_d -o 0 0 -s 1 1 tiles05_ao_1k.jpg
+Kd 0.8962264 0.7290191 0.4692506
+d 1
+
+newmtl JPBM6Facade001_2KMat
+map_Kd -o 0.031 0.05 -s 0.03 0.04 Facade001_2K_Color.jpg
+bump -o 0 0 -s 1 1 Facade001_2K_Normal.jpg
+Kd 1 1 1
+d 1

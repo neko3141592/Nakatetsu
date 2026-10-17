@@ -833,25 +833,33 @@ MonoBehaviour:
       - edge:23T
     routes:
     - atcRouteId: 1RT-22T
+      interlockingStationId: NtLineStation
       interlockingRouteId: 1RT-22T
+      interlockingStartTrackCircuitId: 1RT
       entryDirection: 1
       atcEdgeIds:
       - edge:1RT
       - edge:22T:0
     - atcRouteId: 21T-1RT
+      interlockingStationId: NtLineStation
       interlockingRouteId: 21T-1RT
+      interlockingStartTrackCircuitId: 21T
       entryDirection: 1
       atcEdgeIds:
       - edge:21T:0
       - edge:1RT
     - atcRouteId: 21T-2RT
+      interlockingStationId: NtLineStation
       interlockingRouteId: 21T-2RT
+      interlockingStartTrackCircuitId: 21T
       entryDirection: 1
       atcEdgeIds:
       - edge:21T:1
       - edge:2RT
     - atcRouteId: 2RT-22T
+      interlockingStationId: NtLineStation
       interlockingRouteId: 2RT-22T
+      interlockingStartTrackCircuitId: 2RT
       entryDirection: 1
       atcEdgeIds:
       - edge:2RT

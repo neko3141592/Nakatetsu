@@ -22,9 +22,22 @@ namespace Nakatetsu.Track.Interlocking
                 interlockingId = source.interlockingId,
                 memberTrackCircuitIds = CopyIds(source.memberTrackCircuitIds),
                 memberConnectionIds = CopyIds(source.memberConnectionIds),
+                destinations = source.destinations == null ? null : new(),
                 routes = source.routes == null ? null : new(),
                 turnoutLocks = source.turnoutLocks == null ? null : new()
             };
+            if (source.destinations != null)
+            {
+                foreach (var destination in source.destinations)
+                {
+                    copy.destinations.Add(destination == null ? null : new TrackStationInterlockingDestinationDefinition
+                    {
+                        code = destination.code,
+                        displayName = destination.displayName,
+                        trackCircuitId = destination.trackCircuitId
+                    });
+                }
+            }
             if (source.routes != null)
             {
                 foreach (var route in source.routes)
@@ -33,6 +46,7 @@ namespace Nakatetsu.Track.Interlocking
                     {
                         routeId = route.routeId,
                         startTrackCircuitId = route.startTrackCircuitId,
+                        destinationCode = route.destinationCode,
                         destinationTrackCircuitId = route.destinationTrackCircuitId,
                         requiredTurnouts = CopyTurnouts(route.requiredTurnouts),
                         routeClearTrackCircuitIds = CopyIds(route.routeClearTrackCircuitIds),

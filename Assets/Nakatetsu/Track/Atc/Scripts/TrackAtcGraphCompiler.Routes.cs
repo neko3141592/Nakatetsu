@@ -12,6 +12,8 @@ namespace Nakatetsu.Track.Atc
         private sealed class RouteWork
         {
             public TrackAtcRouteSourceDefinition Source;
+            public string InterlockingStationId;
+            public string InterlockingStartTrackCircuitId;
             public readonly Dictionary<string, TrackSwitchPosition> Turnouts = new();
         }
 
@@ -21,21 +23,24 @@ namespace Nakatetsu.Track.Atc
 
             private bool ReadRoutes()
             {
-                var interlockingRoutes = new Dictionary<string, TrackStationInterlockingRouteDefinition>();
+                var interlockingRoutes = new Dictionary<(string StationId, string RouteId), TrackStationInterlockingRouteDefinition>();
+                var stationIds = new HashSet<string>();
                 if (interlockings != null)
                 {
                     foreach (var interlocking in interlockings)
                     {
-                        if (interlocking == null || interlocking.routes == null)
+                        if (interlocking == null || interlocking.routes == null
+                            || string.IsNullOrWhiteSpace(interlocking.interlockingId)
+                            || !stationIds.Add(interlocking.interlockingId))
                         {
-                            return Fail("Interlocking definition or routes are null.");
+                            return Fail("Interlocking definitions need nonempty, unique station IDs and nonnull routes.");
                         }
                         foreach (var route in interlocking.routes)
                         {
                             if (route == null || string.IsNullOrWhiteSpace(route.routeId)
-                                || !interlockingRoutes.TryAdd(route.routeId, route))
+                                || !interlockingRoutes.TryAdd((interlocking.interlockingId, route.routeId), route))
                             {
-                                return Fail("Interlocking route IDs must be nonempty and unique across the input definitions.");
+                                return Fail($"Interlocking route IDs must be nonempty and unique within station '{interlocking.interlockingId}'.");
                             }
                         }
                     }
@@ -63,13 +68,47 @@ namespace Nakatetsu.Track.Atc
                             return Fail($"Route '{route.atcRouteId}' needs existing, nonrepeated circuit IDs.");
                         }
                     }
-                    if (string.IsNullOrWhiteSpace(route.interlockingRouteId)
-                        || !interlockingRoutes.TryGetValue(route.interlockingRouteId, out var interlockingRoute))
+                    string stationId = route.interlockingStationId;
+                    if (string.IsNullOrWhiteSpace(route.interlockingRouteId))
                     {
-                        return Fail($"ATC route '{route.atcRouteId}' references a missing interlocking route '{route.interlockingRouteId}'.");
+                        return Fail($"ATC route '{route.atcRouteId}' needs an interlocking route ID.");
                     }
 
-                    var work = new RouteWork { Source = route };
+                    // 旧生成元の駅ID省略は、全入力に一致が1駅だけある場合に限って移行する。
+                    // 出力には解決済み駅IDを必ず保存し、複数駅の同名進路を推測しない。
+                    if (string.IsNullOrEmpty(stationId))
+                    {
+                        foreach (var key in interlockingRoutes.Keys)
+                        {
+                            if (key.RouteId != route.interlockingRouteId)
+                            {
+                                continue;
+                            }
+                            if (stationId != null && stationId.Length != 0)
+                            {
+                                return Fail($"ATC route '{route.atcRouteId}' has an ambiguous interlocking route '{route.interlockingRouteId}'; specify interlockingStationId.");
+                            }
+                            stationId = key.StationId;
+                        }
+                    }
+                    if (string.IsNullOrWhiteSpace(stationId)
+                        || !interlockingRoutes.TryGetValue((stationId, route.interlockingRouteId), out var interlockingRoute))
+                    {
+                        return Fail($"ATC route '{route.atcRouteId}' references a missing interlocking route '{stationId}/{route.interlockingRouteId}'.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(interlockingRoute.startTrackCircuitId)
+                        || !graph.TryGetCircuit(interlockingRoute.startTrackCircuitId, out _))
+                    {
+                        return Fail($"Interlocking route '{stationId}/{route.interlockingRouteId}' needs an existing control start circuit.");
+                    }
+
+                    var work = new RouteWork
+                    {
+                        Source = route,
+                        InterlockingStationId = stationId,
+                        InterlockingStartTrackCircuitId = interlockingRoute.startTrackCircuitId
+                    };
                     if (interlockingRoute.requiredTurnouts == null)
                     {
                         return Fail($"Interlocking route '{interlockingRoute.routeId}' has null turnout requirements.");
@@ -137,7 +176,9 @@ namespace Nakatetsu.Track.Atc
                     var route = new TrackAtcRouteDefinition
                     {
                         atcRouteId = work.Source.atcRouteId,
+                        interlockingStationId = work.InterlockingStationId,
                         interlockingRouteId = work.Source.interlockingRouteId,
+                        interlockingStartTrackCircuitId = work.InterlockingStartTrackCircuitId,
                         entryDirection = directions[0] ? TrackAtcTravelDirection.AtoB : TrackAtcTravelDirection.BtoA
                     };
                     foreach (var edge in path)
