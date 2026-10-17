@@ -120,5 +120,3 @@ func handleCircuitExit(circuitID string, state *TrackingState, occupied map[stri
 
 	delete(state.DynamicLinks, circuitID)
 }
-
-

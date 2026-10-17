@@ -80,7 +80,7 @@ func (c *CTC) UpdateSnapshot(snapshot *ctcv1.UnitySnapshot) error {
 	return nil
 }
 
-func (c *CTC) GetSnapshot() *ctcv1.UnitySnapshot {
+func (c *CTC) GetUnitySnapshot() *ctcv1.UnitySnapshot {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
@@ -89,6 +89,39 @@ func (c *CTC) GetSnapshot() *ctcv1.UnitySnapshot {
 	}
 
 	return proto.Clone(c.snapshot).(*ctcv1.UnitySnapshot)
+}
+
+func (c *CTC) GetWebSnapshot() *ctcv1.CtcSnapshot {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+
+	snapshot := &ctcv1.CtcSnapshot{
+		IsInitialized: c.state.IsInitialized,
+		NeedsReset:    c.state.NeedsReset,
+		CircuitsById:  make(map[string]*ctcv1.CtcCircuitState),
+		TrainsById:    make(map[string]*ctcv1.CtcTrainState),
+	}
+
+	for circuitID, state := range c.state.CircuitsByID {
+		snapshot.CircuitsById[circuitID] = &ctcv1.CtcCircuitState{
+			TrainId:    state.TrainID,
+			IsOccupied: state.IsOccupied,
+		}
+	}
+
+	for trainID, state := range c.state.TrainsByID {
+		train := &ctcv1.CtcTrainState{
+			ConsistNumber:   state.ConsistNumber,
+			TrainNumber:     state.TrainNumber,
+			OperationNumber: state.OperationNumber,
+		}
+		if state.ConsistID != nil {
+			train.ConsistId = proto.String(*state.ConsistID)
+		}
+		snapshot.TrainsById[trainID] = train
+	}
+
+	return snapshot
 }
 
 // IsInitializedは最初の有効なsnapshotから列車の初期登録を完了したか返す。

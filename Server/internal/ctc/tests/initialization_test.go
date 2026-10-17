@@ -104,7 +104,7 @@ func TestTrainInitializationRejectsInvalidSettingsWithoutPartialRegistration(t *
 			if state.IsInitialized || state.NeedsReset || len(state.CircuitsByID) != 0 || len(state.TrainsByID) != 0 || len(state.DynamicLinks) != 0 {
 				t.Fatalf("invalid registration changed tracking state: %+v", state)
 			}
-			if !proto.Equal(core.GetSnapshot(), snapshot) {
+			if !proto.Equal(core.GetUnitySnapshot(), snapshot) {
 				t.Fatal("received snapshot was not retained")
 			}
 			// 次の正常な電文で再試行でき、途中までの登録も残らない。

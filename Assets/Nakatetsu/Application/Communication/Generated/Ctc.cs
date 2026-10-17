@@ -80,37 +80,49 @@ namespace Namespace.Protocol.Ctc.V1 {
             "aXRfaWQYByABKAlIAogBARIfChJyZWxhdGVkX3R1cm5vdXRfaWQYCCABKAlI",
             "A4gBARIUCgdtZXNzYWdlGAkgASgJSASIAQFCDQoLX2Vycm9yX2NvZGVCEwoR",
             "X3JlbGF0ZWRfcm91dGVfaWRCFQoTX3JlbGF0ZWRfY2lyY3VpdF9pZEIVChNf",
-            "cmVsYXRlZF90dXJub3V0X2lkQgoKCF9tZXNzYWdlKpIBChpJbnRlcmxvY2tp",
-            "bmdSb3V0ZU9wZXJhdGlvbhIlCiFJTlRFUkxPQ0tJTkdfUk9VVEVfT1BFUkFU",
-            "SU9OX05PTkUQABIkCiBJTlRFUkxPQ0tJTkdfUk9VVEVfT1BFUkFUSU9OX1NF",
-            "VBABEicKI0lOVEVSTE9DS0lOR19ST1VURV9PUEVSQVRJT05fQ0FOQ0VMEAIq",
-            "9AQKGkludGVybG9ja2luZ1JvdXRlRXJyb3JDb2RlEiYKIklOVEVSTE9DS0lO",
-            "R19ST1VURV9FUlJPUl9DT0RFX05PTkUQABIxCi1JTlRFUkxPQ0tJTkdfUk9V",
-            "VEVfRVJST1JfQ09ERV9JTlZBTElEX1JFUVVFU1QQARIxCi1JTlRFUkxPQ0tJ",
-            "TkdfUk9VVEVfRVJST1JfQ09ERV9VTktOT1dOX1NUQVRJT04QAhIvCitJTlRF",
-            "UkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9VTktOT1dOX1JPVVRFEAMSMQot",
-            "SU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfTk9UX0lOSVRJQUxJWkVE",
-            "EAQSMwovSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfSU5QVVRfVU5B",
-            "VkFJTEFCTEUQBRItCilJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9B",
-            "TFJFQURZX1NFVBAGEikKJUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RF",
-            "X05PVF9TRVQQBxIyCi5JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9D",
-            "SVJDVUlUX09DQ1VQSUVEEAgSMgouSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9S",
-            "X0NPREVfQ0lSQ1VJVF9SRVNFUlZFRBAJEjAKLElOVEVSTE9DS0lOR19ST1VU",
-            "RV9FUlJPUl9DT0RFX1JPVVRFX0NPTkZMSUNUEAoSOwo3SU5URVJMT0NLSU5H",
-            "X1JPVVRFX0VSUk9SX0NPREVfVFVSTk9VVF9QT1NJVElPTl9DT05GTElDVBAL",
-            "KoUBChVPdmVycnVuUHJvdGVjdGlvbk1vZGUSIAocT1ZFUlJVTl9QUk9URUNU",
-            "SU9OX01PREVfTk9ORRAAEiIKHk9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX05P",
-            "Uk1BTBABEiYKIk9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX1JFU1RSSUNURUQQ",
-            "AirfAQoWT3ZlcnJ1blByb3RlY3Rpb25QaGFzZRIhCh1PVkVSUlVOX1BST1RF",
-            "Q1RJT05fUEhBU0VfTk9ORRAAEiQKIE9WRVJSVU5fUFJPVEVDVElPTl9QSEFT",
-            "RV9TRVRUSU5HEAESKAokT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX0VTVEFC",
-            "TElTSEVEEAISKwonT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1JFTEVBU0Vf",
-            "VElNSU5HEAMSJQohT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1JFTEVBU0VE",
-            "EAQyXgoKQ3RjU2VydmljZRJQCg5VcGRhdGVTbmFwc2hvdBImLm5ha2F0ZXRz",
-            "dS5jdGMudjEuVW5pdHlTbmFwc2hvdE1lc3NhZ2UaFi5nb29nbGUucHJvdG9i",
-            "dWYuRW1wdHlCT1oxZ2l0aHViLmNvbS9uZWtvMzE0MTU5Mi9OYWthdGV0c3Uv",
-            "U2VydmVyL2dlbi9jdGN2MaoCGU5hbWVzcGFjZS5Qcm90b2NvbC5DdGMuVjFi",
-            "BnByb3RvMw=="));
+            "cmVsYXRlZF90dXJub3V0X2lkQgoKCF9tZXNzYWdlIvQCCgtDdGNTbmFwc2hv",
+            "dBIWCg5pc19pbml0aWFsaXplZBgBIAEoCBITCgtuZWVkc19yZXNldBgCIAEo",
+            "CBJHCg5jaXJjdWl0c19ieV9pZBgDIAMoCzIvLm5ha2F0ZXRzdS5jdGMudjEu",
+            "Q3RjU25hcHNob3QuQ2lyY3VpdHNCeUlkRW50cnkSQwoMdHJhaW5zX2J5X2lk",
+            "GAQgAygLMi0ubmFrYXRldHN1LmN0Yy52MS5DdGNTbmFwc2hvdC5UcmFpbnNC",
+            "eUlkRW50cnkaVgoRQ2lyY3VpdHNCeUlkRW50cnkSCwoDa2V5GAEgASgJEjAK",
+            "BXZhbHVlGAIgASgLMiEubmFrYXRldHN1LmN0Yy52MS5DdGNDaXJjdWl0U3Rh",
+            "dGU6AjgBGlIKD1RyYWluc0J5SWRFbnRyeRILCgNrZXkYASABKAkSLgoFdmFs",
+            "dWUYAiABKAsyHy5uYWthdGV0c3UuY3RjLnYxLkN0Y1RyYWluU3RhdGU6AjgB",
+            "IjgKD0N0Y0NpcmN1aXRTdGF0ZRITCgtpc19vY2N1cGllZBgBIAEoCBIQCgh0",
+            "cmFpbl9pZBgCIAEoCSJ/Cg1DdGNUcmFpblN0YXRlEhcKCmNvbnNpc3RfaWQY",
+            "ASABKAlIAIgBARIWCg5jb25zaXN0X251bWJlchgCIAEoCRIUCgx0cmFpbl9u",
+            "dW1iZXIYAyABKAkSGAoQb3BlcmF0aW9uX251bWJlchgEIAEoCUINCgtfY29u",
+            "c2lzdF9pZCqSAQoaSW50ZXJsb2NraW5nUm91dGVPcGVyYXRpb24SJQohSU5U",
+            "RVJMT0NLSU5HX1JPVVRFX09QRVJBVElPTl9OT05FEAASJAogSU5URVJMT0NL",
+            "SU5HX1JPVVRFX09QRVJBVElPTl9TRVQQARInCiNJTlRFUkxPQ0tJTkdfUk9V",
+            "VEVfT1BFUkFUSU9OX0NBTkNFTBACKvQEChpJbnRlcmxvY2tpbmdSb3V0ZUVy",
+            "cm9yQ29kZRImCiJJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9OT05F",
+            "EAASMQotSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfSU5WQUxJRF9S",
+            "RVFVRVNUEAESMQotSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfVU5L",
+            "Tk9XTl9TVEFUSU9OEAISLworSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NP",
+            "REVfVU5LTk9XTl9ST1VURRADEjEKLUlOVEVSTE9DS0lOR19ST1VURV9FUlJP",
+            "Ul9DT0RFX05PVF9JTklUSUFMSVpFRBAEEjMKL0lOVEVSTE9DS0lOR19ST1VU",
+            "RV9FUlJPUl9DT0RFX0lOUFVUX1VOQVZBSUxBQkxFEAUSLQopSU5URVJMT0NL",
+            "SU5HX1JPVVRFX0VSUk9SX0NPREVfQUxSRUFEWV9TRVQQBhIpCiVJTlRFUkxP",
+            "Q0tJTkdfUk9VVEVfRVJST1JfQ09ERV9OT1RfU0VUEAcSMgouSU5URVJMT0NL",
+            "SU5HX1JPVVRFX0VSUk9SX0NPREVfQ0lSQ1VJVF9PQ0NVUElFRBAIEjIKLklO",
+            "VEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX0NJUkNVSVRfUkVTRVJWRUQQ",
+            "CRIwCixJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9ST1VURV9DT05G",
+            "TElDVBAKEjsKN0lOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX1RVUk5P",
+            "VVRfUE9TSVRJT05fQ09ORkxJQ1QQCyqFAQoVT3ZlcnJ1blByb3RlY3Rpb25N",
+            "b2RlEiAKHE9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX05PTkUQABIiCh5PVkVS",
+            "UlVOX1BST1RFQ1RJT05fTU9ERV9OT1JNQUwQARImCiJPVkVSUlVOX1BST1RF",
+            "Q1RJT05fTU9ERV9SRVNUUklDVEVEEAIq3wEKFk92ZXJydW5Qcm90ZWN0aW9u",
+            "UGhhc2USIQodT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX05PTkUQABIkCiBP",
+            "VkVSUlVOX1BST1RFQ1RJT05fUEhBU0VfU0VUVElORxABEigKJE9WRVJSVU5f",
+            "UFJPVEVDVElPTl9QSEFTRV9FU1RBQkxJU0hFRBACEisKJ09WRVJSVU5fUFJP",
+            "VEVDVElPTl9QSEFTRV9SRUxFQVNFX1RJTUlORxADEiUKIU9WRVJSVU5fUFJP",
+            "VEVDVElPTl9QSEFTRV9SRUxFQVNFRBAEMl4KCkN0Y1NlcnZpY2USUAoOVXBk",
+            "YXRlU25hcHNob3QSJi5uYWthdGV0c3UuY3RjLnYxLlVuaXR5U25hcHNob3RN",
+            "ZXNzYWdlGhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Qk9aMWdpdGh1Yi5jb20v",
+            "bmVrbzMxNDE1OTIvTmFrYXRldHN1L1NlcnZlci9nZW4vY3RjdjGqAhlOYW1l",
+            "c3BhY2UuUHJvdG9jb2wuQ3RjLlYxYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteOperation), typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteErrorCode), typeof(global::Namespace.Protocol.Ctc.V1.OverrunProtectionMode), typeof(global::Namespace.Protocol.Ctc.V1.OverrunProtectionPhase), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -125,7 +137,10 @@ namespace Namespace.Protocol.Ctc.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingStationStatus), global::Namespace.Protocol.Ctc.V1.InterlockingStationStatus.Parser, new[]{ "IsInitialized", "HasOutput", "RoutesById" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteStatus), global::Namespace.Protocol.Ctc.V1.InterlockingRouteStatus.Parser, new[]{ "IsAvailable", "IsRouteSet", "PathEstablished", "ProceedAllowed", "RouteLocked", "CancelPending", "ApproachLocked", "ApproachReleaseRemainingSeconds", "OverrunMode", "OverrunPhase", "OverrunReleaseRemainingSeconds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest), global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest.Parser, new[]{ "RequestId", "StationId", "RouteId", "Operation" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult), global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult.Parser, new[]{ "RequestId", "StationId", "RouteId", "Accepted", "ErrorCode", "RelatedRouteId", "RelatedCircuitId", "RelatedTurnoutId", "Message" }, new[]{ "ErrorCode", "RelatedRouteId", "RelatedCircuitId", "RelatedTurnoutId", "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult), global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult.Parser, new[]{ "RequestId", "StationId", "RouteId", "Accepted", "ErrorCode", "RelatedRouteId", "RelatedCircuitId", "RelatedTurnoutId", "Message" }, new[]{ "ErrorCode", "RelatedRouteId", "RelatedCircuitId", "RelatedTurnoutId", "Message" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcSnapshot), global::Namespace.Protocol.Ctc.V1.CtcSnapshot.Parser, new[]{ "IsInitialized", "NeedsReset", "CircuitsById", "TrainsById" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcCircuitState), global::Namespace.Protocol.Ctc.V1.CtcCircuitState.Parser, new[]{ "IsOccupied", "TrainId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcTrainState), global::Namespace.Protocol.Ctc.V1.CtcTrainState.Parser, new[]{ "ConsistId", "ConsistNumber", "TrainNumber", "OperationNumber" }, new[]{ "ConsistId" }, null, null, null)
           }));
     }
     #endregion
@@ -4119,6 +4134,866 @@ namespace Namespace.Protocol.Ctc.V1 {
           }
           case 74: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// CTCからWebへ送る追跡状態。差分ではなく全体を置き換える。
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class CtcSnapshot : pb::IMessage<CtcSnapshot>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CtcSnapshot> _parser = new pb::MessageParser<CtcSnapshot>(() => new CtcSnapshot());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CtcSnapshot> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Namespace.Protocol.Ctc.V1.CtcReflection.Descriptor.MessageTypes[12]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcSnapshot() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcSnapshot(CtcSnapshot other) : this() {
+      isInitialized_ = other.isInitialized_;
+      needsReset_ = other.needsReset_;
+      circuitsById_ = other.circuitsById_.Clone();
+      trainsById_ = other.trainsById_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcSnapshot Clone() {
+      return new CtcSnapshot(this);
+    }
+
+    /// <summary>Field number for the "is_initialized" field.</summary>
+    public const int IsInitializedFieldNumber = 1;
+    private bool isInitialized_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsInitialized {
+      get { return isInitialized_; }
+      set {
+        isInitialized_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "needs_reset" field.</summary>
+    public const int NeedsResetFieldNumber = 2;
+    private bool needsReset_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool NeedsReset {
+      get { return needsReset_; }
+      set {
+        needsReset_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "circuits_by_id" field.</summary>
+    public const int CircuitsByIdFieldNumber = 3;
+    private static readonly pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcCircuitState>.Codec _map_circuitsById_codec
+        = new pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcCircuitState>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForMessage(18, global::Namespace.Protocol.Ctc.V1.CtcCircuitState.Parser), 26);
+    private readonly pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcCircuitState> circuitsById_ = new pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcCircuitState>();
+    /// <summary>
+    /// 軌道回路IDをキーにする。
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcCircuitState> CircuitsById {
+      get { return circuitsById_; }
+    }
+
+    /// <summary>Field number for the "trains_by_id" field.</summary>
+    public const int TrainsByIdFieldNumber = 4;
+    private static readonly pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcTrainState>.Codec _map_trainsById_codec
+        = new pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcTrainState>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForMessage(18, global::Namespace.Protocol.Ctc.V1.CtcTrainState.Parser), 34);
+    private readonly pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcTrainState> trainsById_ = new pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcTrainState>();
+    /// <summary>
+    /// CTC内部の追跡用TrainIDをキーにする。
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::MapField<string, global::Namespace.Protocol.Ctc.V1.CtcTrainState> TrainsById {
+      get { return trainsById_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CtcSnapshot);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CtcSnapshot other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (IsInitialized != other.IsInitialized) return false;
+      if (NeedsReset != other.NeedsReset) return false;
+      if (!CircuitsById.Equals(other.CircuitsById)) return false;
+      if (!TrainsById.Equals(other.TrainsById)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (IsInitialized != false) hash ^= IsInitialized.GetHashCode();
+      if (NeedsReset != false) hash ^= NeedsReset.GetHashCode();
+      hash ^= CircuitsById.GetHashCode();
+      hash ^= TrainsById.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (IsInitialized != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(IsInitialized);
+      }
+      if (NeedsReset != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(NeedsReset);
+      }
+      circuitsById_.WriteTo(output, _map_circuitsById_codec);
+      trainsById_.WriteTo(output, _map_trainsById_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (IsInitialized != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(IsInitialized);
+      }
+      if (NeedsReset != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(NeedsReset);
+      }
+      circuitsById_.WriteTo(ref output, _map_circuitsById_codec);
+      trainsById_.WriteTo(ref output, _map_trainsById_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (IsInitialized != false) {
+        size += 1 + 1;
+      }
+      if (NeedsReset != false) {
+        size += 1 + 1;
+      }
+      size += circuitsById_.CalculateSize(_map_circuitsById_codec);
+      size += trainsById_.CalculateSize(_map_trainsById_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CtcSnapshot other) {
+      if (other == null) {
+        return;
+      }
+      if (other.IsInitialized != false) {
+        IsInitialized = other.IsInitialized;
+      }
+      if (other.NeedsReset != false) {
+        NeedsReset = other.NeedsReset;
+      }
+      circuitsById_.MergeFrom(other.circuitsById_);
+      trainsById_.MergeFrom(other.trainsById_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            IsInitialized = input.ReadBool();
+            break;
+          }
+          case 16: {
+            NeedsReset = input.ReadBool();
+            break;
+          }
+          case 26: {
+            circuitsById_.AddEntriesFrom(input, _map_circuitsById_codec);
+            break;
+          }
+          case 34: {
+            trainsById_.AddEntriesFrom(input, _map_trainsById_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            IsInitialized = input.ReadBool();
+            break;
+          }
+          case 16: {
+            NeedsReset = input.ReadBool();
+            break;
+          }
+          case 26: {
+            circuitsById_.AddEntriesFrom(ref input, _map_circuitsById_codec);
+            break;
+          }
+          case 34: {
+            trainsById_.AddEntriesFrom(ref input, _map_trainsById_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class CtcCircuitState : pb::IMessage<CtcCircuitState>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CtcCircuitState> _parser = new pb::MessageParser<CtcCircuitState>(() => new CtcCircuitState());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CtcCircuitState> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Namespace.Protocol.Ctc.V1.CtcReflection.Descriptor.MessageTypes[13]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcCircuitState() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcCircuitState(CtcCircuitState other) : this() {
+      isOccupied_ = other.isOccupied_;
+      trainId_ = other.trainId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcCircuitState Clone() {
+      return new CtcCircuitState(this);
+    }
+
+    /// <summary>Field number for the "is_occupied" field.</summary>
+    public const int IsOccupiedFieldNumber = 1;
+    private bool isOccupied_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsOccupied {
+      get { return isOccupied_; }
+      set {
+        isOccupied_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "train_id" field.</summary>
+    public const int TrainIdFieldNumber = 2;
+    private string trainId_ = "";
+    /// <summary>
+    /// 最後尾側の基準回路にだけ保持する。未登録なら空文字。
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string TrainId {
+      get { return trainId_; }
+      set {
+        trainId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CtcCircuitState);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CtcCircuitState other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (IsOccupied != other.IsOccupied) return false;
+      if (TrainId != other.TrainId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (IsOccupied != false) hash ^= IsOccupied.GetHashCode();
+      if (TrainId.Length != 0) hash ^= TrainId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (IsOccupied != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(IsOccupied);
+      }
+      if (TrainId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(TrainId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (IsOccupied != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(IsOccupied);
+      }
+      if (TrainId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(TrainId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (IsOccupied != false) {
+        size += 1 + 1;
+      }
+      if (TrainId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TrainId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CtcCircuitState other) {
+      if (other == null) {
+        return;
+      }
+      if (other.IsOccupied != false) {
+        IsOccupied = other.IsOccupied;
+      }
+      if (other.TrainId.Length != 0) {
+        TrainId = other.TrainId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            IsOccupied = input.ReadBool();
+            break;
+          }
+          case 18: {
+            TrainId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            IsOccupied = input.ReadBool();
+            break;
+          }
+          case 18: {
+            TrainId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class CtcTrainState : pb::IMessage<CtcTrainState>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CtcTrainState> _parser = new pb::MessageParser<CtcTrainState>(() => new CtcTrainState());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CtcTrainState> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Namespace.Protocol.Ctc.V1.CtcReflection.Descriptor.MessageTypes[14]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcTrainState() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcTrainState(CtcTrainState other) : this() {
+      consistId_ = other.consistId_;
+      consistNumber_ = other.consistNumber_;
+      trainNumber_ = other.trainNumber_;
+      operationNumber_ = other.operationNumber_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CtcTrainState Clone() {
+      return new CtcTrainState(this);
+    }
+
+    /// <summary>Field number for the "consist_id" field.</summary>
+    public const int ConsistIdFieldNumber = 1;
+    private readonly static string ConsistIdDefaultValue = "";
+
+    private string consistId_;
+    /// <summary>
+    /// Unityの編成ID。未判明なら省略する。
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ConsistId {
+      get { return consistId_ ?? ConsistIdDefaultValue; }
+      set {
+        consistId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+    /// <summary>Gets whether the "consist_id" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasConsistId {
+      get { return consistId_ != null; }
+    }
+    /// <summary>Clears the value of the "consist_id" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearConsistId() {
+      consistId_ = null;
+    }
+
+    /// <summary>Field number for the "consist_number" field.</summary>
+    public const int ConsistNumberFieldNumber = 2;
+    private string consistNumber_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ConsistNumber {
+      get { return consistNumber_; }
+      set {
+        consistNumber_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "train_number" field.</summary>
+    public const int TrainNumberFieldNumber = 3;
+    private string trainNumber_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string TrainNumber {
+      get { return trainNumber_; }
+      set {
+        trainNumber_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "operation_number" field.</summary>
+    public const int OperationNumberFieldNumber = 4;
+    private string operationNumber_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string OperationNumber {
+      get { return operationNumber_; }
+      set {
+        operationNumber_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CtcTrainState);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CtcTrainState other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ConsistId != other.ConsistId) return false;
+      if (ConsistNumber != other.ConsistNumber) return false;
+      if (TrainNumber != other.TrainNumber) return false;
+      if (OperationNumber != other.OperationNumber) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (HasConsistId) hash ^= ConsistId.GetHashCode();
+      if (ConsistNumber.Length != 0) hash ^= ConsistNumber.GetHashCode();
+      if (TrainNumber.Length != 0) hash ^= TrainNumber.GetHashCode();
+      if (OperationNumber.Length != 0) hash ^= OperationNumber.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (HasConsistId) {
+        output.WriteRawTag(10);
+        output.WriteString(ConsistId);
+      }
+      if (ConsistNumber.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(ConsistNumber);
+      }
+      if (TrainNumber.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(TrainNumber);
+      }
+      if (OperationNumber.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(OperationNumber);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (HasConsistId) {
+        output.WriteRawTag(10);
+        output.WriteString(ConsistId);
+      }
+      if (ConsistNumber.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(ConsistNumber);
+      }
+      if (TrainNumber.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(TrainNumber);
+      }
+      if (OperationNumber.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(OperationNumber);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (HasConsistId) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ConsistId);
+      }
+      if (ConsistNumber.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ConsistNumber);
+      }
+      if (TrainNumber.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TrainNumber);
+      }
+      if (OperationNumber.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(OperationNumber);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CtcTrainState other) {
+      if (other == null) {
+        return;
+      }
+      if (other.HasConsistId) {
+        ConsistId = other.ConsistId;
+      }
+      if (other.ConsistNumber.Length != 0) {
+        ConsistNumber = other.ConsistNumber;
+      }
+      if (other.TrainNumber.Length != 0) {
+        TrainNumber = other.TrainNumber;
+      }
+      if (other.OperationNumber.Length != 0) {
+        OperationNumber = other.OperationNumber;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ConsistId = input.ReadString();
+            break;
+          }
+          case 18: {
+            ConsistNumber = input.ReadString();
+            break;
+          }
+          case 26: {
+            TrainNumber = input.ReadString();
+            break;
+          }
+          case 34: {
+            OperationNumber = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            ConsistId = input.ReadString();
+            break;
+          }
+          case 18: {
+            ConsistNumber = input.ReadString();
+            break;
+          }
+          case 26: {
+            TrainNumber = input.ReadString();
+            break;
+          }
+          case 34: {
+            OperationNumber = input.ReadString();
             break;
           }
         }

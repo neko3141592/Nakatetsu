@@ -175,3 +175,28 @@ enum OverrunProtectionPhase {
   OVERRUN_PROTECTION_PHASE_RELEASE_TIMING = 3;
   OVERRUN_PROTECTION_PHASE_RELEASED = 4;
 }
+
+
+// CTCからWebへ送る追跡状態。差分ではなく全体を置き換える。
+message CtcSnapshot {
+  bool is_initialized = 1;
+  bool needs_reset = 2;
+  // 軌道回路IDをキーにする。
+  map<string, CtcCircuitState> circuits_by_id = 3;
+  // CTC内部の追跡用TrainIDをキーにする。
+  map<string, CtcTrainState> trains_by_id = 4;
+}
+
+message CtcCircuitState {
+  bool is_occupied = 1;
+  // 最後尾側の基準回路にだけ保持する。未登録なら空文字。
+  string train_id = 2;
+}
+
+message CtcTrainState {
+  // Unityの編成ID。未判明なら省略する。
+  optional string consist_id = 1;
+  string consist_number = 2;
+  string train_number = 3;
+  string operation_number = 4;
+}
