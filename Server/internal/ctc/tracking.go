@@ -16,8 +16,8 @@ func UpdateTracking(
 
 		wasOccupied := state.CircuitsByID[circuitID].IsOccupied
 
-		if !wasOccupied && isOccupied {
-			// 新しく在線した場合
+		if isOccupied {
+			// 在線中はリンク未生成なら再評価する。既存リンクは変更しない。
 			handleCircuitEntry(circuitID, state, definitions, routeDefinitions, routeRefs, routeStates)
 		} else if wasOccupied && !isOccupied {
 			// 在線が消えた場合

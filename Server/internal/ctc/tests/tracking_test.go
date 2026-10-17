@@ -253,7 +253,10 @@ func TestHandleCircuitExit(t *testing.T) {
 				occupied = make(map[string]bool)
 			}
 			occupied["A"] = false
-			ctc.UpdateTracking(&state, occupied, nil, nil, nil, nil)
+			definitions := map[string]ctc.TrackCircuitDefinition{
+				"B": {ControlKind: ctc.TrackControlBlock},
+			}
+			ctc.UpdateTracking(&state, occupied, definitions, nil, nil, nil)
 			if state.CircuitsByID[tt.wantCircuitID].TrainID != "train1" {
 				t.Fatalf("train1 did not remain at %s: %+v", tt.wantCircuitID, state.CircuitsByID)
 			}
