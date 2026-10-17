@@ -1,0 +1,2 @@
+# Go module manifests are text, not tracker audio files.
+go.mod -filter diff merge text eol=lf
