@@ -553,6 +553,7 @@
     {
       "circuitId": "NT01_22BT",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT01_NT02_D1T",
       "sections": [
         {
           "edgeId": "NT01_track2_scissors",
