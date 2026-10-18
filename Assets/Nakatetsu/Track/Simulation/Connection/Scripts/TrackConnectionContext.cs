@@ -34,6 +34,10 @@ namespace Nakatetsu.Track.Simulation.Connection
         // 固定接続は状態を持たず、転轍機だけをConnection IDで管理する。
         internal readonly Dictionary<string, TrackConnectionState> StatesById = new();
 
+        // 自動確定する転換だけを計時する。手動確定待ちは登録しない。
+        internal readonly Dictionary<string, double> SwitchRemainingSecondsById = new();
+        internal readonly List<string> SwitchTimerKeys = new();
+
         public bool IsInitialized { get; internal set; }
 
         public bool TryGetState(string connectionId, out TrackConnectionState state)
@@ -48,6 +52,8 @@ namespace Nakatetsu.Track.Simulation.Connection
             IsInitialized = false;
             ConnectionsByNodeId.Clear();
             StatesById.Clear();
+            SwitchRemainingSecondsById.Clear();
+            SwitchTimerKeys.Clear();
         }
     }
 }

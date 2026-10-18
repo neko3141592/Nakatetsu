@@ -2,7 +2,8 @@
 
 import { toJsonString } from "@bufbuild/protobuf";
 import { useEffect, useState } from "react";
-import { CtcSnapshotSchema, type CtcSnapshot } from "@/gen/ctc_pb";
+import { NT01Diagram } from "@/components/debug/NT01Diagram";
+import { CtcSnapshotSchema, TurnoutPosition, type CtcSnapshot } from "@/gen/ctc_pb";
 import {
   connectCtc,
   CTC_WEBSOCKET_URL,
@@ -55,6 +56,8 @@ export default function DebugPage() {
 
   const circuits = Object.entries(snapshot?.circuitsById ?? {}).sort(([a], [b]) => a.localeCompare(b));
   const trains = Object.entries(snapshot?.trainsById ?? {}).sort(([a], [b]) => a.localeCompare(b));
+  const turnouts = Object.entries(snapshot?.turnoutsById ?? {}).sort(([a], [b]) => a.localeCompare(b));
+  const nt01Station = snapshot?.interlocking?.stationsById["NT01"];
   const occupiedCount = circuits.filter(([, circuit]) => circuit.isOccupied).length;
   const circuitIDsByTrainID = new Map<string, string[]>();
   for (const [circuitID, circuit] of circuits) {
@@ -91,6 +94,13 @@ export default function DebugPage() {
 
       {error && <p role="alert" className="rounded border border-red-400 p-4 text-red-700 dark:text-red-300">{error}</p>}
       {status !== "connected" && snapshot && <p>以下は最終受信時の状態です。現在は更新されていません。</p>}
+
+      <NT01Diagram
+        circuitsById={snapshot?.circuitsById}
+        trainsById={snapshot?.trainsById}
+        turnoutsById={snapshot?.turnoutsById}
+        station={nt01Station}
+      />
 
       {!snapshot ? (
         <p className="py-8 text-zinc-600 dark:text-zinc-400">{status === "connecting" || status === "connected" ? "CTCの状態を受信待ち…" : "未受信です。Goサーバーを起動して再接続してください。"}</p>
@@ -137,6 +147,24 @@ export default function DebugPage() {
                     </tr>
                   ))}
                   {circuits.length === 0 && <tr><td colSpan={3} className="p-4 text-zinc-600 dark:text-zinc-400">CTCの初期登録後に表示されます。</td></tr>}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold">転轍機</h2>
+            <div className="max-h-96 overflow-auto rounded border border-zinc-300 dark:border-zinc-700">
+              <table className="w-full text-left">
+                <thead className="sticky top-0 bg-zinc-100 dark:bg-zinc-900"><tr>{["転轍機ID", "実位置"].map((label) => <th key={label} scope="col" className="p-3 font-medium">{label}</th>)}</tr></thead>
+                <tbody>
+                  {turnouts.map(([id, turnout]) => (
+                    <tr key={id} className="border-t border-zinc-200 dark:border-zinc-800">
+                      <td className="p-3 font-mono">{id}</td>
+                      <td className="p-3">{turnout.isMoving ? "転換中" : turnout.actualPosition === TurnoutPosition.NORMAL ? "定位" : turnout.actualPosition === TurnoutPosition.REVERSE ? "反位" : "位置不明"}</td>
+                    </tr>
+                  ))}
+                  {turnouts.length === 0 && <tr><td colSpan={2} className="p-4 text-zinc-600 dark:text-zinc-400">転轍機の状態は未受信です。</td></tr>}
                 </tbody>
               </table>
             </div>

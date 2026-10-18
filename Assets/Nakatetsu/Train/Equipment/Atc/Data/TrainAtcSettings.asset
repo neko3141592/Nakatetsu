@@ -16,7 +16,7 @@ MonoBehaviour:
     noSignalTimeoutSeconds: 1.7
     maximumSamplingIntervalM: 5
     patternApproachWarningTimeSeconds: 5
-    serviceDecelerationMps2: 0.8
+    serviceDecelerationMps2: 0.5
     emergencyDecelerationMps2: 1.2
     serviceStopMarginM: 100
     emergencyStopMarginM: 5

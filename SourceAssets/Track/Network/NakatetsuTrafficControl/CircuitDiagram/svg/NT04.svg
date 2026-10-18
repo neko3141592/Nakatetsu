@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="768" viewBox="0 0 480 768" style="background: transparent; color-scheme: light dark; color: light-dark(#000000, #ffffff);">
+  <g id="NT04_DT" data-cell-id="NT04_DT" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 0 320 L 480 320" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT04_UT" data-cell-id="NT04_UT" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 0 448 L 480 448" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT04_Platform_1" data-cell-id="NT04_Platform_1">
+    <rect x="40" y="336" width="400" height="96" fill="none" stroke="#3F3F46" stroke-width="1" />
+  </g>
+  <text id="NT04_Label_Station" data-cell-id="NT04_Label_Station" x="240" y="160" text-anchor="middle" dominant-baseline="central" font-family="Arial" font-size="20" fill="#BABABA">千海</text>
+  <g id="NT04_Boundary_D_Start" data-cell-id="NT04_Boundary_D_Start" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 0 314 L 0 326" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT04_Boundary_D_End" data-cell-id="NT04_Boundary_D_End" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 480 314 L 480 326" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT04_Boundary_U_Start" data-cell-id="NT04_Boundary_U_Start" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 0 442 L 0 454" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT04_Boundary_U_End" data-cell-id="NT04_Boundary_U_End" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 480 442 L 480 454" vector-effect="non-scaling-stroke" />
+  </g>
+</svg>
