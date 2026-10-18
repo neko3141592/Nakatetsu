@@ -86,6 +86,7 @@ GraphのID・接続・進路定義を確認し、探索用辞書とEdgeごとの
 | State | 更新する | `validation.isSimulationTimeValid`：今回の時刻を有効電文の発行時刻に使用できるか |
 | State | 更新する | `validation.atcEdgesById`・`atcNodesById`：確認済みのEdge・Nodeを取得するための辞書 |
 | State | 更新する | `validation.atcRoutesById`：ATC進路IDをキーとする静的進路定義の辞書。Inputの連動駅ID・駅内進路IDの組とは区別する |
+| State | 更新する | `validation.routeMembershipsByEdgeKey`・`routeMembershipsInRouteOrder`：辺・方向から所属進路と進路内indexを取得する索引と、定義変更を検出する順序付き所属情報。検証済みの定義が一致する間は保持し、Graph不正時は破棄する |
 | State | 更新する | `validation.directionsByAtcEdgeId`：Edgeごとの進路定義上の進行方向。未設定の進路定義からも求め、重複する方向はまとめる。単一Edge停止結果の双方向化によって、逆方向の進路延伸を許可しない |
 | State | 更新する | `validation.hasCircuitInputById`・`hasRouteInputById`：回路IDごと、および連動駅ID・駅内進路IDの組ごとの入力取得可否 |
 | State | 更新する | `validation.failureReason`：Graphや時刻を使用できない理由。取得できなかった個別IDは取得可否の結果に保持する |
@@ -111,6 +112,14 @@ Interlockingの進路未設定時には、静的な進路定義が一方向だ�
 
 Profilerでは`Nakatetsu.WorldTick`、`Nakatetsu.ATC.Calculate`、`Nakatetsu.ATC.Path`、`Nakatetsu.ATC.NextLink.Calculate`を記録し、tickあたりのCPU時間・GC Allocと、接続先探索を実際に行った回数を比較する。
 
+#### 辺・方向ごとの所属進路と進路内位置
+
+工程2のGraph検証で、`State.validation.routeMembershipsByEdgeKey`に辺ID・方向から所属進路と進路内indexの一覧を引く索引を用意する。共有辺の全候補を、従来の進路列挙順で保持する。進路未設定・入力欠落の候補も登録し、起点の進路選択では一覧だけを参照する。全進路に対する`IndexOf`検索は行わず、候補の入力取得・新規進入／進路内継続・終端と非終端の優先・複数候補の異常判定を毎tick照査する。
+
+索引の所有・更新担当は`TrackAtcValidationLogic`とする。既存の進路方向検証と同時に、進路参照・進路内index・辺IDと方向・全件数を保存済みの順序付き情報と照合し、一致すれば前tickの索引を保持する。不一致の場合だけ、検証済みのGraphから索引と順序付き情報を再構築する。Graph参照の一致だけでは再利用を判断しない。同じGraphや進路オブジェクト内部の辺列・順序・方向変更、進路差し替え・削除にも追従する。Graph不正・null時は両方を破棄し、古い索引を後段へ渡さない。進路の成立・取消などInputだけの変化では所属情報を作り直さない。
+
+この索引化は起点進路の検索に適用する。回路内の送信辺選択・後続進路検索・終端進路照査・停止限界までの歩行・電文リストの独立性は維持する。Profilerの`Nakatetsu.ATC.OriginRoute.Select`と`Nakatetsu.ATC.Validation`を変更前後に記録し、`Nakatetsu.ATC.RouteMembership.Build`で定常時の索引再構築が発生しないことを確認する。
+
 #### Profilerによる確認（2026-10-18）
 
 Unity 6000.4.0f1の通常Profiler（Deep Profile OFF）で、同じNtLineシーンを再生し直して比較した。tick幅15ms、実行時の処理予算1ms、194 Edge・58進路・214起点。再生開始後はシミュレーションを一時停止したまま1秒以上フレームを進め、起動待ち時間を除いてから、処理待ち時間を0にして約4秒間記録した。変更前は`af43cf85`の探索処理に同じProfilerマーカーを追加したものを使った。
@@ -130,6 +139,27 @@ Unity 6000.4.0f1の通常Profiler（Deep Profile OFF）で、同じNtLineシー�
 
 同じ初期状態から120 tick分の入力・探索結果・防護方式・電文のハッシュを比較し、全tickで一致した。方向別接続、起点ごとの停止位置、新規進入と進路内継続の違い、停止・入力欠落からの次tick回復と起点列挙順を含む地上ATCテスト78件が成功した。
 
+#### 所属進路索引の追加計測（2026-10-18、`e413db8d`比）
+
+前節の次リンク共有を適用済みの処理に、同じ起点検索・Graph検証マーカーを付けて追加の索引化前後を比較した。条件は通常Profiler・Deep Profile OFF、同じ初期シーン、tick幅15ms、処理予算1ms、1秒以上の起動待ち除外後に約4秒間。値は単発のEditor計測であり、前節とは別採取である。
+
+| 倍率 | 処理 | 索引化前（ms/tick） | 索引化後（ms/tick） | 短縮 |
+| --- | --- | ---: | ---: | ---: |
+| 1倍 | 起点の進路選択 | 0.766 | 0.062 | 91.9% |
+| 1倍 | 経路探索 | 2.386 | 1.671 | 30.0% |
+| 1倍 | 地上ATC全体 | 3.390 | 2.690 | 20.7% |
+| 1倍 | tick全体 | 5.979 | 5.609 | 6.2% |
+| 10倍 | 起点の進路選択 | 0.818 | 0.059 | 92.7% |
+| 10倍 | 経路探索 | 2.522 | 1.638 | 35.1% |
+| 10倍 | 地上ATC全体 | 3.558 | 2.677 | 24.8% |
+| 10倍 | tick全体 | 6.206 | 5.411 | 12.8% |
+
+起点の進路選択は214回/tickのままだが、全58進路への12,412回の`IndexOf`を除き、索引から計129件の所属候補だけを取り出す。索引全体は133個の辺・方向キーと180件の所属情報を保持し、30回の追加計算でも候補List全件が同じインスタンスのまま再利用された。通常Profilerの定常区間では`Nakatetsu.ATC.RouteMembership.Build`は発生しなかった。Graph検証は1倍0.437→0.447ms/tick、10倍0.465→0.459ms/tickで、変更検出を含む索引管理による大きな増加は見られなかった。
+
+地上ATC全体のGC Allocは両倍率とも前後628,064 B/tick、経路探索も329,688 B/tickで一致した。120 tick分の入力・探索結果・防護方式・電文ハッシュも全件一致した。所属索引の内部変更・方向変更・順序変更・同IDのGraph差し替え・不正Graphからの復旧と、動的入力の再照査を含むATCテスト87件が成功した。未保存シーンを維持するため、テストはシーンを切り替えずUnityメインスレッド上のNUnitで実行した。
+
+処理予算1msを1tickが超える状況は継続しており、CPU時間の短縮を10倍速への追従や同率のFPS改善とは扱わない。
+
 #### 読み書きする情報
 
 | 区分 | 読み書き | 必要な情報・更新結果 |
@@ -137,6 +167,7 @@ Unity 6000.4.0f1の通常Profiler（Deep Profile OFF）で、同じNtLineシー�
 | Input | 読む | `OccupiedByCircuitId`：工程2で取得を確認した占有状態。異なる回路へ進む際の次回路の占有を照査する |
 | Input | 読む | `RoutesById`内の`IsRouteSet`・`ProceedAllowed`・`PathEstablished`・`RouteLocked`・`CancelPending`：確認済みの未設定と設定済み進路を区別し、新規進入と進路内継続を分けて判定する |
 | State | 読む | `validation.isGraphValid`・探索用辞書：今回のGraphを使用できるかと、Edge・Node・進路の定義 |
+| State | 読む | `validation.routeMembershipsByEdgeKey`：起点の辺・方向に属する全進路候補と進路内index。所属候補から使用条件を照査する |
 | State | 読む | `validation.directionsByAtcEdgeId`：進路の設定状態に依存しない定義上の方向。Interlockingの反対方向は単一Edge停止結果として追加する |
 | State | 読む | `validation.hasCircuitInputById`・`hasRouteInputById`：必要な入力を使用できるか。基本的な取得確認を再実行しない |
 | State | 更新する | `path.selectedEdgeByCircuitId`：回路ごとの今回の選択Edge。占有中の進路解放後も選択を維持する |

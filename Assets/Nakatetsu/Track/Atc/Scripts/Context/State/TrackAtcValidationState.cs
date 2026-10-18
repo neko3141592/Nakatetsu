@@ -20,6 +20,13 @@ namespace Nakatetsu.Track.Atc
         // キーはATC進路ID。Inputで使用する連動進路IDとは区別する。
         public Dictionary<string, TrackAtcRouteDefinition> atcRoutesById = new();
 
+        // 辺・方向ごとの所属進路と進路内位置。候補はGraphの進路列挙順で保持する。
+        // 進路の使用可否は含めず、定義が変わらなければ更新をまたいで再利用する。
+        public Dictionary<TrackAtcEdgeKey, List<TrackAtcRouteMembership>> routeMembershipsByEdgeKey = new();
+
+        // 索引を作った時点の順序付き所属情報。今回の検証済み定義との照合に使う。
+        public List<TrackAtcRouteMembership> routeMembershipsInRouteOrder = new();
+
         // 進路の設定状態に依存しない、Edgeごとの経路探索に使用できる方向。
         // BlockはEdge定義、Interlockingは進路の進入方向とEdge列から求め、重複を除く。
         // 進路未設定時の単一Edge・Noneの双方向停止結果は、工程3で別途生成する。
@@ -36,5 +43,22 @@ namespace Nakatetsu.Track.Atc
         // Graphや時刻を使用できない理由。個別の入力欠落は上の取得可否に保持する。
         // 初期値は空。理由が空であることだけでは、確認済み・正常と判断しない。
         public string failureReason = string.Empty;
+    }
+
+    public readonly struct TrackAtcRouteMembership
+    {
+        public readonly TrackAtcEdgeKey edgeKey;
+        public readonly TrackAtcRouteDefinition route;
+        public readonly int routeIndex;
+
+        public TrackAtcRouteMembership(
+            TrackAtcEdgeKey edgeKey,
+            TrackAtcRouteDefinition route,
+            int routeIndex)
+        {
+            this.edgeKey = edgeKey;
+            this.route = route;
+            this.routeIndex = routeIndex;
+        }
     }
 }

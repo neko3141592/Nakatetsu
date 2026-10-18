@@ -10,6 +10,7 @@ namespace Nakatetsu.Track.Atc
         private const int MaximumExplorationSteps = 512;
         private static readonly ProfilerMarker PathMarker = new("Nakatetsu.ATC.Path");
         private static readonly ProfilerMarker NextLinkMarker = new("Nakatetsu.ATC.NextLink.Calculate");
+        private static readonly ProfilerMarker OriginRouteMarker = new("Nakatetsu.ATC.OriginRoute.Select");
 
         internal static void UpdatePath(TrackAtcContext context)
         {
@@ -525,26 +526,29 @@ namespace Nakatetsu.Track.Atc
             out TrackAtcPathEndReason endReason,
             out string failureReason)
         {
+            using var originRouteScope = OriginRouteMarker.Auto();
             selected = null;
             selectedIndex = -1;
             endReason = TrackAtcPathEndReason.RouteNotSet;
             failureReason = string.Empty;
             TrackAtcRouteDefinition terminal = null;
             int terminalIndex = -1;
-            foreach (var route in context.State.validation.atcRoutesById.Values)
+            var validation = context.State.validation;
+            if (!validation.routeMembershipsByEdgeKey.TryGetValue(key, out var memberships))
             {
-                int index = route.atcEdgeIds.IndexOf(key.atcEdgeId);
-                if (index < 0 || GetRouteKey(context, route, index) != key)
-                {
-                    continue;
-                }
+                return true;
+            }
 
+            var originEdge = validation.atcEdgesById[key.atcEdgeId];
+            foreach (var membership in memberships)
+            {
+                var route = membership.route;
+                int index = membership.routeIndex;
                 if (!TryGetRouteInput(context, route, out var input, out failureReason))
                 {
                     return false;
                 }
 
-                var originEdge = context.State.validation.atcEdgesById[key.atcEdgeId];
                 bool canUseRoute = originEdge.controlKind == TrackAtcEdgeControlKind.Block
                     ? CanEnter(input) : CanContinue(input);
                 if (!canUseRoute)

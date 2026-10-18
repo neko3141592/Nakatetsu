@@ -1035,6 +1035,231 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(Result("Approach").affectedCircuitIds, Is.Empty);
         }
 
+        [Test]
+        public void RouteMembershipsRefreshWhenTheSameRouteEdgeListChangesInPlace()
+        {
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+            var originalGraph = context.Graph;
+            var originalEdges = departure.atcEdgeIds;
+            AssertMembership(Key("Shared"), arrival, 1);
+            AssertMembership(Key("Shared"), departure, 0);
+            AssertMembership(Key("Middle"), departure, 1);
+            AssertMembership(Key("Last"), departure, 2);
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle", "Last");
+
+            departure.atcEdgeIds.Clear();
+            departure.atcEdgeIds.Add("Middle");
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.Graph, Is.SameAs(originalGraph));
+            Assert.That(departure.atcEdgeIds, Is.SameAs(originalEdges));
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared")].Count, Is.EqualTo(1));
+            AssertMembership(Key("Shared"), arrival, 1);
+            AssertMembership(Key("Middle"), departure, 0);
+            AssertNoMembership(Key("Last"));
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle");
+            AssertRoute(middle, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal, "Middle");
+            AssertRoute(last, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Last");
+        }
+
+        [Test]
+        public void RouteMembershipsRefreshWhenTheSameRouteChangesDirection()
+        {
+            CreateContext();
+            var only = AddEdge("Only", "A", "B");
+            var route = AddRoute("OnlyAtc", "OnlyInterlocking", "Only");
+            SetRoute(route, OverrunProtectionMode.Restricted);
+            TrackAtcLogic.Calculate(context);
+            AssertMembership(Key("Only"), route, 0);
+            AssertRoute(only, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "Only");
+
+            route.entryDirection = TrackAtcTravelDirection.BtoA;
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            AssertNoMembership(Key("Only"));
+            AssertMembership(Key("Only", EdgeDirection.BtoA), route, 0);
+            AssertRoute(only, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Only");
+            AssertRoute(only, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.Restricted, "Only");
+        }
+
+        [Test]
+        public void GraphReplacementWithTheSameIdsDoesNotRetainOldRouteMembershipObjects()
+        {
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            TrackAtcLogic.Calculate(context);
+            var originalRoute = arrival;
+            AssertMembership(Key("First"), originalRoute, 0);
+
+            graph = new TrackAtcGraphDefinition { atcGraphId = "Replacement", maximumOperatingSpeedKmh = 120f };
+            context.Graph = graph;
+            var replacementEdge = AddEdge("First", "R1", "R2");
+            var replacementRoute = AddRoute("ArrivalAtc", "ArrivalInterlocking", "First");
+            SetRoute(replacementRoute, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("First")].Count, Is.EqualTo(1));
+            Assert.That(replacementRoute, Is.Not.SameAs(originalRoute));
+            AssertMembership(Key("First"), replacementRoute, 0);
+            AssertNoMembership(Key("Shared"));
+            AssertNoMembership(Key("Middle"));
+            AssertNoMembership(Key("Last"));
+            Assert.That(context.Output.telegrams.Keys, Is.EquivalentTo(new[] { "First" }));
+            AssertRoute(replacementEdge, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal, "First");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void UnavailableGraphClearsRouteMembershipsAndRecoveryRebuildsThem(bool useNullGraph)
+        {
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            TrackAtcLogic.Calculate(context);
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey, Is.Not.Empty);
+            var originalNodes = new List<TrackAtcGraphNode>(graph.atcNode);
+            if (useNullGraph)
+            {
+                context.Graph = null;
+            }
+            else
+            {
+                graph.atcNode.Clear();
+            }
+
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.False);
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey, Is.Empty);
+            Assert.That(context.State.validation.routeMembershipsInRouteOrder, Is.Empty);
+            Assert.That(context.Output.telegrams, Is.Empty);
+
+            context.Graph = graph;
+            if (!useNullGraph)
+            {
+                graph.atcNode.AddRange(originalNodes);
+            }
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.validation.routeMembershipsInRouteOrder.Count, Is.EqualTo(5));
+            AssertMembership(Key("Shared"), arrival, 1);
+            AssertMembership(Key("Shared"), departure, 0);
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SharedEdgeMembershipsKeepTerminalContinuationAndOppositeDirectionCandidates(bool reverseRoutes)
+        {
+            var reverse = AddRoute("ReverseAtc", "ReverseInterlocking", "Last", "Middle", "Shared");
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            SetRoute(reverse, OverrunProtectionMode.Restricted);
+            if (reverseRoutes)
+            {
+                graph.routes.Reverse();
+            }
+
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared")].Count, Is.EqualTo(2));
+            AssertMembership(Key("Shared"), arrival, 1);
+            AssertMembership(Key("Shared"), departure, 0);
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared", EdgeDirection.BtoA)].Count,
+                Is.EqualTo(1));
+            AssertMembership(Key("Shared", EdgeDirection.BtoA), reverse, 2);
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "Shared", "Middle", "Last");
+            AssertRoute(last, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.Restricted,
+                "Last", "Middle", "Shared");
+        }
+
+        [Test]
+        public void RouteInputChangesAreReevaluatedWhileStaticMembershipCandidatesAreReused()
+        {
+            SetRoute(arrival, OverrunProtectionMode.Restricted);
+            var departureInput = SetRoute(departure, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+            var candidates = context.State.validation.routeMembershipsByEdgeKey[Key("Shared")];
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle", "Last");
+
+            departureInput.ProceedAllowed = false;
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared")], Is.SameAs(candidates));
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "First", "Shared");
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "Shared", "Middle", "Last");
+
+            departureInput.RouteLocked = false;
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared")], Is.SameAs(candidates));
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted, "Shared");
+            AssertRoute(middle, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Middle");
+
+            context.Input.RoutesById.Remove(departure.InterlockingKey);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.isGraphValid, Is.True);
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared")], Is.SameAs(candidates));
+            AssertInvalid(first.trackCircuitId);
+
+            SetRoute(departure, OverrunProtectionMode.Normal);
+            TrackAtcLogic.Calculate(context);
+
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey[Key("Shared")], Is.SameAs(candidates));
+            AssertRoute(first, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "First", "Shared", "Middle", "Last");
+        }
+
+        [Test]
+        public void ReorderingRoutesRefreshesMembershipOrderAndUnavailableRouteReason()
+        {
+            SetRoute(arrival, OverrunProtectionMode.Restricted).CancelPending = true;
+            SetRoute(departure, OverrunProtectionMode.Normal).PathEstablished = false;
+            TrackAtcLogic.Calculate(context);
+            var originalCandidates = context.State.validation.routeMembershipsByEdgeKey[Key("Shared")];
+            Assert.That(originalCandidates.Count, Is.EqualTo(2));
+            Assert.That(originalCandidates[0].route, Is.SameAs(arrival));
+            Assert.That(originalCandidates[1].route, Is.SameAs(departure));
+            Assert.That(Result("Shared").endReason, Is.EqualTo(TrackAtcPathEndReason.RouteUnavailable));
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Shared");
+
+            graph.routes.Reverse();
+            TrackAtcLogic.Calculate(context);
+
+            var reorderedCandidates = context.State.validation.routeMembershipsByEdgeKey[Key("Shared")];
+            Assert.That(reorderedCandidates, Is.Not.SameAs(originalCandidates));
+            Assert.That(reorderedCandidates.Count, Is.EqualTo(2));
+            Assert.That(reorderedCandidates[0].route, Is.SameAs(departure));
+            Assert.That(reorderedCandidates[1].route, Is.SameAs(arrival));
+            Assert.That(Result("Shared").endReason, Is.EqualTo(TrackAtcPathEndReason.RouteCancelled));
+            AssertRoute(shared, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Shared");
+        }
+
+        private void AssertMembership(TrackAtcEdgeKey key, TrackAtcRouteDefinition route, int routeIndex)
+        {
+            Assert.That(context.State.validation.routeMembershipsByEdgeKey.TryGetValue(key, out var candidates),
+                Is.True, $"{key.atcEdgeId}/{key.direction}");
+            Assert.That(candidates.Exists(candidate => candidate.edgeKey == key &&
+                ReferenceEquals(candidate.route, route) && candidate.routeIndex == routeIndex), Is.True,
+                $"{route.atcRouteId}[{routeIndex}] at {key.atcEdgeId}/{key.direction}");
+        }
+
+        private void AssertNoMembership(TrackAtcEdgeKey key)
+        {
+            int count = context.State.validation.routeMembershipsByEdgeKey.TryGetValue(key, out var candidates)
+                ? candidates.Count : 0;
+            Assert.That(count, Is.Zero, $"{key.atcEdgeId}/{key.direction}");
+        }
+
         private void CreateTurnoutContext(out TrackAtcGraphEdge before,
             out TrackAtcGraphEdge normal, out TrackAtcGraphEdge reverse,
             out TrackAtcRouteDefinition normalRoute, out TrackAtcRouteDefinition reverseRoute)
