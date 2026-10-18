@@ -664,6 +664,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             SetRoute(arrival, OverrunProtectionMode.Restricted);
             TrackAtcLogic.Calculate(context);
             Assert.That(context.Output.telegrams, Is.Not.Empty);
+            Assert.That(context.State.path.terminalRoutesByKey, Is.Not.Empty);
 
             graph.atcNode.Clear();
             TrackAtcLogic.Calculate(context);
@@ -671,6 +672,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
             Assert.That(context.State.validation.isGraphValid, Is.False);
             Assert.That(context.State.validation.atcEdgesById, Is.Empty);
             Assert.That(context.State.path.resultsByKey, Is.Empty);
+            Assert.That(context.State.path.nextLinksByKey, Is.Empty);
+            Assert.That(context.State.path.terminalRoutesByKey, Is.Empty);
             Assert.That(context.Output.telegrams, Is.Empty);
         }
 
@@ -729,6 +732,8 @@ namespace Nakatetsu.Track.Interlocking.Tests
 
             Assert.That(context.Output.telegrams.Keys, Is.EquivalentTo(new[] { "ReplacementCircuit" }));
             Assert.That(context.State.path.resultsByKey.ContainsKey(Key("First")), Is.False);
+            Assert.That(context.State.path.nextLinksByKey.Keys, Is.EquivalentTo(new[] { Key("Replacement") }));
+            Assert.That(context.State.path.terminalRoutesByKey.Keys, Is.EquivalentTo(new[] { Key("Replacement") }));
         }
 
         [Test]
@@ -902,6 +907,132 @@ namespace Nakatetsu.Track.Interlocking.Tests
 
             AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "20T", "21T_N");
             AssertRoute(normal, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "21T_N");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SharedBlockTerminalKeepsTheApproachingRoutesStopLimit(bool reverseOrigins)
+        {
+            CreateContext();
+            var approach = AddEdge("Approach", "A", "B");
+            var boundary = AddEdge("Boundary", "B", "C", TrackAtcEdgeControlKind.Block);
+            var beyond = AddEdge("Beyond", "C", "D");
+            var approachingRoute = AddRoute("ApproachingAtc", "ApproachingInterlocking", "Approach", "Boundary");
+            var departingRoute = AddRoute("DepartingAtc", "DepartingInterlocking", "Boundary", "Beyond");
+            SetRoute(approachingRoute, OverrunProtectionMode.Restricted);
+            SetRoute(departingRoute, OverrunProtectionMode.Normal);
+            if (reverseOrigins)
+            {
+                graph.atcEdge.Reverse();
+            }
+
+            TrackAtcLogic.Calculate(context);
+
+            // Boundaryを起点とする進路内継続は、前進路の終端からの新規進入とは別条件。
+            AssertRoute(approach, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Restricted,
+                "Approach", "Boundary");
+            AssertRoute(boundary, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal,
+                "Boundary", "Beyond");
+            AssertRoute(beyond, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.Normal, "Beyond");
+            Assert.That(Result("Approach").stopAtcEdgeId, Is.EqualTo("Boundary"));
+            Assert.That(Result("Boundary").nextEdgeKey, Is.EqualTo(Key("Beyond")));
+        }
+
+        [Test]
+        public void OppositeConnectionsOfOneEdgeRemainIndependent()
+        {
+            CreateContext();
+            var before = AddEdge("Before", "A", "B", TrackAtcEdgeControlKind.Block);
+            before.direction = TrackAtcTravelDirection.BtoA;
+            var center = AddEdge("Center", "B", "C");
+            var after = AddEdge("After", "C", "D", TrackAtcEdgeControlKind.Block);
+            var forward = AddRoute("ForwardAtc", "ForwardInterlocking", "Center");
+            var reverse = AddRoute("ReverseAtc", "ReverseInterlocking", "Center");
+            reverse.entryDirection = TrackAtcTravelDirection.BtoA;
+            SetRoute(forward, OverrunProtectionMode.Restricted);
+            SetRoute(reverse, OverrunProtectionMode.Normal);
+
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(center, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Center", "After");
+            AssertRoute(center, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.None, "Center", "Before");
+            AssertRoute(before, TrackAtcTravelDirection.BtoA, OverrunProtectionMode.None, "Before");
+            AssertRoute(after, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "After");
+            Assert.That(Result("Center").nextEdgeKey, Is.EqualTo(Key("After")));
+            Assert.That(Result("Center", EdgeDirection.BtoA).nextEdgeKey,
+                Is.EqualTo(Key("Before", EdgeDirection.BtoA)));
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void OccupiedBlockDoesNotLimitPathsStartingInsideIt(bool reverseOrigins)
+        {
+            CreateContext();
+            var approach = AddEdge("Approach", "A", "B", TrackAtcEdgeControlKind.Block);
+            var before = AddEdge("Before", "B", "C", TrackAtcEdgeControlKind.Block);
+            var occupied = AddEdge("Occupied", "C", "D", TrackAtcEdgeControlKind.Block);
+            var after = AddEdge("After", "D", "E", TrackAtcEdgeControlKind.Block);
+            context.Input.OccupiedByCircuitId[occupied.trackCircuitId] = true;
+            if (reverseOrigins)
+            {
+                graph.atcEdge.Reverse();
+            }
+
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(approach, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Approach", "Before");
+            AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before");
+            Assert.That(Result("Approach").endReason, Is.EqualTo(TrackAtcPathEndReason.NextCircuitOccupied));
+            Assert.That(Result("Before").endReason, Is.EqualTo(TrackAtcPathEndReason.NextCircuitOccupied));
+            AssertRoute(occupied, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Occupied", "After");
+            AssertRoute(after, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "After");
+        }
+
+        [TestCase("unset")]
+        [TestCase("no_proceed")]
+        [TestCase("missing")]
+        public void PreviouslyUnavailableConnectedRouteIsReevaluatedOnTheNextTick(string unavailable)
+        {
+            CreateContext();
+            var approach = AddEdge("Approach", "A", "B", TrackAtcEdgeControlKind.Block);
+            var before = AddEdge("Before", "B", "C", TrackAtcEdgeControlKind.Block);
+            var entry = AddEdge("Entry", "C", "D");
+            var after = AddEdge("After", "D", "E", TrackAtcEdgeControlKind.Block);
+            var entryRoute = AddRoute("EntryAtc", "EntryInterlocking", "Entry");
+            if (unavailable == "no_proceed")
+            {
+                SetRoute(entryRoute, OverrunProtectionMode.Restricted).ProceedAllowed = false;
+            }
+            else if (unavailable == "missing")
+            {
+                context.Input.RoutesById.Remove(entryRoute.InterlockingKey);
+            }
+
+            TrackAtcLogic.Calculate(context);
+
+            if (unavailable == "missing")
+            {
+                AssertInvalid(approach.trackCircuitId);
+                AssertInvalid(before.trackCircuitId);
+                Assert.That(Result("Approach").failureReason, Does.Contain("EntryInterlocking"));
+            }
+            else
+            {
+                AssertRoute(approach, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Approach", "Before");
+                AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before");
+            }
+
+            SetRoute(entryRoute, OverrunProtectionMode.Restricted);
+            context.Input.simulationTimeSeconds += 0.015d;
+            TrackAtcLogic.Calculate(context);
+
+            AssertRoute(approach, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None,
+                "Approach", "Before", "Entry", "After");
+            AssertRoute(before, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Before", "Entry", "After");
+            AssertRoute(entry, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "Entry", "After");
+            AssertRoute(after, TrackAtcTravelDirection.AtoB, OverrunProtectionMode.None, "After");
+            Assert.That(Result("Before").nextEdgeKey, Is.EqualTo(Key("Entry")));
+            Assert.That(Result("Approach").affectedCircuitIds, Is.Empty);
         }
 
         private void CreateTurnoutContext(out TrackAtcGraphEdge before,

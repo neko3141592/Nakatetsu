@@ -4,6 +4,7 @@ using Nakatetsu.Track.Graph;
 using Nakatetsu.Track.Interlocking.Management;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace Nakatetsu.Track.Atc
@@ -11,6 +12,7 @@ namespace Nakatetsu.Track.Atc
     [DisallowMultipleComponent]
     public sealed class TrackAtcController : MonoBehaviour, ISimulationController
     {
+        private static readonly ProfilerMarker CalculateMarker = new("Nakatetsu.ATC.Calculate");
         [SerializeField] private TrackAtcGraphAsset atcGraphAsset;
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
         [SerializeField] private TrackConnectionController trackConnectionController;
@@ -25,6 +27,7 @@ namespace Nakatetsu.Track.Atc
 
         public void Calculate(float deltaTimeSeconds)
         {
+            using var calculateScope = CalculateMarker.Auto();
             context.Graph = atcGraphAsset != null ? atcGraphAsset.Definition : null;
             CollectInput();
             TrackAtcLogic.Calculate(context);

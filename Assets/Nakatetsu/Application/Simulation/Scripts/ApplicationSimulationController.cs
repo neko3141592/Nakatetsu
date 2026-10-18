@@ -6,12 +6,14 @@ using Nakatetsu.Track.Interlocking.Management;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using Nakatetsu.Train.Simulation.Orchestration;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace Nakatetsu.Application.Simulation
 {
     public sealed class ApplicationSimulationController : MonoBehaviour, IWorldTimeSource
     {
+        private static readonly ProfilerMarker TickMarker = new("Nakatetsu.WorldTick");
         private static readonly TrackInterlockingManagementOutput EmptyInterlockingOutput =
             new TrackInterlockingManagementContext().Output;
 
@@ -151,6 +153,7 @@ namespace Nakatetsu.Application.Simulation
 
         private void ExecuteTick()
         {
+            using var tickScope = TickMarker.Auto();
             // 前tickまでに始まった転換を進め、列車と連動装置が同じ確定位置を使う。
             if (trackConnections != null)
                 AdvanceSimulation(trackConnections);

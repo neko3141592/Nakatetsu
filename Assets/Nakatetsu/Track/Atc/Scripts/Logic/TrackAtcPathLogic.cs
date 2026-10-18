@@ -1,17 +1,23 @@
 using System.Collections.Generic;
 using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Simulation.Circuit;
+using Unity.Profiling;
 
 namespace Nakatetsu.Track.Atc
 {
     internal static class TrackAtcPathLogic
     {
         private const int MaximumExplorationSteps = 512;
+        private static readonly ProfilerMarker PathMarker = new("Nakatetsu.ATC.Path");
+        private static readonly ProfilerMarker NextLinkMarker = new("Nakatetsu.ATC.NextLink.Calculate");
 
         internal static void UpdatePath(TrackAtcContext context)
         {
+            using var pathScope = PathMarker.Auto();
             var path = context.State.path;
             path.resultsByKey.Clear();
+            path.nextLinksByKey.Clear();
+            path.terminalRoutesByKey.Clear();
             path.selectionFailureByCircuitId.Clear();
             if (!context.State.validation.isGraphValid)
             {
@@ -319,7 +325,7 @@ namespace Nakatetsu.Track.Atc
                     return true;
                 }
 
-                return TryFindConnectedEdge(context, currentKey, true, out nextKey,
+                return TryFindConnectedEdge(context, currentKey, out nextKey,
                     out nextRoute, out nextRouteIndex, out endReason, out failureReason);
             }
 
@@ -365,7 +371,7 @@ namespace Nakatetsu.Track.Atc
                 nextRoute = successor;
                 if (successor.atcEdgeIds.Count == 1)
                 {
-                    return TryFindConnectedEdge(context, currentKey, true, out nextKey,
+                    return TryFindConnectedEdge(context, currentKey, out nextKey,
                         out nextRoute, out nextRouteIndex, out endReason, out failureReason);
                 }
 
@@ -376,7 +382,7 @@ namespace Nakatetsu.Track.Atc
 
             // 信号機を回路境界に置くと、後続進路は隣接Edgeから始まる。
             // 共有Edgeの場合と同じく、確認済みの新規進入許可を照査する。
-            if (!TryFindConnectedEdge(context, currentKey, true, out nextKey,
+            if (!TryFindConnectedEdge(context, currentKey, out nextKey,
                 out nextRoute, out nextRouteIndex, out _, out failureReason))
             {
                 return false;
@@ -393,13 +399,40 @@ namespace Nakatetsu.Track.Atc
         private static bool TryFindConnectedEdge(
             TrackAtcContext context,
             TrackAtcEdgeKey currentKey,
-            bool allowRouteEntry,
             out TrackAtcEdgeKey? nextKey,
             out TrackAtcRouteDefinition nextRoute,
             out int nextRouteIndex,
             out TrackAtcPathEndReason endReason,
             out string failureReason)
         {
+            var links = context.State.path.nextLinksByKey;
+            if (!links.TryGetValue(currentKey, out var link) || !link.isCalculated)
+            {
+                link.isValid = CalculateNextLink(context, currentKey, out link.nextEdgeKey,
+                    out link.nextRoute, out link.nextRouteIndex, out link.endReason, out link.failureReason);
+                // 失敗も確定した結果として共有する。循環検出のvisitedとは分ける。
+                link.isCalculated = true;
+                links[currentKey] = link;
+            }
+
+            nextKey = link.nextEdgeKey;
+            nextRoute = link.nextRoute;
+            nextRouteIndex = link.nextRouteIndex;
+            endReason = link.endReason;
+            failureReason = link.failureReason;
+            return link.isValid;
+        }
+
+        private static bool CalculateNextLink(
+            TrackAtcContext context,
+            TrackAtcEdgeKey currentKey,
+            out TrackAtcEdgeKey? nextKey,
+            out TrackAtcRouteDefinition nextRoute,
+            out int nextRouteIndex,
+            out TrackAtcPathEndReason endReason,
+            out string failureReason)
+        {
+            using var nextLinkScope = NextLinkMarker.Auto();
             nextKey = null;
             nextRoute = null;
             nextRouteIndex = -1;
@@ -441,11 +474,6 @@ namespace Nakatetsu.Track.Atc
                 }
                 else if (candidate.controlKind == TrackAtcEdgeControlKind.Interlocking)
                 {
-                    if (!allowRouteEntry)
-                    {
-                        continue;
-                    }
-
                     if (!TrySelectEntryRoute(context, key, edge.trackCircuitId, null, out route,
                         out var candidateEndReason, out failureReason))
                     {
@@ -642,7 +670,47 @@ namespace Nakatetsu.Track.Atc
                 return Fail(result, circuits, $"Circuit input '{edge.trackCircuitId}' is unavailable.");
             }
 
-            string terminalId = null;
+            if (!TryGetTerminalRoute(context, stopKey, out string terminalId, out string failureReason))
+            {
+                return Fail(result, circuits, failureReason);
+            }
+
+            result.isPathValid = true;
+            result.stopAtcEdgeId = stopKey.atcEdgeId;
+            result.stopTravelDirection = stopKey.direction;
+            result.terminalAtcRouteId = terminalId;
+            result.endReason = reason;
+            return result;
+        }
+
+        private static bool TryGetTerminalRoute(
+            TrackAtcContext context,
+            TrackAtcEdgeKey stopKey,
+            out string terminalId,
+            out string failureReason)
+        {
+            var terminals = context.State.path.terminalRoutesByKey;
+            if (!terminals.TryGetValue(stopKey, out var terminal) || !terminal.isCalculated)
+            {
+                terminal.isValid = CalculateTerminalRoute(context, stopKey,
+                    out terminal.terminalAtcRouteId, out terminal.failureReason);
+                terminal.isCalculated = true;
+                terminals[stopKey] = terminal;
+            }
+
+            terminalId = terminal.terminalAtcRouteId;
+            failureReason = terminal.failureReason;
+            return terminal.isValid;
+        }
+
+        private static bool CalculateTerminalRoute(
+            TrackAtcContext context,
+            TrackAtcEdgeKey stopKey,
+            out string terminalId,
+            out string failureReason)
+        {
+            terminalId = null;
+            failureReason = string.Empty;
             foreach (var route in context.State.validation.atcRoutesById.Values)
             {
                 int lastIndex = route.atcEdgeIds.Count - 1;
@@ -652,9 +720,9 @@ namespace Nakatetsu.Track.Atc
                     continue;
                 }
 
-                if (!TryGetRouteInput(context, route, out var input, out var failureReason))
+                if (!TryGetRouteInput(context, route, out var input, out failureReason))
                 {
-                    return Fail(result, circuits, failureReason);
+                    return false;
                 }
 
                 if (!CanContinue(input))
@@ -664,18 +732,14 @@ namespace Nakatetsu.Track.Atc
 
                 if (terminalId != null)
                 {
-                    return Fail(result, circuits, "Multiple usable ATC routes correspond to the stop limit.");
+                    failureReason = "Multiple usable ATC routes correspond to the stop limit.";
+                    return false;
                 }
 
                 terminalId = route.atcRouteId;
             }
 
-            result.isPathValid = true;
-            result.stopAtcEdgeId = stopKey.atcEdgeId;
-            result.stopTravelDirection = stopKey.direction;
-            result.terminalAtcRouteId = terminalId;
-            result.endReason = reason;
-            return result;
+            return true;
         }
 
         private static void ValidateNextEdgeChains(TrackAtcContext context)
