@@ -1,0 +1,28 @@
+{
+  "width": 480.0,
+  "height": 768.0,
+  "circuits": [
+    {
+      "id": "NT04_DT",
+      "paths": [
+        "M 0 320 L 480 320"
+      ]
+    },
+    {
+      "id": "NT04_UT",
+      "paths": [
+        "M 0 448 L 480 448"
+      ]
+    }
+  ],
+  "platforms": [
+    {
+      "id": "NT04_Platform_1",
+      "x": 40.0,
+      "y": 336.0,
+      "width": 400.0,
+      "height": 96.0
+    }
+  ],
+  "routeIds": []
+}

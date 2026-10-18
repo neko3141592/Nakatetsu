@@ -4,10 +4,13 @@ using Google.Protobuf;
 using Nakatetsu.Application.Communication;
 using Nakatetsu.Track.Graph;
 using Nakatetsu.Track.Graph.Circuit;
+using Nakatetsu.Track.Graph.Connection;
 using Nakatetsu.Track.Graph.Edge;
+using Nakatetsu.Track.Graph.Node;
 using Nakatetsu.Track.Interlocking;
 using Nakatetsu.Track.Interlocking.Management;
 using Nakatetsu.Track.Simulation.Circuit;
+using Nakatetsu.Track.Simulation.Connection;
 using NUnit.Framework;
 using UnityEngine;
 using Ctc = Namespace.Protocol.Ctc.V1;
@@ -18,6 +21,7 @@ namespace Nakatetsu.Application.Simulation.Tests
     {
         private const string StationId = "Station";
         private const string RouteId = "Route";
+        private const string ConnectionId = "Station:21";
         private const float TickDurationSeconds = 0.015f;
         private readonly List<Object> createdObjects = new();
         private ApplicationSimulationController application;
@@ -97,6 +101,104 @@ namespace Nakatetsu.Application.Simulation.Tests
             application.StepOnce();
             Assert.That(application.CompletedTickCount, Is.EqualTo(1));
             Assert.That(CreateSnapshot().Payload.TrackCircuits, Is.Null);
+        }
+
+        [Test]
+        public void SenderOmitsTurnoutsBeforeFirstTickAndWithoutInitializedConnections()
+        {
+            Assert.That(CreateSnapshot().Payload.Turnouts, Is.Null);
+            application.StepOnce();
+            Assert.That(CreateSnapshot().Payload.Turnouts, Is.Null);
+
+            CreateConnections(initialize: false);
+            application.StepOnce();
+            Assert.That(application.CompletedTurnoutsById, Is.Null);
+            Assert.That(CreateSnapshot().Payload.Turnouts, Is.Null);
+        }
+
+        [Test]
+        public void CompletedTickCopiesActualTurnoutPositionAndMovingState()
+        {
+            var connections = CreateConnections();
+            Assert.That(CreateSnapshot().Payload.Turnouts, Is.Null);
+            application.StepOnce();
+            var normal = application.CompletedTurnoutsById;
+            Assert.That(normal[ConnectionId].ActualPosition, Is.EqualTo(TrackSwitchPosition.Normal));
+
+            Assert.That(connections.TryRequestPosition(ConnectionId, TrackSwitchPosition.Reverse,
+                out string error), Is.True, error);
+            var previous = CreateSnapshot();
+            Assert.That(previous.Payload.WorldTime.TickCount, Is.EqualTo(1));
+            Assert.That(previous.Payload.Turnouts.TurnoutsById[ConnectionId].ActualPosition,
+                Is.EqualTo(Ctc.TurnoutPosition.Normal));
+            Assert.That(previous.Payload.Turnouts.TurnoutsById[ConnectionId].IsMoving, Is.False);
+
+            application.StepOnce();
+            var moving = Ctc.UnitySnapshotMessage.Parser.ParseFrom(CreateSnapshot().ToByteArray());
+            Assert.That(moving.Payload.WorldTime.TickCount, Is.EqualTo(2));
+            Assert.That(moving.Payload.Turnouts.TurnoutsById.Count, Is.EqualTo(1));
+            Assert.That(moving.Payload.Turnouts.TurnoutsById[ConnectionId].ActualPosition,
+                Is.EqualTo(Ctc.TurnoutPosition.Unknown));
+            Assert.That(moving.Payload.Turnouts.TurnoutsById[ConnectionId].IsMoving, Is.True);
+
+            Assert.That(connections.TryConfirmPosition(ConnectionId, TrackSwitchPosition.Reverse,
+                out error), Is.True, error);
+            Assert.That(CreateSnapshot().Payload.Turnouts.TurnoutsById[ConnectionId].IsMoving, Is.True);
+            application.StepOnce();
+
+            var confirmed = CreateSnapshot().Payload.Turnouts.TurnoutsById[ConnectionId];
+            Assert.That(confirmed.ActualPosition, Is.EqualTo(Ctc.TurnoutPosition.Reverse));
+            Assert.That(confirmed.IsMoving, Is.False);
+            Assert.That(normal[ConnectionId].ActualPosition, Is.EqualTo(TrackSwitchPosition.Normal));
+            Assert.That(moving.Payload.Turnouts.TurnoutsById[ConnectionId].IsMoving, Is.True);
+        }
+
+        [Test]
+        public void StepOnceAdvancesTimedTurnoutAndPublishesOnlyTheCompletedTickState()
+        {
+            var connections = CreateConnections();
+            SetField(connections, "completeRequestsAutomatically", true);
+            SetField(connections, "switchDurationSeconds", TickDurationSeconds * 2f);
+            SetField(application, "playbackSpeed", 10f);
+            Assert.That(connections.TryRequestPosition(ConnectionId, TrackSwitchPosition.Reverse,
+                out string error), Is.True, error);
+
+            // 一時停止中のフレーム更新では進めず、Step Onceでは倍率に関係なく1tickだけ進める。
+            typeof(ApplicationSimulationController).GetMethod("Update", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(application, null);
+            Assert.That(application.CompletedTickCount, Is.Zero);
+            Assert.That(connections.TryGetState(ConnectionId, out var paused), Is.True);
+            Assert.That(paused.IsMoving, Is.True);
+
+            application.StepOnce();
+            var moving = application.CompletedTurnoutsById;
+            Assert.That(moving[ConnectionId].ActualPosition, Is.EqualTo(TrackSwitchPosition.Unknown));
+            Assert.That(moving[ConnectionId].IsMoving, Is.True);
+
+            application.StepOnce();
+            var completed = CreateSnapshot();
+            Assert.That(completed.Payload.WorldTime.TickCount, Is.EqualTo(2));
+            Assert.That(completed.Payload.Turnouts.TurnoutsById[ConnectionId].ActualPosition,
+                Is.EqualTo(Ctc.TurnoutPosition.Reverse));
+            Assert.That(completed.Payload.Turnouts.TurnoutsById[ConnectionId].IsMoving, Is.False);
+            Assert.That(moving[ConnectionId].IsMoving, Is.True);
+        }
+
+        [Test]
+        public void LosingConnectionsOmitsTurnoutsOnNextCompletedTick()
+        {
+            var connections = CreateConnections();
+            application.StepOnce();
+            var previous = application.CompletedTurnoutsById;
+
+            Assert.That(TrackConnectionLogic.TryInitialize(connections.Context, null,
+                TrackSwitchPosition.Normal, out _), Is.False);
+            Assert.That(application.CompletedTurnoutsById, Is.SameAs(previous));
+            application.StepOnce();
+
+            Assert.That(application.CompletedTurnoutsById, Is.Null);
+            Assert.That(CreateSnapshot().Payload.Turnouts, Is.Null);
+            Assert.That(previous[ConnectionId].ActualPosition, Is.EqualTo(TrackSwitchPosition.Normal));
         }
 
         [Test]
@@ -293,6 +395,43 @@ namespace Nakatetsu.Application.Simulation.Tests
             Assert.That(circuits.RegisterSource(source), Is.True);
             SetField(application, "trackCircuitSimulation", circuits);
             return circuits;
+        }
+
+        private TrackConnectionController CreateConnections(bool initialize = true)
+        {
+            var graph = CreateInactiveGameObject("Connections").AddComponent<TrackGraphController>();
+            var definition = new TrackGraphDefinition();
+            definition.nodes.Add(new TrackNodeDefinition
+            {
+                nodeId = "switch", connectedEdgeIds = new() { "common", "normal", "reverse" }
+            });
+            foreach (string id in new[] { "common", "normal", "reverse" })
+            {
+                definition.nodes.Add(new TrackNodeDefinition
+                {
+                    nodeId = id + "-end", connectedEdgeIds = new() { id }
+                });
+                definition.edges.Add(new TrackEdgeDefinition
+                {
+                    edgeId = id, nodeAId = "switch", nodeBId = id + "-end"
+                });
+            }
+            definition.connections.Add(new TrackConnectionDefinition
+            {
+                connectionId = ConnectionId, nodeId = "switch",
+                edgePairs = new()
+                {
+                    new() { pairId = "normal", edgeAId = "common", edgeBId = "normal", condition = TrackConnectionCondition.Normal },
+                    new() { pairId = "reverse", edgeAId = "common", edgeBId = "reverse", condition = TrackConnectionCondition.Reverse }
+                }
+            });
+            Assert.That(graph.Context.TryBuildLookups(definition, out string error), Is.True, error);
+            var connections = graph.gameObject.AddComponent<TrackConnectionController>();
+            SetField(connections, "completeRequestsAutomatically", false);
+            if (initialize)
+                Assert.That(connections.TryInitialize(out error), Is.True, error);
+            SetField(application, "trackConnections", connections);
+            return connections;
         }
 
         private sealed class OccupancySource : ITrackOccupancySource

@@ -100,6 +100,24 @@ func (c *CTC) GetWebSnapshot() *ctcv1.CtcSnapshot {
 		NeedsReset:    c.state.NeedsReset,
 		CircuitsById:  make(map[string]*ctcv1.CtcCircuitState),
 		TrainsById:    make(map[string]*ctcv1.CtcTrainState),
+		TurnoutsById:  make(map[string]*ctcv1.TurnoutState),
+	}
+
+	// 受信した駅・進路状態をそのまま公開し、保持中のsnapshotとはコピーを分ける。
+	if interlocking := c.snapshot.GetInterlocking(); interlocking != nil {
+		snapshot.Interlocking = proto.Clone(interlocking).(*ctcv1.InterlockingSnapshot)
+	}
+	if worldTime := c.snapshot.GetWorldTime(); worldTime != nil {
+		snapshot.WorldTime = proto.Clone(worldTime).(*ctcv1.WorldTimeInformation)
+	}
+
+	// 転轍機は追跡の初期登録とは独立し、最新snapshotの実位置をそのまま公開する。
+	// mapと各値を作り直し、呼び出し側から保持中のsnapshotを変更できないようにする。
+	for turnoutID, state := range c.snapshot.GetTurnouts().GetTurnoutsById() {
+		snapshot.TurnoutsById[turnoutID] = &ctcv1.TurnoutState{
+			ActualPosition: state.GetActualPosition(),
+			IsMoving:       state.GetIsMoving(),
+		}
 	}
 
 	for circuitID, state := range c.state.CircuitsByID {
@@ -179,7 +197,6 @@ func (c *CTC) initializeTrains(initial *ctcv1.TrainInitializationSnapshot, occup
 	c.state.IsInitialized = true
 	return nil
 }
-
 
 // GetTrackingStateは表示や確認に使う追跡状態のコピーを返す。
 func (c *CTC) GetTrackingState() TrackingState {

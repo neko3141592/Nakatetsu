@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="pilotlamp-orange-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <title>橙色表示灯・消灯</title>
+  <defs>
+    <radialGradient id="pilotlamp-orange-off-lens" cx="42%" cy="38%" r="68%">
+      <stop offset="0" stop-color="#573615"/>
+      <stop offset="0.65" stop-color="#38220d"/>
+      <stop offset="1" stop-color="#201306"/>
+    </radialGradient>
+  </defs>
+  <circle cx="512" cy="512" r="32" fill="url(#pilotlamp-orange-off-lens)"/>
+</svg>

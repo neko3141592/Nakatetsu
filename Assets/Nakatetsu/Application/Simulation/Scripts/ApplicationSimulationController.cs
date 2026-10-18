@@ -4,6 +4,7 @@ using Nakatetsu.Core.Time;
 using Nakatetsu.Track.Atc;
 using Nakatetsu.Track.Interlocking.Management;
 using Nakatetsu.Track.Simulation.Circuit;
+using Nakatetsu.Track.Simulation.Connection;
 using Nakatetsu.Train.Simulation.Orchestration;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Nakatetsu.Application.Simulation
 
         [SerializeField] private TrainSimulationController[] trains = new TrainSimulationController[0];
         [SerializeField] private TrackCircuitSimulationController trackCircuitSimulation;
+        [SerializeField] private TrackConnectionController trackConnections;
         [SerializeField] private TrackAtcController trackAtc;
         [SerializeField] private TrackInterlockingManagementController interlockingManagement;
         [SerializeField] private float tickDurationSeconds;
@@ -40,6 +42,8 @@ namespace Nakatetsu.Application.Simulation
             EmptyInterlockingOutput;
         // 未取得はnull。完了Tickの全回路を保持し、非在線のfalseも含める。
         public IReadOnlyDictionary<string, bool> CompletedOccupiedByCircuitId { get; private set; }
+        // 未取得はnull。Connection IDごとの実位置を完了Tickに固定する。
+        public IReadOnlyDictionary<string, TrackConnectionState> CompletedTurnoutsById { get; private set; }
         // 全列車分が未取得ならnull。取得済み0本は空のリスト。
         public IReadOnlyList<TrainInitializationInfo> CompletedTrainInitialization { get; private set; }
         public double ElapsedTimeSeconds => CompletedTickCount * (double)fixedTickSeconds;
@@ -147,6 +151,10 @@ namespace Nakatetsu.Application.Simulation
 
         private void ExecuteTick()
         {
+            // 前tickまでに始まった転換を進め、列車と連動装置が同じ確定位置を使う。
+            if (trackConnections != null)
+                AdvanceSimulation(trackConnections);
+
             // 初回は列車の初期配置から占有を作る。以後は前tickの確定状態を保持する。
             if (CompletedTickCount == 0 && trackCircuitSimulation != null)
                 AdvanceSimulation(trackCircuitSimulation);
@@ -169,6 +177,7 @@ namespace Nakatetsu.Application.Simulation
             CompletedInterlockingOutput = interlockingManagement != null
                 ? interlockingManagement.Context.Output
                 : EmptyInterlockingOutput;
+            CompletedTurnoutsById = trackConnections != null ? trackConnections.CaptureStates() : null;
             if (trackCircuitSimulation != null)
             {
                 var occupied = new Dictionary<string, bool>();

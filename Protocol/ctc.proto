@@ -41,6 +41,8 @@ message UnitySnapshot {
   // 同じTickの全列車の初期登録候補。未取得なら省略し、取得済み0本なら空のメッセージを送る。
   // Unityは取得できる間は毎回送り、Goは初期登録が成功するまでだけ採用する。
   TrainInitializationSnapshot train_initialization = 4;
+  // 同じ完了Tickの転轍機状態。未取得なら省略する。
+  TurnoutSnapshot turnouts = 5;
 }
 
 message TrainInitializationSnapshot {
@@ -62,6 +64,23 @@ message TrainInitializationInfo {
 message TrackCircuitSnapshot {
   // 全回路の状態を送り、非在線のfalseも含める。存在しないIDは未取得。
   map<string, bool> occupied_by_circuit_id = 1;
+}
+
+message TurnoutSnapshot {
+  // 転轍機のConnectionIdをキーにする。固定接続は含めない。
+  map<string, TurnoutState> turnouts_by_id = 1;
+}
+
+message TurnoutState {
+  // 要求位置ではなく、転換完了によって確定した実位置。
+  TurnoutPosition actual_position = 1;
+  bool is_moving = 2;
+}
+
+enum TurnoutPosition {
+  TURNOUT_POSITION_UNKNOWN = 0;
+  TURNOUT_POSITION_NORMAL = 1;
+  TURNOUT_POSITION_REVERSE = 2;
 }
 
 // Unityからサーバーへ渡す世界の時間情報。
@@ -177,7 +196,7 @@ enum OverrunProtectionPhase {
 }
 
 
-// CTCからWebへ送る追跡状態。差分ではなく全体を置き換える。
+// CTCからWebへ送る追跡・連動状態。差分ではなく全体を置き換える。
 message CtcSnapshot {
   bool is_initialized = 1;
   bool needs_reset = 2;
@@ -185,6 +204,12 @@ message CtcSnapshot {
   map<string, CtcCircuitState> circuits_by_id = 3;
   // CTC内部の追跡用TrainIDをキーにする。
   map<string, CtcTrainState> trains_by_id = 4;
+  // 転轍機のConnectionIdをキーにする。存在しないIDは状態未取得。
+  map<string, TurnoutState> turnouts_by_id = 5;
+  // UnitySnapshot.interlockingと同じ内容・構造。未取得なら省略する。
+  InterlockingSnapshot interlocking = 6;
+  // UnitySnapshot.world_timeと同じ内容。未取得なら省略する。
+  WorldTimeInformation world_time = 7;
 }
 
 message CtcCircuitState {

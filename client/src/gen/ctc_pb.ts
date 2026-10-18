@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file ctc.proto.
  */
 export const file_ctc: GenFile = /*@__PURE__*/
-  fileDesc("CgljdGMucHJvdG8SEG5ha2F0ZXRzdS5jdGMudjEieQoUVW5pdHlTbmFwc2hvdE1lc3NhZ2USLwoGaGVhZGVyGAEgASgLMh8ubmFrYXRldHN1LmN0Yy52MS5NZXNzYWdlSGVhZGVyEjAKB3BheWxvYWQYAiABKAsyHy5uYWthdGV0c3UuY3RjLnYxLlVuaXR5U25hcHNob3QiaQoNTWVzc2FnZUhlYWRlchIbCg5zY2hlbWFfdmVyc2lvbhgBIAEoBUgAiAEBEhIKCnNlc3Npb25faWQYAiABKAkSFAoMbWVzc2FnZV90eXBlGAMgASgJQhEKD19zY2hlbWFfdmVyc2lvbiKWAgoNVW5pdHlTbmFwc2hvdBI6Cgp3b3JsZF90aW1lGAEgASgLMiYubmFrYXRldHN1LmN0Yy52MS5Xb3JsZFRpbWVJbmZvcm1hdGlvbhI8CgxpbnRlcmxvY2tpbmcYAiABKAsyJi5uYWthdGV0c3UuY3RjLnYxLkludGVybG9ja2luZ1NuYXBzaG90Ej4KDnRyYWNrX2NpcmN1aXRzGAMgASgLMiYubmFrYXRldHN1LmN0Yy52MS5UcmFja0NpcmN1aXRTbmFwc2hvdBJLChR0cmFpbl9pbml0aWFsaXphdGlvbhgEIAEoCzItLm5ha2F0ZXRzdS5jdGMudjEuVHJhaW5Jbml0aWFsaXphdGlvblNuYXBzaG90IlgKG1RyYWluSW5pdGlhbGl6YXRpb25TbmFwc2hvdBI5CgZ0cmFpbnMYASADKAsyKS5uYWthdGV0c3UuY3RjLnYxLlRyYWluSW5pdGlhbGl6YXRpb25JbmZvIpMBChdUcmFpbkluaXRpYWxpemF0aW9uSW5mbxISCgpjb25zaXN0X2lkGAEgASgJEhYKDmNvbnNpc3RfbnVtYmVyGAIgASgJEhQKDHRyYWluX251bWJlchgDIAEoCRIYChBvcGVyYXRpb25fbnVtYmVyGAQgASgJEhwKFHJlZmVyZW5jZV9jaXJjdWl0X2lkGAUgASgJIrMBChRUcmFja0NpcmN1aXRTbmFwc2hvdBJfChZvY2N1cGllZF9ieV9jaXJjdWl0X2lkGAEgAygLMj8ubmFrYXRldHN1LmN0Yy52MS5UcmFja0NpcmN1aXRTbmFwc2hvdC5PY2N1cGllZEJ5Q2lyY3VpdElkRW50cnkaOgoYT2NjdXBpZWRCeUNpcmN1aXRJZEVudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCDoCOAEikAEKFFdvcmxkVGltZUluZm9ybWF0aW9uEhIKCnRpY2tfY291bnQYASABKAMSGgoSd29ybGRfdGltZV9zZWNvbmRzGAIgASgCEh0KFXRpY2tfZHVyYXRpb25fc2Vjb25kcxgDIAEoAhIRCglpc19wYXVzZWQYBCABKAgSFgoOcGxheWJhY2tfc3BlZWQYBSABKAIiygEKFEludGVybG9ja2luZ1NuYXBzaG90ElAKDnN0YXRpb25zX2J5X2lkGAEgAygLMjgubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdTbmFwc2hvdC5TdGF0aW9uc0J5SWRFbnRyeRpgChFTdGF0aW9uc0J5SWRFbnRyeRILCgNrZXkYASABKAkSOgoFdmFsdWUYAiABKAsyKy5uYWthdGV0c3UuY3RjLnYxLkludGVybG9ja2luZ1N0YXRpb25TdGF0dXM6AjgBIvgBChlJbnRlcmxvY2tpbmdTdGF0aW9uU3RhdHVzEhYKDmlzX2luaXRpYWxpemVkGAEgASgIEhIKCmhhc19vdXRwdXQYAiABKAgSUQoMcm91dGVzX2J5X2lkGAMgAygLMjsubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdTdGF0aW9uU3RhdHVzLlJvdXRlc0J5SWRFbnRyeRpcCg9Sb3V0ZXNCeUlkRW50cnkSCwoDa2V5GAEgASgJEjgKBXZhbHVlGAIgASgLMikubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdSb3V0ZVN0YXR1czoCOAEilgMKF0ludGVybG9ja2luZ1JvdXRlU3RhdHVzEhQKDGlzX2F2YWlsYWJsZRgBIAEoCBIUCgxpc19yb3V0ZV9zZXQYAiABKAgSGAoQcGF0aF9lc3RhYmxpc2hlZBgDIAEoCBIXCg9wcm9jZWVkX2FsbG93ZWQYBCABKAgSFAoMcm91dGVfbG9ja2VkGAUgASgIEhYKDmNhbmNlbF9wZW5kaW5nGAYgASgIEhcKD2FwcHJvYWNoX2xvY2tlZBgHIAEoCBIqCiJhcHByb2FjaF9yZWxlYXNlX3JlbWFpbmluZ19zZWNvbmRzGAggASgCEj0KDG92ZXJydW5fbW9kZRgJIAEoDjInLm5ha2F0ZXRzdS5jdGMudjEuT3ZlcnJ1blByb3RlY3Rpb25Nb2RlEj8KDW92ZXJydW5fcGhhc2UYCiABKA4yKC5uYWthdGV0c3UuY3RjLnYxLk92ZXJydW5Qcm90ZWN0aW9uUGhhc2USKQohb3ZlcnJ1bl9yZWxlYXNlX3JlbWFpbmluZ19zZWNvbmRzGAsgASgCIpUBChhJbnRlcmxvY2tpbmdSb3V0ZVJlcXVlc3QSEgoKcmVxdWVzdF9pZBgBIAEoCRISCgpzdGF0aW9uX2lkGAIgASgJEhAKCHJvdXRlX2lkGAMgASgJEj8KCW9wZXJhdGlvbhgEIAEoDjIsLm5ha2F0ZXRzdS5jdGMudjEuSW50ZXJsb2NraW5nUm91dGVPcGVyYXRpb24iiAMKHkludGVybG9ja2luZ1JvdXRlUmVxdWVzdFJlc3VsdBISCgpyZXF1ZXN0X2lkGAEgASgJEhIKCnN0YXRpb25faWQYAiABKAkSEAoIcm91dGVfaWQYAyABKAkSEAoIYWNjZXB0ZWQYBCABKAgSRQoKZXJyb3JfY29kZRgFIAEoDjIsLm5ha2F0ZXRzdS5jdGMudjEuSW50ZXJsb2NraW5nUm91dGVFcnJvckNvZGVIAIgBARIdChByZWxhdGVkX3JvdXRlX2lkGAYgASgJSAGIAQESHwoScmVsYXRlZF9jaXJjdWl0X2lkGAcgASgJSAKIAQESHwoScmVsYXRlZF90dXJub3V0X2lkGAggASgJSAOIAQESFAoHbWVzc2FnZRgJIAEoCUgEiAEBQg0KC19lcnJvcl9jb2RlQhMKEV9yZWxhdGVkX3JvdXRlX2lkQhUKE19yZWxhdGVkX2NpcmN1aXRfaWRCFQoTX3JlbGF0ZWRfdHVybm91dF9pZEIKCghfbWVzc2FnZSL0AgoLQ3RjU25hcHNob3QSFgoOaXNfaW5pdGlhbGl6ZWQYASABKAgSEwoLbmVlZHNfcmVzZXQYAiABKAgSRwoOY2lyY3VpdHNfYnlfaWQYAyADKAsyLy5uYWthdGV0c3UuY3RjLnYxLkN0Y1NuYXBzaG90LkNpcmN1aXRzQnlJZEVudHJ5EkMKDHRyYWluc19ieV9pZBgEIAMoCzItLm5ha2F0ZXRzdS5jdGMudjEuQ3RjU25hcHNob3QuVHJhaW5zQnlJZEVudHJ5GlYKEUNpcmN1aXRzQnlJZEVudHJ5EgsKA2tleRgBIAEoCRIwCgV2YWx1ZRgCIAEoCzIhLm5ha2F0ZXRzdS5jdGMudjEuQ3RjQ2lyY3VpdFN0YXRlOgI4ARpSCg9UcmFpbnNCeUlkRW50cnkSCwoDa2V5GAEgASgJEi4KBXZhbHVlGAIgASgLMh8ubmFrYXRldHN1LmN0Yy52MS5DdGNUcmFpblN0YXRlOgI4ASI4Cg9DdGNDaXJjdWl0U3RhdGUSEwoLaXNfb2NjdXBpZWQYASABKAgSEAoIdHJhaW5faWQYAiABKAkifwoNQ3RjVHJhaW5TdGF0ZRIXCgpjb25zaXN0X2lkGAEgASgJSACIAQESFgoOY29uc2lzdF9udW1iZXIYAiABKAkSFAoMdHJhaW5fbnVtYmVyGAMgASgJEhgKEG9wZXJhdGlvbl9udW1iZXIYBCABKAlCDQoLX2NvbnNpc3RfaWQqkgEKGkludGVybG9ja2luZ1JvdXRlT3BlcmF0aW9uEiUKIUlOVEVSTE9DS0lOR19ST1VURV9PUEVSQVRJT05fTk9ORRAAEiQKIElOVEVSTE9DS0lOR19ST1VURV9PUEVSQVRJT05fU0VUEAESJwojSU5URVJMT0NLSU5HX1JPVVRFX09QRVJBVElPTl9DQU5DRUwQAir0BAoaSW50ZXJsb2NraW5nUm91dGVFcnJvckNvZGUSJgoiSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfTk9ORRAAEjEKLUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX0lOVkFMSURfUkVRVUVTVBABEjEKLUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX1VOS05PV05fU1RBVElPThACEi8KK0lOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX1VOS05PV05fUk9VVEUQAxIxCi1JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9OT1RfSU5JVElBTElaRUQQBBIzCi9JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9JTlBVVF9VTkFWQUlMQUJMRRAFEi0KKUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX0FMUkVBRFlfU0VUEAYSKQolSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfTk9UX1NFVBAHEjIKLklOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX0NJUkNVSVRfT0NDVVBJRUQQCBIyCi5JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9DSVJDVUlUX1JFU0VSVkVEEAkSMAosSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfUk9VVEVfQ09ORkxJQ1QQChI7CjdJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9UVVJOT1VUX1BPU0lUSU9OX0NPTkZMSUNUEAsqhQEKFU92ZXJydW5Qcm90ZWN0aW9uTW9kZRIgChxPVkVSUlVOX1BST1RFQ1RJT05fTU9ERV9OT05FEAASIgoeT1ZFUlJVTl9QUk9URUNUSU9OX01PREVfTk9STUFMEAESJgoiT1ZFUlJVTl9QUk9URUNUSU9OX01PREVfUkVTVFJJQ1RFRBACKt8BChZPdmVycnVuUHJvdGVjdGlvblBoYXNlEiEKHU9WRVJSVU5fUFJPVEVDVElPTl9QSEFTRV9OT05FEAASJAogT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1NFVFRJTkcQARIoCiRPVkVSUlVOX1BST1RFQ1RJT05fUEhBU0VfRVNUQUJMSVNIRUQQAhIrCidPVkVSUlVOX1BST1RFQ1RJT05fUEhBU0VfUkVMRUFTRV9USU1JTkcQAxIlCiFPVkVSUlVOX1BST1RFQ1RJT05fUEhBU0VfUkVMRUFTRUQQBDJeCgpDdGNTZXJ2aWNlElAKDlVwZGF0ZVNuYXBzaG90EiYubmFrYXRldHN1LmN0Yy52MS5Vbml0eVNuYXBzaG90TWVzc2FnZRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUJPWjFnaXRodWIuY29tL25la28zMTQxNTkyL05ha2F0ZXRzdS9TZXJ2ZXIvZ2VuL2N0Y3YxqgIZTmFtZXNwYWNlLlByb3RvY29sLkN0Yy5WMWIGcHJvdG8z", [file_google_protobuf_empty]);
+  fileDesc("CgljdGMucHJvdG8SEG5ha2F0ZXRzdS5jdGMudjEieQoUVW5pdHlTbmFwc2hvdE1lc3NhZ2USLwoGaGVhZGVyGAEgASgLMh8ubmFrYXRldHN1LmN0Yy52MS5NZXNzYWdlSGVhZGVyEjAKB3BheWxvYWQYAiABKAsyHy5uYWthdGV0c3UuY3RjLnYxLlVuaXR5U25hcHNob3QiaQoNTWVzc2FnZUhlYWRlchIbCg5zY2hlbWFfdmVyc2lvbhgBIAEoBUgAiAEBEhIKCnNlc3Npb25faWQYAiABKAkSFAoMbWVzc2FnZV90eXBlGAMgASgJQhEKD19zY2hlbWFfdmVyc2lvbiLLAgoNVW5pdHlTbmFwc2hvdBI6Cgp3b3JsZF90aW1lGAEgASgLMiYubmFrYXRldHN1LmN0Yy52MS5Xb3JsZFRpbWVJbmZvcm1hdGlvbhI8CgxpbnRlcmxvY2tpbmcYAiABKAsyJi5uYWthdGV0c3UuY3RjLnYxLkludGVybG9ja2luZ1NuYXBzaG90Ej4KDnRyYWNrX2NpcmN1aXRzGAMgASgLMiYubmFrYXRldHN1LmN0Yy52MS5UcmFja0NpcmN1aXRTbmFwc2hvdBJLChR0cmFpbl9pbml0aWFsaXphdGlvbhgEIAEoCzItLm5ha2F0ZXRzdS5jdGMudjEuVHJhaW5Jbml0aWFsaXphdGlvblNuYXBzaG90EjMKCHR1cm5vdXRzGAUgASgLMiEubmFrYXRldHN1LmN0Yy52MS5UdXJub3V0U25hcHNob3QiWAobVHJhaW5Jbml0aWFsaXphdGlvblNuYXBzaG90EjkKBnRyYWlucxgBIAMoCzIpLm5ha2F0ZXRzdS5jdGMudjEuVHJhaW5Jbml0aWFsaXphdGlvbkluZm8ikwEKF1RyYWluSW5pdGlhbGl6YXRpb25JbmZvEhIKCmNvbnNpc3RfaWQYASABKAkSFgoOY29uc2lzdF9udW1iZXIYAiABKAkSFAoMdHJhaW5fbnVtYmVyGAMgASgJEhgKEG9wZXJhdGlvbl9udW1iZXIYBCABKAkSHAoUcmVmZXJlbmNlX2NpcmN1aXRfaWQYBSABKAkiswEKFFRyYWNrQ2lyY3VpdFNuYXBzaG90El8KFm9jY3VwaWVkX2J5X2NpcmN1aXRfaWQYASADKAsyPy5uYWthdGV0c3UuY3RjLnYxLlRyYWNrQ2lyY3VpdFNuYXBzaG90Lk9jY3VwaWVkQnlDaXJjdWl0SWRFbnRyeRo6ChhPY2N1cGllZEJ5Q2lyY3VpdElkRW50cnkSCwoDa2V5GAEgASgJEg0KBXZhbHVlGAIgASgIOgI4ASKzAQoPVHVybm91dFNuYXBzaG90EksKDnR1cm5vdXRzX2J5X2lkGAEgAygLMjMubmFrYXRldHN1LmN0Yy52MS5UdXJub3V0U25hcHNob3QuVHVybm91dHNCeUlkRW50cnkaUwoRVHVybm91dHNCeUlkRW50cnkSCwoDa2V5GAEgASgJEi0KBXZhbHVlGAIgASgLMh4ubmFrYXRldHN1LmN0Yy52MS5UdXJub3V0U3RhdGU6AjgBIl0KDFR1cm5vdXRTdGF0ZRI6Cg9hY3R1YWxfcG9zaXRpb24YASABKA4yIS5uYWthdGV0c3UuY3RjLnYxLlR1cm5vdXRQb3NpdGlvbhIRCglpc19tb3ZpbmcYAiABKAgikAEKFFdvcmxkVGltZUluZm9ybWF0aW9uEhIKCnRpY2tfY291bnQYASABKAMSGgoSd29ybGRfdGltZV9zZWNvbmRzGAIgASgCEh0KFXRpY2tfZHVyYXRpb25fc2Vjb25kcxgDIAEoAhIRCglpc19wYXVzZWQYBCABKAgSFgoOcGxheWJhY2tfc3BlZWQYBSABKAIiygEKFEludGVybG9ja2luZ1NuYXBzaG90ElAKDnN0YXRpb25zX2J5X2lkGAEgAygLMjgubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdTbmFwc2hvdC5TdGF0aW9uc0J5SWRFbnRyeRpgChFTdGF0aW9uc0J5SWRFbnRyeRILCgNrZXkYASABKAkSOgoFdmFsdWUYAiABKAsyKy5uYWthdGV0c3UuY3RjLnYxLkludGVybG9ja2luZ1N0YXRpb25TdGF0dXM6AjgBIvgBChlJbnRlcmxvY2tpbmdTdGF0aW9uU3RhdHVzEhYKDmlzX2luaXRpYWxpemVkGAEgASgIEhIKCmhhc19vdXRwdXQYAiABKAgSUQoMcm91dGVzX2J5X2lkGAMgAygLMjsubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdTdGF0aW9uU3RhdHVzLlJvdXRlc0J5SWRFbnRyeRpcCg9Sb3V0ZXNCeUlkRW50cnkSCwoDa2V5GAEgASgJEjgKBXZhbHVlGAIgASgLMikubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdSb3V0ZVN0YXR1czoCOAEilgMKF0ludGVybG9ja2luZ1JvdXRlU3RhdHVzEhQKDGlzX2F2YWlsYWJsZRgBIAEoCBIUCgxpc19yb3V0ZV9zZXQYAiABKAgSGAoQcGF0aF9lc3RhYmxpc2hlZBgDIAEoCBIXCg9wcm9jZWVkX2FsbG93ZWQYBCABKAgSFAoMcm91dGVfbG9ja2VkGAUgASgIEhYKDmNhbmNlbF9wZW5kaW5nGAYgASgIEhcKD2FwcHJvYWNoX2xvY2tlZBgHIAEoCBIqCiJhcHByb2FjaF9yZWxlYXNlX3JlbWFpbmluZ19zZWNvbmRzGAggASgCEj0KDG92ZXJydW5fbW9kZRgJIAEoDjInLm5ha2F0ZXRzdS5jdGMudjEuT3ZlcnJ1blByb3RlY3Rpb25Nb2RlEj8KDW92ZXJydW5fcGhhc2UYCiABKA4yKC5uYWthdGV0c3UuY3RjLnYxLk92ZXJydW5Qcm90ZWN0aW9uUGhhc2USKQohb3ZlcnJ1bl9yZWxlYXNlX3JlbWFpbmluZ19zZWNvbmRzGAsgASgCIpUBChhJbnRlcmxvY2tpbmdSb3V0ZVJlcXVlc3QSEgoKcmVxdWVzdF9pZBgBIAEoCRISCgpzdGF0aW9uX2lkGAIgASgJEhAKCHJvdXRlX2lkGAMgASgJEj8KCW9wZXJhdGlvbhgEIAEoDjIsLm5ha2F0ZXRzdS5jdGMudjEuSW50ZXJsb2NraW5nUm91dGVPcGVyYXRpb24iiAMKHkludGVybG9ja2luZ1JvdXRlUmVxdWVzdFJlc3VsdBISCgpyZXF1ZXN0X2lkGAEgASgJEhIKCnN0YXRpb25faWQYAiABKAkSEAoIcm91dGVfaWQYAyABKAkSEAoIYWNjZXB0ZWQYBCABKAgSRQoKZXJyb3JfY29kZRgFIAEoDjIsLm5ha2F0ZXRzdS5jdGMudjEuSW50ZXJsb2NraW5nUm91dGVFcnJvckNvZGVIAIgBARIdChByZWxhdGVkX3JvdXRlX2lkGAYgASgJSAGIAQESHwoScmVsYXRlZF9jaXJjdWl0X2lkGAcgASgJSAKIAQESHwoScmVsYXRlZF90dXJub3V0X2lkGAggASgJSAOIAQESFAoHbWVzc2FnZRgJIAEoCUgEiAEBQg0KC19lcnJvcl9jb2RlQhMKEV9yZWxhdGVkX3JvdXRlX2lkQhUKE19yZWxhdGVkX2NpcmN1aXRfaWRCFQoTX3JlbGF0ZWRfdHVybm91dF9pZEIKCghfbWVzc2FnZSKMBQoLQ3RjU25hcHNob3QSFgoOaXNfaW5pdGlhbGl6ZWQYASABKAgSEwoLbmVlZHNfcmVzZXQYAiABKAgSRwoOY2lyY3VpdHNfYnlfaWQYAyADKAsyLy5uYWthdGV0c3UuY3RjLnYxLkN0Y1NuYXBzaG90LkNpcmN1aXRzQnlJZEVudHJ5EkMKDHRyYWluc19ieV9pZBgEIAMoCzItLm5ha2F0ZXRzdS5jdGMudjEuQ3RjU25hcHNob3QuVHJhaW5zQnlJZEVudHJ5EkcKDnR1cm5vdXRzX2J5X2lkGAUgAygLMi8ubmFrYXRldHN1LmN0Yy52MS5DdGNTbmFwc2hvdC5UdXJub3V0c0J5SWRFbnRyeRI8CgxpbnRlcmxvY2tpbmcYBiABKAsyJi5uYWthdGV0c3UuY3RjLnYxLkludGVybG9ja2luZ1NuYXBzaG90EjoKCndvcmxkX3RpbWUYByABKAsyJi5uYWthdGV0c3UuY3RjLnYxLldvcmxkVGltZUluZm9ybWF0aW9uGlYKEUNpcmN1aXRzQnlJZEVudHJ5EgsKA2tleRgBIAEoCRIwCgV2YWx1ZRgCIAEoCzIhLm5ha2F0ZXRzdS5jdGMudjEuQ3RjQ2lyY3VpdFN0YXRlOgI4ARpSCg9UcmFpbnNCeUlkRW50cnkSCwoDa2V5GAEgASgJEi4KBXZhbHVlGAIgASgLMh8ubmFrYXRldHN1LmN0Yy52MS5DdGNUcmFpblN0YXRlOgI4ARpTChFUdXJub3V0c0J5SWRFbnRyeRILCgNrZXkYASABKAkSLQoFdmFsdWUYAiABKAsyHi5uYWthdGV0c3UuY3RjLnYxLlR1cm5vdXRTdGF0ZToCOAEiOAoPQ3RjQ2lyY3VpdFN0YXRlEhMKC2lzX29jY3VwaWVkGAEgASgIEhAKCHRyYWluX2lkGAIgASgJIn8KDUN0Y1RyYWluU3RhdGUSFwoKY29uc2lzdF9pZBgBIAEoCUgAiAEBEhYKDmNvbnNpc3RfbnVtYmVyGAIgASgJEhQKDHRyYWluX251bWJlchgDIAEoCRIYChBvcGVyYXRpb25fbnVtYmVyGAQgASgJQg0KC19jb25zaXN0X2lkKmoKD1R1cm5vdXRQb3NpdGlvbhIcChhUVVJOT1VUX1BPU0lUSU9OX1VOS05PV04QABIbChdUVVJOT1VUX1BPU0lUSU9OX05PUk1BTBABEhwKGFRVUk5PVVRfUE9TSVRJT05fUkVWRVJTRRACKpIBChpJbnRlcmxvY2tpbmdSb3V0ZU9wZXJhdGlvbhIlCiFJTlRFUkxPQ0tJTkdfUk9VVEVfT1BFUkFUSU9OX05PTkUQABIkCiBJTlRFUkxPQ0tJTkdfUk9VVEVfT1BFUkFUSU9OX1NFVBABEicKI0lOVEVSTE9DS0lOR19ST1VURV9PUEVSQVRJT05fQ0FOQ0VMEAIq9AQKGkludGVybG9ja2luZ1JvdXRlRXJyb3JDb2RlEiYKIklOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX05PTkUQABIxCi1JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9JTlZBTElEX1JFUVVFU1QQARIxCi1JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9VTktOT1dOX1NUQVRJT04QAhIvCitJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9VTktOT1dOX1JPVVRFEAMSMQotSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfTk9UX0lOSVRJQUxJWkVEEAQSMwovSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfSU5QVVRfVU5BVkFJTEFCTEUQBRItCilJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9BTFJFQURZX1NFVBAGEikKJUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX05PVF9TRVQQBxIyCi5JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9DSVJDVUlUX09DQ1VQSUVEEAgSMgouSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfQ0lSQ1VJVF9SRVNFUlZFRBAJEjAKLElOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX1JPVVRFX0NPTkZMSUNUEAoSOwo3SU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfVFVSTk9VVF9QT1NJVElPTl9DT05GTElDVBALKoUBChVPdmVycnVuUHJvdGVjdGlvbk1vZGUSIAocT1ZFUlJVTl9QUk9URUNUSU9OX01PREVfTk9ORRAAEiIKHk9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX05PUk1BTBABEiYKIk9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX1JFU1RSSUNURUQQAirfAQoWT3ZlcnJ1blByb3RlY3Rpb25QaGFzZRIhCh1PVkVSUlVOX1BST1RFQ1RJT05fUEhBU0VfTk9ORRAAEiQKIE9WRVJSVU5fUFJPVEVDVElPTl9QSEFTRV9TRVRUSU5HEAESKAokT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX0VTVEFCTElTSEVEEAISKwonT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1JFTEVBU0VfVElNSU5HEAMSJQohT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1JFTEVBU0VEEAQyXgoKQ3RjU2VydmljZRJQCg5VcGRhdGVTbmFwc2hvdBImLm5ha2F0ZXRzdS5jdGMudjEuVW5pdHlTbmFwc2hvdE1lc3NhZ2UaFi5nb29nbGUucHJvdG9idWYuRW1wdHlCT1oxZ2l0aHViLmNvbS9uZWtvMzE0MTU5Mi9OYWthdGV0c3UvU2VydmVyL2dlbi9jdGN2MaoCGU5hbWVzcGFjZS5Qcm90b2NvbC5DdGMuVjFiBnByb3RvMw", [file_google_protobuf_empty]);
 
 /**
  * 旧Message<UnitySnapshot>。Protobufではジェネリック型を具体型に展開する。
@@ -104,6 +104,13 @@ export type UnitySnapshot = Message<"nakatetsu.ctc.v1.UnitySnapshot"> & {
    * @generated from field: nakatetsu.ctc.v1.TrainInitializationSnapshot train_initialization = 4;
    */
   trainInitialization?: TrainInitializationSnapshot | undefined;
+
+  /**
+   * 同じ完了Tickの転轍機状態。未取得なら省略する。
+   *
+   * @generated from field: nakatetsu.ctc.v1.TurnoutSnapshot turnouts = 5;
+   */
+  turnouts?: TurnoutSnapshot | undefined;
 };
 
 /**
@@ -195,6 +202,49 @@ export const TrackCircuitSnapshotSchema: GenMessage<TrackCircuitSnapshot> = /*@_
   messageDesc(file_ctc, 5);
 
 /**
+ * @generated from message nakatetsu.ctc.v1.TurnoutSnapshot
+ */
+export type TurnoutSnapshot = Message<"nakatetsu.ctc.v1.TurnoutSnapshot"> & {
+  /**
+   * 転轍機のConnectionIdをキーにする。固定接続は含めない。
+   *
+   * @generated from field: map<string, nakatetsu.ctc.v1.TurnoutState> turnouts_by_id = 1;
+   */
+  turnoutsById: { [key: string]: TurnoutState };
+};
+
+/**
+ * Describes the message nakatetsu.ctc.v1.TurnoutSnapshot.
+ * Use `create(TurnoutSnapshotSchema)` to create a new message.
+ */
+export const TurnoutSnapshotSchema: GenMessage<TurnoutSnapshot> = /*@__PURE__*/
+  messageDesc(file_ctc, 6);
+
+/**
+ * @generated from message nakatetsu.ctc.v1.TurnoutState
+ */
+export type TurnoutState = Message<"nakatetsu.ctc.v1.TurnoutState"> & {
+  /**
+   * 要求位置ではなく、転換完了によって確定した実位置。
+   *
+   * @generated from field: nakatetsu.ctc.v1.TurnoutPosition actual_position = 1;
+   */
+  actualPosition: TurnoutPosition;
+
+  /**
+   * @generated from field: bool is_moving = 2;
+   */
+  isMoving: boolean;
+};
+
+/**
+ * Describes the message nakatetsu.ctc.v1.TurnoutState.
+ * Use `create(TurnoutStateSchema)` to create a new message.
+ */
+export const TurnoutStateSchema: GenMessage<TurnoutState> = /*@__PURE__*/
+  messageDesc(file_ctc, 7);
+
+/**
  * Unityからサーバーへ渡す世界の時間情報。
  *
  * @generated from message nakatetsu.ctc.v1.WorldTimeInformation
@@ -231,7 +281,7 @@ export type WorldTimeInformation = Message<"nakatetsu.ctc.v1.WorldTimeInformatio
  * Use `create(WorldTimeInformationSchema)` to create a new message.
  */
 export const WorldTimeInformationSchema: GenMessage<WorldTimeInformation> = /*@__PURE__*/
-  messageDesc(file_ctc, 6);
+  messageDesc(file_ctc, 8);
 
 /**
  * @generated from message nakatetsu.ctc.v1.InterlockingSnapshot
@@ -250,7 +300,7 @@ export type InterlockingSnapshot = Message<"nakatetsu.ctc.v1.InterlockingSnapsho
  * Use `create(InterlockingSnapshotSchema)` to create a new message.
  */
 export const InterlockingSnapshotSchema: GenMessage<InterlockingSnapshot> = /*@__PURE__*/
-  messageDesc(file_ctc, 7);
+  messageDesc(file_ctc, 9);
 
 /**
  * @generated from message nakatetsu.ctc.v1.InterlockingStationStatus
@@ -277,7 +327,7 @@ export type InterlockingStationStatus = Message<"nakatetsu.ctc.v1.InterlockingSt
  * Use `create(InterlockingStationStatusSchema)` to create a new message.
  */
 export const InterlockingStationStatusSchema: GenMessage<InterlockingStationStatus> = /*@__PURE__*/
-  messageDesc(file_ctc, 8);
+  messageDesc(file_ctc, 10);
 
 /**
  * @generated from message nakatetsu.ctc.v1.InterlockingRouteStatus
@@ -346,7 +396,7 @@ export type InterlockingRouteStatus = Message<"nakatetsu.ctc.v1.InterlockingRout
  * Use `create(InterlockingRouteStatusSchema)` to create a new message.
  */
 export const InterlockingRouteStatusSchema: GenMessage<InterlockingRouteStatus> = /*@__PURE__*/
-  messageDesc(file_ctc, 9);
+  messageDesc(file_ctc, 11);
 
 /**
  * サーバーからUnityへの進路要求。旧Contractsでは配送RPCは未定義だった。
@@ -382,7 +432,7 @@ export type InterlockingRouteRequest = Message<"nakatetsu.ctc.v1.InterlockingRou
  * Use `create(InterlockingRouteRequestSchema)` to create a new message.
  */
 export const InterlockingRouteRequestSchema: GenMessage<InterlockingRouteRequest> = /*@__PURE__*/
-  messageDesc(file_ctc, 10);
+  messageDesc(file_ctc, 12);
 
 /**
  * 進路要求の受付結果。開通・解錠の完了は進路状態で確認する。
@@ -452,10 +502,10 @@ export type InterlockingRouteRequestResult = Message<"nakatetsu.ctc.v1.Interlock
  * Use `create(InterlockingRouteRequestResultSchema)` to create a new message.
  */
 export const InterlockingRouteRequestResultSchema: GenMessage<InterlockingRouteRequestResult> = /*@__PURE__*/
-  messageDesc(file_ctc, 11);
+  messageDesc(file_ctc, 13);
 
 /**
- * CTCからWebへ送る追跡状態。差分ではなく全体を置き換える。
+ * CTCからWebへ送る追跡・連動状態。差分ではなく全体を置き換える。
  *
  * @generated from message nakatetsu.ctc.v1.CtcSnapshot
  */
@@ -483,6 +533,27 @@ export type CtcSnapshot = Message<"nakatetsu.ctc.v1.CtcSnapshot"> & {
    * @generated from field: map<string, nakatetsu.ctc.v1.CtcTrainState> trains_by_id = 4;
    */
   trainsById: { [key: string]: CtcTrainState };
+
+  /**
+   * 転轍機のConnectionIdをキーにする。存在しないIDは状態未取得。
+   *
+   * @generated from field: map<string, nakatetsu.ctc.v1.TurnoutState> turnouts_by_id = 5;
+   */
+  turnoutsById: { [key: string]: TurnoutState };
+
+  /**
+   * UnitySnapshot.interlockingと同じ内容・構造。未取得なら省略する。
+   *
+   * @generated from field: nakatetsu.ctc.v1.InterlockingSnapshot interlocking = 6;
+   */
+  interlocking?: InterlockingSnapshot | undefined;
+
+  /**
+   * UnitySnapshot.world_timeと同じ内容。未取得なら省略する。
+   *
+   * @generated from field: nakatetsu.ctc.v1.WorldTimeInformation world_time = 7;
+   */
+  worldTime?: WorldTimeInformation | undefined;
 };
 
 /**
@@ -490,7 +561,7 @@ export type CtcSnapshot = Message<"nakatetsu.ctc.v1.CtcSnapshot"> & {
  * Use `create(CtcSnapshotSchema)` to create a new message.
  */
 export const CtcSnapshotSchema: GenMessage<CtcSnapshot> = /*@__PURE__*/
-  messageDesc(file_ctc, 12);
+  messageDesc(file_ctc, 14);
 
 /**
  * @generated from message nakatetsu.ctc.v1.CtcCircuitState
@@ -514,7 +585,7 @@ export type CtcCircuitState = Message<"nakatetsu.ctc.v1.CtcCircuitState"> & {
  * Use `create(CtcCircuitStateSchema)` to create a new message.
  */
 export const CtcCircuitStateSchema: GenMessage<CtcCircuitState> = /*@__PURE__*/
-  messageDesc(file_ctc, 13);
+  messageDesc(file_ctc, 15);
 
 /**
  * @generated from message nakatetsu.ctc.v1.CtcTrainState
@@ -548,7 +619,33 @@ export type CtcTrainState = Message<"nakatetsu.ctc.v1.CtcTrainState"> & {
  * Use `create(CtcTrainStateSchema)` to create a new message.
  */
 export const CtcTrainStateSchema: GenMessage<CtcTrainState> = /*@__PURE__*/
-  messageDesc(file_ctc, 14);
+  messageDesc(file_ctc, 16);
+
+/**
+ * @generated from enum nakatetsu.ctc.v1.TurnoutPosition
+ */
+export enum TurnoutPosition {
+  /**
+   * @generated from enum value: TURNOUT_POSITION_UNKNOWN = 0;
+   */
+  UNKNOWN = 0,
+
+  /**
+   * @generated from enum value: TURNOUT_POSITION_NORMAL = 1;
+   */
+  NORMAL = 1,
+
+  /**
+   * @generated from enum value: TURNOUT_POSITION_REVERSE = 2;
+   */
+  REVERSE = 2,
+}
+
+/**
+ * Describes the enum nakatetsu.ctc.v1.TurnoutPosition.
+ */
+export const TurnoutPositionSchema: GenEnum<TurnoutPosition> = /*@__PURE__*/
+  enumDesc(file_ctc, 0);
 
 /**
  * @generated from enum nakatetsu.ctc.v1.InterlockingRouteOperation
@@ -576,7 +673,7 @@ export enum InterlockingRouteOperation {
  * Describes the enum nakatetsu.ctc.v1.InterlockingRouteOperation.
  */
 export const InterlockingRouteOperationSchema: GenEnum<InterlockingRouteOperation> = /*@__PURE__*/
-  enumDesc(file_ctc, 0);
+  enumDesc(file_ctc, 1);
 
 /**
  * @generated from enum nakatetsu.ctc.v1.InterlockingRouteErrorCode
@@ -671,7 +768,7 @@ export enum InterlockingRouteErrorCode {
  * Describes the enum nakatetsu.ctc.v1.InterlockingRouteErrorCode.
  */
 export const InterlockingRouteErrorCodeSchema: GenEnum<InterlockingRouteErrorCode> = /*@__PURE__*/
-  enumDesc(file_ctc, 1);
+  enumDesc(file_ctc, 2);
 
 /**
  * @generated from enum nakatetsu.ctc.v1.OverrunProtectionMode
@@ -697,7 +794,7 @@ export enum OverrunProtectionMode {
  * Describes the enum nakatetsu.ctc.v1.OverrunProtectionMode.
  */
 export const OverrunProtectionModeSchema: GenEnum<OverrunProtectionMode> = /*@__PURE__*/
-  enumDesc(file_ctc, 2);
+  enumDesc(file_ctc, 3);
 
 /**
  * @generated from enum nakatetsu.ctc.v1.OverrunProtectionPhase
@@ -733,7 +830,7 @@ export enum OverrunProtectionPhase {
  * Describes the enum nakatetsu.ctc.v1.OverrunProtectionPhase.
  */
 export const OverrunProtectionPhaseSchema: GenEnum<OverrunProtectionPhase> = /*@__PURE__*/
-  enumDesc(file_ctc, 3);
+  enumDesc(file_ctc, 4);
 
 /**
  * 旧C# Contractsのデータ項目・列挙値を移植した定義。

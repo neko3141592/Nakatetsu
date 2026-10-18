@@ -234,6 +234,7 @@ namespace Nakatetsu.Track.Interlocking.Tests
             // The concrete source controllers supply station input without a graph or running equipment tick.
             var connections = CreateInactiveGameObject(stationId + "Connections")
                 .AddComponent<TrackConnectionController>();
+            SetPrivateField(connections, "switchDurationSeconds", 0f);
             var states = GetPrivateField<Dictionary<string, TrackConnectionState>>(connections.Context, "StatesById");
             var constructor = typeof(TrackConnectionState).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic,
                 null, new[] { typeof(TrackSwitchPosition), typeof(TrackSwitchPosition), typeof(bool) }, null);

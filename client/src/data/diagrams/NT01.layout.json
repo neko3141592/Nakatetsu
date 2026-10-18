@@ -1,0 +1,54 @@
+{
+  "width": 1024.0,
+  "height": 768.0,
+  "turnoutIndicators": [
+    {
+      "id": "NT01_TurnoutIndicator_23",
+      "turnoutId": "NT01_23",
+      "label": "23",
+      "x": 580.0,
+      "y": 268.0
+    },
+    {
+      "id": "NT01_TurnoutIndicator_21A",
+      "turnoutId": "NT01_21A",
+      "label": "21A",
+      "x": 676.0,
+      "y": 292.0
+    },
+    {
+      "id": "NT01_TurnoutIndicator_22A",
+      "turnoutId": "NT01_22A",
+      "label": "22A",
+      "x": 676.0,
+      "y": 474.0
+    },
+    {
+      "id": "NT01_TurnoutIndicator_21B",
+      "turnoutId": "NT01_21B",
+      "label": "21B",
+      "x": 802.0,
+      "y": 474.0
+    },
+    {
+      "id": "NT01_TurnoutIndicator_22B",
+      "turnoutId": "NT01_22B",
+      "label": "22B",
+      "x": 802.0,
+      "y": 292.0
+    }
+  ],
+  "routeIndicator": {
+    "id": "NT01_RouteIndicators",
+    "x": 944.0,
+    "y": 64.0
+  },
+  "routeIds": [
+    "1LA",
+    "1LB",
+    "1LC",
+    "1R",
+    "2R",
+    "3R"
+  ]
+}

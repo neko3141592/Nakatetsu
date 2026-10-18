@@ -10,7 +10,6 @@ using Ctc = Namespace.Protocol.Ctc.V1;
 namespace Nakatetsu.Application.Communication
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(ApplicationSimulationController))]
     public sealed class UnitySnapshotSender : MonoBehaviour
     {
         [SerializeField] private ApplicationSimulationController simulation;
@@ -34,6 +33,12 @@ namespace Nakatetsu.Application.Communication
 
         private void OnEnable()
         {
+            if (simulation == null)
+            {
+                Debug.LogError("[CTC] Simulationを設定してください。", this);
+                enabled = false;
+                return;
+            }
             lifetime = new CancellationTokenSource();
             channel = GrpcChannel.ForAddress(serverAddress, new GrpcChannelOptions
             {
@@ -110,6 +115,19 @@ namespace Nakatetsu.Application.Communication
                 snapshot.TrackCircuits = new Ctc.TrackCircuitSnapshot();
                 foreach (var pair in simulation.CompletedOccupiedByCircuitId)
                     snapshot.TrackCircuits.OccupiedByCircuitId.Add(pair.Key, pair.Value);
+            }
+
+            if (simulation.CompletedTurnoutsById != null)
+            {
+                snapshot.Turnouts = new Ctc.TurnoutSnapshot();
+                foreach (var pair in simulation.CompletedTurnoutsById)
+                {
+                    snapshot.Turnouts.TurnoutsById.Add(pair.Key, new Ctc.TurnoutState
+                    {
+                        ActualPosition = (Ctc.TurnoutPosition)pair.Value.ActualPosition,
+                        IsMoving = pair.Value.IsMoving
+                    });
+                }
             }
 
             if (simulation.CompletedTrainInitialization != null)

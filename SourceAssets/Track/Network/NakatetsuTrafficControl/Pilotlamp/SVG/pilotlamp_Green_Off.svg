@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="pilotlamp-green-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <title>緑色表示灯・消灯</title>
+  <defs>
+    <radialGradient id="pilotlamp-green-off-lens" cx="42%" cy="38%" r="68%">
+      <stop offset="0" stop-color="#244b18"/>
+      <stop offset="0.65" stop-color="#17320f"/>
+      <stop offset="1" stop-color="#0b1907"/>
+    </radialGradient>
+  </defs>
+  <circle cx="512" cy="512" r="32" fill="url(#pilotlamp-green-off-lens)"/>
+</svg>
