@@ -82,6 +82,8 @@ export function TrackDiagram({
       if ("turnoutId" in mapping) {
         const turnout = turnoutsById?.[mapping.turnoutId];
         const position = turnout?.isMoving ? undefined : turnout?.actualPosition;
+        // 転換中・位置不明・未取得では在線する分岐を特定できないため、両側に在線を表示する。
+        const positionKnown = position === TurnoutPosition.NORMAL || position === TurnoutPosition.REVERSE;
         const normalReserved = circuitReservedRoutes.some((route) => route.requiredTurnouts.some(
           (required) => required.connectionId === mapping.turnoutId && required.requiredPosition === TurnoutPosition.NORMAL,
         ));
@@ -89,8 +91,8 @@ export function TrackDiagram({
           (required) => required.connectionId === mapping.turnoutId && required.requiredPosition === TurnoutPosition.REVERSE,
         ));
 
-        setStroke(mapping.normalSvgId, occupied && position === TurnoutPosition.NORMAL, normalReserved);
-        setStroke(mapping.reverseSvgId, occupied && position === TurnoutPosition.REVERSE, reverseReserved);
+        setStroke(mapping.normalSvgId, occupied && (!positionKnown || position === TurnoutPosition.NORMAL), normalReserved);
+        setStroke(mapping.reverseSvgId, occupied && (!positionKnown || position === TurnoutPosition.REVERSE), reverseReserved);
       } else {
         setStroke(mapping.svgId, occupied, reserved);
       }
