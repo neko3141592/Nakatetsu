@@ -6,12 +6,14 @@ using Nakatetsu.Track.Interlocking.Management;
 using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using Nakatetsu.Train.Simulation.Orchestration;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace Nakatetsu.Application.Simulation
 {
     public sealed class ApplicationSimulationController : MonoBehaviour, IWorldTimeSource
     {
+        private static readonly ProfilerMarker TickMarker = new("Nakatetsu.WorldTick");
         private static readonly TrackInterlockingManagementOutput EmptyInterlockingOutput =
             new TrackInterlockingManagementContext().Output;
 
@@ -20,10 +22,8 @@ namespace Nakatetsu.Application.Simulation
         [SerializeField] private TrackConnectionController trackConnections;
         [SerializeField] private TrackAtcController trackAtc;
         [SerializeField] private TrackInterlockingManagementController interlockingManagement;
-        [SerializeField] private float tickDurationSeconds;
+        [SerializeField, InspectorName("Manual Step Duration Seconds")] private float tickDurationSeconds;
         [SerializeField] private bool isPaused;
-        [SerializeField, Min(1)] private int maxTicksPerFrame = 100;
-        [SerializeField, Min(1f)] private float maxSimulationMillisecondsPerFrame = 10f;
         [SerializeField, Min(0.1f)] private float playbackSpeed = 1.0f;
 
         [SerializeField, Range(0, 23)] private int startHour = 12;
@@ -33,8 +33,8 @@ namespace Nakatetsu.Application.Simulation
 
         public double WorldTimeSeconds => startTimeSeconds + ElapsedTimeSeconds;
 
-        private float fixedTickSeconds;
-        private double pendingTimeSeconds;
+        private double elapsedTimeSeconds;
+        private float lastTickDurationSeconds;
         private bool isInitialized;
 
         public long CompletedTickCount { get; private set; }
@@ -46,8 +46,8 @@ namespace Nakatetsu.Application.Simulation
         public IReadOnlyDictionary<string, TrackConnectionState> CompletedTurnoutsById { get; private set; }
         // 全列車分が未取得ならnull。取得済み0本は空のリスト。
         public IReadOnlyList<TrainInitializationInfo> CompletedTrainInitialization { get; private set; }
-        public double ElapsedTimeSeconds => CompletedTickCount * (double)fixedTickSeconds;
-        public float TickDurationSeconds => fixedTickSeconds;
+        public double ElapsedTimeSeconds => elapsedTimeSeconds;
+        public float TickDurationSeconds => lastTickDurationSeconds;
         public bool IsPaused => isPaused;
         public float PlaybackSpeed => playbackSpeed;
 
@@ -58,7 +58,7 @@ namespace Nakatetsu.Application.Simulation
             var registeredTrains = new HashSet<TrainSimulationController>();
             if (tickDurationSeconds <= 0f || float.IsNaN(tickDurationSeconds) || float.IsInfinity(tickDurationSeconds))
             {
-                Debug.LogError("正の有限値でtick幅を設定してください。", this);
+                Debug.LogError("正の有限値で手動ステップ幅を設定してください。", this);
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace Nakatetsu.Application.Simulation
                 train.SetTrackCircuitSimulation(trackCircuitSimulation);
             }
 
-            fixedTickSeconds = tickDurationSeconds;
+            lastTickDurationSeconds = tickDurationSeconds;
             if (trackAtc != null)
             {
                 trackAtc.SetWorldTimeSource(this);
@@ -97,22 +97,12 @@ namespace Nakatetsu.Application.Simulation
 
         private void Update()
         {
-            if (isPaused || !CanStep()) return;
-
-            pendingTimeSeconds += Time.unscaledDeltaTime * playbackSpeed;
-            double frameStartSeconds = Time.realtimeSinceStartupAsDouble;
-            double frameBudgetSeconds = Mathf.Max(1f, maxSimulationMillisecondsPerFrame) / 1000d;
-            // 処理しきれなかった時間は捨てず、次フレームへ持ち越す。
-            for (int i = 0; i < maxTicksPerFrame && pendingTimeSeconds >= fixedTickSeconds; i++)
+            if (isPaused || !CanStep())
             {
-                ExecuteTick();
-                pendingTimeSeconds -= fixedTickSeconds;
-                // tickは途中で切らず、実時間の上限に達したら描画と入力へ戻る。
-                if (Time.realtimeSinceStartupAsDouble - frameStartSeconds >= frameBudgetSeconds)
-                {
-                    break;
-                }
+                return;
             }
+
+            ExecuteTick(Time.unscaledDeltaTime * playbackSpeed);
         }
 
         private void Start()
@@ -138,40 +128,69 @@ namespace Nakatetsu.Application.Simulation
         [ContextMenu("Step Once")]
         public void StepOnce()
         {
-            if (isPaused && CanStep()) ExecuteTick();
+            if (isPaused && CanStep())
+            {
+                ExecuteTick(tickDurationSeconds);
+            }
         }
 
         private bool CanStep()
         {
-            if (!UnityEngine.Application.isPlaying || !isInitialized) return false;
+            if (!UnityEngine.Application.isPlaying || !isInitialized)
+            {
+                return false;
+            }
             foreach (TrainSimulationController train in trains)
-                if (train == null || !train.IsInitialized) return false;
+            {
+                if (train == null || !train.IsInitialized)
+                {
+                    return false;
+                }
+            }
             return true;
         }
 
-        private void ExecuteTick()
+        private void ExecuteTick(float deltaTimeSeconds)
         {
+            if (deltaTimeSeconds <= 0f || float.IsNaN(deltaTimeSeconds) || float.IsInfinity(deltaTimeSeconds))
+            {
+                return;
+            }
+
+            using var tickScope = TickMarker.Auto();
             // 前tickまでに始まった転換を進め、列車と連動装置が同じ確定位置を使う。
             if (trackConnections != null)
-                AdvanceSimulation(trackConnections);
+            {
+                AdvanceSimulation(trackConnections, deltaTimeSeconds);
+            }
 
             // 初回は列車の初期配置から占有を作る。以後は前tickの確定状態を保持する。
             if (CompletedTickCount == 0 && trackCircuitSimulation != null)
-                AdvanceSimulation(trackCircuitSimulation);
+            {
+                AdvanceSimulation(trackCircuitSimulation, deltaTimeSeconds);
+            }
 
             foreach (TrainSimulationController train in trains)
-                AdvanceSimulation(train);
+            {
+                AdvanceSimulation(train, deltaTimeSeconds);
+            }
 
             if (trackCircuitSimulation != null)
-                AdvanceSimulation(trackCircuitSimulation);
+            {
+                AdvanceSimulation(trackCircuitSimulation, deltaTimeSeconds);
+            }
 
             // 各駅の更新可否は管理部が判断する。
             if (interlockingManagement != null)
-                AdvanceSimulation(interlockingManagement);
+            {
+                AdvanceSimulation(interlockingManagement, deltaTimeSeconds);
+            }
 
             // 占有と連動の更新後に電文を作り、次tickの車上制御へ渡す。
             if (trackAtc != null && trackAtc.isActiveAndEnabled)
-                AdvanceSimulation(trackAtc);
+            {
+                AdvanceSimulation(trackAtc, deltaTimeSeconds);
+            }
 
             // Tick外の管理部更新とは分け、完了したTickの出力を時刻と一緒に公開する。
             CompletedInterlockingOutput = interlockingManagement != null
@@ -182,7 +201,9 @@ namespace Nakatetsu.Application.Simulation
             {
                 var occupied = new Dictionary<string, bool>();
                 foreach (var pair in trackCircuitSimulation.Context.State.OccupiedByCircuitId)
+                {
                     occupied.Add(pair.Key, pair.Value);
+                }
                 CompletedOccupiedByCircuitId =
                     new System.Collections.ObjectModel.ReadOnlyDictionary<string, bool>(occupied);
             }
@@ -191,17 +212,25 @@ namespace Nakatetsu.Application.Simulation
                 CompletedOccupiedByCircuitId = null;
             }
             CompletedTrainInitialization = CaptureTrainInitialization();
+            elapsedTimeSeconds += deltaTimeSeconds;
+            lastTickDurationSeconds = deltaTimeSeconds;
             CompletedTickCount++;
         }
 
         private IReadOnlyList<TrainInitializationInfo> CaptureTrainInitialization()
         {
-            if (CompletedOccupiedByCircuitId == null) return null;
+            if (CompletedOccupiedByCircuitId == null)
+            {
+                return null;
+            }
             var result = new List<TrainInitializationInfo>();
             foreach (var train in trains)
             {
                 var root = train != null ? train.TrainRoot : null;
-                if (root == null) return null;
+                if (root == null)
+                {
+                    return null;
+                }
 
                 // 手動設定をそのまま送り、初期登録時の検証はGo側で行う。
                 result.Add(new TrainInitializationInfo(root.TrainId ?? string.Empty, root.ConsistNumber,
@@ -211,10 +240,10 @@ namespace Nakatetsu.Application.Simulation
             return result.AsReadOnly();
         }
 
-        private void AdvanceSimulation(ISimulationController controller)
+        private void AdvanceSimulation(ISimulationController controller, float deltaTimeSeconds)
         {
-            controller.Calculate(fixedTickSeconds);
-            controller.ApplyOutput(fixedTickSeconds);
+            controller.Calculate(deltaTimeSeconds);
+            controller.ApplyOutput(deltaTimeSeconds);
         }
     }
 }

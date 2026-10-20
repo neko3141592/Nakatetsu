@@ -91,7 +91,118 @@ namespace Nakatetsu.Application.Simulation.Tests
 
             Assert.That(application.CompletedTickCount, Is.Zero);
             Assert.That(application.ElapsedTimeSeconds, Is.Zero);
+            Assert.That(application.TickDurationSeconds, Is.EqualTo(TickDurationSeconds));
             Assert.That(application.CompletedInterlockingOutput.StationsById, Is.Empty);
+        }
+
+        [Test]
+        public void VariableTicksAccumulateTimeAndPublishTheLastCompletedDuration()
+        {
+            double initialWorldTime = application.WorldTimeSeconds;
+            double elapsed = 0d;
+            float[] durations = { 0.01f, 0.04f, 0.025f };
+            for (int i = 0; i < durations.Length; i++)
+            {
+                ExecuteTick(durations[i]);
+                elapsed += durations[i];
+                Assert.That(application.CompletedTickCount, Is.EqualTo(i + 1));
+                Assert.That(application.ElapsedTimeSeconds, Is.EqualTo(elapsed));
+                Assert.That(application.WorldTimeSeconds, Is.EqualTo(initialWorldTime + elapsed));
+                Assert.That(application.TickDurationSeconds, Is.EqualTo(durations[i]));
+            }
+
+            var snapshot = Ctc.UnitySnapshotMessage.Parser.ParseFrom(CreateSnapshot().ToByteArray());
+            Assert.That(snapshot.Payload.WorldTime.TickCount, Is.EqualTo(3));
+            Assert.That(snapshot.Payload.WorldTime.WorldTimeSeconds,
+                Is.EqualTo((float)(initialWorldTime + elapsed)));
+            Assert.That(snapshot.Payload.WorldTime.TickDurationSeconds, Is.EqualTo(durations[2]));
+
+            SetField(application, "playbackSpeed", 10f);
+            application.StepOnce();
+            Assert.That(application.CompletedTickCount, Is.EqualTo(4));
+            Assert.That(application.ElapsedTimeSeconds, Is.EqualTo(elapsed + TickDurationSeconds));
+            Assert.That(application.TickDurationSeconds, Is.EqualTo(TickDurationSeconds));
+            Assert.That(snapshot.Payload.WorldTime.TickCount, Is.EqualTo(3));
+            Assert.That(snapshot.Payload.WorldTime.TickDurationSeconds, Is.EqualTo(durations[2]));
+        }
+
+        [Test]
+        public void VariableTicksAdvanceTimedTurnoutByTheirActualDurations()
+        {
+            var connections = CreateConnections();
+            SetField(connections, "completeRequestsAutomatically", true);
+            SetField(connections, "switchDurationSeconds", 0.25f);
+            Assert.That(connections.TryRequestPosition(ConnectionId, TrackSwitchPosition.Reverse,
+                out string error), Is.True, error);
+
+            ExecuteTick(0.0625f);
+            ExecuteTick(0.125f);
+            var moving = application.CompletedTurnoutsById;
+            Assert.That(moving[ConnectionId].IsMoving, Is.True);
+            Assert.That(moving[ConnectionId].ActualPosition, Is.EqualTo(TrackSwitchPosition.Unknown));
+
+            ExecuteTick(0.0625f);
+            var snapshot = CreateSnapshot();
+            Assert.That(application.ElapsedTimeSeconds, Is.EqualTo(0.25d));
+            Assert.That(snapshot.Payload.WorldTime.TickCount, Is.EqualTo(3));
+            Assert.That(snapshot.Payload.Turnouts.TurnoutsById[ConnectionId].IsMoving, Is.False);
+            Assert.That(snapshot.Payload.Turnouts.TurnoutsById[ConnectionId].ActualPosition,
+                Is.EqualTo(Ctc.TurnoutPosition.Reverse));
+            Assert.That(moving[ConnectionId].IsMoving, Is.True);
+        }
+
+        [TestCase(1f)]
+        [TestCase(3f)]
+        [TestCase(10f)]
+        public void UpdateAdvancesOneTickUsingUnscaledFrameTimeAndPlaybackSpeed(float speed)
+        {
+            float expectedDuration = Time.unscaledDeltaTime * speed;
+            Assert.That(expectedDuration, Is.GreaterThan(0f));
+            SetField(application, "playbackSpeed", speed);
+            application.SetPaused(false);
+
+            InvokeUpdate();
+
+            Assert.That(application.CompletedTickCount, Is.EqualTo(1));
+            Assert.That(application.ElapsedTimeSeconds, Is.EqualTo((double)expectedDuration));
+            Assert.That(application.TickDurationSeconds, Is.EqualTo(expectedDuration));
+            application.StepOnce();
+            Assert.That(application.CompletedTickCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void UpdateDoesNotAdvanceWhilePausedOrUninitialized()
+        {
+            InvokeUpdate();
+            Assert.That(application.CompletedTickCount, Is.Zero);
+
+            application.SetPaused(false);
+            SetField(application, "isInitialized", false);
+            InvokeUpdate();
+            Assert.That(application.CompletedTickCount, Is.Zero);
+            Assert.That(application.ElapsedTimeSeconds, Is.Zero);
+            Assert.That(application.TickDurationSeconds, Is.EqualTo(TickDurationSeconds));
+        }
+
+        [TestCase(0f)]
+        [TestCase(-1f)]
+        [TestCase(float.NaN)]
+        [TestCase(float.PositiveInfinity)]
+        [TestCase(float.NegativeInfinity)]
+        public void InvalidDurationOrPlaybackSpeedDoesNotReplaceTheCompletedTick(float invalidValue)
+        {
+            application.StepOnce();
+            var previousOutput = application.CompletedInterlockingOutput;
+
+            ExecuteTick(invalidValue);
+            SetField(application, "playbackSpeed", invalidValue);
+            application.SetPaused(false);
+            InvokeUpdate();
+
+            Assert.That(application.CompletedTickCount, Is.EqualTo(1));
+            Assert.That(application.ElapsedTimeSeconds, Is.EqualTo((double)TickDurationSeconds));
+            Assert.That(application.TickDurationSeconds, Is.EqualTo(TickDurationSeconds));
+            Assert.That(application.CompletedInterlockingOutput, Is.SameAs(previousOutput));
         }
 
         [Test]
@@ -359,6 +470,18 @@ namespace Nakatetsu.Application.Simulation.Tests
             SetField(sender, "simulation", application);
             return (Ctc.UnitySnapshotMessage)typeof(UnitySnapshotSender)
                 .GetMethod("CreateSnapshot", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(sender, null);
+        }
+
+        private void ExecuteTick(float durationSeconds)
+        {
+            typeof(ApplicationSimulationController).GetMethod("ExecuteTick", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(application, new object[] { durationSeconds });
+        }
+
+        private void InvokeUpdate()
+        {
+            typeof(ApplicationSimulationController).GetMethod("Update", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(application, null);
         }
 
         private TrackCircuitSimulationController CreateCircuitSimulation(out OccupancySource source)

@@ -1,13 +1,18 @@
 using System.Collections.Generic;
 using Nakatetsu.Track.Graph.Edge;
 using Nakatetsu.Track.Simulation.Circuit;
+using Unity.Profiling;
 
 namespace Nakatetsu.Track.Atc
 {
     public static class TrackAtcValidationLogic
     {
+        private static readonly ProfilerMarker ValidationMarker = new("Nakatetsu.ATC.Validation");
+        private static readonly ProfilerMarker MembershipBuildMarker = new("Nakatetsu.ATC.RouteMembership.Build");
+
         internal static void UpdateValidation(TrackAtcContext context)
         {
+            using var validationScope = ValidationMarker.Auto();
             if (context?.State?.validation == null)
             {
                 return;
@@ -21,6 +26,7 @@ namespace Nakatetsu.Track.Atc
             {
                 // 検証途中の辞書も残さず、後段が未確認の定義を使用できないようにする。
                 ClearGraphIndices(state);
+                ClearRouteMemberships(state);
                 state.failureReason = graphFailureReason;
             }
 
@@ -36,6 +42,7 @@ namespace Nakatetsu.Track.Atc
             state.isGraphValid = false;
             state.isSimulationTimeValid = false;
             state.failureReason = string.Empty;
+            // 所属索引は今回の方向検証で内容を照合するまで保持する。
             ClearGraphIndices(state);
             state.hasCircuitInputById.Clear();
             state.hasRouteInputById.Clear();
@@ -224,6 +231,8 @@ namespace Nakatetsu.Track.Atc
                 state.directionsByAtcEdgeId.Add(edge.atcEdgeId, directions);
             }
 
+            int membershipIndex = 0;
+            bool membershipsMatch = true;
             foreach (var route in state.atcRoutesById.Values)
             {
                 if (!TryGetRouteDirections(route, state.atcEdgesById, out var routeDirections))
@@ -235,6 +244,22 @@ namespace Nakatetsu.Track.Atc
                 for (int i = 0; i < route.atcEdgeIds.Count; i++)
                 {
                     var edge = state.atcEdgesById[route.atcEdgeIds[i]];
+                    if (membershipsMatch)
+                    {
+                        int previousIndex = membershipIndex + i;
+                        if (previousIndex >= state.routeMembershipsInRouteOrder.Count)
+                        {
+                            membershipsMatch = false;
+                        }
+                        else
+                        {
+                            var previous = state.routeMembershipsInRouteOrder[previousIndex];
+                            membershipsMatch = ReferenceEquals(previous.route, route)
+                                && previous.routeIndex == i
+                                && previous.edgeKey == new TrackAtcEdgeKey(edge.atcEdgeId, routeDirections[i]);
+                        }
+                    }
+
                     if (edge.controlKind == TrackAtcEdgeControlKind.Interlocking
                         || edge.controlKind == TrackAtcEdgeControlKind.Yard)
                     {
@@ -242,6 +267,8 @@ namespace Nakatetsu.Track.Atc
                         state.directionsByAtcEdgeId[edge.atcEdgeId].Add(routeDirections[i]);
                     }
                 }
+
+                membershipIndex += route.atcEdgeIds.Count;
             }
 
             foreach (var edge in state.atcEdgesById.Values)
@@ -258,6 +285,50 @@ namespace Nakatetsu.Track.Atc
                     }
 
                     state.directionsByAtcEdgeId[edge.atcEdgeId].Add(direction);
+                }
+            }
+
+            if (!membershipsMatch || membershipIndex != state.routeMembershipsInRouteOrder.Count)
+            {
+                return TryRebuildRouteMemberships(state, out failureReason);
+            }
+
+            return true;
+        }
+
+        private static void ClearRouteMemberships(TrackAtcValidationState state)
+        {
+            state.routeMembershipsByEdgeKey.Clear();
+            state.routeMembershipsInRouteOrder.Clear();
+        }
+
+        private static bool TryRebuildRouteMemberships(
+            TrackAtcValidationState state,
+            out string failureReason)
+        {
+            using var membershipBuildScope = MembershipBuildMarker.Auto();
+            failureReason = string.Empty;
+            ClearRouteMemberships(state);
+            foreach (var route in state.atcRoutesById.Values)
+            {
+                if (!TryGetRouteDirections(route, state.atcEdgesById, out var directions))
+                {
+                    failureReason = $"ATC進路 {route.atcRouteId} の接続または進行方向が不整合。";
+                    return false;
+                }
+
+                for (int i = 0; i < route.atcEdgeIds.Count; i++)
+                {
+                    var key = new TrackAtcEdgeKey(route.atcEdgeIds[i], directions[i]);
+                    var membership = new TrackAtcRouteMembership(key, route, i);
+                    state.routeMembershipsInRouteOrder.Add(membership);
+                    if (!state.routeMembershipsByEdgeKey.TryGetValue(key, out var memberships))
+                    {
+                        memberships = new List<TrackAtcRouteMembership>();
+                        state.routeMembershipsByEdgeKey.Add(key, memberships);
+                    }
+
+                    memberships.Add(membership);
                 }
             }
 
