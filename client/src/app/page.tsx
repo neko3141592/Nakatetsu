@@ -12,7 +12,13 @@ function readJson<T>(filePath: string): T {
 
 type Placement = { id: string; stationId?: string; x: number; y: number };
 const placements: readonly Placement[] = lineLayout.diagrams;
+const diagramLayouts = import.meta.glob<DiagramLayout>("../data/diagrams/*.layout.json", {
+  eager: true,
+  import: "default",
+});
 const diagrams = placements.map((placement) => {
+  const layout = diagramLayouts[`../data/diagrams/${placement.id}.layout.json`];
+  if (!layout) throw new Error(`Missing diagram layout: ${placement.id}`);
   const interlockingPath = placement.stationId
     ? path.join(
         process.cwd(),
@@ -29,9 +35,7 @@ const diagrams = placements.map((placement) => {
     circuitSvgMap: readJson<CircuitSvgMap>(
       path.join(process.cwd(), "src/data/diagrams", `${placement.id}.json`),
     ),
-    layout: readJson<DiagramLayout>(
-      path.join(process.cwd(), "src/data/diagrams", `${placement.id}.layout.json`),
-    ),
+    layout,
     routeDefinitions: interlockingPath && existsSync(interlockingPath)
       ? readJson<{ routes: RouteDefinition[] }>(interlockingPath).routes
       : [],

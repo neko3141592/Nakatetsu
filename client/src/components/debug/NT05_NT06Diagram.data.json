@@ -1,0 +1,44 @@
+{
+  "width": 96.0,
+  "height": 768.0,
+  "circuits": [
+    {
+      "id": "NT05_NT06_D1T",
+      "paths": [
+        "M 0 320 L 32 320"
+      ]
+    },
+    {
+      "id": "NT05_NT06_D2T",
+      "paths": [
+        "M 32 320 L 64 320"
+      ]
+    },
+    {
+      "id": "NT05_NT06_D3T",
+      "paths": [
+        "M 64 320 L 96 320"
+      ]
+    },
+    {
+      "id": "NT05_NT06_U1T",
+      "paths": [
+        "M 0 448 L 32 448"
+      ]
+    },
+    {
+      "id": "NT05_NT06_U2T",
+      "paths": [
+        "M 32 448 L 64 448"
+      ]
+    },
+    {
+      "id": "NT05_NT06_U3T",
+      "paths": [
+        "M 64 448 L 96 448"
+      ]
+    }
+  ],
+  "platforms": [],
+  "routeIds": []
+}

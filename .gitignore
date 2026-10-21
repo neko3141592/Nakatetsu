@@ -76,7 +76,11 @@ ExportedObj/
 
 # Office lock files and draw.io recovery backups
 /Documentation/**/~$*
-/Documentation/**/.$*.drawio.bkp
+**/.$*.drawio.bkp
+
+# Python bytecode caches
+__pycache__/
+*.py[cod]
 
 # Unity3D generated meta files
 *.pidb.meta

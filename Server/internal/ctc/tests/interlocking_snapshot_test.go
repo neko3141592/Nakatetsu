@@ -24,7 +24,7 @@ func TestInterlockingSnapshotThroughGRPCAndWebSocket(t *testing.T) {
 	core := ctc.New(nil, nil)
 	listener := bufconn.Listen(1024 * 1024)
 	grpcServer := grpc.NewServer()
-	ctcv1.RegisterCtcServiceServer(grpcServer, &communication.CtcServer{CTC: core})
+	ctcv1.RegisterCtcServiceServer(grpcServer, &communication.CommunicationServer{CTC: core})
 	go grpcServer.Serve(listener)
 	t.Cleanup(func() { grpcServer.Stop(); listener.Close() })
 	connection, err := grpc.NewClient("passthrough:///interlocking-test",
@@ -38,7 +38,7 @@ func TestInterlockingSnapshotThroughGRPCAndWebSocket(t *testing.T) {
 	t.Cleanup(func() { connection.Close() })
 	client := ctcv1.NewCtcServiceClient(connection)
 
-	handler := &api.Server{CTC: core}
+	handler := &api.ApiServer{CTC: core}
 	webServer := httptest.NewServer(http.HandlerFunc(handler.HandleWebSocket))
 	t.Cleanup(webServer.Close)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

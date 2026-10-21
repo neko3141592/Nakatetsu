@@ -1405,6 +1405,7 @@
     {
       "circuitId": "NT07_22AT",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT06_NT07_U3T",
       "sections": [
         {
           "edgeId": "NT07_ML2_010",
@@ -1643,6 +1644,7 @@
     {
       "circuitId": "NT07_26BT",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT07_NT08_DE1T",
       "sections": [
         {
           "edgeId": "NT07_P01_045",
@@ -1779,6 +1781,7 @@
     {
       "circuitId": "NT07_25BT",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT07_NT08_DL1T",
       "sections": [
         {
           "edgeId": "NT07_DL_060",

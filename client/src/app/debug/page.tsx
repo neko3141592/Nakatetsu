@@ -6,7 +6,7 @@ import { NT01Diagram } from "@/components/debug/NT01Diagram";
 import { CtcSnapshotSchema, TurnoutPosition, type CtcSnapshot } from "@/gen/ctc_pb";
 import {
   connectCtc,
-  CTC_WEBSOCKET_URL,
+  getCtcWebSocketUrl,
   type CtcConnectionStatus,
 } from "@/lib/ctcConnection";
 
@@ -24,11 +24,13 @@ export default function DebugPage() {
   const [lastReceivedAt, setLastReceivedAt] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
+  const [webSocketUrl, setWebSocketUrl] = useState("");
 
   useEffect(() => {
     // 開発時のStrict Modeでも、破棄されたEffectから接続しない。
     let disconnect: (() => void) | undefined;
     const timer = window.setTimeout(() => {
+      setWebSocketUrl(getCtcWebSocketUrl());
       disconnect = connectCtc(
         (next) => {
           setSnapshot(next);
@@ -88,7 +90,7 @@ export default function DebugPage() {
           <div><dt className="text-zinc-600 dark:text-zinc-400">接続状態</dt><dd role="status" className="mt-1 font-semibold">{statusLabels[status]}</dd></div>
           <div><dt className="text-zinc-600 dark:text-zinc-400">受信回数</dt><dd className="mt-1 tabular-nums">{receivedCount}</dd></div>
           <div><dt className="text-zinc-600 dark:text-zinc-400">最終受信</dt><dd className="mt-1 tabular-nums">{lastReceivedAt ?? "未受信"}</dd></div>
-          <div><dt className="text-zinc-600 dark:text-zinc-400">接続先</dt><dd className="mt-1 break-all font-mono text-xs">{CTC_WEBSOCKET_URL}</dd></div>
+          <div><dt className="text-zinc-600 dark:text-zinc-400">接続先</dt><dd className="mt-1 break-all font-mono text-xs">{webSocketUrl}</dd></div>
         </dl>
       </section>
 

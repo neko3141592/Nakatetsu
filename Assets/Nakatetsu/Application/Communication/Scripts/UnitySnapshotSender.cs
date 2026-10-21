@@ -1,11 +1,14 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Net.Http;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Nakatetsu.Application.Simulation;
+using Nakatetsu.Track.Interlocking.Management;
 using UnityEngine;
 using Ctc = Namespace.Protocol.Ctc.V1;
+using Interlocking = Nakatetsu.Track.Interlocking;
 
 namespace Nakatetsu.Application.Communication
 {
@@ -13,6 +16,7 @@ namespace Nakatetsu.Application.Communication
     public sealed class UnitySnapshotSender : MonoBehaviour
     {
         [SerializeField] private ApplicationSimulationController simulation;
+        [SerializeField] private TrackInterlockingManagementController interlockingManagement;
         [SerializeField] private string serverAddress = "http://127.0.0.1:50051";
         [SerializeField, Min(0.05f)] private float sendIntervalSeconds = 0.1f;
 
@@ -33,9 +37,9 @@ namespace Nakatetsu.Application.Communication
 
         private void OnEnable()
         {
-            if (simulation == null)
+            if (simulation == null || interlockingManagement == null)
             {
-                Debug.LogError("[CTC] Simulationを設定してください。", this);
+                Debug.LogError("[CTC] Simulationと連動管理部を設定してください。", this);
                 enabled = false;
                 return;
             }
@@ -49,6 +53,81 @@ namespace Nakatetsu.Application.Communication
             elapsedSeconds = 0f;
             connected = false;
             lastFailureCode = null;
+            _ = ReceiveRouteRequestsAsync(client, lifetime.Token);
+        }
+
+        private async Task ReceiveRouteRequestsAsync(
+            Ctc.CtcService.CtcServiceClient routeClient, CancellationToken token)
+        {
+            // OnEnableから開始し、他のコンポーネントのAwakeが完了してから受信する。
+            await Task.Yield();
+            StatusCode? lastRouteFailureCode = null;
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    using var call = routeClient.ConnectRouteControl(cancellationToken: token);
+                    while (await call.ResponseStream.MoveNext(token))
+                    {
+                        token.ThrowIfCancellationRequested();
+                        lastRouteFailureCode = null;
+                        var request = call.ResponseStream.Current;
+
+                        // Unityのメインスレッドで連動装置に要求を渡す。
+                        var result = interlockingManagement.TryRouteRequest(
+                            new Interlocking.InterlockingRouteRequest
+                            {
+                                RequestId = request.RequestId,
+                                StationId = request.StationId,
+                                RouteId = request.RouteId,
+                                Operation = (Interlocking.InterlockingRouteOperation)request.Operation
+                            });
+
+                        var response = new Ctc.InterlockingRouteRequestResult
+                        {
+                            RequestId = result.RequestId,
+                            StationId = result.StationId,
+                            RouteId = result.RouteId,
+                            Accepted = result.Accepted,
+                            ErrorCode = (Ctc.InterlockingRouteErrorCode)result.ErrorCode
+                        };
+                        if (result.RelatedRouteId != null)
+                            response.RelatedRouteId = result.RelatedRouteId;
+                        if (result.RelatedCircuitId != null)
+                            response.RelatedCircuitId = result.RelatedCircuitId;
+                        if (result.RelatedTurnoutId != null)
+                            response.RelatedTurnoutId = result.RelatedTurnoutId;
+                        if (result.Message != null)
+                            response.Message = result.Message;
+
+                        await call.RequestStream.WriteAsync(response);
+                    }
+                }
+                catch (Exception) when (token.IsCancellationRequested)
+                {
+                    return;
+                }
+                catch (RpcException exception)
+                {
+                    if (lastRouteFailureCode != exception.StatusCode)
+                        Debug.LogWarning($"[CTC] 進路要求の接続を再試行します: {exception.Status}", this);
+                    lastRouteFailureCode = exception.StatusCode;
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogException(exception, this);
+                    return;
+                }
+
+                try
+                {
+                    await Task.Delay(1000, token);
+                }
+                catch (OperationCanceledException)
+                {
+                    return;
+                }
+            }
         }
 
         private async void LateUpdate()

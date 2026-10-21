@@ -2,10 +2,14 @@
 """Export draw.io circuit geometry to SVG and the Web diagram data.
 
 Run from any directory: python3 Tools/export-circuit-diagram.py [NT01 NT02 ... | --all]
+Destination marker IDs use Destination_<full circuit ID>; labels come from the interlocking definition.
+Origin triangles use Origin_<full circuit ID> and must match a route's start track circuit.
+Append _R or _L when separate origins are needed for both directions on one circuit.
 """
 
 import argparse
 import json
+import math
 from copy import deepcopy
 from pathlib import Path
 import re
@@ -62,7 +66,19 @@ def export(station_id):
 
 
     def is_destination(cell):
-        return re.fullmatch(fr"{station_id}_Destination_[A-Z0-9]+", cell.get("id", "")) is not None
+        return re.fullmatch(r"Destination_NT\d+_[A-Z0-9_]+", cell.get("id", "")) is not None
+
+
+    def is_origin(cell):
+        return re.fullmatch(r"Origin_NT\d+_[A-Z0-9_]+", cell.get("id", "")) is not None
+
+
+    def origin_target(cell):
+        circuit_id = cell.get("id").removeprefix("Origin_")
+        direction = None
+        if circuit_id not in circuit_definitions and circuit_id.endswith(("_R", "_L")):
+            circuit_id, direction = circuit_id.rsplit("_", 1)
+        return circuit_id, direction
 
 
     def is_turnout_indicator(cell):
@@ -71,6 +87,10 @@ def export(station_id):
 
     def is_route_indicator(cell):
         return cell.get("id") == f"{station_id}_RouteIndicators"
+
+
+    def is_train_label(cell):
+        return cell.get("id", "").startswith(f"{station_id}_TrainLabel_")
 
 
     def is_label(cell):
@@ -95,7 +115,7 @@ def export(station_id):
 
 
     def circuit_edges(cell):
-        if is_destination(cell) or is_turnout_indicator(cell) or is_route_indicator(cell) or is_label(cell) or is_boundary(cell):
+        if is_destination(cell) or is_origin(cell) or is_turnout_indicator(cell) or is_route_indicator(cell) or is_train_label(cell) or is_label(cell) or is_boundary(cell):
             return []
         if cell.get("edge") == "1":
             return [cell]
@@ -141,7 +161,7 @@ def export(station_id):
             if cell.get("vertex") != "1" or children(cell):
                 raise ValueError(f"Label must be one text vertex: {cell_id}")
             labels.append(cell)
-        elif is_destination(cell) or is_turnout_indicator(cell) or is_route_indicator(cell) or is_boundary(cell):
+        elif is_destination(cell) or is_origin(cell) or is_turnout_indicator(cell) or is_route_indicator(cell) or is_train_label(cell) or is_boundary(cell):
             pass
         elif "group" in cell.get("style", "").split(";"):
             for child in children(cell):
@@ -173,6 +193,30 @@ def export(station_id):
         if has_plain == has_branches or (branch_ids & exported_ids and not has_branches):
             raise ValueError(f"Circuit must have one SVG ID or both N/R SVG IDs: {circuit_id}")
 
+    train_labels = []
+    for cell in cells.values():
+        if not is_train_label(cell):
+            continue
+        marker_id = cell.get("id")
+        suffix = marker_id.removeprefix(f"{station_id}_TrainLabel_")
+        svg_id = f"{station_id}_{suffix}"
+        if svg_id not in exported_ids:
+            raise ValueError(f"Unknown circuit SVG ID for train label {marker_id}: {svg_id}")
+        circuit_id = svg_id if svg_id in circuit_definitions else svg_id[:-2]
+        geometry = cell.find("mxGeometry")
+        if cell.get("vertex") != "1" or cell.get("edge") == "1" or children(cell) or geometry is None or geometry.get("relative") == "1":
+            raise ValueError(f"Train label marker must be one vertex with absolute geometry: {marker_id}")
+        try:
+            dimensions = {key: number(geometry, key) for key in ("x", "y", "width", "height")}
+        except ValueError as error:
+            raise ValueError(f"Train label marker geometry must contain numeric coordinates and size: {marker_id}") from error
+        if not all(math.isfinite(value) for value in dimensions.values()) or dimensions["width"] <= 0 or dimensions["height"] <= 0:
+            raise ValueError(f"Train label marker geometry must be finite with positive width and height: {marker_id}")
+        x, y = origin(cell)
+        if not math.isfinite(x) or not math.isfinite(y):
+            raise ValueError(f"Train label marker parent coordinates must be finite: {marker_id}")
+        train_labels.append({"id": marker_id, "circuitId": circuit_id, "svgId": svg_id, "x": x + dimensions["x"] + dimensions["width"] / 2, "y": y + dimensions["y"] + dimensions["height"] / 2})
+
     interlocking_path = ROOT / "SourceAssets/Track/Network/NakatetsuInterlocking/Stations" / f"{station_id}.json"
     interlocking = json.loads(interlocking_path.read_text()) if interlocking_path.exists() else {"routes": [], "turnoutLocks": [], "destinations": []}
     route_ids = [route["routeId"] for route in interlocking["routes"]]
@@ -202,13 +246,37 @@ def export(station_id):
         x, y = origin(cell)
         route_indicator = {"id": marker_id, "x": x + number(geometry, "x") + number(geometry, "width") / 2, "y": y + number(geometry, "y") + number(geometry, "height") / 2}
     destinations = [cell for cell in cells.values() if is_destination(cell)]
-    destination_codes = {destination["code"] for destination in interlocking["destinations"]}
+    destinations_by_circuit_id = {}
+    for definition in interlocking["destinations"]:
+        circuit_id = definition["trackCircuitId"]
+        if circuit_id in destinations_by_circuit_id:
+            raise ValueError(f"Multiple destination codes for track circuit: {circuit_id}")
+        destinations_by_circuit_id[circuit_id] = definition
     for destination in destinations:
-        code = destination.get("id").removeprefix(f"{station_id}_Destination_")
-        if code not in destination_codes:
-            raise ValueError(f"Unknown destination code: {code}")
+        circuit_id = destination.get("id").removeprefix("Destination_")
+        if circuit_id not in circuit_definitions:
+            raise ValueError(f"Unknown destination track circuit: {circuit_id}")
+        if circuit_id not in destinations_by_circuit_id:
+            raise ValueError(f"Track circuit is not registered as a destination: {circuit_id}")
+    origins = [cell for cell in cells.values() if is_origin(cell)]
+    start_circuit_ids = {route["startTrackCircuitId"] for route in interlocking["routes"]}
+    for cell in origins:
+        marker_id = cell.get("id")
+        circuit_id, direction = origin_target(cell)
+        if circuit_id not in circuit_definitions or circuit_id not in start_circuit_ids:
+            raise ValueError(f"Unknown route start track circuit for origin {marker_id}: {circuit_id}")
+        if direction and not any(route["startTrackCircuitId"] == circuit_id and re.match(fr"\d+{direction}", route["routeId"]) for route in interlocking["routes"]):
+            raise ValueError(f"No route in direction {direction} for origin: {marker_id}")
+        geometry = cell.find("mxGeometry")
+        if cell.get("vertex") != "1" or children(cell) or "triangle" not in cell.get("style", "").split(";") or geometry is None or geometry.get("relative") == "1":
+            raise ValueError(f"Origin must be one triangle vertex with absolute geometry: {marker_id}")
+        dimensions = {key: number(geometry, key) for key in ("x", "y", "width", "height")}
+        if not all(math.isfinite(value) for value in dimensions.values()) or dimensions["width"] <= 0 or dimensions["height"] <= 0:
+            raise ValueError(f"Origin geometry must be finite with positive width and height: {marker_id}")
+        if style(cell).get("direction", "east") not in ("east", "west", "north", "south"):
+            raise ValueError(f"Unsupported origin triangle direction: {marker_id}")
     data = {"width": number(model, "pageWidth"), "height": number(model, "pageHeight"), "circuits": circuits, "platforms": platforms, "routeIds": route_ids}
-    layout = {"width": data["width"], "height": data["height"], "turnoutIndicators": turnout_indicators, "routeIndicator": route_indicator, "routeIds": route_ids}
+    layout = {"width": data["width"], "height": data["height"], "turnoutIndicators": turnout_indicators, "trainLabels": train_labels, "routeIndicator": route_indicator, "routeIds": route_ids}
     layout_path = ROOT / "client/src/data/diagrams" / f"{station_id}.layout.json"
     layout_path.parent.mkdir(parents=True, exist_ok=True)
     layout_path.write_text(json.dumps(layout, ensure_ascii=False, indent=2) + "\n")
@@ -227,7 +295,9 @@ def export(station_id):
         ET.SubElement(group, "rect", {**{key: f"{platform[key]:g}" for key in ("x", "y", "width", "height")}, "fill": "none", "stroke": platform_style.get("strokeColor", "#3f3f46"), "stroke-width": "1"})
     for destination in destinations:
         destination_id = destination.get("id")
-        group = ET.SubElement(svg, "g", {"id": destination_id, "data-cell-id": destination_id})
+        circuit_id = destination_id.removeprefix("Destination_")
+        definition = destinations_by_circuit_id[circuit_id]
+        group = ET.SubElement(svg, "g", {"id": destination_id, "data-cell-id": destination_id, "data-circuit-id": circuit_id, "data-destination-code": definition["code"]})
         for cell in children(destination):
             geometry = cell.find("mxGeometry")
             x, y = origin(cell)
@@ -240,9 +310,38 @@ def export(station_id):
                 ET.SubElement(group, "ellipse", {**attrs, "cx": f"{cx:g}", "cy": f"{cy:g}", "rx": f"{number(geometry, 'width') / 2:g}", "ry": f"{number(geometry, 'height') / 2:g}", "fill": cell_style.get("fillColor", "none"), "stroke": cell_style.get("strokeColor", "currentColor"), "stroke-width": cell_style.get("strokeWidth", "1"), "vector-effect": "non-scaling-stroke"})
             elif "text" in tokens:
                 text = ET.SubElement(group, "text", {**attrs, "x": f"{cx:g}", "y": f"{cy:g}", "text-anchor": "middle", "dominant-baseline": "central", "font-family": cell_style.get("fontFamily", "Helvetica, Arial, sans-serif"), "font-size": cell_style.get("fontSize", "12"), "fill": cell_style.get("fontColor", "currentColor")})
-                text.text = cell.get("value", "")
+                text.text = definition["code"]
             else:
                 raise ValueError(f"Unsupported destination shape: {cell.get('id')}")
+    for cell in origins:
+        marker_id = cell.get("id")
+        geometry = cell.find("mxGeometry")
+        cell_style = style(cell)
+        x, y = origin(cell)
+        x += number(geometry, "x")
+        y += number(geometry, "y")
+        points = {
+            "east": [(0, 0), (1, .5), (0, 1)],
+            "west": [(1, 0), (0, .5), (1, 1)],
+            "north": [(0, 1), (.5, 0), (1, 1)],
+            "south": [(0, 0), (.5, 1), (1, 0)],
+        }[cell_style.get("direction", "east")]
+        if cell_style.get("flipH") == "1":
+            points = [(1 - px, py) for px, py in points]
+        if cell_style.get("flipV") == "1":
+            points = [(px, 1 - py) for px, py in points]
+        circuit_id, direction = origin_target(cell)
+        attrs = {"id": marker_id, "data-cell-id": marker_id, "data-circuit-id": circuit_id}
+        if direction:
+            attrs["data-route-direction"] = direction
+        group = ET.SubElement(svg, "g", attrs)
+        ET.SubElement(group, "polygon", {
+            "points": " ".join(f"{x + px * number(geometry, 'width'):g},{y + py * number(geometry, 'height'):g}" for px, py in points),
+            "fill": cell_style.get("fillColor", "none"),
+            "stroke": cell_style.get("strokeColor", "currentColor"),
+            "stroke-width": cell_style.get("strokeWidth", "1"),
+            "vector-effect": "non-scaling-stroke",
+        })
     for label in labels:
         geometry = label.find("mxGeometry")
         label_style = style(label)
@@ -269,7 +368,7 @@ def export(station_id):
     public_path = ROOT / "client/public/ctc/diagram" / f"{station_id}.svg"
     public_path.parent.mkdir(parents=True, exist_ok=True)
     public_path.write_bytes(svg_path.read_bytes())
-    print(f"Exported {len(circuits)} circuit shapes, {len(destinations)} destinations, {len(turnout_indicators)} turnout indicators and {len(route_markers)} route indicator group: {svg_path.relative_to(ROOT)}, {data_path.relative_to(ROOT)}, {public_path.relative_to(ROOT)}, {layout_path.relative_to(ROOT)}")
+    print(f"Exported {len(circuits)} circuit shapes, {len(destinations)} destinations, {len(origins)} origins, {len(turnout_indicators)} turnout indicators, {len(train_labels)} train labels and {len(route_markers)} route indicator group: {svg_path.relative_to(ROOT)}, {data_path.relative_to(ROOT)}, {public_path.relative_to(ROOT)}, {layout_path.relative_to(ROOT)}")
 
 
 def main():

@@ -12,6 +12,11 @@ option csharp_namespace = "Namespace.Protocol.Ctc.V1";
 service CtcService {
   // 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
   rpc UpdateSnapshot(UnitySnapshotMessage) returns (google.protobuf.Empty);
+
+  // Unityが接続する双方向ストリーム。
+  // 入力はUnity→Goの受付結果、出力はGo→Unityの進路要求。request_idで対応付ける。
+  // 開通・解錠の完了は受付結果ではなく、スナップショットの進路状態で確認する。
+  rpc ConnectRouteControl(stream InterlockingRouteRequestResult) returns (stream InterlockingRouteRequest);
 }
 
 // 旧Message<UnitySnapshot>。Protobufではジェネリック型を具体型に展開する。

@@ -134,11 +134,14 @@ namespace Namespace.Protocol.Ctc.V1 {
             "UlJVTl9QUk9URUNUSU9OX1BIQVNFX1NFVFRJTkcQARIoCiRPVkVSUlVOX1BS",
             "T1RFQ1RJT05fUEhBU0VfRVNUQUJMSVNIRUQQAhIrCidPVkVSUlVOX1BST1RF",
             "Q1RJT05fUEhBU0VfUkVMRUFTRV9USU1JTkcQAxIlCiFPVkVSUlVOX1BST1RF",
-            "Q1RJT05fUEhBU0VfUkVMRUFTRUQQBDJeCgpDdGNTZXJ2aWNlElAKDlVwZGF0",
-            "ZVNuYXBzaG90EiYubmFrYXRldHN1LmN0Yy52MS5Vbml0eVNuYXBzaG90TWVz",
-            "c2FnZRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUJPWjFnaXRodWIuY29tL25l",
-            "a28zMTQxNTkyL05ha2F0ZXRzdS9TZXJ2ZXIvZ2VuL2N0Y3YxqgIZTmFtZXNw",
-            "YWNlLlByb3RvY29sLkN0Yy5WMWIGcHJvdG8z"));
+            "Q1RJT05fUEhBU0VfUkVMRUFTRUQQBDLXAQoKQ3RjU2VydmljZRJQCg5VcGRh",
+            "dGVTbmFwc2hvdBImLm5ha2F0ZXRzdS5jdGMudjEuVW5pdHlTbmFwc2hvdE1l",
+            "c3NhZ2UaFi5nb29nbGUucHJvdG9idWYuRW1wdHkSdwoTQ29ubmVjdFJvdXRl",
+            "Q29udHJvbBIwLm5ha2F0ZXRzdS5jdGMudjEuSW50ZXJsb2NraW5nUm91dGVS",
+            "ZXF1ZXN0UmVzdWx0GioubmFrYXRldHN1LmN0Yy52MS5JbnRlcmxvY2tpbmdS",
+            "b3V0ZVJlcXVlc3QoATABQk9aMWdpdGh1Yi5jb20vbmVrbzMxNDE1OTIvTmFr",
+            "YXRldHN1L1NlcnZlci9nZW4vY3RjdjGqAhlOYW1lc3BhY2UuUHJvdG9jb2wu",
+            "Q3RjLlYxYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Namespace.Protocol.Ctc.V1.TurnoutPosition), typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteOperation), typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteErrorCode), typeof(global::Namespace.Protocol.Ctc.V1.OverrunProtectionMode), typeof(global::Namespace.Protocol.Ctc.V1.OverrunProtectionPhase), }, null, new pbr::GeneratedClrTypeInfo[] {

@@ -30,18 +30,26 @@ func main() {
 		log.Fatalf("進路定義の読み込みに失敗: %v", err)
 	}
 
-	// CTCサーバーの起動
 	ctcCore := ctc.New(definitions, routes)
 	log.Printf("軌道回路定義を読み込み: %d回路", len(definitions))
 	log.Printf("進路定義を読み込み: %d進路", len(routes))
 
-	webServer := &api.Server{CTC: ctcCore}
+	communicationServer := &grpcserver.CommunicationServer{
+		CTC: ctcCore,
+	}
+
+	apiServer := &api.ApiServer{
+		CTC:          ctcCore,
+		RouteControl: communicationServer,
+	}
+
 	mux := http.NewServeMux()
-	mux.HandleFunc("/ws", webServer.HandleWebSocket)
+	mux.HandleFunc("/ws", apiServer.HandleWebSocket)
+	mux.HandleFunc("POST /api/route-requests", apiServer.HandleRouteRequest)
 
 	go func() {
-		log.Println("Web配信サーバー起動: 127.0.0.1:8080")
-		if err := http.ListenAndServe("127.0.0.1:8080", mux); err != nil {
+		log.Println("Web配信サーバー起動: 0.0.0.0:8080")
+		if err := http.ListenAndServe("0.0.0.0:8080", mux); err != nil {
 			log.Fatal(err)
 		}
 	}()
@@ -53,9 +61,7 @@ func main() {
 	defer listener.Close()
 
 	server := grpc.NewServer()
-	ctcv1.RegisterCtcServiceServer(server, &grpcserver.CtcServer{
-		CTC: ctcCore,
-	})
+	ctcv1.RegisterCtcServiceServer(server, communicationServer)
 
 	log.Println("CTCサーバー起動: 127.0.0.1:50051")
 	if err := server.Serve(listener); err != nil {

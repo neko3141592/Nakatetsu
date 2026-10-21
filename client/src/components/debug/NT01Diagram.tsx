@@ -1,6 +1,7 @@
 import { RouteReservationIndicator } from "@/components/ctc/RouteReservationIndicator";
 import { TrainLabel } from "@/components/ctc/TrainLabel";
 import { TurnoutDirectionIndicator } from "@/components/ctc/TurnoutDirectionIndicator";
+import diagramLayout from "@/data/diagrams/NT01.layout.json";
 import { TurnoutPosition, type CtcSnapshot, type InterlockingStationStatus } from "@/gen/ctc_pb";
 import diagram from "./NT01Diagram.data.json";
 
@@ -10,14 +11,6 @@ type Props = {
   turnoutsById: CtcSnapshot["turnoutsById"] | undefined;
   station: InterlockingStationStatus | undefined;
 };
-
-const turnoutIndicators = [
-  { id: "NT01_23", label: "23", x: 535, y: 184 },
-  { id: "NT01_21A", label: "21A", x: 671, y: 216 },
-  { id: "NT01_22A", label: "22A", x: 671, y: 478 },
-  { id: "NT01_21B", label: "21B", x: 935, y: 478 },
-  { id: "NT01_22B", label: "22B", x: 933, y: 358 },
-];
 
 const trainAnchors: Record<string, { x: number; y: number }> = {
   NT01_1RT: { x: 200, y: 192 },
@@ -78,10 +71,10 @@ export function NT01Diagram({ circuitsById, trainsById, turnoutsById, station }:
         表示灯：緑＝進路構成完了 ／ オレンジ＝進路設定済み ／ 黒＝消灯
       </p>
       <p className="text-zinc-600 dark:text-zinc-400">
-        転轍機表示灯：N＝定位（緑） ／ R＝反位（赤） ／ 両消灯＝転換中・位置不明
+        転轍機番号：定位＝水色文字 ／ 反位＝水色背景・黒文字 ／ 轍査なし＝灰色
       </p>
       <p className="text-zinc-600 dark:text-zinc-400">
-        列車表示：列番・編成番号 ／ 赤丸は最後尾側の基準回路内の代表位置
+        列車表示：列番＋レ ／ 未設定の場合は「列番未設定」
       </p>
       <div className="overflow-hidden rounded border border-zinc-700 bg-black">
         <svg
@@ -120,16 +113,16 @@ export function NT01Diagram({ circuitsById, trainsById, turnoutsById, station }:
                 key={trainId}
                 data-train-id={trainId}
                 data-train-circuit-id={circuitId}
-                transform={`translate(${anchor.x} ${anchor.y}) scale(0.75)`}
+                transform={`translate(${anchor.x} ${anchor.y})`}
               >
-                <TrainLabel train={train} x={-28} y={-148} anchorX={0} anchorY={0} />
+                <TrainLabel train={train} />
               </g>
             ))}
           </g>
-          <g aria-label="NT01の転轍機方向表示灯">
-            {turnoutIndicators.map(({ id, label, x, y }) => (
-              <g key={id} data-turnout-indicator-id={id} transform={`translate(${x} ${y}) scale(0.25)`}>
-                <TurnoutDirectionIndicator label={label} turnout={turnoutsById?.[id]} />
+          <g aria-label="NT01の転轍機位置">
+            {diagramLayout.turnoutIndicators.map(({ id, turnoutId, label, x, y }) => (
+              <g key={id} data-turnout-indicator-id={id} data-turnout-id={turnoutId} transform={`translate(${x} ${y})`}>
+                <TurnoutDirectionIndicator label={label} turnout={turnoutsById?.[turnoutId]} />
               </g>
             ))}
           </g>

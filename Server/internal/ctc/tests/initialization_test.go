@@ -128,7 +128,7 @@ func TestManualInitialCircuitWithoutOccupancyIsInitializationError(t *testing.T)
 		t.Fatal("train was registered on a clear circuit")
 	}
 
-	server := communication.CtcServer{CTC: core}
+	server := communication.CommunicationServer{CTC: core}
 	message := &ctcv1.UnitySnapshotMessage{Header: &ctcv1.MessageHeader{}, Payload: snapshot}
 	response, err := server.UpdateSnapshot(context.Background(), message)
 	if response != nil || status.Code(err) != codes.FailedPrecondition || !strings.Contains(status.Convert(err).Message(), "not occupied") {

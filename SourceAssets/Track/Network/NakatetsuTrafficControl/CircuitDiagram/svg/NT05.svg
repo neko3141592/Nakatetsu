@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="308" height="768" viewBox="0 0 308 768" style="background: transparent; color-scheme: light dark; color: light-dark(#000000, #ffffff);">
+  <g id="NT05_1RT" data-cell-id="NT05_1RT" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 32 256 L 50 192" vector-effect="non-scaling-stroke" />
+    <path d="M 50 192 L 258 192" vector-effect="non-scaling-stroke" />
+    <path d="M 258 192 L 276 256" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_2RT" data-cell-id="NT05_2RT" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 48 320 L 260 320" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_3LT" data-cell-id="NT05_3LT" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 48 448 L 260 448" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_4LT" data-cell-id="NT05_4LT" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 32 512 L 50 576" vector-effect="non-scaling-stroke" />
+    <path d="M 50 576 L 258 576" vector-effect="non-scaling-stroke" />
+    <path d="M 258 576 L 276 512" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_21T_N" data-cell-id="NT05_21T_N" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 0 320 L 16 320" vector-effect="non-scaling-stroke" />
+    <path d="M 16 320 L 48 320" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_21T_R" data-cell-id="NT05_21T_R" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 0 312 L 16 312" vector-effect="non-scaling-stroke" />
+    <path d="M 16 312 L 32 256" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_22T_N" data-cell-id="NT05_22T_N" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 260 320 L 292 320" vector-effect="non-scaling-stroke" />
+    <path d="M 292 320 L 308 320" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_22T_R" data-cell-id="NT05_22T_R" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 276 256 L 292 312" vector-effect="non-scaling-stroke" />
+    <path d="M 292 312 L 308 312" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_23T_N" data-cell-id="NT05_23T_N" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 0 448 L 16 448" vector-effect="non-scaling-stroke" />
+    <path d="M 16 448 L 48 448" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_23T_R" data-cell-id="NT05_23T_R" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 0 456 L 16 456" vector-effect="non-scaling-stroke" />
+    <path d="M 16 456 L 32 512" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_24T_N" data-cell-id="NT05_24T_N" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 260 448 L 292 448" vector-effect="non-scaling-stroke" />
+    <path d="M 292 448 L 308 448" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_24T_R" data-cell-id="NT05_24T_R" fill="none" stroke="currentColor" stroke-width="1px">
+    <path d="M 276 512 L 292 456" vector-effect="non-scaling-stroke" />
+    <path d="M 292 456 L 308 456" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Platform_1" data-cell-id="NT05_Platform_1">
+    <rect x="58" y="208" width="192" height="96" fill="none" stroke="#3F3F46" stroke-width="1" />
+  </g>
+  <g id="NT05_Platform_2" data-cell-id="NT05_Platform_2">
+    <rect x="58" y="464" width="192" height="96" fill="none" stroke="#3F3F46" stroke-width="1" />
+  </g>
+  <g id="Destination_NT05_1RT" data-cell-id="Destination_NT05_1RT" data-circuit-id="NT05_1RT" data-destination-code="A">
+    <ellipse id="Destination_NT05_1RT_Circle" data-cell-id="Destination_NT05_1RT_Circle" cx="154" cy="191" rx="8" ry="8" fill="#09090B" stroke="#F2EA18" stroke-width="1" vector-effect="non-scaling-stroke" />
+    <text id="Destination_NT05_1RT_Label" data-cell-id="Destination_NT05_1RT_Label" x="154" y="191" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#F2EA18">A</text>
+  </g>
+  <g id="Destination_NT05_2RT" data-cell-id="Destination_NT05_2RT" data-circuit-id="NT05_2RT" data-destination-code="B">
+    <ellipse id="Destination_NT05_2RT_Circle" data-cell-id="Destination_NT05_2RT_Circle" cx="154" cy="319" rx="8" ry="8" fill="#09090B" stroke="#F2EA18" stroke-width="1" vector-effect="non-scaling-stroke" />
+    <text id="Destination_NT05_2RT_Label" data-cell-id="Destination_NT05_2RT_Label" x="154" y="319" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#F2EA18">B</text>
+  </g>
+  <g id="Destination_NT05_3LT" data-cell-id="Destination_NT05_3LT" data-circuit-id="NT05_3LT" data-destination-code="C">
+    <ellipse id="Destination_NT05_3LT_Circle" data-cell-id="Destination_NT05_3LT_Circle" cx="154" cy="447" rx="8" ry="8" fill="#09090B" stroke="#F2EA18" stroke-width="1" vector-effect="non-scaling-stroke" />
+    <text id="Destination_NT05_3LT_Label" data-cell-id="Destination_NT05_3LT_Label" x="154" y="447" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#F2EA18">C</text>
+  </g>
+  <g id="Destination_NT05_4LT" data-cell-id="Destination_NT05_4LT" data-circuit-id="NT05_4LT" data-destination-code="D">
+    <ellipse id="Destination_NT05_4LT_Circle" data-cell-id="Destination_NT05_4LT_Circle" cx="154" cy="575" rx="8" ry="8" fill="#09090B" stroke="#F2EA18" stroke-width="1" vector-effect="non-scaling-stroke" />
+    <text id="Destination_NT05_4LT_Label" data-cell-id="Destination_NT05_4LT_Label" x="154" y="575" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#F2EA18">D</text>
+  </g>
+  <g id="Destination_NT05_22T" data-cell-id="Destination_NT05_22T" data-circuit-id="NT05_22T" data-destination-code="E">
+    <ellipse id="Destination_NT05_22T_Circle" data-cell-id="Destination_NT05_22T_Circle" cx="296" cy="319" rx="8" ry="8" fill="#09090B" stroke="#F2EA18" stroke-width="1" vector-effect="non-scaling-stroke" />
+    <text id="Destination_NT05_22T_Label" data-cell-id="Destination_NT05_22T_Label" x="296" y="319" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#F2EA18">E</text>
+  </g>
+  <g id="Destination_NT05_23T" data-cell-id="Destination_NT05_23T" data-circuit-id="NT05_23T" data-destination-code="F">
+    <ellipse id="Destination_NT05_23T_Circle" data-cell-id="Destination_NT05_23T_Circle" cx="12" cy="447" rx="8" ry="8" fill="#09090B" stroke="#F2EA18" stroke-width="1" vector-effect="non-scaling-stroke" />
+    <text id="Destination_NT05_23T_Label" data-cell-id="Destination_NT05_23T_Label" x="12" y="447" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#F2EA18">F</text>
+  </g>
+  <g id="Origin_NT05_21T" data-cell-id="Origin_NT05_21T" data-circuit-id="NT05_21T">
+    <polygon points="4,316 20,320 4,324" fill="#000000" stroke="#FFE226" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="Origin_NT05_24T" data-cell-id="Origin_NT05_24T" data-circuit-id="NT05_24T">
+    <polygon points="304,444 288,448 304,452" fill="#000000" stroke="#FFE226" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="Origin_NT05_1RT" data-cell-id="Origin_NT05_1RT" data-circuit-id="NT05_1RT">
+    <polygon points="216,188 232,192 216,196" fill="#000000" stroke="#FFE226" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="Origin_NT05_2RT" data-cell-id="Origin_NT05_2RT" data-circuit-id="NT05_2RT">
+    <polygon points="216,316 232,320 216,324" fill="#000000" stroke="#FFE226" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="Origin_NT05_3LT" data-cell-id="Origin_NT05_3LT" data-circuit-id="NT05_3LT">
+    <polygon points="92,444 76,448 92,452" fill="#000000" stroke="#FFE226" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="Origin_NT05_4LT" data-cell-id="Origin_NT05_4LT" data-circuit-id="NT05_4LT">
+    <polygon points="92,572 76,576 92,580" fill="#000000" stroke="#FFE226" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </g>
+  <text id="NT05_Label_Station" data-cell-id="NT05_Label_Station" x="154" y="256" text-anchor="middle" dominant-baseline="central" font-family="Arial" font-size="16" fill="#3F3F46">東長野</text>
+  <g id="NT05_Boundary_01" data-cell-id="NT05_Boundary_01" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 0 306 L 0 326" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_02" data-cell-id="NT05_Boundary_02" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 48 314 L 48 326" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_03" data-cell-id="NT05_Boundary_03" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 32 250 L 32 262" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_04" data-cell-id="NT05_Boundary_04" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 260 314 L 260 326" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_05" data-cell-id="NT05_Boundary_05" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 276 250 L 276 262" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_06" data-cell-id="NT05_Boundary_06" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 308 306 L 308 326" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_07" data-cell-id="NT05_Boundary_07" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 0 442 L 0 462" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_08" data-cell-id="NT05_Boundary_08" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 48 442 L 48 454" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_09" data-cell-id="NT05_Boundary_09" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 32 506 L 32 518" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_10" data-cell-id="NT05_Boundary_10" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 260 442 L 260 454" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_11" data-cell-id="NT05_Boundary_11" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 276 506 L 276 518" vector-effect="non-scaling-stroke" />
+  </g>
+  <g id="NT05_Boundary_12" data-cell-id="NT05_Boundary_12" fill="none" stroke="#EC4899" stroke-width="1px">
+    <path d="M 308 442 L 308 462" vector-effect="non-scaling-stroke" />
+  </g>
+</svg>

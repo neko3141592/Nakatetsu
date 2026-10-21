@@ -1,0 +1,135 @@
+{
+  "width": 308.0,
+  "height": 768.0,
+  "turnoutIndicators": [
+    {
+      "id": "NT05_TurnoutIndicator_21",
+      "turnoutId": "NT05_21",
+      "label": "21",
+      "x": 8.0,
+      "y": 296.0
+    },
+    {
+      "id": "NT05_TurnoutIndicator_22",
+      "turnoutId": "NT05_22",
+      "label": "22",
+      "x": 300.0,
+      "y": 296.0
+    },
+    {
+      "id": "NT05_TurnoutIndicator_23",
+      "turnoutId": "NT05_23",
+      "label": "23",
+      "x": 8.0,
+      "y": 472.0
+    },
+    {
+      "id": "NT05_TurnoutIndicator_24",
+      "turnoutId": "NT05_24",
+      "label": "24",
+      "x": 300.0,
+      "y": 472.0
+    }
+  ],
+  "trainLabels": [
+    {
+      "id": "NT05_TrainLabel_1RT",
+      "circuitId": "NT05_1RT",
+      "svgId": "NT05_1RT",
+      "x": 154.0,
+      "y": 180.0
+    },
+    {
+      "id": "NT05_TrainLabel_2RT",
+      "circuitId": "NT05_2RT",
+      "svgId": "NT05_2RT",
+      "x": 154.0,
+      "y": 308.0
+    },
+    {
+      "id": "NT05_TrainLabel_3LT",
+      "circuitId": "NT05_3LT",
+      "svgId": "NT05_3LT",
+      "x": 154.0,
+      "y": 436.0
+    },
+    {
+      "id": "NT05_TrainLabel_4LT",
+      "circuitId": "NT05_4LT",
+      "svgId": "NT05_4LT",
+      "x": 154.0,
+      "y": 600.0
+    },
+    {
+      "id": "NT05_TrainLabel_21T_N",
+      "circuitId": "NT05_21T",
+      "svgId": "NT05_21T_N",
+      "x": 32.0,
+      "y": 340.0
+    },
+    {
+      "id": "NT05_TrainLabel_21T_R",
+      "circuitId": "NT05_21T",
+      "svgId": "NT05_21T_R",
+      "x": 10.0,
+      "y": 288.0
+    },
+    {
+      "id": "NT05_TrainLabel_22T_N",
+      "circuitId": "NT05_22T",
+      "svgId": "NT05_22T_N",
+      "x": 276.0,
+      "y": 340.0
+    },
+    {
+      "id": "NT05_TrainLabel_22T_R",
+      "circuitId": "NT05_22T",
+      "svgId": "NT05_22T_R",
+      "x": 298.0,
+      "y": 288.0
+    },
+    {
+      "id": "NT05_TrainLabel_23T_N",
+      "circuitId": "NT05_23T",
+      "svgId": "NT05_23T_N",
+      "x": 32.0,
+      "y": 428.0
+    },
+    {
+      "id": "NT05_TrainLabel_23T_R",
+      "circuitId": "NT05_23T",
+      "svgId": "NT05_23T_R",
+      "x": 10.0,
+      "y": 480.0
+    },
+    {
+      "id": "NT05_TrainLabel_24T_N",
+      "circuitId": "NT05_24T",
+      "svgId": "NT05_24T_N",
+      "x": 276.0,
+      "y": 428.0
+    },
+    {
+      "id": "NT05_TrainLabel_24T_R",
+      "circuitId": "NT05_24T",
+      "svgId": "NT05_24T_R",
+      "x": 298.0,
+      "y": 480.0
+    }
+  ],
+  "routeIndicator": {
+    "id": "NT05_RouteIndicators",
+    "x": 204.0,
+    "y": 64.0
+  },
+  "routeIds": [
+    "1RA",
+    "1RB",
+    "1LC",
+    "1LD",
+    "2R",
+    "3R",
+    "2L",
+    "3L"
+  ]
+}

@@ -3,61 +3,37 @@ import { TurnoutPosition, type TurnoutState } from "@/gen/ctc_pb";
 type Props = {
   turnout: TurnoutState | undefined;
   label: string;
-  x?: number;
-  y?: number;
 };
 
-export function TurnoutDirectionIndicator({ turnout, label, x = 0, y = 0 }: Props) {
-  const state = turnout?.isMoving
-    ? "moving"
-    : turnout?.actualPosition === TurnoutPosition.NORMAL
-      ? "normal"
-      : turnout?.actualPosition === TurnoutPosition.REVERSE
-        ? "reverse"
-        : "unknown";
+export function TurnoutDirectionIndicator({ turnout, label }: Props) {
+  const position = turnout?.isMoving ? TurnoutPosition.UNKNOWN : turnout?.actualPosition;
+  const state = position === TurnoutPosition.NORMAL
+    ? "normal"
+    : position === TurnoutPosition.REVERSE ? "reverse" : "unknown";
   const stateLabel = {
     normal: "定位",
     reverse: "反位",
-    moving: "転換中",
-    unknown: "位置不明",
+    unknown: "轍査なし",
   }[state];
+  const width = label.length * 5 + 4;
 
   return (
     <g
-      transform={`translate(${x} ${y})`}
       role="img"
       aria-label={`${label}：${stateLabel}`}
       data-turnout-label={label}
       data-turnout-state={state}
-      fontFamily="Arial, sans-serif"
     >
-      <text x="48" y="24" textAnchor="middle" fontSize="32" fill="#BABABA">
-        R
-      </text>
-      <text x="152" y="24" textAnchor="middle" fontSize="32" fill="#BABABA">
-        N
-      </text>
-      <svg x="16" y="32" width="64" height="64" viewBox="468 468 88 88" aria-hidden="true">
-        <image
-          href={`/ctc/pilotlamp/pilotlamp_Red${state === "reverse" ? "" : "_Off"}.svg`}
-          width="1024"
-          height="1024"
-        />
-      </svg>
-      <svg x="120" y="32" width="64" height="64" viewBox="468 468 88 88" aria-hidden="true">
-        <image
-          href={`/ctc/pilotlamp/pilotlamp_Green${state === "normal" ? "" : "_Off"}.svg`}
-          width="1024"
-          height="1024"
-        />
-      </svg>
+      {state === "reverse" ? (
+        <rect x={-width / 2} y="-6" width={width} height="12" fill="#38bdf8" />
+      ) : null}
       <text
-        x="100"
-        y="140"
+        x="0"
+        y="0"
         dominantBaseline="central"
         textAnchor="middle"
-        fontSize="50"
-        fill="#FFFFFF"
+        fontSize="8"
+        fill={state === "reverse" ? "#000000" : state === "normal" ? "#38bdf8" : "#a1a1aa"}
       >
         {label}
       </text>

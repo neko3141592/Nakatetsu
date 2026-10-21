@@ -198,7 +198,7 @@ func TestSnapshotOccupancyThroughGRPC(t *testing.T) {
 	}, nil)
 	listener := bufconn.Listen(1024 * 1024)
 	server := grpc.NewServer()
-	ctcv1.RegisterCtcServiceServer(server, &communication.CtcServer{CTC: core})
+	ctcv1.RegisterCtcServiceServer(server, &communication.CommunicationServer{CTC: core})
 	go server.Serve(listener)
 	t.Cleanup(func() { server.Stop(); listener.Close() })
 	client, err := grpc.NewClient("passthrough:///snapshot-test",

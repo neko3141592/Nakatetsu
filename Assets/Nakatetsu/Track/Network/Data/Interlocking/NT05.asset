@@ -68,8 +68,10 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
-        isEnabled: 0
-        turnoutRequirements: []
+        isEnabled: 1
+        turnoutRequirements:
+        - connectionId: NT05_22
+          requiredPosition: 2
         releaseSeconds: 0
     - routeId: 1RB
       startTrackCircuitId: NT05_21T
@@ -89,8 +91,10 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
-        isEnabled: 0
-        turnoutRequirements: []
+        isEnabled: 1
+        turnoutRequirements:
+        - connectionId: NT05_22
+          requiredPosition: 1
         releaseSeconds: 0
     - routeId: 1LC
       startTrackCircuitId: NT05_24T
@@ -110,8 +114,10 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
-        isEnabled: 0
-        turnoutRequirements: []
+        isEnabled: 1
+        turnoutRequirements:
+        - connectionId: NT05_23
+          requiredPosition: 1
         releaseSeconds: 0
     - routeId: 1LD
       startTrackCircuitId: NT05_24T
@@ -131,8 +137,10 @@ MonoBehaviour:
         releaseSeconds: 60
       conflictRouteIds: []
       overrunProtection:
-        isEnabled: 0
-        turnoutRequirements: []
+        isEnabled: 1
+        turnoutRequirements:
+        - connectionId: NT05_23
+          requiredPosition: 2
         releaseSeconds: 0
     - routeId: 2R
       startTrackCircuitId: NT05_1RT

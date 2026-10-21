@@ -194,8 +194,20 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 	if len(definitions) != 154 {
 		t.Fatalf("loaded %d circuits, want 154", len(definitions))
 	}
+	interlockingExits := map[string]string{
+		"NT01_22BT": "NT01_NT02_D1T",
+		"NT05_22T":  "NT05_NT06_D1T",
+		"NT05_23T":  "NT04_NT05_U1T",
+		"NT07_22AT": "NT06_NT07_U3T",
+		"NT07_25BT": "NT07_NT08_DL1T",
+		"NT07_26BT": "NT07_NT08_DE1T",
+	}
+	for circuitID, target := range interlockingExits {
+		if definitions[circuitID].ToCircuitID != target {
+			t.Errorf("%s.ToCircuitID = %q, want %q", circuitID, definitions[circuitID].ToCircuitID, target)
+		}
+	}
 	for circuitID, target := range map[string]string{
-		"NT01_22BT":     "NT01_NT02_D1T",
 		"NT01_NT02_D1T": "NT01_NT02_D2T",
 		"NT01_NT02_D3T": "NT02_DT",
 		"NT01_NT02_U2T": "NT01_NT02_U1T",
@@ -206,7 +218,7 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 	}
 	blockCount, completedCount := 0, 0
 	for circuitID, definition := range definitions {
-		if definition.ControlKind == ctc.TrackControlInterlocking && circuitID != "NT01_22BT" && definition.ToCircuitID != "" {
+		if definition.ControlKind == ctc.TrackControlInterlocking && definition.ToCircuitID != interlockingExits[circuitID] {
 			t.Errorf("completed an Interlocking circuit: %s", circuitID)
 		}
 		if definition.ControlKind == ctc.TrackControlBlock {

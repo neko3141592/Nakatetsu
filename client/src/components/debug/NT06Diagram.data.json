@@ -1,0 +1,28 @@
+{
+  "width": 120.0,
+  "height": 768.0,
+  "circuits": [
+    {
+      "id": "NT06_DT",
+      "paths": [
+        "M 0 320 L 120 320"
+      ]
+    },
+    {
+      "id": "NT06_UT",
+      "paths": [
+        "M 0 448 L 120 448"
+      ]
+    }
+  ],
+  "platforms": [
+    {
+      "id": "NT06_Platform_1",
+      "x": 10.0,
+      "y": 336.0,
+      "width": 100.0,
+      "height": 96.0
+    }
+  ],
+  "routeIds": []
+}

@@ -1,7 +1,9 @@
 import { fromBinary } from "@bufbuild/protobuf";
 import { CtcSnapshotSchema, type CtcSnapshot } from "@/gen/ctc_pb";
 
-export const CTC_WEBSOCKET_URL = "ws://127.0.0.1:8080/ws";
+export function getCtcWebSocketUrl(): string {
+  return `ws://${window.location.hostname}:8080/ws`;
+}
 
 export type CtcConnectionStatus = "connecting" | "connected" | "disconnected" | "error";
 
@@ -14,7 +16,7 @@ export function connectCtc(
   onSnapshot: (snapshot: CtcSnapshot) => void,
   options: ConnectionOptions = {},
 ): () => void {
-  const socket = new WebSocket(CTC_WEBSOCKET_URL);
+  const socket = new WebSocket(getCtcWebSocketUrl());
   socket.binaryType = "arraybuffer";
   let disposed = false;
   let failed = false;

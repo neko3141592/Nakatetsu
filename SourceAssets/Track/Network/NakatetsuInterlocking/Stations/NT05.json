@@ -81,8 +81,13 @@
       },
       "conflictRouteIds": [],
       "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
+        "isEnabled": true,
+        "turnoutRequirements": [
+          {
+            "connectionId": "NT05_22",
+            "requiredPosition": 2
+          }
+        ],
         "releaseSeconds": 0
       }
     },
@@ -116,8 +121,13 @@
       },
       "conflictRouteIds": [],
       "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
+        "isEnabled": true,
+        "turnoutRequirements": [
+          {
+            "connectionId": "NT05_22",
+            "requiredPosition": 1
+          }
+        ],
         "releaseSeconds": 0
       }
     },
@@ -151,8 +161,13 @@
       },
       "conflictRouteIds": [],
       "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
+        "isEnabled": true,
+        "turnoutRequirements": [
+          {
+            "connectionId": "NT05_23",
+            "requiredPosition": 1
+          }
+        ],
         "releaseSeconds": 0
       }
     },
@@ -186,8 +201,13 @@
       },
       "conflictRouteIds": [],
       "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
+        "isEnabled": true,
+        "turnoutRequirements": [
+          {
+            "connectionId": "NT05_23",
+            "requiredPosition": 2
+          }
+        ],
         "releaseSeconds": 0
       }
     },

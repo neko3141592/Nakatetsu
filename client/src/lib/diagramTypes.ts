@@ -10,6 +10,13 @@ export type DiagramLayout = {
     x: number;
     y: number;
   }[];
+  trainLabels: readonly {
+    id: string;
+    circuitId: string;
+    svgId: string;
+    x: number;
+    y: number;
+  }[];
   routeIndicator: { id: string; x: number; y: number } | null;
   routeIds: readonly string[];
 };

@@ -1658,10 +1658,11 @@ const file_ctc_proto_rawDesc = "" +
 	" OVERRUN_PROTECTION_PHASE_SETTING\x10\x01\x12(\n" +
 	"$OVERRUN_PROTECTION_PHASE_ESTABLISHED\x10\x02\x12+\n" +
 	"'OVERRUN_PROTECTION_PHASE_RELEASE_TIMING\x10\x03\x12%\n" +
-	"!OVERRUN_PROTECTION_PHASE_RELEASED\x10\x042^\n" +
+	"!OVERRUN_PROTECTION_PHASE_RELEASED\x10\x042\xd7\x01\n" +
 	"\n" +
 	"CtcService\x12P\n" +
-	"\x0eUpdateSnapshot\x12&.nakatetsu.ctc.v1.UnitySnapshotMessage\x1a\x16.google.protobuf.EmptyBOZ1github.com/neko3141592/Nakatetsu/Server/gen/ctcv1\xaa\x02\x19Namespace.Protocol.Ctc.V1b\x06proto3"
+	"\x0eUpdateSnapshot\x12&.nakatetsu.ctc.v1.UnitySnapshotMessage\x1a\x16.google.protobuf.Empty\x12w\n" +
+	"\x13ConnectRouteControl\x120.nakatetsu.ctc.v1.InterlockingRouteRequestResult\x1a*.nakatetsu.ctc.v1.InterlockingRouteRequest(\x010\x01BOZ1github.com/neko3141592/Nakatetsu/Server/gen/ctcv1\xaa\x02\x19Namespace.Protocol.Ctc.V1b\x06proto3"
 
 var (
 	file_ctc_proto_rawDescOnce sync.Once
@@ -1739,9 +1740,11 @@ var file_ctc_proto_depIdxs = []int32{
 	21, // 26: nakatetsu.ctc.v1.CtcSnapshot.TrainsByIdEntry.value:type_name -> nakatetsu.ctc.v1.CtcTrainState
 	12, // 27: nakatetsu.ctc.v1.CtcSnapshot.TurnoutsByIdEntry.value:type_name -> nakatetsu.ctc.v1.TurnoutState
 	5,  // 28: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:input_type -> nakatetsu.ctc.v1.UnitySnapshotMessage
-	29, // 29: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:output_type -> google.protobuf.Empty
-	29, // [29:30] is the sub-list for method output_type
-	28, // [28:29] is the sub-list for method input_type
+	18, // 29: nakatetsu.ctc.v1.CtcService.ConnectRouteControl:input_type -> nakatetsu.ctc.v1.InterlockingRouteRequestResult
+	29, // 30: nakatetsu.ctc.v1.CtcService.UpdateSnapshot:output_type -> google.protobuf.Empty
+	17, // 31: nakatetsu.ctc.v1.CtcService.ConnectRouteControl:output_type -> nakatetsu.ctc.v1.InterlockingRouteRequest
+	30, // [30:32] is the sub-list for method output_type
+	28, // [28:30] is the sub-list for method input_type
 	28, // [28:28] is the sub-list for extension type_name
 	28, // [28:28] is the sub-list for extension extendee
 	0,  // [0:28] is the sub-list for field type_name

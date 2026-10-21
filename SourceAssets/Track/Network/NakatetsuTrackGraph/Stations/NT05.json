@@ -547,6 +547,7 @@
     {
       "circuitId": "NT05_22T",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT05_NT06_D1T",
       "sections": [
         {
           "edgeId": "NT05_track2",
@@ -568,6 +569,7 @@
     {
       "circuitId": "NT05_23T",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT04_NT05_U1T",
       "sections": [
         {
           "edgeId": "NT05_track3_entry",
