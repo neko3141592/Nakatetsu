@@ -85,10 +85,6 @@ def export(station_id):
         return re.fullmatch(fr"{station_id}_TurnoutIndicator_[A-Z0-9]+", cell.get("id", "")) is not None
 
 
-    def is_route_indicator(cell):
-        return cell.get("id") == f"{station_id}_RouteIndicators"
-
-
     def is_train_label(cell):
         return cell.get("id", "").startswith(f"{station_id}_TrainLabel_")
 
@@ -115,7 +111,7 @@ def export(station_id):
 
 
     def circuit_edges(cell):
-        if is_destination(cell) or is_origin(cell) or is_turnout_indicator(cell) or is_route_indicator(cell) or is_train_label(cell) or is_label(cell) or is_boundary(cell):
+        if is_destination(cell) or is_origin(cell) or is_turnout_indicator(cell) or is_train_label(cell) or is_label(cell) or is_boundary(cell):
             return []
         if cell.get("edge") == "1":
             return [cell]
@@ -161,7 +157,7 @@ def export(station_id):
             if cell.get("vertex") != "1" or children(cell):
                 raise ValueError(f"Label must be one text vertex: {cell_id}")
             labels.append(cell)
-        elif is_destination(cell) or is_origin(cell) or is_turnout_indicator(cell) or is_route_indicator(cell) or is_train_label(cell) or is_boundary(cell):
+        elif is_destination(cell) or is_origin(cell) or is_turnout_indicator(cell) or is_train_label(cell) or is_boundary(cell):
             pass
         elif "group" in cell.get("style", "").split(";"):
             for child in children(cell):
@@ -219,7 +215,6 @@ def export(station_id):
 
     interlocking_path = ROOT / "SourceAssets/Track/Network/NakatetsuInterlocking/Stations" / f"{station_id}.json"
     interlocking = json.loads(interlocking_path.read_text()) if interlocking_path.exists() else {"routes": [], "turnoutLocks": [], "destinations": []}
-    route_ids = [route["routeId"] for route in interlocking["routes"]]
     turnout_ids = {turnout["connectionId"] for turnout in interlocking["turnoutLocks"]}
     turnout_indicators = []
     for cell in cells.values():
@@ -233,18 +228,6 @@ def export(station_id):
         geometry = cell.find("mxGeometry")
         x, y = origin(cell)
         turnout_indicators.append({"id": marker_id, "turnoutId": turnout_id, "label": label, "x": x + number(geometry, "x") + number(geometry, "width") / 2, "y": y + number(geometry, "y") + number(geometry, "height") / 2})
-    route_markers = [cell for cell in cells.values() if is_route_indicator(cell)]
-    if len(route_markers) > 1:
-        raise ValueError(f"Only one route indicator marker is allowed: {station_id}")
-    route_indicator = None
-    if route_markers:
-        cell = route_markers[0]
-        marker_id = cell.get("id")
-        if not route_ids:
-            raise ValueError(f"Route indicator marker needs an interlocking station with routes: {marker_id}")
-        geometry = cell.find("mxGeometry")
-        x, y = origin(cell)
-        route_indicator = {"id": marker_id, "x": x + number(geometry, "x") + number(geometry, "width") / 2, "y": y + number(geometry, "y") + number(geometry, "height") / 2}
     destinations = [cell for cell in cells.values() if is_destination(cell)]
     destinations_by_circuit_id = {}
     for definition in interlocking["destinations"]:
@@ -275,8 +258,8 @@ def export(station_id):
             raise ValueError(f"Origin geometry must be finite with positive width and height: {marker_id}")
         if style(cell).get("direction", "east") not in ("east", "west", "north", "south"):
             raise ValueError(f"Unsupported origin triangle direction: {marker_id}")
-    data = {"width": number(model, "pageWidth"), "height": number(model, "pageHeight"), "circuits": circuits, "platforms": platforms, "routeIds": route_ids}
-    layout = {"width": data["width"], "height": data["height"], "turnoutIndicators": turnout_indicators, "trainLabels": train_labels, "routeIndicator": route_indicator, "routeIds": route_ids}
+    data = {"width": number(model, "pageWidth"), "height": number(model, "pageHeight"), "circuits": circuits, "platforms": platforms}
+    layout = {"width": data["width"], "height": data["height"], "turnoutIndicators": turnout_indicators, "trainLabels": train_labels}
     layout_path = ROOT / "client/src/data/diagrams" / f"{station_id}.layout.json"
     layout_path.parent.mkdir(parents=True, exist_ok=True)
     layout_path.write_text(json.dumps(layout, ensure_ascii=False, indent=2) + "\n")
@@ -368,7 +351,7 @@ def export(station_id):
     public_path = ROOT / "client/public/ctc/diagram" / f"{station_id}.svg"
     public_path.parent.mkdir(parents=True, exist_ok=True)
     public_path.write_bytes(svg_path.read_bytes())
-    print(f"Exported {len(circuits)} circuit shapes, {len(destinations)} destinations, {len(origins)} origins, {len(turnout_indicators)} turnout indicators, {len(train_labels)} train labels and {len(route_markers)} route indicator group: {svg_path.relative_to(ROOT)}, {data_path.relative_to(ROOT)}, {public_path.relative_to(ROOT)}, {layout_path.relative_to(ROOT)}")
+    print(f"Exported {len(circuits)} circuit shapes, {len(destinations)} destinations, {len(origins)} origins, {len(turnout_indicators)} turnout indicators, {len(train_labels)} train labels: {svg_path.relative_to(ROOT)}, {data_path.relative_to(ROOT)}, {public_path.relative_to(ROOT)}, {layout_path.relative_to(ROOT)}")
 
 
 def main():

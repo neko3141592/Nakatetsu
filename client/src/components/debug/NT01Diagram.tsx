@@ -1,15 +1,13 @@
-import { RouteReservationIndicator } from "@/components/ctc/RouteReservationIndicator";
-import { TrainLabel } from "@/components/ctc/TrainLabel";
-import { TurnoutDirectionIndicator } from "@/components/ctc/TurnoutDirectionIndicator";
+import { TrainLabel } from "@/components/ctc/diagram/TrainLabel";
+import { TurnoutNumber } from "@/components/ctc/diagram/TurnoutNumber";
 import diagramLayout from "@/data/diagrams/NT01.layout.json";
-import { TurnoutPosition, type CtcSnapshot, type InterlockingStationStatus } from "@/gen/ctc_pb";
+import { TurnoutPosition, type CtcSnapshot } from "@/gen/ctc_pb";
 import diagram from "./NT01Diagram.data.json";
 
 type Props = {
   circuitsById: CtcSnapshot["circuitsById"] | undefined;
   trainsById: CtcSnapshot["trainsById"] | undefined;
   turnoutsById: CtcSnapshot["turnoutsById"] | undefined;
-  station: InterlockingStationStatus | undefined;
 };
 
 const trainAnchors: Record<string, { x: number; y: number }> = {
@@ -28,8 +26,7 @@ const trainAnchors: Record<string, { x: number; y: number }> = {
   NT01_22BT_R: { x: 944, y: 342 },
 };
 
-export function NT01Diagram({ circuitsById, trainsById, turnoutsById, station }: Props) {
-  const routeIds = Array.from(new Set([...diagram.routeIds, ...Object.keys(station?.routesById ?? {})]));
+export function NT01Diagram({ circuitsById, trainsById, turnoutsById }: Props) {
   const circuitViews = diagram.circuits.map((shape) => {
     // _N は定位、_R は反位。軌道回路末尾の T を除くと転轍機IDになる。
     const branch = shape.id.match(/_([NR])$/)?.[1];
@@ -68,9 +65,6 @@ export function NT01Diagram({ circuitsById, trainsById, turnoutsById, station }:
         赤：在線 ／ 暗いグレー：非在線・非開通・情報なし ／ 破線：転換中・位置不明
       </p>
       <p className="text-zinc-600 dark:text-zinc-400">
-        表示灯：緑＝進路構成完了 ／ オレンジ＝進路設定済み ／ 黒＝消灯
-      </p>
-      <p className="text-zinc-600 dark:text-zinc-400">
         転轍機番号：定位＝水色文字 ／ 反位＝水色背景・黒文字 ／ 轍査なし＝灰色
       </p>
       <p className="text-zinc-600 dark:text-zinc-400">
@@ -83,7 +77,7 @@ export function NT01Diagram({ circuitsById, trainsById, turnoutsById, station }:
           width={diagram.width}
           height={diagram.height}
           role="img"
-          aria-label="NT01の配線・在線・進路予約・転轍機・列車情報"
+          aria-label="NT01の配線・在線・転轍機・列車情報"
           className="mx-auto block h-auto w-full max-w-5xl"
         >
           <g fill="none" strokeWidth="6">
@@ -119,24 +113,11 @@ export function NT01Diagram({ circuitsById, trainsById, turnoutsById, station }:
               </g>
             ))}
           </g>
-          <g aria-label="NT01の転轍機位置">
+          <g aria-label="NT01の転轍機番号">
             {diagramLayout.turnoutIndicators.map(({ id, turnoutId, label, x, y }) => (
               <g key={id} data-turnout-indicator-id={id} data-turnout-id={turnoutId} transform={`translate(${x} ${y})`}>
-                <TurnoutDirectionIndicator label={label} turnout={turnoutsById?.[turnoutId]} />
+                <TurnoutNumber label={label} />
               </g>
-            ))}
-          </g>
-          <g
-            aria-label="NT01の全進路予約表示灯"
-            transform={`translate(${diagram.width - 120} 24) scale(0.4)`}
-          >
-            {routeIds.map((routeId, index) => (
-              <RouteReservationIndicator
-                key={routeId}
-                station={station}
-                routeId={routeId}
-                y={index * 64}
-              />
             ))}
           </g>
         </svg>

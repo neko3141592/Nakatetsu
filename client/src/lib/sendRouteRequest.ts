@@ -6,11 +6,15 @@ import {
   InterlockingRouteRequestResultSchema,
 } from "@/gen/ctc_pb";
 
-export async function sendRouteRequest(stationId: string, routeId: string) {
+export async function sendRouteRequest(
+  stationId: string,
+  routeId: string,
+  operation: InterlockingRouteOperation = InterlockingRouteOperation.SET,
+) {
   const request = create(InterlockingRouteRequestSchema, {
     stationId,
     routeId,
-    operation: InterlockingRouteOperation.SET,
+    operation,
   });
   const response = await fetch("/api/route-requests", {
     method: "POST",

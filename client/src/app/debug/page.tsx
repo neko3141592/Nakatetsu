@@ -59,7 +59,6 @@ export default function DebugPage() {
   const circuits = Object.entries(snapshot?.circuitsById ?? {}).sort(([a], [b]) => a.localeCompare(b));
   const trains = Object.entries(snapshot?.trainsById ?? {}).sort(([a], [b]) => a.localeCompare(b));
   const turnouts = Object.entries(snapshot?.turnoutsById ?? {}).sort(([a], [b]) => a.localeCompare(b));
-  const nt01Station = snapshot?.interlocking?.stationsById["NT01"];
   const occupiedCount = circuits.filter(([, circuit]) => circuit.isOccupied).length;
   const circuitIDsByTrainID = new Map<string, string[]>();
   for (const [circuitID, circuit] of circuits) {
@@ -101,7 +100,6 @@ export default function DebugPage() {
         circuitsById={snapshot?.circuitsById}
         trainsById={snapshot?.trainsById}
         turnoutsById={snapshot?.turnoutsById}
-        station={nt01Station}
       />
 
       {!snapshot ? (
@@ -141,14 +139,14 @@ export default function DebugPage() {
             <p className="text-zinc-600 dark:text-zinc-400">TrainIDは最後尾側の基準回路にだけ保持されます。</p>
             <div className="max-h-96 overflow-auto rounded border border-zinc-300 dark:border-zinc-700">
               <table className="w-full text-left">
-                <thead className="sticky top-0 bg-zinc-100 dark:bg-zinc-900"><tr>{["軌道回路ID", "在線", "TrainID"].map((label) => <th key={label} scope="col" className="p-3 font-medium">{label}</th>)}</tr></thead>
+                <thead className="sticky top-0 bg-zinc-100 dark:bg-zinc-900"><tr>{["軌道回路ID", "名称", "在線", "TrainID"].map((label) => <th key={label} scope="col" className="p-3 font-medium">{label}</th>)}</tr></thead>
                 <tbody>
                   {circuits.map(([id, circuit]) => (
                     <tr key={id} className="border-t border-zinc-200 dark:border-zinc-800">
-                      <td className="p-3 font-mono">{id}</td><td className={`p-3 ${circuit.isOccupied ? "font-semibold text-amber-700 dark:text-amber-300" : ""}`}>{circuit.isOccupied ? "在線" : "非在線"}</td><td className="p-3 font-mono">{circuit.trainId || "—"}</td>
+                      <td className="p-3 font-mono">{id}</td><td className="p-3">{circuit.displayName || id}</td><td className={`p-3 ${circuit.isOccupied ? "font-semibold text-amber-700 dark:text-amber-300" : ""}`}>{circuit.isOccupied ? "在線" : "非在線"}</td><td className="p-3 font-mono">{circuit.trainId || "—"}</td>
                     </tr>
                   ))}
-                  {circuits.length === 0 && <tr><td colSpan={3} className="p-4 text-zinc-600 dark:text-zinc-400">CTCの初期登録後に表示されます。</td></tr>}
+                  {circuits.length === 0 && <tr><td colSpan={4} className="p-4 text-zinc-600 dark:text-zinc-400">CTCの初期登録後に表示されます。</td></tr>}
                 </tbody>
               </table>
             </div>

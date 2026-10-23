@@ -3,6 +3,7 @@
 import { useLayoutEffect, useMemo, useRef, type SyntheticEvent } from "react";
 
 import { TurnoutPosition, type CtcSnapshot, type InterlockingStationStatus } from "@/gen/ctc_pb";
+import type { RouteCategory } from "@/lib/routeCategory";
 
 export type CircuitSvgMap = Readonly<Record<string,
   | { svgId: string }
@@ -11,6 +12,7 @@ export type CircuitSvgMap = Readonly<Record<string,
 
 export type RouteDefinition = {
   routeId: string;
+  category?: RouteCategory;
   startTrackCircuitId: string;
   destinationTrackCircuitId: string;
   destinationCode: string;
@@ -22,6 +24,7 @@ export type RouteDefinition = {
 };
 
 export type RouteDirection = "R" | "L";
+export type DiagramMode = "traffic" | "route-control";
 
 type Props = {
   /** 管理下のSVGファイルの全文。URLではなく文字列を渡す。 */
@@ -31,6 +34,7 @@ type Props = {
   turnoutsById?: CtcSnapshot["turnoutsById"];
   station?: InterlockingStationStatus;
   routeDefinitions: readonly RouteDefinition[];
+  mode?: DiagramMode;
   selectedOriginCircuitId?: string;
   selectedOriginDirection?: RouteDirection;
   availableDestinationCircuitIds?: readonly string[];
@@ -44,6 +48,10 @@ const INACTIVE_COLOR = "#ffffff";
 const OCCUPIED_COLOR = "#ef4444";
 const RESERVED_COLOR = "#ffd517";
 const NO_DESTINATIONS: readonly string[] = [];
+const ROUTE_BUTTON_ATTRIBUTES = [
+  "data-route-button", "data-route-candidate", "data-route-selected",
+  "role", "tabindex", "aria-disabled", "aria-label", "aria-pressed",
+] as const;
 
 /** 全体の <svg> 内に配置する、駅・駅間1つ分の配線図。 */
 export function TrackDiagram({
@@ -53,6 +61,7 @@ export function TrackDiagram({
   turnoutsById,
   station,
   routeDefinitions,
+  mode = "route-control",
   selectedOriginCircuitId,
   selectedOriginDirection,
   availableDestinationCircuitIds = NO_DESTINATIONS,
@@ -63,15 +72,23 @@ export function TrackDiagram({
 }: Props) {
   const rootRef = useRef<SVGGElement>(null);
   const markup = useMemo(() => ({ __html: svg }), [svg]);
-  const interactive = Boolean(onSelectOrigin && onSelectDestination);
+  const interactive = mode === "route-control" && Boolean(onSelectOrigin && onSelectDestination);
 
   useLayoutEffect(() => {
-    if (!interactive) return;
     const root = rootRef.current;
     if (!root) return;
     const candidates = new Set(availableDestinationCircuitIds);
     const markers = root.querySelectorAll<SVGGElement>('g[id^="Origin_"], g[id^="Destination_"]');
+    const originalAttributes = Array.from(markers, (marker) => ({
+      marker,
+      attributes: ["style", ...ROUTE_BUTTON_ATTRIBUTES].map((name) => [name, marker.getAttribute(name)] as const),
+    }));
     for (const marker of markers) {
+      if (mode === "traffic") marker.style.setProperty("display", "none");
+      if (!interactive) {
+        for (const name of ROUTE_BUTTON_ATTRIBUTES) marker.removeAttribute(name);
+        continue;
+      }
       const isOrigin = marker.id.startsWith("Origin_");
       const circuitId = marker.dataset.circuitId;
       const available = Boolean(circuitId && candidates.has(circuitId));
@@ -86,10 +103,18 @@ export function TrackDiagram({
       marker.setAttribute("aria-label", isOrigin ? `発点 ${circuitId}${marker.dataset.routeDirection ? ` ${marker.dataset.routeDirection}` : ""}` : `着点 ${marker.dataset.destinationCode ?? circuitId}`);
       if (isOrigin) marker.setAttribute("aria-pressed", String(selected));
     }
-  }, [svg, interactive, selectedOriginCircuitId, selectedOriginDirection, availableDestinationCircuitIds, isSendingRoute]);
+    return () => {
+      for (const { marker, attributes } of originalAttributes) {
+        for (const [name, value] of attributes) {
+          if (value === null) marker.removeAttribute(name);
+          else marker.setAttribute(name, value);
+        }
+      }
+    };
+  }, [svg, mode, interactive, selectedOriginCircuitId, selectedOriginDirection, availableDestinationCircuitIds, isSendingRoute]);
 
   function getButton(event: SyntheticEvent<SVGGElement>) {
-    if (!(event.target instanceof Element)) return null;
+    if (!interactive || !(event.target instanceof Element)) return null;
     const marker = event.target.closest<SVGGElement>("[data-route-button]");
     return marker && rootRef.current?.contains(marker) ? marker : null;
   }

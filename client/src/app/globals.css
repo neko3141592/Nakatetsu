@@ -158,6 +158,15 @@
   50% { fill: #f2ea18; }
 }
 
+.ctc-turnout-flash {
+  animation: ctc-turnout-flash 2s steps(1, end) infinite;
+}
+
+@keyframes ctc-turnout-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ctc-route-controls [data-route-candidate] ellipse {
     animation: none;

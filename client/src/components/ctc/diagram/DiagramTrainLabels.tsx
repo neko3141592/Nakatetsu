@@ -1,5 +1,5 @@
-import { TrainLabel } from "@/components/ctc/TrainLabel";
-import type { CircuitSvgMap } from "@/components/ctc/TrackDiagram";
+import { TrainLabel } from "@/components/ctc/diagram/TrainLabel";
+import type { CircuitSvgMap } from "@/components/ctc/diagram/TrackDiagram";
 import { TurnoutPosition, type CtcSnapshot } from "@/gen/ctc_pb";
 import type { DiagramLayout } from "@/lib/diagramTypes";
 import type { InspectorSelection } from "@/lib/inspectorTypes";

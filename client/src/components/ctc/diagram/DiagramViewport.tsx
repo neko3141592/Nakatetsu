@@ -10,13 +10,15 @@ type Props = {
   width: number;
   height: number;
   children: ReactNode;
+  label?: string;
+  fitLabel?: string;
 };
 
 const PADDING = 32;
 const controlClassName =
   "size-6 rounded-full border-0 bg-zinc-200 p-0 text-zinc-800 shadow-none transition-none hover:bg-zinc-200 hover:text-zinc-800 [&_svg]:size-4";
 
-export function DiagramViewport({ width, height, children }: Props) {
+export function DiagramViewport({ width, height, children, label = "全線の配線図", fitLabel = "全線表示に戻す" }: Props) {
   const canvasWidth = width + PADDING * 2;
   const canvasHeight = height + PADDING * 2;
 
@@ -43,7 +45,7 @@ export function DiagramViewport({ width, height, children }: Props) {
                 width={canvasWidth}
                 height={canvasHeight}
                 viewBox={`${-PADDING} ${-PADDING} ${canvasWidth} ${canvasHeight}`}
-                aria-label="全線の配線図"
+                aria-label={label}
                 className="block max-w-none select-none"
               >
                 {children}
@@ -78,8 +80,8 @@ export function DiagramViewport({ width, height, children }: Props) {
               <Button
                 type="button"
                 size="icon"
-                aria-label="全線表示に戻す"
-                title="全線表示に戻す"
+                aria-label={fitLabel}
+                title={fitLabel}
                 className={controlClassName}
                 onClick={() => void fitToView({ animationTime: 150 })}
               >

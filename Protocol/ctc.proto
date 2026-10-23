@@ -221,6 +221,8 @@ message CtcCircuitState {
   bool is_occupied = 1;
   // 最後尾側の基準回路にだけ保持する。未登録なら空文字。
   string train_id = 2;
+  // Goが起動時に読み込んだ軌道回路の表示名。未設定なら回路IDを使う。
+  string display_name = 3;
 }
 
 message CtcTrainState {

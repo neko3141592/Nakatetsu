@@ -147,6 +147,7 @@
   "circuits": [
     {
       "circuitId": "NT06_DT",
+      "displayName": "1番線",
       "controlKind": "Block",
       "sections": [
         {
@@ -158,6 +159,7 @@
     },
     {
       "circuitId": "NT06_UT",
+      "displayName": "2番線",
       "controlKind": "Block",
       "sections": [
         {

@@ -1,4 +1,4 @@
-import type { RouteDefinition } from "@/components/ctc/TrackDiagram";
+import type { RouteDefinition } from "@/components/ctc/diagram/TrackDiagram";
 import type { InterlockingStationStatus } from "@/gen/ctc_pb";
 
 export function getLockedTurnoutIds(

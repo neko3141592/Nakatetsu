@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  allowedDevOrigins: ['192.168.2.104', '172.16.80.254'],
+  allowedDevOrigins: ['192.168.2.102', '172.16.80.254'],
   async rewrites() {
     return [{
       source: "/api/route-requests",

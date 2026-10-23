@@ -1,4 +1,4 @@
-import type { CircuitSvgMap, RouteDefinition } from "@/components/ctc/TrackDiagram";
+import type { CircuitSvgMap, RouteDefinition } from "@/components/ctc/diagram/TrackDiagram";
 
 export type DiagramLayout = {
   width: number;
@@ -17,8 +17,6 @@ export type DiagramLayout = {
     x: number;
     y: number;
   }[];
-  routeIndicator: { id: string; x: number; y: number } | null;
-  routeIds: readonly string[];
 };
 
 export type DiagramScene = {

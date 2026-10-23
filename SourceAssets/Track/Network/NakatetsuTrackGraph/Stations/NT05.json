@@ -481,6 +481,7 @@
   "circuits": [
     {
       "circuitId": "NT05_1RT",
+      "displayName": "1番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -492,6 +493,7 @@
     },
     {
       "circuitId": "NT05_2RT",
+      "displayName": "2番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -503,6 +505,7 @@
     },
     {
       "circuitId": "NT05_3LT",
+      "displayName": "3番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -514,6 +517,7 @@
     },
     {
       "circuitId": "NT05_4LT",
+      "displayName": "4番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -525,6 +529,7 @@
     },
     {
       "circuitId": "NT05_21T",
+      "displayName": "下り本線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -546,6 +551,7 @@
     },
     {
       "circuitId": "NT05_22T",
+      "displayName": "下り本線",
       "controlKind": "Interlocking",
       "toCircuitId": "NT05_NT06_D1T",
       "sections": [
@@ -568,6 +574,7 @@
     },
     {
       "circuitId": "NT05_23T",
+      "displayName": "上り本線",
       "controlKind": "Interlocking",
       "toCircuitId": "NT04_NT05_U1T",
       "sections": [
@@ -590,6 +597,7 @@
     },
     {
       "circuitId": "NT05_24T",
+      "displayName": "上り本線",
       "controlKind": "Interlocking",
       "sections": [
         {

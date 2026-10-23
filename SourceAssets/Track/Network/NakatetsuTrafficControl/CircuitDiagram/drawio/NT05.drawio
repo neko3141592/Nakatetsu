@@ -1,203 +1,203 @@
 <mxfile host="Electron">
   <diagram name="NT05" id="NT05_Diagram">
-    <mxGraphModel dx="1052" dy="894" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="308" pageHeight="768" math="0" shadow="0">
+    <mxGraphModel dx="1052" dy="894" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="354.2" pageHeight="768" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="NT05_1RT" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry x="32" y="192" width="244" height="64" as="geometry" />
+          <mxGeometry x="36.8" y="192" width="280.6" height="64" as="geometry" />
         </mxCell>
         <mxCell id="NT05_1RT_Segment_1" edge="1" parent="NT05_1RT" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="64" as="sourcePoint" />
-            <mxPoint x="18" y="0" as="targetPoint" />
+            <mxPoint x="20.7" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_1RT_Segment_2" edge="1" parent="NT05_1RT" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="18" y="0" as="sourcePoint" />
-            <mxPoint x="226" y="0" as="targetPoint" />
+            <mxPoint x="20.7" y="0" as="sourcePoint" />
+            <mxPoint x="259.9" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_1RT_Segment_3" edge="1" parent="NT05_1RT" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="226" y="0" as="sourcePoint" />
-            <mxPoint x="244" y="64" as="targetPoint" />
+            <mxPoint x="259.9" y="0" as="sourcePoint" />
+            <mxPoint x="280.6" y="64" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_2RT" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="48" y="320" as="sourcePoint" />
-            <mxPoint x="260" y="320" as="targetPoint" />
+            <mxPoint x="55.2" y="320" as="sourcePoint" />
+            <mxPoint x="299" y="320" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_3LT" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="48" y="448" as="sourcePoint" />
-            <mxPoint x="260" y="448" as="targetPoint" />
+            <mxPoint x="55.2" y="448" as="sourcePoint" />
+            <mxPoint x="299" y="448" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_4LT" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry x="32" y="512" width="244" height="64" as="geometry" />
+          <mxGeometry x="36.8" y="512" width="280.6" height="64" as="geometry" />
         </mxCell>
         <mxCell id="NT05_4LT_Segment_1" edge="1" parent="NT05_4LT" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="18" y="64" as="targetPoint" />
+            <mxPoint x="20.7" y="64" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_4LT_Segment_2" edge="1" parent="NT05_4LT" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="18" y="64" as="sourcePoint" />
-            <mxPoint x="226" y="64" as="targetPoint" />
+            <mxPoint x="20.7" y="64" as="sourcePoint" />
+            <mxPoint x="259.9" y="64" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_4LT_Segment_3" edge="1" parent="NT05_4LT" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="226" y="64" as="sourcePoint" />
-            <mxPoint x="244" y="0" as="targetPoint" />
+            <mxPoint x="259.9" y="64" as="sourcePoint" />
+            <mxPoint x="280.6" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_21T_Group" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="256" width="48" height="64" as="geometry" />
+          <mxGeometry x="0" y="256" width="55.2" height="64" as="geometry" />
         </mxCell>
         <mxCell id="NT05_21T_N" connectable="0" parent="NT05_21T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="64" width="48" height="0" as="geometry" />
+          <mxGeometry x="0" y="64" width="55.2" height="0" as="geometry" />
         </mxCell>
         <mxCell id="NT05_21T_N_Segment_1" edge="1" parent="NT05_21T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="16" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_21T_N_Segment_2" edge="1" parent="NT05_21T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="16" y="0" as="sourcePoint" />
-            <mxPoint x="48" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="sourcePoint" />
+            <mxPoint x="55.2" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_21T_R" connectable="0" parent="NT05_21T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="0" width="32" height="56" as="geometry" />
+          <mxGeometry x="0" y="0" width="36.8" height="56" as="geometry" />
         </mxCell>
         <mxCell id="NT05_21T_R_Segment_1" edge="1" parent="NT05_21T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="56" as="sourcePoint" />
-            <mxPoint x="16" y="56" as="targetPoint" />
+            <mxPoint x="18.4" y="56" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_21T_R_Segment_2" edge="1" parent="NT05_21T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="16" y="56" as="sourcePoint" />
-            <mxPoint x="32" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="56" as="sourcePoint" />
+            <mxPoint x="36.8" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_22T_Group" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry x="260" y="256" width="48" height="64" as="geometry" />
+          <mxGeometry x="299" y="256" width="55.2" height="64" as="geometry" />
         </mxCell>
         <mxCell id="NT05_22T_N" connectable="0" parent="NT05_22T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="64" width="48" height="0" as="geometry" />
+          <mxGeometry x="0" y="64" width="55.2" height="0" as="geometry" />
         </mxCell>
         <mxCell id="NT05_22T_N_Segment_1" edge="1" parent="NT05_22T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="32" y="0" as="targetPoint" />
+            <mxPoint x="36.8" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_22T_N_Segment_2" edge="1" parent="NT05_22T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="32" y="0" as="sourcePoint" />
-            <mxPoint x="48" y="0" as="targetPoint" />
+            <mxPoint x="36.8" y="0" as="sourcePoint" />
+            <mxPoint x="55.2" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_22T_R" connectable="0" parent="NT05_22T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="16" y="0" width="32" height="56" as="geometry" />
+          <mxGeometry x="18.4" y="0" width="36.8" height="56" as="geometry" />
         </mxCell>
         <mxCell id="NT05_22T_R_Segment_1" edge="1" parent="NT05_22T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="16" y="56" as="targetPoint" />
+            <mxPoint x="18.4" y="56" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_22T_R_Segment_2" edge="1" parent="NT05_22T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="16" y="56" as="sourcePoint" />
-            <mxPoint x="32" y="56" as="targetPoint" />
+            <mxPoint x="18.4" y="56" as="sourcePoint" />
+            <mxPoint x="36.8" y="56" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_23T_Group" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="448" width="48" height="64" as="geometry" />
+          <mxGeometry x="0" y="448" width="55.2" height="64" as="geometry" />
         </mxCell>
         <mxCell id="NT05_23T_N" connectable="0" parent="NT05_23T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="0" width="48" height="0" as="geometry" />
+          <mxGeometry x="0" y="0" width="55.2" height="0" as="geometry" />
         </mxCell>
         <mxCell id="NT05_23T_N_Segment_1" edge="1" parent="NT05_23T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="16" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_23T_N_Segment_2" edge="1" parent="NT05_23T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="16" y="0" as="sourcePoint" />
-            <mxPoint x="48" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="sourcePoint" />
+            <mxPoint x="55.2" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_23T_R" connectable="0" parent="NT05_23T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="8" width="32" height="56" as="geometry" />
+          <mxGeometry x="0" y="8" width="36.8" height="56" as="geometry" />
         </mxCell>
         <mxCell id="NT05_23T_R_Segment_1" edge="1" parent="NT05_23T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="16" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_23T_R_Segment_2" edge="1" parent="NT05_23T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="16" y="0" as="sourcePoint" />
-            <mxPoint x="32" y="56" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="sourcePoint" />
+            <mxPoint x="36.8" y="56" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_24T_Group" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry x="260" y="448" width="48" height="64" as="geometry" />
+          <mxGeometry x="299" y="448" width="55.2" height="64" as="geometry" />
         </mxCell>
         <mxCell id="NT05_24T_N" connectable="0" parent="NT05_24T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="0" y="0" width="48" height="0" as="geometry" />
+          <mxGeometry x="0" y="0" width="55.2" height="0" as="geometry" />
         </mxCell>
         <mxCell id="NT05_24T_N_Segment_1" edge="1" parent="NT05_24T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="0" as="sourcePoint" />
-            <mxPoint x="32" y="0" as="targetPoint" />
+            <mxPoint x="36.8" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_24T_N_Segment_2" edge="1" parent="NT05_24T_N" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="32" y="0" as="sourcePoint" />
-            <mxPoint x="48" y="0" as="targetPoint" />
+            <mxPoint x="36.8" y="0" as="sourcePoint" />
+            <mxPoint x="55.2" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_24T_R" connectable="0" parent="NT05_24T_Group" style="group" value="" vertex="1">
-          <mxGeometry x="16" y="8" width="32" height="56" as="geometry" />
+          <mxGeometry x="18.4" y="8" width="36.8" height="56" as="geometry" />
         </mxCell>
         <mxCell id="NT05_24T_R_Segment_1" edge="1" parent="NT05_24T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="0" y="56" as="sourcePoint" />
-            <mxPoint x="16" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_24T_R_Segment_2" edge="1" parent="NT05_24T_R" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="16" y="0" as="sourcePoint" />
-            <mxPoint x="32" y="0" as="targetPoint" />
+            <mxPoint x="18.4" y="0" as="sourcePoint" />
+            <mxPoint x="36.8" y="0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Platform_1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1;fontColor=#333333;strokeColor=#3F3F46;" value="" vertex="1">
-          <mxGeometry height="96" width="192" y="208" as="geometry" x="58" />
+          <mxGeometry height="96" width="220.8" y="208" as="geometry" x="66.7" />
         </mxCell>
         <mxCell id="NT05_Platform_2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1;fontColor=#333333;strokeColor=#3F3F46;" value="" vertex="1">
-          <mxGeometry height="96" width="192" y="464" as="geometry" x="58" />
+          <mxGeometry height="96" width="220.8" y="464" as="geometry" x="66.7" />
         </mxCell>
         <mxCell id="Destination_NT05_1RT" connectable="0" parent="1" style="group;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="60" x="124" y="176" as="geometry" />
+          <mxGeometry height="30" width="60" x="147.1" y="176" as="geometry" />
         </mxCell>
         <object label="" id="Destination_NT05_1RT_Circle">
           <mxCell parent="Destination_NT05_1RT" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;strokeColor=#F2EA18;" vertex="1">
@@ -208,7 +208,7 @@
           <mxGeometry height="30" width="60" as="geometry" />
         </mxCell>
         <mxCell id="Destination_NT05_2RT" connectable="0" parent="1" style="group;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="60" x="124" y="304" as="geometry" />
+          <mxGeometry height="30" width="60" x="147.1" y="304" as="geometry" />
         </mxCell>
         <object label="" id="Destination_NT05_2RT_Circle">
           <mxCell parent="Destination_NT05_2RT" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;strokeColor=#F2EA18;" vertex="1">
@@ -219,7 +219,7 @@
           <mxGeometry height="30" width="60" as="geometry" />
         </mxCell>
         <mxCell id="Destination_NT05_3LT" connectable="0" parent="1" style="group;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="60" x="124" y="432" as="geometry" />
+          <mxGeometry height="30" width="60" x="147.1" y="432" as="geometry" />
         </mxCell>
         <object label="" id="Destination_NT05_3LT_Circle">
           <mxCell parent="Destination_NT05_3LT" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;strokeColor=#F2EA18;" vertex="1">
@@ -230,7 +230,7 @@
           <mxGeometry height="30" width="60" as="geometry" />
         </mxCell>
         <mxCell id="Destination_NT05_4LT" connectable="0" parent="1" style="group;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="60" x="124" y="560" as="geometry" />
+          <mxGeometry height="30" width="60" x="147.1" y="560" as="geometry" />
         </mxCell>
         <object label="" id="Destination_NT05_4LT_Circle">
           <mxCell parent="Destination_NT05_4LT" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;strokeColor=#F2EA18;" vertex="1">
@@ -241,7 +241,7 @@
           <mxGeometry height="30" width="60" as="geometry" />
         </mxCell>
         <mxCell id="Destination_NT05_22T" connectable="0" parent="1" style="group;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="60" x="266" y="304" as="geometry" />
+          <mxGeometry height="30" width="60" x="310.4" y="304" as="geometry" />
         </mxCell>
         <object label="" id="Destination_NT05_22T_Circle">
           <mxCell parent="Destination_NT05_22T" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;strokeColor=#F2EA18;" vertex="1">
@@ -252,7 +252,7 @@
           <mxGeometry height="30" width="60" as="geometry" />
         </mxCell>
         <mxCell id="Destination_NT05_23T" connectable="0" parent="1" style="group;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="60" x="-18" y="432" as="geometry" />
+          <mxGeometry height="30" width="60" x="-16.2" y="432" as="geometry" />
         </mxCell>
         <object label="" id="Destination_NT05_23T_Circle">
           <mxCell parent="Destination_NT05_23T" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;strokeColor=#F2EA18;" vertex="1">
@@ -263,22 +263,19 @@
           <mxGeometry height="30" width="60" as="geometry" />
         </mxCell>
         <mxCell id="NT05_Label_Station" parent="1" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#3F3F46;fontSize=16;fontFamily=Arial;" value="東長野" vertex="1">
-          <mxGeometry height="32" width="192" y="240" as="geometry" x="58" />
+          <mxGeometry height="32" width="220.8" y="240" as="geometry" x="66.7" />
         </mxCell>
         <mxCell id="NT05_TurnoutIndicator_21" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;" value="" vertex="1">
-          <mxGeometry height="8" width="8" x="4" y="292" as="geometry" />
+          <mxGeometry height="8" width="8" x="5.2" y="292" as="geometry" />
         </mxCell>
         <mxCell id="NT05_TurnoutIndicator_22" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;" value="" vertex="1">
-          <mxGeometry height="8" width="8" x="296" y="292" as="geometry" />
+          <mxGeometry height="8" width="8" x="341" y="292" as="geometry" />
         </mxCell>
         <mxCell id="NT05_TurnoutIndicator_23" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;" value="" vertex="1">
-          <mxGeometry height="8" width="8" x="4" y="468" as="geometry" />
+          <mxGeometry height="8" width="8" x="5.2" y="468" as="geometry" />
         </mxCell>
         <mxCell id="NT05_TurnoutIndicator_24" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;" value="" vertex="1">
-          <mxGeometry height="8" width="8" x="296" y="468" as="geometry" />
-        </mxCell>
-        <mxCell id="NT05_RouteIndicators" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#09090B;" value="" vertex="1">
-          <mxGeometry height="8" width="8" x="200" y="60" as="geometry" />
+          <mxGeometry height="8" width="8" x="341" y="468" as="geometry" />
         </mxCell>
         <mxCell id="NT05_Boundary_01" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
@@ -288,32 +285,32 @@
         </mxCell>
         <mxCell id="NT05_Boundary_02" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="48" y="314" as="sourcePoint" />
-            <mxPoint x="48" y="326" as="targetPoint" />
+            <mxPoint x="55.2" y="314" as="sourcePoint" />
+            <mxPoint x="55.2" y="326" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_03" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="32" y="250" as="sourcePoint" />
-            <mxPoint x="32" y="262" as="targetPoint" />
+            <mxPoint x="36.8" y="250" as="sourcePoint" />
+            <mxPoint x="36.8" y="262" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_04" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="260" y="314" as="sourcePoint" />
-            <mxPoint x="260" y="326" as="targetPoint" />
+            <mxPoint x="299" y="314" as="sourcePoint" />
+            <mxPoint x="299" y="326" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_05" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="276" y="250" as="sourcePoint" />
-            <mxPoint x="276" y="262" as="targetPoint" />
+            <mxPoint x="317.4" y="250" as="sourcePoint" />
+            <mxPoint x="317.4" y="262" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_06" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="308" y="306" as="sourcePoint" />
-            <mxPoint x="308" y="326" as="targetPoint" />
+            <mxPoint x="354.2" y="306" as="sourcePoint" />
+            <mxPoint x="354.2" y="326" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_07" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
@@ -324,111 +321,111 @@
         </mxCell>
         <mxCell id="NT05_Boundary_08" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="48" y="442" as="sourcePoint" />
-            <mxPoint x="48" y="454" as="targetPoint" />
+            <mxPoint x="55.2" y="442" as="sourcePoint" />
+            <mxPoint x="55.2" y="454" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_09" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="32" y="506" as="sourcePoint" />
-            <mxPoint x="32" y="518" as="targetPoint" />
+            <mxPoint x="36.8" y="506" as="sourcePoint" />
+            <mxPoint x="36.8" y="518" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_10" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="260" y="442" as="sourcePoint" />
-            <mxPoint x="260" y="454" as="targetPoint" />
+            <mxPoint x="299" y="442" as="sourcePoint" />
+            <mxPoint x="299" y="454" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_11" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="276" y="506" as="sourcePoint" />
-            <mxPoint x="276" y="518" as="targetPoint" />
+            <mxPoint x="317.4" y="506" as="sourcePoint" />
+            <mxPoint x="317.4" y="518" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="NT05_Boundary_12" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeColor=#EC4899;strokeWidth=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="308" y="442" as="sourcePoint" />
-            <mxPoint x="308" y="462" as="targetPoint" />
+            <mxPoint x="354.2" y="442" as="sourcePoint" />
+            <mxPoint x="354.2" y="462" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <object label="" id="NT05_TrainLabel_1RT">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="150" y="176" as="geometry" />
+            <mxGeometry height="8" width="8" x="173.1" y="176" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_2RT">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="150" y="304" as="geometry" />
+            <mxGeometry height="8" width="8" x="173.1" y="304" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_3LT">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="150" y="432" as="geometry" />
+            <mxGeometry height="8" width="8" x="173.1" y="432" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_4LT">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="150" y="596" as="geometry" />
+            <mxGeometry height="8" width="8" x="173.1" y="596" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_21T_N">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="28" y="336" as="geometry" />
+            <mxGeometry height="8" width="8" x="32.8" y="336" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_21T_R">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="6" y="284" as="geometry" />
+            <mxGeometry height="8" width="8" x="7.5" y="284" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_22T_N">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="272" y="336" as="geometry" />
+            <mxGeometry height="8" width="8" x="313.4" y="336" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_22T_R">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="294" y="284" as="geometry" />
+            <mxGeometry height="8" width="8" x="338.7" y="284" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_23T_N">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="28" y="424" as="geometry" />
+            <mxGeometry height="8" width="8" x="32.8" y="424" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_23T_R">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="6" y="476" as="geometry" />
+            <mxGeometry height="8" width="8" x="7.5" y="476" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_24T_N">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="272" y="424" as="geometry" />
+            <mxGeometry height="8" width="8" x="313.4" y="424" as="geometry" />
           </mxCell>
         </object>
         <object label="" id="NT05_TrainLabel_24T_R">
           <mxCell parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1">
-            <mxGeometry height="8" width="8" x="294" y="476" as="geometry" />
+            <mxGeometry height="8" width="8" x="338.7" y="476" as="geometry" />
           </mxCell>
         </object>
         <mxCell id="Origin_NT05_21T" parent="1" style="triangle;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#FFE226;fillColor=#000000;" value="" vertex="1">
-          <mxGeometry x="4" y="316" width="16" height="8" as="geometry" />
+          <mxGeometry x="5.8" y="316" width="16" height="8" as="geometry" />
         </mxCell>
         <mxCell id="Origin_NT05_24T" parent="1" style="triangle;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#FFE226;fillColor=#000000;flipH=1;" value="" vertex="1">
-          <mxGeometry x="288" y="444" width="16" height="8" as="geometry" />
+          <mxGeometry x="332.4" y="444" width="16" height="8" as="geometry" />
         </mxCell>
         <mxCell id="Origin_NT05_1RT" parent="1" style="triangle;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#FFE226;fillColor=#000000;" value="" vertex="1">
-          <mxGeometry x="216" y="188" width="16" height="8" as="geometry" />
+          <mxGeometry x="249.6" y="188" width="16" height="8" as="geometry" />
         </mxCell>
         <mxCell id="Origin_NT05_2RT" parent="1" style="triangle;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#FFE226;fillColor=#000000;" value="" vertex="1">
-          <mxGeometry x="216" y="316" width="16" height="8" as="geometry" />
+          <mxGeometry x="249.6" y="316" width="16" height="8" as="geometry" />
         </mxCell>
         <mxCell id="Origin_NT05_3LT" parent="1" style="triangle;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#FFE226;fillColor=#000000;flipH=1;" value="" vertex="1">
-          <mxGeometry x="76" y="444" width="16" height="8" as="geometry" />
+          <mxGeometry x="88.6" y="444" width="16" height="8" as="geometry" />
         </mxCell>
         <mxCell id="Origin_NT05_4LT" parent="1" style="triangle;whiteSpace=wrap;html=1;shapeInside=1;strokeColor=#FFE226;fillColor=#000000;flipH=1;" value="" vertex="1">
-          <mxGeometry x="76" y="572" width="16" height="8" as="geometry" />
+          <mxGeometry x="88.6" y="572" width="16" height="8" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
