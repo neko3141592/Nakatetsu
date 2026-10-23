@@ -17,7 +17,7 @@ import (
 
 func TestWebSocketDebugClientReceivesSnapshot(t *testing.T) {
 	core := ctc.New(map[string]ctc.TrackCircuitDefinition{
-		"A": {ControlKind: ctc.TrackControlBlock, ToCircuitID: "B"},
+		"A": {DisplayName: "下り本線", ControlKind: ctc.TrackControlBlock, ToCircuitID: "B"},
 		"B": {ControlKind: ctc.TrackControlBlock},
 	}, nil)
 	err := core.UpdateSnapshot(&ctcv1.UnitySnapshot{
@@ -68,6 +68,12 @@ func TestWebSocketDebugClientReceivesSnapshot(t *testing.T) {
 				}
 				if err := proto.Unmarshal(data, &snapshot); err != nil {
 					t.Fatal(err)
+				}
+				if circuit := snapshot.CircuitsById["A"]; circuit.GetDisplayName() != "下り本線" || !circuit.GetIsOccupied() || circuit.GetTrainId() == "" {
+					t.Fatalf("occupied circuit lost its name or tracking state: %v", circuit)
+				}
+				if circuit := snapshot.CircuitsById["B"]; circuit.GetDisplayName() != "B" || circuit.GetIsOccupied() {
+					t.Fatalf("unnamed circuit should fall back to its ID: %v", circuit)
 				}
 				if !proto.Equal(&snapshot, core.GetWebSnapshot()) {
 					t.Fatalf("received snapshot differs from CTC: %v", &snapshot)

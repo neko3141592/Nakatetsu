@@ -49,6 +49,7 @@ func LoadTrackRouteDefinitions(manifestPath string, circuits map[string]TrackCir
 				StartTrackCircuitID       string   `json:"startTrackCircuitId"`
 				DestinationTrackCircuitID string   `json:"destinationTrackCircuitId"`
 				TrackCircuitIDs           []string `json:"trackCircuitIds"`
+				RouteClearTrackCircuitIDs []string `json:"routeClearTrackCircuitIds"`
 			} `json:"routes"`
 		}
 		if err := readDefinitionJSON(stationPath, &station); err != nil {
@@ -74,10 +75,16 @@ func LoadTrackRouteDefinitions(manifestPath string, circuits map[string]TrackCir
 				}
 				seen[id] = true
 			}
+			for _, id := range route.RouteClearTrackCircuitIDs {
+				if _, exists := circuits[id]; !exists || strings.TrimSpace(id) == "" {
+					return nil, fmt.Errorf("route %s/%s: unknown route-clear circuit %q", entry.StationID, route.RouteID, id)
+				}
+			}
 			definitions = append(definitions, TrackRouteDefinition{
-				InterlockingStationID: entry.StationID,
-				InterlockingRouteID:   route.RouteID,
-				TrackCircuitIDs:       ids,
+				InterlockingStationID:     entry.StationID,
+				InterlockingRouteID:       route.RouteID,
+				TrackCircuitIDs:           ids,
+				RouteClearTrackCircuitIDs: route.RouteClearTrackCircuitIDs,
 			})
 		}
 	}

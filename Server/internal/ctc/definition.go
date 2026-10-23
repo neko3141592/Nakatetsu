@@ -9,6 +9,9 @@ const (
 )
 
 type TrackCircuitDefinition struct {
+	// Webへ渡す線路用途・番線などの表示名。
+	DisplayName string
+
 	// 非連動・連動
 	ControlKind TrackControlKind
 
@@ -27,6 +30,9 @@ type TrackRouteDefinition struct {
 
 	// 進入元の軌道回路を含めた、進行方向順の回路ID。
 	TrackCircuitIDs []string
+
+	// 進路構成時に非在線を確認する回路。PRCの競合点候補の生成に使う。
+	RouteClearTrackCircuitIDs []string
 }
 
 type RouteCircuitRef struct {

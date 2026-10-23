@@ -1374,7 +1374,9 @@ type CtcCircuitState struct {
 	state      protoimpl.MessageState `protogen:"open.v1"`
 	IsOccupied bool                   `protobuf:"varint,1,opt,name=is_occupied,json=isOccupied,proto3" json:"is_occupied,omitempty"`
 	// 最後尾側の基準回路にだけ保持する。未登録なら空文字。
-	TrainId       string `protobuf:"bytes,2,opt,name=train_id,json=trainId,proto3" json:"train_id,omitempty"`
+	TrainId string `protobuf:"bytes,2,opt,name=train_id,json=trainId,proto3" json:"train_id,omitempty"`
+	// Goが起動時に読み込んだ軌道回路の表示名。未設定なら回路IDを使う。
+	DisplayName   string `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1419,6 +1421,13 @@ func (x *CtcCircuitState) GetIsOccupied() bool {
 func (x *CtcCircuitState) GetTrainId() string {
 	if x != nil {
 		return x.TrainId
+	}
+	return ""
+}
+
+func (x *CtcCircuitState) GetDisplayName() string {
+	if x != nil {
+		return x.DisplayName
 	}
 	return ""
 }
@@ -1615,11 +1624,12 @@ const file_ctc_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\v2\x1f.nakatetsu.ctc.v1.CtcTrainStateR\x05value:\x028\x01\x1a_\n" +
 	"\x11TurnoutsByIdEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x124\n" +
-	"\x05value\x18\x02 \x01(\v2\x1e.nakatetsu.ctc.v1.TurnoutStateR\x05value:\x028\x01\"M\n" +
+	"\x05value\x18\x02 \x01(\v2\x1e.nakatetsu.ctc.v1.TurnoutStateR\x05value:\x028\x01\"p\n" +
 	"\x0fCtcCircuitState\x12\x1f\n" +
 	"\vis_occupied\x18\x01 \x01(\bR\n" +
 	"isOccupied\x12\x19\n" +
-	"\btrain_id\x18\x02 \x01(\tR\atrainId\"\xb7\x01\n" +
+	"\btrain_id\x18\x02 \x01(\tR\atrainId\x12!\n" +
+	"\fdisplay_name\x18\x03 \x01(\tR\vdisplayName\"\xb7\x01\n" +
 	"\rCtcTrainState\x12\"\n" +
 	"\n" +
 	"consist_id\x18\x01 \x01(\tH\x00R\tconsistId\x88\x01\x01\x12%\n" +
