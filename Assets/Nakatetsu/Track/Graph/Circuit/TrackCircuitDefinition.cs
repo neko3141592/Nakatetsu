@@ -15,6 +15,9 @@ namespace Nakatetsu.Track.Graph.Circuit
     {
         public string circuitId;
 
+        // 発着線・番線などの表示名。識別・接続にはcircuitIdを使う。
+        public string displayName;
+
         // JSONから読み込む制御区分。現時点では動作判定には使用しない。
         public TrackControlKind controlKind;
 

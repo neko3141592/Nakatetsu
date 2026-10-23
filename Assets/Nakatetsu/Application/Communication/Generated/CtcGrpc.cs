@@ -53,6 +53,10 @@ namespace Namespace.Protocol.Ctc.V1 {
     static readonly grpc::Marshaller<global::Namespace.Protocol.Ctc.V1.UnitySnapshotMessage> __Marshaller_nakatetsu_ctc_v1_UnitySnapshotMessage = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Namespace.Protocol.Ctc.V1.UnitySnapshotMessage.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Google.Protobuf.WellKnownTypes.Empty.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult> __Marshaller_nakatetsu_ctc_v1_InterlockingRouteRequestResult = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest> __Marshaller_nakatetsu_ctc_v1_InterlockingRouteRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Namespace.Protocol.Ctc.V1.UnitySnapshotMessage, global::Google.Protobuf.WellKnownTypes.Empty> __Method_UpdateSnapshot = new grpc::Method<global::Namespace.Protocol.Ctc.V1.UnitySnapshotMessage, global::Google.Protobuf.WellKnownTypes.Empty>(
@@ -61,6 +65,14 @@ namespace Namespace.Protocol.Ctc.V1 {
         "UpdateSnapshot",
         __Marshaller_nakatetsu_ctc_v1_UnitySnapshotMessage,
         __Marshaller_google_protobuf_Empty);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult, global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest> __Method_ConnectRouteControl = new grpc::Method<global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult, global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "ConnectRouteControl",
+        __Marshaller_nakatetsu_ctc_v1_InterlockingRouteRequestResult,
+        __Marshaller_nakatetsu_ctc_v1_InterlockingRouteRequest);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -142,6 +154,32 @@ namespace Namespace.Protocol.Ctc.V1 {
       public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> UpdateSnapshotAsync(global::Namespace.Protocol.Ctc.V1.UnitySnapshotMessage request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_UpdateSnapshot, null, options, request);
+      }
+      /// <summary>
+      /// Unityが接続する双方向ストリーム。
+      /// 入力はUnity→Goの受付結果、出力はGo→Unityの進路要求。request_idで対応付ける。
+      /// 開通・解錠の完了は受付結果ではなく、スナップショットの進路状態で確認する。
+      /// </summary>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult, global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest> ConnectRouteControl(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ConnectRouteControl(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Unityが接続する双方向ストリーム。
+      /// 入力はUnity→Goの受付結果、出力はGo→Unityの進路要求。request_idで対応付ける。
+      /// 開通・解錠の完了は受付結果ではなく、スナップショットの進路状態で確認する。
+      /// </summary>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult, global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest> ConnectRouteControl(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_ConnectRouteControl, null, options);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

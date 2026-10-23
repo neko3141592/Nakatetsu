@@ -102,43 +102,46 @@ namespace Namespace.Protocol.Ctc.V1 {
             "c0J5SWRFbnRyeRILCgNrZXkYASABKAkSLgoFdmFsdWUYAiABKAsyHy5uYWth",
             "dGV0c3UuY3RjLnYxLkN0Y1RyYWluU3RhdGU6AjgBGlMKEVR1cm5vdXRzQnlJ",
             "ZEVudHJ5EgsKA2tleRgBIAEoCRItCgV2YWx1ZRgCIAEoCzIeLm5ha2F0ZXRz",
-            "dS5jdGMudjEuVHVybm91dFN0YXRlOgI4ASI4Cg9DdGNDaXJjdWl0U3RhdGUS",
-            "EwoLaXNfb2NjdXBpZWQYASABKAgSEAoIdHJhaW5faWQYAiABKAkifwoNQ3Rj",
-            "VHJhaW5TdGF0ZRIXCgpjb25zaXN0X2lkGAEgASgJSACIAQESFgoOY29uc2lz",
-            "dF9udW1iZXIYAiABKAkSFAoMdHJhaW5fbnVtYmVyGAMgASgJEhgKEG9wZXJh",
-            "dGlvbl9udW1iZXIYBCABKAlCDQoLX2NvbnNpc3RfaWQqagoPVHVybm91dFBv",
-            "c2l0aW9uEhwKGFRVUk5PVVRfUE9TSVRJT05fVU5LTk9XThAAEhsKF1RVUk5P",
-            "VVRfUE9TSVRJT05fTk9STUFMEAESHAoYVFVSTk9VVF9QT1NJVElPTl9SRVZF",
-            "UlNFEAIqkgEKGkludGVybG9ja2luZ1JvdXRlT3BlcmF0aW9uEiUKIUlOVEVS",
-            "TE9DS0lOR19ST1VURV9PUEVSQVRJT05fTk9ORRAAEiQKIElOVEVSTE9DS0lO",
-            "R19ST1VURV9PUEVSQVRJT05fU0VUEAESJwojSU5URVJMT0NLSU5HX1JPVVRF",
-            "X09QRVJBVElPTl9DQU5DRUwQAir0BAoaSW50ZXJsb2NraW5nUm91dGVFcnJv",
-            "ckNvZGUSJgoiSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfTk9ORRAA",
-            "EjEKLUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX0lOVkFMSURfUkVR",
-            "VUVTVBABEjEKLUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX1VOS05P",
-            "V05fU1RBVElPThACEi8KK0lOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RF",
-            "X1VOS05PV05fUk9VVEUQAxIxCi1JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1Jf",
-            "Q09ERV9OT1RfSU5JVElBTElaRUQQBBIzCi9JTlRFUkxPQ0tJTkdfUk9VVEVf",
-            "RVJST1JfQ09ERV9JTlBVVF9VTkFWQUlMQUJMRRAFEi0KKUlOVEVSTE9DS0lO",
-            "R19ST1VURV9FUlJPUl9DT0RFX0FMUkVBRFlfU0VUEAYSKQolSU5URVJMT0NL",
-            "SU5HX1JPVVRFX0VSUk9SX0NPREVfTk9UX1NFVBAHEjIKLklOVEVSTE9DS0lO",
-            "R19ST1VURV9FUlJPUl9DT0RFX0NJUkNVSVRfT0NDVVBJRUQQCBIyCi5JTlRF",
-            "UkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9DSVJDVUlUX1JFU0VSVkVEEAkS",
-            "MAosSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfUk9VVEVfQ09ORkxJ",
-            "Q1QQChI7CjdJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9UVVJOT1VU",
-            "X1BPU0lUSU9OX0NPTkZMSUNUEAsqhQEKFU92ZXJydW5Qcm90ZWN0aW9uTW9k",
-            "ZRIgChxPVkVSUlVOX1BST1RFQ1RJT05fTU9ERV9OT05FEAASIgoeT1ZFUlJV",
-            "Tl9QUk9URUNUSU9OX01PREVfTk9STUFMEAESJgoiT1ZFUlJVTl9QUk9URUNU",
-            "SU9OX01PREVfUkVTVFJJQ1RFRBACKt8BChZPdmVycnVuUHJvdGVjdGlvblBo",
-            "YXNlEiEKHU9WRVJSVU5fUFJPVEVDVElPTl9QSEFTRV9OT05FEAASJAogT1ZF",
-            "UlJVTl9QUk9URUNUSU9OX1BIQVNFX1NFVFRJTkcQARIoCiRPVkVSUlVOX1BS",
-            "T1RFQ1RJT05fUEhBU0VfRVNUQUJMSVNIRUQQAhIrCidPVkVSUlVOX1BST1RF",
-            "Q1RJT05fUEhBU0VfUkVMRUFTRV9USU1JTkcQAxIlCiFPVkVSUlVOX1BST1RF",
-            "Q1RJT05fUEhBU0VfUkVMRUFTRUQQBDJeCgpDdGNTZXJ2aWNlElAKDlVwZGF0",
-            "ZVNuYXBzaG90EiYubmFrYXRldHN1LmN0Yy52MS5Vbml0eVNuYXBzaG90TWVz",
-            "c2FnZRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUJPWjFnaXRodWIuY29tL25l",
-            "a28zMTQxNTkyL05ha2F0ZXRzdS9TZXJ2ZXIvZ2VuL2N0Y3YxqgIZTmFtZXNw",
-            "YWNlLlByb3RvY29sLkN0Yy5WMWIGcHJvdG8z"));
+            "dS5jdGMudjEuVHVybm91dFN0YXRlOgI4ASJOCg9DdGNDaXJjdWl0U3RhdGUS",
+            "EwoLaXNfb2NjdXBpZWQYASABKAgSEAoIdHJhaW5faWQYAiABKAkSFAoMZGlz",
+            "cGxheV9uYW1lGAMgASgJIn8KDUN0Y1RyYWluU3RhdGUSFwoKY29uc2lzdF9p",
+            "ZBgBIAEoCUgAiAEBEhYKDmNvbnNpc3RfbnVtYmVyGAIgASgJEhQKDHRyYWlu",
+            "X251bWJlchgDIAEoCRIYChBvcGVyYXRpb25fbnVtYmVyGAQgASgJQg0KC19j",
+            "b25zaXN0X2lkKmoKD1R1cm5vdXRQb3NpdGlvbhIcChhUVVJOT1VUX1BPU0lU",
+            "SU9OX1VOS05PV04QABIbChdUVVJOT1VUX1BPU0lUSU9OX05PUk1BTBABEhwK",
+            "GFRVUk5PVVRfUE9TSVRJT05fUkVWRVJTRRACKpIBChpJbnRlcmxvY2tpbmdS",
+            "b3V0ZU9wZXJhdGlvbhIlCiFJTlRFUkxPQ0tJTkdfUk9VVEVfT1BFUkFUSU9O",
+            "X05PTkUQABIkCiBJTlRFUkxPQ0tJTkdfUk9VVEVfT1BFUkFUSU9OX1NFVBAB",
+            "EicKI0lOVEVSTE9DS0lOR19ST1VURV9PUEVSQVRJT05fQ0FOQ0VMEAIq9AQK",
+            "GkludGVybG9ja2luZ1JvdXRlRXJyb3JDb2RlEiYKIklOVEVSTE9DS0lOR19S",
+            "T1VURV9FUlJPUl9DT0RFX05PTkUQABIxCi1JTlRFUkxPQ0tJTkdfUk9VVEVf",
+            "RVJST1JfQ09ERV9JTlZBTElEX1JFUVVFU1QQARIxCi1JTlRFUkxPQ0tJTkdf",
+            "Uk9VVEVfRVJST1JfQ09ERV9VTktOT1dOX1NUQVRJT04QAhIvCitJTlRFUkxP",
+            "Q0tJTkdfUk9VVEVfRVJST1JfQ09ERV9VTktOT1dOX1JPVVRFEAMSMQotSU5U",
+            "RVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfTk9UX0lOSVRJQUxJWkVEEAQS",
+            "MwovSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NPREVfSU5QVVRfVU5BVkFJ",
+            "TEFCTEUQBRItCilJTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9BTFJF",
+            "QURZX1NFVBAGEikKJUlOVEVSTE9DS0lOR19ST1VURV9FUlJPUl9DT0RFX05P",
+            "VF9TRVQQBxIyCi5JTlRFUkxPQ0tJTkdfUk9VVEVfRVJST1JfQ09ERV9DSVJD",
+            "VUlUX09DQ1VQSUVEEAgSMgouSU5URVJMT0NLSU5HX1JPVVRFX0VSUk9SX0NP",
+            "REVfQ0lSQ1VJVF9SRVNFUlZFRBAJEjAKLElOVEVSTE9DS0lOR19ST1VURV9F",
+            "UlJPUl9DT0RFX1JPVVRFX0NPTkZMSUNUEAoSOwo3SU5URVJMT0NLSU5HX1JP",
+            "VVRFX0VSUk9SX0NPREVfVFVSTk9VVF9QT1NJVElPTl9DT05GTElDVBALKoUB",
+            "ChVPdmVycnVuUHJvdGVjdGlvbk1vZGUSIAocT1ZFUlJVTl9QUk9URUNUSU9O",
+            "X01PREVfTk9ORRAAEiIKHk9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX05PUk1B",
+            "TBABEiYKIk9WRVJSVU5fUFJPVEVDVElPTl9NT0RFX1JFU1RSSUNURUQQAirf",
+            "AQoWT3ZlcnJ1blByb3RlY3Rpb25QaGFzZRIhCh1PVkVSUlVOX1BST1RFQ1RJ",
+            "T05fUEhBU0VfTk9ORRAAEiQKIE9WRVJSVU5fUFJPVEVDVElPTl9QSEFTRV9T",
+            "RVRUSU5HEAESKAokT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX0VTVEFCTElT",
+            "SEVEEAISKwonT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1JFTEVBU0VfVElN",
+            "SU5HEAMSJQohT1ZFUlJVTl9QUk9URUNUSU9OX1BIQVNFX1JFTEVBU0VEEAQy",
+            "1wEKCkN0Y1NlcnZpY2USUAoOVXBkYXRlU25hcHNob3QSJi5uYWthdGV0c3Uu",
+            "Y3RjLnYxLlVuaXR5U25hcHNob3RNZXNzYWdlGhYuZ29vZ2xlLnByb3RvYnVm",
+            "LkVtcHR5EncKE0Nvbm5lY3RSb3V0ZUNvbnRyb2wSMC5uYWthdGV0c3UuY3Rj",
+            "LnYxLkludGVybG9ja2luZ1JvdXRlUmVxdWVzdFJlc3VsdBoqLm5ha2F0ZXRz",
+            "dS5jdGMudjEuSW50ZXJsb2NraW5nUm91dGVSZXF1ZXN0KAEwAUJPWjFnaXRo",
+            "dWIuY29tL25la28zMTQxNTkyL05ha2F0ZXRzdS9TZXJ2ZXIvZ2VuL2N0Y3Yx",
+            "qgIZTmFtZXNwYWNlLlByb3RvY29sLkN0Yy5WMWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Namespace.Protocol.Ctc.V1.TurnoutPosition), typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteOperation), typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteErrorCode), typeof(global::Namespace.Protocol.Ctc.V1.OverrunProtectionMode), typeof(global::Namespace.Protocol.Ctc.V1.OverrunProtectionPhase), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -157,7 +160,7 @@ namespace Namespace.Protocol.Ctc.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest), global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequest.Parser, new[]{ "RequestId", "StationId", "RouteId", "Operation" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult), global::Namespace.Protocol.Ctc.V1.InterlockingRouteRequestResult.Parser, new[]{ "RequestId", "StationId", "RouteId", "Accepted", "ErrorCode", "RelatedRouteId", "RelatedCircuitId", "RelatedTurnoutId", "Message" }, new[]{ "ErrorCode", "RelatedRouteId", "RelatedCircuitId", "RelatedTurnoutId", "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcSnapshot), global::Namespace.Protocol.Ctc.V1.CtcSnapshot.Parser, new[]{ "IsInitialized", "NeedsReset", "CircuitsById", "TrainsById", "TurnoutsById", "Interlocking", "WorldTime" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, null, }),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcCircuitState), global::Namespace.Protocol.Ctc.V1.CtcCircuitState.Parser, new[]{ "IsOccupied", "TrainId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcCircuitState), global::Namespace.Protocol.Ctc.V1.CtcCircuitState.Parser, new[]{ "IsOccupied", "TrainId", "DisplayName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Namespace.Protocol.Ctc.V1.CtcTrainState), global::Namespace.Protocol.Ctc.V1.CtcTrainState.Parser, new[]{ "ConsistId", "ConsistNumber", "TrainNumber", "OperationNumber" }, new[]{ "ConsistId" }, null, null, null)
           }));
     }
@@ -5104,6 +5107,7 @@ namespace Namespace.Protocol.Ctc.V1 {
     public CtcCircuitState(CtcCircuitState other) : this() {
       isOccupied_ = other.isOccupied_;
       trainId_ = other.trainId_;
+      displayName_ = other.displayName_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -5140,6 +5144,21 @@ namespace Namespace.Protocol.Ctc.V1 {
       }
     }
 
+    /// <summary>Field number for the "display_name" field.</summary>
+    public const int DisplayNameFieldNumber = 3;
+    private string displayName_ = "";
+    /// <summary>
+    /// Goが起動時に読み込んだ軌道回路の表示名。未設定なら回路IDを使う。
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string DisplayName {
+      get { return displayName_; }
+      set {
+        displayName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -5157,6 +5176,7 @@ namespace Namespace.Protocol.Ctc.V1 {
       }
       if (IsOccupied != other.IsOccupied) return false;
       if (TrainId != other.TrainId) return false;
+      if (DisplayName != other.DisplayName) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -5166,6 +5186,7 @@ namespace Namespace.Protocol.Ctc.V1 {
       int hash = 1;
       if (IsOccupied != false) hash ^= IsOccupied.GetHashCode();
       if (TrainId.Length != 0) hash ^= TrainId.GetHashCode();
+      if (DisplayName.Length != 0) hash ^= DisplayName.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -5192,6 +5213,10 @@ namespace Namespace.Protocol.Ctc.V1 {
         output.WriteRawTag(18);
         output.WriteString(TrainId);
       }
+      if (DisplayName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(DisplayName);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -5210,6 +5235,10 @@ namespace Namespace.Protocol.Ctc.V1 {
         output.WriteRawTag(18);
         output.WriteString(TrainId);
       }
+      if (DisplayName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(DisplayName);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -5225,6 +5254,9 @@ namespace Namespace.Protocol.Ctc.V1 {
       }
       if (TrainId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(TrainId);
+      }
+      if (DisplayName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(DisplayName);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -5243,6 +5275,9 @@ namespace Namespace.Protocol.Ctc.V1 {
       }
       if (other.TrainId.Length != 0) {
         TrainId = other.TrainId;
+      }
+      if (other.DisplayName.Length != 0) {
+        DisplayName = other.DisplayName;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -5271,6 +5306,10 @@ namespace Namespace.Protocol.Ctc.V1 {
             TrainId = input.ReadString();
             break;
           }
+          case 26: {
+            DisplayName = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -5296,6 +5335,10 @@ namespace Namespace.Protocol.Ctc.V1 {
           }
           case 18: {
             TrainId = input.ReadString();
+            break;
+          }
+          case 26: {
+            DisplayName = input.ReadString();
             break;
           }
         }

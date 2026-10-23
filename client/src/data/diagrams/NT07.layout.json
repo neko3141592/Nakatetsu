@@ -1,0 +1,470 @@
+{
+  "width": 929.2,
+  "height": 768.0,
+  "turnoutIndicators": [
+    {
+      "id": "NT07_TurnoutIndicator_21A",
+      "turnoutId": "NT07_21A",
+      "label": "21A",
+      "x": 36.8,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_22A",
+      "turnoutId": "NT07_22A",
+      "label": "22A",
+      "x": 36.8,
+      "y": 460.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_22B",
+      "turnoutId": "NT07_22B",
+      "label": "22B",
+      "x": 147.2,
+      "y": 296.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_21B",
+      "turnoutId": "NT07_21B",
+      "label": "21B",
+      "x": 147.2,
+      "y": 472.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_23",
+      "turnoutId": "NT07_23",
+      "label": "23",
+      "x": 184.0,
+      "y": 336.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_24",
+      "turnoutId": "NT07_24",
+      "label": "24",
+      "x": 184.0,
+      "y": 432.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_27",
+      "turnoutId": "NT07_27",
+      "label": "27",
+      "x": 671.6,
+      "y": 336.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_25A",
+      "turnoutId": "NT07_25A",
+      "label": "25A",
+      "x": 713.0,
+      "y": 180.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_26B",
+      "turnoutId": "NT07_26B",
+      "label": "26B",
+      "x": 740.6,
+      "y": 180.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_26A",
+      "turnoutId": "NT07_26A",
+      "label": "26A",
+      "x": 710.7,
+      "y": 276.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_25B",
+      "turnoutId": "NT07_25B",
+      "label": "25B",
+      "x": 736.0,
+      "y": 268.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_30",
+      "turnoutId": "NT07_30",
+      "label": "30",
+      "x": 671.6,
+      "y": 432.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_32A",
+      "turnoutId": "NT07_32A",
+      "label": "32A",
+      "x": 713.0,
+      "y": 588.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_31B",
+      "turnoutId": "NT07_31B",
+      "label": "31B",
+      "x": 740.6,
+      "y": 588.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_31A",
+      "turnoutId": "NT07_31A",
+      "label": "31A",
+      "x": 710.7,
+      "y": 492.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_32B",
+      "turnoutId": "NT07_32B",
+      "label": "32B",
+      "x": 736.0,
+      "y": 500.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_28A",
+      "turnoutId": "NT07_28A",
+      "label": "28A",
+      "x": 699.2,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_29A",
+      "turnoutId": "NT07_29A",
+      "label": "29A",
+      "x": 699.2,
+      "y": 460.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_29B",
+      "turnoutId": "NT07_29B",
+      "label": "29B",
+      "x": 736.0,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TurnoutIndicator_28B",
+      "turnoutId": "NT07_28B",
+      "label": "28B",
+      "x": 736.0,
+      "y": 460.0
+    }
+  ],
+  "trainLabels": [
+    {
+      "id": "NT07_TrainLabel_21AT_N",
+      "circuitId": "NT07_21AT",
+      "svgId": "NT07_21AT_N",
+      "x": 64.4,
+      "y": 300.0
+    },
+    {
+      "id": "NT07_TrainLabel_21AT_R",
+      "circuitId": "NT07_21AT",
+      "svgId": "NT07_21AT_R",
+      "x": 64.4,
+      "y": 336.0
+    },
+    {
+      "id": "NT07_TrainLabel_22AT_N",
+      "circuitId": "NT07_22AT",
+      "svgId": "NT07_22AT_N",
+      "x": 64.4,
+      "y": 468.0
+    },
+    {
+      "id": "NT07_TrainLabel_22AT_R",
+      "circuitId": "NT07_22AT",
+      "svgId": "NT07_22AT_R",
+      "x": 64.4,
+      "y": 432.0
+    },
+    {
+      "id": "NT07_TrainLabel_22BT_N",
+      "circuitId": "NT07_22BT",
+      "svgId": "NT07_22BT_N",
+      "x": 119.6,
+      "y": 300.0
+    },
+    {
+      "id": "NT07_TrainLabel_22BT_R",
+      "circuitId": "NT07_22BT",
+      "svgId": "NT07_22BT_R",
+      "x": 119.6,
+      "y": 336.0
+    },
+    {
+      "id": "NT07_TrainLabel_21BT_N",
+      "circuitId": "NT07_21BT",
+      "svgId": "NT07_21BT_N",
+      "x": 119.6,
+      "y": 468.0
+    },
+    {
+      "id": "NT07_TrainLabel_21BT_R",
+      "circuitId": "NT07_21BT",
+      "svgId": "NT07_21BT_R",
+      "x": 119.6,
+      "y": 432.0
+    },
+    {
+      "id": "NT07_TrainLabel_23T_N",
+      "circuitId": "NT07_23T",
+      "svgId": "NT07_23T_N",
+      "x": 239.2,
+      "y": 300.0
+    },
+    {
+      "id": "NT07_TrainLabel_23T_R",
+      "circuitId": "NT07_23T",
+      "svgId": "NT07_23T_R",
+      "x": 239.2,
+      "y": 232.0
+    },
+    {
+      "id": "NT07_TrainLabel_24T_N",
+      "circuitId": "NT07_24T",
+      "svgId": "NT07_24T_N",
+      "x": 239.2,
+      "y": 468.0
+    },
+    {
+      "id": "NT07_TrainLabel_24T_R",
+      "circuitId": "NT07_24T",
+      "svgId": "NT07_24T_R",
+      "x": 257.6,
+      "y": 564.0
+    },
+    {
+      "id": "NT07_TrainLabel_2RT",
+      "circuitId": "NT07_2RT",
+      "svgId": "NT07_2RT",
+      "x": 478.4,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TrainLabel_1RT",
+      "circuitId": "NT07_1RT",
+      "svgId": "NT07_1RT",
+      "x": 478.4,
+      "y": 180.0
+    },
+    {
+      "id": "NT07_TrainLabel_3LT",
+      "circuitId": "NT07_3LT",
+      "svgId": "NT07_3LT",
+      "x": 478.4,
+      "y": 436.0
+    },
+    {
+      "id": "NT07_TrainLabel_4LT",
+      "circuitId": "NT07_4LT",
+      "svgId": "NT07_4LT",
+      "x": 478.4,
+      "y": 600.0
+    },
+    {
+      "id": "NT07_TrainLabel_27T_N",
+      "circuitId": "NT07_27T",
+      "svgId": "NT07_27T_N",
+      "x": 678.5,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TrainLabel_27T_R",
+      "circuitId": "NT07_27T",
+      "svgId": "NT07_27T_R",
+      "x": 678.5,
+      "y": 288.0
+    },
+    {
+      "id": "NT07_TrainLabel_25AT_N",
+      "circuitId": "NT07_25AT",
+      "svgId": "NT07_25AT_N",
+      "x": 701.5,
+      "y": 180.0
+    },
+    {
+      "id": "NT07_TrainLabel_25AT_R",
+      "circuitId": "NT07_25AT",
+      "svgId": "NT07_25AT_R",
+      "x": 719.9,
+      "y": 212.0
+    },
+    {
+      "id": "NT07_TrainLabel_26AT_N",
+      "circuitId": "NT07_26AT",
+      "svgId": "NT07_26AT_N",
+      "x": 717.6,
+      "y": 272.0
+    },
+    {
+      "id": "NT07_TrainLabel_26AT_R",
+      "circuitId": "NT07_26AT",
+      "svgId": "NT07_26AT_R",
+      "x": 701.5,
+      "y": 244.0
+    },
+    {
+      "id": "NT07_TrainLabel_26BT_N",
+      "circuitId": "NT07_26BT",
+      "svgId": "NT07_26BT_N",
+      "x": 781.08,
+      "y": 180.0
+    },
+    {
+      "id": "NT07_TrainLabel_26BT_R",
+      "circuitId": "NT07_26BT",
+      "svgId": "NT07_26BT_R",
+      "x": 781.08,
+      "y": 212.0
+    },
+    {
+      "id": "NT07_TrainLabel_25BT_N",
+      "circuitId": "NT07_25BT",
+      "svgId": "NT07_25BT_N",
+      "x": 781.08,
+      "y": 276.0
+    },
+    {
+      "id": "NT07_TrainLabel_25BT_R",
+      "circuitId": "NT07_25BT",
+      "svgId": "NT07_25BT_R",
+      "x": 781.08,
+      "y": 236.0
+    },
+    {
+      "id": "NT07_TrainLabel_28AT_N",
+      "circuitId": "NT07_28AT",
+      "svgId": "NT07_28AT_N",
+      "x": 708.4,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TrainLabel_28AT_R",
+      "circuitId": "NT07_28AT",
+      "svgId": "NT07_28AT_R",
+      "x": 708.4,
+      "y": 344.0
+    },
+    {
+      "id": "NT07_TrainLabel_29BT_N",
+      "circuitId": "NT07_29BT",
+      "svgId": "NT07_29BT_N",
+      "x": 726.8,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TrainLabel_29BT_R",
+      "circuitId": "NT07_29BT",
+      "svgId": "NT07_29BT_R",
+      "x": 726.8,
+      "y": 344.0
+    },
+    {
+      "id": "NT07_TrainLabel_DEPOT_1T",
+      "circuitId": "NT07_DEPOT_1T",
+      "svgId": "NT07_DEPOT_1T",
+      "x": 816.96,
+      "y": 308.0
+    },
+    {
+      "id": "NT07_TrainLabel_30T_N",
+      "circuitId": "NT07_30T",
+      "svgId": "NT07_30T_N",
+      "x": 678.5,
+      "y": 460.0
+    },
+    {
+      "id": "NT07_TrainLabel_30T_R",
+      "circuitId": "NT07_30T",
+      "svgId": "NT07_30T_R",
+      "x": 678.5,
+      "y": 480.0
+    },
+    {
+      "id": "NT07_TrainLabel_32AT_N",
+      "circuitId": "NT07_32AT",
+      "svgId": "NT07_32AT_N",
+      "x": 701.5,
+      "y": 588.0
+    },
+    {
+      "id": "NT07_TrainLabel_32AT_R",
+      "circuitId": "NT07_32AT",
+      "svgId": "NT07_32AT_R",
+      "x": 719.9,
+      "y": 556.0
+    },
+    {
+      "id": "NT07_TrainLabel_31AT_N",
+      "circuitId": "NT07_31AT",
+      "svgId": "NT07_31AT_N",
+      "x": 717.6,
+      "y": 496.0
+    },
+    {
+      "id": "NT07_TrainLabel_31AT_R",
+      "circuitId": "NT07_31AT",
+      "svgId": "NT07_31AT_R",
+      "x": 701.5,
+      "y": 524.0
+    },
+    {
+      "id": "NT07_TrainLabel_31BT_N",
+      "circuitId": "NT07_31BT",
+      "svgId": "NT07_31BT_N",
+      "x": 781.08,
+      "y": 588.0
+    },
+    {
+      "id": "NT07_TrainLabel_31BT_R",
+      "circuitId": "NT07_31BT",
+      "svgId": "NT07_31BT_R",
+      "x": 781.08,
+      "y": 556.0
+    },
+    {
+      "id": "NT07_TrainLabel_32BT_N",
+      "circuitId": "NT07_32BT",
+      "svgId": "NT07_32BT_N",
+      "x": 781.08,
+      "y": 492.0
+    },
+    {
+      "id": "NT07_TrainLabel_32BT_R",
+      "circuitId": "NT07_32BT",
+      "svgId": "NT07_32BT_R",
+      "x": 781.08,
+      "y": 532.0
+    },
+    {
+      "id": "NT07_TrainLabel_29AT_N",
+      "circuitId": "NT07_29AT",
+      "svgId": "NT07_29AT_N",
+      "x": 708.4,
+      "y": 460.0
+    },
+    {
+      "id": "NT07_TrainLabel_29AT_R",
+      "circuitId": "NT07_29AT",
+      "svgId": "NT07_29AT_R",
+      "x": 708.4,
+      "y": 424.0
+    },
+    {
+      "id": "NT07_TrainLabel_28BT_N",
+      "circuitId": "NT07_28BT",
+      "svgId": "NT07_28BT_N",
+      "x": 726.8,
+      "y": 460.0
+    },
+    {
+      "id": "NT07_TrainLabel_28BT_R",
+      "circuitId": "NT07_28BT",
+      "svgId": "NT07_28BT_R",
+      "x": 726.8,
+      "y": 424.0
+    },
+    {
+      "id": "NT07_TrainLabel_DEPOT_2T",
+      "circuitId": "NT07_DEPOT_2T",
+      "svgId": "NT07_DEPOT_2T",
+      "x": 816.96,
+      "y": 460.0
+    }
+  ]
+}

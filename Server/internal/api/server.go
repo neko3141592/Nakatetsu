@@ -3,21 +3,28 @@ package api
 import (
 	"context"
 	"log"
+	"net"
 	"net/http"
 	"time"
 
 	"github.com/coder/websocket"
+	"github.com/neko3141592/Nakatetsu/Server/internal/communication"
 	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
 	"google.golang.org/protobuf/proto"
 )
 
-type Server struct {
-	CTC *ctc.CTC
+type ApiServer struct {
+	CTC          *ctc.CTC
+	RouteControl *communication.CommunicationServer
 }
 
-func (s *Server) HandleWebSocket(w http.ResponseWriter, r *http.Request) {
+func (s *ApiServer) HandleWebSocket(w http.ResponseWriter, r *http.Request) {
+	originPatterns := []string{"localhost:3000", "127.0.0.1:3000"}
+	if host, _, err := net.SplitHostPort(r.Host); err == nil {
+		originPatterns = append(originPatterns, net.JoinHostPort(host, "3000"))
+	}
 	conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{
-		OriginPatterns: []string{"localhost:3000", "127.0.0.1:3000"},
+		OriginPatterns: originPatterns,
 	})
 
 	if err != nil {

@@ -41,6 +41,7 @@
   "circuits": [
     {
       "circuitId": "NT04_NT05_D1T",
+      "displayName": "下り本線（下1T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -57,6 +58,7 @@
     },
     {
       "circuitId": "NT04_NT05_U1T",
+      "displayName": "上り本線（上1T）",
       "controlKind": "Block",
       "sections": [
         {

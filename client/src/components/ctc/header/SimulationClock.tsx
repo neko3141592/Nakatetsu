@@ -37,7 +37,7 @@ export function SimulationClock({ worldTime }: Props) {
 
   return (
     <div
-      className="flex shrink-0 items-baseline gap-2 self-center pr-3 text-zinc-800 sm:pr-8"
+      className="flex shrink-0 items-baseline gap-2 self-center pr-3 text-zinc-200 sm:pr-8"
       title={worldTime?.isPaused ? "シミュレーション一時停止中" : undefined}
     >
       <span

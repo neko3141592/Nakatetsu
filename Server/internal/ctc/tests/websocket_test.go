@@ -17,7 +17,7 @@ import (
 
 func TestWebSocketDebugClientReceivesSnapshot(t *testing.T) {
 	core := ctc.New(map[string]ctc.TrackCircuitDefinition{
-		"A": {ControlKind: ctc.TrackControlBlock, ToCircuitID: "B"},
+		"A": {DisplayName: "下り本線", ControlKind: ctc.TrackControlBlock, ToCircuitID: "B"},
 		"B": {ControlKind: ctc.TrackControlBlock},
 	}, nil)
 	err := core.UpdateSnapshot(&ctcv1.UnitySnapshot{
@@ -31,16 +31,27 @@ func TestWebSocketDebugClientReceivesSnapshot(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	handler := &api.Server{CTC: core}
-	server := httptest.NewServer(http.HandlerFunc(handler.HandleWebSocket))
-	defer server.Close()
+	handler := &api.ApiServer{CTC: core}
 
-	for _, origin := range []string{"http://localhost:3000", "http://127.0.0.1:3000"} {
-		t.Run(origin, func(t *testing.T) {
+	for _, tc := range []struct {
+		host   string
+		origin string
+	}{
+		{"127.0.0.1:8080", "http://localhost:3000"},
+		{"127.0.0.1:8080", "http://127.0.0.1:3000"},
+		{"192.168.1.10:8080", "http://192.168.1.10:3000"},
+		{"nakatetsu.local:8080", "http://nakatetsu.local:3000"},
+	} {
+		t.Run(tc.origin, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				r.Host = tc.host
+				handler.HandleWebSocket(w, r)
+			}))
+			defer server.Close()
 			ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 			defer cancel()
 			conn, _, err := websocket.Dial(ctx, "ws"+strings.TrimPrefix(server.URL, "http"), &websocket.DialOptions{
-				HTTPHeader: http.Header{"Origin": []string{origin}},
+				HTTPHeader: http.Header{"Origin": []string{tc.origin}},
 			})
 			if err != nil {
 				t.Fatal(err)
@@ -58,6 +69,12 @@ func TestWebSocketDebugClientReceivesSnapshot(t *testing.T) {
 				if err := proto.Unmarshal(data, &snapshot); err != nil {
 					t.Fatal(err)
 				}
+				if circuit := snapshot.CircuitsById["A"]; circuit.GetDisplayName() != "下り本線" || !circuit.GetIsOccupied() || circuit.GetTrainId() == "" {
+					t.Fatalf("occupied circuit lost its name or tracking state: %v", circuit)
+				}
+				if circuit := snapshot.CircuitsById["B"]; circuit.GetDisplayName() != "B" || circuit.GetIsOccupied() {
+					t.Fatalf("unnamed circuit should fall back to its ID: %v", circuit)
+				}
 				if !proto.Equal(&snapshot, core.GetWebSnapshot()) {
 					t.Fatalf("received snapshot differs from CTC: %v", &snapshot)
 				}
@@ -67,7 +84,7 @@ func TestWebSocketDebugClientReceivesSnapshot(t *testing.T) {
 }
 
 func TestWebSocketRejectsUnapprovedOrigin(t *testing.T) {
-	handler := &api.Server{CTC: ctc.New(nil, nil)}
+	handler := &api.ApiServer{CTC: ctc.New(nil, nil)}
 	server := httptest.NewServer(http.HandlerFunc(handler.HandleWebSocket))
 	defer server.Close()
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)

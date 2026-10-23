@@ -95,6 +95,7 @@
   "routes": [
     {
       "routeId": "1RE",
+      "category": "DownArrival",
       "startTrackCircuitId": "NT11_21AT",
       "destinationCode": "E",
       "destinationTrackCircuitId": "NT11_22BT",
@@ -146,6 +147,7 @@
     },
     {
       "routeId": "2RE",
+      "category": "DownArrival",
       "startTrackCircuitId": "NT11_22AT",
       "destinationCode": "E",
       "destinationTrackCircuitId": "NT11_22BT",
@@ -198,6 +200,7 @@
     },
     {
       "routeId": "1RF",
+      "category": "DownArrival",
       "startTrackCircuitId": "NT11_21AT",
       "destinationCode": "F",
       "destinationTrackCircuitId": "NT11_21BT",
@@ -250,6 +253,7 @@
     },
     {
       "routeId": "2RF",
+      "category": "DownArrival",
       "startTrackCircuitId": "NT11_22AT",
       "destinationCode": "F",
       "destinationTrackCircuitId": "NT11_21BT",
@@ -301,6 +305,7 @@
     },
     {
       "routeId": "3R",
+      "category": "DownArrival",
       "startTrackCircuitId": "NT11_22BT",
       "destinationCode": "A",
       "destinationTrackCircuitId": "NT11_1RT",
@@ -332,6 +337,7 @@
     },
     {
       "routeId": "4R",
+      "category": "DownArrival",
       "startTrackCircuitId": "NT11_21BT",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT11_2RT",
@@ -364,6 +370,7 @@
     },
     {
       "routeId": "5R",
+      "category": "DownDeparture",
       "startTrackCircuitId": "NT11_1RT",
       "destinationCode": "G",
       "destinationTrackCircuitId": "NT11_1_STUB_T",
@@ -408,6 +415,7 @@
     },
     {
       "routeId": "6R",
+      "category": "DownDeparture",
       "startTrackCircuitId": "NT11_2RT",
       "destinationCode": "G",
       "destinationTrackCircuitId": "NT11_1_STUB_T",
@@ -457,6 +465,7 @@
     },
     {
       "routeId": "1L",
+      "category": "UpArrival",
       "startTrackCircuitId": "NT11_4_STUB_T",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT11_4LT",
@@ -488,6 +497,7 @@
     },
     {
       "routeId": "2LJ",
+      "category": "UpDeparture",
       "startTrackCircuitId": "NT11_3LT",
       "destinationCode": "J",
       "destinationTrackCircuitId": "NT11_24AT",
@@ -542,6 +552,7 @@
     },
     {
       "routeId": "3LJ",
+      "category": "UpDeparture",
       "startTrackCircuitId": "NT11_4LT",
       "destinationCode": "J",
       "destinationTrackCircuitId": "NT11_24AT",
@@ -595,6 +606,7 @@
     },
     {
       "routeId": "2LK",
+      "category": "UpDeparture",
       "startTrackCircuitId": "NT11_3LT",
       "destinationCode": "K",
       "destinationTrackCircuitId": "NT11_23AT",
@@ -648,6 +660,7 @@
     },
     {
       "routeId": "3LK",
+      "category": "UpDeparture",
       "startTrackCircuitId": "NT11_4LT",
       "destinationCode": "K",
       "destinationTrackCircuitId": "NT11_23AT",
@@ -702,6 +715,7 @@
     },
     {
       "routeId": "10LA",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_1_STUB_T",
       "destinationCode": "A",
       "destinationTrackCircuitId": "NT11_1RT",
@@ -747,6 +761,7 @@
     },
     {
       "routeId": "10LB",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_1_STUB_T",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT11_2RT",
@@ -797,6 +812,7 @@
     },
     {
       "routeId": "10R",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_2RT",
       "destinationCode": "I",
       "destinationTrackCircuitId": "NT11_DEPOT_T",
@@ -850,6 +866,7 @@
     },
     {
       "routeId": "11R",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_3LT",
       "destinationCode": "I",
       "destinationTrackCircuitId": "NT11_DEPOT_T",
@@ -892,6 +909,7 @@
     },
     {
       "routeId": "11LB",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_DEPOT_T",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT11_2RT",
@@ -946,6 +964,7 @@
     },
     {
       "routeId": "11LC",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_DEPOT_T",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT11_3LT",
@@ -986,6 +1005,7 @@
     },
     {
       "routeId": "12R",
+      "category": "Shunting",
       "startTrackCircuitId": "NT11_4LT",
       "destinationCode": "H",
       "destinationTrackCircuitId": "NT11_4_STUB_T",

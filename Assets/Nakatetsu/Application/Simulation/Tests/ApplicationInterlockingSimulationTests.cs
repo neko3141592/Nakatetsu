@@ -1,6 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Google.Protobuf;
+using Grpc.Core;
 using Nakatetsu.Application.Communication;
 using Nakatetsu.Track.Graph;
 using Nakatetsu.Track.Graph.Circuit;
@@ -13,6 +17,7 @@ using Nakatetsu.Track.Simulation.Circuit;
 using Nakatetsu.Track.Simulation.Connection;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 using Ctc = Namespace.Protocol.Ctc.V1;
 
 namespace Nakatetsu.Application.Simulation.Tests
@@ -461,6 +466,127 @@ namespace Nakatetsu.Application.Simulation.Tests
             Assert.That(application.CompletedInterlockingOutput, Is.SameAs(manager.Context.Output));
             Assert.That(manager.Context.Output, Is.Not.SameAs(previousSnapshot));
             Assert.That(previousSnapshot.StationsById.ContainsKey(StationId), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator RouteStreamDispatchesRequestsAndReturnsCorrelatedResultsOnMainThread()
+        {
+            var circuits = CreateInactiveGameObject("RouteCircuits").AddComponent<TrackCircuitSimulationController>();
+            typeof(TrackCircuitSimulationState)
+                .GetMethod("SetOccupied", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(circuits.Context.State, new object[] { "Entry", false });
+            SetField(station, "trackCircuitSimulation", circuits);
+            SetField(station, "trackConnectionController", CreateConnections());
+
+            var sender = CreateInactiveGameObject("RouteReceiver").AddComponent<UnitySnapshotSender>();
+            SetField(sender, "interlockingManagement", manager);
+            var transport = new RouteStreamTransport();
+            transport.Requests.Enqueue(new Ctc.InterlockingRouteRequest
+            {
+                RequestId = "set", StationId = StationId, RouteId = RouteId,
+                Operation = Ctc.InterlockingRouteOperation.Set
+            });
+            transport.Requests.Enqueue(new Ctc.InterlockingRouteRequest
+            {
+                RequestId = "duplicate", StationId = StationId, RouteId = RouteId,
+                Operation = Ctc.InterlockingRouteOperation.Set
+            });
+            transport.Requests.Enqueue(new Ctc.InterlockingRouteRequest
+            {
+                RequestId = "cancel", StationId = StationId, RouteId = RouteId,
+                Operation = Ctc.InterlockingRouteOperation.Cancel
+            });
+            transport.Requests.Enqueue(new Ctc.InterlockingRouteRequest
+            {
+                RequestId = "unknown", StationId = "Unknown", RouteId = RouteId,
+                Operation = Ctc.InterlockingRouteOperation.Set
+            });
+
+            using var cancellation = new CancellationTokenSource();
+            int mainThreadId = Thread.CurrentThread.ManagedThreadId;
+            var task = (Task)typeof(UnitySnapshotSender)
+                .GetMethod("ReceiveRouteRequestsAsync", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(sender, new object[] { new Ctc.CtcService.CtcServiceClient(transport), cancellation.Token });
+            try
+            {
+                float deadline = Time.realtimeSinceStartup + 5f;
+                while (transport.Results.Count < 4 && !task.IsCompleted && Time.realtimeSinceStartup < deadline)
+                    yield return null;
+
+                Assert.That(transport.Results.Count, Is.EqualTo(4));
+                Assert.That(transport.Results.ConvertAll(result => result.RequestId),
+                    Is.EqualTo(new[] { "set", "duplicate", "cancel", "unknown" }));
+                Assert.That(transport.Results[0].Accepted, Is.True);
+                Assert.That(transport.Results[1].Accepted, Is.False);
+                Assert.That(transport.Results[1].ErrorCode, Is.EqualTo(Ctc.InterlockingRouteErrorCode.AlreadySet));
+                Assert.That(transport.Results[2].Accepted, Is.True);
+                Assert.That(transport.Results[3].ErrorCode, Is.EqualTo(Ctc.InterlockingRouteErrorCode.UnknownStation));
+                Assert.That(transport.Results[3].HasMessage, Is.True);
+                Assert.That(transport.Results[3].HasRelatedCircuitId, Is.False);
+                Assert.That(transport.WriteThreadIds, Is.All.EqualTo(mainThreadId));
+                Assert.That(station.Context.Output.RoutesById[RouteId].CancelPending, Is.True);
+                station.Calculate(0f);
+                Assert.That(station.Context.Output.RoutesById[RouteId].IsRouteSet, Is.False);
+            }
+            finally
+            {
+                cancellation.Cancel();
+            }
+
+            float stopDeadline = Time.realtimeSinceStartup + 5f;
+            while (!task.IsCompleted && Time.realtimeSinceStartup < stopDeadline)
+                yield return null;
+            Assert.That(task.Status, Is.EqualTo(TaskStatus.RanToCompletion));
+            Assert.That(transport.Disposed, Is.True);
+        }
+
+        private sealed class RouteStreamTransport : CallInvoker,
+            IAsyncStreamReader<Ctc.InterlockingRouteRequest>, IClientStreamWriter<Ctc.InterlockingRouteRequestResult>
+        {
+            public readonly Queue<Ctc.InterlockingRouteRequest> Requests = new();
+            public readonly List<Ctc.InterlockingRouteRequestResult> Results = new();
+            public readonly List<int> WriteThreadIds = new();
+            public bool Disposed;
+            public Ctc.InterlockingRouteRequest Current { get; private set; }
+            public WriteOptions WriteOptions { get; set; }
+
+            public async Task<bool> MoveNext(CancellationToken token)
+            {
+                if (Requests.Count == 0)
+                    await Task.Delay(Timeout.Infinite, token);
+                Current = Requests.Dequeue();
+                return true;
+            }
+
+            public Task WriteAsync(Ctc.InterlockingRouteRequestResult message)
+            {
+                Results.Add(message);
+                WriteThreadIds.Add(Thread.CurrentThread.ManagedThreadId);
+                return Task.CompletedTask;
+            }
+
+            public Task CompleteAsync() => Task.CompletedTask;
+
+            public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
+                Method<TRequest, TResponse> method, string host, CallOptions options)
+            {
+                Assert.That(method.Name, Is.EqualTo("ConnectRouteControl"));
+                return new AsyncDuplexStreamingCall<TRequest, TResponse>(
+                    (IClientStreamWriter<TRequest>)(object)this, (IAsyncStreamReader<TResponse>)(object)this,
+                    Task.FromResult(new Metadata()), () => Status.DefaultSuccess, () => new Metadata(),
+                    () => Disposed = true);
+            }
+
+            public override TResponse BlockingUnaryCall<TRequest, TResponse>(Method<TRequest, TResponse> method,
+                string host, CallOptions options, TRequest request) => throw new System.NotSupportedException();
+            public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(Method<TRequest, TResponse> method,
+                string host, CallOptions options, TRequest request) => throw new System.NotSupportedException();
+            public override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(
+                Method<TRequest, TResponse> method, string host, CallOptions options, TRequest request)
+                => throw new System.NotSupportedException();
+            public override AsyncClientStreamingCall<TRequest, TResponse> AsyncClientStreamingCall<TRequest, TResponse>(
+                Method<TRequest, TResponse> method, string host, CallOptions options)
+                => throw new System.NotSupportedException();
         }
 
         private Ctc.UnitySnapshotMessage CreateSnapshot()

@@ -2,6 +2,35 @@
 
 > 2026年10月15日：CTCサーバー再構築に向け、以下のEF Core/SQLite実装とサーバープロジェクトを削除した。この文書とER図は設計資料として残す。新サーバーのDBアクセス方式・スキーマ適用手順は再選定する。
 
+## 現在のGoモデル（2026年10月24日）
+
+GoサーバーではGORMとSQLiteを採用する。現在の定義は[models.go](../../Server/internal/timetable/models.go)、テーブル作成は[database.go](../../Server/internal/timetable/database.go)の`MigrateModels`を使用する。以下のEF Core設計とER図は旧実装の資料であり、現在のキーと関連はこの節の構成を正とする。
+
+| 定義 | キー・関連 |
+| --- | --- |
+| `Timetable` | 表示名と独立した文字列の`ID`（例：`weekday`・`holiday`）。空文字・空白のみは禁止。`DisplayName`と`Revision`を保持する |
+| `Timetable.Trains` | ダイヤに含む全列車との多対多。GORMが`timetable_train_links`を自動生成し、運用未所属の列車も登録できる |
+| `TimetableOperation` | 全体で一意の`OperationNumber`。複数ダイヤで共有できる |
+| `Timetable.Operations` | ダイヤと運用の多対多。GORMが`timetable_operation_links`を自動生成する |
+| `TimetableOperationTrain` | `OperationNumber`と`TrainNumber`の複合主キー。関連ごとの`SequenceIndex`を持ち、同じ運用内の順序重複を禁止する |
+| `TimetableTrain` | 全体で一意の`TrainNumber`。種別・時刻・地点・進路を含む共通の列車定義 |
+| `TimetablePoint` | 自動採番の`TimetablePointID`。列車を参照し、列車内の`SequenceIndex`は一意 |
+| `TimetablePointRoute` | `TimetablePointID`と`SequenceIndex`の複合主キー。進路は制御駅IDと進路IDの組で参照する |
+
+ダイヤの列車一覧は`Timetable.Trains`を正とし、運用からの間接参照で列車一覧を決めない。運用の関連は、列車を同じ編成が担当する順序を表す。運用未作成でも、列車・地点・時刻・使用進路をダイヤに保存できる。ダイヤへの所属と運用への割当ては別々に指定し、運用へ列車を追加しただけではダイヤの列車一覧へ自動追加しない。
+
+新しい列車定義も含めたダイヤは`db.Create(&timetable)`で保存する。既存の列番だけを指定して別ダイヤへ紐づける場合は`db.Omit("Trains.*").Create(&timetable)`を使用し、列車本体の自動保存を省略して中間テーブルの関連だけを追加する。存在しない列番への関連は外部キー制約で拒否される。[GORMの関連保存とOmit](https://gorm.io/docs/associations.html#Skip-Auto-Create-Update)
+
+ダイヤを削除すると、そのダイヤと列車・運用の関連行だけを削除する。運用を削除すると、ダイヤとの運用関連行と`TimetableOperationTrain`だけを削除し、ダイヤと列車の直接の関連は残す。いずれも共通の列車定義・地点・使用進路は残す。ダイヤから列車の所属を外す際は`db.Model(&timetable).Association("Trains").Delete(&train)`を使用し、列車本体は削除しない。運用から参照中の列車を単独で削除する操作は外部キーの`RESTRICT`で拒否する。列車が明示的に削除された場合に限り、その列車が所有する地点と使用進路を`CASCADE`で削除する。参照方向が曖昧な関連には`belongsTo`を明示する。
+
+同じ列番を平日・休日で共有すると、時刻・経路の変更も両方へ反映される。運用定義の編集も参照するすべてのダイヤへ反映される。種別・駅・回路・進路の参照カタログと、方向別の標準所要時間もモデルに含める。設備カタログはID参照用であり、連動条件を複製しない。
+
+時刻は引き続き運行日0時からの秒数とし、`nil`と0秒を区別して24時以降も保存できる。`PointHandling`は`pass`・`stop`・`unspecified`の文字列を保存する。DBでは外部キー・順序の重複・負数・同一地点の着発逆転を検証する。SQLite接続には`_foreign_keys=on`を指定する。ダイヤの全列車は`Trains.Points.Routes`を`Preload`し、種別の表示名は`Trains.TrainType`を`Preload`して取得する。運用とその列車定義も必要な場合は`Operations.Trains.Train.Points.Routes`を併せて読み込む。順序付きの関連には`Order("sequence_index ASC")`を指定する。
+
+連番の欠番、地点間の時刻の逆転、経路の接続、運用内の列車がダイヤの列車一覧に含まれること、同じダイヤの複数運用への列車重複、共有編集時のRevision更新は、今後の保存・有効化処理で検証する。編集中は運用未所属を許可し、自動運行開始時の割当て検証は今後追加する。この段階では接続の起動処理・Store・API・PRCへの読込みは追加しない。
+
+## 旧EF Core実装の設計資料
+
 2026年10月12日決定。ダイヤの永続化には **Entity Framework Core 10とSQLite** を採用する。ORMは.NET 10の運行管理サーバーだけに導入し、PRCには読み込み・検証済みのダイヤをメモリ上の値として渡す。現在のローカルサーバー1台での運用を対象とする。
 
 基準となるER図は [TimetableDatabaseDesign.drawio](TimetableDatabaseDesign.drawio)。既存の [CTC実装計画](CTCImplementationPlan.md)、[連動管理部の設計](../Track/Interlocking/TrackInterlockingAggregationDesign.md)、[ディレクトリ構成](../Architecture/DirectoryStructure.md)に合わせ、設備の実状態と安全判断はUnity側、列車追跡・ダイヤ照合・自動進路要求はサーバー側のPRCが担当する。

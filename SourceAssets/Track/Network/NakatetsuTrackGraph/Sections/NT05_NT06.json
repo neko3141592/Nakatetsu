@@ -41,6 +41,7 @@
   "circuits": [
     {
       "circuitId": "NT05_NT06_D1T",
+      "displayName": "下り本線（下1T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -52,6 +53,7 @@
     },
     {
       "circuitId": "NT05_NT06_D2T",
+      "displayName": "下り本線（下2T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -63,6 +65,7 @@
     },
     {
       "circuitId": "NT05_NT06_D3T",
+      "displayName": "下り本線（下3T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -79,6 +82,7 @@
     },
     {
       "circuitId": "NT05_NT06_U1T",
+      "displayName": "上り本線（上1T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -90,6 +94,7 @@
     },
     {
       "circuitId": "NT05_NT06_U2T",
+      "displayName": "上り本線（上2T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -101,6 +106,7 @@
     },
     {
       "circuitId": "NT05_NT06_U3T",
+      "displayName": "上り本線（上3T）",
       "controlKind": "Block",
       "sections": [
         {

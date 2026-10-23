@@ -1,28 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="768" viewBox="0 0 480 768" style="background: transparent; color-scheme: light dark; color: light-dark(#000000, #ffffff);">
+<svg xmlns="http://www.w3.org/2000/svg" width="138" height="768" viewBox="0 0 138 768" style="background: transparent; color-scheme: light dark; color: light-dark(#000000, #ffffff);">
   <g id="NT02_DT" data-cell-id="NT02_DT" fill="none" stroke="currentColor" stroke-width="1px">
-    <path d="M 0 320 L 480 320" vector-effect="non-scaling-stroke" />
+    <path d="M 0 320 L 138 320" vector-effect="non-scaling-stroke" />
   </g>
   <g id="NT02_UT" data-cell-id="NT02_UT" fill="none" stroke="currentColor" stroke-width="1px">
-    <path d="M 0 448 L 480 448" vector-effect="non-scaling-stroke" />
+    <path d="M 0 448 L 138 448" vector-effect="non-scaling-stroke" />
   </g>
   <g id="NT02_Platform_1" data-cell-id="NT02_Platform_1">
-    <rect x="40" y="248" width="400" height="56" fill="none" stroke="#3F3F46" stroke-width="1" />
+    <rect x="11.5" y="248" width="115" height="56" fill="none" stroke="#3F3F46" stroke-width="1" />
   </g>
   <g id="NT02_Platform_2" data-cell-id="NT02_Platform_2">
-    <rect x="40" y="464" width="400" height="56" fill="none" stroke="#3F3F46" stroke-width="1" />
+    <rect x="11.5" y="464" width="115" height="56" fill="none" stroke="#3F3F46" stroke-width="1" />
   </g>
-  <text id="NT02_Label_Station" data-cell-id="NT02_Label_Station" x="240" y="160" text-anchor="middle" dominant-baseline="central" font-family="Arial" font-size="20" fill="#BABABA">豊島橋</text>
+  <text id="NT02_Label_Station" data-cell-id="NT02_Label_Station" x="69" y="276" text-anchor="middle" dominant-baseline="central" font-family="Arial" font-size="16" fill="#3F3F46">豊島橋</text>
   <g id="NT02_Boundary_D_Start" data-cell-id="NT02_Boundary_D_Start" fill="none" stroke="#EC4899" stroke-width="1px">
     <path d="M 0 314 L 0 326" vector-effect="non-scaling-stroke" />
   </g>
   <g id="NT02_Boundary_D_End" data-cell-id="NT02_Boundary_D_End" fill="none" stroke="#EC4899" stroke-width="1px">
-    <path d="M 480 314 L 480 326" vector-effect="non-scaling-stroke" />
+    <path d="M 138 314 L 138 326" vector-effect="non-scaling-stroke" />
   </g>
   <g id="NT02_Boundary_U_Start" data-cell-id="NT02_Boundary_U_Start" fill="none" stroke="#EC4899" stroke-width="1px">
     <path d="M 0 442 L 0 454" vector-effect="non-scaling-stroke" />
   </g>
   <g id="NT02_Boundary_U_End" data-cell-id="NT02_Boundary_U_End" fill="none" stroke="#EC4899" stroke-width="1px">
-    <path d="M 480 442 L 480 454" vector-effect="non-scaling-stroke" />
+    <path d="M 138 442 L 138 454" vector-effect="non-scaling-stroke" />
   </g>
 </svg>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { SimulationClock } from "@/components/ctc/SimulationClock";
+import { SimulationClock } from "@/components/ctc/header/SimulationClock";
 import type { WorldTimeInformation } from "@/gen/ctc_pb";
 import { connectCtc } from "@/lib/ctcConnection";
 

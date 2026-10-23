@@ -156,6 +156,7 @@
   "circuits": [
     {
       "circuitId": "NT07_NT08_DE1T",
+      "displayName": "下り急行線（下急1T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -167,6 +168,7 @@
     },
     {
       "circuitId": "NT07_NT08_DL1T",
+      "displayName": "下り緩行線（下緩1T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -178,6 +180,7 @@
     },
     {
       "circuitId": "NT07_NT08_UE1T",
+      "displayName": "上り急行線（上急1T）",
       "controlKind": "Block",
       "sections": [
         {
@@ -189,6 +192,7 @@
     },
     {
       "circuitId": "NT07_NT08_UL1T",
+      "displayName": "上り緩行線（上緩1T）",
       "controlKind": "Block",
       "sections": [
         {

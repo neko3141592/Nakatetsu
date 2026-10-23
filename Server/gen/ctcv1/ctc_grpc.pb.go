@@ -20,7 +20,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CtcService_UpdateSnapshot_FullMethodName = "/nakatetsu.ctc.v1.CtcService/UpdateSnapshot"
+	CtcService_UpdateSnapshot_FullMethodName      = "/nakatetsu.ctc.v1.CtcService/UpdateSnapshot"
+	CtcService_ConnectRouteControl_FullMethodName = "/nakatetsu.ctc.v1.CtcService/ConnectRouteControl"
 )
 
 // CtcServiceClient is the client API for CtcService service.
@@ -32,6 +33,10 @@ const (
 type CtcServiceClient interface {
 	// 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
 	UpdateSnapshot(ctx context.Context, in *UnitySnapshotMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Unityが接続する双方向ストリーム。
+	// 入力はUnity→Goの受付結果、出力はGo→Unityの進路要求。request_idで対応付ける。
+	// 開通・解錠の完了は受付結果ではなく、スナップショットの進路状態で確認する。
+	ConnectRouteControl(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[InterlockingRouteRequestResult, InterlockingRouteRequest], error)
 }
 
 type ctcServiceClient struct {
@@ -52,6 +57,19 @@ func (c *ctcServiceClient) UpdateSnapshot(ctx context.Context, in *UnitySnapshot
 	return out, nil
 }
 
+func (c *ctcServiceClient) ConnectRouteControl(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[InterlockingRouteRequestResult, InterlockingRouteRequest], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &CtcService_ServiceDesc.Streams[0], CtcService_ConnectRouteControl_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[InterlockingRouteRequestResult, InterlockingRouteRequest]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CtcService_ConnectRouteControlClient = grpc.BidiStreamingClient[InterlockingRouteRequestResult, InterlockingRouteRequest]
+
 // CtcServiceServer is the server API for CtcService service.
 // All implementations must embed UnimplementedCtcServiceServer
 // for forward compatibility.
@@ -61,6 +79,10 @@ func (c *ctcServiceClient) UpdateSnapshot(ctx context.Context, in *UnitySnapshot
 type CtcServiceServer interface {
 	// 旧IUnityHub.UpdateSnapshotAsync。世界時刻・連動状態・在線状態を一括で更新する。
 	UpdateSnapshot(context.Context, *UnitySnapshotMessage) (*emptypb.Empty, error)
+	// Unityが接続する双方向ストリーム。
+	// 入力はUnity→Goの受付結果、出力はGo→Unityの進路要求。request_idで対応付ける。
+	// 開通・解錠の完了は受付結果ではなく、スナップショットの進路状態で確認する。
+	ConnectRouteControl(grpc.BidiStreamingServer[InterlockingRouteRequestResult, InterlockingRouteRequest]) error
 	mustEmbedUnimplementedCtcServiceServer()
 }
 
@@ -73,6 +95,9 @@ type UnimplementedCtcServiceServer struct{}
 
 func (UnimplementedCtcServiceServer) UpdateSnapshot(context.Context, *UnitySnapshotMessage) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateSnapshot not implemented")
+}
+func (UnimplementedCtcServiceServer) ConnectRouteControl(grpc.BidiStreamingServer[InterlockingRouteRequestResult, InterlockingRouteRequest]) error {
+	return status.Error(codes.Unimplemented, "method ConnectRouteControl not implemented")
 }
 func (UnimplementedCtcServiceServer) mustEmbedUnimplementedCtcServiceServer() {}
 func (UnimplementedCtcServiceServer) testEmbeddedByValue()                    {}
@@ -113,6 +138,13 @@ func _CtcService_UpdateSnapshot_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CtcService_ConnectRouteControl_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CtcServiceServer).ConnectRouteControl(&grpc.GenericServerStream[InterlockingRouteRequestResult, InterlockingRouteRequest]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CtcService_ConnectRouteControlServer = grpc.BidiStreamingServer[InterlockingRouteRequestResult, InterlockingRouteRequest]
+
 // CtcService_ServiceDesc is the grpc.ServiceDesc for CtcService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -125,6 +157,13 @@ var CtcService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CtcService_UpdateSnapshot_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ConnectRouteControl",
+			Handler:       _CtcService_ConnectRouteControl_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "ctc.proto",
 }

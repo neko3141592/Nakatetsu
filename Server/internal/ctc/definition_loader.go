@@ -77,7 +77,7 @@ func readDefinitionJSON(path string, value any) error {
 	return nil
 }
 
-// Unityと共通のJSONから、次回路の検索に必要な項目だけを読み込む。
+// Unityと共通のJSONから、表示名と次回路の検索に必要な項目を読み込む。
 type trackGraphJSON struct {
 	GraphID     string                `json:"graphId"`
 	Nodes       []graphNodeJSON       `json:"nodes"`
@@ -115,6 +115,7 @@ type graphPairJSON struct {
 
 type graphCircuitJSON struct {
 	CircuitID   string             `json:"circuitId"`
+	DisplayName string             `json:"displayName"`
 	ControlKind string             `json:"controlKind"`
 	ToCircuitID string             `json:"toCircuitId"`
 	Sections    []graphSectionJSON `json:"sections"`
@@ -218,7 +219,11 @@ func compileCircuitDefinitions(source trackGraphJSON) (map[string]TrackCircuitDe
 			}
 			graph.SectionsByEdge[section.EdgeID] = append(graph.SectionsByEdge[section.EdgeID], circuitSection{circuit.CircuitID, section})
 		}
-		definitions[circuit.CircuitID] = TrackCircuitDefinition{ControlKind: kind, ToCircuitID: circuit.ToCircuitID}
+		definitions[circuit.CircuitID] = TrackCircuitDefinition{
+			DisplayName: strings.TrimSpace(circuit.DisplayName),
+			ControlKind: kind,
+			ToCircuitID: circuit.ToCircuitID,
+		}
 	}
 	for circuitID, definition := range definitions {
 		if definition.ToCircuitID != "" {

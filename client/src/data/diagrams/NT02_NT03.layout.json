@@ -1,7 +1,49 @@
 {
-  "width": 384.0,
+  "width": 110.4,
   "height": 768.0,
   "turnoutIndicators": [],
-  "routeIndicator": null,
-  "routeIds": []
+  "trainLabels": [
+    {
+      "id": "NT02_NT03_TrainLabel_D1T",
+      "circuitId": "NT02_NT03_D1T",
+      "svgId": "NT02_NT03_D1T",
+      "x": 18.4,
+      "y": 300.0
+    },
+    {
+      "id": "NT02_NT03_TrainLabel_D2T",
+      "circuitId": "NT02_NT03_D2T",
+      "svgId": "NT02_NT03_D2T",
+      "x": 55.2,
+      "y": 300.0
+    },
+    {
+      "id": "NT02_NT03_TrainLabel_D3T",
+      "circuitId": "NT02_NT03_D3T",
+      "svgId": "NT02_NT03_D3T",
+      "x": 92.0,
+      "y": 300.0
+    },
+    {
+      "id": "NT02_NT03_TrainLabel_U1T",
+      "circuitId": "NT02_NT03_U1T",
+      "svgId": "NT02_NT03_U1T",
+      "x": 18.4,
+      "y": 428.0
+    },
+    {
+      "id": "NT02_NT03_TrainLabel_U2T",
+      "circuitId": "NT02_NT03_U2T",
+      "svgId": "NT02_NT03_U2T",
+      "x": 55.2,
+      "y": 428.0
+    },
+    {
+      "id": "NT02_NT03_TrainLabel_U3T",
+      "circuitId": "NT02_NT03_U3T",
+      "svgId": "NT02_NT03_U3T",
+      "x": 92.0,
+      "y": 428.0
+    }
+  ]
 }

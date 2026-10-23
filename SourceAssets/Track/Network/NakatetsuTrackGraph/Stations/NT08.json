@@ -201,6 +201,7 @@
   "circuits": [
     {
       "circuitId": "NT08_1RT",
+      "displayName": "1番線",
       "controlKind": "Block",
       "sections": [
         {
@@ -212,6 +213,7 @@
     },
     {
       "circuitId": "NT08_2RT",
+      "displayName": "2番線",
       "controlKind": "Block",
       "sections": [
         {
@@ -223,6 +225,7 @@
     },
     {
       "circuitId": "NT08_3LT",
+      "displayName": "3番線",
       "controlKind": "Block",
       "sections": [
         {
@@ -234,6 +237,7 @@
     },
     {
       "circuitId": "NT08_4LT",
+      "displayName": "4番線",
       "controlKind": "Block",
       "sections": [
         {

@@ -1383,6 +1383,7 @@
   "circuits": [
     {
       "circuitId": "NT07_21AT",
+      "displayName": "下り本線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1404,7 +1405,9 @@
     },
     {
       "circuitId": "NT07_22AT",
+      "displayName": "上り本線",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT06_NT07_U3T",
       "sections": [
         {
           "edgeId": "NT07_ML2_010",
@@ -1425,6 +1428,7 @@
     },
     {
       "circuitId": "NT07_22BT",
+      "displayName": "22ロT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1446,6 +1450,7 @@
     },
     {
       "circuitId": "NT07_21BT",
+      "displayName": "21ロT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1467,6 +1472,7 @@
     },
     {
       "circuitId": "NT07_23T",
+      "displayName": "23T",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1488,6 +1494,7 @@
     },
     {
       "circuitId": "NT07_24T",
+      "displayName": "24T",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1514,6 +1521,7 @@
     },
     {
       "circuitId": "NT07_2RT",
+      "displayName": "2番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1525,6 +1533,7 @@
     },
     {
       "circuitId": "NT07_27T",
+      "displayName": "27T",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1546,6 +1555,7 @@
     },
     {
       "circuitId": "NT07_1RT",
+      "displayName": "1番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1557,6 +1567,7 @@
     },
     {
       "circuitId": "NT07_25AT",
+      "displayName": "25イT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1578,6 +1589,7 @@
     },
     {
       "circuitId": "NT07_3LT",
+      "displayName": "3番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1589,6 +1601,7 @@
     },
     {
       "circuitId": "NT07_30T",
+      "displayName": "30T",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1610,6 +1623,7 @@
     },
     {
       "circuitId": "NT07_4LT",
+      "displayName": "4番線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1621,6 +1635,7 @@
     },
     {
       "circuitId": "NT07_32AT",
+      "displayName": "32イT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1642,7 +1657,9 @@
     },
     {
       "circuitId": "NT07_26BT",
+      "displayName": "下り急行線",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT07_NT08_DE1T",
       "sections": [
         {
           "edgeId": "NT07_P01_045",
@@ -1663,6 +1680,7 @@
     },
     {
       "circuitId": "NT07_31BT",
+      "displayName": "上り急行線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1684,6 +1702,7 @@
     },
     {
       "circuitId": "NT07_28AT",
+      "displayName": "28イT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1705,6 +1724,7 @@
     },
     {
       "circuitId": "NT07_29AT",
+      "displayName": "29イT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1726,6 +1746,7 @@
     },
     {
       "circuitId": "NT07_26AT",
+      "displayName": "26イT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1752,6 +1773,7 @@
     },
     {
       "circuitId": "NT07_31AT",
+      "displayName": "31イT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1778,7 +1800,9 @@
     },
     {
       "circuitId": "NT07_25BT",
+      "displayName": "下り緩行線",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT07_NT08_DL1T",
       "sections": [
         {
           "edgeId": "NT07_DL_060",
@@ -1799,6 +1823,7 @@
     },
     {
       "circuitId": "NT07_32BT",
+      "displayName": "上り緩行線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1820,6 +1845,7 @@
     },
     {
       "circuitId": "NT07_29BT",
+      "displayName": "29ロT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1841,6 +1867,7 @@
     },
     {
       "circuitId": "NT07_28BT",
+      "displayName": "28ロT",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1862,6 +1889,7 @@
     },
     {
       "circuitId": "NT07_DEPOT_1T",
+      "displayName": "電留1線",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1873,6 +1901,7 @@
     },
     {
       "circuitId": "NT07_DEPOT_2T",
+      "displayName": "電留2線",
       "controlKind": "Interlocking",
       "sections": [
         {

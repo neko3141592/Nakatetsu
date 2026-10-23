@@ -55,9 +55,9 @@ func TestLoadTrackRouteDefinitions(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := []ctc.TrackRouteDefinition{
-		{InterlockingStationID: "S1", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}},
-		{InterlockingStationID: "S1", InterlockingRouteID: "L", TrackCircuitIDs: []string{"C", "B", "A"}},
-		{InterlockingStationID: "S2", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}},
+		{InterlockingStationID: "S1", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
+		{InterlockingStationID: "S1", InterlockingRouteID: "L", TrackCircuitIDs: []string{"C", "B", "A"}, RouteClearTrackCircuitIDs: []string{"B", "A"}},
+		{InterlockingStationID: "S2", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("routes = %+v, want %+v", got, want)
@@ -90,6 +90,12 @@ func TestLoadTrackRouteDefinitionsRejectsInvalidDefinitions(t *testing.T) {
 		{"duplicate_circuit", func(_ *routeManifestJSON, s *routeStationJSON) {
 			s.Routes[0].TrackCircuitIDs = []string{"A", "B", "A", "C"}
 		}, "unknown or duplicate circuit"},
+		{"unknown_clear_circuit", func(_ *routeManifestJSON, s *routeStationJSON) {
+			s.Routes[0].RouteClearTrackCircuitIDs = []string{"missing"}
+		}, "unknown route-clear circuit"},
+		{"empty_clear_circuit_id", func(_ *routeManifestJSON, s *routeStationJSON) {
+			s.Routes[0].RouteClearTrackCircuitIDs = []string{""}
+		}, "unknown route-clear circuit"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

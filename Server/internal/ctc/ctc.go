@@ -13,7 +13,11 @@ import (
 
 var ErrTrainInitialization = errors.New("train initialization failed")
 
+// PRCはCTC側が利用するPRCのインターフェース。
+type PRC interface{}
+
 type CTC struct {
+	prc              PRC
 	mu               sync.RWMutex
 	snapshot         *ctcv1.UnitySnapshot
 	state            TrackingState
@@ -31,6 +35,11 @@ func New(definitions map[string]TrackCircuitDefinition, routes []TrackRouteDefin
 		routeDefinitions: routes,
 		routeRefs:        BuildRouteCircuitRefs(routes),
 	}
+}
+
+// SetPRCはサーバー起動前にPRCの参照を接続する。
+func (c *CTC) SetPRC(prc PRC) {
+	c.prc = prc
 }
 
 func (c *CTC) UpdateSnapshot(snapshot *ctcv1.UnitySnapshot) error {
@@ -121,9 +130,14 @@ func (c *CTC) GetWebSnapshot() *ctcv1.CtcSnapshot {
 	}
 
 	for circuitID, state := range c.state.CircuitsByID {
+		displayName := c.definitions[circuitID].DisplayName
+		if displayName == "" {
+			displayName = circuitID
+		}
 		snapshot.CircuitsById[circuitID] = &ctcv1.CtcCircuitState{
-			TrainId:    state.TrainID,
-			IsOccupied: state.IsOccupied,
+			TrainId:     state.TrainID,
+			IsOccupied:  state.IsOccupied,
+			DisplayName: displayName,
 		}
 	}
 

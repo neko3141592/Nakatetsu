@@ -1,7 +1,21 @@
 {
-  "width": 480.0,
+  "width": 138.0,
   "height": 768.0,
   "turnoutIndicators": [],
-  "routeIndicator": null,
-  "routeIds": []
+  "trainLabels": [
+    {
+      "id": "NT02_TrainLabel_DT",
+      "circuitId": "NT02_DT",
+      "svgId": "NT02_DT",
+      "x": 69.0,
+      "y": 340.0
+    },
+    {
+      "id": "NT02_TrainLabel_UT",
+      "circuitId": "NT02_UT",
+      "svgId": "NT02_UT",
+      "x": 69.0,
+      "y": 428.0
+    }
+  ]
 }

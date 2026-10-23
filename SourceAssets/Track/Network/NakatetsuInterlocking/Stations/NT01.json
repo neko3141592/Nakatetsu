@@ -43,6 +43,7 @@
   "routes": [
     {
       "routeId": "1LA",
+      "category": "UpArrival",
       "startTrackCircuitId": "NT01_21BT",
       "destinationCode": "A",
       "destinationTrackCircuitId": "NT01_1RT",
@@ -100,6 +101,7 @@
     },
     {
       "routeId": "1LB",
+      "category": "UpArrival",
       "startTrackCircuitId": "NT01_21BT",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT01_2RT",
@@ -157,6 +159,7 @@
     },
     {
       "routeId": "1LC",
+      "category": "UpArrival",
       "startTrackCircuitId": "NT01_21BT",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT01_3RT",
@@ -207,6 +210,7 @@
     },
     {
       "routeId": "1R",
+      "category": "DownDeparture",
       "startTrackCircuitId": "NT01_1RT",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT01_22BT",
@@ -263,6 +267,7 @@
     },
     {
       "routeId": "2R",
+      "category": "DownDeparture",
       "startTrackCircuitId": "NT01_2RT",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT01_22BT",
@@ -319,6 +324,7 @@
     },
     {
       "routeId": "3R",
+      "category": "DownDeparture",
       "startTrackCircuitId": "NT01_3RT",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT01_22BT",

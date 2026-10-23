@@ -257,7 +257,7 @@ namespace Nakatetsu.Train.Equipment.Atc
             // 不正入力時にも非常判定を続ける。常用設定がなければ、常用段は0とする。
             int maximumServiceBrakeStep = context.Input.brakeSettings?.maximumServiceBrakeStep ?? 0;
             brake.isNormalBrakeRequired = true;
-            brake.targetBrakeStep = Math.Max(0, Mathf.CeilToInt(maximumServiceBrakeStep / 2));
+            brake.targetBrakeStep = Math.Max(0, Mathf.CeilToInt(maximumServiceBrakeStep / 2) + 1);
             brake.currentBrakeStep = brake.targetBrakeStep;
             brake.brakeStepTableIndex = -1;
             brake.brakeChangeElapsedSeconds = 0f;
