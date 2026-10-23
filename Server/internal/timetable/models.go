@@ -1,5 +1,12 @@
 package timetable
 
+import (
+	"errors"
+	"strings"
+
+	"gorm.io/gorm"
+)
+
 type PointHandling string
 
 const (
@@ -9,7 +16,7 @@ const (
 )
 
 type Timetable struct {
-	ID          string `gorm:"primaryKey;not null;check:trim(id) <> ''"`
+	ID          string `gorm:"primaryKey;not null"`
 	DisplayName string `gorm:"not null"`
 	Revision    int64  `gorm:"not null;default:0;check:revision >= 0"`
 
@@ -18,6 +25,13 @@ type Timetable struct {
 
 	// 平日・休日など、複数のダイヤから同じ運用定義を共有する。
 	Operations []TimetableOperation `gorm:"many2many:timetable_operation_links;foreignKey:ID;joinForeignKey:TimetableID;references:OperationNumber;joinReferences:OperationNumber;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+}
+
+func (t *Timetable) BeforeCreate(_ *gorm.DB) error {
+	if strings.TrimSpace(t.ID) == "" {
+		return errors.New("timetable ID must not be empty")
+	}
+	return nil
 }
 
 // TimetableOperationはダイヤ間で共有する所定の運用定義。
