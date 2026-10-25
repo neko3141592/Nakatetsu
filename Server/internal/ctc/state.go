@@ -1,5 +1,16 @@
 package ctc
 
+type StationControlMode int
+
+const (
+	StationControlManual StationControlMode = iota
+	StationControlAuto
+)
+
+type StationState struct {
+	ControlMode StationControlMode
+}
+
 // Unityから受信した進路の状態。
 type InterlockingRouteState struct {
 	IsAvailable     bool

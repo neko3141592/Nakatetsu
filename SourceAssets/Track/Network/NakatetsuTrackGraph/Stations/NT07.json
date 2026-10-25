@@ -1,4 +1,37 @@
 {
+  "stationId": "NT07",
+  "stationTracks": [
+    {
+      "trackId": "1",
+      "displayName": "1番線",
+      "trackCircuitId": "NT07_1RT"
+    },
+    {
+      "trackId": "2",
+      "displayName": "2番線",
+      "trackCircuitId": "NT07_2RT"
+    },
+    {
+      "trackId": "3",
+      "displayName": "3番線",
+      "trackCircuitId": "NT07_3LT"
+    },
+    {
+      "trackId": "4",
+      "displayName": "4番線",
+      "trackCircuitId": "NT07_4LT"
+    },
+    {
+      "trackId": "DEPOT_1",
+      "displayName": "電留1線",
+      "trackCircuitId": "NT07_DEPOT_1T"
+    },
+    {
+      "trackId": "DEPOT_2",
+      "displayName": "電留2線",
+      "trackCircuitId": "NT07_DEPOT_2T"
+    }
+  ],
   "geometries": [],
   "nodes": [
     {

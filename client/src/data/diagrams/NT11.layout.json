@@ -1,0 +1,288 @@
+{
+  "width": 966.0,
+  "height": 768.0,
+  "turnoutIndicators": [
+    {
+      "id": "NT11_TurnoutIndicator_21A",
+      "turnoutId": "NT11_21A",
+      "label": "21A",
+      "x": 18.4,
+      "y": 236.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_22A",
+      "turnoutId": "NT11_22A",
+      "label": "22A",
+      "x": 18.4,
+      "y": 340.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_23A",
+      "turnoutId": "NT11_23A",
+      "label": "23A",
+      "x": 18.4,
+      "y": 428.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_24A",
+      "turnoutId": "NT11_24A",
+      "label": "24A",
+      "x": 18.4,
+      "y": 532.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_22B",
+      "turnoutId": "NT11_22B",
+      "label": "22B",
+      "x": 128.8,
+      "y": 236.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_21B",
+      "turnoutId": "NT11_21B",
+      "label": "21B",
+      "x": 128.8,
+      "y": 340.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_24B",
+      "turnoutId": "NT11_24B",
+      "label": "24B",
+      "x": 128.8,
+      "y": 428.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_23B",
+      "turnoutId": "NT11_23B",
+      "label": "23B",
+      "x": 128.8,
+      "y": 532.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_25A",
+      "turnoutId": "NT11_25A",
+      "label": "25A",
+      "x": 588.8,
+      "y": 350.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_25B",
+      "turnoutId": "NT11_25B",
+      "label": "25B",
+      "x": 662.4,
+      "y": 156.0
+    },
+    {
+      "id": "NT11_TurnoutIndicator_26",
+      "turnoutId": "NT11_26",
+      "label": "26",
+      "x": 699.2,
+      "y": 416.0
+    }
+  ],
+  "trainLabels": [
+    {
+      "id": "NT11_TrainLabel_21AT_N",
+      "circuitId": "NT11_21AT",
+      "svgId": "NT11_21AT_N",
+      "x": 36.8,
+      "y": 216.0
+    },
+    {
+      "id": "NT11_TrainLabel_21AT_R",
+      "circuitId": "NT11_21AT",
+      "svgId": "NT11_21AT_R",
+      "x": 36.8,
+      "y": 216.0
+    },
+    {
+      "id": "NT11_TrainLabel_22AT_N",
+      "circuitId": "NT11_22AT",
+      "svgId": "NT11_22AT_N",
+      "x": 36.8,
+      "y": 360.0
+    },
+    {
+      "id": "NT11_TrainLabel_22AT_R",
+      "circuitId": "NT11_22AT",
+      "svgId": "NT11_22AT_R",
+      "x": 36.8,
+      "y": 360.0
+    },
+    {
+      "id": "NT11_TrainLabel_23AT_N",
+      "circuitId": "NT11_23AT",
+      "svgId": "NT11_23AT_N",
+      "x": 36.8,
+      "y": 408.0
+    },
+    {
+      "id": "NT11_TrainLabel_23AT_R",
+      "circuitId": "NT11_23AT",
+      "svgId": "NT11_23AT_R",
+      "x": 36.8,
+      "y": 408.0
+    },
+    {
+      "id": "NT11_TrainLabel_24AT_N",
+      "circuitId": "NT11_24AT",
+      "svgId": "NT11_24AT_N",
+      "x": 36.8,
+      "y": 552.0
+    },
+    {
+      "id": "NT11_TrainLabel_24AT_R",
+      "circuitId": "NT11_24AT",
+      "svgId": "NT11_24AT_R",
+      "x": 36.8,
+      "y": 552.0
+    },
+    {
+      "id": "NT11_TrainLabel_22BT_N",
+      "circuitId": "NT11_22BT",
+      "svgId": "NT11_22BT_N",
+      "x": 110.4,
+      "y": 216.0
+    },
+    {
+      "id": "NT11_TrainLabel_22BT_R",
+      "circuitId": "NT11_22BT",
+      "svgId": "NT11_22BT_R",
+      "x": 110.4,
+      "y": 216.0
+    },
+    {
+      "id": "NT11_TrainLabel_21BT_N",
+      "circuitId": "NT11_21BT",
+      "svgId": "NT11_21BT_N",
+      "x": 110.4,
+      "y": 360.0
+    },
+    {
+      "id": "NT11_TrainLabel_21BT_R",
+      "circuitId": "NT11_21BT",
+      "svgId": "NT11_21BT_R",
+      "x": 110.4,
+      "y": 360.0
+    },
+    {
+      "id": "NT11_TrainLabel_24BT_N",
+      "circuitId": "NT11_24BT",
+      "svgId": "NT11_24BT_N",
+      "x": 110.4,
+      "y": 408.0
+    },
+    {
+      "id": "NT11_TrainLabel_24BT_R",
+      "circuitId": "NT11_24BT",
+      "svgId": "NT11_24BT_R",
+      "x": 110.4,
+      "y": 408.0
+    },
+    {
+      "id": "NT11_TrainLabel_23BT_N",
+      "circuitId": "NT11_23BT",
+      "svgId": "NT11_23BT_N",
+      "x": 110.4,
+      "y": 552.0
+    },
+    {
+      "id": "NT11_TrainLabel_23BT_R",
+      "circuitId": "NT11_23BT",
+      "svgId": "NT11_23BT_R",
+      "x": 110.4,
+      "y": 552.0
+    },
+    {
+      "id": "NT11_TrainLabel_1RT",
+      "circuitId": "NT11_1RT",
+      "svgId": "NT11_1RT",
+      "x": 432.4,
+      "y": 172.0
+    },
+    {
+      "id": "NT11_TrainLabel_2RT",
+      "circuitId": "NT11_2RT",
+      "svgId": "NT11_2RT",
+      "x": 432.4,
+      "y": 340.0
+    },
+    {
+      "id": "NT11_TrainLabel_3LT",
+      "circuitId": "NT11_3LT",
+      "svgId": "NT11_3LT",
+      "x": 432.4,
+      "y": 428.0
+    },
+    {
+      "id": "NT11_TrainLabel_4LT",
+      "circuitId": "NT11_4LT",
+      "svgId": "NT11_4LT",
+      "x": 432.4,
+      "y": 596.0
+    },
+    {
+      "id": "NT11_TrainLabel_25AT_N",
+      "circuitId": "NT11_25AT",
+      "svgId": "NT11_25AT_N",
+      "x": 607.2,
+      "y": 340.0
+    },
+    {
+      "id": "NT11_TrainLabel_25AT_R",
+      "circuitId": "NT11_25AT",
+      "svgId": "NT11_25AT_R",
+      "x": 607.2,
+      "y": 292.0
+    },
+    {
+      "id": "NT11_TrainLabel_25BT_N",
+      "circuitId": "NT11_25BT",
+      "svgId": "NT11_25BT_N",
+      "x": 644.0,
+      "y": 172.0
+    },
+    {
+      "id": "NT11_TrainLabel_25BT_R",
+      "circuitId": "NT11_25BT",
+      "svgId": "NT11_25BT_R",
+      "x": 662.4,
+      "y": 220.0
+    },
+    {
+      "id": "NT11_TrainLabel_26T_N",
+      "circuitId": "NT11_26T",
+      "svgId": "NT11_26T_N",
+      "x": 644.0,
+      "y": 428.0
+    },
+    {
+      "id": "NT11_TrainLabel_26T_R",
+      "circuitId": "NT11_26T",
+      "svgId": "NT11_26T_R",
+      "x": 680.8,
+      "y": 348.0
+    },
+    {
+      "id": "NT11_TrainLabel_1_STUB_T",
+      "circuitId": "NT11_1_STUB_T",
+      "svgId": "NT11_1_STUB_T",
+      "x": 883.2,
+      "y": 300.0
+    },
+    {
+      "id": "NT11_TrainLabel_DEPOT_T",
+      "circuitId": "NT11_DEPOT_T",
+      "svgId": "NT11_DEPOT_T",
+      "x": 772.8,
+      "y": 364.0
+    },
+    {
+      "id": "NT11_TrainLabel_4_STUB_T",
+      "circuitId": "NT11_4_STUB_T",
+      "svgId": "NT11_4_STUB_T",
+      "x": 883.2,
+      "y": 468.0
+    }
+  ]
+}

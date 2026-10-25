@@ -78,13 +78,13 @@ export default function DebugPage() {
         <button
           type="button"
           onClick={reconnect}
-          className="rounded border border-zinc-400 px-4 py-2 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-4 dark:hover:bg-zinc-800"
+          className="rounded-xs border border-zinc-400 px-4 py-2 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-4 dark:hover:bg-zinc-800"
         >
           再接続
         </button>
       </header>
 
-      <section aria-label="接続情報" className="rounded border border-zinc-300 p-5 dark:border-zinc-700">
+      <section aria-label="接続情報" className="rounded-xs border border-zinc-300 p-5 dark:border-zinc-700">
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div><dt className="text-zinc-600 dark:text-zinc-400">接続状態</dt><dd role="status" className="mt-1 font-semibold">{statusLabels[status]}</dd></div>
           <div><dt className="text-zinc-600 dark:text-zinc-400">受信回数</dt><dd className="mt-1 tabular-nums">{receivedCount}</dd></div>
@@ -93,7 +93,7 @@ export default function DebugPage() {
         </dl>
       </section>
 
-      {error && <p role="alert" className="rounded border border-red-400 p-4 text-red-700 dark:text-red-300">{error}</p>}
+      {error && <p role="alert" className="rounded-xs border border-red-400 p-4 text-red-700 dark:text-red-300">{error}</p>}
       {status !== "connected" && snapshot && <p>以下は最終受信時の状態です。現在は更新されていません。</p>}
 
       <NT01Diagram
@@ -106,7 +106,7 @@ export default function DebugPage() {
         <p className="py-8 text-zinc-600 dark:text-zinc-400">{status === "connecting" || status === "connected" ? "CTCの状態を受信待ち…" : "未受信です。Goサーバーを起動して再接続してください。"}</p>
       ) : (
         <>
-          <section aria-label="CTC状態" className="rounded border border-zinc-300 p-5 dark:border-zinc-700">
+          <section aria-label="CTC状態" className="rounded-xs border border-zinc-300 p-5 dark:border-zinc-700">
             <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div><dt className="text-zinc-600 dark:text-zinc-400">CTC初期化</dt><dd className="mt-1">{snapshot.isInitialized ? "完了" : "未完了（Unityからの初期登録待ち）"}</dd></div>
               <div><dt className="text-zinc-600 dark:text-zinc-400">追跡の再設定</dt><dd className={`mt-1 ${snapshot.needsReset ? "font-semibold text-red-700 dark:text-red-300" : ""}`}>{snapshot.needsReset ? "必要" : "不要"}</dd></div>
@@ -118,7 +118,7 @@ export default function DebugPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold">列車</h2>
             <p className="text-zinc-600 dark:text-zinc-400">軌道回路位置は、TrainIDを保持する最後尾側の基準回路です。</p>
-            <div className="overflow-x-auto rounded border border-zinc-300 dark:border-zinc-700">
+            <div className="overflow-x-auto rounded-xs border border-zinc-300 dark:border-zinc-700">
               <table className="w-full text-left">
                 <thead className="bg-zinc-100 dark:bg-zinc-900"><tr>{["TrainID", "編成ID", "編成番号", "列番", "運用番号", "軌道回路位置"].map((label) => <th key={label} scope="col" className="whitespace-nowrap p-3 font-medium">{label}</th>)}</tr></thead>
                 <tbody>
@@ -137,7 +137,7 @@ export default function DebugPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold">軌道回路</h2>
             <p className="text-zinc-600 dark:text-zinc-400">TrainIDは最後尾側の基準回路にだけ保持されます。</p>
-            <div className="max-h-96 overflow-auto rounded border border-zinc-300 dark:border-zinc-700">
+            <div className="max-h-96 overflow-auto rounded-xs border border-zinc-300 dark:border-zinc-700">
               <table className="w-full text-left">
                 <thead className="sticky top-0 bg-zinc-100 dark:bg-zinc-900"><tr>{["軌道回路ID", "名称", "在線", "TrainID"].map((label) => <th key={label} scope="col" className="p-3 font-medium">{label}</th>)}</tr></thead>
                 <tbody>
@@ -154,7 +154,7 @@ export default function DebugPage() {
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold">転轍機</h2>
-            <div className="max-h-96 overflow-auto rounded border border-zinc-300 dark:border-zinc-700">
+            <div className="max-h-96 overflow-auto rounded-xs border border-zinc-300 dark:border-zinc-700">
               <table className="w-full text-left">
                 <thead className="sticky top-0 bg-zinc-100 dark:bg-zinc-900"><tr>{["転轍機ID", "実位置"].map((label) => <th key={label} scope="col" className="p-3 font-medium">{label}</th>)}</tr></thead>
                 <tbody>
@@ -170,7 +170,7 @@ export default function DebugPage() {
             </div>
           </section>
 
-          <details className="rounded border border-zinc-300 p-4 dark:border-zinc-700">
+          <details className="rounded-xs border border-zinc-300 p-4 dark:border-zinc-700">
             <summary className="cursor-pointer font-medium">受信したSnapshot（JSON）</summary>
             <pre className="mt-4 max-h-96 overflow-auto text-xs">{toJsonString(CtcSnapshotSchema, snapshot, { prettySpaces: 2, alwaysEmitImplicit: true })}</pre>
           </details>

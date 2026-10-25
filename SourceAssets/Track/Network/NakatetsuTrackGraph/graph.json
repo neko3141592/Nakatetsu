@@ -3,6 +3,19 @@
   "graphId": "Nakatetsu",
   "assetPath": "Assets/Nakatetsu/Track/Network/Data/NakatetsuGraph.asset",
   "integrationStepM": 0.05,
+  "stations": [
+    { "stationId": "NT01", "displayName": "中鉄中央" },
+    { "stationId": "NT02", "displayName": "豊島橋" },
+    { "stationId": "NT03", "displayName": "新桜町" },
+    { "stationId": "NT04", "displayName": "千海" },
+    { "stationId": "NT05", "displayName": "東長野" },
+    { "stationId": "NT06", "displayName": "山田橋" },
+    { "stationId": "NT07", "displayName": "小泉公園" },
+    { "stationId": "NT08", "displayName": "古谷" },
+    { "stationId": "NT09", "displayName": "秋杉" },
+    { "stationId": "NT10", "displayName": "東福岡" },
+    { "stationId": "NT11", "displayName": "猿沼" }
+  ],
   "files": [
     "Shared/Geometry.json",
     "Stations/NT01.json",

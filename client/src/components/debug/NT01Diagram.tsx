@@ -70,7 +70,7 @@ export function NT01Diagram({ circuitsById, trainsById, turnoutsById }: Props) {
       <p className="text-zinc-600 dark:text-zinc-400">
         列車表示：列番＋レ ／ 未設定の場合は「列番未設定」
       </p>
-      <div className="overflow-hidden rounded border border-zinc-700 bg-black">
+      <div className="overflow-hidden rounded-xs border border-zinc-700 bg-black">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox={`0 0 ${diagram.width} ${diagram.height}`}

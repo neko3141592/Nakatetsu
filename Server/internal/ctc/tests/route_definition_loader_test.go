@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 
@@ -23,8 +24,9 @@ type routeManifestEntry struct {
 }
 
 type routeStationJSON struct {
-	InterlockingID string      `json:"interlockingId"`
-	Routes         []routeJSON `json:"routes"`
+	InterlockingID                string      `json:"interlockingId"`
+	Routes                        []routeJSON `json:"routes"`
+	RequestTriggerTrackCircuitIDs []string    `json:"requestTriggerTrackCircuitIds"`
 }
 
 type routeJSON struct {
@@ -35,24 +37,29 @@ type routeJSON struct {
 	RouteClearTrackCircuitIDs []string `json:"routeClearTrackCircuitIds"`
 }
 
-func TestLoadTrackRouteDefinitions(t *testing.T) {
+func TestLoadInterlockingDefinitions(t *testing.T) {
 	dir := t.TempDir()
 	station := routeStationJSON{"S1", []routeJSON{
 		{"R", "A", "C", []string{"A", "B", "C"}, []string{"C", "B"}},
 		{"L", "C", "A", []string{"C", "B", "A"}, []string{"B", "A"}},
-	}}
+	}, []string{"A"}}
 	writeRouteJSON(t, filepath.Join(dir, "stations", "S1.json"), station)
 	// 同じ進路IDを別駅でも使える。絶対パスも読み込める。
 	station.InterlockingID = "S2"
 	station.Routes = station.Routes[:1]
+	station.RequestTriggerTrackCircuitIDs = []string{"C"}
 	station2Path := filepath.Join(dir, "S2.json")
 	writeRouteJSON(t, station2Path, station)
 	path := filepath.Join(dir, "interlocking.json")
 	writeRouteJSON(t, path, routeManifestJSON{1, []routeManifestEntry{{"S1", "stations/S1.json"}, {"S2", station2Path}}})
 
-	got, err := ctc.LoadTrackRouteDefinitions(path, routeTestCircuits())
+	definitions, err := ctc.LoadInterlockingDefinitions(path, routeTestCircuits())
 	if err != nil {
 		t.Fatal(err)
+	}
+	got := definitions.Routes
+	if want := (map[string][]string{"S1": {"A"}, "S2": {"C"}}); !reflect.DeepEqual(definitions.RequestTriggersByStation, want) {
+		t.Fatalf("request triggers = %v, want %v", definitions.RequestTriggersByStation, want)
 	}
 	want := []ctc.TrackRouteDefinition{
 		{InterlockingStationID: "S1", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
@@ -96,12 +103,24 @@ func TestLoadTrackRouteDefinitionsRejectsInvalidDefinitions(t *testing.T) {
 		{"empty_clear_circuit_id", func(_ *routeManifestJSON, s *routeStationJSON) {
 			s.Routes[0].RouteClearTrackCircuitIDs = []string{""}
 		}, "unknown route-clear circuit"},
+		{"unknown_trigger", func(_ *routeManifestJSON, s *routeStationJSON) {
+			s.RequestTriggerTrackCircuitIDs = []string{"missing"}
+		}, "request-trigger circuit"},
+		{"empty_trigger", func(_ *routeManifestJSON, s *routeStationJSON) {
+			s.RequestTriggerTrackCircuitIDs = []string{""}
+		}, "request-trigger circuit"},
+		{"blank_trigger", func(_ *routeManifestJSON, s *routeStationJSON) {
+			s.RequestTriggerTrackCircuitIDs = []string{" "}
+		}, "request-trigger circuit"},
+		{"duplicate_trigger", func(_ *routeManifestJSON, s *routeStationJSON) {
+			s.RequestTriggerTrackCircuitIDs = []string{"B", "B"}
+		}, "request-trigger circuit"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			dir := t.TempDir()
 			manifest := routeManifestJSON{1, []routeManifestEntry{{"S1", "stations/S1.json"}}}
-			station := routeStationJSON{"S1", []routeJSON{{"R", "A", "C", []string{"A", "B", "C"}, []string{"B", "C"}}}}
+			station := routeStationJSON{"S1", []routeJSON{{"R", "A", "C", []string{"A", "B", "C"}, []string{"B", "C"}}}, nil}
 			tt.edit(&manifest, &station)
 			path := filepath.Join(dir, "interlocking.json")
 			writeRouteJSON(t, path, manifest)
@@ -152,9 +171,30 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	routes, err := ctc.LoadTrackRouteDefinitions(filepath.Join(root, "NakatetsuInterlocking", "interlocking.json"), circuits)
+	definitions, err := ctc.LoadInterlockingDefinitions(filepath.Join(root, "NakatetsuInterlocking", "interlocking.json"), circuits)
 	if err != nil {
 		t.Fatal(err)
+	}
+	routes := definitions.Routes
+	if len(definitions.RequestTriggersByStation) != 4 {
+		t.Fatalf("loaded request triggers for %d stations, want 4", len(definitions.RequestTriggersByStation))
+	}
+	for stationID, approaches := range map[string][]string{
+		"NT01": {"NT01_NT02_U1T"},
+		"NT05": {"NT04_NT05_D1T", "NT05_NT06_U1T"},
+		"NT07": {"NT06_NT07_D3T", "NT07_NT08_UE1T", "NT07_NT08_UL1T"},
+		"NT11": {"NT10_NT11_DE3T", "NT10_NT11_DL3T"},
+	} {
+		for _, circuitID := range approaches {
+			if !slices.Contains(definitions.RequestTriggersByStation[stationID], circuitID) {
+				t.Fatalf("station %s: approach %s is not a request trigger", stationID, circuitID)
+			}
+		}
+	}
+	for _, route := range routes {
+		if !slices.Contains(definitions.RequestTriggersByStation[route.InterlockingStationID], route.TrackCircuitIDs[0]) {
+			t.Fatalf("route %s/%s: start circuit is not a request trigger", route.InterlockingStationID, route.InterlockingRouteID)
+		}
 	}
 	if len(routes) != 58 {
 		t.Fatalf("loaded %d routes, want 58", len(routes))

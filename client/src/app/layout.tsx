@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BIZ_UDGothic } from "next/font/google";
+import { Toaster } from "@/components/ui/toast";
 import "./globals.css";
 
 const bizUDGothic = BIZ_UDGothic({
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ja"
       className={`${bizUDGothic.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}<Toaster /></body>
     </html>
   );
 }

@@ -63,6 +63,66 @@ func TestLoadTimetable(t *testing.T) {
 	}
 }
 
+func TestLoadTimetableCombinesOperationAndTemporaryTrains(t *testing.T) {
+	db := openDatabase(t, filepath.Join(t.TempDir(), "timetable.sqlite"))
+	seed(t, db)
+	create(t, db, &timetable.TimetableTrain{
+		TrainNumber: "9001", TrainTypeID: "local",
+		Points: []timetable.TimetablePoint{{TrackCircuitID: "origin", DepartureSeconds: intPointer(0)}},
+	})
+	for _, tc := range []struct {
+		id         string
+		temporary  []string
+		operations []string
+		want       []string
+	}{
+		{"operations-only", []string{}, []string{"A", "B"}, []string{"0001", "0002"}},
+		{"temporary-only", []string{"9001"}, []string{}, []string{"9001"}},
+		{"mixed", []string{"0001", "9001"}, []string{"A", "B"}, []string{"0001", "0002", "9001"}},
+		{"empty", []string{}, []string{}, []string{}},
+	} {
+		t.Run(tc.id, func(t *testing.T) {
+			saved := timetable.Timetable{ID: tc.id}
+			for _, number := range tc.temporary {
+				saved.Trains = append(saved.Trains, timetable.TimetableTrain{TrainNumber: number})
+			}
+			for _, number := range tc.operations {
+				saved.Operations = append(saved.Operations, timetable.TimetableOperation{OperationNumber: number})
+			}
+			create(t, db.Omit("Trains.*", "Operations.*"), &saved)
+			got, err := timetable.LoadTimetable(context.Background(), db, saved.ID)
+			if err != nil {
+				t.Fatal(err)
+			}
+			numbers := []string{}
+			for _, train := range got.Trains {
+				numbers = append(numbers, train.TrainNumber)
+				if train.TrainNumber == "0001" && (len(train.Points) != 3 || len(train.Points[0].Routes) != 2 || train.Points[0].Routes[0].SequenceIndex != 0) {
+					t.Fatalf("operation train details were not loaded in order: %+v", train)
+				}
+				if train.TrainNumber == "9001" && (len(train.Points) != 1 || train.Points[0].DepartureSeconds == nil || *train.Points[0].DepartureSeconds != 0) {
+					t.Fatalf("temporary train details were not loaded: %+v", train)
+				}
+			}
+			if !reflect.DeepEqual(numbers, tc.want) || !reflect.DeepEqual(got.TemporaryTrainNumbers, tc.temporary) {
+				t.Fatalf("unexpected trains: all=%v, temporary=%v", numbers, got.TemporaryTrainNumbers)
+			}
+			plan, err := timetable.LoadTimetablePlan(context.Background(), db, saved.ID)
+			if err != nil || len(plan.TrainsByNumber) != len(tc.want) || len(plan.OperationsByNumber) != len(tc.operations) {
+				t.Fatalf("unexpected plan: %+v, error=%v", plan, err)
+			}
+			for _, number := range tc.want {
+				if _, ok := plan.TrainsByNumber[number]; !ok {
+					t.Fatalf("train %s is missing from the plan", number)
+				}
+			}
+			if got := db.Model(&saved).Association("Trains").Count(); got != int64(len(tc.temporary)) {
+				t.Fatalf("loading persisted operation trains as temporary trains: count=%d", got)
+			}
+		})
+	}
+}
+
 func TestLoadTimetableErrors(t *testing.T) {
 	db := openDatabase(t, filepath.Join(t.TempDir(), "timetable.sqlite"))
 	id := seed(t, db)[0].ID

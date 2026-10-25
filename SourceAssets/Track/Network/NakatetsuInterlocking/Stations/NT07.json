@@ -1,5 +1,21 @@
 {
   "interlockingId": "NT07",
+  "requestTriggerTrackCircuitIds": [
+    "NT06_NT07_D3T",
+    "NT07_NT08_UE1T",
+    "NT07_NT08_UL1T",
+    "NT07_21AT",
+    "NT07_22BT",
+    "NT07_21BT",
+    "NT07_31BT",
+    "NT07_32BT",
+    "NT07_1RT",
+    "NT07_2RT",
+    "NT07_3LT",
+    "NT07_4LT",
+    "NT07_DEPOT_1T",
+    "NT07_DEPOT_2T"
+  ],
   "memberTrackCircuitIds": [
     "NT07_21AT",
     "NT07_22AT",

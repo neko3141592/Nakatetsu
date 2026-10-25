@@ -34,9 +34,9 @@ export function RouteControlStationSelect({
     >
       <SelectTrigger
         aria-label="駅を選択"
-        className="w-36 text-lg border-zinc-700 bg-zinc-900 text-zinc-200 hover:bg-zinc-800 focus-visible:border--400 focus-visible:ring-zinc-400/50 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+        className="w-60 max-w-full border-orange-400 bg-orange-300 px-4 text-2xl text-black hover:bg-orange-300 focus-visible:border-orange-400 focus-visible:ring-orange-400/50 data-[size=default]:h-12 dark:bg-orange-300 dark:hover:bg-orange-300 [&_svg]:text-black"
       >
-        <SelectValue placeholder="駅を選択" />
+        <SelectValue placeholder="駅を選択" className="justify-center text-center" />
       </SelectTrigger>
       <SelectContent
         align="start"

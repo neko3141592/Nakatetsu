@@ -1,5 +1,20 @@
 {
   "interlockingId": "NT11",
+  "requestTriggerTrackCircuitIds": [
+    "NT10_NT11_DE3T",
+    "NT10_NT11_DL3T",
+    "NT11_21AT",
+    "NT11_22AT",
+    "NT11_22BT",
+    "NT11_21BT",
+    "NT11_1RT",
+    "NT11_2RT",
+    "NT11_4_STUB_T",
+    "NT11_3LT",
+    "NT11_4LT",
+    "NT11_1_STUB_T",
+    "NT11_DEPOT_T"
+  ],
   "memberTrackCircuitIds": [
     "NT11_21AT",
     "NT11_22AT",

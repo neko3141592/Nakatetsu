@@ -1,633 +1,629 @@
 <mxfile host="Electron">
   <diagram name="ページ-1" id="PwMrPdZTDzNkYr4OnBb4">
-    <mxGraphModel dx="699" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="699" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2220" pageHeight="1220" math="0" shadow="0" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-5" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="TimetableTrains" vertex="1">
-          <mxGeometry height="180" width="180" x="320" y="470" as="geometry">
-            <mxRectangle height="30" width="100" x="390" y="200" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-9" parent="Mp2--9gJ5_-7rnJO0put-5" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-10" parent="Mp2--9gJ5_-7rnJO0put-9" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK&lt;br&gt;FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-11" parent="Mp2--9gJ5_-7rnJO0put-9" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="TimetableId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-12" parent="Mp2--9gJ5_-7rnJO0put-5" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-13" parent="Mp2--9gJ5_-7rnJO0put-12" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-14" parent="Mp2--9gJ5_-7rnJO0put-12" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="TrainNumber" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-15" parent="Mp2--9gJ5_-7rnJO0put-5" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-16" parent="Mp2--9gJ5_-7rnJO0put-15" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-17" parent="Mp2--9gJ5_-7rnJO0put-15" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="TrainTypeId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-train-OperationNumber-row" parent="Mp2--9gJ5_-7rnJO0put-5" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-train-OperationNumber-key" parent="ctc-train-OperationNumber-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-train-OperationNumber-field" parent="ctc-train-OperationNumber-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="OperationNumber" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-train-SequenceIndex-row" parent="Mp2--9gJ5_-7rnJO0put-5" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="150" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-train-SequenceIndex-key" parent="ctc-train-SequenceIndex-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-train-SequenceIndex-field" parent="ctc-train-SequenceIndex-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="SequenceIndex" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-27" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="TrainTypes" vertex="1">
-          <mxGeometry height="120" width="180" x="30" y="500" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-28" parent="Mp2--9gJ5_-7rnJO0put-27" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-29" parent="Mp2--9gJ5_-7rnJO0put-28" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-30" parent="Mp2--9gJ5_-7rnJO0put-28" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;" value="TrainTypeId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-31" parent="Mp2--9gJ5_-7rnJO0put-27" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-32" parent="Mp2--9gJ5_-7rnJO0put-31" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-33" parent="Mp2--9gJ5_-7rnJO0put-31" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="DisplayName" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-34" parent="Mp2--9gJ5_-7rnJO0put-27" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-35" parent="Mp2--9gJ5_-7rnJO0put-34" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-36" parent="Mp2--9gJ5_-7rnJO0put-34" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-40" edge="1" parent="1" source="Mp2--9gJ5_-7rnJO0put-28" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;rounded=0;entryX=0;entryY=0.422;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;" target="Mp2--9gJ5_-7rnJO0put-15" value="">
-          <mxGeometry height="100" relative="1" width="100" as="geometry">
-            <mxPoint x="231" y="455" as="sourcePoint" />
-            <mxPoint x="401" y="560" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-55" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="TimetablePoints" vertex="1">
-          <mxGeometry height="300" width="180" x="590" y="470" as="geometry">
-            <mxRectangle height="30" width="100" x="390" y="200" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-56" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-57" parent="Mp2--9gJ5_-7rnJO0put-56" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-58" parent="Mp2--9gJ5_-7rnJO0put-56" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;" value="TimetablePointId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-59" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-60" parent="Mp2--9gJ5_-7rnJO0put-59" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-61" parent="Mp2--9gJ5_-7rnJO0put-59" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="TimetableId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-point-train-number-row" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-point-train-number-key" parent="ctc-point-train-number-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-point-train-number-field" parent="ctc-point-train-number-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="TrainNumber" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-62" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-63" parent="Mp2--9gJ5_-7rnJO0put-62" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-64" parent="Mp2--9gJ5_-7rnJO0put-62" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="SequenceIndex" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-65" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="150" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-66" parent="Mp2--9gJ5_-7rnJO0put-65" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-67" parent="Mp2--9gJ5_-7rnJO0put-65" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="StationId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-68" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="180" as="geometry" />
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-69" parent="Mp2--9gJ5_-7rnJO0put-68" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-70" parent="Mp2--9gJ5_-7rnJO0put-68" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="TrackCircuitId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-1" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="210" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-2" parent="ctc-complete-row-1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-3" parent="ctc-complete-row-1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="Handling" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-4" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="240" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-5" parent="ctc-complete-row-4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-6" parent="ctc-complete-row-4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="ArrivalSeconds" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-7" parent="Mp2--9gJ5_-7rnJO0put-55" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="270" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-8" parent="ctc-complete-row-7" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-9" parent="ctc-complete-row-7" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="DepartureSeconds" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Mp2--9gJ5_-7rnJO0put-72" edge="1" parent="1" source="Mp2--9gJ5_-7rnJO0put-12" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;rounded=0;exitX=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.004;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitY=0.5;entryY=0.5;" target="ctc-point-train-number-row" value="">
-          <mxGeometry height="100" relative="1" width="100" as="geometry">
-            <mxPoint x="480" y="610" as="sourcePoint" />
-            <mxPoint x="580" y="510" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-routes-table-10" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="TimetablePointRoutes" vertex="1">
-          <mxGeometry height="150" width="180" x="930" y="470" as="geometry">
-            <mxRectangle height="30" width="180" x="590" y="700" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-11" parent="ctc-complete-routes-table-10" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-12" parent="ctc-complete-row-11" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK&lt;br&gt;FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-13" parent="ctc-complete-row-11" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;" value="TimetablePointId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-14" parent="ctc-complete-routes-table-10" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-15" parent="ctc-complete-row-14" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-16" parent="ctc-complete-row-14" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;" value="SequenceIndex" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-17" parent="ctc-complete-routes-table-10" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-18" parent="ctc-complete-row-17" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-19" parent="ctc-complete-row-17" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="ControlStationId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-row-20" parent="ctc-complete-routes-table-10" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-key-21" parent="ctc-complete-row-20" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-field-22" parent="ctc-complete-row-20" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="RouteId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-complete-point-routes-relation-23" edge="1" parent="1" source="Mp2--9gJ5_-7rnJO0put-56" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ctc-complete-row-11" value="">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="ctc-minimal-masters-table-1" parent="1" vertex="1" value="timetables&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;Timetable&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="60" y="160" width="310" height="134" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-2" parent="ctc-minimal-masters-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-3" parent="ctc-minimal-masters-row-2" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-4" parent="ctc-minimal-masters-row-2" vertex="1" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-2-type" parent="ctc-minimal-masters-row-2" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-5" parent="ctc-minimal-masters-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-6" parent="ctc-minimal-masters-row-5" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-7" parent="ctc-minimal-masters-row-5" vertex="1" value="display_name" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-5-type" parent="ctc-minimal-masters-row-5" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-timetable-revision-row" parent="ctc-minimal-masters-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="104" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-timetable-revision-key" parent="ctc-timetable-revision-row" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-timetable-revision-field" parent="ctc-timetable-revision-row" vertex="1" value="revision" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-timetable-revision-row-type" parent="ctc-timetable-revision-row" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links" parent="1" vertex="1" value="timetable_train_links&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;GORM many2many&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="500" y="160" width="310" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-timetable_id-row" parent="db-timetable_train_links" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-timetable_id-key" parent="db-timetable_train_links-timetable_id-row" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-timetable_id-field" parent="db-timetable_train_links-timetable_id-row" vertex="1" value="timetable_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-timetable_id-row-type" parent="db-timetable_train_links-timetable_id-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-train_number-row" parent="db-timetable_train_links" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-train_number-key" parent="db-timetable_train_links-train_number-row" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-train_number-field" parent="db-timetable_train_links-train_number-row" vertex="1" value="train_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_train_links-train_number-row-type" parent="db-timetable_train_links-train_number-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-5" parent="1" vertex="1" value="timetable_trains&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TimetableTrain&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="940" y="160" width="310" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-12" parent="Mp2--9gJ5_-7rnJO0put-5" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-13" parent="Mp2--9gJ5_-7rnJO0put-12" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-14" parent="Mp2--9gJ5_-7rnJO0put-12" vertex="1" value="train_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-12-type" parent="Mp2--9gJ5_-7rnJO0put-12" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-15" parent="Mp2--9gJ5_-7rnJO0put-5" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-16" parent="Mp2--9gJ5_-7rnJO0put-15" vertex="1" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-17" parent="Mp2--9gJ5_-7rnJO0put-15" vertex="1" value="train_type_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-15-type" parent="Mp2--9gJ5_-7rnJO0put-15" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links" parent="1" vertex="1" value="timetable_operation_links&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;GORM many2many&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="60" y="430" width="310" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-timetable_id-row" parent="db-timetable_operation_links" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-timetable_id-key" parent="db-timetable_operation_links-timetable_id-row" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-timetable_id-field" parent="db-timetable_operation_links-timetable_id-row" vertex="1" value="timetable_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-timetable_id-row-type" parent="db-timetable_operation_links-timetable_id-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-operation_number-row" parent="db-timetable_operation_links" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-operation_number-key" parent="db-timetable_operation_links-operation_number-row" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-operation_number-field" parent="db-timetable_operation_links-operation_number-row" vertex="1" value="operation_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_links-operation_number-row-type" parent="db-timetable_operation_links-operation_number-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-operations-table" parent="1" vertex="1" value="timetable_operations&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TimetableOperation&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="500" y="430" width="310" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-operations-OperationNumber-row" parent="ctc-operations-table" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-operations-OperationNumber-key" parent="ctc-operations-OperationNumber-row" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-operations-OperationNumber-field" parent="ctc-operations-OperationNumber-row" vertex="1" value="operation_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-operations-OperationNumber-row-type" parent="ctc-operations-OperationNumber-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains" parent="1" vertex="1" value="timetable_operation_trains&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TimetableOperationTrain&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="940" y="430" width="310" height="134" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-operation_number-row" parent="db-timetable_operation_trains" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-operation_number-key" parent="db-timetable_operation_trains-operation_number-row" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-operation_number-field" parent="db-timetable_operation_trains-operation_number-row" vertex="1" value="operation_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-operation_number-row-type" parent="db-timetable_operation_trains-operation_number-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-train_number-row" parent="db-timetable_operation_trains" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-train_number-key" parent="db-timetable_operation_trains-train_number-row" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-train_number-field" parent="db-timetable_operation_trains-train_number-row" vertex="1" value="train_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-train_number-row-type" parent="db-timetable_operation_trains-train_number-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-sequence_index-row" parent="db-timetable_operation_trains" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="104" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-sequence_index-key" parent="db-timetable_operation_trains-sequence_index-row" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-sequence_index-field" parent="db-timetable_operation_trains-sequence_index-row" vertex="1" value="sequence_index" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-timetable_operation_trains-sequence_index-row-type" parent="db-timetable_operation_trains-sequence_index-row" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-55" parent="1" vertex="1" value="timetable_points&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TimetablePoint&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="1380" y="430" width="310" height="284" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-56" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-57" parent="Mp2--9gJ5_-7rnJO0put-56" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-58" parent="Mp2--9gJ5_-7rnJO0put-56" vertex="1" value="timetable_point_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-56-type" parent="Mp2--9gJ5_-7rnJO0put-56" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-point-train-number-row" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-point-train-number-key" parent="ctc-point-train-number-row" vertex="1" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-point-train-number-field" parent="ctc-point-train-number-row" vertex="1" value="train_number" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-point-train-number-row-type" parent="ctc-point-train-number-row" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-62" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="104" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-63" parent="Mp2--9gJ5_-7rnJO0put-62" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-64" parent="Mp2--9gJ5_-7rnJO0put-62" vertex="1" value="sequence_index" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-62-type" parent="Mp2--9gJ5_-7rnJO0put-62" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-65" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="134" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-66" parent="Mp2--9gJ5_-7rnJO0put-65" vertex="1" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-67" parent="Mp2--9gJ5_-7rnJO0put-65" vertex="1" value="station_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-65-type" parent="Mp2--9gJ5_-7rnJO0put-65" vertex="1" value="TEXT NULL" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-68" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="164" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-69" parent="Mp2--9gJ5_-7rnJO0put-68" vertex="1" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-70" parent="Mp2--9gJ5_-7rnJO0put-68" vertex="1" value="track_circuit_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-68-type" parent="Mp2--9gJ5_-7rnJO0put-68" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-1" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="194" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-2" parent="ctc-complete-row-1" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-3" parent="ctc-complete-row-1" vertex="1" value="handling" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-1-type" parent="ctc-complete-row-1" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-4" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="224" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-5" parent="ctc-complete-row-4" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-6" parent="ctc-complete-row-4" vertex="1" value="arrival_seconds" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-4-type" parent="ctc-complete-row-4" vertex="1" value="INTEGER NULL" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-7" parent="Mp2--9gJ5_-7rnJO0put-55" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="254" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-8" parent="ctc-complete-row-7" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-9" parent="ctc-complete-row-7" vertex="1" value="departure_seconds" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-7-type" parent="ctc-complete-row-7" vertex="1" value="INTEGER NULL" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-routes-table-10" parent="1" vertex="1" value="timetable_point_routes&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TimetablePointRoute&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="1820" y="430" width="310" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-11" parent="ctc-complete-routes-table-10" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-12" parent="ctc-complete-row-11" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-13" parent="ctc-complete-row-11" vertex="1" value="timetable_point_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-11-type" parent="ctc-complete-row-11" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-14" parent="ctc-complete-routes-table-10" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-15" parent="ctc-complete-row-14" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-16" parent="ctc-complete-row-14" vertex="1" value="sequence_index" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-14-type" parent="ctc-complete-row-14" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-17" parent="ctc-complete-routes-table-10" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="104" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-18" parent="ctc-complete-row-17" vertex="1" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-19" parent="ctc-complete-row-17" vertex="1" value="control_station_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-17-type" parent="ctc-complete-row-17" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-20" parent="ctc-complete-routes-table-10" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="134" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-key-21" parent="ctc-complete-row-20" vertex="1" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-field-22" parent="ctc-complete-row-20" vertex="1" value="route_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-row-20-type" parent="ctc-complete-row-20" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-table-1" parent="1" vertex="1" value="station_running_times&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;StationRunningTime&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="60" y="760" width="310" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-2" parent="ctc-station-times-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-key-3" parent="ctc-station-times-row-2" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-field-4" parent="ctc-station-times-row-2" vertex="1" value="train_type_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-2-type" parent="ctc-station-times-row-2" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-5" parent="ctc-station-times-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-key-6" parent="ctc-station-times-row-5" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-field-7" parent="ctc-station-times-row-5" vertex="1" value="from_station_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-5-type" parent="ctc-station-times-row-5" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-8" parent="ctc-station-times-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="104" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-key-9" parent="ctc-station-times-row-8" vertex="1" value="PK&lt;br&gt;FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-field-10" parent="ctc-station-times-row-8" vertex="1" value="to_station_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-8-type" parent="ctc-station-times-row-8" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-11" parent="ctc-station-times-table-1" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="134" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-key-12" parent="ctc-station-times-row-11" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-field-13" parent="ctc-station-times-row-11" vertex="1" value="running_seconds" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-11-type" parent="ctc-station-times-row-11" vertex="1" value="INTEGER" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-27" parent="1" vertex="1" value="train_types&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TrainType&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="500" y="760" width="310" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-28" parent="Mp2--9gJ5_-7rnJO0put-27" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-29" parent="Mp2--9gJ5_-7rnJO0put-28" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-30" parent="Mp2--9gJ5_-7rnJO0put-28" vertex="1" value="train_type_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-28-type" parent="Mp2--9gJ5_-7rnJO0put-28" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-31" parent="Mp2--9gJ5_-7rnJO0put-27" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-32" parent="Mp2--9gJ5_-7rnJO0put-31" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-33" parent="Mp2--9gJ5_-7rnJO0put-31" vertex="1" value="display_name" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Mp2--9gJ5_-7rnJO0put-31-type" parent="Mp2--9gJ5_-7rnJO0put-31" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VgF33fEhlDlfxTJCO7W9-19" parent="1" vertex="1" value="track_circuits&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;TrackCircuit&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="940" y="760" width="310" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="VgF33fEhlDlfxTJCO7W9-20" parent="VgF33fEhlDlfxTJCO7W9-19" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VgF33fEhlDlfxTJCO7W9-21" parent="VgF33fEhlDlfxTJCO7W9-20" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VgF33fEhlDlfxTJCO7W9-22" parent="VgF33fEhlDlfxTJCO7W9-20" vertex="1" value="track_circuit_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VgF33fEhlDlfxTJCO7W9-20-type" parent="VgF33fEhlDlfxTJCO7W9-20" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-table-14" parent="1" vertex="1" value="stations&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;Station&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="60" y="1000" width="310" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-15" parent="ctc-station-times-table-14" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-key-16" parent="ctc-station-times-row-15" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-field-17" parent="ctc-station-times-row-15" vertex="1" value="station_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-15-type" parent="ctc-station-times-row-15" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-18" parent="ctc-station-times-table-14" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-key-19" parent="ctc-station-times-row-18" vertex="1" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-field-20" parent="ctc-station-times-row-18" vertex="1" value="display_name" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=0;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-row-18-type" parent="ctc-station-times-row-18" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=0;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-table-8" parent="1" vertex="1" value="routes&lt;br&gt;&lt;font style=&quot;font-size:10px;font-weight:normal&quot;&gt;Route&lt;/font&gt;" style="shape=table;startSize=44;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;fontSize=12;fillColor=#ffffff;strokeColor=#333333;fontColor=#111111;">
+          <mxGeometry x="1820" y="760" width="310" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-9" parent="ctc-minimal-masters-table-8" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="44" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-10" parent="ctc-minimal-masters-row-9" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-11" parent="ctc-minimal-masters-row-9" vertex="1" value="control_station_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-9-type" parent="ctc-minimal-masters-row-9" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-12" parent="ctc-minimal-masters-table-8" vertex="1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;">
+          <mxGeometry y="74" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-13" parent="ctc-minimal-masters-row-12" vertex="1" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="0" width="42" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-field-14" parent="ctc-minimal-masters-row-12" vertex="1" value="route_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=left;spacingLeft=6;fontSize=11;fontStyle=1;">
+          <mxGeometry x="42" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-row-12-type" parent="ctc-minimal-masters-row-12" vertex="1" value="TEXT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontColor=#111111;align=center;fontSize=10;fontStyle=1;">
+          <mxGeometry x="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db-fk-timetable_train_links-timetable_id" parent="1" edge="1" source="ctc-minimal-masters-row-2" target="db-timetable_train_links-timetable_id-row" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="db-fk-timetable_train_links-train_number" parent="1" edge="1" source="Mp2--9gJ5_-7rnJO0put-12" target="db-timetable_train_links-train_number-row" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
             <Array as="points">
-              <mxPoint x="840" y="515" />
-              <mxPoint x="840" y="515" />
+              <mxPoint x="850" y="219" />
+              <mxPoint x="850" y="249" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ctc-complete-note-24" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=top;spacing=0;fontSize=11;" value="&lt;b&gt;FK&lt;/b&gt; (TimetableId, TrainNumber)&lt;br&gt;→ TimetableTrains (TimetableId, TrainNumber)&lt;br&gt;&lt;b&gt;UQ&lt;/b&gt; (TimetableId, TrainNumber, SequenceIndex)&lt;br&gt;SequenceIndex：0始まり&lt;br&gt;Handling：Stop=1 / Pass=2&lt;br&gt;StationId：NULL可&lt;br&gt;ArrivalSeconds / DepartureSeconds：NULL可&lt;br&gt;時刻：運行日0時からの秒数" vertex="1">
-          <mxGeometry height="155" width="290" x="590" y="785" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-complete-note-25" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=top;spacing=0;fontSize=11;" value="&lt;b&gt;PK&lt;/b&gt; (TimetablePointId, SequenceIndex)&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; (ControlStationId, RouteId)&lt;br&gt;→ Routes (ControlStationId, RouteId)&lt;br&gt;当地点から次地点までの使用進路。&lt;br&gt;SequenceIndex：0始まりの使用順&lt;br&gt;終端地点は進路0件" vertex="1">
-          <mxGeometry height="140" width="185" x="930" y="635" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-19" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="TrackCircuits" vertex="1">
-          <mxGeometry height="150" width="180" x="930" y="790" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-20" parent="VgF33fEhlDlfxTJCO7W9-19" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-21" parent="VgF33fEhlDlfxTJCO7W9-20" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-22" parent="VgF33fEhlDlfxTJCO7W9-20" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;" value="TrackCircuitId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-23" parent="VgF33fEhlDlfxTJCO7W9-19" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-24" parent="VgF33fEhlDlfxTJCO7W9-23" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-25" parent="VgF33fEhlDlfxTJCO7W9-23" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-26" parent="VgF33fEhlDlfxTJCO7W9-19" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-27" parent="VgF33fEhlDlfxTJCO7W9-26" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-28" parent="VgF33fEhlDlfxTJCO7W9-26" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-29" parent="VgF33fEhlDlfxTJCO7W9-19" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-30" parent="VgF33fEhlDlfxTJCO7W9-29" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-31" parent="VgF33fEhlDlfxTJCO7W9-29" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-table-1" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="StationRunningTimes" vertex="1">
-          <mxGeometry height="150" width="180" x="70" y="730" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-row-2" parent="ctc-station-times-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-key-3" parent="ctc-station-times-row-2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK&lt;br&gt;FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-field-4" parent="ctc-station-times-row-2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="TrainTypeId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-row-5" parent="ctc-station-times-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-key-6" parent="ctc-station-times-row-5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK&lt;br&gt;FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-field-7" parent="ctc-station-times-row-5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="FromStationId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-row-8" parent="ctc-station-times-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-key-9" parent="ctc-station-times-row-8" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK&lt;br&gt;FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-field-10" parent="ctc-station-times-row-8" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="ToStationId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-row-11" parent="ctc-station-times-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-key-12" parent="ctc-station-times-row-11" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-field-13" parent="ctc-station-times-row-11" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="RunningSeconds" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-table-14" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="Stations" vertex="1">
-          <mxGeometry height="90" width="180" x="360" y="760" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-row-15" parent="ctc-station-times-table-14" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-key-16" parent="ctc-station-times-row-15" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-field-17" parent="ctc-station-times-row-15" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="StationId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-row-18" parent="ctc-station-times-table-14" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-key-19" parent="ctc-station-times-row-18" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-field-20" parent="ctc-station-times-row-18" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="DisplayName" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-station-times-relation-21" edge="1" parent="1" source="Mp2--9gJ5_-7rnJO0put-28" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="ctc-station-times-row-2" value="">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="db-fk-timetable_operation_links-timetable_id" parent="1" edge="1" source="ctc-minimal-masters-row-2" target="db-timetable_operation_links-timetable_id-row" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=0;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
             <Array as="points">
-              <mxPoint x="10" y="545" />
-              <mxPoint x="10" y="775" />
+              <mxPoint x="20" y="219" />
+              <mxPoint x="20" y="489" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ctc-station-times-relation-22" edge="1" parent="1" source="ctc-station-times-row-15" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="ctc-station-times-row-5" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-station-times-relation-23" edge="1" parent="1" source="ctc-station-times-row-15" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="ctc-station-times-row-8" value="">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="db-fk-timetable_operation_links-operation_number" parent="1" edge="1" source="ctc-operations-OperationNumber-row" target="db-timetable_operation_links-operation_number-row" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
             <Array as="points">
-              <mxPoint x="315" y="805" />
-              <mxPoint x="315" y="835" />
+              <mxPoint x="440" y="489" />
+              <mxPoint x="440" y="519" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ctc-station-times-relation-24" edge="1" parent="1" source="ctc-station-times-row-15" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERzeroToOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="Mp2--9gJ5_-7rnJO0put-65" value="">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="db-fk-timetable_operation_trains-operation_number" parent="1" edge="1" source="ctc-operations-OperationNumber-row" target="db-timetable_operation_trains-operation_number-row" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="db-fk-timetable_operation_trains-train_number" parent="1" edge="1" source="Mp2--9gJ5_-7rnJO0put-12" target="db-timetable_operation_trains-train_number-row" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" x="0.84" y="-10" as="geometry">
             <Array as="points">
-              <mxPoint x="565" y="805" />
-              <mxPoint x="565" y="635" />
+              <mxPoint x="1310" y="219" />
+              <mxPoint x="1310" y="519" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ctc-station-times-note-25" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=top;spacing=0;fontSize=11;" value="&lt;b&gt;PK&lt;/b&gt; (TrainTypeId, FromStationId,&lt;br&gt;ToStationId)&lt;br&gt;RunningSeconds：出発から到着までの秒数&lt;br&gt;逆方向は別レコード" vertex="1">
-          <mxGeometry height="105" width="185" x="70" y="895" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-table-1" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="Timetables" vertex="1">
-          <mxGeometry height="120" width="180" x="480" y="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-row-2" parent="ctc-minimal-masters-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-3" parent="ctc-minimal-masters-row-2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-4" parent="ctc-minimal-masters-row-2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="TimetableId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-row-5" parent="ctc-minimal-masters-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-6" parent="ctc-minimal-masters-row-5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-7" parent="ctc-minimal-masters-row-5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="DisplayName" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-timetable-revision-row" parent="ctc-minimal-masters-table-1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-timetable-revision-key" parent="ctc-timetable-revision-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-timetable-revision-field" parent="ctc-timetable-revision-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=0;" value="Revision" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-table-8" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="Routes" vertex="1">
-          <mxGeometry height="90" width="180" x="1250" y="530" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-row-9" parent="ctc-minimal-masters-table-8" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-10" parent="ctc-minimal-masters-row-9" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-11" parent="ctc-minimal-masters-row-9" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="ControlStationId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-row-12" parent="ctc-minimal-masters-table-8" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" value="" vertex="1">
-          <mxGeometry height="30" width="180" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-13" parent="ctc-minimal-masters-row-12" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-field-14" parent="ctc-minimal-masters-row-12" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="RouteId" vertex="1">
-          <mxGeometry height="30" width="150" x="30" as="geometry">
-            <mxRectangle height="30" width="150" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-relation-15" edge="1" parent="1" source="ctc-minimal-masters-row-2" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="Mp2--9gJ5_-7rnJO0put-9" value="">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="db-fk-timetable_trains-train_type_id" parent="1" edge="1" source="Mp2--9gJ5_-7rnJO0put-28" target="Mp2--9gJ5_-7rnJO0put-15" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
             <Array as="points">
-              <mxPoint x="280" y="115" />
-              <mxPoint x="280" y="515" />
+              <mxPoint x="870" y="819" />
+              <mxPoint x="870" y="249" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ctc-minimal-masters-relation-16" edge="1" parent="1" source="ctc-minimal-masters-table-8" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0;exitY=0.6666666666666666;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;entryPerimeter=0;" target="ctc-complete-routes-table-10" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-minimal-masters-note-17" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=top;spacing=0;fontSize=11;" value="&lt;b&gt;PK&lt;/b&gt; (ControlStationId, RouteId)" vertex="1">
-          <mxGeometry height="45" width="210" x="1250" y="635" as="geometry" />
-        </mxCell>
-        <mxCell id="VgF33fEhlDlfxTJCO7W9-47" edge="1" parent="1" source="VgF33fEhlDlfxTJCO7W9-20" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;" target="Mp2--9gJ5_-7rnJO0put-68" value="">
-          <mxGeometry height="100" relative="1" width="100" as="geometry">
-            <mxPoint x="750" y="720" as="sourcePoint" />
-            <mxPoint x="850" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-timetable-revision-note" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=top;spacing=0;fontSize=11;" value="Revision：long（初期値0）&lt;br&gt;列車・地点・使用進路・運用を含む&lt;br&gt;編集ごとに増やす同時編集検出用の値" vertex="1">
-          <mxGeometry height="75" width="270" x="490" y="210" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-operations-table" parent="1" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" value="TimetableOperations" vertex="1">
-          <mxGeometry height="90" width="240" x="830" y="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-operations-TimetableId-row" parent="ctc-operations-table" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="240" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-operations-TimetableId-key" parent="ctc-operations-TimetableId-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK&lt;br&gt;FK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-operations-TimetableId-field" parent="ctc-operations-TimetableId-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="TimetableId" vertex="1">
-          <mxGeometry height="30" width="210" x="30" as="geometry">
-            <mxRectangle height="30" width="210" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-operations-OperationNumber-row" parent="ctc-operations-table" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
-          <mxGeometry height="30" width="240" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-operations-OperationNumber-key" parent="ctc-operations-OperationNumber-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=1;" value="PK" vertex="1">
-          <mxGeometry height="30" width="30" as="geometry">
-            <mxRectangle height="30" width="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-operations-OperationNumber-field" parent="ctc-operations-OperationNumber-row" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontStyle=5;" value="OperationNumber" vertex="1">
-          <mxGeometry height="30" width="210" x="30" as="geometry">
-            <mxRectangle height="30" width="210" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ctc-operations-note" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=top;spacing=0;fontSize=11;" value="&lt;b&gt;PK&lt;/b&gt; (TimetableId, OperationNumber)&lt;br&gt;同じダイヤ内の運用番号は一意&lt;br&gt;運用番号：BINARY&lt;br&gt;列車0件の運用も保存可&lt;br&gt;運用削除で所属列車・地点・使用進路も削除" vertex="1">
-          <mxGeometry height="115" width="325" x="830" y="185" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-timetable-operation-relation" edge="1" parent="1" source="ctc-minimal-masters-row-2" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=arc;jumpSize=6;" target="ctc-operations-TimetableId-row" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="ctc-operation-train-relation" edge="1" parent="1" source="ctc-operations-OperationNumber-row" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=arc;jumpSize=6;" target="ctc-train-OperationNumber-row" value="">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="db-fk-timetable_points-train_number" parent="1" edge="1" source="Mp2--9gJ5_-7rnJO0put-12" target="ctc-point-train-number-row" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0.84" y="-10" as="geometry">
             <Array as="points">
-              <mxPoint x="780" y="145" />
-              <mxPoint x="780" y="330" />
-              <mxPoint x="540" y="330" />
-              <mxPoint x="540" y="605" />
+              <mxPoint x="1310" y="219" />
+              <mxPoint x="1310" y="519" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="db-fk-timetable_points-station_id" parent="1" edge="1" source="ctc-station-times-row-15" target="Mp2--9gJ5_-7rnJO0put-65" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERzeroToOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="1059" />
+              <mxPoint x="470" y="1140" />
+              <mxPoint x="1320" y="1140" />
+              <mxPoint x="1320" y="579" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db-fk-timetable_points-track_circuit_id" parent="1" edge="1" source="VgF33fEhlDlfxTJCO7W9-20" target="Mp2--9gJ5_-7rnJO0put-68" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
+            <Array as="points">
+              <mxPoint x="1340" y="819" />
+              <mxPoint x="1340" y="609" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db-fk-timetable_point_routes-timetable_point_id" parent="1" edge="1" source="Mp2--9gJ5_-7rnJO0put-56" target="ctc-complete-row-11" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="db-fk-timetable_point_routes-control_station_id-route_id" parent="1" edge="1" source="ctc-minimal-masters-table-8" target="ctc-complete-routes-table-10" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=0;exitY=0.5;entryX=0;entryY=0.5;exitY=0.7115384615;entryY=0.8170731707;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
+            <Array as="points">
+              <mxPoint x="1760" y="834" />
+              <mxPoint x="1760" y="564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db-fk-station_running_times-train_type_id" parent="1" edge="1" source="Mp2--9gJ5_-7rnJO0put-28" target="ctc-station-times-row-2" value="C" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" x="0" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="db-fk-station_running_times-from_station_id" parent="1" edge="1" source="ctc-station-times-row-15" target="ctc-station-times-row-5" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=0;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="1059" />
+              <mxPoint x="20" y="849" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db-fk-station_running_times-to_station_id" parent="1" edge="1" source="ctc-station-times-row-15" target="ctc-station-times-row-8" value="R" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;jumpStyle=arc;jumpSize=8;fontSize=10;fontColor=#333333;strokeColor=#555555;labelBackgroundColor=#ffffff;exitPerimeter=0;entryPerimeter=0;exitX=1;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" x="0.6" y="-10" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="1059" />
+              <mxPoint x="450" y="879" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db-title" parent="1" vertex="1" value="ダイヤDB構造（GORM / SQLite）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=24;fontColor=#222222;spacing=0;fontStyle=1;">
+          <mxGeometry x="60" y="20" width="1000" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="db-subtitle" parent="1" vertex="1" value="Server/internal/timetable/models.go と SQLite の物理スキーマに対応" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=13;fontColor=#222222;spacing=0;">
+          <mxGeometry x="60" y="64" width="1200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-timetable-revision-note" parent="1" vertex="1" value="ID：共通の文字列キー。空白のみのIDはBeforeCreateで拒否。&lt;br&gt;revision ≥ 0、初期値0。自動増分・楽観ロックは未実装。&lt;br&gt;ダイヤ削除：所属リンクだけを削除し、列車・運用は保持。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="60" y="310" width="340" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="db-train-links-note" parent="1" vertex="1" value="GORMが自動生成する中間テーブル。&lt;br&gt;ダイヤと列車の多対多。運用未所属の列車も紐づけ可能。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="500" y="280" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="db-train-note" parent="1" vertex="1" value="列番は全体で一意。複数ダイヤで同じ定義を共有。&lt;br&gt;種別・地点・時刻・使用進路を列車に保持する。&lt;br&gt;運用から参照されている列車の削除はRESTRICT。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="940" y="280" width="340" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="db-operation-links-note" parent="1" vertex="1" value="GORMが自動生成する中間テーブル。&lt;br&gt;ダイヤと運用の多対多。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="60" y="560" width="340" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-operations-note" parent="1" vertex="1" value="運用番号は全体で一意。複数ダイヤで共有する。&lt;br&gt;運用削除：ダイヤとの関連と運用内の列車順序だけを削除。&lt;br&gt;列車・地点・使用進路の定義は保持する。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="500" y="530" width="340" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="db-operation-trains-note" parent="1" vertex="1" value="PK (operation_number, train_number)&lt;br&gt;UQ (operation_number, sequence_index)&lt;br&gt;sequence_index ≥ 0。運用内の列車順序を保持。&lt;br&gt;列車を運用へ追加しても、ダイヤへの所属は別に設定。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="940" y="590" width="340" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-note-24" parent="1" vertex="1" value="UQ (train_number, sequence_index)&lt;br&gt;sequence_index ≥ 0。地点IDは自動採番。&lt;br&gt;handling = pass / stop / unspecified（初期値）&lt;br&gt;時刻：運行日0時からの非負秒数。NULL可、24時以降も可。&lt;br&gt;到着・出発とも指定した場合は arrival ≤ departure。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="1380" y="730" width="340" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-complete-note-25" parent="1" vertex="1" value="PK (timetable_point_id, sequence_index)&lt;br&gt;FK (control_station_id, route_id) → routes の複合PK&lt;br&gt;sequence_index ≥ 0。当地点から次地点までの使用進路順。&lt;br&gt;終端地点は使用進路0件。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="1820" y="630" width="340" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-station-times-note-25" parent="1" vertex="1" value="PK (train_type_id, from_station_id, to_station_id)&lt;br&gt;running_seconds &gt; 0。逆方向は別レコード。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="60" y="940" width="350" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="db-train-types-note" parent="1" vertex="1" value="列車種別マスター。&lt;br&gt;種別削除で標準運転時分も削除。&lt;br&gt;列車から参照されている種別は削除不可。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="500" y="890" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db-circuits-note" parent="1" vertex="1" value="設備IDの参照カタログ。&lt;br&gt;表示名・連動条件は設備定義側に保持する。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="940" y="860" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db-stations-note" parent="1" vertex="1" value="駅マスター。地点のstation_idはNULL可。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="60" y="1110" width="350" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ctc-minimal-masters-note-17" parent="1" vertex="1" value="PK (control_station_id, route_id)&lt;br&gt;設備IDの参照カタログ。&lt;br&gt;control_station_idからstationsへのFKはない。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#222222;spacing=0;">
+          <mxGeometry x="1820" y="890" width="340" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="db-legend" parent="1" vertex="1" value="PK：主キー（複数のPK欄は複合キー）　FK：外部キー　UQ：一意制約&lt;br&gt;NULL表記のある列のみNULL可。FKの更新時動作はすべてCASCADE。&lt;br&gt;線のC：ON DELETE CASCADE　R：ON DELETE RESTRICT。子側は0～複数件。&lt;br&gt;親側の○は関連省略可を示す（地点のstation_id）。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#222222;spacing=0;">
+          <mxGeometry x="500" y="1010" width="760" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

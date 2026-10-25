@@ -12,13 +12,27 @@ func LoadTimetable(ctx context.Context, db *gorm.DB, id string) (Timetable, erro
 	ordered := func(db *gorm.DB) *gorm.DB {
 		return db.Order("sequence_index ASC")
 	}
-	err := db.WithContext(ctx).
-		Preload("Trains").
-		Preload("Trains.Points", ordered).
-		Preload("Trains.Points.Routes", ordered).
+	db = db.WithContext(ctx)
+	err := db.
+		Preload("Trains", func(db *gorm.DB) *gorm.DB { return db.Order("train_number ASC") }).
 		Preload("Operations").
 		Preload("Operations.Trains", ordered).
 		First(&result, "id = ?", id).Error
+	if err != nil {
+		return Timetable{}, err
+	}
+	result.TemporaryTrainNumbers = make([]string, 0, len(result.Trains))
+	for _, train := range result.Trains {
+		result.TemporaryTrainNumbers = append(result.TemporaryTrainNumbers, train.TrainNumber)
+	}
+	numbers := append([]string{}, result.TemporaryTrainNumbers...)
+	for _, operation := range result.Operations {
+		for _, train := range operation.Trains {
+			numbers = append(numbers, train.TrainNumber)
+		}
+	}
+	err = db.Preload("Points", ordered).Preload("Points.Routes", ordered).
+		Where("train_number IN ?", numbers).Order("train_number ASC").Find(&result.Trains).Error
 	if err != nil {
 		return Timetable{}, err
 	}

@@ -1,0 +1,645 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron">
+  <diagram id="NT11" name="NT11 猿沼 図案">
+    <mxGraphModel dx="1559" dy="1120" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="966" pageHeight="768" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NT11_21AT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="256" as="sourcePoint" />
+            <mxPoint x="73.6" y="256" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_21AT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="264" as="sourcePoint" />
+            <mxPoint x="73.6" y="288" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_21AT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_21AT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_21AT_Start" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="250" as="sourcePoint" />
+            <mxPoint y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_21AT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="250" as="sourcePoint" />
+            <mxPoint x="73.6" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_21A" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="14.4" y="232" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_22AT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="320" as="sourcePoint" />
+            <mxPoint x="73.6" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_22AT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="312" as="sourcePoint" />
+            <mxPoint x="73.6" y="288" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="312" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_22AT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_22AT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_22AT_Start" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="314" as="sourcePoint" />
+            <mxPoint y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_22AT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="314" as="sourcePoint" />
+            <mxPoint x="73.6" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_22A" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="14.4" y="336" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_23AT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="448" as="sourcePoint" />
+            <mxPoint x="73.6" y="448" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_23AT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="456" as="sourcePoint" />
+            <mxPoint x="73.6" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="456" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_23AT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_23AT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_23AT_Start" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="442" as="sourcePoint" />
+            <mxPoint y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_23AT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="442" as="sourcePoint" />
+            <mxPoint x="73.6" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_23A" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="14.4" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_24AT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="512" as="sourcePoint" />
+            <mxPoint x="73.6" y="512" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_24AT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="504" as="sourcePoint" />
+            <mxPoint x="73.6" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="504" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_24AT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="548" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_24AT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="32.8" y="548" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_24AT_Start" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="506" as="sourcePoint" />
+            <mxPoint y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_24AT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="506" as="sourcePoint" />
+            <mxPoint x="73.6" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_24A" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="14.4" y="528" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_22BT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="256" as="sourcePoint" />
+            <mxPoint x="147.2" y="256" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_22BT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="288" as="sourcePoint" />
+            <mxPoint x="147.2" y="264" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="128.8" y="264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_22BT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_22BT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_22BT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="250" as="sourcePoint" />
+            <mxPoint x="147.2" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_22B" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="124.8" y="232" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_21BT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="320" as="sourcePoint" />
+            <mxPoint x="147.2" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_21BT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="288" as="sourcePoint" />
+            <mxPoint x="147.2" y="312" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="128.8" y="312" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_21BT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_21BT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_21BT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="314" as="sourcePoint" />
+            <mxPoint x="147.2" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_21B" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="124.8" y="336" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_24BT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="448" as="sourcePoint" />
+            <mxPoint x="147.2" y="448" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_24BT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="480" as="sourcePoint" />
+            <mxPoint x="147.2" y="456" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="128.8" y="456" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_24BT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_24BT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_24BT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="442" as="sourcePoint" />
+            <mxPoint x="147.2" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_24B" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="124.8" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_23BT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="512" as="sourcePoint" />
+            <mxPoint x="147.2" y="512" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_23BT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="480" as="sourcePoint" />
+            <mxPoint x="147.2" y="504" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="128.8" y="504" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_23BT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="548" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_23BT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="106.4" y="548" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_23BT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="506" as="sourcePoint" />
+            <mxPoint x="147.2" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_23B" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="124.8" y="528" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_1RT" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="256" as="sourcePoint" />
+            <mxPoint x="570.4" y="192" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="165.6" y="256" />
+              <mxPoint x="202.4" y="192" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_1RT" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="428.4" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_1RT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570.4" y="186" as="sourcePoint" />
+            <mxPoint x="570.4" y="198" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_2RT" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="320" as="sourcePoint" />
+            <mxPoint x="570.4" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_2RT" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="428.4" y="336" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_2RT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570.4" y="314" as="sourcePoint" />
+            <mxPoint x="570.4" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_3LT" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="448" as="sourcePoint" />
+            <mxPoint x="570.4" y="448" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_3LT" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="428.4" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_3LT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570.4" y="442" as="sourcePoint" />
+            <mxPoint x="570.4" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_4LT" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="147.2" y="512" as="sourcePoint" />
+            <mxPoint x="570.4" y="576" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="165.6" y="512" />
+              <mxPoint x="202.4" y="576" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_4LT" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="428.4" y="592" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_4LT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570.4" y="570" as="sourcePoint" />
+            <mxPoint x="570.4" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Platform_1" parent="1" style="rounded=0;html=0;strokeColor=#3F3F46;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="96" width="257.6" x="276" y="208" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Platform_2" parent="1" style="rounded=0;html=0;strokeColor=#3F3F46;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="96" width="257.6" x="276" y="464" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Label_Station" parent="1" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontColor=#3F3F46;" value="猿沼" vertex="1">
+          <mxGeometry height="32" width="257.6" x="276" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_25AT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570.4" y="320" as="sourcePoint" />
+            <mxPoint x="644" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_25AT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="588.8" y="312" />
+            </Array>
+            <mxPoint x="570.4" y="312" as="sourcePoint" />
+            <mxPoint x="625.6" y="256" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_25AT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="603.2" y="336" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_25AT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="603.2" y="288" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_25BT_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570.4" y="192" as="sourcePoint" />
+            <mxPoint x="699.2" y="192" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_25BT_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="662.4" y="200" />
+              <mxPoint x="680.8" y="200" />
+            </Array>
+            <mxPoint x="625.6" y="256" as="sourcePoint" />
+            <mxPoint x="699.2" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_25BT_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="640" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_25BT_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="658.4" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_26T_N" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" x="0.0076" as="geometry">
+            <Array as="points">
+              <mxPoint x="635.2" y="448" />
+              <mxPoint x="676.8" y="406.4" />
+              <mxPoint x="699.2" y="384" />
+            </Array>
+            <mxPoint x="570.4" y="448" as="sourcePoint" />
+            <mxPoint x="717.6" y="384" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_26T_R" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" x="0.004" as="geometry">
+            <Array as="points">
+              <mxPoint x="699.2" y="376" />
+            </Array>
+            <mxPoint x="644" y="320" as="sourcePoint" />
+            <mxPoint x="717.6" y="376" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_26T_N" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="640" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_26T_R" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="676.8" y="344" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_1_STUB_T" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="791.2" y="192" />
+              <mxPoint x="864.8" y="320" />
+            </Array>
+            <mxPoint x="699.2" y="192" as="sourcePoint" />
+            <mxPoint x="920" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_1_STUB_T" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="879.2" y="296" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_DEPOT_T" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="717.6" y="384" as="sourcePoint" />
+            <mxPoint x="837.2" y="384" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_DEPOT_T" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="768.8" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_4_STUB_T" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="791.2" y="576" />
+              <mxPoint x="864.8" y="448" />
+            </Array>
+            <mxPoint x="570.4" y="576" as="sourcePoint" />
+            <mxPoint x="920" y="448" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TrainLabel_4_STUB_T" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="879.2" y="464" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_Boundary_25AT_26T" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="644" y="314" as="sourcePoint" />
+            <mxPoint x="644" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_Crossover25" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="625.6" y="250" as="sourcePoint" />
+            <mxPoint x="625.6" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_25BT_Stub1" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="699.2" y="186" as="sourcePoint" />
+            <mxPoint x="699.2" y="206" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_26T_Depot" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="717.6" y="370" as="sourcePoint" />
+            <mxPoint x="717.6" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_Buffer1" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="920" y="310" as="sourcePoint" />
+            <mxPoint x="920" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_Buffer3" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="837.2" y="374" as="sourcePoint" />
+            <mxPoint x="837.2" y="394" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_Boundary_Buffer4" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="920" y="438" as="sourcePoint" />
+            <mxPoint x="920" y="458" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_25A" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="584.8" y="346" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_25B" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="658.4" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="NT11_TurnoutIndicator_26" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="695.2" y="412" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_1RT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="378.4" y="184" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_1RT_Circle" parent="Destination_NT11_1RT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_1RT_Label" parent="Destination_NT11_1RT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_2RT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="378.4" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_2RT_Circle" parent="Destination_NT11_2RT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_2RT_Label" parent="Destination_NT11_2RT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_3LT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="378.4" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_3LT_Circle" parent="Destination_NT11_3LT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_3LT_Label" parent="Destination_NT11_3LT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_4LT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="378.4" y="568" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_4LT_Circle" parent="Destination_NT11_4LT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_4LT_Label" parent="Destination_NT11_4LT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_22BT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="120.8" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_22BT_Circle" parent="Destination_NT11_22BT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_22BT_Label" parent="Destination_NT11_22BT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_21BT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="120.8" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_21BT_Circle" parent="Destination_NT11_21BT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_21BT_Label" parent="Destination_NT11_21BT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_1_STUB_T" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="893.6" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_1_STUB_T_Circle" parent="Destination_NT11_1_STUB_T" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_1_STUB_T_Label" parent="Destination_NT11_1_STUB_T" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_4_STUB_T" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="893.6" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_4_STUB_T_Circle" parent="Destination_NT11_4_STUB_T" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_4_STUB_T_Label" parent="Destination_NT11_4_STUB_T" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_DEPOT_T" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="801.6" y="376" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_DEPOT_T_Circle" parent="Destination_NT11_DEPOT_T" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_DEPOT_T_Label" parent="Destination_NT11_DEPOT_T" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_24AT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="1.2" y="504" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_24AT_Circle" parent="Destination_NT11_24AT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_24AT_Label" parent="Destination_NT11_24AT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_23AT" parent="1" style="group;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="1.2" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_23AT_Circle" parent="Destination_NT11_23AT" style="ellipse;html=0;fillColor=#09090B;strokeColor=#F2EA18;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Destination_NT11_23AT_Label" parent="Destination_NT11_23AT" style="text;html=0;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#F2EA18;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="16" width="16" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_21AT" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="1.2" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_22AT" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="1.2" y="316" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_22BT" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="84" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_21BT" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="84" y="316" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_1RT" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="534.8" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_2RT" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="534.8" y="316" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_3LT_L" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=west;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="277.2" y="444" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_3LT_R" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="534.8" y="444" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_4LT_L" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=west;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="277.2" y="572" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_4LT_R" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=east;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="534.8" y="572" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_1_STUB_T_L" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=west;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="866" y="316" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_4_STUB_T_L" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=west;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="866" y="444" as="geometry" />
+        </mxCell>
+        <mxCell id="Origin_NT11_DEPOT_T_L" parent="1" style="triangle;html=0;strokeColor=#FFE226;fillColor=#000000;direction=west;" value="" vertex="1">
+          <mxGeometry height="8" width="16" x="746.4" y="380" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

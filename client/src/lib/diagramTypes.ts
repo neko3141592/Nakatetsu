@@ -25,6 +25,7 @@ export type DiagramScene = {
   diagrams: readonly {
     id: string;
     stationId?: string;
+    stationName?: string;
     x: number;
     y: number;
     svg: string;
