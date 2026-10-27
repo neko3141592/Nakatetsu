@@ -3,7 +3,7 @@
   "stationTracks": [
     {
       "trackId": "1",
-      "displayName": "1番線",
+      "displayName": "下り急行線",
       "trackCircuitId": "NT08_1RT"
     },
     {
@@ -18,7 +18,7 @@
     },
     {
       "trackId": "4",
-      "displayName": "4番線",
+      "displayName": "上り急行線",
       "trackCircuitId": "NT08_4LT"
     }
   ],
@@ -224,7 +224,7 @@
   "circuits": [
     {
       "circuitId": "NT08_1RT",
-      "displayName": "1番線",
+      "displayName": "下り急行線",
       "controlKind": "Block",
       "sections": [
         {
@@ -260,7 +260,7 @@
     },
     {
       "circuitId": "NT08_4LT",
-      "displayName": "4番線",
+      "displayName": "上り急行線",
       "controlKind": "Block",
       "sections": [
         {

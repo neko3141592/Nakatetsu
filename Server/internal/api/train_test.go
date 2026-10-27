@@ -6,13 +6,14 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
 	"github.com/neko3141592/Nakatetsu/Server/internal/timetable"
 	"gorm.io/gorm"
 )
 
 func trainTestServer(t *testing.T) (*gorm.DB, http.Handler) {
 	t.Helper()
-	db, handler := trainTypeTestServer(t)
+	db, _ := trainTypeTestServer(t)
 	for _, rows := range []any{
 		&[]timetable.TrainType{{TrainTypeID: "local", DisplayName: "普通"}, {TrainTypeID: "express", DisplayName: "急行"}},
 		&[]timetable.Station{{StationID: "A", DisplayName: "A駅"}, {StationID: "B", DisplayName: "B駅"}},
@@ -23,7 +24,19 @@ func trainTestServer(t *testing.T) (*gorm.DB, http.Handler) {
 			t.Fatal(err)
 		}
 	}
-	return db, handler
+	server := &ApiServer{
+		DB: db,
+		CircuitDefinitions: map[string]ctc.TrackCircuitDefinition{
+			"A1T": {ControlKind: ctc.TrackControlInterlocking},
+			"MID": {ControlKind: ctc.TrackControlInterlocking},
+			"B1T": {ControlKind: ctc.TrackControlBlock},
+		},
+		RouteDefinitions: []ctc.TrackRouteDefinition{
+			{InterlockingStationID: "A", InterlockingRouteID: "R1", Kind: ctc.RouteKindDeparture, TrackCircuitIDs: []string{"A1T", "MID"}},
+			{InterlockingStationID: "A", InterlockingRouteID: "R2", Kind: ctc.RouteKindHome, TrackCircuitIDs: []string{"MID", "B1T"}},
+		},
+	}
+	return db, server.Routes()
 }
 
 func getTrain(t *testing.T, handler http.Handler, number string) timetable.TimetableTrain {
@@ -53,7 +66,7 @@ func TestTrainCRUD(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(created.Points) != 2 || created.Points[0].TimetablePointID <= 0 || created.Points[1].TrainNumber != "0001" ||
-		created.Points[1].Routes[0].TimetablePointID != created.Points[1].TimetablePointID {
+		len(created.Points[0].Routes) != 2 || created.Points[0].Routes[0].TimetablePointID != created.Points[0].TimetablePointID {
 		t.Fatalf("missing generated identities: %+v", created)
 	}
 	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"trainNumber":"0002","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":[{"trackCircuitId":"A1T"}]}`, http.StatusCreated)
@@ -88,13 +101,13 @@ func TestTrainCRUD(t *testing.T) {
 	got = getTrain(t, handler, "0001")
 	if got.TrainTypeID != "express" || len(got.Points) != 1 || got.Points[0].TrackCircuitID != "B1T" ||
 		got.Points[0].TrainNumber != "0001" || got.Points[0].TimetablePointID == replacement.TimetablePointID ||
-		len(got.Points[0].Routes) != 1 || got.Points[0].Routes[0].TimetablePointID != got.Points[0].TimetablePointID {
+		len(got.Points[0].Routes) != 0 {
 		t.Fatalf("replacement/identity reset failed: %+v", got)
 	}
 	if after := getTrain(t, handler, "0002"); !reflect.DeepEqual(after, other) {
 		t.Fatalf("another train was changed: %+v", after)
 	}
-	for table, want := range map[string]int64{"timetable_points": 2, "timetable_point_routes": 1} {
+	for table, want := range map[string]int64{"timetable_points": 2, "timetable_point_routes": 0} {
 		var count int64
 		if err := db.Table(table).Count(&count).Error; err != nil || count != want {
 			t.Fatalf("%s: count=%d, want=%d, error=%v", table, count, want, err)
@@ -173,7 +186,6 @@ func TestTrainValidationAndRollback(t *testing.T) {
 		`{"trainNumber":"0002"}`, `{"points":[{"trackCircuitId":"A1T","unknown":1}]}`,
 		`{"trainTypeId":"express","points":[{"trackCircuitId":"missing"}]}`,
 		`{"trainTypeId":"express","points":[{"trackCircuitId":"A1T","stationId":"missing"}]}`,
-		`{"trainTypeId":"express","points":[{"trackCircuitId":"A1T","routes":[{"controlStationId":"B","routeId":"R1"}]}]}`,
 		`{"points":[{"trackCircuitId":" "}]}`, `{"points":[{"trackCircuitId":"A1T","stationId":" "}]}`,
 		`{"points":[{"trackCircuitId":"A1T","sequenceIndex":-1}]}`,
 		`{"points":[{"trackCircuitId":"A1T"},{"trackCircuitId":"B1T"}]}`,
@@ -193,7 +205,6 @@ func TestTrainValidationAndRollback(t *testing.T) {
 	for _, body := range []string{
 		`{}`, `null`, `{"trainNumber":" ","trainTypeId":"local","originStationId":"A","destinationStationId":"B"}`, `{"trainNumber":"bad","trainTypeId":"missing","originStationId":"A","destinationStationId":"B"}`,
 		`{"trainNumber":"bad","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":[{"trackCircuitId":"missing"}]}`,
-		`{"trainNumber":"bad","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":[{"trackCircuitId":"A1T","routes":[{"controlStationId":"A","routeId":"missing"}]}]}`,
 	} {
 		trainTypeRequest(t, handler, http.MethodPost, "/api/trains", body, http.StatusBadRequest)
 	}

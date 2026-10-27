@@ -1,16 +1,17 @@
 "use client";
 
 import { TriangleButton } from "@/components/ui/triangle-button";
-import type { Timetable } from "@/types/timetable";
-import type { TimetableDiagramStation } from "@/types/timetableDiagram";
-import { useEffect, useRef, useState } from "react";
+import { getTrainDiagramPoints } from "@/lib/trainDiagram";
+import type { TimetableDiagramStation, TimetableDiagramTrain } from "@/types/timetableDiagram";
+import { useEffect, useId, useRef, useState } from "react";
 
 type DiagramViewerProps = {
-  trains: Timetable["trains"];
-  stations: TimetableDiagramStation[];
+  trains: readonly TimetableDiagramTrain[];
+  stations: readonly TimetableDiagramStation[];
   defaultPixelsPerMinute: number;
   startSeconds: number;
   endSeconds: number;
+  onTrainClick?: (trainNumber: string) => void;
 };
 
 const scales = [0.3, 0.5, 1, 2, 4, 8] as const;
@@ -21,6 +22,7 @@ const diagramThemes = {
     timeLine: "#a1a1aa",
     stationLine: "#71717a",
     minorLine: "#e4e4e7",
+    trainLine: "#2563eb",
   },
   dark: {
     background: "#09090b",
@@ -28,18 +30,22 @@ const diagramThemes = {
     timeLine: "#52525b",
     stationLine: "#a1a1aa",
     minorLine: "#27272a",
+    trainLine: "#60a5fa",
   },
 };
 
 const themeButtonClassName = "h-5 min-w-7 rounded-xs border border-zinc-400 bg-zinc-100 px-1.5 text-xs text-zinc-900 aria-pressed:bg-zinc-950 aria-pressed:text-white";
 
 export function DiagramViewer({
+  trains,
   stations,
   defaultPixelsPerMinute,
   startSeconds,
   endSeconds,
+  onTrainClick,
 }: DiagramViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const plotClipId = useId();
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [scaleIndex, setScaleIndex] = useState(2);
   const [verticalScaleIndex, setVerticalScaleIndex] = useState(2);
@@ -78,6 +84,16 @@ export function DiagramViewer({
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const firstSeconds = Math.min(...trains.flatMap((train) => (train.points ?? [])
+      .filter((point) => (point.section ?? "service") === "service")
+      .flatMap((point) => [point.arrivalSeconds, point.departureSeconds])
+      .filter((seconds): seconds is number => seconds !== null && Number.isFinite(seconds))));
+    if (containerRef.current && Number.isFinite(firstSeconds)) {
+      containerRef.current.scrollLeft = Math.max(0, getTimePosition(firstSeconds, defaultPixelsPerMinute * horizontalScale, startSeconds, left) - 48);
+    }
+  }, [trains, defaultPixelsPerMinute, horizontalScale, startSeconds]);
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col overflow-hidden">
@@ -138,7 +154,8 @@ export function DiagramViewer({
                 })}
               </svg>
             </div>
-            <svg width={svgWidth} height={svgHeight} className="block shrink-0" style={{ backgroundColor: colors.background }} role="img" aria-label="ダイヤの駅グリッド">
+            <svg width={svgWidth} height={svgHeight} className="block shrink-0" style={{ backgroundColor: colors.background }} role={onTrainClick ? "group" : "img"} aria-label="列車ダイアグラム">
+              <defs><clipPath id={plotClipId}><rect x={left} y={top} width={Math.max(0, plotRight - left)} height={plotHeight} /></clipPath></defs>
               {timeSeconds.map((seconds) => {
                 const x = getTimePosition(seconds, defaultPixelsPerMinute * horizontalScale, startSeconds, left);
                 const isMajor = seconds % (10 * 60) === 0;
@@ -174,6 +191,30 @@ export function DiagramViewer({
                   </g>
                 );
               })}
+              <g clipPath={`url(#${plotClipId})`}>
+                {trains.map((train) => {
+                  const points = getTrainDiagramPoints(train.points ?? [], stationPositions, defaultPixelsPerMinute * horizontalScale, startSeconds, left);
+                  if (points.length < 2) return null;
+                  const color = train.trainType?.color || colors.trainLine;
+                  const path = points.map(({ x, y }) => `${x},${y}`).join(" ");
+                  return <g key={train.trainNumber} role={onTrainClick ? "button" : "group"}
+                    aria-label={onTrainClick ? `${train.trainNumber}を編集` : `${train.trainNumber}のスジ`}
+                    aria-haspopup={onTrainClick ? "dialog" : undefined} tabIndex={onTrainClick ? 0 : undefined}
+                    className={onTrainClick ? "group/train cursor-pointer outline-none" : undefined}
+                    onClick={() => onTrainClick?.(train.trainNumber)}
+                    onKeyDown={(event) => {
+                      if (onTrainClick && (event.key === "Enter" || event.key === " ")) {
+                        event.preventDefault();
+                        onTrainClick(train.trainNumber);
+                      }
+                    }}>
+                    <title>{train.trainNumber}</title>
+                    {onTrainClick ? <polyline points={path} fill="none" stroke="transparent" strokeWidth={12} pointerEvents="stroke" aria-hidden="true" /> : null}
+                    <polyline points={path} fill="none" stroke={color} strokeWidth={1.5} className="group-focus-visible/train:stroke-[3]" />
+                    <text x={points[0].x + 4} y={Math.min(points[0].y + 12, plotBottom - 4)} fill={color} fontSize={11}>{train.trainNumber}</text>
+                  </g>;
+                })}
+              </g>
             </svg>
           </div>
           <div className="sticky bottom-0 z-20 flex" style={{ width: stationLabelWidth + svgWidth, height: timeAxisHeight, backgroundColor: colors.background }}>

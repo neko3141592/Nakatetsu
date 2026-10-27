@@ -12,10 +12,28 @@
       "endDistanceOnGeometryM": 9730,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 8950,
+          "endDistanceOnGeometryM": 9130,
+          "startOffsetM": -7.304745471699717,
+          "endOffsetM": -4.0,
+          "startSlope": 0.019094084947598365,
+          "endSlope": 0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9130,
+          "endDistanceOnGeometryM": 9550,
+          "offsetM": -4
+        },
+        {
+          "type": "CubicHermite",
+          "startDistanceOnGeometryM": 9550,
           "endDistanceOnGeometryM": 9730,
-          "offsetM": -8
+          "startOffsetM": -4.0,
+          "endOffsetM": -7.304745471699718,
+          "startSlope": -0.0,
+          "endSlope": -0.019094084947598365
         }
       ]
     },
@@ -29,10 +47,28 @@
       "endDistanceOnGeometryM": 9730,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 8950,
+          "endDistanceOnGeometryM": 9130,
+          "startOffsetM": -3.304745471699717,
+          "endOffsetM": 0.0,
+          "startSlope": 0.019094084947598365,
+          "endSlope": 0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9130,
+          "endDistanceOnGeometryM": 9550,
+          "offsetM": 0
+        },
+        {
+          "type": "CubicHermite",
+          "startDistanceOnGeometryM": 9550,
           "endDistanceOnGeometryM": 9730,
-          "offsetM": -4
+          "startOffsetM": 0.0,
+          "endOffsetM": -3.3047454716997176,
+          "startSlope": -0.0,
+          "endSlope": -0.019094084947598365
         }
       ]
     },
@@ -46,10 +82,28 @@
       "endDistanceOnGeometryM": 9730,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 8950,
+          "endDistanceOnGeometryM": 9130,
+          "startOffsetM": 7.304745471699717,
+          "endOffsetM": 4.0,
+          "startSlope": -0.019094084947598365,
+          "endSlope": -0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9130,
+          "endDistanceOnGeometryM": 9550,
+          "offsetM": 4
+        },
+        {
+          "type": "CubicHermite",
+          "startDistanceOnGeometryM": 9550,
           "endDistanceOnGeometryM": 9730,
-          "offsetM": 8
+          "startOffsetM": 4.0,
+          "endOffsetM": 7.304745471699718,
+          "startSlope": 0.0,
+          "endSlope": 0.019094084947598365
         }
       ]
     },
@@ -63,10 +117,28 @@
       "endDistanceOnGeometryM": 9730,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 8950,
+          "endDistanceOnGeometryM": 9130,
+          "startOffsetM": 11.304745471699718,
+          "endOffsetM": 8.0,
+          "startSlope": -0.019094084947598365,
+          "endSlope": -0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9130,
+          "endDistanceOnGeometryM": 9550,
+          "offsetM": 8
+        },
+        {
+          "type": "CubicHermite",
+          "startDistanceOnGeometryM": 9550,
           "endDistanceOnGeometryM": 9730,
-          "offsetM": 12
+          "startOffsetM": 8.0,
+          "endOffsetM": 11.304745471699718,
+          "startSlope": 0.0,
+          "endSlope": 0.019094084947598365
         }
       ]
     }

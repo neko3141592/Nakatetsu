@@ -15,6 +15,13 @@ export async function loadTrain(number: string): Promise<Result<TimetableTrain>>
   }
 }
 
+export async function loadTrains(numbers: string[]): Promise<Result<TimetableTrain[]>> {
+  const results = await Promise.all(numbers.map(loadTrain));
+  const failed = results.find((result) => result.error !== undefined);
+  if (failed) return { error: failed.error! };
+  return { data: results.flatMap((result) => result.data ? [result.data] : []) };
+}
+
 export async function loadTrainTypes(): Promise<Result<TrainType[]>> {
   try {
     const response = await fetch("http://127.0.0.1:8080/api/train-types", { cache: "no-store" });

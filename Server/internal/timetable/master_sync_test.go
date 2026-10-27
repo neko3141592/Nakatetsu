@@ -165,8 +165,8 @@ func TestSyncNakatetsuEquipmentMasters(t *testing.T) {
 	for _, expected := range []timetable.StationTrack{
 		{StationID: "NT01", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT01_1RT"},
 		{StationID: "NT02", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT02_DT"},
-		{StationID: "NT07", TrackID: "DEPOT_1", DisplayName: "電留1線", TrackCircuitID: "NT07_DEPOT_1T"},
-		{StationID: "NT11", TrackID: "4_STUB", DisplayName: "4引線", TrackCircuitID: "NT11_4_STUB_T"},
+		{StationID: "NT07", TrackID: "DEPOT_1", DisplayName: "電留1番", TrackCircuitID: "NT07_DEPOT_1T"},
+		{StationID: "NT11", TrackID: "4_STUB", DisplayName: "引上4", TrackCircuitID: "NT11_4_STUB_T"},
 	} {
 		var track timetable.StationTrack
 		if err := db.First(&track, "station_id = ? AND track_id = ?", expected.StationID, expected.TrackID).Error; err != nil || track != expected {

@@ -46,11 +46,13 @@ func LoadInterlockingDefinitions(manifestPath string, circuits map[string]TrackC
 			InterlockingID                string   `json:"interlockingId"`
 			RequestTriggerTrackCircuitIDs []string `json:"requestTriggerTrackCircuitIds"`
 			Routes                        []struct {
-				RouteID                   string   `json:"routeId"`
-				StartTrackCircuitID       string   `json:"startTrackCircuitId"`
-				DestinationTrackCircuitID string   `json:"destinationTrackCircuitId"`
-				TrackCircuitIDs           []string `json:"trackCircuitIds"`
-				RouteClearTrackCircuitIDs []string `json:"routeClearTrackCircuitIds"`
+				RouteID                   string         `json:"routeId"`
+				Direction                 RouteDirection `json:"direction"`
+				Kind                      RouteKind      `json:"kind"`
+				StartTrackCircuitID       string         `json:"startTrackCircuitId"`
+				DestinationTrackCircuitID string         `json:"destinationTrackCircuitId"`
+				TrackCircuitIDs           []string       `json:"trackCircuitIds"`
+				RouteClearTrackCircuitIDs []string       `json:"routeClearTrackCircuitIds"`
 			} `json:"routes"`
 		}
 		if err := readDefinitionJSON(stationPath, &station); err != nil {
@@ -73,6 +75,14 @@ func LoadInterlockingDefinitions(manifestPath string, circuits map[string]TrackC
 				return InterlockingDefinitions{}, fmt.Errorf("empty or duplicate route ID %q in %s", route.RouteID, stationPath)
 			}
 			routeIDs[route.RouteID] = true
+			if route.Direction != RouteDirectionUp && route.Direction != RouteDirectionDown {
+				return InterlockingDefinitions{}, fmt.Errorf("route %s/%s: invalid direction %q", entry.StationID, route.RouteID, route.Direction)
+			}
+			switch route.Kind {
+			case RouteKindDeparture, RouteKindHome, RouteKindShunting:
+			default:
+				return InterlockingDefinitions{}, fmt.Errorf("route %s/%s: invalid kind %q", entry.StationID, route.RouteID, route.Kind)
+			}
 			ids := route.TrackCircuitIDs
 			if len(ids) == 0 || ids[0] != route.StartTrackCircuitID || ids[len(ids)-1] != route.DestinationTrackCircuitID {
 				return InterlockingDefinitions{}, fmt.Errorf("route %s/%s: trackCircuitIds must run from start to destination", entry.StationID, route.RouteID)
@@ -92,6 +102,8 @@ func LoadInterlockingDefinitions(manifestPath string, circuits map[string]TrackC
 			definitions.Routes = append(definitions.Routes, TrackRouteDefinition{
 				InterlockingStationID:     entry.StationID,
 				InterlockingRouteID:       route.RouteID,
+				Direction:                 route.Direction,
+				Kind:                      route.Kind,
 				TrackCircuitIDs:           ids,
 				RouteClearTrackCircuitIDs: route.RouteClearTrackCircuitIDs,
 			})

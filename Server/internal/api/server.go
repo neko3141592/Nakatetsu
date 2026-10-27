@@ -15,9 +15,11 @@ import (
 )
 
 type ApiServer struct {
-	CTC          *ctc.CTC
-	RouteControl *communication.CommunicationServer
-	DB *gorm.DB
+	CTC                *ctc.CTC
+	RouteControl       *communication.CommunicationServer
+	DB                 *gorm.DB
+	CircuitDefinitions map[string]ctc.TrackCircuitDefinition
+	RouteDefinitions   []ctc.TrackRouteDefinition
 }
 
 func (s *ApiServer) HandleWebSocket(w http.ResponseWriter, r *http.Request) {

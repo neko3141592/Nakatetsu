@@ -6,6 +6,7 @@ import (
 	"errors"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -13,6 +14,8 @@ import (
 	"github.com/neko3141592/Nakatetsu/Server/internal/timetable"
 	"gorm.io/gorm"
 )
+
+var trainTypeColorPattern = regexp.MustCompile(`^#[0-9a-fA-F]{6}$`)
 
 type trainTypeRunningTime struct {
 	FromStationID  string `json:"fromStationId"`
@@ -22,7 +25,13 @@ type trainTypeRunningTime struct {
 
 type trainTypeDetail struct {
 	timetable.TrainType
-	RunningTimes []trainTypeRunningTime `json:"runningTimes"`
+	RunningTimes     []trainTypeRunningTime     `json:"runningTimes"`
+	StationHandlings []trainTypeStationHandling `json:"stationHandlings"`
+}
+
+type trainTypeStationHandling struct {
+	StationID string                  `json:"stationId"`
+	Handling  timetable.PointHandling `json:"handling"`
 }
 
 func (s *ApiServer) HandleListTrainTypes(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +53,7 @@ func (s *ApiServer) HandleGetTrainType(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
-	result := trainTypeDetail{RunningTimes: []trainTypeRunningTime{}}
+	result := trainTypeDetail{RunningTimes: []trainTypeRunningTime{}, StationHandlings: []trainTypeStationHandling{}}
 	db := s.DB.WithContext(ctx)
 	err := db.First(&result.TrainType, "train_type_id = ?", id).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -60,13 +69,25 @@ func (s *ApiServer) HandleGetTrainType(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "標準運転時分の取得に失敗しました", http.StatusInternalServerError)
 		return
 	}
+	if err := db.Model(&timetable.TrainTypeStation{}).Where("train_type_id = ?", id).
+		Order("station_id ASC").Find(&result.StationHandlings).Error; err != nil {
+		http.Error(w, "停車・通過設定の取得に失敗しました", http.StatusInternalServerError)
+		return
+	}
 	writeTrainTypeJSON(w, http.StatusOK, result)
 }
 
 func (s *ApiServer) HandlePostTrainType(w http.ResponseWriter, r *http.Request) {
-	result := trainTypeDetail{RunningTimes: []trainTypeRunningTime{}}
-	if err := decodeTrainTypeJSON(r, &result); err != nil || strings.TrimSpace(result.TrainTypeID) == "" || strings.TrimSpace(result.DisplayName) == "" || !validTrainTypeRunningTimes(result.RunningTimes) {
+	result := trainTypeDetail{RunningTimes: []trainTypeRunningTime{}, StationHandlings: []trainTypeStationHandling{}}
+	if err := decodeTrainTypeJSON(r, &result); err != nil || strings.TrimSpace(result.TrainTypeID) == "" || strings.TrimSpace(result.DisplayName) == "" || !validTrainTypeRunningTimes(result.RunningTimes) || !validTrainTypeStations(result.StationHandlings) {
 		http.Error(w, "列車種別のJSONまたは入力値が不正です", http.StatusBadRequest)
+		return
+	}
+	if result.Color == "" {
+		result.Color = timetable.DefaultTrainTypeColor
+	}
+	if !trainTypeColorPattern.MatchString(result.Color) {
+		http.Error(w, "色は#RRGGBB形式で指定してください", http.StatusBadRequest)
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
@@ -75,7 +96,10 @@ func (s *ApiServer) HandlePostTrainType(w http.ResponseWriter, r *http.Request) 
 		if err := tx.Create(&result.TrainType).Error; err != nil {
 			return err
 		}
-		return replaceTrainTypeRunningTimes(tx, result.TrainTypeID, result.RunningTimes)
+		if err := replaceTrainTypeRunningTimes(tx, result.TrainTypeID, result.RunningTimes); err != nil {
+			return err
+		}
+		return replaceTrainTypeStations(tx, result.TrainTypeID, result.StationHandlings)
 	})
 	if errors.Is(err, gorm.ErrDuplicatedKey) {
 		http.Error(w, "列車種別IDが重複しています", http.StatusConflict)
@@ -92,6 +116,9 @@ func (s *ApiServer) HandlePostTrainType(w http.ResponseWriter, r *http.Request) 
 	if result.RunningTimes == nil {
 		result.RunningTimes = []trainTypeRunningTime{}
 	}
+	if result.StationHandlings == nil {
+		result.StationHandlings = []trainTypeStationHandling{}
+	}
 	writeTrainTypeJSON(w, http.StatusCreated, result)
 }
 
@@ -102,12 +129,16 @@ func (s *ApiServer) HandlePatchTrainType(w http.ResponseWriter, r *http.Request)
 		return
 	}
 	var patch struct {
-		DisplayName  *string                 `json:"displayName"`
-		RunningTimes *[]trainTypeRunningTime `json:"runningTimes"`
+		DisplayName      *string                     `json:"displayName"`
+		Color            *string                     `json:"color"`
+		RunningTimes     *[]trainTypeRunningTime     `json:"runningTimes"`
+		StationHandlings *[]trainTypeStationHandling `json:"stationHandlings"`
 	}
-	if err := decodeTrainTypeJSON(r, &patch); err != nil || (patch.DisplayName == nil && patch.RunningTimes == nil) ||
+	if err := decodeTrainTypeJSON(r, &patch); err != nil || (patch.DisplayName == nil && patch.Color == nil && patch.RunningTimes == nil && patch.StationHandlings == nil) ||
 		(patch.DisplayName != nil && strings.TrimSpace(*patch.DisplayName) == "") ||
-		(patch.RunningTimes != nil && !validTrainTypeRunningTimes(*patch.RunningTimes)) {
+		(patch.Color != nil && !trainTypeColorPattern.MatchString(*patch.Color)) ||
+		(patch.RunningTimes != nil && !validTrainTypeRunningTimes(*patch.RunningTimes)) ||
+		(patch.StationHandlings != nil && !validTrainTypeStations(*patch.StationHandlings)) {
 		http.Error(w, "列車種別のJSONまたは入力値が不正です", http.StatusBadRequest)
 		return
 	}
@@ -123,8 +154,18 @@ func (s *ApiServer) HandlePatchTrainType(w http.ResponseWriter, r *http.Request)
 				return err
 			}
 		}
+		if patch.Color != nil {
+			if err := tx.Model(&existing).Update("color", *patch.Color).Error; err != nil {
+				return err
+			}
+		}
 		if patch.RunningTimes != nil {
-			return replaceTrainTypeRunningTimes(tx, id, *patch.RunningTimes)
+			if err := replaceTrainTypeRunningTimes(tx, id, *patch.RunningTimes); err != nil {
+				return err
+			}
+		}
+		if patch.StationHandlings != nil {
+			return replaceTrainTypeStations(tx, id, *patch.StationHandlings)
 		}
 		return nil
 	})
@@ -181,6 +222,32 @@ func validTrainTypeRunningTimes(times []trainTypeRunningTime) bool {
 		seen[key] = true
 	}
 	return true
+}
+
+func validTrainTypeStations(stations []trainTypeStationHandling) bool {
+	seen := make(map[string]bool)
+	for _, station := range stations {
+		if strings.TrimSpace(station.StationID) == "" || seen[station.StationID] ||
+			(station.Handling != timetable.HandlingStop && station.Handling != timetable.HandlingPass) {
+			return false
+		}
+		seen[station.StationID] = true
+	}
+	return true
+}
+
+func replaceTrainTypeStations(tx *gorm.DB, id string, stations []trainTypeStationHandling) error {
+	if err := tx.Where("train_type_id = ?", id).Delete(&timetable.TrainTypeStation{}).Error; err != nil {
+		return err
+	}
+	rows := make([]timetable.TrainTypeStation, 0, len(stations))
+	for _, station := range stations {
+		rows = append(rows, timetable.TrainTypeStation{TrainTypeID: id, StationID: station.StationID, Handling: station.Handling})
+	}
+	if len(rows) == 0 {
+		return nil
+	}
+	return tx.Create(&rows).Error
 }
 
 func replaceTrainTypeRunningTimes(tx *gorm.DB, id string, times []trainTypeRunningTime) error {

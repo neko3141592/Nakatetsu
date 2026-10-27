@@ -30,18 +30,20 @@ type routeStationJSON struct {
 }
 
 type routeJSON struct {
-	RouteID                   string   `json:"routeId"`
-	StartTrackCircuitID       string   `json:"startTrackCircuitId"`
-	DestinationTrackCircuitID string   `json:"destinationTrackCircuitId"`
-	TrackCircuitIDs           []string `json:"trackCircuitIds"`
-	RouteClearTrackCircuitIDs []string `json:"routeClearTrackCircuitIds"`
+	RouteID                   string             `json:"routeId"`
+	StartTrackCircuitID       string             `json:"startTrackCircuitId"`
+	DestinationTrackCircuitID string             `json:"destinationTrackCircuitId"`
+	TrackCircuitIDs           []string           `json:"trackCircuitIds"`
+	RouteClearTrackCircuitIDs []string           `json:"routeClearTrackCircuitIds"`
+	Direction                 ctc.RouteDirection `json:"direction"`
+	Kind                      ctc.RouteKind      `json:"kind"`
 }
 
 func TestLoadInterlockingDefinitions(t *testing.T) {
 	dir := t.TempDir()
 	station := routeStationJSON{"S1", []routeJSON{
-		{"R", "A", "C", []string{"A", "B", "C"}, []string{"C", "B"}},
-		{"L", "C", "A", []string{"C", "B", "A"}, []string{"B", "A"}},
+		{"R", "A", "C", []string{"A", "B", "C"}, []string{"C", "B"}, ctc.RouteDirectionDown, ctc.RouteKindHome},
+		{"L", "C", "A", []string{"C", "B", "A"}, []string{"B", "A"}, ctc.RouteDirectionUp, ctc.RouteKindDeparture},
 	}, []string{"A"}}
 	writeRouteJSON(t, filepath.Join(dir, "stations", "S1.json"), station)
 	// 同じ進路IDを別駅でも使える。絶対パスも読み込める。
@@ -62,9 +64,9 @@ func TestLoadInterlockingDefinitions(t *testing.T) {
 		t.Fatalf("request triggers = %v, want %v", definitions.RequestTriggersByStation, want)
 	}
 	want := []ctc.TrackRouteDefinition{
-		{InterlockingStationID: "S1", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
-		{InterlockingStationID: "S1", InterlockingRouteID: "L", TrackCircuitIDs: []string{"C", "B", "A"}, RouteClearTrackCircuitIDs: []string{"B", "A"}},
-		{InterlockingStationID: "S2", InterlockingRouteID: "R", TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
+		{InterlockingStationID: "S1", InterlockingRouteID: "R", Direction: ctc.RouteDirectionDown, Kind: ctc.RouteKindHome, TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
+		{InterlockingStationID: "S1", InterlockingRouteID: "L", Direction: ctc.RouteDirectionUp, Kind: ctc.RouteKindDeparture, TrackCircuitIDs: []string{"C", "B", "A"}, RouteClearTrackCircuitIDs: []string{"B", "A"}},
+		{InterlockingStationID: "S2", InterlockingRouteID: "R", Direction: ctc.RouteDirectionDown, Kind: ctc.RouteKindHome, TrackCircuitIDs: []string{"A", "B", "C"}, RouteClearTrackCircuitIDs: []string{"C", "B"}},
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("routes = %+v, want %+v", got, want)
@@ -89,6 +91,10 @@ func TestLoadTrackRouteDefinitionsRejectsInvalidDefinitions(t *testing.T) {
 		{"no_routes", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes = nil }, "missing routes"},
 		{"empty_route", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].RouteID = " " }, "route ID"},
 		{"duplicate_route", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes = append(s.Routes, s.Routes[0]) }, "route ID"},
+		{"missing_direction", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].Direction = "" }, "invalid direction"},
+		{"invalid_direction", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].Direction = "Sideways" }, "invalid direction"},
+		{"missing_kind", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].Kind = "" }, "invalid kind"},
+		{"invalid_kind", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].Kind = "Arrival" }, "invalid kind"},
 		{"missing_ordered_list", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].TrackCircuitIDs = nil }, "start to destination"},
 		{"start_missing", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].TrackCircuitIDs = []string{"B", "C"} }, "start to destination"},
 		{"wrong_destination", func(_ *routeManifestJSON, s *routeStationJSON) { s.Routes[0].DestinationTrackCircuitID = "A" }, "start to destination"},
@@ -120,7 +126,7 @@ func TestLoadTrackRouteDefinitionsRejectsInvalidDefinitions(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			dir := t.TempDir()
 			manifest := routeManifestJSON{1, []routeManifestEntry{{"S1", "stations/S1.json"}}}
-			station := routeStationJSON{"S1", []routeJSON{{"R", "A", "C", []string{"A", "B", "C"}, []string{"B", "C"}}}, nil}
+			station := routeStationJSON{"S1", []routeJSON{{"R", "A", "C", []string{"A", "B", "C"}, []string{"B", "C"}, ctc.RouteDirectionDown, ctc.RouteKindHome}}, nil}
 			tt.edit(&manifest, &station)
 			path := filepath.Join(dir, "interlocking.json")
 			writeRouteJSON(t, path, manifest)
@@ -205,6 +211,25 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 	}
 	if want := (map[string]int{"NT01": 6, "NT05": 8, "NT07": 24, "NT11": 20}); !reflect.DeepEqual(counts, want) {
 		t.Fatalf("route counts = %v, want %v", counts, want)
+	}
+	for _, tt := range []struct {
+		id        string
+		direction ctc.RouteDirection
+		kind      ctc.RouteKind
+	}{
+		{"1RE", ctc.RouteDirectionDown, ctc.RouteKindHome},
+		{"1LC", ctc.RouteDirectionUp, ctc.RouteKindHome},
+		{"4RI", ctc.RouteDirectionDown, ctc.RouteKindDeparture},
+		{"3L", ctc.RouteDirectionUp, ctc.RouteKindDeparture},
+		{"10RG", ctc.RouteDirectionDown, ctc.RouteKindShunting},
+		{"12LB", ctc.RouteDirectionUp, ctc.RouteKindShunting},
+	} {
+		index := slices.IndexFunc(routes, func(route ctc.TrackRouteDefinition) bool {
+			return route.InterlockingStationID == "NT07" && route.InterlockingRouteID == tt.id
+		})
+		if index < 0 || routes[index].Direction != tt.direction || routes[index].Kind != tt.kind {
+			t.Fatalf("route NT07/%s: expected direction %s and kind %s", tt.id, tt.direction, tt.kind)
+		}
 	}
 	refs := ctc.BuildRouteCircuitRefs(routes)
 	for _, tt := range []struct{ station, route, from, to string }{

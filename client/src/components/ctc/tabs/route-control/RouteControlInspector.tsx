@@ -3,7 +3,7 @@ import type { RouteDefinition } from "@/components/ctc/diagram/TrackDiagram";
 import { RouteStatusIndicator } from "@/components/ctc/tabs/route-control/RouteStatusIndicator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { CtcSnapshot, InterlockingStationStatus } from "@/gen/ctc_pb";
-import { getRouteCategory, ROUTE_CATEGORIES } from "@/lib/routeCategory";
+import { ROUTE_CATEGORIES } from "@/lib/routeCategory";
 
 type Props = {
   active: boolean;
@@ -18,7 +18,7 @@ export function RouteControlInspector({ routes, circuitsById, station, onCancelR
   const routesById = station?.isInitialized && station.hasOutput ? station.routesById : undefined;
   const routeGroups = ROUTE_CATEGORIES.map((category) => ({
     ...category,
-    routes: routes.filter((route) => getRouteCategory(route.category) === category.value),
+    routes: routes.filter((route) => route.direction === category.direction && route.kind === category.kind),
   })).filter((group) => group.routes.length > 0);
 
   return (

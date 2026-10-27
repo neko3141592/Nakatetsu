@@ -27,6 +27,12 @@ func (s *ApiServer) Routes() http.Handler {
 	mux.HandleFunc("PATCH /api/train-types/{id}", s.HandlePatchTrainType)
 	mux.HandleFunc("DELETE /api/train-types/{id}", s.HandleDeleteTrainType)
 
+	mux.HandleFunc("GET /api/running-patterns", s.HandleListRunningPatterns)
+	mux.HandleFunc("GET /api/running-patterns/{id}", s.HandleGetRunningPattern)
+	mux.HandleFunc("POST /api/running-patterns", s.HandlePostRunningPattern)
+	mux.HandleFunc("PATCH /api/running-patterns/{id}", s.HandlePatchRunningPattern)
+	mux.HandleFunc("DELETE /api/running-patterns/{id}", s.HandleDeleteRunningPattern)
+
 	mux.HandleFunc("GET /api/trains", s.HandleListTrains)
 	mux.HandleFunc("GET /api/trains/{trainNumber}", s.HandleGetTrain)
 	mux.HandleFunc("POST /api/trains", s.HandlePostTrain)

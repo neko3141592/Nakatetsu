@@ -198,8 +198,8 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 		"NT01_22BT":      "下り本線",
 		"NT05_2RT":       "2番線",
 		"NT07_26BT":      "下り急行線",
-		"NT07_DEPOT_1T":  "電留1線",
-		"NT11_1_STUB_T":  "1引線",
+		"NT07_DEPOT_1T":  "電留1番",
+		"NT11_1_STUB_T":  "引上1",
 		"NT01_NT02_D1T":  "中央下1",
 		"NT05_NT06_U2T":  "東長上2",
 		"NT07_NT08_DE1T": "小泉下急1",
@@ -216,6 +216,8 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 		"NT07_22AT": "NT06_NT07_U3T",
 		"NT07_25BT": "NT07_NT08_DL1T",
 		"NT07_26BT": "NT07_NT08_DE1T",
+		"NT11_23AT": "NT10_NT11_UL3T",
+		"NT11_24AT": "NT10_NT11_UE3T",
 	}
 	for circuitID, target := range interlockingExits {
 		if definitions[circuitID].ToCircuitID != target {

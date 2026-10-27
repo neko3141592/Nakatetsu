@@ -1,6 +1,7 @@
 import type { Route, Station, TrackCircuit, TrainType } from "@/types/masters";
 
 export type PointHandling = "pass" | "stop" | "unspecified";
+export type PointSection = "service" | "depot_exit" | "depot_entry";
 
 export type TimetablePointRoute = {
   timetablePointId: number;
@@ -15,6 +16,7 @@ export type TimetablePoint = {
   trainNumber: string;
   sequenceIndex: number;
   stationId: string | null;
+  section: PointSection;
   trackCircuitId: string;
   handling: PointHandling;
   arrivalSeconds: number | null;
@@ -36,7 +38,7 @@ export type TimetableTrain = {
 export type TimetableTrainSummary = Pick<TimetableTrain, "trainNumber" | "trainTypeId">;
 export type TimetableTrainBasics = Pick<TimetableTrain, "trainNumber" | "trainTypeId" | "originStationId" | "destinationStationId">;
 
-export type TimetablePointInput = Pick<TimetablePoint, "sequenceIndex" | "stationId" | "trackCircuitId" | "handling" | "arrivalSeconds" | "departureSeconds"> & {
+export type TimetablePointInput = Pick<TimetablePoint, "sequenceIndex" | "section" | "stationId" | "trackCircuitId" | "handling" | "arrivalSeconds" | "departureSeconds"> & {
   routes: Pick<TimetablePointRoute, "sequenceIndex" | "controlStationId" | "routeId">[];
 };
 

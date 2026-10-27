@@ -23,17 +23,17 @@
     },
     {
       "trackId": "DEPOT",
-      "displayName": "電留線",
+      "displayName": "電留1番",
       "trackCircuitId": "NT11_DEPOT_T"
     },
     {
       "trackId": "1_STUB",
-      "displayName": "1引線",
+      "displayName": "引上1",
       "trackCircuitId": "NT11_1_STUB_T"
     },
     {
       "trackId": "4_STUB",
-      "displayName": "4引線",
+      "displayName": "引上4",
       "trackCircuitId": "NT11_4_STUB_T"
     }
   ],
@@ -980,6 +980,7 @@
       "circuitId": "NT11_23AT",
       "displayName": "上り緩行線",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT10_NT11_UL3T",
       "sections": [
         {
           "edgeId": "NT11_track3_approach",
@@ -1002,6 +1003,7 @@
       "circuitId": "NT11_24AT",
       "displayName": "上り急行線",
       "controlKind": "Interlocking",
+      "toCircuitId": "NT10_NT11_UE3T",
       "sections": [
         {
           "edgeId": "NT11_track4_approach",
@@ -1224,7 +1226,7 @@
     },
     {
       "circuitId": "NT11_DEPOT_T",
-      "displayName": "電留線",
+      "displayName": "電留1番",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1236,7 +1238,7 @@
     },
     {
       "circuitId": "NT11_1_STUB_T",
-      "displayName": "1引線",
+      "displayName": "引上1",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1248,7 +1250,7 @@
     },
     {
       "circuitId": "NT11_4_STUB_T",
-      "displayName": "4引線",
+      "displayName": "引上4",
       "controlKind": "Interlocking",
       "sections": [
         {

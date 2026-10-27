@@ -25,6 +25,7 @@ type Props<Row> = {
   removeLabel?: string;
   emptyMessage?: ReactNode;
   disabled?: boolean;
+  fillHeight?: boolean;
   className?: string;
   children?: ReactNode;
   actions?: ReactNode;
@@ -34,14 +35,14 @@ const controlClassName = "rounded-none bg-transparent text-zinc-300 hover:bg-tra
 
 export function EditorTable<Row>({
   rows, columns, getRowId, selectedId, onSelectionChange, onAdd, onRemove, onMove, label,
-  addLabel = "項目を追加", removeLabel = "選択した項目を外す", emptyMessage = "項目がありません", disabled = false, className, children, actions,
+  addLabel = "項目を追加", removeLabel = "選択した項目を外す", emptyMessage = "項目がありません", disabled = false, fillHeight = false, className, children, actions,
 }: Props<Row>) {
   const activeIndex = rows.findIndex((row) => getRowId(row) === selectedId);
   const activeId = activeIndex >= 0 ? selectedId : null;
 
   return (
-    <div className={cn("overflow-hidden rounded-xs border border-zinc-800", className)}>
-      <div className="h-56 overflow-y-auto bg-zinc-950">
+    <div className={cn("overflow-hidden rounded-xs border border-zinc-800", fillHeight && "flex min-h-0 flex-1 flex-col", className)}>
+      <div className={cn("overflow-y-auto bg-zinc-950", fillHeight ? "min-h-0 flex-1" : "h-56")}>
         <table aria-label={label} className="w-full table-fixed border-collapse text-sm text-zinc-200">
           <thead className="sticky top-0 bg-zinc-800 text-xs text-zinc-300">
             <tr>
@@ -74,7 +75,7 @@ export function EditorTable<Row>({
           </tbody>
         </table>
       </div>
-      <div className="flex h-8 items-center border-t border-zinc-800 bg-zinc-900 px-1">
+      <div className="flex h-8 shrink-0 items-center border-t border-zinc-800 bg-zinc-900 px-1">
         <Button type="button" size="icon-xs" variant="ghost" aria-label={addLabel} disabled={disabled} onClick={onAdd} className={controlClassName}>
           <Plus aria-hidden="true" />
         </Button>
