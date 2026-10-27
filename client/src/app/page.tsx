@@ -13,6 +13,9 @@ function readJson<T>(filePath: string): T {
 
 type Placement = { id: string; stationId?: string; x: number; y: number };
 const placements: readonly Placement[] = lineLayout.diagrams;
+const { stations } = readJson<{ stations: { stationId: string; displayName: string }[] }>(
+  path.join(process.cwd(), "../SourceAssets/Track/Network/NakatetsuTrackGraph/graph.json"),
+);
 const diagramLayouts = import.meta.glob<DiagramLayout>("../data/diagrams/*.layout.json", {
   eager: true,
   import: "default",
@@ -29,6 +32,7 @@ const diagrams = placements.map((placement) => {
     : undefined;
   return {
     ...placement,
+    stationName: stations.find((station) => station.stationId === placement.stationId)?.displayName,
     svg: readFileSync(
       path.join(process.cwd(), "public/ctc/diagram", `${placement.id}.svg`),
       "utf8",

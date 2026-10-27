@@ -39,7 +39,7 @@ export function RouteControlInspector({ routes, circuitsById, station, onCancelR
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-2">
-                <ul aria-label={`${group.label}の進路状況`} className="space-y-1">
+                <ul aria-label={`${group.label}の進路状況`} className="ml-auto w-60 max-w-full space-y-1">
                   {group.routes.map((route) => (
                     <li key={route.routeId} data-route-id={route.routeId} title={route.routeId}>
                       <RouteStatusIndicator

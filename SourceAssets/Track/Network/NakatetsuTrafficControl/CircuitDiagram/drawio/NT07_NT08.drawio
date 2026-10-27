@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net">
+  <diagram id="NT07_NT08" name="NT07_NT08 駅間">
+    <mxGraphModel dx="1200" dy="768" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="73.6" pageHeight="768" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NT07_NT08_DE1T" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="192" as="sourcePoint" />
+            <mxPoint x="73.6" y="256" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="192" />
+              <mxPoint x="55.2" y="256" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_TrainLabel_DE1T" parent="1" vertex="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="">
+          <mxGeometry x="32.8" y="200" width="8" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_DE_0" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="186" as="sourcePoint" />
+            <mxPoint x="0" y="198" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_DE_1" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="250" as="sourcePoint" />
+            <mxPoint x="73.6" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_DL1T" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="256" as="sourcePoint" />
+            <mxPoint x="73.6" y="320" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="256" />
+              <mxPoint x="55.2" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_TrainLabel_DL1T" parent="1" vertex="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="">
+          <mxGeometry x="32.8" y="264" width="8" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_DL_0" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="250" as="sourcePoint" />
+            <mxPoint x="0" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_DL_1" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="314" as="sourcePoint" />
+            <mxPoint x="73.6" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_UL1T" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="512" as="sourcePoint" />
+            <mxPoint x="73.6" y="448" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="512" />
+              <mxPoint x="55.2" y="448" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_TrainLabel_UL1T" parent="1" vertex="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="">
+          <mxGeometry x="32.8" y="456" width="8" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_UL_0" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="506" as="sourcePoint" />
+            <mxPoint x="0" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_UL_1" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="442" as="sourcePoint" />
+            <mxPoint x="73.6" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_UE1T" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="576" as="sourcePoint" />
+            <mxPoint x="73.6" y="512" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="18.4" y="576" />
+              <mxPoint x="55.2" y="512" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_TrainLabel_UE1T" parent="1" vertex="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="">
+          <mxGeometry x="32.8" y="520" width="8" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_UE_0" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="570" as="sourcePoint" />
+            <mxPoint x="0" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT07_NT08_Boundary_UE_1" parent="1" edge="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#EC4899;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="73.6" y="506" as="sourcePoint" />
+            <mxPoint x="73.6" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

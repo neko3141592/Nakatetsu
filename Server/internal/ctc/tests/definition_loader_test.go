@@ -195,12 +195,15 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 		t.Fatalf("loaded %d circuits, want 154", len(definitions))
 	}
 	for circuitID, want := range map[string]string{
-		"NT01_22BT":     "下り本線",
-		"NT05_2RT":      "2番線",
-		"NT07_26BT":     "下り急行線",
-		"NT07_DEPOT_1T": "電留1線",
-		"NT11_1_STUB_T": "1引線",
-		"NT01_NT02_D1T": "下り本線（下1T）",
+		"NT01_22BT":      "下り本線",
+		"NT05_2RT":       "2番線",
+		"NT07_26BT":      "下り急行線",
+		"NT07_DEPOT_1T":  "電留1線",
+		"NT11_1_STUB_T":  "1引線",
+		"NT01_NT02_D1T":  "中央下1",
+		"NT05_NT06_U2T":  "東長上2",
+		"NT07_NT08_DE1T": "小泉下急1",
+		"NT07_NT08_DL1T": "小泉下緩1",
 	} {
 		if got := definitions[circuitID].DisplayName; got != want {
 			t.Errorf("%s.DisplayName = %q, want %q", circuitID, got, want)

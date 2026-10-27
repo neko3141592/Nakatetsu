@@ -24,6 +24,11 @@ type RouteKey struct {
 	RouteID   string
 }
 
+type InterlockingDefinitions struct {
+	Routes                   []TrackRouteDefinition
+	RequestTriggersByStation map[string][]string
+}
+
 type TrackRouteDefinition struct {
 	InterlockingStationID string
 	InterlockingRouteID   string

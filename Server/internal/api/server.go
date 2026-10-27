@@ -11,11 +11,13 @@ import (
 	"github.com/neko3141592/Nakatetsu/Server/internal/communication"
 	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
 	"google.golang.org/protobuf/proto"
+	"gorm.io/gorm"
 )
 
 type ApiServer struct {
 	CTC          *ctc.CTC
 	RouteControl *communication.CommunicationServer
+	DB *gorm.DB
 }
 
 func (s *ApiServer) HandleWebSocket(w http.ResponseWriter, r *http.Request) {

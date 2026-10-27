@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import { toast } from "@/components/ui/toast";
 
 import { RouteControlTab } from "@/components/ctc/tabs/route-control/RouteControlTab";
 import { TrafficTab } from "@/components/ctc/tabs/traffic/TrafficTab";
-import { TimetableTab } from "@/components/ctc/tabs/timetable/TimetableTab";
+import { OperatingPlanTab } from "@/components/ctc/tabs/operating-plan/OperatingPlanTab";
 import { SimulationClock } from "@/components/ctc/header/SimulationClock";
 import { SimulationPauseOverlay } from "@/components/ctc/overlays/SimulationPauseOverlay";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -21,7 +23,6 @@ type Props = {
 export default function CtcLayout({ scene }: Props) {
   const snapshot = useCtcSnapshot();
   const [activeTab, setActiveTab] = useState("traffic");
-  const [message, setMessage] = useState("待機中");
 
   return (
     <main
@@ -46,12 +47,26 @@ export default function CtcLayout({ scene }: Props) {
             <TabsTrigger value="routes" className={tabClassName}>
               進路制御
             </TabsTrigger>
-            <TabsTrigger value="timetable" className={tabClassName}>
-              ダイヤ管理
+            <TabsTrigger value="operating-plan" className={tabClassName}>
+              運転計画変更
             </TabsTrigger>
           </TabsList>
 
-          <div className="flex h-full shrink-0 items-center pr-1">
+          <div className="flex h-full shrink-0 items-center gap-3 pr-1">
+            <Link
+              href="/timetables"
+              className="inline-flex h-6 shrink-0 items-center rounded-xs bg-zinc-800 px-2 text-xs text-zinc-200 hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-orange-300"
+            >
+              ダイヤ編集
+            </Link>
+            <button
+              type="button"
+              disabled
+              title="準備中"
+              className="inline-flex h-6 shrink-0 cursor-not-allowed items-center rounded-xs bg-zinc-800 px-2 text-xs text-zinc-500"
+            >
+              運転記録
+            </button>
             <SimulationClock worldTime={snapshot?.worldTime} />
           </div>
         </header>
@@ -78,24 +93,23 @@ export default function CtcLayout({ scene }: Props) {
               scene={scene}
               snapshot={snapshot}
               active={activeTab === "routes"}
-              onMessage={setMessage}
+              onMessage={(title, type = "info") => toast.add({ title, type, id: "route-control", timeout: type === "loading" ? 0 : 5000 })}
             />
           </TabsContent>
           <TabsContent
-            value="timetable"
+            value="operating-plan"
             className="relative m-0 min-h-0 flex-1 overflow-hidden bg-zinc-950"
           >
-            <TimetableTab />
+            <OperatingPlanTab />
           </TabsContent>
 
         </div>
       </Tabs>
 
       <footer
-        role="status"
-        className="flex h-6 shrink-0 items-center bg-gray-950 px-2 text-xs text-zinc-200 sm:text-sm"
+        className="flex h-6 shrink-0 items-center bg-zinc-950 px-2 text-xs text-zinc-200 sm:text-sm"
       >
-        {message}
+        <span role="status">待機中</span>
       </footer>
     </main>
   );

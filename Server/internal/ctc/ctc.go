@@ -14,26 +14,37 @@ import (
 var ErrTrainInitialization = errors.New("train initialization failed")
 
 // PRCはCTC側が利用するPRCのインターフェース。
-type PRC interface{}
+type PRC interface {
+	Initialize(tracking TrackingState) error
+	UpdateRouteRequests()
+}
 
 type CTC struct {
-	prc              PRC
-	mu               sync.RWMutex
-	snapshot         *ctcv1.UnitySnapshot
-	state            TrackingState
-	definitions      map[string]TrackCircuitDefinition
-	routeDefinitions []TrackRouteDefinition
-	routeRefs        map[string][]RouteCircuitRef
+	prc                  PRC
+	mu                   sync.RWMutex
+	snapshot             *ctcv1.UnitySnapshot
+	state                TrackingState
+	definitions          map[string]TrackCircuitDefinition
+	routeDefinitions     []TrackRouteDefinition
+	routeRefs            map[string][]RouteCircuitRef
+	stationStatesByID    map[string]StationState
+	updateMu             sync.Mutex
+	prcInitializationErr error
 }
 
 func New(definitions map[string]TrackCircuitDefinition, routes []TrackRouteDefinition) *CTC {
+	stations := make(map[string]StationState)
+	for _, route := range routes {
+		stations[route.InterlockingStationID] = StationState{ControlMode: StationControlManual}
+	}
 	return &CTC{
 		state: TrackingState{
 			CircuitsByID: make(map[string]TrackCircuitState),
 		},
-		definitions:      definitions,
-		routeDefinitions: routes,
-		routeRefs:        BuildRouteCircuitRefs(routes),
+		definitions:       definitions,
+		routeDefinitions:  routes,
+		routeRefs:         BuildRouteCircuitRefs(routes),
+		stationStatesByID: stations,
 	}
 }
 
@@ -42,11 +53,28 @@ func (c *CTC) SetPRC(prc PRC) {
 	c.prc = prc
 }
 
-func (c *CTC) UpdateSnapshot(snapshot *ctcv1.UnitySnapshot) error {
+func (c *CTC) UpdateSnapshot(snapshot *ctcv1.UnitySnapshot) (err error) {
+	c.updateMu.Lock()
+	defer c.updateMu.Unlock()
+
 	copied := proto.Clone(snapshot).(*ctcv1.UnitySnapshot)
+	var prc PRC
+	initialized := false
 
 	c.mu.Lock()
-	defer c.mu.Unlock()
+	defer func() {
+		c.mu.Unlock()
+		if prc != nil {
+			if initialized {
+				c.prcInitializationErr = prc.Initialize(c.GetTrackingState())
+			}
+			if c.prcInitializationErr != nil {
+				err = c.prcInitializationErr
+				return
+			}
+			prc.UpdateRouteRequests()
+		}
+	}()
 
 	c.snapshot = copied
 
@@ -67,6 +95,7 @@ func (c *CTC) UpdateSnapshot(snapshot *ctcv1.UnitySnapshot) error {
 		if err := c.initializeTrains(copied.GetTrainInitialization(), occupied); err != nil {
 			return err
 		}
+		initialized = true
 	}
 	if valid && c.state.IsInitialized {
 		UpdateTracking(
@@ -84,6 +113,8 @@ func (c *CTC) UpdateSnapshot(snapshot *ctcv1.UnitySnapshot) error {
 			circuit.IsOccupied = isOccupied
 			c.state.CircuitsByID[circuitID] = circuit
 		}
+
+		prc = c.prc
 	}
 
 	return nil

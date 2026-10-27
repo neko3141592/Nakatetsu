@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"log"
 	"net"
@@ -11,6 +12,7 @@ import (
 	"github.com/neko3141592/Nakatetsu/Server/gen/ctcv1"
 	"github.com/neko3141592/Nakatetsu/Server/internal/api"
 	"google.golang.org/grpc"
+	"gorm.io/gorm"
 
 	grpcserver "github.com/neko3141592/Nakatetsu/Server/internal/communication"
 	ctc "github.com/neko3141592/Nakatetsu/Server/internal/ctc"
@@ -29,9 +31,9 @@ func main() {
 		log.Fatalf("軌道回路定義の読み込みに失敗: %v", err)
 	}
 
-	routes, err := ctc.LoadTrackRouteDefinitions(*interlockingPath, definitions)
+	interlocking, err := ctc.LoadInterlockingDefinitions(*interlockingPath, definitions)
 	if err != nil {
-		log.Fatalf("進路定義の読み込みに失敗: %v", err)
+		log.Fatalf("連動定義の読み込みに失敗: %v", err)
 	}
 
 	// ダイヤDBとの接続を取得
@@ -46,18 +48,26 @@ func main() {
 	}
 	defer sqlDB.Close()
 
-	// CTC・PRCインスタンスを作成
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	plan, err := timetable.LoadTimetablePlan(ctx, db, "weekday")
-	if err != nil {
-		log.Fatalf("ダイヤの読み込みに失敗: %v", err)
+	if err := timetable.SyncEquipmentMasters(ctx, db, *manifestPath, definitions, interlocking.Routes); err != nil {
+		log.Fatalf("設備マスターの同期に失敗: %v", err)
 	}
-	ctcCore := ctc.New(definitions, routes)
-	prcCore := prc.New(ctcCore, plan)
-	ctcCore.SetPRC(prcCore)
+
+	// CTC・PRCインスタンスを作成
+	ctcCore := ctc.New(definitions, interlocking.Routes)
+	plan, err := timetable.LoadTimetablePlan(ctx, db, "weekday")
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		log.Println("ダイヤ weekday が未登録のため、PRCを無効にして起動します")
+	} else if err != nil {
+		log.Fatalf("ダイヤの読み込みに失敗: %v", err)
+	} else {
+		prcCore := prc.New(ctcCore, plan, interlocking.RequestTriggersByStation, interlocking.Routes)
+		ctcCore.SetPRC(prcCore)
+	}
 	log.Printf("軌道回路定義を読み込み: %d回路", len(definitions))
-	log.Printf("進路定義を読み込み: %d進路", len(routes))
+	log.Printf("進路定義を読み込み: %d進路", len(interlocking.Routes))
+	log.Printf("接近点定義を読み込み: %d駅", len(interlocking.RequestTriggersByStation))
 
 	communicationServer := &grpcserver.CommunicationServer{
 		CTC: ctcCore,
@@ -67,10 +77,9 @@ func main() {
 	apiServer := &api.ApiServer{
 		CTC:          ctcCore,
 		RouteControl: communicationServer,
+		DB:           db,
 	}
-	mux := http.NewServeMux()
-	mux.HandleFunc("/ws", apiServer.HandleWebSocket)
-	mux.HandleFunc("POST /api/route-requests", apiServer.HandleRouteRequest)
+	mux := apiServer.Routes()
 	go func() {
 		log.Println("Web配信サーバー起動: 0.0.0.0:8080")
 		if err := http.ListenAndServe("0.0.0.0:8080", mux); err != nil {

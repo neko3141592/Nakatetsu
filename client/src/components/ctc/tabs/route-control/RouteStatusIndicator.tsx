@@ -31,7 +31,7 @@ export function RouteStatusIndicator({ originName, destinationName, route, onCan
       aria-label={`${label}：${lamp.label}${route?.cancelPending ? "・取り消し待ち" : canCancel ? "。進路取り消しを要求" : ""}`}
       data-lamp-state={lamp.state}
       className={cn(
-        "relative grid min-h-10 w-full min-w-0 grid-cols-[minmax(0,1fr)_1em_minmax(0,1fr)] items-center gap-x-0.5 rounded border border-black bg-[#333333] px-2 py-1 text-left text-xl font-normal text-white enabled:cursor-pointer enabled:hover:bg-[#3f3f3f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 disabled:cursor-default",
+        "relative grid min-h-10 w-full min-w-0 grid-cols-[minmax(0,1fr)_1em_minmax(0,1fr)] items-center gap-x-0.5 rounded-xs border border-black bg-[#333333] px-2 py-1 text-left text-xl font-normal text-white enabled:cursor-pointer enabled:hover:bg-[#3f3f3f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 disabled:cursor-default",
         className,
       )}
     >

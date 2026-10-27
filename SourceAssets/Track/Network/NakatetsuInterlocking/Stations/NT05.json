@@ -1,5 +1,15 @@
 {
   "interlockingId": "NT05",
+  "requestTriggerTrackCircuitIds": [
+    "NT04_NT05_D1T",
+    "NT05_NT06_U1T",
+    "NT05_21T",
+    "NT05_24T",
+    "NT05_1RT",
+    "NT05_2RT",
+    "NT05_3LT",
+    "NT05_4LT"
+  ],
   "memberTrackCircuitIds": [
     "NT05_1RT",
     "NT05_2RT",

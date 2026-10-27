@@ -11,14 +11,12 @@ import { useSidebar } from "@/components/ui/sidebar";
 import type { InspectorSelection } from "@/lib/inspectorTypes";
 import { RouteControlHeader } from "@/components/ctc/tabs/route-control/RouteControlHeader";
 import { InterlockingRouteOperation } from "@/gen/ctc_pb";
-import routeControl from "@/data/diagrams/RouteControl.json";
-import { getStationDiagramScene } from "@/lib/getStationDiagramScene";
 import { getLockedTurnoutIds } from "@/lib/getLockedTurnoutIds";
 import { sendRouteRequest } from "@/lib/sendRouteRequest";
 
 type Props = Pick<DiagramSceneProps, "scene" | "snapshot"> & {
   active: boolean;
-  onMessage: (message: string) => void;
+  onMessage: (message: string, type?: "info" | "loading" | "success" | "error") => void;
 };
 
 export function RouteControlTab(props: Props) {
@@ -32,13 +30,16 @@ export function RouteControlTab(props: Props) {
 function RouteControlTabContent({ scene, snapshot, active, onMessage }: Props) {
   const [selection, setSelection] = useState<InspectorSelection>(null);
   const { isMobile, setOpen, setOpenMobile } = useSidebar();
-  const [stationId, setStationId] = useState(routeControl.stations[0].stationId);
+  const stations = useMemo(() => scene.diagrams.flatMap((diagram) =>
+    diagram.stationId && diagram.routeDefinitions.length > 0
+      ? [{ stationId: diagram.stationId, displayName: diagram.stationName ?? diagram.stationId }]
+      : [],
+  ), [scene]);
+  const [stationId, setStationId] = useState(stations[0]?.stationId ?? "");
   const [origin, setOrigin] = useState<{ stationId: string; circuitId: string; direction?: RouteDirection } | null>(null);
   const [isSendingRoute, setIsSendingRoute] = useState(false);
   const requestPending = useRef(false);
-  const station = routeControl.stations.find((item) => item.stationId === stationId)!;
-  const stationScene = useMemo(() => getStationDiagramScene(scene, station), [scene, station]);
-  const stationDiagram = stationScene.diagrams.find((diagram) => diagram.stationId === stationId);
+  const stationDiagram = scene.diagrams.find((diagram) => diagram.stationId === stationId);
   const stationStatus = snapshot?.interlocking?.stationsById[stationId];
   const turnouts = stationDiagram?.layout.turnoutIndicators ?? [];
   const lockedTurnoutIds = getLockedTurnoutIds(
@@ -68,6 +69,7 @@ function RouteControlTabContent({ scene, snapshot, active, onMessage }: Props) {
       onMessage("発点の選択を解除しました。");
       return;
     }
+    setStationId(stationId);
     setOrigin({ stationId, circuitId, direction });
     onMessage("発点が選択されました");
   }
@@ -76,7 +78,7 @@ function RouteControlTabContent({ scene, snapshot, active, onMessage }: Props) {
     if (requestPending.current || origin?.stationId !== stationId) return;
     const routes = availableRoutes.filter((route) => route.destinationTrackCircuitId === circuitId);
     if (routes.length !== 1) {
-      onMessage("進路を1つに特定できません。進路定義を確認してください。");
+      onMessage("進路を1つに特定できません。進路定義を確認してください。", "error");
       return;
     }
     await requestRoute(stationId, routes[0].routeId, InterlockingRouteOperation.SET);
@@ -94,17 +96,17 @@ function RouteControlTabContent({ scene, snapshot, active, onMessage }: Props) {
     const action = operation === InterlockingRouteOperation.CANCEL ? "取り消し" : "設定";
     requestPending.current = true;
     setIsSendingRoute(true);
-    onMessage(`${stationId} 進路 ${routeId} の${action}を要求しています…`);
+    onMessage(`${stationId} 進路 ${routeId} の${action}を要求しています…`, "loading");
     try {
       const result = await sendRouteRequest(stationId, routeId, operation);
       if (result.accepted) {
         if (operation === InterlockingRouteOperation.SET) setOrigin(null);
-        onMessage(`${stationId} 進路 ${routeId} ${action}：受付済み。${result.message ?? ""}`);
+        onMessage(`${stationId} 進路 ${routeId} ${action}：受付済み。${result.message ?? ""}`, "success");
       } else {
-        onMessage(`${stationId} 進路 ${routeId} ${action}：拒否。${result.message || "要求は受け付けられませんでした。"}`);
+        onMessage(`${stationId} 進路 ${routeId} ${action}：拒否。${result.message || "要求は受け付けられませんでした。"}`, "error");
       }
     } catch (error) {
-      onMessage(`${stationId} 進路 ${routeId} ${action}：送信結果を確認できません。${error instanceof Error ? error.message : "通信エラー"}`);
+      onMessage(`${stationId} 進路 ${routeId} ${action}：送信結果を確認できません。${error instanceof Error ? error.message : "通信エラー"}`, "error");
     } finally {
       requestPending.current = false;
       setIsSendingRoute(false);
@@ -125,7 +127,7 @@ function RouteControlTabContent({ scene, snapshot, active, onMessage }: Props) {
         }}
       >
         <RouteControlHeader
-          stations={routeControl.stations}
+          stations={stations}
           stationId={stationId}
           onStationChange={(nextStationId) => {
             setStationId(nextStationId);
@@ -143,18 +145,15 @@ function RouteControlTabContent({ scene, snapshot, active, onMessage }: Props) {
           />
           {active ? (
             <DiagramViewport
-              key={stationId}
-              width={stationScene.width}
-              height={stationScene.height}
-              label={`${station.displayName}の配線図`}
-              fitLabel="駅全体を表示"
+              width={scene.width}
+              height={scene.height}
             >
               <DiagramSceneContent
                 snapshot={snapshot}
                 selectedTrainId={selection?.trainId}
                 onSelectTrain={selectTrain}
                 mode="route-control"
-                scene={stationScene}
+                scene={scene}
                 origin={origin}
                 availableDestinationCircuitIds={availableDestinations}
                 isSendingRoute={isSendingRoute}

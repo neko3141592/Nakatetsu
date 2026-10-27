@@ -1,4 +1,17 @@
 {
+  "stationId": "NT03",
+  "stationTracks": [
+    {
+      "trackId": "1",
+      "displayName": "1番線",
+      "trackCircuitId": "NT03_DT"
+    },
+    {
+      "trackId": "2",
+      "displayName": "2番線",
+      "trackCircuitId": "NT03_UT"
+    }
+  ],
   "geometries": [],
   "nodes": [
     {
