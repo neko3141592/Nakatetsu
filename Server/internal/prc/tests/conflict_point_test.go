@@ -1,10 +1,11 @@
-package prc
+package tests
 
 import (
 	"reflect"
 	"testing"
 
 	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
+	"github.com/neko3141592/Nakatetsu/Server/internal/prc"
 )
 
 func TestBuildConflictPoints(t *testing.T) {
@@ -39,7 +40,7 @@ func TestBuildConflictPoints(t *testing.T) {
 			{StationID: "S1", RouteID: "C"}: {},
 		},
 	}
-	if got := buildConflictPoints(routes); !reflect.DeepEqual(got, want) {
+	if got := prc.BuildConflictPoints(routes); !reflect.DeepEqual(got, want) {
 		t.Fatalf("conflict points = %v, want %v", got, want)
 	}
 }
@@ -51,7 +52,7 @@ func TestBuildConflictPointsWithoutSharedCircuits(t *testing.T) {
 		{{InterlockingStationID: "S1", InterlockingRouteID: "A", TrackCircuitIDs: []string{"T1"}},
 			{InterlockingStationID: "S1", InterlockingRouteID: "B", TrackCircuitIDs: []string{"T1"}}},
 	} {
-		if got := buildConflictPoints(routes); len(got) != 0 {
+		if got := prc.BuildConflictPoints(routes); len(got) != 0 {
 			t.Fatalf("conflict points = %v, want no conflict points", got)
 		}
 	}

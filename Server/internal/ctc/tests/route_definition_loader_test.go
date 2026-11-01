@@ -182,14 +182,15 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 		t.Fatal(err)
 	}
 	routes := definitions.Routes
-	if len(definitions.RequestTriggersByStation) != 4 {
-		t.Fatalf("loaded request triggers for %d stations, want 4", len(definitions.RequestTriggersByStation))
+	if len(definitions.RequestTriggersByStation) != 5 {
+		t.Fatalf("loaded request triggers for %d stations, want 5", len(definitions.RequestTriggersByStation))
 	}
 	for stationID, approaches := range map[string][]string{
 		"NT01": {"NT01_NT02_U1T"},
 		"NT05": {"NT04_NT05_D1T", "NT05_NT06_U1T"},
 		"NT07": {"NT06_NT07_D3T", "NT07_NT08_UE1T", "NT07_NT08_UL1T"},
-		"NT11": {"NT10_NT11_DE3T", "NT10_NT11_DL3T"},
+		"NT11": {"NT10_NT11_DE1T", "NT10_NT11_DL1T"},
+		"NT14": {"NT13_NT14_D4T", "NT14_27BT"},
 	} {
 		for _, circuitID := range approaches {
 			if !slices.Contains(definitions.RequestTriggersByStation[stationID], circuitID) {
@@ -202,14 +203,14 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 			t.Fatalf("route %s/%s: start circuit is not a request trigger", route.InterlockingStationID, route.InterlockingRouteID)
 		}
 	}
-	if len(routes) != 58 {
-		t.Fatalf("loaded %d routes, want 58", len(routes))
+	if len(routes) != 74 {
+		t.Fatalf("loaded %d routes, want 74", len(routes))
 	}
 	counts := make(map[string]int)
 	for _, route := range routes {
 		counts[route.InterlockingStationID]++
 	}
-	if want := (map[string]int{"NT01": 6, "NT05": 8, "NT07": 24, "NT11": 20}); !reflect.DeepEqual(counts, want) {
+	if want := (map[string]int{"NT01": 6, "NT05": 8, "NT07": 24, "NT11": 20, "NT14": 16}); !reflect.DeepEqual(counts, want) {
 		t.Fatalf("route counts = %v, want %v", counts, want)
 	}
 	for _, tt := range []struct {
@@ -238,6 +239,8 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 		// ATCの回路列には含まれていなかった進入元も、追跡用JSONには含める。
 		{"NT07", "2RA", "NT07_22BT", "NT07_23T"},
 		{"NT11", "11LB", "NT11_DEPOT_T", "NT11_26T"},
+		{"NT14", "1RA", "NT14_21AT", "NT14_22BT"},
+		{"NT14", "2L", "NT14_1RT", "NT14_23T"},
 	} {
 		t.Run(tt.station+"/"+tt.route, func(t *testing.T) {
 			state := ctc.TrackingState{}

@@ -58,4 +58,9 @@ type RouteUsage struct {
 	RouteID          string
 }
 
-
+// 軌道回路接近点
+type ApproachPoint struct {
+	ID             int64
+	StationID      string
+	TrackCircuitID string
+}

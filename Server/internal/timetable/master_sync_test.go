@@ -157,8 +157,8 @@ func TestSyncNakatetsuEquipmentMasters(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	count(t, db, &timetable.Station{}, 11)
-	count(t, db, &timetable.StationTrack{}, 40)
+	count(t, db, &timetable.Station{}, 14)
+	count(t, db, &timetable.StationTrack{}, 46)
 	count(t, db, &timetable.TrackCircuit{}, int64(len(circuits)))
 	count(t, db, &timetable.Route{}, int64(len(interlocking.Routes)))
 	var station timetable.Station
@@ -166,7 +166,10 @@ func TestSyncNakatetsuEquipmentMasters(t *testing.T) {
 		{StationID: "NT01", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT01_1RT"},
 		{StationID: "NT02", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT02_DT"},
 		{StationID: "NT07", TrackID: "DEPOT_1", DisplayName: "電留1番", TrackCircuitID: "NT07_DEPOT_1T"},
-		{StationID: "NT11", TrackID: "4_STUB", DisplayName: "引上4", TrackCircuitID: "NT11_4_STUB_T"},
+		{StationID: "NT11", TrackID: "DEPOT", DisplayName: "電留1番", TrackCircuitID: "NT11_DEPOT_T"},
+		{StationID: "NT12", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT12_DT"},
+		{StationID: "NT13", TrackID: "2", DisplayName: "2番線", TrackCircuitID: "NT13_UT"},
+		{StationID: "NT14", TrackID: "4", DisplayName: "4番線", TrackCircuitID: "NT14_4LT"},
 	} {
 		var track timetable.StationTrack
 		if err := db.First(&track, "station_id = ? AND track_id = ?", expected.StationID, expected.TrackID).Error; err != nil || track != expected {
