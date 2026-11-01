@@ -75,9 +75,11 @@ func main() {
 
 	// Web API向けサーバーを起動
 	apiServer := &api.ApiServer{
-		CTC:          ctcCore,
-		RouteControl: communicationServer,
-		DB:           db,
+		CTC:                ctcCore,
+		RouteControl:       communicationServer,
+		DB:                 db,
+		CircuitDefinitions: definitions,
+		RouteDefinitions:   interlocking.Routes,
 	}
 	mux := apiServer.Routes()
 	go func() {

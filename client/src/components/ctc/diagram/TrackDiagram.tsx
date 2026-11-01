@@ -3,7 +3,7 @@
 import { useLayoutEffect, useMemo, useRef, type SyntheticEvent } from "react";
 
 import { TurnoutPosition, type CtcSnapshot, type InterlockingStationStatus } from "@/gen/ctc_pb";
-import type { RouteCategory } from "@/lib/routeCategory";
+import type { RouteDirection as InterlockingRouteDirection, RouteKind } from "@/lib/routeCategory";
 
 export type CircuitSvgMap = Readonly<Record<string,
   | { svgId: string }
@@ -12,7 +12,8 @@ export type CircuitSvgMap = Readonly<Record<string,
 
 export type RouteDefinition = {
   routeId: string;
-  category?: RouteCategory;
+  direction: InterlockingRouteDirection;
+  kind: RouteKind;
   startTrackCircuitId: string;
   destinationTrackCircuitId: string;
   destinationCode: string;

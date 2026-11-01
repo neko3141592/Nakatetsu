@@ -15,6 +15,14 @@ const (
 	HandlingUnspecified PointHandling = "unspecified"
 )
 
+type PointSection string
+
+const (
+	PointSectionService    PointSection = "service"
+	PointSectionDepotExit  PointSection = "depot_exit"
+	PointSectionDepotEntry PointSection = "depot_entry"
+)
+
 type Timetable struct {
 	ID          string `gorm:"primaryKey;not null" json:"id"`
 	DisplayName string `gorm:"not null" json:"displayName"`
@@ -70,6 +78,7 @@ type TimetablePoint struct {
 	TimetablePointID int64         `gorm:"primaryKey" json:"timetablePointId"`
 	TrainNumber      string        `gorm:"not null;uniqueIndex:idx_train_point_sequence,priority:1;check:trim(train_number) <> ''" json:"trainNumber"`
 	SequenceIndex    int           `gorm:"not null;uniqueIndex:idx_train_point_sequence,priority:2;check:sequence_index >= 0" json:"sequenceIndex"`
+	Section          PointSection  `gorm:"type:text;not null;default:'service';check:section IN ('service','depot_exit','depot_entry')" json:"section"`
 	StationID        *string       `gorm:"index;check:station_id IS NULL OR trim(station_id) <> ''" json:"stationId"`
 	TrackCircuitID   string        `gorm:"not null;index;check:trim(track_circuit_id) <> ''" json:"trackCircuitId"`
 	Handling         PointHandling `gorm:"type:text;default:'unspecified';not null;check:handling IN ('pass','stop','unspecified')" json:"handling"`
@@ -95,6 +104,17 @@ type TimetablePointRoute struct {
 type TrainType struct {
 	TrainTypeID string `gorm:"primaryKey;not null;check:trim(train_type_id) <> ''" json:"trainTypeId"`
 	DisplayName string `gorm:"not null" json:"displayName"`
+	Color       string `gorm:"not null;default:'#2563eb'" json:"color"`
+}
+
+const DefaultTrainTypeColor = "#2563eb"
+
+type TrainTypeStation struct {
+	TrainTypeID string        `gorm:"primaryKey;not null" json:"trainTypeId"`
+	StationID   string        `gorm:"primaryKey;not null" json:"stationId"`
+	Handling    PointHandling `gorm:"type:text;not null;check:handling IN ('stop','pass')" json:"handling"`
+	TrainType   TrainType     `gorm:"belongsTo:TrainType;foreignKey:TrainTypeID;references:TrainTypeID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"-"`
+	Station     Station       `gorm:"belongsTo:Station;foreignKey:StationID;references:StationID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"-"`
 }
 
 type Station struct {

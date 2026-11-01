@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "@/components/ui/toast";
 
@@ -9,11 +10,16 @@ import { DiagramViewer } from "@/components/timetable/DiagramViewer";
 import { OperationInput } from "@/components/timetable/OperationInput";
 import { TimetableInput } from "@/components/timetable/TimetableInput";
 import { TrainTypeInput } from "@/components/timetable/TrainTypeInput";
+import { TrainEditWindow } from "@/components/timetable/TrainEditWindow";
+import { loadTrain } from "@/app/timetables/train-actions";
+import { UnsavedChangesProvider, useDiscardChanges, useUnsavedChanges } from "@/components/timetable/UnsavedChanges";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { TimetableDiagramStation } from "@/types/timetableDiagram";
 import type { Timetable, TimetableSummary } from "@/types/timetable";
 import type { TimetableOperationSummary } from "@/types/operation";
+import type { TimetableTrain } from "@/types/train";
+import type { TrainType } from "@/types/masters";
 
 const editorTabs = [
   { value: "timetables", label: "ダイヤ編集" },
@@ -42,16 +48,61 @@ function createNewTimetable(): Timetable {
 }
 
 export function TimetableEditor({ stations, timetables, operations }: Props) {
+  return <UnsavedChangesProvider><TimetableWorkspace stations={stations} timetables={timetables} operations={operations} /></UnsavedChangesProvider>;
+}
+
+function TimetableWorkspace({ stations, timetables, operations }: Props) {
+  const router = useRouter();
+  const { confirmDiscard } = useDiscardChanges();
+  const [activeTab, setActiveTab] = useState("timetables");
   const [timetable, setTimetable] = useState<Timetable>(createNewTimetable);
+  const [savedTimetable, setSavedTimetable] = useState<Timetable>(createNewTimetable);
   const [timetableList, setTimetableList] = useState(timetables);
   const [operationList, setOperationList] = useState(operations);
+  const [operationTrains, setOperationTrains] = useState<TimetableTrain[]>([]);
+  const [editingTrain, setEditingTrain] = useState<string | null>(null);
   const [selectedTimetableId, setSelectedTimetableId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const { markSaved } = useUnsavedChanges("timetable", timetableDraft(timetable), busy);
+
+  function replaceTimetable(next: Timetable) {
+    setTimetable(next);
+    setSavedTimetable(next);
+    markSaved(timetableDraft(next));
+  }
+
+  function updateTrainType(type: TrainType) {
+    const update = (trains: TimetableTrain[]) => trains.map((train) => train.trainTypeId === type.trainTypeId ? { ...train, trainType: type } : train);
+    setTimetable((current) => ({ ...current, trains: update(current.trains) }));
+    setSavedTimetable((current) => ({ ...current, trains: update(current.trains) }));
+    setOperationTrains(update);
+  }
+
+  async function editTrain(number: string | null) {
+    if (busy) return false;
+    if (number === editingTrain) return true;
+    if (!await confirmDiscard(["train"])) return false;
+    setEditingTrain(number);
+    return true;
+  }
+
+  async function refreshTrain(number: string) {
+    try {
+      const result = await loadTrain(number);
+      if (result.error !== undefined) { toast.add({ title: result.error, type: "error" }); return; }
+      const update = (trains: TimetableTrain[]) => trains.map((train) => train.trainNumber === number ? result.data : train);
+      setTimetable((current) => ({ ...current, trains: update(current.trains) }));
+      setSavedTimetable((current) => ({ ...current, trains: update(current.trains) }));
+      setOperationTrains(update);
+    } catch { toast.add({ title: "スジの更新に失敗しました", type: "error" }); }
+  }
 
   async function selectTimetable(id: string | null) {
+    if (id === selectedTimetableId || !await confirmDiscard(["timetable", "train"])) return;
     if (id === null) {
       setSelectedTimetableId(null);
-      setTimetable(createNewTimetable());
+      replaceTimetable(createNewTimetable());
+      setEditingTrain(null);
       return;
     }
     setBusy(true);
@@ -61,7 +112,8 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
         toast.add({ title: result.error, type: "error" });
         return;
       }
-      setTimetable(result.data);
+      replaceTimetable(result.data);
+      setEditingTrain(null);
       setSelectedTimetableId(id);
     } catch {
       toast.add({ title: "ダイヤの取得に失敗しました", type: "error" });
@@ -84,7 +136,7 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
         return;
       }
       const saved = result.data;
-      setTimetable(saved);
+      replaceTimetable(saved);
       setSelectedTimetableId(saved.id);
       const summary = { id: saved.id, displayName: saved.displayName, revision: saved.revision };
       setTimetableList((current) => [...current.filter((item) => item.id !== saved.id), summary].sort((a, b) => a.id.localeCompare(b.id)));
@@ -103,7 +155,7 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
       const result = await deleteTimetable(timetable.id);
       if (result.error !== undefined) return result.error;
       setTimetableList((current) => current.filter((item) => item.id !== timetable.id));
-      setTimetable(createNewTimetable());
+      replaceTimetable(createNewTimetable());
       setSelectedTimetableId(null);
       toast.add({ title: "削除しました", type: "success" });
       return null;
@@ -117,7 +169,12 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
   return (
     <main className="flex h-dvh min-h-0 w-full flex-col overflow-hidden bg-zinc-900 font-sans">
       <h1 className="sr-only">ダイヤ編集</h1>
-      <Tabs defaultValue="timetables" className="flex min-h-0 flex-1 flex-col gap-0">
+      <Tabs value={activeTab} onValueChange={async (value) => {
+        if (typeof value !== "string" || value === activeTab || !await confirmDiscard()) return;
+        replaceTimetable(savedTimetable);
+        setEditingTrain(null);
+        setActiveTab(value);
+      }} className="flex min-h-0 flex-1 flex-col gap-0">
         <header className="flex h-8 shrink-0 items-center justify-between gap-3 bg-zinc-900">
           <TabsList
             aria-label="ダイヤ編集項目"
@@ -131,6 +188,10 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
           </TabsList>
           <Link
             href="/"
+            onNavigate={(event) => {
+              event.preventDefault();
+              void confirmDiscard().then((discard) => { if (discard) router.push("/"); });
+            }}
             className="mr-3 inline-flex h-6 shrink-0 items-center rounded-xs bg-zinc-800 px-2 text-xs text-zinc-200 hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-orange-300"
           >
             運行管理画面
@@ -147,11 +208,12 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
               <ResizablePanelGroup orientation="horizontal" className="min-h-0" id={`${tab.value}-workspace`}>
                 <ResizablePanel id={`${tab.value}-diagram`} defaultSize="70%" minSize="30%" className="min-w-0">
                   <DiagramViewer
-                    trains={tab.value === "timetables" ? timetable.trains : []}
+                    trains={tab.value === "timetables" ? timetable.trains : operationTrains}
                     stations={stations}
                     startSeconds={4 * 3600}
                     endSeconds={21 * 3600}
                     defaultPixelsPerMinute={16}
+                    onTrainClick={(number) => { void editTrain(number); }}
                   />
                 </ResizablePanel>
                 <ResizableHandle withHandle aria-label={`${tab.label}の表示と入力の幅を変更`} className="w-1 bg-zinc-300" />
@@ -184,14 +246,19 @@ export function TimetableEditor({ stations, timetables, operations }: Props) {
                     setOperationList((current) => [...current.filter((item) => item.operationNumber !== saved.operationNumber), saved].sort((a, b) => a.operationNumber.localeCompare(b.operationNumber)));
                   }} onDeleted={(number) => {
                     setOperationList((current) => current.filter((item) => item.operationNumber !== number));
-                    setTimetable((current) => ({ ...current, operations: current.operations.filter((operation) => operation.operationNumber !== number) }));
-                  }} />}
+                    replaceTimetable({ ...savedTimetable, operations: savedTimetable.operations.filter((operation) => operation.operationNumber !== number) });
+                  }} onTrainsChange={setOperationTrains} editingTrain={editingTrain} onEditTrain={editTrain} onOperationChange={() => setEditingTrain(null)} />}
                 </ResizablePanel>
               </ResizablePanelGroup>
-            ) : <TrainTypeInput />}
+            ) : <TrainTypeInput stations={stations} onSaved={updateTrainType} />}
           </TabsContent>
         ))}
       </Tabs>
+      {editingTrain !== null ? <TrainEditWindow key={editingTrain} trainNumber={editingTrain || undefined} onSaved={refreshTrain} onClose={() => setEditingTrain(null)} /> : null}
     </main>
   );
+}
+
+function timetableDraft(timetable: Timetable) {
+  return { displayName: timetable.displayName, revision: timetable.revision, operationNumbers: timetable.operations.map((operation) => operation.operationNumber) };
 }

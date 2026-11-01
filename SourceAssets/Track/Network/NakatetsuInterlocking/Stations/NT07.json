@@ -104,12 +104,12 @@
     },
     {
       "code": "G",
-      "displayName": "電留1線",
+      "displayName": "電留1番",
       "trackCircuitId": "NT07_DEPOT_1T"
     },
     {
       "code": "H",
-      "displayName": "電留2線",
+      "displayName": "電留2番",
       "trackCircuitId": "NT07_DEPOT_2T"
     },
     {
@@ -131,7 +131,8 @@
   "routes": [
     {
       "routeId": "1RE",
-      "category": "DownArrival",
+      "direction": "Down",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_21AT",
       "destinationCode": "E",
       "destinationTrackCircuitId": "NT07_22BT",
@@ -182,7 +183,8 @@
     },
     {
       "routeId": "1RF",
-      "category": "DownArrival",
+      "direction": "Down",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_21AT",
       "destinationCode": "F",
       "destinationTrackCircuitId": "NT07_21BT",
@@ -235,7 +237,8 @@
     },
     {
       "routeId": "2RA",
-      "category": "DownArrival",
+      "direction": "Down",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_22BT",
       "destinationCode": "A",
       "destinationTrackCircuitId": "NT07_1RT",
@@ -274,7 +277,8 @@
     },
     {
       "routeId": "2RB",
-      "category": "DownArrival",
+      "direction": "Down",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_22BT",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT07_2RT",
@@ -315,7 +319,8 @@
     },
     {
       "routeId": "3RC",
-      "category": "DownArrival",
+      "direction": "Down",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_21BT",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT07_3LT",
@@ -360,7 +365,8 @@
     },
     {
       "routeId": "3RD",
-      "category": "DownArrival",
+      "direction": "Down",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_21BT",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT07_4LT",
@@ -403,7 +409,8 @@
     },
     {
       "routeId": "4RI",
-      "category": "DownDeparture",
+      "direction": "Down",
+      "kind": "Departure",
       "startTrackCircuitId": "NT07_1RT",
       "destinationCode": "I",
       "destinationTrackCircuitId": "NT07_26BT",
@@ -456,7 +463,8 @@
     },
     {
       "routeId": "4RJ",
-      "category": "DownDeparture",
+      "direction": "Down",
+      "kind": "Departure",
       "startTrackCircuitId": "NT07_1RT",
       "destinationCode": "J",
       "destinationTrackCircuitId": "NT07_25BT",
@@ -510,7 +518,8 @@
     },
     {
       "routeId": "5RI",
-      "category": "DownDeparture",
+      "direction": "Down",
+      "kind": "Departure",
       "startTrackCircuitId": "NT07_2RT",
       "destinationCode": "I",
       "destinationTrackCircuitId": "NT07_26BT",
@@ -575,7 +584,8 @@
     },
     {
       "routeId": "5RJ",
-      "category": "DownDeparture",
+      "direction": "Down",
+      "kind": "Departure",
       "startTrackCircuitId": "NT07_2RT",
       "destinationCode": "J",
       "destinationTrackCircuitId": "NT07_25BT",
@@ -639,7 +649,8 @@
     },
     {
       "routeId": "1LC",
-      "category": "UpArrival",
+      "direction": "Up",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_31BT",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT07_3LT",
@@ -706,7 +717,8 @@
     },
     {
       "routeId": "2LC",
-      "category": "UpArrival",
+      "direction": "Up",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_32BT",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT07_3LT",
@@ -772,7 +784,8 @@
     },
     {
       "routeId": "1LD",
-      "category": "UpArrival",
+      "direction": "Up",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_31BT",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT07_4LT",
@@ -827,7 +840,8 @@
     },
     {
       "routeId": "2LD",
-      "category": "UpArrival",
+      "direction": "Up",
+      "kind": "Home",
       "startTrackCircuitId": "NT07_32BT",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT07_4LT",
@@ -883,7 +897,8 @@
     },
     {
       "routeId": "3L",
-      "category": "UpDeparture",
+      "direction": "Up",
+      "kind": "Departure",
       "startTrackCircuitId": "NT07_3LT",
       "destinationCode": "K",
       "destinationTrackCircuitId": "NT07_22AT",
@@ -945,7 +960,8 @@
     },
     {
       "routeId": "4L",
-      "category": "UpDeparture",
+      "direction": "Up",
+      "kind": "Departure",
       "startTrackCircuitId": "NT07_4LT",
       "destinationCode": "K",
       "destinationTrackCircuitId": "NT07_22AT",
@@ -1007,7 +1023,8 @@
     },
     {
       "routeId": "10RG",
-      "category": "Shunting",
+      "direction": "Down",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_2RT",
       "destinationCode": "G",
       "destinationTrackCircuitId": "NT07_DEPOT_1T",
@@ -1074,7 +1091,8 @@
     },
     {
       "routeId": "10RH",
-      "category": "Shunting",
+      "direction": "Down",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_2RT",
       "destinationCode": "H",
       "destinationTrackCircuitId": "NT07_DEPOT_2T",
@@ -1143,7 +1161,8 @@
     },
     {
       "routeId": "11RG",
-      "category": "Shunting",
+      "direction": "Down",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_3LT",
       "destinationCode": "G",
       "destinationTrackCircuitId": "NT07_DEPOT_1T",
@@ -1212,7 +1231,8 @@
     },
     {
       "routeId": "11RH",
-      "category": "Shunting",
+      "direction": "Down",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_3LT",
       "destinationCode": "H",
       "destinationTrackCircuitId": "NT07_DEPOT_2T",
@@ -1279,7 +1299,8 @@
     },
     {
       "routeId": "12LB",
-      "category": "Shunting",
+      "direction": "Up",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_DEPOT_1T",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT07_2RT",
@@ -1347,7 +1368,8 @@
     },
     {
       "routeId": "12LC",
-      "category": "Shunting",
+      "direction": "Up",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_DEPOT_1T",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT07_3LT",
@@ -1417,7 +1439,8 @@
     },
     {
       "routeId": "13LB",
-      "category": "Shunting",
+      "direction": "Up",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_DEPOT_2T",
       "destinationCode": "B",
       "destinationTrackCircuitId": "NT07_2RT",
@@ -1487,7 +1510,8 @@
     },
     {
       "routeId": "13LC",
-      "category": "Shunting",
+      "direction": "Up",
+      "kind": "Shunting",
       "startTrackCircuitId": "NT07_DEPOT_2T",
       "destinationCode": "C",
       "destinationTrackCircuitId": "NT07_3LT",

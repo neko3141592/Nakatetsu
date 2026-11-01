@@ -182,3 +182,61 @@ func TestTrainTypeRunningTimes(t *testing.T) {
 		t.Fatalf("another train type was changed: %+v", other)
 	}
 }
+
+func TestTrainTypeStationHandlings(t *testing.T) {
+	db, handler := trainTypeTestServer(t)
+	if err := db.Create(&[]timetable.Station{{StationID: "A", DisplayName: "A駅"}, {StationID: "B", DisplayName: "B駅"}}).Error; err != nil {
+		t.Fatal(err)
+	}
+	trainTypeRequest(t, handler, http.MethodPost, "/api/train-types", `{"trainTypeId":"express","displayName":"急行","stationHandlings":[{"stationId":"B","handling":"pass"},{"stationId":"A","handling":"stop"}],"runningTimes":[{"fromStationId":"A","toStationId":"B","runningSeconds":60}]}`, http.StatusCreated)
+	want := []trainTypeStationHandling{{"A", timetable.HandlingStop}, {"B", timetable.HandlingPass}}
+	if got := getTrainTypeDetail(t, handler, "express"); !reflect.DeepEqual(got.StationHandlings, want) {
+		t.Fatalf("unexpected handlings: %+v", got)
+	}
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/express", `{"displayName":"変更後"}`, http.StatusNoContent)
+	if got := getTrainTypeDetail(t, handler, "express"); !reflect.DeepEqual(got.StationHandlings, want) {
+		t.Fatal("name-only update changed handlings")
+	}
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/express", `{"stationHandlings":[{"stationId":"A","handling":"pass"}]}`, http.StatusNoContent)
+	before := getTrainTypeDetail(t, handler, "express")
+	if !reflect.DeepEqual(before.StationHandlings, []trainTypeStationHandling{{"A", timetable.HandlingPass}}) || len(before.RunningTimes) != 1 {
+		t.Fatalf("replacement changed other settings: %+v", before)
+	}
+	for _, rows := range []string{
+		`[{"stationId":"missing","handling":"stop"}]`,
+		`[{"stationId":"A","handling":"unspecified"}]`,
+		`[{"stationId":"A","handling":""}]`,
+		`[{"stationId":" ","handling":"stop"}]`,
+		`[{"stationId":"A","handling":"pass"},{"stationId":"A","handling":"stop"}]`,
+		`[{"stationId":"A","handling":"pass","trainTypeId":"other"}]`,
+	} {
+		trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/express", `{"displayName":"失敗","runningTimes":[],"stationHandlings":`+rows+`}`, http.StatusBadRequest)
+		if after := getTrainTypeDetail(t, handler, "express"); !reflect.DeepEqual(after, before) {
+			t.Fatal("invalid handling update changed saved settings")
+		}
+	}
+	trainTypeRequest(t, handler, http.MethodPost, "/api/train-types", `{"trainTypeId":"bad","displayName":"失敗","stationHandlings":[{"stationId":"missing","handling":"stop"}]}`, http.StatusBadRequest)
+	trainTypeRequest(t, handler, http.MethodGet, "/api/train-types/bad", "", http.StatusNotFound)
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/missing", `{"stationHandlings":[]}`, http.StatusNotFound)
+	reference := timetable.TimetableTrain{TrainNumber: "reference", TrainTypeID: "express"}
+	if err := db.Create(&reference).Error; err != nil {
+		t.Fatal(err)
+	}
+	trainTypeRequest(t, handler, http.MethodDelete, "/api/train-types/express", "", http.StatusConflict)
+	if after := getTrainTypeDetail(t, handler, "express"); !reflect.DeepEqual(after, before) {
+		t.Fatal("failed deletion changed settings")
+	}
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/express", `{"stationHandlings":[]}`, http.StatusNoContent)
+	if got := getTrainTypeDetail(t, handler, "express"); got.StationHandlings == nil || len(got.StationHandlings) != 0 || len(got.RunningTimes) != 1 {
+		t.Fatalf("clear failed: %+v", got)
+	}
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/express", `{"stationHandlings":[{"stationId":"A","handling":"stop"}]}`, http.StatusNoContent)
+	if err := db.Delete(&reference).Error; err != nil {
+		t.Fatal(err)
+	}
+	trainTypeRequest(t, handler, http.MethodDelete, "/api/train-types/express", "", http.StatusNoContent)
+	var count int64
+	if err := db.Model(&timetable.TrainTypeStation{}).Count(&count).Error; err != nil || count != 0 {
+		t.Fatalf("handlings not deleted with type: %d, %v", count, err)
+	}
+}

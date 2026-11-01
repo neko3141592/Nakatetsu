@@ -1,22 +1,20 @@
-export enum RouteCategory {
-  DownArrival = "DownArrival",
-  UpArrival = "UpArrival",
-  DownDeparture = "DownDeparture",
-  UpDeparture = "UpDeparture",
+export enum RouteDirection {
+  Up = "Up",
+  Down = "Down",
+}
+
+export enum RouteKind {
+  Departure = "Departure",
+  Home = "Home",
   Shunting = "Shunting",
-  Other = "Other",
 }
 
 // 進路インスペクタの表示名と並び順。
 export const ROUTE_CATEGORIES = [
-  { value: RouteCategory.DownArrival, label: "下り場内" },
-  { value: RouteCategory.UpArrival, label: "上り場内" },
-  { value: RouteCategory.DownDeparture, label: "下り出発" },
-  { value: RouteCategory.UpDeparture, label: "上り出発" },
-  { value: RouteCategory.Shunting, label: "入換" },
-  { value: RouteCategory.Other, label: "その他" },
-] as const;
-
-export function getRouteCategory(value: unknown): RouteCategory {
-  return ROUTE_CATEGORIES.find((category) => category.value === value)?.value ?? RouteCategory.Other;
-}
+  { direction: RouteDirection.Down, kind: RouteKind.Home, label: "下り場内" },
+  { direction: RouteDirection.Up, kind: RouteKind.Home, label: "上り場内" },
+  { direction: RouteDirection.Down, kind: RouteKind.Departure, label: "下り出発" },
+  { direction: RouteDirection.Up, kind: RouteKind.Departure, label: "上り出発" },
+  { direction: RouteDirection.Down, kind: RouteKind.Shunting, label: "下り入換" },
+  { direction: RouteDirection.Up, kind: RouteKind.Shunting, label: "上り入換" },
+].map((category) => ({ ...category, value: `${category.direction}${category.kind}` }));

@@ -6,9 +6,9 @@ import { Rnd } from "react-rnd";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-type Props = { title: string; onClose: () => void; children: ReactNode };
+type Props = { title: string; onClose: () => void; children: ReactNode; closeLabel?: string };
 
-export function FloatingWindow({ title, onClose, children }: Props) {
+export function FloatingWindow({ title, onClose, children, closeLabel = "列番編集を閉じる" }: Props) {
   const titleId = useId();
   const [initial] = useState(() => ({
     x: 16, y: 80,
@@ -35,7 +35,7 @@ export function FloatingWindow({ title, onClose, children }: Props) {
       >
         <header className="floating-window-title flex h-8 shrink-0 cursor-move touch-none items-center justify-between gap-2 border-b border-zinc-600 bg-zinc-950 px-2 select-none">
           <h2 id={titleId} className="truncate text-sm">{title}</h2>
-          <Button type="button" size="icon-xs" variant="ghost" aria-label="列番編集を閉じる" onClick={onClose} className="text-zinc-200 hover:bg-transparent hover:text-zinc-200"><X aria-hidden="true" /></Button>
+          <Button type="button" size="icon-xs" variant="ghost" aria-label={closeLabel} onClick={onClose} className="text-zinc-200 hover:bg-transparent hover:text-zinc-200"><X aria-hidden="true" /></Button>
         </header>
         <div className="min-h-0 flex-1 overflow-auto p-3">{children}</div>
       </Rnd>

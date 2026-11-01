@@ -31,7 +31,7 @@ func LoadTimetable(ctx context.Context, db *gorm.DB, id string) (Timetable, erro
 			numbers = append(numbers, train.TrainNumber)
 		}
 	}
-	err = db.Preload("Points", ordered).Preload("Points.Routes", ordered).
+	err = db.Preload("TrainType").Preload("Points", ordered).Preload("Points.Routes", ordered).
 		Where("train_number IN ?", numbers).Order("train_number ASC").Find(&result.Trains).Error
 	if err != nil {
 		return Timetable{}, err

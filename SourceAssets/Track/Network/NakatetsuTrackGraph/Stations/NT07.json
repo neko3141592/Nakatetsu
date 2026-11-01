@@ -23,12 +23,12 @@
     },
     {
       "trackId": "DEPOT_1",
-      "displayName": "電留1線",
+      "displayName": "電留1番",
       "trackCircuitId": "NT07_DEPOT_1T"
     },
     {
       "trackId": "DEPOT_2",
-      "displayName": "電留2線",
+      "displayName": "電留2番",
       "trackCircuitId": "NT07_DEPOT_2T"
     }
   ],
@@ -1922,7 +1922,7 @@
     },
     {
       "circuitId": "NT07_DEPOT_1T",
-      "displayName": "電留1線",
+      "displayName": "電留1番",
       "controlKind": "Interlocking",
       "sections": [
         {
@@ -1934,7 +1934,7 @@
     },
     {
       "circuitId": "NT07_DEPOT_2T",
-      "displayName": "電留2線",
+      "displayName": "電留2番",
       "controlKind": "Interlocking",
       "sections": [
         {

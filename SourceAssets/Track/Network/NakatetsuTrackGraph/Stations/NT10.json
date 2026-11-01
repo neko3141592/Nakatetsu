@@ -92,8 +92,17 @@
       "endDistanceOnGeometryM": 9950,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 9730,
+          "endDistanceOnGeometryM": 9795,
+          "startOffsetM": -7.304745471699718,
+          "endOffsetM": -8.0,
+          "startSlope": -0.019094084947598365,
+          "endSlope": -0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9795,
           "endDistanceOnGeometryM": 9950,
           "offsetM": -8
         }
@@ -109,8 +118,17 @@
       "endDistanceOnGeometryM": 9950,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 9730,
+          "endDistanceOnGeometryM": 9795,
+          "startOffsetM": -3.3047454716997176,
+          "endOffsetM": -4.0,
+          "startSlope": -0.019094084947598365,
+          "endSlope": -0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9795,
           "endDistanceOnGeometryM": 9950,
           "offsetM": -4
         }
@@ -126,8 +144,17 @@
       "endDistanceOnGeometryM": 9950,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 9730,
+          "endDistanceOnGeometryM": 9795,
+          "startOffsetM": 7.304745471699718,
+          "endOffsetM": 8.0,
+          "startSlope": 0.019094084947598365,
+          "endSlope": 0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9795,
           "endDistanceOnGeometryM": 9950,
           "offsetM": 8
         }
@@ -143,8 +170,17 @@
       "endDistanceOnGeometryM": 9950,
       "offsetSegments": [
         {
-          "type": "Constant",
+          "type": "CubicHermite",
           "startDistanceOnGeometryM": 9730,
+          "endDistanceOnGeometryM": 9795,
+          "startOffsetM": 11.304745471699718,
+          "endOffsetM": 12.0,
+          "startSlope": 0.019094084947598365,
+          "endSlope": 0.0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 9795,
           "endDistanceOnGeometryM": 9950,
           "offsetM": 12
         }

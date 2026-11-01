@@ -56,6 +56,9 @@ func (s *ApiServer) HandlePostTrain(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "列車のJSONまたは入力値が不正です", http.StatusBadRequest)
 		return
 	}
+	if writeTrainError(w, s.generateTrainRoutes(result.Points)) {
+		return
+	}
 	result.TrainType = timetable.TrainType{}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
@@ -110,6 +113,11 @@ func (s *ApiServer) HandlePatchTrain(w http.ResponseWriter, r *http.Request) {
 		}
 		if !validTrainBasics(existing) {
 			return gorm.ErrInvalidData
+		}
+		if patch.Points != nil {
+			if err := s.generateTrainRoutes(*patch.Points); err != nil {
+				return err
+			}
 		}
 		if len(updates) > 0 {
 			if err := tx.Model(&existing).Updates(updates).Error; err != nil {
@@ -174,6 +182,11 @@ func validTrainPoints(points []timetable.TimetablePoint) bool {
 		default:
 			return false
 		}
+		switch point.Section {
+		case "", timetable.PointSectionService, timetable.PointSectionDepotExit, timetable.PointSectionDepotEntry:
+		default:
+			return false
+		}
 		seen[point.SequenceIndex] = true
 		routes := make(map[int]bool)
 		for _, route := range point.Routes {
@@ -228,6 +241,8 @@ func writeTrainError(w http.ResponseWriter, err error) bool {
 		http.Error(w, "列車が見つかりません", http.StatusNotFound)
 	case errors.Is(err, gorm.ErrDuplicatedKey):
 		http.Error(w, "列番が重複しています", http.StatusConflict)
+	case errors.Is(err, errTrainRoutes):
+		http.Error(w, err.Error(), http.StatusBadRequest)
 	case errors.Is(err, gorm.ErrInvalidData):
 		http.Error(w, "列番・列車種別・発駅・終着駅は必須です", http.StatusBadRequest)
 	case errors.Is(err, gorm.ErrForeignKeyViolated):

@@ -5,7 +5,6 @@ import CtcLayout from "@/components/ctc/CtcLayout";
 import type { CircuitSvgMap, RouteDefinition } from "@/components/ctc/diagram/TrackDiagram";
 import lineLayout from "@/data/diagrams/NtLine.json";
 import type { DiagramLayout, DiagramScene } from "@/lib/diagramTypes";
-import { getRouteCategory } from "@/lib/routeCategory";
 
 function readJson<T>(filePath: string): T {
   return JSON.parse(readFileSync(filePath, "utf8"));
@@ -42,10 +41,7 @@ const diagrams = placements.map((placement) => {
     ),
     layout,
     routeDefinitions: interlockingPath && existsSync(interlockingPath)
-      ? readJson<{ routes: RouteDefinition[] }>(interlockingPath).routes.map((route) => ({
-          ...route,
-          category: getRouteCategory(route.category),
-        }))
+      ? readJson<{ routes: RouteDefinition[] }>(interlockingPath).routes
       : [],
   };
 });

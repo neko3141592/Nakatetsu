@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/toast";
 import { deleteOperation, loadOperation, loadTrainList, saveOperation } from "@/app/timetables/operation-actions";
-import { TrainEditWindow } from "@/components/timetable/TrainEditWindow";
+import { loadTrains } from "@/app/timetables/train-actions";
+import { useDiscardChanges, useUnsavedChanges } from "@/components/timetable/UnsavedChanges";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { EditorTable } from "@/components/ui/editor-table";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { TimetableOperationDetail, TimetableOperationSummary } from "@/types/operation";
-import type { TimetableTrainSummary } from "@/types/train";
+import type { TimetableTrain, TimetableTrainSummary } from "@/types/train";
 
 function createNewOperation(): TimetableOperationDetail {
   return { operationNumber: "", trains: [] };
@@ -20,27 +21,49 @@ type Props = {
   operations: readonly TimetableOperationSummary[];
   onSaved: (operation: TimetableOperationSummary) => void;
   onDeleted: (operationNumber: string) => void;
+  onTrainsChange: (trains: TimetableTrain[]) => void;
+  editingTrain: string | null;
+  onEditTrain: (number: string | null) => Promise<boolean>;
+  onOperationChange: () => void;
 };
 
-export function OperationInput({ operations, onSaved, onDeleted }: Props) {
+export function OperationInput({ operations, onSaved, onDeleted, onTrainsChange, editingTrain, onEditTrain, onOperationChange }: Props) {
+  const { confirmDiscard } = useDiscardChanges();
   const [operation, setOperation] = useState<TimetableOperationDetail>(createNewOperation);
   const [selectedOperationNumber, setSelectedOperationNumber] = useState<string | null>(null);
   const [selectedTrain, setSelectedTrain] = useState<string | null>(null);
-  const [editingTrain, setEditingTrain] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [trains, setTrains] = useState<TimetableTrainSummary[]>([]);
   const [query, setQuery] = useState("");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const { markSaved } = useUnsavedChanges("operation", operation, busy);
   const items = [{ value: "", label: "新規運用" }, ...operations.map(({ operationNumber }) => ({ value: operationNumber, label: operationNumber }))];
   const candidates = trains.filter((train) => !operation.trains.some((item) => item.trainNumber === train.trainNumber) && train.trainNumber.toLowerCase().includes(query.trim().toLowerCase()));
 
+  useEffect(() => {
+    let active = true;
+    onTrainsChange([]);
+    if (operation.trains.length === 0) return;
+    void loadTrains(operation.trains.map((train) => train.trainNumber)).then((result) => {
+      if (!active) return;
+      if (result.error !== undefined) toast.add({ title: result.error, type: "error" });
+      else onTrainsChange(result.data);
+    }).catch(() => {
+      if (active) toast.add({ title: "所属列車の取得に失敗しました", type: "error" });
+    });
+    return () => { active = false; };
+  }, [operation.trains, onTrainsChange]);
+
   async function select(number: string | null) {
+    if ((number || null) === selectedOperationNumber || !await confirmDiscard(["operation", "train"])) return;
     if (!number) {
-      setOperation(createNewOperation());
+      const next = createNewOperation();
+      setOperation(next);
+      markSaved(next);
       setSelectedOperationNumber(null);
       setSelectedTrain(null);
-      setEditingTrain(null);
+      onOperationChange();
       return;
     }
     setBusy(true);
@@ -49,9 +72,10 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
       if (result.error !== undefined) toast.add({ title: result.error, type: "error" });
       else {
         setOperation(result.data);
+        markSaved(result.data);
         setSelectedOperationNumber(number);
         setSelectedTrain(null);
-        setEditingTrain(null);
+        onOperationChange();
       }
     } catch {
       toast.add({ title: "運用の取得に失敗しました", type: "error" });
@@ -82,6 +106,7 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
       if (result.error !== undefined) toast.add({ title: result.error, type: "error" });
       else {
         setOperation(result.data);
+        markSaved(result.data);
         setSelectedOperationNumber(result.data.operationNumber);
         onSaved({ operationNumber: result.data.operationNumber });
         toast.add({ title: "保存しました", type: "success", id: "operation-result" });
@@ -112,16 +137,19 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
 
   async function remove() {
     if (selectedOperationNumber === null || busy) return;
+    if (!await confirmDiscard(["train"])) return;
     setBusy(true);
     try {
       const result = await deleteOperation(selectedOperationNumber);
       if (result.error !== undefined) toast.add({ title: result.error, type: "error" });
       else {
         onDeleted(selectedOperationNumber);
-        setOperation(createNewOperation());
+        const next = createNewOperation();
+        setOperation(next);
+        markSaved(next);
         setSelectedOperationNumber(null);
         setSelectedTrain(null);
-          setEditingTrain(null);
+        onOperationChange();
         setDeleteDialogOpen(false);
         toast.add({ title: "削除しました", type: "success", id: "operation-result" });
       }
@@ -130,6 +158,10 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
     } finally {
       setBusy(false);
     }
+  }
+
+  async function editTrain(number: string | null) {
+    if (await onEditTrain(number)) setSelectedTrain(number || null);
   }
 
   return (
@@ -157,8 +189,8 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
           rows={operation.trains}
           columns={[{ id: "trainNumber", header: "列番", cell: (train) => train.trainNumber }]}
           getRowId={(train) => train.trainNumber}
-          selectedId={selectedTrain}
-          onSelectionChange={(number) => { setSelectedTrain(number); setEditingTrain(number); }}
+          selectedId={editingTrain || selectedTrain}
+          onSelectionChange={editTrain}
           onAdd={openTrainDialog}
           onRemove={(number) => updateTrains(operation.trains.filter((train) => train.trainNumber !== number).map((train) => train.trainNumber))}
           onMove={move}
@@ -168,7 +200,7 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
           emptyMessage="列車が追加されていません"
           disabled={busy}
         />
-        <Button type="button" size="sm" onClick={() => setEditingTrain("")} disabled={busy} className="w-full bg-zinc-800 text-zinc-200 hover:bg-zinc-800">新規列車を作成</Button>
+        <Button type="button" size="sm" onClick={() => void editTrain("")} disabled={busy} className="w-full bg-zinc-800 text-zinc-200 hover:bg-zinc-800">新規列車を作成</Button>
         <Dialog open={deleteDialogOpen} onOpenChange={(open) => {
           if (busy) return;
           setDeleteDialogOpen(open);
@@ -182,7 +214,7 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
             </div>
             <div className="space-y-4 p-4">
               <DialogDescription className="break-words text-sm text-zinc-200">
-                運用「{selectedOperationNumber}」を削除しますか？ 所属する列車の定義は残ります。
+                運用「{selectedOperationNumber}」を削除しますか？
               </DialogDescription>
               <div className="flex justify-end gap-2">
                 <DialogClose disabled={busy} render={<Button type="button" size="sm" className="bg-zinc-800 text-zinc-200 hover:bg-zinc-800" />}>キャンセル</DialogClose>
@@ -211,7 +243,6 @@ export function OperationInput({ operations, onSaved, onDeleted }: Props) {
           {candidates.length === 0 ? <p className="text-xs text-zinc-400">追加できる列車がありません</p> : null}
         </DialogContent>
       </Dialog>
-      {editingTrain !== null ? <TrainEditWindow key={editingTrain} trainNumber={editingTrain || undefined} onClose={() => setEditingTrain(null)} /> : null}
     </section>
   );
 }

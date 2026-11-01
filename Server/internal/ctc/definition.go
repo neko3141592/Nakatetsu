@@ -29,9 +29,26 @@ type InterlockingDefinitions struct {
 	RequestTriggersByStation map[string][]string
 }
 
+type RouteDirection string
+
+const (
+	RouteDirectionUp   RouteDirection = "Up"
+	RouteDirectionDown RouteDirection = "Down"
+)
+
+type RouteKind string
+
+const (
+	RouteKindDeparture RouteKind = "Departure"
+	RouteKindHome      RouteKind = "Home"
+	RouteKindShunting  RouteKind = "Shunting"
+)
+
 type TrackRouteDefinition struct {
 	InterlockingStationID string
 	InterlockingRouteID   string
+	Direction             RouteDirection
+	Kind                  RouteKind
 
 	// 進入元の軌道回路を含めた、進行方向順の回路ID。
 	TrackCircuitIDs []string

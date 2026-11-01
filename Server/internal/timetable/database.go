@@ -31,7 +31,8 @@ func migrateModels(db *gorm.DB) error {
 		&TrainType{}, &Station{}, &TrackCircuit{}, &Route{}, &StationTrack{},
 		&TimetableTrain{}, &TimetablePoint{}, &TimetablePointRoute{},
 		&TimetableOperation{}, &TimetableOperationTrain{}, &Timetable{},
-		&StationRunningTime{},
+		&StationRunningTime{}, &TrainTypeStation{},
+		&RunningPattern{}, &RunningPatternPoint{},
 	); err != nil {
 		return err
 	}

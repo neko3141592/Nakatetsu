@@ -25,4 +25,12 @@ export type Route = {
 export type TrainType = {
   trainTypeId: string;
   displayName: string;
+  color: string;
 };
+
+export type TrainTypeStationHandling = {
+  stationId: string;
+  handling: "stop" | "pass";
+};
+
+export type TrainTypeDetail = TrainType & { stationHandlings: TrainTypeStationHandling[] };
