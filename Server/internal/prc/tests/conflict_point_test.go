@@ -57,3 +57,47 @@ func TestBuildConflictPointsWithoutSharedCircuits(t *testing.T) {
 		}
 	}
 }
+
+func TestBuildConflictUsages(t *testing.T) {
+	home := prc.RouteUsage{ID: prc.RouteUsageID{TimetablePointID: 10}, TrainNumber: "1001", ControlStationID: "S1", RouteID: "A"}
+	departure := prc.RouteUsage{ID: prc.RouteUsageID{TimetablePointID: 20}, TrainNumber: "1001", ControlStationID: "S1", RouteID: "B"}
+	passing := prc.RouteUsage{ID: prc.RouteUsageID{TimetablePointID: 30}, TrainNumber: "1002", ControlStationID: "S2", RouteID: "A"}
+	shunting := prc.RouteUsage{ID: prc.RouteUsageID{TimetablePointID: 40}, TrainNumber: "1003", ControlStationID: "S1", RouteID: "C"}
+	zero := prc.RouteUsage{ID: prc.RouteUsageID{TimetablePointID: 50}, TrainNumber: "1004", ControlStationID: "S1", RouteID: "A"}
+	plan := prc.TimetablePlan{TrainsByNumber: map[string]prc.TrainPlan{
+		"1001": {Points: []prc.PointPlan{{Handling: prc.HandlingStop, ArrivalSeconds: seconds(100), DepartureSeconds: seconds(140), ArrivalRoutes: []prc.RouteUsage{home}, DepartureRoutes: []prc.RouteUsage{departure}}}},
+		"1002": {Points: []prc.PointPlan{{Handling: prc.HandlingPass, ArrivalSeconds: seconds(999), DepartureSeconds: seconds(120), ArrivalRoutes: []prc.RouteUsage{passing}}}},
+		"1003": {Points: []prc.PointPlan{{DepartureSeconds: seconds(90100), ShuntingRoutes: []prc.RouteUsage{shunting}}}},
+		"1004": {Points: []prc.PointPlan{{DepartureSeconds: seconds(0), DepartureRoutes: []prc.RouteUsage{zero}}}},
+	}}
+	points := map[string]map[ctc.RouteKey]struct{}{
+		"X":      {{StationID: "S1", RouteID: "A"}: {}, {StationID: "S1", RouteID: "B"}: {}, {StationID: "S2", RouteID: "A"}: {}},
+		"Y":      {{StationID: "S1", RouteID: "B"}: {}, {StationID: "S1", RouteID: "C"}: {}},
+		"unused": {{StationID: "S9", RouteID: "A"}: {}},
+	}
+	want := map[string][]prc.ConflictUsage{
+		"X":      {{Usage: zero, ScheduledSeconds: 0}, {Usage: home, ScheduledSeconds: 100}, {Usage: passing, ScheduledSeconds: 120}, {Usage: departure, ScheduledSeconds: 140}},
+		"Y":      {{Usage: departure, ScheduledSeconds: 140}, {Usage: shunting, ScheduledSeconds: 90100}},
+		"unused": nil,
+	}
+	got, err := prc.BuildConflictUsages(plan, points)
+	if err != nil || !reflect.DeepEqual(got, want) {
+		t.Fatalf("conflict usages=%v, err=%v, want=%v", got, err, want)
+	}
+}
+
+func TestBuildConflictUsagesRejectsMissingTime(t *testing.T) {
+	route := prc.RouteUsage{ID: prc.RouteUsageID{TimetablePointID: 10}, TrainNumber: "1001", ControlStationID: "S1", RouteID: "A"}
+	for _, point := range []prc.PointPlan{
+		{Handling: prc.HandlingStop, ArrivalRoutes: []prc.RouteUsage{route}},
+		{Handling: prc.HandlingPass, ArrivalSeconds: seconds(100), ArrivalRoutes: []prc.RouteUsage{route}},
+		{DepartureRoutes: []prc.RouteUsage{route}},
+		{ShuntingRoutes: []prc.RouteUsage{route}},
+	} {
+		plan := prc.TimetablePlan{TrainsByNumber: map[string]prc.TrainPlan{"1001": {Points: []prc.PointPlan{point}}}}
+		points := map[string]map[ctc.RouteKey]struct{}{"X": {{StationID: "S1", RouteID: "A"}: {}}}
+		if got, err := prc.BuildConflictUsages(plan, points); err == nil || got != nil {
+			t.Fatalf("missing time accepted: got=%v, err=%v", got, err)
+		}
+	}
+}

@@ -36,7 +36,7 @@ func TestInitializeCreatesTimetableStateWithoutAssigningTrains(t *testing.T) {
 				t.Fatal(err)
 			}
 			state := core.GetTimetableState()
-			if len(state.TrainsByNumber) != 3 || len(state.PointsByID) != 3 || len(state.RouteUsagesByID) != 2 {
+			if len(state.TrainsByNumber) != 3 || len(state.PointsByID) != 3 || len(state.RouteUsagesByID) != 3 {
 				t.Fatalf("incomplete timetable state: %+v", state)
 			}
 			for number := range plan.TrainsByNumber {
@@ -58,7 +58,7 @@ func TestInitializeCreatesTimetableStateWithoutAssigningTrains(t *testing.T) {
 			delete(state.TrainsByNumber, "0001")
 			delete(state.PointsByID, 1)
 			delete(state.RouteUsagesByID, prc.RouteUsageID{TimetablePointID: 1})
-			if fresh := core.GetTimetableState(); len(fresh.TrainsByNumber) != 3 || len(fresh.PointsByID) != 3 || len(fresh.RouteUsagesByID) != 2 {
+			if fresh := core.GetTimetableState(); len(fresh.TrainsByNumber) != 3 || len(fresh.PointsByID) != 3 || len(fresh.RouteUsagesByID) != 3 {
 				t.Fatal("returned state shares maps with PRC")
 			}
 		})
@@ -82,16 +82,21 @@ func TestInitializeRejectsUninitializedTrackingWithoutChangingState(t *testing.T
 func initializationPlan() prc.TimetablePlan {
 	return prc.TimetablePlan{
 		TrainsByNumber: map[string]prc.TrainPlan{
-			"0001": {TrainNumber: "0001", Points: []prc.PointPlan{{TimetablePointID: 1}}},
-			"0002": {TrainNumber: "0002", Points: []prc.PointPlan{{TimetablePointID: 2}}},
-			"0003": {TrainNumber: "0003", Points: []prc.PointPlan{{TimetablePointID: 3}}},
+			"0001": {TrainNumber: "0001", Points: []prc.PointPlan{{
+				TimetablePointID: 1,
+				DepartureRoutes:  []prc.RouteUsage{{ID: prc.RouteUsageID{TimetablePointID: 1}, TrainNumber: "0001"}},
+			}}},
+			"0002": {TrainNumber: "0002", Points: []prc.PointPlan{{
+				TimetablePointID: 2,
+				ArrivalRoutes:    []prc.RouteUsage{{ID: prc.RouteUsageID{TimetablePointID: 2}, TrainNumber: "0002"}},
+			}}},
+			"0003": {TrainNumber: "0003", Points: []prc.PointPlan{{
+				TimetablePointID: 3,
+				ShuntingRoutes:   []prc.RouteUsage{{ID: prc.RouteUsageID{TimetablePointID: 3}, TrainNumber: "0003"}},
+			}}},
 		},
 		OperationsByNumber: map[string]prc.OperationPlan{
 			"01": {OperationNumber: "01", TrainNumbers: []string{"0001", "0002"}},
-		},
-		RouteUsagesByID: map[prc.RouteUsageID]prc.RouteUsage{
-			{TimetablePointID: 1}: {TrainNumber: "0001"},
-			{TimetablePointID: 2}: {TrainNumber: "0002"},
 		},
 	}
 }

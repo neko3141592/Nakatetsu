@@ -9,8 +9,10 @@ func (p *PRC) GetTimetableState() TimetableState {
 	state.TrainsByNumber = maps.Clone(p.state.TrainsByNumber)
 	state.PointsByID = maps.Clone(p.state.PointsByID)
 	state.RouteUsagesByID = maps.Clone(p.state.RouteUsagesByID)
+	state.RaisedRouteUsagesByID = maps.Clone(p.state.RaisedRouteUsagesByID)
 	for number, train := range state.TrainsByNumber {
 		train.CurrentPointID = copyStateValue(train.CurrentPointID)
+		train.CurrentPointOccupiedSinceSeconds = copyStateValue(train.CurrentPointOccupiedSinceSeconds)
 		state.TrainsByNumber[number] = train
 	}
 	for id, point := range state.PointsByID {

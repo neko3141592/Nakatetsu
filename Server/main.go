@@ -24,6 +24,7 @@ func main() {
 
 	manifestPath := flag.String("track-graph", "../SourceAssets/Track/Network/NakatetsuTrackGraph/graph.json", "TrackGraph JSON manifest path")
 	interlockingPath := flag.String("interlocking", "../SourceAssets/Track/Network/NakatetsuInterlocking/interlocking.json", "Interlocking JSON manifest path")
+	timetableID := flag.String("timetable", "weekday", "Timetable ID to use for PRC")
 
 	flag.Parse()
 	definitions, err := ctc.LoadTrackCircuitDefinitions(*manifestPath)
@@ -56,22 +57,22 @@ func main() {
 
 	// CTC・PRCインスタンスを作成
 	ctcCore := ctc.New(definitions, interlocking.Routes)
-	plan, err := timetable.LoadTimetablePlan(ctx, db, "weekday")
+	communicationServer := &grpcserver.CommunicationServer{
+		CTC: ctcCore,
+	}
+	plan, err := timetable.LoadTimetablePlan(ctx, db, *timetableID, interlocking.Routes)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		log.Println("ダイヤ weekday が未登録のため、PRCを無効にして起動します")
+		log.Printf("ダイヤ %s が未登録のため、PRCを無効にして起動します", *timetableID)
 	} else if err != nil {
 		log.Fatalf("ダイヤの読み込みに失敗: %v", err)
 	} else {
 		prcCore := prc.New(ctcCore, plan, interlocking.RequestTriggersByStation, interlocking.Routes)
+		prcCore.RouteControl = communicationServer
 		ctcCore.SetPRC(prcCore)
 	}
 	log.Printf("軌道回路定義を読み込み: %d回路", len(definitions))
 	log.Printf("進路定義を読み込み: %d進路", len(interlocking.Routes))
 	log.Printf("接近点定義を読み込み: %d駅", len(interlocking.RequestTriggersByStation))
-
-	communicationServer := &grpcserver.CommunicationServer{
-		CTC: ctcCore,
-	}
 
 	// Web API向けサーバーを起動
 	apiServer := &api.ApiServer{

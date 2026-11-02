@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
 	"github.com/neko3141592/Nakatetsu/Server/internal/prc"
 	"github.com/neko3141592/Nakatetsu/Server/internal/timetable"
 	"gorm.io/gorm"
@@ -107,7 +108,7 @@ func TestLoadTimetableCombinesOperationAndTemporaryTrains(t *testing.T) {
 			if !reflect.DeepEqual(numbers, tc.want) || !reflect.DeepEqual(got.TemporaryTrainNumbers, tc.temporary) {
 				t.Fatalf("unexpected trains: all=%v, temporary=%v", numbers, got.TemporaryTrainNumbers)
 			}
-			plan, err := timetable.LoadTimetablePlan(context.Background(), db, saved.ID)
+			plan, err := timetable.LoadTimetablePlan(context.Background(), db, saved.ID, loaderRouteDefinitions())
 			if err != nil || len(plan.TrainsByNumber) != len(tc.want) || len(plan.OperationsByNumber) != len(tc.operations) {
 				t.Fatalf("unexpected plan: %+v, error=%v", plan, err)
 			}
@@ -131,7 +132,7 @@ func TestLoadTimetableErrors(t *testing.T) {
 		if !errors.Is(err, gorm.ErrRecordNotFound) || got.ID != "" {
 			t.Fatalf("id=%q: timetable=%+v, err=%v", missingID, got, err)
 		}
-		plan, err := timetable.LoadTimetablePlan(context.Background(), db, missingID)
+		plan, err := timetable.LoadTimetablePlan(context.Background(), db, missingID, loaderRouteDefinitions())
 		if !errors.Is(err, gorm.ErrRecordNotFound) || plan.TimetableID != "" {
 			t.Fatalf("id=%q: plan=%+v, err=%v", missingID, plan, err)
 		}
@@ -141,7 +142,7 @@ func TestLoadTimetableErrors(t *testing.T) {
 	if _, err := timetable.LoadTimetable(ctx, db, id); !errors.Is(err, context.Canceled) {
 		t.Fatalf("err=%v, want context.Canceled", err)
 	}
-	if _, err := timetable.LoadTimetablePlan(ctx, db, id); !errors.Is(err, context.Canceled) {
+	if _, err := timetable.LoadTimetablePlan(ctx, db, id, loaderRouteDefinitions()); !errors.Is(err, context.Canceled) {
 		t.Fatalf("err=%v, want context.Canceled", err)
 	}
 }
@@ -162,7 +163,7 @@ func TestLoadTimetablePlan(t *testing.T) {
 		ControlStationID: "NT01",
 		RouteID:          "1R",
 	})
-	plan, err := timetable.LoadTimetablePlan(context.Background(), db, saved.ID)
+	plan, err := timetable.LoadTimetablePlan(context.Background(), db, saved.ID, loaderRouteDefinitions())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -185,17 +186,20 @@ func TestLoadTimetablePlan(t *testing.T) {
 	if point.ArrivalSeconds != nil || point.DepartureSeconds == nil || *point.DepartureSeconds != 0 || train.Points[1].StationID != nil || train.Points[1].Handling != prc.HandlingPass || train.Points[2].ArrivalSeconds == nil || *train.Points[2].ArrivalSeconds != 90600 {
 		t.Fatalf("unexpected point handling or times: %+v", train.Points)
 	}
-	wantUsages := make(map[prc.RouteUsageID]prc.RouteUsage)
-	var wantIDs []prc.RouteUsageID
+	var wantUsages []prc.RouteUsage
 	for i, sequence := range []int{0, 1, 5} {
 		id := prc.RouteUsageID{TimetablePointID: firstPoint.TimetablePointID, RouteSequenceIndex: sequence}
-		wantIDs = append(wantIDs, id)
-		wantUsages[id] = prc.RouteUsage{
+		wantUsages = append(wantUsages, prc.RouteUsage{
 			ID: id, TrainNumber: "0001", ControlStationID: []string{"NT01", "NT05", "NT01"}[i], RouteID: "1R",
-		}
+		})
 	}
-	if !reflect.DeepEqual(point.RouteUsageIDs, wantIDs) || !reflect.DeepEqual(plan.RouteUsagesByID, wantUsages) {
-		t.Fatalf("unexpected route usages: ids=%v, usages=%v", point.RouteUsageIDs, plan.RouteUsagesByID)
+	wantDepartures := []prc.RouteUsage{wantUsages[0], wantUsages[2]}
+	wantArrivals := []prc.RouteUsage{wantUsages[1]}
+	if !reflect.DeepEqual(point.DepartureRoutes, wantDepartures) ||
+		!reflect.DeepEqual(train.Points[2].ArrivalRoutes, wantArrivals) ||
+		len(point.ArrivalRoutes) != 0 || len(train.Points[1].ArrivalRoutes) != 0 ||
+		len(train.Points[1].DepartureRoutes) != 0 || len(train.Points[2].DepartureRoutes) != 0 {
+		t.Fatalf("unexpected route grouping: %+v", train.Points)
 	}
 	operation := plan.OperationsByNumber["A"]
 	if operation.OperationNumber != "A" || !reflect.DeepEqual(operation.TrainNumbers, []string{"0001", "0002"}) {
@@ -207,11 +211,19 @@ func TestLoadTimetablePlan(t *testing.T) {
 		Trains:      []timetable.TimetableTrain{{TrainNumber: "0001"}},
 	}
 	create(t, db.Omit("Trains.*"), &unassigned)
-	plan, err = timetable.LoadTimetablePlan(context.Background(), db, unassigned.ID)
+	plan, err = timetable.LoadTimetablePlan(context.Background(), db, unassigned.ID, loaderRouteDefinitions())
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(plan.OperationsByNumber) != 0 || len(plan.TrainsByNumber) != 1 || len(plan.RouteUsagesByID) != 3 {
+	if len(plan.OperationsByNumber) != 0 || len(plan.TrainsByNumber) != 1 || !reflect.DeepEqual(plan.TrainsByNumber["0001"].Points[0].DepartureRoutes, wantDepartures) ||
+		!reflect.DeepEqual(plan.TrainsByNumber["0001"].Points[2].ArrivalRoutes, wantArrivals) {
 		t.Fatalf("unassigned train was not converted: %+v", plan)
+	}
+}
+
+func loaderRouteDefinitions() []ctc.TrackRouteDefinition {
+	return []ctc.TrackRouteDefinition{
+		{InterlockingStationID: "NT01", InterlockingRouteID: "1R", Kind: ctc.RouteKindDeparture},
+		{InterlockingStationID: "NT05", InterlockingRouteID: "1R", Kind: ctc.RouteKindHome},
 	}
 }

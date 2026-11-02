@@ -187,7 +187,7 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 	}
 	for stationID, approaches := range map[string][]string{
 		"NT01": {"NT01_NT02_U1T"},
-		"NT05": {"NT04_NT05_D1T", "NT05_NT06_U1T"},
+		"NT05": {"NT03_DT", "NT06_UT"},
 		"NT07": {"NT06_NT07_D3T", "NT07_NT08_UE1T", "NT07_NT08_UL1T"},
 		"NT11": {"NT10_NT11_DE1T", "NT10_NT11_DL1T"},
 		"NT14": {"NT13_NT14_D4T", "NT14_27BT"},

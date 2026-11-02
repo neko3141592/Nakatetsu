@@ -9,7 +9,8 @@ type TimetablePlan struct {
 	TrainsByNumber map[string]TrainPlan
 
 	OperationsByNumber map[string]OperationPlan
-	RouteUsagesByID    map[RouteUsageID]RouteUsage
+	// 起動時に作る、競合点ごとの計画時刻順の使用予定。
+	ConflictUsagesByCircuitID map[string][]ConflictUsage
 }
 
 type OperationPlan struct {
@@ -43,9 +44,12 @@ type PointPlan struct {
 	ArrivalSeconds   *int
 	DepartureSeconds *int
 
-	RouteUsageIDs []RouteUsageID
+	ArrivalRoutes   []RouteUsage // この駅への場内進路。進行方向順。
+	DepartureRoutes []RouteUsage // この駅からの出発進路。進行方向順。
+	ShuntingRoutes  []RouteUsage // この地点から次の地点への入換進路。
 }
 
+// ダイヤ上の「1回の進路使用予定」を識別するID
 type RouteUsageID struct {
 	TimetablePointID   int64
 	RouteSequenceIndex int
@@ -56,6 +60,11 @@ type RouteUsage struct {
 	TrainNumber      string
 	ControlStationID string
 	RouteID          string
+}
+
+type ConflictUsage struct {
+	Usage            RouteUsage
+	ScheduledSeconds int
 }
 
 // 軌道回路接近点

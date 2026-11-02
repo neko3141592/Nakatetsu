@@ -12,20 +12,22 @@ func (p *PRC) Initialize(tracking ctc.TrackingState) error {
 	}
 
 	state := TimetableState{
-		TrainsByNumber:  make(map[string]TrainState, len(p.timetable.TrainsByNumber)),
-		PointsByID:      make(map[int64]PointState),
-		RouteUsagesByID: make(map[RouteUsageID]RouteUsageState, len(p.timetable.RouteUsagesByID)),
+		TrainsByNumber:        make(map[string]TrainState, len(p.timetable.TrainsByNumber)),
+		PointsByID:            make(map[int64]PointState),
+		RouteUsagesByID:       make(map[RouteUsageID]RouteUsageState),
+		RaisedRouteUsagesByID: make(map[RouteUsageID]RouteUsage),
 	}
 
 	for number, train := range p.timetable.TrainsByNumber {
 		state.TrainsByNumber[number] = TrainState{}
 		for _, point := range train.Points {
 			state.PointsByID[point.TimetablePointID] = PointState{}
+			for _, routes := range [][]RouteUsage{point.ArrivalRoutes, point.DepartureRoutes, point.ShuntingRoutes} {
+				for _, route := range routes {
+					state.RouteUsagesByID[route.ID] = RouteUsageState{Phase: RouteUsagePending}
+				}
+			}
 		}
-	}
-
-	for id := range p.timetable.RouteUsagesByID {
-		state.RouteUsagesByID[id] = RouteUsageState{Phase: RouteUsagePending}
 	}
 
 	p.state = state

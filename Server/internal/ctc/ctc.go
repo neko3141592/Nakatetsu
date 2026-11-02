@@ -35,7 +35,7 @@ type CTC struct {
 func New(definitions map[string]TrackCircuitDefinition, routes []TrackRouteDefinition) *CTC {
 	stations := make(map[string]StationState)
 	for _, route := range routes {
-		stations[route.InterlockingStationID] = StationState{ControlMode: StationControlManual}
+		stations[route.InterlockingStationID] = StationState{ControlMode: StationControlAuto}
 	}
 	return &CTC{
 		state: TrackingState{
