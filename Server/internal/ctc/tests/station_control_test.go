@@ -13,18 +13,18 @@ func TestStationControlMode(t *testing.T) {
 		{InterlockingStationID: "S2", InterlockingRouteID: "R1"},
 	})
 	for _, id := range []string{"S1", "S2"} {
-		if mode, err := core.GetStationControlMode(id); err != nil || mode != ctc.StationControlManual {
+		if mode, err := core.GetStationControlMode(id); err != nil || mode != ctc.StationControlAuto {
 			t.Fatalf("station=%s: mode=%v, err=%v", id, mode, err)
 		}
 	}
-	for _, wanted := range []ctc.StationControlMode{ctc.StationControlAuto, ctc.StationControlManual} {
+	for _, wanted := range []ctc.StationControlMode{ctc.StationControlManual, ctc.StationControlAuto} {
 		if err := core.SetStationControlMode("S1", wanted); err != nil {
 			t.Fatal(err)
 		}
 		if mode, err := core.GetStationControlMode("S1"); err != nil || mode != wanted {
 			t.Fatalf("mode=%v, err=%v, want %v", mode, err, wanted)
 		}
-		if mode, err := core.GetStationControlMode("S2"); err != nil || mode != ctc.StationControlManual {
+		if mode, err := core.GetStationControlMode("S2"); err != nil || mode != ctc.StationControlAuto {
 			t.Fatalf("changing S1 changed S2: mode=%v, err=%v", mode, err)
 		}
 	}

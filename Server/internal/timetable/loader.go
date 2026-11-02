@@ -3,6 +3,7 @@ package timetable
 import (
 	"context"
 
+	"github.com/neko3141592/Nakatetsu/Server/internal/ctc"
 	"github.com/neko3141592/Nakatetsu/Server/internal/prc"
 	"gorm.io/gorm"
 )
@@ -39,10 +40,15 @@ func LoadTimetable(ctx context.Context, db *gorm.DB, id string) (Timetable, erro
 	return result, nil
 }
 
-func LoadTimetablePlan(ctx context.Context, db *gorm.DB, id string) (prc.TimetablePlan, error) {
+func LoadTimetablePlan(ctx context.Context, db *gorm.DB, id string, routes []ctc.TrackRouteDefinition) (prc.TimetablePlan, error) {
 	source, err := LoadTimetable(ctx, db, id)
 	if err != nil {
 		return prc.TimetablePlan{}, err
+	}
+	definitions := make(map[ctc.RouteKey]ctc.TrackRouteDefinition, len(routes))
+	for _, route := range routes {
+		key := ctc.RouteKey{StationID: route.InterlockingStationID, RouteID: route.InterlockingRouteID}
+		definitions[key] = route
 	}
 	plan := prc.TimetablePlan{
 		TimetableID:        source.ID,
@@ -50,7 +56,6 @@ func LoadTimetablePlan(ctx context.Context, db *gorm.DB, id string) (prc.Timetab
 		Revision:           source.Revision,
 		TrainsByNumber:     make(map[string]prc.TrainPlan, len(source.Trains)),
 		OperationsByNumber: make(map[string]prc.OperationPlan, len(source.Operations)),
-		RouteUsagesByID:    make(map[prc.RouteUsageID]prc.RouteUsage),
 	}
 	for _, train := range source.Trains {
 		trainPlan := prc.TrainPlan{
@@ -67,19 +72,14 @@ func LoadTimetablePlan(ctx context.Context, db *gorm.DB, id string) (prc.Timetab
 				Handling:         prc.PointHandling(point.Handling),
 				ArrivalSeconds:   point.ArrivalSeconds,
 				DepartureSeconds: point.DepartureSeconds,
-				RouteUsageIDs:    make([]prc.RouteUsageID, len(point.Routes)),
-			}
-			for j, route := range point.Routes {
-				usageID := prc.RouteUsageID{TimetablePointID: point.TimetablePointID, RouteSequenceIndex: route.SequenceIndex}
-				pointPlan.RouteUsageIDs[j] = usageID
-				plan.RouteUsagesByID[usageID] = prc.RouteUsage{
-					ID:               usageID,
-					TrainNumber:      train.TrainNumber,
-					ControlStationID: route.ControlStationID,
-					RouteID:          route.RouteID,
-				}
 			}
 			trainPlan.Points[i] = pointPlan
+		}
+		if err := assignRouteUsages(&trainPlan, train.Points, definitions); err != nil {
+			return prc.TimetablePlan{}, err
+		}
+		if err := validateRouteTimes(trainPlan); err != nil {
+			return prc.TimetablePlan{}, err
 		}
 		plan.TrainsByNumber[train.TrainNumber] = trainPlan
 	}
@@ -92,6 +92,11 @@ func LoadTimetablePlan(ctx context.Context, db *gorm.DB, id string) (prc.Timetab
 			operationPlan.TrainNumbers[i] = train.TrainNumber
 		}
 		plan.OperationsByNumber[operation.OperationNumber] = operationPlan
+	}
+	// 初版はダイヤ固定のため、順序判定用の一覧を読込み時に一度だけ作る。
+	plan.ConflictUsagesByCircuitID, err = prc.BuildConflictUsages(plan, prc.BuildConflictPoints(routes))
+	if err != nil {
+		return prc.TimetablePlan{}, err
 	}
 	return plan, nil
 }
