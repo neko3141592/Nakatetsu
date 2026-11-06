@@ -22,11 +22,11 @@ function trainDraft(train: TimetableTrainBasics, stops: TrainStopDraft[], depotE
   return { train, stops: getStopDraftValues(stops), depotExit: getStopDraftValues(depotExit), depotEntry: getStopDraftValues(depotEntry) };
 }
 
-export function TrainEditWindow({ trainNumber, onClose, onSaved }: { trainNumber?: string; onClose: () => void; onSaved?: (trainNumber: string) => void }) {
+export function TrainEditWindow({ trainId, timetableId, onClose, onSaved }: { trainId?: string; timetableId: string; onClose: () => void; onSaved?: (trainId: string) => void }) {
   const { confirmDiscard } = useDiscardChanges();
   const departureTimeId = useId();
-  const [savedNumber, setSavedNumber] = useState(trainNumber ?? null);
-  const [train, setTrain] = useState<TimetableTrainBasics>({ trainNumber: trainNumber ?? "", trainTypeId: "", originStationId: "", destinationStationId: "" });
+  const [savedNumber, setSavedNumber] = useState(trainId ?? null);
+  const [train, setTrain] = useState<TimetableTrainBasics>({ trainNumber: "", trainTypeId: "", originStationId: "", destinationStationId: "" });
   const [types, setTypes] = useState<TrainType[]>([]);
   const [stationHandlings, setStationHandlings] = useState<TrainTypeStationHandling[]>([]);
   const [patterns, setPatterns] = useState<RunningPatternSummary[]>([]);
@@ -47,7 +47,7 @@ export function TrainEditWindow({ trainNumber, onClose, onSaved }: { trainNumber
     let active = true;
     async function load() {
       try {
-        const [detail, catalog, stationList] = await Promise.all([trainNumber ? loadTrain(trainNumber) : null, loadTrainTypes(), loadStations()]);
+        const [detail, catalog, stationList] = await Promise.all([trainId ? loadTrain(trainId) : null, loadTrainTypes(), loadStations()]);
         if (!active) return;
         for (const result of [detail, catalog, stationList]) {
           if (result?.error !== undefined) toast.add({ title: result.error, type: "error" });
@@ -90,7 +90,7 @@ export function TrainEditWindow({ trainNumber, onClose, onSaved }: { trainNumber
     }
     void load();
     return () => { active = false; };
-  }, [trainNumber, markSaved]);
+  }, [trainId, markSaved]);
 
   function changeEndpoints(patch: Partial<Pick<TimetableTrainBasics, "originStationId" | "destinationStationId">>) {
     const next = { ...train, ...patch };
@@ -176,14 +176,14 @@ export function TrainEditWindow({ trainNumber, onClose, onSaved }: { trainNumber
     }
     setBusy(true);
     try {
-      const result = await saveTrain({ ...train, points }, savedNumber === null);
+      const result = await saveTrain({ ...train, timetableId, points }, savedNumber ?? undefined);
       if (result.error !== undefined) toast.add({ title: result.error, type: "error" });
       else {
         const nextTrain = { trainNumber: result.data.trainNumber, trainTypeId: result.data.trainTypeId, originStationId: result.data.originStationId, destinationStationId: result.data.destinationStationId };
         setTrain(nextTrain);
         markSaved(trainDraft(nextTrain, stops, depotExit, depotEntry));
-        setSavedNumber(result.data.trainNumber);
-        onSaved?.(result.data.trainNumber);
+        setSavedNumber(result.data.id);
+        onSaved?.(result.data.id);
         toast.add({ title: savedNumber === null ? "列車を作成しました" : "保存しました", type: "success" });
       }
     } catch {
@@ -193,10 +193,10 @@ export function TrainEditWindow({ trainNumber, onClose, onSaved }: { trainNumber
     }
   }
 
-  return <FloatingWindow title={savedNumber === null ? "新規列車を作成" : `列番編集 — ${savedNumber}`} onClose={async () => { if (await confirmDiscard(["train"])) onClose(); }}>
+  return <FloatingWindow title={savedNumber === null ? "新規列車を作成" : `列番編集 — ${train.trainNumber}`} onClose={async () => { if (await confirmDiscard(["train"])) onClose(); }}>
     <div className="flex min-h-full flex-col gap-4">
       <div className="space-y-4">
-        {savedNumber === null ? <label className="grid max-w-104 grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 text-xs"><span>列番</span><Input autoFocus required value={train.trainNumber} onChange={(event) => setTrain({ ...train, trainNumber: event.target.value })} disabled={busy} className="h-7 border-zinc-500 bg-zinc-900 text-sm dark:bg-zinc-900" /></label> : null}
+        {<label className="grid max-w-104 grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 text-xs"><span>列番</span><Input autoFocus required value={train.trainNumber} onChange={(event) => setTrain({ ...train, trainNumber: event.target.value })} disabled={busy} className="h-7 border-zinc-500 bg-zinc-900 text-sm dark:bg-zinc-900" /></label>}
         <div role="group" aria-label="種別行先" className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 text-xs">
           <span aria-hidden="true">種別行先</span>
           <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-2">

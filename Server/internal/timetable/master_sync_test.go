@@ -37,8 +37,9 @@ func TestSyncEquipmentMasters(t *testing.T) {
 		}
 	}
 	create(t, db, &timetable.TrainType{TrainTypeID: "local", DisplayName: "普通"})
+	create(t, db, &timetable.Timetable{ID: "test", DisplayName: "test"})
 	train := timetable.TimetableTrain{
-		TrainNumber: "0001", TrainTypeID: "local",
+		TimetableID: "test", TrainNumber: "0001", TrainTypeID: "local",
 		Points: []timetable.TimetablePoint{{StationID: stringPointer("S1"), TrackCircuitID: "A", Routes: []timetable.TimetablePointRoute{{ControlStationID: "S1", RouteID: "R"}}}},
 	}
 	create(t, db, &train)
@@ -158,7 +159,7 @@ func TestSyncNakatetsuEquipmentMasters(t *testing.T) {
 		}
 	}
 	count(t, db, &timetable.Station{}, 14)
-	count(t, db, &timetable.StationTrack{}, 46)
+	count(t, db, &timetable.StationTrack{}, 58)
 	count(t, db, &timetable.TrackCircuit{}, int64(len(circuits)))
 	count(t, db, &timetable.Route{}, int64(len(interlocking.Routes)))
 	var station timetable.Station
@@ -166,10 +167,17 @@ func TestSyncNakatetsuEquipmentMasters(t *testing.T) {
 		{StationID: "NT01", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT01_1RT"},
 		{StationID: "NT02", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT02_DT"},
 		{StationID: "NT07", TrackID: "DEPOT_1", DisplayName: "電留1番", TrackCircuitID: "NT07_DEPOT_1T"},
+		{StationID: "NT10", TrackID: "1", DisplayName: "下り急行線", TrackCircuitID: "NT10_1RT"},
+		{StationID: "NT10", TrackID: "2", DisplayName: "1番線", TrackCircuitID: "NT10_2RT"},
+		{StationID: "NT10", TrackID: "3", DisplayName: "2番線", TrackCircuitID: "NT10_3LT"},
+		{StationID: "NT10", TrackID: "4", DisplayName: "上り急行線", TrackCircuitID: "NT10_4LT"},
 		{StationID: "NT11", TrackID: "DEPOT", DisplayName: "電留1番", TrackCircuitID: "NT11_DEPOT_T"},
 		{StationID: "NT12", TrackID: "1", DisplayName: "1番線", TrackCircuitID: "NT12_DT"},
 		{StationID: "NT13", TrackID: "2", DisplayName: "2番線", TrackCircuitID: "NT13_UT"},
 		{StationID: "NT14", TrackID: "4", DisplayName: "4番線", TrackCircuitID: "NT14_4LT"},
+		{StationID: "NT14", TrackID: "DEPOT_1", DisplayName: "電留1番", TrackCircuitID: "NT14_DEPOT_1T"},
+		{StationID: "NT14", TrackID: "DEPOT_2", DisplayName: "電留2番", TrackCircuitID: "NT14_DEPOT_2T"},
+		{StationID: "NT14", TrackID: "DEPOT_12", DisplayName: "電留12番", TrackCircuitID: "NT14_DEPOT_12T"},
 	} {
 		var track timetable.StationTrack
 		if err := db.First(&track, "station_id = ? AND track_id = ?", expected.StationID, expected.TrackID).Error; err != nil || track != expected {
@@ -184,7 +192,8 @@ func TestSyncNakatetsuEquipmentMasters(t *testing.T) {
 		t.Fatalf("unexpected circuit: %+v, error=%v", circuit, err)
 	}
 	create(t, db, &timetable.TrainType{TrainTypeID: "local", DisplayName: "普通"})
-	create(t, db, &timetable.TimetableTrain{TrainNumber: "0001", TrainTypeID: "local", Points: []timetable.TimetablePoint{{
+	create(t, db, &timetable.Timetable{ID: "test", DisplayName: "test"})
+	create(t, db, &timetable.TimetableTrain{TimetableID: "test", TrainNumber: "0001", TrainTypeID: "local", Points: []timetable.TimetablePoint{{
 		StationID: stringPointer("NT01"), TrackCircuitID: "NT01_1RT",
 		Routes: []timetable.TimetablePointRoute{{ControlStationID: "NT01", RouteID: "1R"}},
 	}}})
@@ -272,4 +281,27 @@ func TestSyncStationTracks(t *testing.T) {
 		}
 	}
 	count(t, db, &timetable.StationTrack{}, 2)
+	create(t, db, &timetable.StationTrack{StationID: "S1", TrackID: "retired", DisplayName: "廃止番線", TrackCircuitID: "A"})
+	write("S1", []timetable.StationTrack{track})
+	if err := timetable.SyncEquipmentMasters(context.Background(), db, path, circuits, invalidRoutes); err == nil {
+		t.Fatal("invalid route did not roll back retired track deletion")
+	}
+	count(t, db, &timetable.StationTrack{}, 3)
+	if err := timetable.SyncEquipmentMasters(context.Background(), db, path, circuits, nil); err != nil {
+		t.Fatal(err)
+	}
+	count(t, db, &timetable.StationTrack{}, 2)
+	var retired int64
+	if err := db.Model(&timetable.StationTrack{}).Where("track_id = ?", "retired").Count(&retired).Error; err != nil || retired != 0 {
+		t.Fatalf("retired track was retained: count=%d, error=%v", retired, err)
+	}
+	write("S1", []timetable.StationTrack{})
+	if err := timetable.SyncEquipmentMasters(context.Background(), db, path, circuits, nil); err != nil {
+		t.Fatal(err)
+	}
+	var remaining timetable.StationTrack
+	if err := db.First(&remaining).Error; err != nil || remaining.StationID != "S2" {
+		t.Fatalf("undeclared station tracks changed: %+v, error=%v", remaining, err)
+	}
+	count(t, db, &timetable.StationTrack{}, 1)
 }

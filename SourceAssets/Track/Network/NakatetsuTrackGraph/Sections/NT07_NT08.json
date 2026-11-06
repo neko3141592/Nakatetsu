@@ -162,6 +162,30 @@
         {
           "edgeId": "NT07_P01_050",
           "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7320
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_DE2T",
+      "displayName": "小泉下急2",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_P01_050",
+          "startDistanceOnGeometryM": 7320,
+          "endDistanceOnGeometryM": 7620
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_DE3T",
+      "displayName": "小泉下急3",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_P01_050",
+          "startDistanceOnGeometryM": 7620,
           "endDistanceOnGeometryM": 7930
         }
       ]
@@ -174,6 +198,30 @@
         {
           "edgeId": "NT07_DL_070",
           "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7320
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_DL2T",
+      "displayName": "小泉下緩2",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_DL_070",
+          "startDistanceOnGeometryM": 7320,
+          "endDistanceOnGeometryM": 7620
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_DL3T",
+      "displayName": "小泉下緩3",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_DL_070",
+          "startDistanceOnGeometryM": 7620,
           "endDistanceOnGeometryM": 7930
         }
       ]
@@ -186,6 +234,30 @@
         {
           "edgeId": "NT07_P04_050",
           "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7320
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_UE2T",
+      "displayName": "小泉上急2",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_P04_050",
+          "startDistanceOnGeometryM": 7320,
+          "endDistanceOnGeometryM": 7620
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_UE3T",
+      "displayName": "小泉上急3",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_P04_050",
+          "startDistanceOnGeometryM": 7620,
           "endDistanceOnGeometryM": 7930
         }
       ]
@@ -198,6 +270,30 @@
         {
           "edgeId": "NT07_UL_070",
           "startDistanceOnGeometryM": 7020,
+          "endDistanceOnGeometryM": 7320
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_UL2T",
+      "displayName": "小泉上緩2",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_UL_070",
+          "startDistanceOnGeometryM": 7320,
+          "endDistanceOnGeometryM": 7620
+        }
+      ]
+    },
+    {
+      "circuitId": "NT07_NT08_UL3T",
+      "displayName": "小泉上緩3",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT07_UL_070",
+          "startDistanceOnGeometryM": 7620,
           "endDistanceOnGeometryM": 7930
         }
       ]

@@ -1,0 +1,3068 @@
+{
+  "stationId": "NT14",
+  "stationTracks": [
+    {
+      "trackId": "1",
+      "displayName": "1番線",
+      "trackCircuitId": "NT14_1RT"
+    },
+    {
+      "trackId": "2",
+      "displayName": "2番線",
+      "trackCircuitId": "NT14_2RT"
+    },
+    {
+      "trackId": "3",
+      "displayName": "3番線",
+      "trackCircuitId": "NT14_3LT"
+    },
+    {
+      "trackId": "4",
+      "displayName": "4番線",
+      "trackCircuitId": "NT14_4LT"
+    },
+    {
+      "trackId": "DEPOT_1",
+      "displayName": "電留1番",
+      "trackCircuitId": "NT14_DEPOT_1T"
+    },
+    {
+      "trackId": "DEPOT_2",
+      "displayName": "電留2番",
+      "trackCircuitId": "NT14_DEPOT_2T"
+    },
+    {
+      "trackId": "DEPOT_3",
+      "displayName": "電留3番",
+      "trackCircuitId": "NT14_DEPOT_3T"
+    },
+    {
+      "trackId": "DEPOT_4",
+      "displayName": "電留4番",
+      "trackCircuitId": "NT14_DEPOT_4T"
+    },
+    {
+      "trackId": "DEPOT_5",
+      "displayName": "電留5番",
+      "trackCircuitId": "NT14_DEPOT_5T"
+    },
+    {
+      "trackId": "DEPOT_6",
+      "displayName": "電留6番",
+      "trackCircuitId": "NT14_DEPOT_6T"
+    },
+    {
+      "trackId": "DEPOT_7",
+      "displayName": "電留7番",
+      "trackCircuitId": "NT14_DEPOT_7T"
+    },
+    {
+      "trackId": "DEPOT_8",
+      "displayName": "電留8番",
+      "trackCircuitId": "NT14_DEPOT_8T"
+    },
+    {
+      "trackId": "DEPOT_9",
+      "displayName": "電留9番",
+      "trackCircuitId": "NT14_DEPOT_9T"
+    },
+    {
+      "trackId": "DEPOT_10",
+      "displayName": "電留10番",
+      "trackCircuitId": "NT14_DEPOT_10T"
+    },
+    {
+      "trackId": "DEPOT_11",
+      "displayName": "電留11番",
+      "trackCircuitId": "NT14_DEPOT_11T"
+    },
+    {
+      "trackId": "DEPOT_12",
+      "displayName": "電留12番",
+      "trackCircuitId": "NT14_DEPOT_12T"
+    }
+  ],
+  "geometries": [],
+  "nodes": [
+    {
+      "nodeId": "NT14_21A_node",
+      "connectedEdgeIds": [
+        "NT14_track2_entry",
+        "NT14_track2_scissors",
+        "NT14_crossover21"
+      ]
+    },
+    {
+      "nodeId": "NT14_21B_node",
+      "connectedEdgeIds": [
+        "NT14_track3_scissors",
+        "NT14_track3_lead",
+        "NT14_crossover21"
+      ]
+    },
+    {
+      "nodeId": "NT14_22A_node",
+      "connectedEdgeIds": [
+        "NT14_track3_entry",
+        "NT14_track3_scissors",
+        "NT14_crossover22"
+      ]
+    },
+    {
+      "nodeId": "NT14_22B_node",
+      "connectedEdgeIds": [
+        "NT14_track2_scissors",
+        "NT14_track2_lead",
+        "NT14_crossover22"
+      ]
+    },
+    {
+      "nodeId": "NT14_23_node",
+      "connectedEdgeIds": [
+        "NT14_track2_lead",
+        "NT14_track2",
+        "NT14_track1"
+      ]
+    },
+    {
+      "nodeId": "NT14_24_node",
+      "connectedEdgeIds": [
+        "NT14_track3_lead",
+        "NT14_track3",
+        "NT14_track4"
+      ]
+    },
+    {
+      "nodeId": "NT14_25_node",
+      "connectedEdgeIds": [
+        "NT14_track2",
+        "NT14_track2_exit_lead",
+        "NT14_track1"
+      ]
+    },
+    {
+      "nodeId": "NT14_26_node",
+      "connectedEdgeIds": [
+        "NT14_track3",
+        "NT14_track3_exit_lead",
+        "NT14_track4"
+      ]
+    },
+    {
+      "nodeId": "NT14_27A_node",
+      "connectedEdgeIds": [
+        "NT14_track2_exit_lead",
+        "NT14_track2_exit_scissors",
+        "NT14_crossover27"
+      ]
+    },
+    {
+      "nodeId": "NT14_27B_node",
+      "connectedEdgeIds": [
+        "NT14_track3_exit_scissors",
+        "NT14_track3_exit",
+        "NT14_crossover27"
+      ]
+    },
+    {
+      "nodeId": "NT14_28A_node",
+      "connectedEdgeIds": [
+        "NT14_track3_exit_lead",
+        "NT14_track3_exit_scissors",
+        "NT14_crossover28"
+      ]
+    },
+    {
+      "nodeId": "NT14_28B_node",
+      "connectedEdgeIds": [
+        "NT14_track2_exit_scissors",
+        "NT14_track2_exit",
+        "NT14_crossover28"
+      ]
+    },
+    {
+      "nodeId": "NT14_entry2",
+      "connectedEdgeIds": [
+        "NT13_NT14_down",
+        "NT14_track2_entry"
+      ]
+    },
+    {
+      "nodeId": "NT14_entry3",
+      "connectedEdgeIds": [
+        "NT13_NT14_up",
+        "NT14_track3_entry"
+      ]
+    },
+    {
+      "nodeId": "NT14_exit2",
+      "connectedEdgeIds": [
+        "NT14_track2_exit",
+        "NT14_yard_spine2_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_exit3",
+      "connectedEdgeIds": [
+        "NT14_track3_exit",
+        "NT14_yard_spine3_01",
+        "NT14_yard_west_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot1_buffer",
+      "connectedEdgeIds": [
+        "NT14_depot1"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot2_buffer",
+      "connectedEdgeIds": [
+        "NT14_depot2"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_depot2_entry",
+      "connectedEdgeIds": [
+        "NT14_yard_spine2_01",
+        "NT14_depot2"
+      ]
+    },
+    {
+      "nodeId": "NT14_44_node",
+      "connectedEdgeIds": [
+        "NT14_yard_spine3_01",
+        "NT14_yard_spine3_02",
+        "NT14_yard_east_03"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_depot1_entry",
+      "connectedEdgeIds": [
+        "NT14_yard_spine3_02",
+        "NT14_depot1"
+      ]
+    },
+    {
+      "nodeId": "NT14_32_node",
+      "connectedEdgeIds": [
+        "NT14_yard_west_01",
+        "NT14_yard_west_02",
+        "NT14_yard_depot3_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_33_node",
+      "connectedEdgeIds": [
+        "NT14_yard_west_02",
+        "NT14_yard_west_03",
+        "NT14_yard_depot4_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_35_node",
+      "connectedEdgeIds": [
+        "NT14_yard_west_03",
+        "NT14_yard_west_04",
+        "NT14_yard_lower_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_37_node",
+      "connectedEdgeIds": [
+        "NT14_yard_west_04",
+        "NT14_yard_west_05",
+        "NT14_yard_depot7_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_39_node",
+      "connectedEdgeIds": [
+        "NT14_yard_west_05",
+        "NT14_yard_west_06",
+        "NT14_yard_depot8_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_link4",
+      "connectedEdgeIds": [
+        "NT14_yard_west_06",
+        "NT14_yard_depot9_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_34_node",
+      "connectedEdgeIds": [
+        "NT14_yard_inner_01",
+        "NT14_yard_depot4_01",
+        "NT14_yard_depot4_02"
+      ]
+    },
+    {
+      "nodeId": "NT14_36_node",
+      "connectedEdgeIds": [
+        "NT14_yard_inner_01",
+        "NT14_yard_inner_02",
+        "NT14_yard_depot5_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_link6",
+      "connectedEdgeIds": [
+        "NT14_yard_inner_02",
+        "NT14_yard_depot6_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_38_node",
+      "connectedEdgeIds": [
+        "NT14_yard_lower_01",
+        "NT14_yard_lower_02",
+        "NT14_yard_depot10_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_40_node",
+      "connectedEdgeIds": [
+        "NT14_yard_lower_02",
+        "NT14_yard_lower_03",
+        "NT14_yard_depot11_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_link5",
+      "connectedEdgeIds": [
+        "NT14_yard_lower_03",
+        "NT14_yard_depot12_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_link3",
+      "connectedEdgeIds": [
+        "NT14_yard_east_01",
+        "NT14_yard_depot5_east_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_42_node",
+      "connectedEdgeIds": [
+        "NT14_yard_east_01",
+        "NT14_yard_east_02",
+        "NT14_yard_depot4_east_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_43_node",
+      "connectedEdgeIds": [
+        "NT14_yard_east_02",
+        "NT14_yard_east_03",
+        "NT14_yard_depot3_east_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_link1",
+      "connectedEdgeIds": [
+        "NT14_yard_depot3_01",
+        "NT14_yard_depot3_east_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_yard_link2",
+      "connectedEdgeIds": [
+        "NT14_yard_depot4_02",
+        "NT14_yard_depot4_east_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_41_node",
+      "connectedEdgeIds": [
+        "NT14_yard_depot5_01",
+        "NT14_yard_depot5_02",
+        "NT14_yard_depot5_east_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot5_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot5_02"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot6_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot6_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot7_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot7_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot8_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot8_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot9_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot9_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot10_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot10_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot11_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot11_01"
+      ]
+    },
+    {
+      "nodeId": "NT14_depot12_buffer",
+      "connectedEdgeIds": [
+        "NT14_yard_depot12_01"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "NT14_track2_entry",
+      "nodeAId": "NT14_entry2",
+      "nodeBId": "NT14_21A_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15840,
+      "endDistanceOnGeometryM": 15860,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 15840,
+          "endDistanceOnGeometryM": 15860,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track2_scissors",
+      "nodeAId": "NT14_21A_node",
+      "nodeBId": "NT14_22B_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15860,
+      "endDistanceOnGeometryM": 15954.255,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15954.255,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track2_lead",
+      "nodeAId": "NT14_22B_node",
+      "nodeBId": "NT14_23_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15954.255,
+      "endDistanceOnGeometryM": 16000,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 15954.255,
+          "endDistanceOnGeometryM": 16000,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track2",
+      "nodeAId": "NT14_23_node",
+      "nodeBId": "NT14_25_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16000,
+      "endDistanceOnGeometryM": 16480,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16480,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track2_exit_lead",
+      "nodeAId": "NT14_25_node",
+      "nodeBId": "NT14_27A_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16480,
+      "endDistanceOnGeometryM": 16560,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16480,
+          "endDistanceOnGeometryM": 16560,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track2_exit_scissors",
+      "nodeAId": "NT14_27A_node",
+      "nodeBId": "NT14_28B_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16560,
+      "endDistanceOnGeometryM": 16654.255,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16654.255,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track2_exit",
+      "nodeAId": "NT14_28B_node",
+      "nodeBId": "NT14_exit2",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16654.255,
+      "endDistanceOnGeometryM": 16700,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16654.255,
+          "endDistanceOnGeometryM": 16700,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3_entry",
+      "nodeAId": "NT14_entry3",
+      "nodeBId": "NT14_22A_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15840,
+      "endDistanceOnGeometryM": 15860,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 15840,
+          "endDistanceOnGeometryM": 15860,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3_scissors",
+      "nodeAId": "NT14_22A_node",
+      "nodeBId": "NT14_21B_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15860,
+      "endDistanceOnGeometryM": 15954.255,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15954.255,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3_lead",
+      "nodeAId": "NT14_21B_node",
+      "nodeBId": "NT14_24_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15954.255,
+      "endDistanceOnGeometryM": 16000,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 15954.255,
+          "endDistanceOnGeometryM": 16000,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3",
+      "nodeAId": "NT14_24_node",
+      "nodeBId": "NT14_26_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16000,
+      "endDistanceOnGeometryM": 16480,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16480,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3_exit_lead",
+      "nodeAId": "NT14_26_node",
+      "nodeBId": "NT14_28A_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16480,
+      "endDistanceOnGeometryM": 16560,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16480,
+          "endDistanceOnGeometryM": 16560,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3_exit_scissors",
+      "nodeAId": "NT14_28A_node",
+      "nodeBId": "NT14_27B_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16560,
+      "endDistanceOnGeometryM": 16654.255,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16654.255,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track3_exit",
+      "nodeAId": "NT14_27B_node",
+      "nodeBId": "NT14_exit3",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16654.255,
+      "endDistanceOnGeometryM": 16700,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16654.255,
+          "endDistanceOnGeometryM": 16700,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_crossover21",
+      "nodeAId": "NT14_21A_node",
+      "nodeBId": "NT14_21B_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15860,
+      "endDistanceOnGeometryM": 15954.255,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15882.166,
+          "startOffsetM": 0,
+          "radiusM": 400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 15882.166,
+          "endDistanceOnGeometryM": 15932.089,
+          "startOffsetM": 0.6146310000000001,
+          "endOffsetM": 3.385369
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 15932.089,
+          "endDistanceOnGeometryM": 15954.255,
+          "startOffsetM": 3.385369,
+          "radiusM": -400,
+          "startHeadingDeg": 3.1766586
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_crossover22",
+      "nodeAId": "NT14_22A_node",
+      "nodeBId": "NT14_22B_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 15860,
+      "endDistanceOnGeometryM": 15954.255,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15882.166,
+          "startOffsetM": 4,
+          "radiusM": -400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 15882.166,
+          "endDistanceOnGeometryM": 15932.089,
+          "startOffsetM": 3.385369,
+          "endOffsetM": 0.6146310000000001
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 15932.089,
+          "endDistanceOnGeometryM": 15954.255,
+          "startOffsetM": 0.6146310000000001,
+          "radiusM": 400,
+          "startHeadingDeg": -3.1766586
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_crossover27",
+      "nodeAId": "NT14_27A_node",
+      "nodeBId": "NT14_27B_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16560,
+      "endDistanceOnGeometryM": 16654.255,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16582.165999999997,
+          "startOffsetM": 0,
+          "radiusM": 400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16582.165999999997,
+          "endDistanceOnGeometryM": 16632.089,
+          "startOffsetM": 0.6146310000000001,
+          "endOffsetM": 3.385369
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16632.089,
+          "endDistanceOnGeometryM": 16654.254999999997,
+          "startOffsetM": 3.385369,
+          "radiusM": -400,
+          "startHeadingDeg": 3.1766586
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_crossover28",
+      "nodeAId": "NT14_28A_node",
+      "nodeBId": "NT14_28B_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16560,
+      "endDistanceOnGeometryM": 16654.255,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16582.165999999997,
+          "startOffsetM": 4,
+          "radiusM": -400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16582.165999999997,
+          "endDistanceOnGeometryM": 16632.089,
+          "startOffsetM": 3.385369,
+          "endOffsetM": 0.6146310000000001
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16632.089,
+          "endDistanceOnGeometryM": 16654.254999999997,
+          "startOffsetM": 0.6146310000000001,
+          "radiusM": 400,
+          "startHeadingDeg": -3.1766586
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track1",
+      "nodeAId": "NT14_23_node",
+      "nodeBId": "NT14_25_node",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16000,
+      "endDistanceOnGeometryM": 16480,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16033.218191941496,
+          "startOffsetM": 0,
+          "radiusM": -400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16033.218191941496,
+          "endDistanceOnGeometryM": 16120.057471092341,
+          "startOffsetM": -1.3816967020481297,
+          "endOffsetM": -8.61830329795187
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16120.057471092341,
+          "endDistanceOnGeometryM": 16153.275663033837,
+          "startOffsetM": -8.61830329795187,
+          "radiusM": 400,
+          "startHeadingDeg": -4.763641690726177
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16153.275663033837,
+          "endDistanceOnGeometryM": 16326.724336966163,
+          "offsetM": -10
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16326.724336966163,
+          "endDistanceOnGeometryM": 16359.942528907657,
+          "startOffsetM": -10,
+          "radiusM": 400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16359.942528907657,
+          "endDistanceOnGeometryM": 16446.781808058502,
+          "startOffsetM": -8.61830329795187,
+          "endOffsetM": -1.3816967020481297
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16446.781808058502,
+          "endDistanceOnGeometryM": 16480.0,
+          "startOffsetM": -1.3816967020481297,
+          "radiusM": -400,
+          "startHeadingDeg": 4.763641690726177
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_track4",
+      "nodeAId": "NT14_24_node",
+      "nodeBId": "NT14_26_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16000,
+      "endDistanceOnGeometryM": 16480,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16033.218191941496,
+          "startOffsetM": 4,
+          "radiusM": 400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16033.218191941496,
+          "endDistanceOnGeometryM": 16120.057471092341,
+          "startOffsetM": 5.38169670204813,
+          "endOffsetM": 12.61830329795187
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16120.057471092341,
+          "endDistanceOnGeometryM": 16153.275663033837,
+          "startOffsetM": 12.61830329795187,
+          "radiusM": -400,
+          "startHeadingDeg": 4.763641690726177
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16153.275663033837,
+          "endDistanceOnGeometryM": 16326.724336966163,
+          "offsetM": 14
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16326.724336966163,
+          "endDistanceOnGeometryM": 16359.942528907657,
+          "startOffsetM": 14,
+          "radiusM": -400,
+          "startHeadingDeg": 0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16359.942528907657,
+          "endDistanceOnGeometryM": 16446.781808058502,
+          "startOffsetM": 12.61830329795187,
+          "endOffsetM": 5.38169670204813
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16446.781808058502,
+          "endDistanceOnGeometryM": 16480.0,
+          "startOffsetM": 5.38169670204813,
+          "radiusM": 400,
+          "startHeadingDeg": -4.763641690726177
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_spine2_01",
+      "nodeAId": "NT14_exit2",
+      "nodeBId": "NT14_yard_depot2_entry",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16700.0,
+      "endDistanceOnGeometryM": 17245.0,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16700.0,
+          "endDistanceOnGeometryM": 17245.0,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_depot2",
+      "nodeAId": "NT14_yard_depot2_entry",
+      "nodeBId": "NT14_depot2_buffer",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17245.0,
+      "endDistanceOnGeometryM": 17530.0,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 17245.0,
+          "endDistanceOnGeometryM": 17530.0,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_spine3_01",
+      "nodeAId": "NT14_exit3",
+      "nodeBId": "NT14_44_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16700.0,
+      "endDistanceOnGeometryM": 17230.0,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16700.0,
+          "endDistanceOnGeometryM": 17230.0,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_spine3_02",
+      "nodeAId": "NT14_44_node",
+      "nodeBId": "NT14_yard_depot1_entry",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17230.0,
+      "endDistanceOnGeometryM": 17245.0,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 17230.0,
+          "endDistanceOnGeometryM": 17245.0,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_depot1",
+      "nodeAId": "NT14_yard_depot1_entry",
+      "nodeBId": "NT14_depot1_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17245.0,
+      "endDistanceOnGeometryM": 17530.0,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 17245.0,
+          "endDistanceOnGeometryM": 17530.0,
+          "offsetM": 4
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_west_01",
+      "nodeAId": "NT14_exit3",
+      "nodeBId": "NT14_32_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16700.0,
+      "endDistanceOnGeometryM": 16734.2578125,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16700.0,
+          "endDistanceOnGeometryM": 16730.015625,
+          "startOffsetM": 4.0,
+          "radiusM": 172.85399999999998,
+          "startHeadingDeg": 0.0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16730.015625,
+          "endDistanceOnGeometryM": 16734.2578125,
+          "startOffsetM": 6.626012802124023,
+          "endOffsetM": 7.374025072903003
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_west_02",
+      "nodeAId": "NT14_32_node",
+      "nodeBId": "NT14_33_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16734.2578125,
+      "endDistanceOnGeometryM": 16765.44921875,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16734.2578125,
+          "endDistanceOnGeometryM": 16765.44921875,
+          "startOffsetM": 7.374025072903003,
+          "endOffsetM": 12.873911561016648
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_west_03",
+      "nodeAId": "NT14_33_node",
+      "nodeBId": "NT14_35_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16765.44921875,
+      "endDistanceOnGeometryM": 16820.041015625,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16765.44921875,
+          "endDistanceOnGeometryM": 16820.041015625,
+          "startOffsetM": 12.873911561016648,
+          "endOffsetM": 22.49991827543521
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_west_04",
+      "nodeAId": "NT14_35_node",
+      "nodeBId": "NT14_37_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16820.041015625,
+      "endDistanceOnGeometryM": 16859.025390625,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16820.041015625,
+          "endDistanceOnGeometryM": 16859.025390625,
+          "startOffsetM": 22.49991827543521,
+          "endOffsetM": 29.373915413991774
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_west_05",
+      "nodeAId": "NT14_37_node",
+      "nodeBId": "NT14_39_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16859.025390625,
+      "endDistanceOnGeometryM": 16890.216796875,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16859.025390625,
+          "endDistanceOnGeometryM": 16890.216796875,
+          "startOffsetM": 29.373915413991774,
+          "endOffsetM": 34.87380190210542
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_west_06",
+      "nodeAId": "NT14_39_node",
+      "nodeBId": "NT14_yard_link4",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16890.216796875,
+      "endDistanceOnGeometryM": 16921.41015625,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16890.216796875,
+          "endDistanceOnGeometryM": 16921.41015625,
+          "startOffsetM": 34.87380190210542,
+          "endOffsetM": 40.37403277885326
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_inner_01",
+      "nodeAId": "NT14_34_node",
+      "nodeBId": "NT14_36_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16818.0,
+      "endDistanceOnGeometryM": 16849.421875,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16818.0,
+          "endDistanceOnGeometryM": 16848.015625,
+          "startOffsetM": 15.5,
+          "radiusM": 172.85399999999998,
+          "startHeadingDeg": 0.0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16848.015625,
+          "endDistanceOnGeometryM": 16849.421875,
+          "startOffsetM": 18.126012802124023,
+          "endOffsetM": 18.373972776050092
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_inner_02",
+      "nodeAId": "NT14_36_node",
+      "nodeBId": "NT14_yard_link6",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16849.421875,
+      "endDistanceOnGeometryM": 16880.61328125,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16849.421875,
+          "endDistanceOnGeometryM": 16880.61328125,
+          "startOffsetM": 18.373972776050092,
+          "endOffsetM": 23.873859264163734
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_lower_01",
+      "nodeAId": "NT14_35_node",
+      "nodeBId": "NT14_38_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16820.041015625,
+      "endDistanceOnGeometryM": 16888.056640625,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16820.041015625,
+          "endDistanceOnGeometryM": 16840.5625,
+          "startOffsetM": 22.5,
+          "radiusM": 172.85399999999998,
+          "startHeadingDeg": 10.0
+        },
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16840.5625,
+          "endDistanceOnGeometryM": 16888.056640625,
+          "startOffsetM": 27.42675018310547,
+          "endOffsetM": 41.94702366013732
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_lower_02",
+      "nodeAId": "NT14_38_node",
+      "nodeBId": "NT14_40_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16888.056640625,
+      "endDistanceOnGeometryM": 16910.953125,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16888.056640625,
+          "endDistanceOnGeometryM": 16910.953125,
+          "startOffsetM": 41.94702366013732,
+          "endOffsetM": 48.94718143111364
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_lower_03",
+      "nodeAId": "NT14_40_node",
+      "nodeBId": "NT14_yard_link5",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16910.953125,
+      "endDistanceOnGeometryM": 16933.849609375,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 16910.953125,
+          "endDistanceOnGeometryM": 16933.849609375,
+          "startOffsetM": 48.94718143111364,
+          "endOffsetM": 55.947339202089964
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_east_01",
+      "nodeAId": "NT14_yard_link3",
+      "nodeBId": "NT14_42_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17133.359375,
+      "endDistanceOnGeometryM": 17164.55078125,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 17133.359375,
+          "endDistanceOnGeometryM": 17164.55078125,
+          "startOffsetM": 18.373798049130443,
+          "endOffsetM": 12.873911561016797
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_east_02",
+      "nodeAId": "NT14_42_node",
+      "nodeBId": "NT14_43_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17164.55078125,
+      "endDistanceOnGeometryM": 17195.7421875,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 17164.55078125,
+          "endDistanceOnGeometryM": 17195.7421875,
+          "startOffsetM": 12.873911561016797,
+          "endOffsetM": 7.374025072903153
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_east_03",
+      "nodeAId": "NT14_43_node",
+      "nodeBId": "NT14_44_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17195.7421875,
+      "endDistanceOnGeometryM": 17230.0,
+      "offsetSegments": [
+        {
+          "type": "Linear",
+          "startDistanceOnGeometryM": 17195.7421875,
+          "endDistanceOnGeometryM": 17199.984375,
+          "startOffsetM": 7.374025072903153,
+          "endOffsetM": 6.626012959503707
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 17199.984375,
+          "endDistanceOnGeometryM": 17230.0,
+          "startOffsetM": 6.626012802124023,
+          "radiusM": 172.85399999999998,
+          "startHeadingDeg": -10.0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot3_01",
+      "nodeAId": "NT14_32_node",
+      "nodeBId": "NT14_yard_link1",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16734.2578125,
+      "endDistanceOnGeometryM": 17165.7265625,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16734.2578125,
+          "endDistanceOnGeometryM": 16764.2734375,
+          "startOffsetM": 7.373959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16764.2734375,
+          "endDistanceOnGeometryM": 17165.7265625,
+          "offsetM": 10.0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot3_east_01",
+      "nodeAId": "NT14_yard_link1",
+      "nodeBId": "NT14_43_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17165.7265625,
+      "endDistanceOnGeometryM": 17195.7421875,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 17165.7265625,
+          "endDistanceOnGeometryM": 17195.7421875,
+          "startOffsetM": 10.0,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": -2.92048572229679e-13
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot4_01",
+      "nodeAId": "NT14_33_node",
+      "nodeBId": "NT14_34_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16765.44921875,
+      "endDistanceOnGeometryM": 16818.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16765.44921875,
+          "endDistanceOnGeometryM": 16795.46484375,
+          "startOffsetM": 12.873959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16795.46484375,
+          "endDistanceOnGeometryM": 16818.0,
+          "offsetM": 15.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot4_02",
+      "nodeAId": "NT14_34_node",
+      "nodeBId": "NT14_yard_link2",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16818.0,
+      "endDistanceOnGeometryM": 17134.53515625,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16818.0,
+          "endDistanceOnGeometryM": 17134.53515625,
+          "offsetM": 15.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot4_east_01",
+      "nodeAId": "NT14_yard_link2",
+      "nodeBId": "NT14_42_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17134.53515625,
+      "endDistanceOnGeometryM": 17164.55078125,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 17134.53515625,
+          "endDistanceOnGeometryM": 17164.55078125,
+          "startOffsetM": 15.5,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": -0.0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot5_01",
+      "nodeAId": "NT14_36_node",
+      "nodeBId": "NT14_41_node",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16849.421875,
+      "endDistanceOnGeometryM": 17103.341796875,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16849.421875,
+          "endDistanceOnGeometryM": 16879.4375,
+          "startOffsetM": 18.373959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16879.4375,
+          "endDistanceOnGeometryM": 17103.341796875,
+          "offsetM": 21.0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot5_02",
+      "nodeAId": "NT14_41_node",
+      "nodeBId": "NT14_depot5_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17103.341796875,
+      "endDistanceOnGeometryM": 17440.0,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 17103.341796875,
+          "endDistanceOnGeometryM": 17440.0,
+          "offsetM": 21
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot5_east_01",
+      "nodeAId": "NT14_41_node",
+      "nodeBId": "NT14_yard_link3",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 17103.341796875,
+      "endDistanceOnGeometryM": 17133.359375,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 17103.341796875,
+          "endDistanceOnGeometryM": 17133.359375,
+          "startOffsetM": 21.0,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": -8.949875600586938e-14
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot6_01",
+      "nodeAId": "NT14_yard_link6",
+      "nodeBId": "NT14_depot6_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16880.61328125,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16880.61328125,
+          "endDistanceOnGeometryM": 16910.62890625,
+          "startOffsetM": 23.873959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16910.62890625,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 26.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot7_01",
+      "nodeAId": "NT14_37_node",
+      "nodeBId": "NT14_depot7_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16859.025390625,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16859.025390625,
+          "endDistanceOnGeometryM": 16889.041015625,
+          "startOffsetM": 29.373959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16889.041015625,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 32.0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot8_01",
+      "nodeAId": "NT14_39_node",
+      "nodeBId": "NT14_depot8_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16890.216796875,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16890.216796875,
+          "endDistanceOnGeometryM": 16920.234375,
+          "startOffsetM": 34.873959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16920.234375,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 37.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot9_01",
+      "nodeAId": "NT14_yard_link4",
+      "nodeBId": "NT14_depot9_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16921.41015625,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16921.41015625,
+          "endDistanceOnGeometryM": 16951.42578125,
+          "startOffsetM": 40.373959339172075,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 10.000000000000286
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16951.42578125,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 43.0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot10_01",
+      "nodeAId": "NT14_38_node",
+      "nodeBId": "NT14_depot10_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16888.056640625,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16888.056640625,
+          "endDistanceOnGeometryM": 16938.59375,
+          "startOffsetM": 41.94710228723437,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 17.00000000000017
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16938.59375,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 49.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot11_01",
+      "nodeAId": "NT14_40_node",
+      "nodeBId": "NT14_depot11_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16910.953125,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16910.953125,
+          "endDistanceOnGeometryM": 16961.490234375,
+          "startOffsetM": 48.94710228723437,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 17.00000000000017
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16961.490234375,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 56.5
+        }
+      ]
+    },
+    {
+      "edgeId": "NT14_yard_depot12_01",
+      "nodeAId": "NT14_yard_link5",
+      "nodeBId": "NT14_depot12_buffer",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 16933.849609375,
+      "endDistanceOnGeometryM": 17330.0,
+      "offsetSegments": [
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 16933.849609375,
+          "endDistanceOnGeometryM": 16984.38671875,
+          "startOffsetM": 55.94710228723437,
+          "radiusM": -172.85399999999998,
+          "startHeadingDeg": 17.00000000000017
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 16984.38671875,
+          "endDistanceOnGeometryM": 17330.0,
+          "offsetM": 63.5
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "connectionId": "NT14_entry2_connection",
+      "nodeId": "NT14_entry2",
+      "edgePairs": [
+        {
+          "pairId": "NT14_entry2_connection_fixed",
+          "edgeAId": "NT14_track2_entry",
+          "edgeBId": "NT13_NT14_down",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_entry3_connection",
+      "nodeId": "NT14_entry3",
+      "edgePairs": [
+        {
+          "pairId": "NT14_entry3_connection_fixed",
+          "edgeAId": "NT14_track3_entry",
+          "edgeBId": "NT13_NT14_up",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_21A",
+      "nodeId": "NT14_21A_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_21A_normal",
+          "edgeAId": "NT14_track2_entry",
+          "edgeBId": "NT14_track2_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_21A_reverse",
+          "edgeAId": "NT14_track2_entry",
+          "edgeBId": "NT14_crossover21",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_22A",
+      "nodeId": "NT14_22A_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_22A_normal",
+          "edgeAId": "NT14_track3_entry",
+          "edgeBId": "NT14_track3_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_22A_reverse",
+          "edgeAId": "NT14_track3_entry",
+          "edgeBId": "NT14_crossover22",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_21B",
+      "nodeId": "NT14_21B_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_21B_normal",
+          "edgeAId": "NT14_track3_lead",
+          "edgeBId": "NT14_track3_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_21B_reverse",
+          "edgeAId": "NT14_track3_lead",
+          "edgeBId": "NT14_crossover21",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_22B",
+      "nodeId": "NT14_22B_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_22B_normal",
+          "edgeAId": "NT14_track2_lead",
+          "edgeBId": "NT14_track2_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_22B_reverse",
+          "edgeAId": "NT14_track2_lead",
+          "edgeBId": "NT14_crossover22",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_27A",
+      "nodeId": "NT14_27A_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_27A_normal",
+          "edgeAId": "NT14_track2_exit_lead",
+          "edgeBId": "NT14_track2_exit_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_27A_reverse",
+          "edgeAId": "NT14_track2_exit_lead",
+          "edgeBId": "NT14_crossover27",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_28A",
+      "nodeId": "NT14_28A_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_28A_normal",
+          "edgeAId": "NT14_track3_exit_lead",
+          "edgeBId": "NT14_track3_exit_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_28A_reverse",
+          "edgeAId": "NT14_track3_exit_lead",
+          "edgeBId": "NT14_crossover28",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_27B",
+      "nodeId": "NT14_27B_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_27B_normal",
+          "edgeAId": "NT14_track3_exit",
+          "edgeBId": "NT14_track3_exit_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_27B_reverse",
+          "edgeAId": "NT14_track3_exit",
+          "edgeBId": "NT14_crossover27",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_28B",
+      "nodeId": "NT14_28B_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_28B_normal",
+          "edgeAId": "NT14_track2_exit",
+          "edgeBId": "NT14_track2_exit_scissors",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_28B_reverse",
+          "edgeAId": "NT14_track2_exit",
+          "edgeBId": "NT14_crossover28",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_23",
+      "nodeId": "NT14_23_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_23_normal",
+          "edgeAId": "NT14_track2_lead",
+          "edgeBId": "NT14_track2",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_23_reverse",
+          "edgeAId": "NT14_track2_lead",
+          "edgeBId": "NT14_track1",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_25",
+      "nodeId": "NT14_25_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_25_normal",
+          "edgeAId": "NT14_track2_exit_lead",
+          "edgeBId": "NT14_track2",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_25_reverse",
+          "edgeAId": "NT14_track2_exit_lead",
+          "edgeBId": "NT14_track1",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_24",
+      "nodeId": "NT14_24_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_24_normal",
+          "edgeAId": "NT14_track3_lead",
+          "edgeBId": "NT14_track3",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_24_reverse",
+          "edgeAId": "NT14_track3_lead",
+          "edgeBId": "NT14_track4",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_26",
+      "nodeId": "NT14_26_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_26_normal",
+          "edgeAId": "NT14_track3_exit_lead",
+          "edgeBId": "NT14_track3",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_26_reverse",
+          "edgeAId": "NT14_track3_exit_lead",
+          "edgeBId": "NT14_track4",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_link1_connection",
+      "nodeId": "NT14_yard_link1",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_link1_connection_fixed",
+          "edgeAId": "NT14_yard_depot3_01",
+          "edgeBId": "NT14_yard_depot3_east_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_link2_connection",
+      "nodeId": "NT14_yard_link2",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_link2_connection_fixed",
+          "edgeAId": "NT14_yard_depot4_02",
+          "edgeBId": "NT14_yard_depot4_east_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_link3_connection",
+      "nodeId": "NT14_yard_link3",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_link3_connection_fixed",
+          "edgeAId": "NT14_yard_east_01",
+          "edgeBId": "NT14_yard_depot5_east_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_link4_connection",
+      "nodeId": "NT14_yard_link4",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_link4_connection_fixed",
+          "edgeAId": "NT14_yard_west_06",
+          "edgeBId": "NT14_yard_depot9_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_link5_connection",
+      "nodeId": "NT14_yard_link5",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_link5_connection_fixed",
+          "edgeAId": "NT14_yard_lower_03",
+          "edgeBId": "NT14_yard_depot12_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_link6_connection",
+      "nodeId": "NT14_yard_link6",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_link6_connection_fixed",
+          "edgeAId": "NT14_yard_inner_02",
+          "edgeBId": "NT14_yard_depot6_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_depot2_connection",
+      "nodeId": "NT14_exit2",
+      "edgePairs": [
+        {
+          "pairId": "NT14_depot2_connection_fixed",
+          "edgeAId": "NT14_track2_exit",
+          "edgeBId": "NT14_yard_spine2_01",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_depot2_entry_connection",
+      "nodeId": "NT14_yard_depot2_entry",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_depot2_entry_connection_fixed",
+          "edgeAId": "NT14_yard_spine2_01",
+          "edgeBId": "NT14_depot2",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_yard_depot1_entry_connection",
+      "nodeId": "NT14_yard_depot1_entry",
+      "edgePairs": [
+        {
+          "pairId": "NT14_yard_depot1_entry_connection_fixed",
+          "edgeAId": "NT14_yard_spine3_02",
+          "edgeBId": "NT14_depot1",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_31",
+      "nodeId": "NT14_exit3",
+      "edgePairs": [
+        {
+          "pairId": "NT14_31_normal",
+          "edgeAId": "NT14_track3_exit",
+          "edgeBId": "NT14_yard_spine3_01",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_31_reverse",
+          "edgeAId": "NT14_track3_exit",
+          "edgeBId": "NT14_yard_west_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_32",
+      "nodeId": "NT14_32_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_32_normal",
+          "edgeAId": "NT14_yard_west_01",
+          "edgeBId": "NT14_yard_west_02",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_32_reverse",
+          "edgeAId": "NT14_yard_west_01",
+          "edgeBId": "NT14_yard_depot3_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_33",
+      "nodeId": "NT14_33_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_33_normal",
+          "edgeAId": "NT14_yard_west_02",
+          "edgeBId": "NT14_yard_west_03",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_33_reverse",
+          "edgeAId": "NT14_yard_west_02",
+          "edgeBId": "NT14_yard_depot4_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_34",
+      "nodeId": "NT14_34_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_34_normal",
+          "edgeAId": "NT14_yard_depot4_01",
+          "edgeBId": "NT14_yard_depot4_02",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_34_reverse",
+          "edgeAId": "NT14_yard_depot4_01",
+          "edgeBId": "NT14_yard_inner_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_35",
+      "nodeId": "NT14_35_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_35_normal",
+          "edgeAId": "NT14_yard_west_03",
+          "edgeBId": "NT14_yard_west_04",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_35_reverse",
+          "edgeAId": "NT14_yard_west_03",
+          "edgeBId": "NT14_yard_lower_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_36",
+      "nodeId": "NT14_36_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_36_normal",
+          "edgeAId": "NT14_yard_inner_01",
+          "edgeBId": "NT14_yard_inner_02",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_36_reverse",
+          "edgeAId": "NT14_yard_inner_01",
+          "edgeBId": "NT14_yard_depot5_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_37",
+      "nodeId": "NT14_37_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_37_normal",
+          "edgeAId": "NT14_yard_west_04",
+          "edgeBId": "NT14_yard_west_05",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_37_reverse",
+          "edgeAId": "NT14_yard_west_04",
+          "edgeBId": "NT14_yard_depot7_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_38",
+      "nodeId": "NT14_38_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_38_normal",
+          "edgeAId": "NT14_yard_lower_01",
+          "edgeBId": "NT14_yard_lower_02",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_38_reverse",
+          "edgeAId": "NT14_yard_lower_01",
+          "edgeBId": "NT14_yard_depot10_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_39",
+      "nodeId": "NT14_39_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_39_normal",
+          "edgeAId": "NT14_yard_west_05",
+          "edgeBId": "NT14_yard_west_06",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_39_reverse",
+          "edgeAId": "NT14_yard_west_05",
+          "edgeBId": "NT14_yard_depot8_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_40",
+      "nodeId": "NT14_40_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_40_normal",
+          "edgeAId": "NT14_yard_lower_02",
+          "edgeBId": "NT14_yard_lower_03",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_40_reverse",
+          "edgeAId": "NT14_yard_lower_02",
+          "edgeBId": "NT14_yard_depot11_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_41",
+      "nodeId": "NT14_41_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_41_normal",
+          "edgeAId": "NT14_yard_depot5_01",
+          "edgeBId": "NT14_yard_depot5_02",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_41_reverse",
+          "edgeAId": "NT14_yard_depot5_01",
+          "edgeBId": "NT14_yard_depot5_east_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_42",
+      "nodeId": "NT14_42_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_42_normal",
+          "edgeAId": "NT14_yard_east_02",
+          "edgeBId": "NT14_yard_east_01",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_42_reverse",
+          "edgeAId": "NT14_yard_east_02",
+          "edgeBId": "NT14_yard_depot4_east_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_43",
+      "nodeId": "NT14_43_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_43_normal",
+          "edgeAId": "NT14_yard_east_03",
+          "edgeBId": "NT14_yard_east_02",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_43_reverse",
+          "edgeAId": "NT14_yard_east_03",
+          "edgeBId": "NT14_yard_depot3_east_01",
+          "condition": 3
+        }
+      ]
+    },
+    {
+      "connectionId": "NT14_44",
+      "nodeId": "NT14_44_node",
+      "edgePairs": [
+        {
+          "pairId": "NT14_44_normal",
+          "edgeAId": "NT14_yard_spine3_02",
+          "edgeBId": "NT14_yard_spine3_01",
+          "condition": 2
+        },
+        {
+          "pairId": "NT14_44_reverse",
+          "edgeAId": "NT14_yard_spine3_02",
+          "edgeBId": "NT14_yard_east_03",
+          "condition": 3
+        }
+      ]
+    }
+  ],
+  "circuits": [
+    {
+      "circuitId": "NT14_21AT",
+      "displayName": "21イT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2_entry",
+          "startDistanceOnGeometryM": 15840,
+          "endDistanceOnGeometryM": 15860
+        },
+        {
+          "edgeId": "NT14_track2_scissors",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15907.1275
+        },
+        {
+          "edgeId": "NT14_crossover21",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15907.1275
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_22AT",
+      "displayName": "22イT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3_entry",
+          "startDistanceOnGeometryM": 15840,
+          "endDistanceOnGeometryM": 15860
+        },
+        {
+          "edgeId": "NT14_track3_scissors",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15907.1275
+        },
+        {
+          "edgeId": "NT14_crossover22",
+          "startDistanceOnGeometryM": 15860,
+          "endDistanceOnGeometryM": 15907.1275
+        }
+      ],
+      "toCircuitId": "NT13_NT14_U5T"
+    },
+    {
+      "circuitId": "NT14_21BT",
+      "displayName": "21ロT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3_scissors",
+          "startDistanceOnGeometryM": 15907.1275,
+          "endDistanceOnGeometryM": 15954.255
+        },
+        {
+          "edgeId": "NT14_track3_lead",
+          "startDistanceOnGeometryM": 15954.255,
+          "endDistanceOnGeometryM": 15980
+        },
+        {
+          "edgeId": "NT14_crossover21",
+          "startDistanceOnGeometryM": 15907.1275,
+          "endDistanceOnGeometryM": 15954.255
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_22BT",
+      "displayName": "22ロT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2_scissors",
+          "startDistanceOnGeometryM": 15907.1275,
+          "endDistanceOnGeometryM": 15954.255
+        },
+        {
+          "edgeId": "NT14_track2_lead",
+          "startDistanceOnGeometryM": 15954.255,
+          "endDistanceOnGeometryM": 15980
+        },
+        {
+          "edgeId": "NT14_crossover22",
+          "startDistanceOnGeometryM": 15907.1275,
+          "endDistanceOnGeometryM": 15954.255
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_23T",
+      "displayName": "23T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2_lead",
+          "startDistanceOnGeometryM": 15980,
+          "endDistanceOnGeometryM": 16000
+        },
+        {
+          "edgeId": "NT14_track2",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16090
+        },
+        {
+          "edgeId": "NT14_track1",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16090
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_24T",
+      "displayName": "24T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3_lead",
+          "startDistanceOnGeometryM": 15980,
+          "endDistanceOnGeometryM": 16000
+        },
+        {
+          "edgeId": "NT14_track3",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16090
+        },
+        {
+          "edgeId": "NT14_track4",
+          "startDistanceOnGeometryM": 16000,
+          "endDistanceOnGeometryM": 16090
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_1RT",
+      "displayName": "1RT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track1",
+          "startDistanceOnGeometryM": 16090,
+          "endDistanceOnGeometryM": 16390
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_2RT",
+      "displayName": "2RT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2",
+          "startDistanceOnGeometryM": 16090,
+          "endDistanceOnGeometryM": 16390
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_3LT",
+      "displayName": "3LT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3",
+          "startDistanceOnGeometryM": 16090,
+          "endDistanceOnGeometryM": 16390
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_4LT",
+      "displayName": "4LT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track4",
+          "startDistanceOnGeometryM": 16090,
+          "endDistanceOnGeometryM": 16390
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_25T",
+      "displayName": "25T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2",
+          "startDistanceOnGeometryM": 16390,
+          "endDistanceOnGeometryM": 16480
+        },
+        {
+          "edgeId": "NT14_track2_exit_lead",
+          "startDistanceOnGeometryM": 16480,
+          "endDistanceOnGeometryM": 16500
+        },
+        {
+          "edgeId": "NT14_track1",
+          "startDistanceOnGeometryM": 16390,
+          "endDistanceOnGeometryM": 16480
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_26T",
+      "displayName": "26T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3",
+          "startDistanceOnGeometryM": 16390,
+          "endDistanceOnGeometryM": 16480
+        },
+        {
+          "edgeId": "NT14_track3_exit_lead",
+          "startDistanceOnGeometryM": 16480,
+          "endDistanceOnGeometryM": 16500
+        },
+        {
+          "edgeId": "NT14_track4",
+          "startDistanceOnGeometryM": 16390,
+          "endDistanceOnGeometryM": 16480
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_27AT",
+      "displayName": "27イT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2_exit_lead",
+          "startDistanceOnGeometryM": 16500,
+          "endDistanceOnGeometryM": 16560
+        },
+        {
+          "edgeId": "NT14_track2_exit_scissors",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16607.1275
+        },
+        {
+          "edgeId": "NT14_crossover27",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16607.1275
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_28AT",
+      "displayName": "28イT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3_exit_lead",
+          "startDistanceOnGeometryM": 16500,
+          "endDistanceOnGeometryM": 16560
+        },
+        {
+          "edgeId": "NT14_track3_exit_scissors",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16607.1275
+        },
+        {
+          "edgeId": "NT14_crossover28",
+          "startDistanceOnGeometryM": 16560,
+          "endDistanceOnGeometryM": 16607.1275
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_27BT",
+      "displayName": "27ロT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3_exit_scissors",
+          "startDistanceOnGeometryM": 16607.1275,
+          "endDistanceOnGeometryM": 16654.255
+        },
+        {
+          "edgeId": "NT14_track3_exit",
+          "startDistanceOnGeometryM": 16654.255,
+          "endDistanceOnGeometryM": 16690
+        },
+        {
+          "edgeId": "NT14_crossover27",
+          "startDistanceOnGeometryM": 16607.1275,
+          "endDistanceOnGeometryM": 16654.255
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_28BT",
+      "displayName": "28ロT",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track2_exit_scissors",
+          "startDistanceOnGeometryM": 16607.1275,
+          "endDistanceOnGeometryM": 16654.255
+        },
+        {
+          "edgeId": "NT14_track2_exit",
+          "startDistanceOnGeometryM": 16654.255,
+          "endDistanceOnGeometryM": 16700
+        },
+        {
+          "edgeId": "NT14_crossover28",
+          "startDistanceOnGeometryM": 16607.1275,
+          "endDistanceOnGeometryM": 16654.255
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_1T",
+      "displayName": "電留1T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_depot1",
+          "startDistanceOnGeometryM": 17245.0,
+          "endDistanceOnGeometryM": 17530.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_2T",
+      "displayName": "電留2T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_depot2",
+          "startDistanceOnGeometryM": 17245.0,
+          "endDistanceOnGeometryM": 17530.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_D1T",
+      "displayName": "下り1T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_spine2_01",
+          "startDistanceOnGeometryM": 16700.0,
+          "endDistanceOnGeometryM": 17245.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_31T",
+      "displayName": "31T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_track3_exit",
+          "startDistanceOnGeometryM": 16690,
+          "endDistanceOnGeometryM": 16700
+        },
+        {
+          "edgeId": "NT14_yard_spine3_01",
+          "startDistanceOnGeometryM": 16700.0,
+          "endDistanceOnGeometryM": 16755.0
+        },
+        {
+          "edgeId": "NT14_yard_west_01",
+          "startDistanceOnGeometryM": 16700.0,
+          "endDistanceOnGeometryM": 16724.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_U1T",
+      "displayName": "上り1T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_spine3_01",
+          "startDistanceOnGeometryM": 16755.0,
+          "endDistanceOnGeometryM": 17175.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_44T",
+      "displayName": "44T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_spine3_01",
+          "startDistanceOnGeometryM": 17175.0,
+          "endDistanceOnGeometryM": 17230.0
+        },
+        {
+          "edgeId": "NT14_yard_spine3_02",
+          "startDistanceOnGeometryM": 17230.0,
+          "endDistanceOnGeometryM": 17245.0
+        },
+        {
+          "edgeId": "NT14_yard_east_03",
+          "startDistanceOnGeometryM": 17206.0,
+          "endDistanceOnGeometryM": 17230.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_32T",
+      "displayName": "32T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_west_01",
+          "startDistanceOnGeometryM": 16724.0,
+          "endDistanceOnGeometryM": 16734.2578125
+        },
+        {
+          "edgeId": "NT14_yard_west_02",
+          "startDistanceOnGeometryM": 16734.2578125,
+          "endDistanceOnGeometryM": 16759.0
+        },
+        {
+          "edgeId": "NT14_yard_depot3_01",
+          "startDistanceOnGeometryM": 16734.2578125,
+          "endDistanceOnGeometryM": 16790.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_33T",
+      "displayName": "33T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_west_02",
+          "startDistanceOnGeometryM": 16759.0,
+          "endDistanceOnGeometryM": 16765.44921875
+        },
+        {
+          "edgeId": "NT14_yard_west_03",
+          "startDistanceOnGeometryM": 16765.44921875,
+          "endDistanceOnGeometryM": 16795.0
+        },
+        {
+          "edgeId": "NT14_yard_depot4_01",
+          "startDistanceOnGeometryM": 16765.44921875,
+          "endDistanceOnGeometryM": 16810.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_35T",
+      "displayName": "35T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_west_03",
+          "startDistanceOnGeometryM": 16795.0,
+          "endDistanceOnGeometryM": 16820.041015625
+        },
+        {
+          "edgeId": "NT14_yard_west_04",
+          "startDistanceOnGeometryM": 16820.041015625,
+          "endDistanceOnGeometryM": 16846.0
+        },
+        {
+          "edgeId": "NT14_yard_lower_01",
+          "startDistanceOnGeometryM": 16820.041015625,
+          "endDistanceOnGeometryM": 16856.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_37T",
+      "displayName": "37T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_west_04",
+          "startDistanceOnGeometryM": 16846.0,
+          "endDistanceOnGeometryM": 16859.025390625
+        },
+        {
+          "edgeId": "NT14_yard_west_05",
+          "startDistanceOnGeometryM": 16859.025390625,
+          "endDistanceOnGeometryM": 16883.0
+        },
+        {
+          "edgeId": "NT14_yard_depot7_01",
+          "startDistanceOnGeometryM": 16859.025390625,
+          "endDistanceOnGeometryM": 16920.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_39T",
+      "displayName": "39T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_west_05",
+          "startDistanceOnGeometryM": 16883.0,
+          "endDistanceOnGeometryM": 16890.216796875
+        },
+        {
+          "edgeId": "NT14_yard_west_06",
+          "startDistanceOnGeometryM": 16890.216796875,
+          "endDistanceOnGeometryM": 16921.41015625
+        },
+        {
+          "edgeId": "NT14_yard_depot8_01",
+          "startDistanceOnGeometryM": 16890.216796875,
+          "endDistanceOnGeometryM": 16950.0
+        },
+        {
+          "edgeId": "NT14_yard_depot9_01",
+          "startDistanceOnGeometryM": 16921.41015625,
+          "endDistanceOnGeometryM": 16960.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_34T",
+      "displayName": "34T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_inner_01",
+          "startDistanceOnGeometryM": 16818.0,
+          "endDistanceOnGeometryM": 16842.0
+        },
+        {
+          "edgeId": "NT14_yard_depot4_01",
+          "startDistanceOnGeometryM": 16810.0,
+          "endDistanceOnGeometryM": 16818.0
+        },
+        {
+          "edgeId": "NT14_yard_depot4_02",
+          "startDistanceOnGeometryM": 16818.0,
+          "endDistanceOnGeometryM": 16863.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_36T",
+      "displayName": "36T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_inner_01",
+          "startDistanceOnGeometryM": 16842.0,
+          "endDistanceOnGeometryM": 16849.421875
+        },
+        {
+          "edgeId": "NT14_yard_inner_02",
+          "startDistanceOnGeometryM": 16849.421875,
+          "endDistanceOnGeometryM": 16880.61328125
+        },
+        {
+          "edgeId": "NT14_yard_depot5_01",
+          "startDistanceOnGeometryM": 16849.421875,
+          "endDistanceOnGeometryM": 17065.0
+        },
+        {
+          "edgeId": "NT14_yard_depot6_01",
+          "startDistanceOnGeometryM": 16880.61328125,
+          "endDistanceOnGeometryM": 16920.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_38T",
+      "displayName": "38T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_lower_01",
+          "startDistanceOnGeometryM": 16856.0,
+          "endDistanceOnGeometryM": 16888.056640625
+        },
+        {
+          "edgeId": "NT14_yard_lower_02",
+          "startDistanceOnGeometryM": 16888.056640625,
+          "endDistanceOnGeometryM": 16908.69921875
+        },
+        {
+          "edgeId": "NT14_yard_depot10_01",
+          "startDistanceOnGeometryM": 16888.056640625,
+          "endDistanceOnGeometryM": 16950.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_40T",
+      "displayName": "40T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_lower_02",
+          "startDistanceOnGeometryM": 16908.69921875,
+          "endDistanceOnGeometryM": 16910.953125
+        },
+        {
+          "edgeId": "NT14_yard_lower_03",
+          "startDistanceOnGeometryM": 16910.953125,
+          "endDistanceOnGeometryM": 16933.849609375
+        },
+        {
+          "edgeId": "NT14_yard_depot11_01",
+          "startDistanceOnGeometryM": 16910.953125,
+          "endDistanceOnGeometryM": 16970.0
+        },
+        {
+          "edgeId": "NT14_yard_depot12_01",
+          "startDistanceOnGeometryM": 16933.849609375,
+          "endDistanceOnGeometryM": 17000.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_41T",
+      "displayName": "41T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_east_01",
+          "startDistanceOnGeometryM": 17133.359375,
+          "endDistanceOnGeometryM": 17139.0
+        },
+        {
+          "edgeId": "NT14_yard_depot5_01",
+          "startDistanceOnGeometryM": 17065.0,
+          "endDistanceOnGeometryM": 17103.341796875
+        },
+        {
+          "edgeId": "NT14_yard_depot5_02",
+          "startDistanceOnGeometryM": 17103.341796875,
+          "endDistanceOnGeometryM": 17145.0
+        },
+        {
+          "edgeId": "NT14_yard_depot5_east_01",
+          "startDistanceOnGeometryM": 17103.341796875,
+          "endDistanceOnGeometryM": 17133.359375
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_42T",
+      "displayName": "42T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_east_01",
+          "startDistanceOnGeometryM": 17139.0,
+          "endDistanceOnGeometryM": 17164.55078125
+        },
+        {
+          "edgeId": "NT14_yard_east_02",
+          "startDistanceOnGeometryM": 17164.55078125,
+          "endDistanceOnGeometryM": 17172.0
+        },
+        {
+          "edgeId": "NT14_yard_depot4_02",
+          "startDistanceOnGeometryM": 17119.0,
+          "endDistanceOnGeometryM": 17134.53515625
+        },
+        {
+          "edgeId": "NT14_yard_depot4_east_01",
+          "startDistanceOnGeometryM": 17134.53515625,
+          "endDistanceOnGeometryM": 17164.55078125
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_43T",
+      "displayName": "43T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_east_02",
+          "startDistanceOnGeometryM": 17172.0,
+          "endDistanceOnGeometryM": 17195.7421875
+        },
+        {
+          "edgeId": "NT14_yard_east_03",
+          "startDistanceOnGeometryM": 17195.7421875,
+          "endDistanceOnGeometryM": 17206.0
+        },
+        {
+          "edgeId": "NT14_yard_depot3_01",
+          "startDistanceOnGeometryM": 17140.0,
+          "endDistanceOnGeometryM": 17165.7265625
+        },
+        {
+          "edgeId": "NT14_yard_depot3_east_01",
+          "startDistanceOnGeometryM": 17165.7265625,
+          "endDistanceOnGeometryM": 17195.7421875
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_3T",
+      "displayName": "電留3T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot3_01",
+          "startDistanceOnGeometryM": 16790.0,
+          "endDistanceOnGeometryM": 17140.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_4T",
+      "displayName": "電留4T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot4_02",
+          "startDistanceOnGeometryM": 16863.0,
+          "endDistanceOnGeometryM": 17119.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_5T",
+      "displayName": "電留5T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot5_02",
+          "startDistanceOnGeometryM": 17145.0,
+          "endDistanceOnGeometryM": 17440.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_6T",
+      "displayName": "電留6T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot6_01",
+          "startDistanceOnGeometryM": 16920.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_7T",
+      "displayName": "電留7T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot7_01",
+          "startDistanceOnGeometryM": 16920.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_8T",
+      "displayName": "電留8T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot8_01",
+          "startDistanceOnGeometryM": 16950.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_9T",
+      "displayName": "電留9T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot9_01",
+          "startDistanceOnGeometryM": 16960.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_10T",
+      "displayName": "電留10T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot10_01",
+          "startDistanceOnGeometryM": 16950.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_11T",
+      "displayName": "電留11T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot11_01",
+          "startDistanceOnGeometryM": 16970.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    },
+    {
+      "circuitId": "NT14_DEPOT_12T",
+      "displayName": "電留12T",
+      "controlKind": "Interlocking",
+      "sections": [
+        {
+          "edgeId": "NT14_yard_depot12_01",
+          "startDistanceOnGeometryM": 17000.0,
+          "endDistanceOnGeometryM": 17330.0
+        }
+      ]
+    }
+  ]
+}

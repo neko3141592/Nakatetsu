@@ -29,18 +29,8 @@ func TestTrainTypeColor(t *testing.T) {
 		t.Fatalf("failed request changed color: %s", got.Color)
 	}
 	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", trainBody, http.StatusCreated)
-	trainTypeRequest(t, handler, http.MethodPost, "/api/operations", `{"operationNumber":"C","trains":[{"trainNumber":"0001","sequenceIndex":0}]}`, http.StatusCreated)
-	for _, body := range []string{
-		`{"id":"operation","operationNumbers":["C"]}`,
-		`{"id":"temporary","temporaryTrainNumbers":["0001"]}`,
-	} {
-		w := trainTypeRequest(t, handler, http.MethodPost, "/api/timetable/", body, http.StatusCreated)
-		var got timetable.Timetable
-		if err := json.Unmarshal(w.Body.Bytes(), &got); err != nil {
-			t.Fatal(err)
-		}
-		if len(got.Trains) != 1 || got.Trains[0].TrainType.Color != "#DC2626" {
-			t.Fatalf("timetable did not load the train type color: %+v", got.Trains)
-		}
+	got := getTimetable(t, handler, "test")
+	if len(got.Trains) != 1 || got.Trains[0].TrainType.Color != "#DC2626" {
+		t.Fatalf("missing train color: %+v", got)
 	}
 }

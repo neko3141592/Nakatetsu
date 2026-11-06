@@ -603,6 +603,11 @@ namespace Nakatetsu.Track.Atc
                         var spanDirection = followsSpan ? TrackAtcTravelDirection.AtoB : TrackAtcTravelDirection.BtoA;
                         if (direction != TrackAtcTravelDirection.Unspecified && direction != spanDirection)
                         {
+                            // 未登録の連動分岐では両方向に停止電文を出すため、先頭区間の向きを既定値にする。
+                            if (edge.controlKind == TrackAtcEdgeControlKind.Interlocking)
+                            {
+                                continue;
+                            }
                             return Fail($"Circuit '{edge.trackCircuitId}' has inconsistent non-route travel directions.");
                         }
                         direction = spanDirection;

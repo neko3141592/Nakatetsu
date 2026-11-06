@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nakatetsu.Track.Atc::Nakatetsu.Track.Atc.TrackAtcGraphCompileAsset
   definition:
     atcGraphId: NakatetsuAtc
-    maximumOperatingSpeedKmh: 105
+    maximumOperatingSpeedKmh: 120
     gradientSampleIntervalM: 10
     circuits:
     - trackCircuitId: NT01_1RT
@@ -254,13 +254,37 @@ MonoBehaviour:
     - trackCircuitId: NT07_NT08_DE1T
       controlKind: 1
       speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_DE2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_DE3T
+      controlKind: 1
+      speedLimitKmh: 120
     - trackCircuitId: NT07_NT08_DL1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_DL2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_DL3T
       controlKind: 1
       speedLimitKmh: 120
     - trackCircuitId: NT07_NT08_UE1T
       controlKind: 1
       speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_UE2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_UE3T
+      controlKind: 1
+      speedLimitKmh: 120
     - trackCircuitId: NT07_NT08_UL1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_UL2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT07_NT08_UL3T
       controlKind: 1
       speedLimitKmh: 120
     - trackCircuitId: NT06_NT07_D1T
@@ -401,30 +425,6 @@ MonoBehaviour:
     - trackCircuitId: NT10_NT11_UL1T
       controlKind: 1
       speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_DE2T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_DL2T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_UE2T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_UL2T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_DE3T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_DL3T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_UE3T
-      controlKind: 1
-      speedLimitKmh: 120
-    - trackCircuitId: NT10_NT11_UL3T
-      controlKind: 1
-      speedLimitKmh: 120
     - trackCircuitId: NT11_21AT
       controlKind: 2
       speedLimitKmh: 120
@@ -473,13 +473,698 @@ MonoBehaviour:
     - trackCircuitId: NT11_DEPOT_T
       controlKind: 2
       speedLimitKmh: 120
-    - trackCircuitId: NT11_1_STUB_T
+    - trackCircuitId: NT11_NT12_D1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_D2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_D3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_D4T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_D5T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_U1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_U2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_U3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_U4T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_U5T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT11_NT12_U6T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_D1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_D2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_D3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_D4T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_U1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_U2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_U3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_NT13_U4T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_D1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_D2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_D3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_D4T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_U1T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_U2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_U3T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_U4T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_DT
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT12_UT
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_DT
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_UT
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_21AT
       controlKind: 2
       speedLimitKmh: 120
-    - trackCircuitId: NT11_4_STUB_T
+    - trackCircuitId: NT14_22AT
       controlKind: 2
       speedLimitKmh: 120
-    speedLimits: []
+    - trackCircuitId: NT14_21BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_22BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_23T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_24T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_1RT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_2RT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_3LT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_4LT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_25T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_26T
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_27AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_28AT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_27BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_28BT
+      controlKind: 2
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_DEPOT_1T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_2T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT10_NT11_DE2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT10_NT11_DL2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT10_NT11_UE2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT10_NT11_UL2T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_D5T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT13_NT14_U5T
+      controlKind: 1
+      speedLimitKmh: 120
+    - trackCircuitId: NT14_D1T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_U1T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_31T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_32T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_33T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_34T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_35T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_36T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_37T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_38T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_39T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_40T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_41T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_42T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_43T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_44T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_3T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_4T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_5T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_6T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_7T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_8T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_9T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_10T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_11T
+      controlKind: 2
+      speedLimitKmh: 25
+    - trackCircuitId: NT14_DEPOT_12T
+      controlKind: 2
+      speedLimitKmh: 25
+    speedLimits:
+    - trackEdgeId: NT01_NT02_down
+      startDistanceOnGeometryM: 600
+      endDistanceOnGeometryM: 1132
+      speedLimitKmh: 75
+    - trackEdgeId: NT01_NT02_up
+      startDistanceOnGeometryM: 600
+      endDistanceOnGeometryM: 1132
+      speedLimitKmh: 75
+    - trackEdgeId: NT02_NT03_down
+      startDistanceOnGeometryM: 1585
+      endDistanceOnGeometryM: 2023
+      speedLimitKmh: 75
+    - trackEdgeId: NT02_NT03_up
+      startDistanceOnGeometryM: 1585
+      endDistanceOnGeometryM: 2023
+      speedLimitKmh: 75
+    - trackEdgeId: NT03_track1
+      startDistanceOnGeometryM: 2279
+      endDistanceOnGeometryM: 2350
+      speedLimitKmh: 90
+    - trackEdgeId: NT03_track2
+      startDistanceOnGeometryM: 2279
+      endDistanceOnGeometryM: 2350
+      speedLimitKmh: 90
+    - trackEdgeId: NT03_NT04_down
+      startDistanceOnGeometryM: 2350
+      endDistanceOnGeometryM: 2829
+      speedLimitKmh: 90
+    - trackEdgeId: NT03_NT04_up
+      startDistanceOnGeometryM: 2350
+      endDistanceOnGeometryM: 2829
+      speedLimitKmh: 90
+    - trackEdgeId: NT05_track2_exit
+      startDistanceOnGeometryM: 4379
+      endDistanceOnGeometryM: 4380
+      speedLimitKmh: 90
+    - trackEdgeId: NT05_track3_exit
+      startDistanceOnGeometryM: 4379
+      endDistanceOnGeometryM: 4380
+      speedLimitKmh: 90
+    - trackEdgeId: NT05_NT06_down
+      startDistanceOnGeometryM: 4380
+      endDistanceOnGeometryM: 4920
+      speedLimitKmh: 90
+    - trackEdgeId: NT05_NT06_up
+      startDistanceOnGeometryM: 4380
+      endDistanceOnGeometryM: 4920
+      speedLimitKmh: 90
+    - trackEdgeId: NT06_track1
+      startDistanceOnGeometryM: 4920
+      endDistanceOnGeometryM: 5009
+      speedLimitKmh: 90
+    - trackEdgeId: NT06_track1
+      startDistanceOnGeometryM: 5040
+      endDistanceOnGeometryM: 5540
+      speedLimitKmh: 100
+    - trackEdgeId: NT06_track2
+      startDistanceOnGeometryM: 4920
+      endDistanceOnGeometryM: 5009
+      speedLimitKmh: 90
+    - trackEdgeId: NT06_track2
+      startDistanceOnGeometryM: 5040
+      endDistanceOnGeometryM: 5540
+      speedLimitKmh: 100
+    - trackEdgeId: NT07_P02_040
+      startDistanceOnGeometryM: 6484
+      endDistanceOnGeometryM: 6794
+      speedLimitKmh: 70
+    - trackEdgeId: NT07_P01_040
+      startDistanceOnGeometryM: 6484
+      endDistanceOnGeometryM: 6794
+      speedLimitKmh: 70
+    - trackEdgeId: NT07_P03_040
+      startDistanceOnGeometryM: 6484
+      endDistanceOnGeometryM: 6794
+      speedLimitKmh: 70
+    - trackEdgeId: NT07_P04_040
+      startDistanceOnGeometryM: 6494.5293
+      endDistanceOnGeometryM: 6794
+      speedLimitKmh: 70
+    - trackEdgeId: NT08_NT09_DE
+      startDistanceOnGeometryM: 8154
+      endDistanceOnGeometryM: 8730
+      speedLimitKmh: 120
+    - trackEdgeId: NT08_NT09_DL
+      startDistanceOnGeometryM: 8154
+      endDistanceOnGeometryM: 8730
+      speedLimitKmh: 120
+    - trackEdgeId: NT08_NT09_UL
+      startDistanceOnGeometryM: 8154
+      endDistanceOnGeometryM: 8730
+      speedLimitKmh: 120
+    - trackEdgeId: NT08_NT09_UE
+      startDistanceOnGeometryM: 8154
+      endDistanceOnGeometryM: 8730
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_track1
+      startDistanceOnGeometryM: 8730
+      endDistanceOnGeometryM: 8880
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_track2
+      startDistanceOnGeometryM: 8730
+      endDistanceOnGeometryM: 8880
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_track3
+      startDistanceOnGeometryM: 8730
+      endDistanceOnGeometryM: 8880
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_track4
+      startDistanceOnGeometryM: 8730
+      endDistanceOnGeometryM: 8880
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_NT10_DE
+      startDistanceOnGeometryM: 9160
+      endDistanceOnGeometryM: 9520
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_NT10_DL
+      startDistanceOnGeometryM: 9160
+      endDistanceOnGeometryM: 9520
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_NT10_UL
+      startDistanceOnGeometryM: 9160
+      endDistanceOnGeometryM: 9520
+      speedLimitKmh: 120
+    - trackEdgeId: NT09_NT10_UE
+      startDistanceOnGeometryM: 9160
+      endDistanceOnGeometryM: 9520
+      speedLimitKmh: 120
+    - trackEdgeId: NT11_NT12_down
+      startDistanceOnGeometryM: 12200
+      endDistanceOnGeometryM: 12510
+      speedLimitKmh: 105
+    - trackEdgeId: NT11_NT12_up
+      startDistanceOnGeometryM: 12200
+      endDistanceOnGeometryM: 12510
+      speedLimitKmh: 105
+    - trackEdgeId: NT12_NT13_down
+      startDistanceOnGeometryM: 12930
+      endDistanceOnGeometryM: 13360
+      speedLimitKmh: 105
+    - trackEdgeId: NT12_NT13_up
+      startDistanceOnGeometryM: 12930
+      endDistanceOnGeometryM: 13360
+      speedLimitKmh: 105
+    - trackEdgeId: NT13_NT14_down
+      startDistanceOnGeometryM: 14230
+      endDistanceOnGeometryM: 15410
+      speedLimitKmh: 120
+    - trackEdgeId: NT13_NT14_up
+      startDistanceOnGeometryM: 14230
+      endDistanceOnGeometryM: 15410
+      speedLimitKmh: 120
+    - trackEdgeId: NT14_crossover21
+      startDistanceOnGeometryM: 15860
+      endDistanceOnGeometryM: 15954.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_crossover22
+      startDistanceOnGeometryM: 15860
+      endDistanceOnGeometryM: 15954.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_crossover27
+      startDistanceOnGeometryM: 16560
+      endDistanceOnGeometryM: 16654.256
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_crossover28
+      startDistanceOnGeometryM: 16560
+      endDistanceOnGeometryM: 16654.256
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_track1
+      startDistanceOnGeometryM: 16000
+      endDistanceOnGeometryM: 16180
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_track1
+      startDistanceOnGeometryM: 16300
+      endDistanceOnGeometryM: 16480
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_track4
+      startDistanceOnGeometryM: 16000
+      endDistanceOnGeometryM: 16180
+      speedLimitKmh: 45
+    - trackEdgeId: NT14_track4
+      startDistanceOnGeometryM: 16300
+      endDistanceOnGeometryM: 16480
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X01_X12_010
+      startDistanceOnGeometryM: 6310
+      endDistanceOnGeometryM: 6336.2
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X01_X12_010
+      startDistanceOnGeometryM: 6336.2
+      endDistanceOnGeometryM: 6386.2
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X01_X12_010
+      startDistanceOnGeometryM: 6386.2
+      endDistanceOnGeometryM: 6412.4
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X01_X21_010
+      startDistanceOnGeometryM: 6310
+      endDistanceOnGeometryM: 6336.2
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X01_X21_010
+      startDistanceOnGeometryM: 6336.2
+      endDistanceOnGeometryM: 6386.2
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X01_X21_010
+      startDistanceOnGeometryM: 6386.2
+      endDistanceOnGeometryM: 6412.4
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_040
+      startDistanceOnGeometryM: 6430
+      endDistanceOnGeometryM: 6469.07
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_040
+      startDistanceOnGeometryM: 6469.07
+      endDistanceOnGeometryM: 6523.6553
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_040
+      startDistanceOnGeometryM: 6523.6553
+      endDistanceOnGeometryM: 6552.7173
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_040
+      startDistanceOnGeometryM: 6552.7173
+      endDistanceOnGeometryM: 6572.7173
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P02_TO_P01_050
+      startDistanceOnGeometryM: 6820
+      endDistanceOnGeometryM: 6861.372
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P02_TO_P01_050
+      startDistanceOnGeometryM: 6861.372
+      endDistanceOnGeometryM: 6878.949
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P02_TO_P01_060
+      startDistanceOnGeometryM: 6878.949
+      endDistanceOnGeometryM: 6920.9517
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P02_TO_P01_060
+      startDistanceOnGeometryM: 6920.9517
+      endDistanceOnGeometryM: 6962.3237
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P02_TO_DL_060
+      startDistanceOnGeometryM: 6878.949
+      endDistanceOnGeometryM: 6920.3213
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_TO_DL_060
+      startDistanceOnGeometryM: 6873.0205
+      endDistanceOnGeometryM: 6899.2207
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_TO_DL_060
+      startDistanceOnGeometryM: 6899.2207
+      endDistanceOnGeometryM: 6949.2207
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_TO_DL_060
+      startDistanceOnGeometryM: 6949.2207
+      endDistanceOnGeometryM: 6975.421
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_LEAD_040
+      startDistanceOnGeometryM: 6430
+      endDistanceOnGeometryM: 6494.5293
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_040
+      startDistanceOnGeometryM: 6494.5293
+      endDistanceOnGeometryM: 6559.058
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X02_X23_060
+      startDistanceOnGeometryM: 6850
+      endDistanceOnGeometryM: 6873.699
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X02_X23_060
+      startDistanceOnGeometryM: 6873.699
+      endDistanceOnGeometryM: 6923.699
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X02_X23_060
+      startDistanceOnGeometryM: 6923.699
+      endDistanceOnGeometryM: 6947.399
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X02_X32_060
+      startDistanceOnGeometryM: 6850
+      endDistanceOnGeometryM: 6873.699
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X02_X32_060
+      startDistanceOnGeometryM: 6873.699
+      endDistanceOnGeometryM: 6923.699
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_X02_X32_060
+      startDistanceOnGeometryM: 6923.699
+      endDistanceOnGeometryM: 6947.399
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P03_TO_P04_050
+      startDistanceOnGeometryM: 6820
+      endDistanceOnGeometryM: 6861.372
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P03_TO_P04_050
+      startDistanceOnGeometryM: 6861.372
+      endDistanceOnGeometryM: 6878.949
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P03_TO_P04_060
+      startDistanceOnGeometryM: 6878.949
+      endDistanceOnGeometryM: 6920.9517
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P03_TO_P04_060
+      startDistanceOnGeometryM: 6920.9517
+      endDistanceOnGeometryM: 6962.3237
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P03_TO_UL_060
+      startDistanceOnGeometryM: 6878.949
+      endDistanceOnGeometryM: 6920.3213
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_TO_UL_060
+      startDistanceOnGeometryM: 6873.0205
+      endDistanceOnGeometryM: 6899.2207
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_TO_UL_060
+      startDistanceOnGeometryM: 6899.2207
+      endDistanceOnGeometryM: 6949.2207
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_TO_UL_060
+      startDistanceOnGeometryM: 6949.2207
+      endDistanceOnGeometryM: 6975.421
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P01_050
+      startDistanceOnGeometryM: 7500
+      endDistanceOnGeometryM: 7900
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_DL_070
+      startDistanceOnGeometryM: 7500
+      endDistanceOnGeometryM: 7900
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_050
+      startDistanceOnGeometryM: 7500
+      endDistanceOnGeometryM: 7900
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_UL_070
+      startDistanceOnGeometryM: 7500
+      endDistanceOnGeometryM: 7900
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track1_scissors
+      startDistanceOnGeometryM: 10512.097
+      endDistanceOnGeometryM: 10534.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track4_scissors
+      startDistanceOnGeometryM: 10512.097
+      endDistanceOnGeometryM: 10534.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track1
+      startDistanceOnGeometryM: 10534.255
+      endDistanceOnGeometryM: 10620.258
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track1
+      startDistanceOnGeometryM: 10620.258
+      endDistanceOnGeometryM: 10642.417
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track1_stub
+      startDistanceOnGeometryM: 11360
+      endDistanceOnGeometryM: 11640
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track2_to26
+      startDistanceOnGeometryM: 11020.013
+      endDistanceOnGeometryM: 11039.987
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track2_to26
+      startDistanceOnGeometryM: 11039.987
+      endDistanceOnGeometryM: 11140.025
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track2_to26
+      startDistanceOnGeometryM: 11140.025
+      endDistanceOnGeometryM: 11160
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track3
+      startDistanceOnGeometryM: 11020.013
+      endDistanceOnGeometryM: 11039.987
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track3
+      startDistanceOnGeometryM: 11039.987
+      endDistanceOnGeometryM: 11140.025
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track3
+      startDistanceOnGeometryM: 11140.025
+      endDistanceOnGeometryM: 11160
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track4
+      startDistanceOnGeometryM: 10534.255
+      endDistanceOnGeometryM: 10620.258
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track4
+      startDistanceOnGeometryM: 10620.258
+      endDistanceOnGeometryM: 10642.417
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_track4
+      startDistanceOnGeometryM: 11360
+      endDistanceOnGeometryM: 11640
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover21
+      startDistanceOnGeometryM: 10440
+      endDistanceOnGeometryM: 10462.166
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover21
+      startDistanceOnGeometryM: 10462.166
+      endDistanceOnGeometryM: 10512.089
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover21
+      startDistanceOnGeometryM: 10512.089
+      endDistanceOnGeometryM: 10534.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover22
+      startDistanceOnGeometryM: 10440
+      endDistanceOnGeometryM: 10462.158
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover22
+      startDistanceOnGeometryM: 10462.158
+      endDistanceOnGeometryM: 10534.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover23
+      startDistanceOnGeometryM: 10440
+      endDistanceOnGeometryM: 10462.158
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover23
+      startDistanceOnGeometryM: 10462.158
+      endDistanceOnGeometryM: 10534.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover24
+      startDistanceOnGeometryM: 10440
+      endDistanceOnGeometryM: 10462.166
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover24
+      startDistanceOnGeometryM: 10462.166
+      endDistanceOnGeometryM: 10512.089
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover24
+      startDistanceOnGeometryM: 10512.089
+      endDistanceOnGeometryM: 10534.255
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_crossover25
+      startDistanceOnGeometryM: 10900
+      endDistanceOnGeometryM: 11080
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_NT12_down
+      startDistanceOnGeometryM: 12000
+      endDistanceOnGeometryM: 12200
+      speedLimitKmh: 45
+    - trackEdgeId: NT11_NT12_up
+      startDistanceOnGeometryM: 12000
+      endDistanceOnGeometryM: 12200
+      speedLimitKmh: 45
+    - trackEdgeId: NT07_P04_LEAD_040
+      startDistanceOnGeometryM: 6484
+      endDistanceOnGeometryM: 6494.5293
+      speedLimitKmh: 70
     routes:
     - atcRouteId: NT01_1LA
       interlockingStationId: NT01
@@ -843,7 +1528,7 @@ MonoBehaviour:
       trackCircuitIds:
       - NT11_1RT
       - NT11_25BT
-      - NT11_1_STUB_T
+      - NT11_NT12_D1T
       entryDirection: 1
     - atcRouteId: NT11_6R
       interlockingStationId: NT11
@@ -852,13 +1537,13 @@ MonoBehaviour:
       - NT11_2RT
       - NT11_25AT
       - NT11_25BT
-      - NT11_1_STUB_T
+      - NT11_NT12_D1T
       entryDirection: 1
     - atcRouteId: NT11_1L
       interlockingStationId: NT11
       interlockingRouteId: 1L
       trackCircuitIds:
-      - NT11_4_STUB_T
+      - NT11_NT12_U1T
       - NT11_4LT
       entryDirection: 2
     - atcRouteId: NT11_2LJ
@@ -892,23 +1577,6 @@ MonoBehaviour:
       - NT11_4LT
       - NT11_23BT
       - NT11_23AT
-      entryDirection: 2
-    - atcRouteId: NT11_10LA
-      interlockingStationId: NT11
-      interlockingRouteId: 10LA
-      trackCircuitIds:
-      - NT11_1_STUB_T
-      - NT11_25BT
-      - NT11_1RT
-      entryDirection: 2
-    - atcRouteId: NT11_10LB
-      interlockingStationId: NT11
-      interlockingRouteId: 10LB
-      trackCircuitIds:
-      - NT11_1_STUB_T
-      - NT11_25BT
-      - NT11_25AT
-      - NT11_2RT
       entryDirection: 2
     - atcRouteId: NT11_10R
       interlockingStationId: NT11
@@ -944,10 +1612,385 @@ MonoBehaviour:
       - NT11_26T
       - NT11_3LT
       entryDirection: 2
-    - atcRouteId: NT11_12R
-      interlockingStationId: NT11
-      interlockingRouteId: 12R
+    - atcRouteId: NT14_1RA
+      interlockingStationId: NT14
+      interlockingRouteId: 1RA
       trackCircuitIds:
-      - NT11_4LT
-      - NT11_4_STUB_T
-      entryDirection: 1
+      - NT13_NT14_D5T
+      - NT14_21AT
+      - NT14_22BT
+      - NT14_23T
+      - NT14_1RT
+      entryDirection: 0
+    - atcRouteId: NT14_2L
+      interlockingStationId: NT14
+      interlockingRouteId: 2L
+      trackCircuitIds:
+      - NT14_1RT
+      - NT14_23T
+      - NT14_22BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      entryDirection: 0
+    - atcRouteId: NT14_1RB
+      interlockingStationId: NT14
+      interlockingRouteId: 1RB
+      trackCircuitIds:
+      - NT13_NT14_D5T
+      - NT14_21AT
+      - NT14_22BT
+      - NT14_23T
+      - NT14_2RT
+      entryDirection: 0
+    - atcRouteId: NT14_3L
+      interlockingStationId: NT14
+      interlockingRouteId: 3L
+      trackCircuitIds:
+      - NT14_2RT
+      - NT14_23T
+      - NT14_22BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      entryDirection: 0
+    - atcRouteId: NT14_1RC
+      interlockingStationId: NT14
+      interlockingRouteId: 1RC
+      trackCircuitIds:
+      - NT13_NT14_D5T
+      - NT14_21AT
+      - NT14_21BT
+      - NT14_24T
+      - NT14_3LT
+      entryDirection: 0
+    - atcRouteId: NT14_4L
+      interlockingStationId: NT14
+      interlockingRouteId: 4L
+      trackCircuitIds:
+      - NT14_3LT
+      - NT14_24T
+      - NT14_21BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      entryDirection: 0
+    - atcRouteId: NT14_1RD
+      interlockingStationId: NT14
+      interlockingRouteId: 1RD
+      trackCircuitIds:
+      - NT13_NT14_D5T
+      - NT14_21AT
+      - NT14_21BT
+      - NT14_24T
+      - NT14_4LT
+      entryDirection: 0
+    - atcRouteId: NT14_5L
+      interlockingStationId: NT14
+      interlockingRouteId: 5L
+      trackCircuitIds:
+      - NT14_4LT
+      - NT14_24T
+      - NT14_21BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      entryDirection: 0
+    - atcRouteId: NT14_16R
+      interlockingStationId: NT14
+      interlockingRouteId: 16R
+      trackCircuitIds:
+      - NT14_1RT
+      - NT14_25T
+      - NT14_27AT
+      - NT14_27BT
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20LA
+      interlockingStationId: NT14
+      interlockingRouteId: 20LA
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_27BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_1RT
+      entryDirection: 0
+    - atcRouteId: NT14_17R
+      interlockingStationId: NT14
+      interlockingRouteId: 17R
+      trackCircuitIds:
+      - NT14_2RT
+      - NT14_25T
+      - NT14_27AT
+      - NT14_27BT
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20LB
+      interlockingStationId: NT14
+      interlockingRouteId: 20LB
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_27BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_2RT
+      entryDirection: 0
+    - atcRouteId: NT14_18R
+      interlockingStationId: NT14
+      interlockingRouteId: 18R
+      trackCircuitIds:
+      - NT14_3LT
+      - NT14_26T
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20LC
+      interlockingStationId: NT14
+      interlockingRouteId: 20LC
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_27BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_3LT
+      entryDirection: 0
+    - atcRouteId: NT14_19R
+      interlockingStationId: NT14
+      interlockingRouteId: 19R
+      trackCircuitIds:
+      - NT14_4LT
+      - NT14_26T
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20LD
+      interlockingStationId: NT14
+      interlockingRouteId: 20LD
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_27BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_4LT
+      entryDirection: 0
+    - atcRouteId: NT14_20RI
+      interlockingStationId: NT14
+      interlockingRouteId: 20RI
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_DEPOT_3T
+      entryDirection: 0
+    - atcRouteId: NT14_21L
+      interlockingStationId: NT14
+      interlockingRouteId: 21L
+      trackCircuitIds:
+      - NT14_DEPOT_3T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RJ
+      interlockingStationId: NT14
+      interlockingRouteId: 20RJ
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_34T
+      - NT14_DEPOT_4T
+      entryDirection: 0
+    - atcRouteId: NT14_22L
+      interlockingStationId: NT14
+      interlockingRouteId: 22L
+      trackCircuitIds:
+      - NT14_DEPOT_4T
+      - NT14_34T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RK
+      interlockingStationId: NT14
+      interlockingRouteId: 20RK
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_34T
+      - NT14_36T
+      - NT14_41T
+      - NT14_DEPOT_5T
+      entryDirection: 0
+    - atcRouteId: NT14_23L
+      interlockingStationId: NT14
+      interlockingRouteId: 23L
+      trackCircuitIds:
+      - NT14_DEPOT_5T
+      - NT14_41T
+      - NT14_36T
+      - NT14_34T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RL
+      interlockingStationId: NT14
+      interlockingRouteId: 20RL
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_34T
+      - NT14_36T
+      - NT14_DEPOT_6T
+      entryDirection: 0
+    - atcRouteId: NT14_24L
+      interlockingStationId: NT14
+      interlockingRouteId: 24L
+      trackCircuitIds:
+      - NT14_DEPOT_6T
+      - NT14_36T
+      - NT14_34T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RM
+      interlockingStationId: NT14
+      interlockingRouteId: 20RM
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_35T
+      - NT14_37T
+      - NT14_DEPOT_7T
+      entryDirection: 0
+    - atcRouteId: NT14_25L
+      interlockingStationId: NT14
+      interlockingRouteId: 25L
+      trackCircuitIds:
+      - NT14_DEPOT_7T
+      - NT14_37T
+      - NT14_35T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RN
+      interlockingStationId: NT14
+      interlockingRouteId: 20RN
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_35T
+      - NT14_37T
+      - NT14_39T
+      - NT14_DEPOT_8T
+      entryDirection: 0
+    - atcRouteId: NT14_26L
+      interlockingStationId: NT14
+      interlockingRouteId: 26L
+      trackCircuitIds:
+      - NT14_DEPOT_8T
+      - NT14_39T
+      - NT14_37T
+      - NT14_35T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RO
+      interlockingStationId: NT14
+      interlockingRouteId: 20RO
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_35T
+      - NT14_37T
+      - NT14_39T
+      - NT14_DEPOT_9T
+      entryDirection: 0
+    - atcRouteId: NT14_27L
+      interlockingStationId: NT14
+      interlockingRouteId: 27L
+      trackCircuitIds:
+      - NT14_DEPOT_9T
+      - NT14_39T
+      - NT14_37T
+      - NT14_35T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RP
+      interlockingStationId: NT14
+      interlockingRouteId: 20RP
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_35T
+      - NT14_38T
+      - NT14_DEPOT_10T
+      entryDirection: 0
+    - atcRouteId: NT14_28L
+      interlockingStationId: NT14
+      interlockingRouteId: 28L
+      trackCircuitIds:
+      - NT14_DEPOT_10T
+      - NT14_38T
+      - NT14_35T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RQ
+      interlockingStationId: NT14
+      interlockingRouteId: 20RQ
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_35T
+      - NT14_38T
+      - NT14_40T
+      - NT14_DEPOT_11T
+      entryDirection: 0
+    - atcRouteId: NT14_29L
+      interlockingStationId: NT14
+      interlockingRouteId: 29L
+      trackCircuitIds:
+      - NT14_DEPOT_11T
+      - NT14_40T
+      - NT14_38T
+      - NT14_35T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0
+    - atcRouteId: NT14_20RR
+      interlockingStationId: NT14
+      interlockingRouteId: 20RR
+      trackCircuitIds:
+      - NT14_31T
+      - NT14_32T
+      - NT14_33T
+      - NT14_35T
+      - NT14_38T
+      - NT14_40T
+      - NT14_DEPOT_12T
+      entryDirection: 0
+    - atcRouteId: NT14_30L
+      interlockingStationId: NT14
+      interlockingRouteId: 30L
+      trackCircuitIds:
+      - NT14_DEPOT_12T
+      - NT14_40T
+      - NT14_38T
+      - NT14_35T
+      - NT14_33T
+      - NT14_32T
+      - NT14_31T
+      entryDirection: 0

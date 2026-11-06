@@ -1,0 +1,222 @@
+{
+  "geometries": [],
+  "nodes": [],
+  "edges": [
+    {
+      "edgeId": "NT11_NT12_down",
+      "nodeAId": "NT11_exit1",
+      "nodeBId": "NT12_entry1",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 11860,
+      "endDistanceOnGeometryM": 12530,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 11860,
+          "endDistanceOnGeometryM": 12000,
+          "offsetM": -4
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 12000,
+          "endDistanceOnGeometryM": 12200,
+          "startOffsetM": -4,
+          "endOffsetM": 0
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 12200,
+          "endDistanceOnGeometryM": 12530,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT11_NT12_up",
+      "nodeAId": "NT11_exit4",
+      "nodeBId": "NT12_entry2",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 11860,
+      "endDistanceOnGeometryM": 12530,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 11860,
+          "endDistanceOnGeometryM": 12000,
+          "offsetM": 8
+        },
+        {
+          "type": "Cubic",
+          "startDistanceOnGeometryM": 12000,
+          "endDistanceOnGeometryM": 12200,
+          "startOffsetM": 8,
+          "endOffsetM": 4
+        },
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 12200,
+          "endDistanceOnGeometryM": 12530,
+          "offsetM": 4
+        }
+      ]
+    }
+  ],
+  "connections": [],
+  "circuits": [
+    {
+      "circuitId": "NT11_NT12_D1T",
+      "displayName": "下1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track1_stub",
+          "startDistanceOnGeometryM": 11110,
+          "endDistanceOnGeometryM": 11400
+        }
+      ],
+      "toCircuitId": "NT11_NT12_D2T"
+    },
+    {
+      "circuitId": "NT11_NT12_D2T",
+      "displayName": "下2T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track1_stub",
+          "startDistanceOnGeometryM": 11400,
+          "endDistanceOnGeometryM": 11700
+        }
+      ],
+      "toCircuitId": "NT11_NT12_D3T"
+    },
+    {
+      "circuitId": "NT11_NT12_D3T",
+      "displayName": "下3T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track1_stub",
+          "startDistanceOnGeometryM": 11700,
+          "endDistanceOnGeometryM": 11860
+        },
+        {
+          "edgeId": "NT11_NT12_down",
+          "startDistanceOnGeometryM": 11860,
+          "endDistanceOnGeometryM": 12000
+        }
+      ],
+      "toCircuitId": "NT11_NT12_D4T"
+    },
+    {
+      "circuitId": "NT11_NT12_D4T",
+      "displayName": "下4T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_NT12_down",
+          "startDistanceOnGeometryM": 12000,
+          "endDistanceOnGeometryM": 12270
+        }
+      ],
+      "toCircuitId": "NT11_NT12_D5T"
+    },
+    {
+      "circuitId": "NT11_NT12_D5T",
+      "displayName": "下5T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_NT12_down",
+          "startDistanceOnGeometryM": 12270,
+          "endDistanceOnGeometryM": 12530
+        }
+      ],
+      "toCircuitId": "NT12_DT"
+    },
+    {
+      "circuitId": "NT11_NT12_U1T",
+      "displayName": "上1T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track4",
+          "startDistanceOnGeometryM": 10890,
+          "endDistanceOnGeometryM": 11110
+        }
+      ],
+      "toCircuitId": "NT11_4LT"
+    },
+    {
+      "circuitId": "NT11_NT12_U2T",
+      "displayName": "上2T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track4",
+          "startDistanceOnGeometryM": 11110,
+          "endDistanceOnGeometryM": 11400
+        }
+      ],
+      "toCircuitId": "NT11_NT12_U1T"
+    },
+    {
+      "circuitId": "NT11_NT12_U3T",
+      "displayName": "上3T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track4",
+          "startDistanceOnGeometryM": 11400,
+          "endDistanceOnGeometryM": 11700
+        }
+      ],
+      "toCircuitId": "NT11_NT12_U2T"
+    },
+    {
+      "circuitId": "NT11_NT12_U4T",
+      "displayName": "上4T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_track4",
+          "startDistanceOnGeometryM": 11700,
+          "endDistanceOnGeometryM": 11860
+        },
+        {
+          "edgeId": "NT11_NT12_up",
+          "startDistanceOnGeometryM": 11860,
+          "endDistanceOnGeometryM": 12000
+        }
+      ],
+      "toCircuitId": "NT11_NT12_U3T"
+    },
+    {
+      "circuitId": "NT11_NT12_U5T",
+      "displayName": "上5T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_NT12_up",
+          "startDistanceOnGeometryM": 12000,
+          "endDistanceOnGeometryM": 12270
+        }
+      ],
+      "toCircuitId": "NT11_NT12_U4T"
+    },
+    {
+      "circuitId": "NT11_NT12_U6T",
+      "displayName": "上6T",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT11_NT12_up",
+          "startDistanceOnGeometryM": 12270,
+          "endDistanceOnGeometryM": 12530
+        }
+      ],
+      "toCircuitId": "NT11_NT12_U5T"
+    }
+  ]
+}

@@ -65,6 +65,21 @@ namespace Nakatetsu.Track.Interlocking.Tests
         }
 
         [Test]
+        public void UnusedInterlockingBranchUsesFirstSpanDirectionWhenSpansDisagree()
+        {
+            Create(out var track, out var source, out var interlocking);
+            source.routes.RemoveAll(route => route.atcRouteId == "reverse");
+            track.edges.Single(edge => edge.edgeId == "reverse").travelDirection = TrackEdgeTravelDirection.AtoB;
+
+            var compiled = Compile(track, source, interlocking);
+            var unusedBranch = compiled.atcEdge.Single(edge => edge.trackCircuitId == "21T" &&
+                edge.physicalSpans.Any(span => span.trackEdgeId == "reverse"));
+
+            Assert.That(unusedBranch.direction, Is.EqualTo(TrackAtcTravelDirection.AtoB));
+            Assert.That(compiled.routes.SelectMany(route => route.atcEdgeIds), Does.Not.Contain(unusedBranch.atcEdgeId));
+        }
+
+        [Test]
         public void OppositeCircuitOrderProducesOppositeEntryDirection()
         {
             Create(out var track, out var source, out var interlocking);

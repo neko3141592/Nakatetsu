@@ -249,13 +249,13 @@
       "nodeBId": "NT07_21A_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6120,
-      "endDistanceOnGeometryM": 6180,
+      "startDistanceOnGeometryM": 6250,
+      "endDistanceOnGeometryM": 6310,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6120,
-          "endDistanceOnGeometryM": 6180,
+          "startDistanceOnGeometryM": 6250,
+          "endDistanceOnGeometryM": 6310,
           "offsetM": -0.5
         }
       ]
@@ -266,13 +266,13 @@
       "nodeBId": "NT07_22A_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6120,
-      "endDistanceOnGeometryM": 6180,
+      "startDistanceOnGeometryM": 6250,
+      "endDistanceOnGeometryM": 6310,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6120,
-          "endDistanceOnGeometryM": 6180,
+          "startDistanceOnGeometryM": 6250,
+          "endDistanceOnGeometryM": 6310,
           "offsetM": 4.5
         }
       ]
@@ -283,13 +283,13 @@
       "nodeBId": "NT07_22B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6180,
-      "endDistanceOnGeometryM": 6282.4,
+      "startDistanceOnGeometryM": 6310,
+      "endDistanceOnGeometryM": 6412.4,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6282.4,
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6412.4,
           "offsetM": -0.5
         }
       ]
@@ -300,13 +300,13 @@
       "nodeBId": "NT07_21B_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6180,
-      "endDistanceOnGeometryM": 6282.4,
+      "startDistanceOnGeometryM": 6310,
+      "endDistanceOnGeometryM": 6412.4,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6282.4,
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6412.4,
           "offsetM": 4.5
         }
       ]
@@ -317,28 +317,28 @@
       "nodeBId": "NT07_21B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6180,
-      "endDistanceOnGeometryM": 6282.4,
+      "startDistanceOnGeometryM": 6310,
+      "endDistanceOnGeometryM": 6412.4,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6206.2,
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6336.2,
           "startOffsetM": -0.5,
           "radiusM": 400,
           "startHeadingDeg": 0
         },
         {
           "type": "Linear",
-          "startDistanceOnGeometryM": 6206.2,
-          "endDistanceOnGeometryM": 6256.2,
+          "startDistanceOnGeometryM": 6336.2,
+          "endDistanceOnGeometryM": 6386.2,
           "startOffsetM": 0.358974,
           "endOffsetM": 3.641026
         },
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6256.2,
-          "endDistanceOnGeometryM": 6282.4,
+          "startDistanceOnGeometryM": 6386.2,
+          "endDistanceOnGeometryM": 6412.4,
           "startOffsetM": 3.641026,
           "radiusM": -400,
           "startHeadingDeg": 3.755566
@@ -351,28 +351,28 @@
       "nodeBId": "NT07_22B_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6180,
-      "endDistanceOnGeometryM": 6282.4,
+      "startDistanceOnGeometryM": 6310,
+      "endDistanceOnGeometryM": 6412.4,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6206.2,
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6336.2,
           "startOffsetM": 4.5,
           "radiusM": -400,
           "startHeadingDeg": 0
         },
         {
           "type": "Linear",
-          "startDistanceOnGeometryM": 6206.2,
-          "endDistanceOnGeometryM": 6256.2,
+          "startDistanceOnGeometryM": 6336.2,
+          "endDistanceOnGeometryM": 6386.2,
           "startOffsetM": 3.641026,
           "endOffsetM": 0.358974
         },
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6256.2,
-          "endDistanceOnGeometryM": 6282.4,
+          "startDistanceOnGeometryM": 6386.2,
+          "endDistanceOnGeometryM": 6412.4,
           "startOffsetM": 0.358974,
           "radiusM": 400,
           "startHeadingDeg": -3.755566
@@ -385,13 +385,13 @@
       "nodeBId": "NT07_23_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6282.4,
-      "endDistanceOnGeometryM": 6300,
+      "startDistanceOnGeometryM": 6412.4,
+      "endDistanceOnGeometryM": 6430,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6282.4,
-          "endDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6412.4,
+          "endDistanceOnGeometryM": 6430,
           "offsetM": -0.5
         }
       ]
@@ -402,13 +402,13 @@
       "nodeBId": "NT07_24_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6282.4,
-      "endDistanceOnGeometryM": 6300,
+      "startDistanceOnGeometryM": 6412.4,
+      "endDistanceOnGeometryM": 6430,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6282.4,
-          "endDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6412.4,
+          "endDistanceOnGeometryM": 6430,
           "offsetM": 4.5
         }
       ]
@@ -419,12 +419,12 @@
       "nodeBId": "NT07_27_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6300,
+      "startDistanceOnGeometryM": 6430,
       "endDistanceOnGeometryM": 6820,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6430,
           "endDistanceOnGeometryM": 6820,
           "offsetM": -0.5
         }
@@ -436,21 +436,21 @@
       "nodeBId": "NT07_25A_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6300,
+      "startDistanceOnGeometryM": 6430,
       "endDistanceOnGeometryM": 6873.0205,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6300,
-          "endDistanceOnGeometryM": 6339.07,
+          "startDistanceOnGeometryM": 6430,
+          "endDistanceOnGeometryM": 6469.07,
           "startOffsetM": -0.5,
           "radiusM": -350,
           "startHeadingDeg": 0
         },
         {
           "type": "CubicHermite",
-          "startDistanceOnGeometryM": 6339.07,
-          "endDistanceOnGeometryM": 6393.6553,
+          "startDistanceOnGeometryM": 6469.07,
+          "endDistanceOnGeometryM": 6523.6553,
           "startOffsetM": -2.6875,
           "endOffsetM": -10.264911,
           "startSlope": -0.11233064,
@@ -458,16 +458,16 @@
         },
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6393.6553,
-          "endDistanceOnGeometryM": 6422.7173,
+          "startDistanceOnGeometryM": 6523.6553,
+          "endDistanceOnGeometryM": 6552.7173,
           "startOffsetM": -10.26491,
           "radiusM": 350,
           "startHeadingDeg": -6.409204
         },
         {
           "type": "CubicHermite",
-          "startDistanceOnGeometryM": 6422.7173,
-          "endDistanceOnGeometryM": 6442.7173,
+          "startDistanceOnGeometryM": 6552.7173,
+          "endDistanceOnGeometryM": 6572.7173,
           "startOffsetM": -12.30929,
           "endOffsetM": -12.5,
           "startSlope": -0.028606502,
@@ -475,7 +475,7 @@
         },
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6442.7173,
+          "startDistanceOnGeometryM": 6572.7173,
           "endDistanceOnGeometryM": 6873.0205,
           "offsetM": -12.5
         }
@@ -643,12 +643,12 @@
       "nodeBId": "NT07_30_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6300,
+      "startDistanceOnGeometryM": 6430,
       "endDistanceOnGeometryM": 6820,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6430,
           "endDistanceOnGeometryM": 6820,
           "offsetM": 4.5
         }
@@ -660,13 +660,13 @@
       "nodeBId": "NT07_P04_LEAD_NT07_P04_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6300,
-      "endDistanceOnGeometryM": 6364.5293,
+      "startDistanceOnGeometryM": 6430,
+      "endDistanceOnGeometryM": 6494.5293,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6300,
-          "endDistanceOnGeometryM": 6364.5293,
+          "startDistanceOnGeometryM": 6430,
+          "endDistanceOnGeometryM": 6494.5293,
           "startOffsetM": 4.5,
           "radiusM": 350,
           "startHeadingDeg": 0
@@ -679,20 +679,20 @@
       "nodeBId": "NT07_32A_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 6364.5293,
+      "startDistanceOnGeometryM": 6494.5293,
       "endDistanceOnGeometryM": 6873.0205,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 6364.5293,
-          "endDistanceOnGeometryM": 6429.058,
+          "startDistanceOnGeometryM": 6494.5293,
+          "endDistanceOnGeometryM": 6559.058,
           "startOffsetM": 10.5,
           "radiusM": -350,
           "startHeadingDeg": 10.624332
         },
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 6429.058,
+          "startDistanceOnGeometryM": 6559.058,
           "endDistanceOnGeometryM": 6873.0205,
           "offsetM": 16.5
         }
@@ -1421,18 +1421,18 @@
       "sections": [
         {
           "edgeId": "NT07_ML1_010",
-          "startDistanceOnGeometryM": 6120,
-          "endDistanceOnGeometryM": 6180
+          "startDistanceOnGeometryM": 6250,
+          "endDistanceOnGeometryM": 6310
         },
         {
           "edgeId": "NT07_X01_ML1_010",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6231.2
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6361.2
         },
         {
           "edgeId": "NT07_X01_X12_010",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6231.2
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6361.2
         }
       ]
     },
@@ -1444,18 +1444,18 @@
       "sections": [
         {
           "edgeId": "NT07_ML2_010",
-          "startDistanceOnGeometryM": 6120,
-          "endDistanceOnGeometryM": 6180
+          "startDistanceOnGeometryM": 6250,
+          "endDistanceOnGeometryM": 6310
         },
         {
           "edgeId": "NT07_X01_ML2_010",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6231.2
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6361.2
         },
         {
           "edgeId": "NT07_X01_X21_010",
-          "startDistanceOnGeometryM": 6180,
-          "endDistanceOnGeometryM": 6231.2
+          "startDistanceOnGeometryM": 6310,
+          "endDistanceOnGeometryM": 6361.2
         }
       ]
     },
@@ -1466,18 +1466,18 @@
       "sections": [
         {
           "edgeId": "NT07_X01_ML1_010",
-          "startDistanceOnGeometryM": 6231.2,
-          "endDistanceOnGeometryM": 6282.4
+          "startDistanceOnGeometryM": 6361.2,
+          "endDistanceOnGeometryM": 6412.4
         },
         {
           "edgeId": "NT07_X01_X21_010",
-          "startDistanceOnGeometryM": 6231.2,
-          "endDistanceOnGeometryM": 6282.4
+          "startDistanceOnGeometryM": 6361.2,
+          "endDistanceOnGeometryM": 6412.4
         },
         {
           "edgeId": "NT07_ML1_030",
-          "startDistanceOnGeometryM": 6282.4,
-          "endDistanceOnGeometryM": 6291.2
+          "startDistanceOnGeometryM": 6412.4,
+          "endDistanceOnGeometryM": 6421.2
         }
       ]
     },
@@ -1488,18 +1488,18 @@
       "sections": [
         {
           "edgeId": "NT07_X01_ML2_010",
-          "startDistanceOnGeometryM": 6231.2,
-          "endDistanceOnGeometryM": 6282.4
+          "startDistanceOnGeometryM": 6361.2,
+          "endDistanceOnGeometryM": 6412.4
         },
         {
           "edgeId": "NT07_X01_X12_010",
-          "startDistanceOnGeometryM": 6231.2,
-          "endDistanceOnGeometryM": 6282.4
+          "startDistanceOnGeometryM": 6361.2,
+          "endDistanceOnGeometryM": 6412.4
         },
         {
           "edgeId": "NT07_ML2_030",
-          "startDistanceOnGeometryM": 6282.4,
-          "endDistanceOnGeometryM": 6291.2
+          "startDistanceOnGeometryM": 6412.4,
+          "endDistanceOnGeometryM": 6421.2
         }
       ]
     },
@@ -1510,17 +1510,17 @@
       "sections": [
         {
           "edgeId": "NT07_ML1_030",
-          "startDistanceOnGeometryM": 6291.2,
-          "endDistanceOnGeometryM": 6300
+          "startDistanceOnGeometryM": 6421.2,
+          "endDistanceOnGeometryM": 6430
         },
         {
           "edgeId": "NT07_P02_040",
-          "startDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6430,
           "endDistanceOnGeometryM": 6470
         },
         {
           "edgeId": "NT07_P01_040",
-          "startDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6430,
           "endDistanceOnGeometryM": 6470
         }
       ]
@@ -1532,22 +1532,17 @@
       "sections": [
         {
           "edgeId": "NT07_ML2_030",
-          "startDistanceOnGeometryM": 6291.2,
-          "endDistanceOnGeometryM": 6300
+          "startDistanceOnGeometryM": 6421.2,
+          "endDistanceOnGeometryM": 6430
         },
         {
           "edgeId": "NT07_P03_040",
-          "startDistanceOnGeometryM": 6300,
+          "startDistanceOnGeometryM": 6430,
           "endDistanceOnGeometryM": 6470
         },
         {
           "edgeId": "NT07_P04_LEAD_040",
-          "startDistanceOnGeometryM": 6300,
-          "endDistanceOnGeometryM": 6364.5293
-        },
-        {
-          "edgeId": "NT07_P04_040",
-          "startDistanceOnGeometryM": 6364.5293,
+          "startDistanceOnGeometryM": 6430,
           "endDistanceOnGeometryM": 6470
         }
       ]
@@ -1660,8 +1655,13 @@
       "controlKind": "Interlocking",
       "sections": [
         {
-          "edgeId": "NT07_P04_040",
+          "edgeId": "NT07_P04_LEAD_040",
           "startDistanceOnGeometryM": 6470,
+          "endDistanceOnGeometryM": 6494.5293
+        },
+        {
+          "edgeId": "NT07_P04_040",
+          "startDistanceOnGeometryM": 6494.5293,
           "endDistanceOnGeometryM": 6790
         }
       ]

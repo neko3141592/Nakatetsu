@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <mxfile host="Electron">
   <diagram name="NT06" id="NT06_Diagram">
     <mxGraphModel dx="640" dy="544" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="138" pageHeight="768" math="0" shadow="0">
@@ -8,7 +9,7 @@
           <mxGeometry x="11.5" y="368" width="115" height="32" as="geometry" />
         </mxCell>
         <mxCell id="NT06_Platform_1" parent="1" vertex="1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1;fontColor=#333333;strokeColor=#3F3F46;">
-          <mxGeometry x="11.5" y="336" width="115" height="96" as="geometry" />
+          <mxGeometry x="11.5" y="272" width="115" height="32" as="geometry" />
         </mxCell>
         <mxCell id="NT06_DT" parent="1" edge="1" value="" style="endArrow=none;html=1;rounded=0;startSize=10;strokeWidth=1;strokeColor=#3F3F46;">
           <mxGeometry relative="1" width="50" height="50" as="geometry">
@@ -56,6 +57,9 @@
             <mxGeometry height="8" width="8" x="65" y="464" as="geometry" />
           </mxCell>
         </object>
+        <mxCell id="NT06_Platform_2" parent="1" vertex="1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1;fontColor=#333333;strokeColor=#3F3F46;">
+          <mxGeometry x="11.5" y="464" width="115" height="32" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
