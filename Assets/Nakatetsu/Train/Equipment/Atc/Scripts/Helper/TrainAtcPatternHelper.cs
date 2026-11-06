@@ -191,6 +191,12 @@ namespace Nakatetsu.Train.Equipment.Atc
 
         internal static float InterpolateSpeed(float startSpeedMps, float endSpeedMps, float ratio)
         {
+            // 上昇する段差は、次のサンプル境界に達するまで低い速度を保持する。
+            if (endSpeedMps > startSpeedMps)
+            {
+                return ratio < 1f ? startSpeedMps : endSpeedMps;
+            }
+
             // v²を補間すると、積分に使った v² = v0² + 2ax と同じ速度になる。
             return (float)Math.Sqrt((1d - ratio) * startSpeedMps * startSpeedMps +
                 (double)ratio * endSpeedMps * endSpeedMps);

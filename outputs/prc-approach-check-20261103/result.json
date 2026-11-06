@@ -1,0 +1,97 @@
+[
+  {
+    "stationId": "NT07",
+    "approachCircuitId": "NT06_DT",
+    "trainNumber": "2001",
+    "initialization": "runtime placement on approach circuit",
+    "worldTime": {
+      "tickCount": "672",
+      "worldTimeSeconds": 43580.977,
+      "tickDurationSeconds": 0.0142416665,
+      "isPaused": false,
+      "playbackSpeed": 1
+    },
+    "routes": {
+      "1RE": {
+        "isAvailable": true,
+        "isRouteSet": true,
+        "pathEstablished": true,
+        "proceedAllowed": true,
+        "routeLocked": true,
+        "cancelPending": false,
+        "approachLocked": false,
+        "approachReleaseRemainingSeconds": 0,
+        "overrunMode": "OVERRUN_PROTECTION_MODE_NONE",
+        "overrunPhase": "OVERRUN_PROTECTION_PHASE_NONE",
+        "overrunReleaseRemainingSeconds": 0
+      },
+      "2RB": {
+        "isAvailable": true,
+        "isRouteSet": true,
+        "pathEstablished": true,
+        "proceedAllowed": true,
+        "routeLocked": true,
+        "cancelPending": false,
+        "approachLocked": false,
+        "approachReleaseRemainingSeconds": 0,
+        "overrunMode": "OVERRUN_PROTECTION_MODE_NONE",
+        "overrunPhase": "OVERRUN_PROTECTION_PHASE_NONE",
+        "overrunReleaseRemainingSeconds": 0
+      },
+      "5RI": {
+        "isAvailable": true,
+        "isRouteSet": true,
+        "pathEstablished": true,
+        "proceedAllowed": true,
+        "routeLocked": true,
+        "cancelPending": false,
+        "approachLocked": false,
+        "approachReleaseRemainingSeconds": 0,
+        "overrunMode": "OVERRUN_PROTECTION_MODE_NONE",
+        "overrunPhase": "OVERRUN_PROTECTION_PHASE_NONE",
+        "overrunReleaseRemainingSeconds": 0
+      }
+    }
+  },
+  {
+    "stationId": "NT11",
+    "approachCircuitId": "NT09_1RT",
+    "trainNumber": "2001",
+    "initialization": "runtime placement on approach circuit",
+    "worldTime": {
+      "tickCount": "530",
+      "worldTimeSeconds": 43760.1,
+      "tickDurationSeconds": 0.020797038,
+      "isPaused": false,
+      "playbackSpeed": 1
+    },
+    "routes": {
+      "1RE": {
+        "isAvailable": true,
+        "isRouteSet": true,
+        "pathEstablished": true,
+        "proceedAllowed": true,
+        "routeLocked": true,
+        "cancelPending": false,
+        "approachLocked": false,
+        "approachReleaseRemainingSeconds": 0,
+        "overrunMode": "OVERRUN_PROTECTION_MODE_NONE",
+        "overrunPhase": "OVERRUN_PROTECTION_PHASE_NONE",
+        "overrunReleaseRemainingSeconds": 0
+      },
+      "3R": {
+        "isAvailable": true,
+        "isRouteSet": true,
+        "pathEstablished": true,
+        "proceedAllowed": true,
+        "routeLocked": true,
+        "cancelPending": false,
+        "approachLocked": false,
+        "approachReleaseRemainingSeconds": 0,
+        "overrunMode": "OVERRUN_PROTECTION_MODE_NONE",
+        "overrunPhase": "OVERRUN_PROTECTION_PHASE_NONE",
+        "overrunReleaseRemainingSeconds": 0
+      }
+    }
+  }
+]

@@ -41,8 +41,8 @@ func TestMigrateTrainEndpoints(t *testing.T) {
 		}
 	}
 	for _, train := range []timetable.TimetableTrain{
-		{TrainNumber: "9001", OriginStationID: "missing"},
-		{TrainNumber: "9002", DestinationStationID: "missing"},
+		{TimetableID: "weekday", TrainNumber: "9001", OriginStationID: "missing"},
+		{TimetableID: "weekday", TrainNumber: "9002", DestinationStationID: "missing"},
 	} {
 		if err := db.Create(&train).Error; err == nil {
 			t.Fatal("missing endpoint station was accepted")
@@ -66,6 +66,9 @@ func TestMigrateOptionalTrainType(t *testing.T) {
 	if err := db.Exec(legacy).Error; err != nil {
 		t.Fatal(err)
 	}
+	if err := timetable.MigrateModels(db); err != nil {
+		t.Fatal(err)
+	}
 	seed(t, db)
 	before := load(t, db, "weekday")
 	for range 2 {
@@ -76,8 +79,8 @@ func TestMigrateOptionalTrainType(t *testing.T) {
 			t.Fatal("migration changed existing trains or their relationships")
 		}
 	}
-	create(t, db, &timetable.TimetableTrain{TrainNumber: "9001"})
-	if err := db.Create(&timetable.TimetableTrain{TrainNumber: "9002", TrainTypeID: "missing"}).Error; err == nil {
+	create(t, db, &timetable.TimetableTrain{TimetableID: "weekday", TrainNumber: "9001"})
+	if err := db.Create(&timetable.TimetableTrain{TimetableID: "weekday", TrainNumber: "9002", TrainTypeID: "missing"}).Error; err == nil {
 		t.Fatal("migration lost the train type foreign key")
 	}
 }

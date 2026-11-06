@@ -26,6 +26,7 @@ func main() {
 	interlockingPath := flag.String("interlocking", "../SourceAssets/Track/Network/NakatetsuInterlocking/interlocking.json", "Interlocking JSON manifest path")
 	timetableID := flag.String("timetable", "weekday", "Timetable ID to use for PRC")
 
+	operationPlanID := flag.String("operation-plan", "", "Operation plan ID (optional; must target the selected timetable)")
 	flag.Parse()
 	definitions, err := ctc.LoadTrackCircuitDefinitions(*manifestPath)
 	if err != nil {
@@ -60,7 +61,7 @@ func main() {
 	communicationServer := &grpcserver.CommunicationServer{
 		CTC: ctcCore,
 	}
-	plan, err := timetable.LoadTimetablePlan(ctx, db, *timetableID, interlocking.Routes)
+	plan, err := timetable.LoadTimetablePlan(ctx, db, *timetableID, interlocking.Routes, *operationPlanID)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		log.Printf("ダイヤ %s が未登録のため、PRCを無効にして起動します", *timetableID)
 	} else if err != nil {

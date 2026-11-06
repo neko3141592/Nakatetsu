@@ -1,5 +1,5 @@
 {
-  "width": 73.6,
+  "width": 147.2,
   "height": 768.0,
   "turnoutIndicators": [],
   "trainLabels": [
@@ -7,29 +7,85 @@
       "id": "NT07_NT08_TrainLabel_DE1T",
       "circuitId": "NT07_NT08_DE1T",
       "svgId": "NT07_NT08_DE1T",
-      "x": 36.8,
-      "y": 204.0
+      "x": 24.263736,
+      "y": 172.0
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_DE2T",
+      "circuitId": "NT07_NT08_DE2T",
+      "svgId": "NT07_NT08_DE2T",
+      "x": 72.791208,
+      "y": 203.296703
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_DE3T",
+      "circuitId": "NT07_NT08_DE3T",
+      "svgId": "NT07_NT08_DE3T",
+      "x": 122.127472,
+      "y": 236.0
     },
     {
       "id": "NT07_NT08_TrainLabel_DL1T",
       "circuitId": "NT07_NT08_DL1T",
       "svgId": "NT07_NT08_DL1T",
-      "x": 36.8,
-      "y": 268.0
+      "x": 24.263736,
+      "y": 236.0
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_DL2T",
+      "circuitId": "NT07_NT08_DL2T",
+      "svgId": "NT07_NT08_DL2T",
+      "x": 72.791208,
+      "y": 267.296703
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_DL3T",
+      "circuitId": "NT07_NT08_DL3T",
+      "svgId": "NT07_NT08_DL3T",
+      "x": 122.127472,
+      "y": 300.0
     },
     {
       "id": "NT07_NT08_TrainLabel_UL1T",
       "circuitId": "NT07_NT08_UL1T",
       "svgId": "NT07_NT08_UL1T",
-      "x": 36.8,
-      "y": 460.0
+      "x": 24.263736,
+      "y": 492.0
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_UL2T",
+      "circuitId": "NT07_NT08_UL2T",
+      "svgId": "NT07_NT08_UL2T",
+      "x": 72.791208,
+      "y": 460.703297
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_UL3T",
+      "circuitId": "NT07_NT08_UL3T",
+      "svgId": "NT07_NT08_UL3T",
+      "x": 122.127472,
+      "y": 428.0
     },
     {
       "id": "NT07_NT08_TrainLabel_UE1T",
       "circuitId": "NT07_NT08_UE1T",
       "svgId": "NT07_NT08_UE1T",
-      "x": 36.8,
-      "y": 524.0
+      "x": 24.263736,
+      "y": 556.0
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_UE2T",
+      "circuitId": "NT07_NT08_UE2T",
+      "svgId": "NT07_NT08_UE2T",
+      "x": 72.791208,
+      "y": 524.703297
+    },
+    {
+      "id": "NT07_NT08_TrainLabel_UE3T",
+      "circuitId": "NT07_NT08_UE3T",
+      "svgId": "NT07_NT08_UE3T",
+      "x": 122.127472,
+      "y": 492.0
     }
   ]
 }

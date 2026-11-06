@@ -191,8 +191,8 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(definitions) != 199 {
-		t.Fatalf("loaded %d circuits, want 199", len(definitions))
+	if len(definitions) != 207 {
+		t.Fatalf("loaded %d circuits, want 207", len(definitions))
 	}
 	for circuitID, want := range map[string]string{
 		"NT01_22BT":      "下り本線",
@@ -203,6 +203,8 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 		"NT12_DT":        "1RT",
 		"NT13_UT":        "2LT",
 		"NT14_1RT":       "1RT",
+		"NT14_DEPOT_1T":  "電留1T",
+		"NT14_DEPOT_2T":  "電留2T",
 		"NT01_NT02_D1T":  "中央下1",
 		"NT05_NT06_U2T":  "東長上2",
 		"NT07_NT08_DE1T": "小泉下急1",
@@ -219,10 +221,10 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 		"NT07_22AT": "NT06_NT07_U3T",
 		"NT07_25BT": "NT07_NT08_DL1T",
 		"NT07_26BT": "NT07_NT08_DE1T",
-		"NT11_23AT": "NT10_NT11_UL1T",
-		"NT11_24AT": "NT10_NT11_UE1T",
+		"NT11_23AT": "NT10_NT11_UL2T",
+		"NT11_24AT": "NT10_NT11_UE2T",
 		"NT11_25BT": "NT11_NT12_D1T",
-		"NT14_22AT": "NT13_NT14_U4T",
+		"NT14_22AT": "NT13_NT14_U5T",
 	}
 	for circuitID, target := range interlockingExits {
 		if definitions[circuitID].ToCircuitID != target {
@@ -230,14 +232,19 @@ func TestLoadNakatetsuTrackCircuitDefinitions(t *testing.T) {
 		}
 	}
 	for circuitID, target := range map[string]string{
-		"NT01_NT02_D1T": "NT01_NT02_D2T",
-		"NT01_NT02_D3T": "NT02_DT",
-		"NT01_NT02_U2T": "NT01_NT02_U1T",
-		"NT11_NT12_D5T": "NT12_DT",
-		"NT11_NT12_U1T": "NT11_4LT",
-		"NT12_DT":       "NT12_NT13_D1T",
-		"NT13_UT":       "NT12_NT13_U4T",
-		"NT13_NT14_D4T": "NT14_21AT",
+		"NT01_NT02_D1T":  "NT01_NT02_D2T",
+		"NT01_NT02_D3T":  "NT02_DT",
+		"NT01_NT02_U2T":  "NT01_NT02_U1T",
+		"NT11_NT12_D5T":  "NT12_DT",
+		"NT11_NT12_U1T":  "NT11_4LT",
+		"NT12_DT":        "NT12_NT13_D1T",
+		"NT13_UT":        "NT12_NT13_U4T",
+		"NT13_NT14_D4T":  "NT13_NT14_D5T",
+		"NT13_NT14_D5T":  "NT14_21AT",
+		"NT13_NT14_U5T":  "NT13_NT14_U4T",
+		"NT10_NT11_DE1T": "NT10_NT11_DE2T",
+		"NT10_NT11_DE2T": "NT11_21AT",
+		"NT10_NT11_UL2T": "NT10_NT11_UL1T",
 	} {
 		if definitions[circuitID].ToCircuitID != target {
 			t.Errorf("%s.ToCircuitID = %q, want %q", circuitID, definitions[circuitID].ToCircuitID, target)

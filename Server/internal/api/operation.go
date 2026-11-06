@@ -7,7 +7,6 @@ import (
 	"io"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/neko3141592/Nakatetsu/Server/internal/timetable"
 	"gorm.io/gorm"
@@ -15,149 +14,127 @@ import (
 )
 
 type operationTrain struct {
-	TrainNumber   string `json:"trainNumber"`
+	TrainID       string `json:"trainId"`
 	SequenceIndex int    `json:"sequenceIndex"`
 }
 
-type operationDetail struct {
-	OperationNumber string           `json:"operationNumber"`
-	Trains          []operationTrain `json:"trains"`
-}
-
 func (s *ApiServer) HandleListOperations(w http.ResponseWriter, r *http.Request) {
-	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	defer cancel()
-	result := []struct {
-		OperationNumber string `json:"operationNumber"`
-	}{}
-	err := s.DB.WithContext(ctx).Model(&timetable.TimetableOperation{}).
-		Order("operation_number ASC").Find(&result).Error
-	if writeOperationError(w, err) {
+	result := []timetable.TimetableOperation{}
+	q := s.DB.WithContext(r.Context())
+	if id := r.URL.Query().Get("operationPlanId"); id != "" {
+		q = q.Where("operation_plan_id = ?", id)
+	}
+	if writeOperationError(w, q.Order("operation_number, id").Find(&result).Error) {
 		return
 	}
-	writeOperationJSON(w, http.StatusOK, result)
+	writeOperationJSON(w, 200, result)
 }
-
-func (s *ApiServer) HandleGetOperation(w http.ResponseWriter, r *http.Request) {
-	number := r.PathValue("operationNumber")
-	if strings.TrimSpace(number) == "" {
-		http.Error(w, "運用番号が不正です", http.StatusBadRequest)
-		return
-	}
-	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	defer cancel()
-	var existing timetable.TimetableOperation
-	err := s.DB.WithContext(ctx).
-		Preload("Trains", func(db *gorm.DB) *gorm.DB { return db.Order("sequence_index ASC") }).
-		First(&existing, "operation_number = ?", number).Error
-	if writeOperationError(w, err) {
-		return
-	}
-	result := operationDetail{OperationNumber: existing.OperationNumber, Trains: []operationTrain{}}
-	for _, train := range existing.Trains {
-		result.Trains = append(result.Trains, operationTrain{TrainNumber: train.TrainNumber, SequenceIndex: train.SequenceIndex})
-	}
-	writeOperationJSON(w, http.StatusOK, result)
-}
-
-func (s *ApiServer) HandlePostOperation(w http.ResponseWriter, r *http.Request) {
-	result := operationDetail{Trains: []operationTrain{}}
-	if err := decodeOperationJSON(r, &result); err != nil || strings.TrimSpace(result.OperationNumber) == "" || !validOperationTrains(result.Trains) {
-		http.Error(w, "運用のJSONまたは入力値が不正です", http.StatusBadRequest)
-		return
-	}
-	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	defer cancel()
-	err := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&timetable.TimetableOperation{OperationNumber: result.OperationNumber}).Error; err != nil {
-			return err
-		}
-		return replaceOperationTrains(tx, result.OperationNumber, result.Trains)
-	})
-	if writeOperationError(w, err) {
-		return
-	}
+func loadOperation(ctx context.Context, db *gorm.DB, id string) (timetable.TimetableOperation, error) {
+	var result timetable.TimetableOperation
+	err := db.WithContext(ctx).Preload("Trains", func(db *gorm.DB) *gorm.DB { return db.Order("sequence_index") }).Preload("Trains.Train.TrainType").First(&result, "id = ?", id).Error
 	if result.Trains == nil {
-		result.Trains = []operationTrain{}
+		result.Trains = []timetable.TimetableOperationTrain{}
 	}
-	writeOperationJSON(w, http.StatusCreated, result)
+	return result, err
 }
-
-func (s *ApiServer) HandlePatchOperation(w http.ResponseWriter, r *http.Request) {
-	number := r.PathValue("operationNumber")
-	if strings.TrimSpace(number) == "" {
-		http.Error(w, "運用番号が不正です", http.StatusBadRequest)
+func (s *ApiServer) HandleGetOperation(w http.ResponseWriter, r *http.Request) {
+	result, err := loadOperation(r.Context(), s.DB, r.PathValue("id"))
+	if writeOperationError(w, err) {
 		return
 	}
-	var patch struct {
-		Trains *[]operationTrain `json:"trains"`
+	writeOperationJSON(w, 200, result)
+}
+func (s *ApiServer) HandlePostOperation(w http.ResponseWriter, r *http.Request) {
+	var input struct {
+		OperationPlanID string           `json:"operationPlanId"`
+		OperationNumber string           `json:"operationNumber"`
+		Trains          []operationTrain `json:"trains"`
 	}
-	if err := decodeOperationJSON(r, &patch); err != nil || patch.Trains == nil || !validOperationTrains(*patch.Trains) {
-		http.Error(w, "運用のJSONまたは入力値が不正です", http.StatusBadRequest)
+	if err := decodeOperationJSON(r, &input); err != nil || strings.TrimSpace(input.OperationPlanID) == "" || strings.TrimSpace(input.OperationNumber) == "" || !validOperationTrains(input.Trains) {
+		http.Error(w, "運用の入力値が不正です", 400)
 		return
 	}
-	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	defer cancel()
-	err := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-		var existing timetable.TimetableOperation
-		if err := tx.First(&existing, "operation_number = ?", number).Error; err != nil {
+	var result timetable.TimetableOperation
+	err := s.DB.WithContext(r.Context()).Transaction(func(tx *gorm.DB) error {
+		var plan timetable.TimetableOperationPlan
+		if err := tx.First(&plan, "id = ?", input.OperationPlanID).Error; err != nil {
 			return err
 		}
-		return replaceOperationTrains(tx, number, *patch.Trains)
+		result = timetable.TimetableOperation{OperationPlanID: plan.ID, TimetableID: plan.TimetableID, OperationNumber: input.OperationNumber}
+		if err := tx.Omit(clause.Associations).Create(&result).Error; err != nil {
+			return err
+		}
+		return replaceOperationTrains(tx, result, input.Trains)
 	})
 	if writeOperationError(w, err) {
 		return
 	}
-	w.WriteHeader(http.StatusNoContent)
+	result, err = loadOperation(r.Context(), s.DB, result.ID)
+	if !writeOperationError(w, err) {
+		writeOperationJSON(w, 201, result)
+	}
 }
-
-func (s *ApiServer) HandleDeleteOperation(w http.ResponseWriter, r *http.Request) {
-	number := r.PathValue("operationNumber")
-	if strings.TrimSpace(number) == "" {
-		http.Error(w, "運用番号が不正です", http.StatusBadRequest)
+func (s *ApiServer) HandlePatchOperation(w http.ResponseWriter, r *http.Request) {
+	var input struct {
+		OperationNumber *string           `json:"operationNumber"`
+		Trains          *[]operationTrain `json:"trains"`
+	}
+	if err := decodeOperationJSON(r, &input); err != nil || (input.OperationNumber == nil && input.Trains == nil) || (input.OperationNumber != nil && strings.TrimSpace(*input.OperationNumber) == "") || (input.Trains != nil && !validOperationTrains(*input.Trains)) {
+		http.Error(w, "運用の入力値が不正です", 400)
 		return
 	}
-	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	defer cancel()
-	result := s.DB.WithContext(ctx).Where("operation_number = ?", number).Delete(&timetable.TimetableOperation{})
+	err := s.DB.WithContext(r.Context()).Transaction(func(tx *gorm.DB) error {
+		var result timetable.TimetableOperation
+		if err := tx.First(&result, "id = ?", r.PathValue("id")).Error; err != nil {
+			return err
+		}
+		if input.OperationNumber != nil {
+			if err := tx.Model(&result).Update("operation_number", *input.OperationNumber).Error; err != nil {
+				return err
+			}
+		}
+		if input.Trains != nil {
+			return replaceOperationTrains(tx, result, *input.Trains)
+		}
+		return nil
+	})
+	if !writeOperationError(w, err) {
+		w.WriteHeader(204)
+	}
+}
+func (s *ApiServer) HandleDeleteOperation(w http.ResponseWriter, r *http.Request) {
+	result := s.DB.WithContext(r.Context()).Delete(&timetable.TimetableOperation{}, "id = ?", r.PathValue("id"))
 	if writeOperationError(w, result.Error) {
 		return
 	}
 	if result.RowsAffected == 0 {
-		http.Error(w, "運用が見つかりません", http.StatusNotFound)
+		writeOperationError(w, gorm.ErrRecordNotFound)
 		return
 	}
-	w.WriteHeader(http.StatusNoContent)
+	w.WriteHeader(204)
 }
-
 func validOperationTrains(trains []operationTrain) bool {
-	numbers := make(map[string]bool)
-	indices := make(map[int]bool)
+	ids, indices := map[string]bool{}, map[int]bool{}
 	for _, train := range trains {
-		if strings.TrimSpace(train.TrainNumber) == "" || train.SequenceIndex < 0 || numbers[train.TrainNumber] || indices[train.SequenceIndex] {
+		if strings.TrimSpace(train.TrainID) == "" || train.SequenceIndex < 0 || ids[train.TrainID] || indices[train.SequenceIndex] {
 			return false
 		}
-		numbers[train.TrainNumber], indices[train.SequenceIndex] = true, true
+		ids[train.TrainID], indices[train.SequenceIndex] = true, true
 	}
 	return true
 }
-
-func replaceOperationTrains(tx *gorm.DB, number string, trains []operationTrain) error {
-	if err := tx.Where("operation_number = ?", number).Delete(&timetable.TimetableOperationTrain{}).Error; err != nil {
+func replaceOperationTrains(tx *gorm.DB, operation timetable.TimetableOperation, trains []operationTrain) error {
+	if err := tx.Where("operation_id = ?", operation.ID).Delete(&timetable.TimetableOperationTrain{}).Error; err != nil {
 		return err
 	}
-	rows := make([]timetable.TimetableOperationTrain, 0, len(trains))
 	for _, train := range trains {
-		rows = append(rows, timetable.TimetableOperationTrain{
-			OperationNumber: number, TrainNumber: train.TrainNumber, SequenceIndex: train.SequenceIndex,
-		})
+		row := timetable.TimetableOperationTrain{OperationID: operation.ID, OperationPlanID: operation.OperationPlanID, TimetableID: operation.TimetableID, TrainID: train.TrainID, SequenceIndex: train.SequenceIndex}
+		if err := tx.Omit(clause.Associations).Create(&row).Error; err != nil {
+			return err
+		}
 	}
-	if len(rows) == 0 {
-		return nil
-	}
-	return tx.Omit(clause.Associations).Create(&rows).Error
+	return nil
 }
-
 func decodeOperationJSON(r *http.Request, value any) error {
 	decoder := json.NewDecoder(r.Body)
 	decoder.DisallowUnknownFields()
@@ -169,27 +146,25 @@ func decodeOperationJSON(r *http.Request, value any) error {
 	}
 	return nil
 }
-
 func writeOperationError(w http.ResponseWriter, err error) bool {
 	switch {
 	case err == nil:
 		return false
 	case errors.Is(err, gorm.ErrRecordNotFound):
-		http.Error(w, "運用が見つかりません", http.StatusNotFound)
+		http.Error(w, "運用・運用計画が見つかりません", 404)
 	case errors.Is(err, gorm.ErrDuplicatedKey):
-		http.Error(w, "運用番号が重複しています", http.StatusConflict)
+		http.Error(w, "同じ計画内で運用番号が重複しているか、列車が他の運用に割り当て済みです", 409)
 	case errors.Is(err, gorm.ErrForeignKeyViolated):
-		http.Error(w, "指定された列車が見つかりません", http.StatusBadRequest)
+		http.Error(w, "対象ダイヤの列車・運用計画を指定してください", 400)
 	default:
-		http.Error(w, "運用の処理に失敗しました", http.StatusInternalServerError)
+		http.Error(w, "運用の処理に失敗しました", 500)
 	}
 	return true
 }
-
 func writeOperationJSON(w http.ResponseWriter, status int, value any) {
 	data, err := json.Marshal(value)
 	if err != nil {
-		http.Error(w, "運用のJSON変換に失敗しました", http.StatusInternalServerError)
+		http.Error(w, "JSON変換に失敗しました", 500)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattn/go-sqlite3"
+	"github.com/google/uuid"
 	"github.com/neko3141592/Nakatetsu/Server/internal/timetable"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -19,11 +19,19 @@ func (s *ApiServer) HandleListTrains(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
 	result := []struct {
-		TrainNumber string `json:"trainNumber"`
-		TrainTypeID string `json:"trainTypeId"`
+		ID                   string `json:"id"`
+		TimetableID          string `json:"timetableId"`
+		OriginStationID      string `json:"originStationId"`
+		DestinationStationID string `json:"destinationStationId"`
+		TrainNumber          string `json:"trainNumber"`
+		TrainTypeID          string `json:"trainTypeId"`
+		DepartureSeconds     *int   `json:"departureSeconds"`
 	}{}
-	err := s.DB.WithContext(ctx).Model(&timetable.TimetableTrain{}).
-		Order("train_number ASC").Find(&result).Error
+	query := s.DB.WithContext(ctx).Model(&timetable.TimetableTrain{})
+	if id := r.URL.Query().Get("timetableId"); id != "" {
+		query = query.Where("timetable_id = ?", id)
+	}
+	err := query.Select("timetable_trains.*, (SELECT departure_seconds FROM timetable_points WHERE train_id = timetable_trains.id AND section = 'service' ORDER BY sequence_index LIMIT 1) AS departure_seconds").Order("train_number ASC, id ASC").Find(&result).Error
 	if writeTrainError(w, err) {
 		return
 	}
@@ -31,9 +39,9 @@ func (s *ApiServer) HandleListTrains(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *ApiServer) HandleGetTrain(w http.ResponseWriter, r *http.Request) {
-	number := r.PathValue("trainNumber")
-	if strings.TrimSpace(number) == "" {
-		http.Error(w, "列番が不正です", http.StatusBadRequest)
+	id := r.PathValue("id")
+	if strings.TrimSpace(id) == "" {
+		http.Error(w, "列車IDが不正です", http.StatusBadRequest)
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
@@ -43,7 +51,7 @@ func (s *ApiServer) HandleGetTrain(w http.ResponseWriter, r *http.Request) {
 		Preload("TrainType").
 		Preload("Points", func(db *gorm.DB) *gorm.DB { return db.Order("sequence_index ASC") }).
 		Preload("Points.Routes", func(db *gorm.DB) *gorm.DB { return db.Order("sequence_index ASC") }).
-		First(&result, "train_number = ?", number).Error
+		First(&result, "id = ?", id).Error
 	if writeTrainError(w, err) {
 		return
 	}
@@ -59,6 +67,7 @@ func (s *ApiServer) HandlePostTrain(w http.ResponseWriter, r *http.Request) {
 	if writeTrainError(w, s.generateTrainRoutes(result.Points)) {
 		return
 	}
+	result.ID = uuid.NewString()
 	result.TrainType = timetable.TrainType{}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
@@ -66,7 +75,10 @@ func (s *ApiServer) HandlePostTrain(w http.ResponseWriter, r *http.Request) {
 		if err := tx.Omit(clause.Associations).Create(&result).Error; err != nil {
 			return err
 		}
-		return createTrainPoints(tx, result.TrainNumber, &result.Points)
+		if err := createTrainPoints(tx, result.ID, &result.Points); err != nil {
+			return err
+		}
+		return touchTimetable(tx, result.TimetableID)
 	})
 	if writeTrainError(w, err) {
 		return
@@ -75,18 +87,19 @@ func (s *ApiServer) HandlePostTrain(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *ApiServer) HandlePatchTrain(w http.ResponseWriter, r *http.Request) {
-	number := r.PathValue("trainNumber")
-	if strings.TrimSpace(number) == "" {
-		http.Error(w, "列番が不正です", http.StatusBadRequest)
+	id := r.PathValue("id")
+	if strings.TrimSpace(id) == "" {
+		http.Error(w, "列車IDが不正です", http.StatusBadRequest)
 		return
 	}
 	var patch struct {
+		TrainNumber          *string                     `json:"trainNumber"`
 		TrainTypeID          *string                     `json:"trainTypeId"`
 		OriginStationID      *string                     `json:"originStationId"`
 		DestinationStationID *string                     `json:"destinationStationId"`
 		Points               *[]timetable.TimetablePoint `json:"points"`
 	}
-	if err := decodeTrainJSON(r, &patch); err != nil || (patch.TrainTypeID == nil && patch.OriginStationID == nil && patch.DestinationStationID == nil && patch.Points == nil) ||
+	if err := decodeTrainJSON(r, &patch); err != nil || (patch.TrainNumber == nil && patch.TrainTypeID == nil && patch.OriginStationID == nil && patch.DestinationStationID == nil && patch.Points == nil) ||
 		(patch.Points != nil && !validTrainPoints(*patch.Points)) {
 		http.Error(w, "列車のJSONまたは入力値が不正です", http.StatusBadRequest)
 		return
@@ -95,10 +108,14 @@ func (s *ApiServer) HandlePatchTrain(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	err := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		var existing timetable.TimetableTrain
-		if err := tx.First(&existing, "train_number = ?", number).Error; err != nil {
+		if err := tx.First(&existing, "id = ?", id).Error; err != nil {
 			return err
 		}
 		updates := make(map[string]any)
+		if patch.TrainNumber != nil {
+			existing.TrainNumber = *patch.TrainNumber
+			updates["train_number"] = *patch.TrainNumber
+		}
 		if patch.TrainTypeID != nil {
 			existing.TrainTypeID = *patch.TrainTypeID
 			updates["train_type_id"] = *patch.TrainTypeID
@@ -125,12 +142,14 @@ func (s *ApiServer) HandlePatchTrain(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		if patch.Points != nil {
-			if err := tx.Where("train_number = ?", number).Delete(&timetable.TimetablePoint{}).Error; err != nil {
+			if err := tx.Where("train_id = ?", id).Delete(&timetable.TimetablePoint{}).Error; err != nil {
 				return err
 			}
-			return createTrainPoints(tx, number, patch.Points)
+			if err := createTrainPoints(tx, id, patch.Points); err != nil {
+				return err
+			}
 		}
-		return nil
+		return touchTimetable(tx, existing.TimetableID)
 	})
 	if writeTrainError(w, err) {
 		return
@@ -139,32 +158,42 @@ func (s *ApiServer) HandlePatchTrain(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *ApiServer) HandleDeleteTrain(w http.ResponseWriter, r *http.Request) {
-	number := r.PathValue("trainNumber")
-	if strings.TrimSpace(number) == "" {
-		http.Error(w, "列番が不正です", http.StatusBadRequest)
+	id := r.PathValue("id")
+	if strings.TrimSpace(id) == "" {
+		http.Error(w, "列車IDが不正です", http.StatusBadRequest)
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
-	result := s.DB.WithContext(ctx).Where("train_number = ?", number).Delete(&timetable.TimetableTrain{})
-	var sqliteErr sqlite3.Error
-	if errors.Is(result.Error, gorm.ErrForeignKeyViolated) ||
-		(errors.As(result.Error, &sqliteErr) && sqliteErr.ExtendedCode == sqlite3.ErrConstraintTrigger && sqliteErr.Error() == "FOREIGN KEY constraint failed") {
+	err := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		var train timetable.TimetableTrain
+		if err := tx.First(&train, "id = ?", id).Error; err != nil {
+			return err
+		}
+		var count int64
+		if err := tx.Model(&timetable.TimetableOperationTrain{}).Where("train_id = ?", id).Count(&count).Error; err != nil {
+			return err
+		}
+		if count > 0 {
+			return errTrainAssigned
+		}
+		if err := tx.Delete(&train).Error; err != nil {
+			return err
+		}
+		return touchTimetable(tx, train.TimetableID)
+	})
+	if errors.Is(err, errTrainAssigned) {
 		http.Error(w, "運用から参照中の列車は削除できません", http.StatusConflict)
 		return
 	}
-	if writeTrainError(w, result.Error) {
-		return
-	}
-	if result.RowsAffected == 0 {
-		http.Error(w, "列車が見つかりません", http.StatusNotFound)
+	if writeTrainError(w, err) {
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
 
 func validTrainBasics(train timetable.TimetableTrain) bool {
-	return strings.TrimSpace(train.TrainNumber) != "" && strings.TrimSpace(train.TrainTypeID) != "" && strings.TrimSpace(train.OriginStationID) != "" && strings.TrimSpace(train.DestinationStationID) != ""
+	return strings.TrimSpace(train.TimetableID) != "" && strings.TrimSpace(train.TrainNumber) != "" && strings.TrimSpace(train.TrainTypeID) != "" && strings.TrimSpace(train.OriginStationID) != "" && strings.TrimSpace(train.DestinationStationID) != ""
 }
 
 func validTrainPoints(points []timetable.TimetablePoint) bool {
@@ -199,13 +228,13 @@ func validTrainPoints(points []timetable.TimetablePoint) bool {
 	return true
 }
 
-func createTrainPoints(tx *gorm.DB, number string, points *[]timetable.TimetablePoint) error {
+func createTrainPoints(tx *gorm.DB, id string, points *[]timetable.TimetablePoint) error {
 	if *points == nil {
 		*points = []timetable.TimetablePoint{}
 	}
 	for i := range *points {
 		point := &(*points)[i]
-		point.TimetablePointID, point.TrainNumber = 0, number
+		point.TimetablePointID, point.TrainID = 0, id
 		point.Station, point.TrackCircuit = nil, timetable.TrackCircuit{}
 		if point.Routes == nil {
 			point.Routes = []timetable.TimetablePointRoute{}
@@ -240,13 +269,13 @@ func writeTrainError(w http.ResponseWriter, err error) bool {
 	case errors.Is(err, gorm.ErrRecordNotFound):
 		http.Error(w, "列車が見つかりません", http.StatusNotFound)
 	case errors.Is(err, gorm.ErrDuplicatedKey):
-		http.Error(w, "列番が重複しています", http.StatusConflict)
+		http.Error(w, "内部IDまたは登録内容が重複しています", http.StatusConflict)
 	case errors.Is(err, errTrainRoutes):
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	case errors.Is(err, gorm.ErrInvalidData):
 		http.Error(w, "列番・列車種別・発駅・終着駅は必須です", http.StatusBadRequest)
 	case errors.Is(err, gorm.ErrForeignKeyViolated):
-		http.Error(w, "指定された種別・駅・軌道回路・進路が見つかりません", http.StatusBadRequest)
+		http.Error(w, "指定されたダイヤ・種別・駅・軌道回路・進路が見つかりません", http.StatusBadRequest)
 	default:
 		http.Error(w, "列車の処理に失敗しました", http.StatusInternalServerError)
 	}
@@ -262,4 +291,10 @@ func writeTrainJSON(w http.ResponseWriter, status int, value any) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(status)
 	w.Write(data)
+}
+
+var errTrainAssigned = errors.New("train assigned to operation")
+
+func touchTimetable(tx *gorm.DB, id string) error {
+	return tx.Model(&timetable.Timetable{}).Where("id = ?", id).Update("revision", gorm.Expr("revision + 1")).Error
 }

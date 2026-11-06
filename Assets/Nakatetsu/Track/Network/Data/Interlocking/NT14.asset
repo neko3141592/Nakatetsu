@@ -1,0 +1,1300 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968824029314a80acac6a54ce95bed0, type: 3}
+  m_Name: NT14
+  m_EditorClassIdentifier: Nakatetsu.Track.Interlocking::Nakatetsu.Track.Interlocking.TrackStationInterlockingAsset
+  definition:
+    interlockingId: NT14
+    memberTrackCircuitIds:
+    - NT14_21AT
+    - NT14_22AT
+    - NT14_21BT
+    - NT14_22BT
+    - NT14_23T
+    - NT14_24T
+    - NT14_1RT
+    - NT14_2RT
+    - NT14_3LT
+    - NT14_4LT
+    - NT14_25T
+    - NT14_26T
+    - NT14_27AT
+    - NT14_28AT
+    - NT14_27BT
+    - NT14_28BT
+    - NT13_NT14_D5T
+    - NT13_NT14_U5T
+    - NT14_DEPOT_1T
+    - NT14_DEPOT_2T
+    memberConnectionIds:
+    - NT14_21A
+    - NT14_22A
+    - NT14_21B
+    - NT14_22B
+    - NT14_27A
+    - NT14_28A
+    - NT14_27B
+    - NT14_28B
+    - NT14_23
+    - NT14_25
+    - NT14_24
+    - NT14_26
+    destinations:
+    - code: A
+      displayName: "1\u756A\u7DDA"
+      trackCircuitId: NT14_1RT
+    - code: B
+      displayName: "2\u756A\u7DDA"
+      trackCircuitId: NT14_2RT
+    - code: C
+      displayName: "3\u756A\u7DDA"
+      trackCircuitId: NT14_3LT
+    - code: D
+      displayName: "4\u756A\u7DDA"
+      trackCircuitId: NT14_4LT
+    - code: E
+      displayName: "\u4E2D\u592E\u65B9\u9762"
+      trackCircuitId: NT13_NT14_U5T
+    - code: F
+      displayName: "\u96FB\u75592T"
+      trackCircuitId: NT14_DEPOT_2T
+    - code: G
+      displayName: "\u96FB\u75591T"
+      trackCircuitId: NT14_DEPOT_1T
+    routes:
+    - routeId: 1RA
+      startTrackCircuitId: NT13_NT14_D5T
+      destinationCode: A
+      destinationTrackCircuitId: NT14_1RT
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 1
+      - connectionId: NT14_22A
+        requiredPosition: 1
+      - connectionId: NT14_21B
+        requiredPosition: 1
+      - connectionId: NT14_22B
+        requiredPosition: 1
+      - connectionId: NT14_23
+        requiredPosition: 2
+      - connectionId: NT14_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_21AT
+      - NT14_22BT
+      - NT14_23T
+      - NT14_1RT
+      routeReleaseTrackCircuitIds:
+      - NT14_21AT
+      - NT14_22BT
+      - NT14_23T
+      - NT14_1RT
+      approachLock:
+        trackCircuitIds:
+        - NT13_NT14_D5T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 2L
+      - 6LA
+      - 1RB
+      - 3L
+      - 1RC
+      - 4L
+      - 1RD
+      - 5L
+      - 15LA
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 2L
+      startTrackCircuitId: NT14_1RT
+      destinationCode: E
+      destinationTrackCircuitId: NT13_NT14_U5T
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 1
+      - connectionId: NT14_22A
+        requiredPosition: 2
+      - connectionId: NT14_21B
+        requiredPosition: 1
+      - connectionId: NT14_22B
+        requiredPosition: 2
+      - connectionId: NT14_23
+        requiredPosition: 2
+      - connectionId: NT14_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_23T
+      - NT14_22BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      routeReleaseTrackCircuitIds:
+      - NT14_23T
+      - NT14_22BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      approachLock:
+        trackCircuitIds:
+        - NT14_1RT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 1RB
+      - 3L
+      - 1RC
+      - 4L
+      - 1RD
+      - 5L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 6LA
+      startTrackCircuitId: NT14_DEPOT_1T
+      destinationCode: A
+      destinationTrackCircuitId: NT14_1RT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 2
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 2
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 2
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_27BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_1RT
+      routeReleaseTrackCircuitIds:
+      - NT14_27BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_1RT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_1T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 1RA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 7R
+      startTrackCircuitId: NT14_1RT
+      destinationCode: F
+      destinationTrackCircuitId: NT14_DEPOT_2T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 2
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      routeReleaseTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      approachLock:
+        trackCircuitIds:
+        - NT14_1RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 1RB
+      startTrackCircuitId: NT13_NT14_D5T
+      destinationCode: B
+      destinationTrackCircuitId: NT14_2RT
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 1
+      - connectionId: NT14_22A
+        requiredPosition: 1
+      - connectionId: NT14_21B
+        requiredPosition: 1
+      - connectionId: NT14_22B
+        requiredPosition: 1
+      - connectionId: NT14_23
+        requiredPosition: 1
+      - connectionId: NT14_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_21AT
+      - NT14_22BT
+      - NT14_23T
+      - NT14_2RT
+      routeReleaseTrackCircuitIds:
+      - NT14_21AT
+      - NT14_22BT
+      - NT14_23T
+      - NT14_2RT
+      approachLock:
+        trackCircuitIds:
+        - NT13_NT14_D5T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 2L
+      - 3L
+      - 6LB
+      - 1RC
+      - 1RD
+      - 5L
+      - 15LB
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 3L
+      startTrackCircuitId: NT14_2RT
+      destinationCode: E
+      destinationTrackCircuitId: NT13_NT14_U5T
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 1
+      - connectionId: NT14_22A
+        requiredPosition: 2
+      - connectionId: NT14_21B
+        requiredPosition: 1
+      - connectionId: NT14_22B
+        requiredPosition: 2
+      - connectionId: NT14_23
+        requiredPosition: 1
+      - connectionId: NT14_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_23T
+      - NT14_22BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      routeReleaseTrackCircuitIds:
+      - NT14_23T
+      - NT14_22BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      approachLock:
+        trackCircuitIds:
+        - NT14_2RT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 2L
+      - 1RB
+      - 1RC
+      - 4L
+      - 1RD
+      - 5L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 6LB
+      startTrackCircuitId: NT14_DEPOT_1T
+      destinationCode: B
+      destinationTrackCircuitId: NT14_2RT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 2
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 2
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_27BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_2RT
+      routeReleaseTrackCircuitIds:
+      - NT14_27BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_2RT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_1T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 1RB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 8R
+      startTrackCircuitId: NT14_2RT
+      destinationCode: F
+      destinationTrackCircuitId: NT14_DEPOT_2T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      routeReleaseTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      approachLock:
+        trackCircuitIds:
+        - NT14_2RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 1RC
+      startTrackCircuitId: NT13_NT14_D5T
+      destinationCode: C
+      destinationTrackCircuitId: NT14_3LT
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 2
+      - connectionId: NT14_22A
+        requiredPosition: 1
+      - connectionId: NT14_21B
+        requiredPosition: 2
+      - connectionId: NT14_22B
+        requiredPosition: 1
+      - connectionId: NT14_23
+        requiredPosition: 1
+      - connectionId: NT14_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_21AT
+      - NT14_21BT
+      - NT14_24T
+      - NT14_3LT
+      routeReleaseTrackCircuitIds:
+      - NT14_21AT
+      - NT14_21BT
+      - NT14_24T
+      - NT14_3LT
+      approachLock:
+        trackCircuitIds:
+        - NT13_NT14_D5T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 2L
+      - 1RB
+      - 3L
+      - 4L
+      - 6LC
+      - 1RD
+      - 5L
+      - 15LC
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 4L
+      startTrackCircuitId: NT14_3LT
+      destinationCode: E
+      destinationTrackCircuitId: NT13_NT14_U5T
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 1
+      - connectionId: NT14_22A
+        requiredPosition: 1
+      - connectionId: NT14_21B
+        requiredPosition: 1
+      - connectionId: NT14_22B
+        requiredPosition: 1
+      - connectionId: NT14_23
+        requiredPosition: 1
+      - connectionId: NT14_24
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_24T
+      - NT14_21BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      routeReleaseTrackCircuitIds:
+      - NT14_24T
+      - NT14_21BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      approachLock:
+        trackCircuitIds:
+        - NT14_3LT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 2L
+      - 3L
+      - 1RC
+      - 1RD
+      - 5L
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 6LC
+      startTrackCircuitId: NT14_DEPOT_1T
+      destinationCode: C
+      destinationTrackCircuitId: NT14_3LT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_27BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_3LT
+      routeReleaseTrackCircuitIds:
+      - NT14_27BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_3LT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_1T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 1RC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 9R
+      startTrackCircuitId: NT14_3LT
+      destinationCode: F
+      destinationTrackCircuitId: NT14_DEPOT_2T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 2
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 2
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      routeReleaseTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      approachLock:
+        trackCircuitIds:
+        - NT14_3LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 1RD
+      startTrackCircuitId: NT13_NT14_D5T
+      destinationCode: D
+      destinationTrackCircuitId: NT14_4LT
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 2
+      - connectionId: NT14_22A
+        requiredPosition: 1
+      - connectionId: NT14_21B
+        requiredPosition: 2
+      - connectionId: NT14_22B
+        requiredPosition: 1
+      - connectionId: NT14_23
+        requiredPosition: 1
+      - connectionId: NT14_24
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT14_21AT
+      - NT14_21BT
+      - NT14_24T
+      - NT14_4LT
+      routeReleaseTrackCircuitIds:
+      - NT14_21AT
+      - NT14_21BT
+      - NT14_24T
+      - NT14_4LT
+      approachLock:
+        trackCircuitIds:
+        - NT13_NT14_D5T
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 2L
+      - 1RB
+      - 3L
+      - 1RC
+      - 4L
+      - 5L
+      - 6LD
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 5L
+      startTrackCircuitId: NT14_4LT
+      destinationCode: E
+      destinationTrackCircuitId: NT13_NT14_U5T
+      requiredTurnouts:
+      - connectionId: NT14_21A
+        requiredPosition: 1
+      - connectionId: NT14_22A
+        requiredPosition: 1
+      - connectionId: NT14_21B
+        requiredPosition: 1
+      - connectionId: NT14_22B
+        requiredPosition: 1
+      - connectionId: NT14_23
+        requiredPosition: 1
+      - connectionId: NT14_24
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT14_24T
+      - NT14_21BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      routeReleaseTrackCircuitIds:
+      - NT14_24T
+      - NT14_21BT
+      - NT14_22AT
+      - NT13_NT14_U5T
+      approachLock:
+        trackCircuitIds:
+        - NT14_4LT
+        releaseSeconds: 60
+      conflictRouteIds:
+      - 1RA
+      - 2L
+      - 1RB
+      - 3L
+      - 1RC
+      - 4L
+      - 1RD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 6LD
+      startTrackCircuitId: NT14_DEPOT_1T
+      destinationCode: D
+      destinationTrackCircuitId: NT14_4LT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT14_27BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_4LT
+      routeReleaseTrackCircuitIds:
+      - NT14_27BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_4LT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_1T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 1RD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 10R
+      startTrackCircuitId: NT14_4LT
+      destinationCode: F
+      destinationTrackCircuitId: NT14_DEPOT_2T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 2
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 2
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      routeReleaseTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_28BT
+      - NT14_DEPOT_2T
+      approachLock:
+        trackCircuitIds:
+        - NT14_4LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 11R
+      startTrackCircuitId: NT14_1RT
+      destinationCode: G
+      destinationTrackCircuitId: NT14_DEPOT_1T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 2
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 2
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 2
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      routeReleaseTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      approachLock:
+        trackCircuitIds:
+        - NT14_1RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 15LA
+      startTrackCircuitId: NT14_DEPOT_2T
+      destinationCode: A
+      destinationTrackCircuitId: NT14_1RT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 2
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_28BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_1RT
+      routeReleaseTrackCircuitIds:
+      - NT14_28BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_1RT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_2T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 1RA
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 12R
+      startTrackCircuitId: NT14_2RT
+      destinationCode: G
+      destinationTrackCircuitId: NT14_DEPOT_1T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 2
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 2
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      routeReleaseTrackCircuitIds:
+      - NT14_25T
+      - NT14_27AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      approachLock:
+        trackCircuitIds:
+        - NT14_2RT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 15LB
+      startTrackCircuitId: NT14_DEPOT_2T
+      destinationCode: B
+      destinationTrackCircuitId: NT14_2RT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_28BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_2RT
+      routeReleaseTrackCircuitIds:
+      - NT14_28BT
+      - NT14_27AT
+      - NT14_25T
+      - NT14_2RT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_2T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 1RB
+      - 6LB
+      - 8R
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 13R
+      startTrackCircuitId: NT14_3LT
+      destinationCode: G
+      destinationTrackCircuitId: NT14_DEPOT_1T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      routeReleaseTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      approachLock:
+        trackCircuitIds:
+        - NT14_3LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LC
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 15LC
+      startTrackCircuitId: NT14_DEPOT_2T
+      destinationCode: C
+      destinationTrackCircuitId: NT14_3LT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 2
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 2
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 1
+      routeClearTrackCircuitIds:
+      - NT14_28BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_3LT
+      routeReleaseTrackCircuitIds:
+      - NT14_28BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_3LT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_2T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 1RC
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 14R
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 14R
+      startTrackCircuitId: NT14_4LT
+      destinationCode: G
+      destinationTrackCircuitId: NT14_DEPOT_1T
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 1
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 1
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      routeReleaseTrackCircuitIds:
+      - NT14_26T
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_DEPOT_1T
+      approachLock:
+        trackCircuitIds:
+        - NT14_4LT
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 15LD
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    - routeId: 15LD
+      startTrackCircuitId: NT14_DEPOT_2T
+      destinationCode: D
+      destinationTrackCircuitId: NT14_4LT
+      requiredTurnouts:
+      - connectionId: NT14_27A
+        requiredPosition: 1
+      - connectionId: NT14_28A
+        requiredPosition: 2
+      - connectionId: NT14_27B
+        requiredPosition: 1
+      - connectionId: NT14_28B
+        requiredPosition: 2
+      - connectionId: NT14_25
+        requiredPosition: 1
+      - connectionId: NT14_26
+        requiredPosition: 2
+      routeClearTrackCircuitIds:
+      - NT14_28BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_4LT
+      routeReleaseTrackCircuitIds:
+      - NT14_28BT
+      - NT14_28AT
+      - NT14_26T
+      - NT14_4LT
+      approachLock:
+        trackCircuitIds:
+        - NT14_DEPOT_2T
+        releaseSeconds: 30
+      conflictRouteIds:
+      - 6LA
+      - 7R
+      - 6LB
+      - 8R
+      - 6LC
+      - 9R
+      - 1RD
+      - 6LD
+      - 10R
+      - 11R
+      - 15LA
+      - 12R
+      - 15LB
+      - 13R
+      - 15LC
+      - 14R
+      overrunProtection:
+        isEnabled: 0
+        turnoutRequirements: []
+        releaseSeconds: 0
+    turnoutLocks:
+    - connectionId: NT14_21A
+      trackCircuitIds:
+      - NT14_21AT
+      - NT14_22AT
+      - NT14_21BT
+      - NT14_22BT
+    - connectionId: NT14_22A
+      trackCircuitIds:
+      - NT14_21AT
+      - NT14_22AT
+      - NT14_21BT
+      - NT14_22BT
+    - connectionId: NT14_21B
+      trackCircuitIds:
+      - NT14_21AT
+      - NT14_22AT
+      - NT14_21BT
+      - NT14_22BT
+    - connectionId: NT14_22B
+      trackCircuitIds:
+      - NT14_21AT
+      - NT14_22AT
+      - NT14_21BT
+      - NT14_22BT
+    - connectionId: NT14_27A
+      trackCircuitIds:
+      - NT14_27AT
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_28BT
+    - connectionId: NT14_28A
+      trackCircuitIds:
+      - NT14_27AT
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_28BT
+    - connectionId: NT14_27B
+      trackCircuitIds:
+      - NT14_27AT
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_28BT
+    - connectionId: NT14_28B
+      trackCircuitIds:
+      - NT14_27AT
+      - NT14_28AT
+      - NT14_27BT
+      - NT14_28BT
+    - connectionId: NT14_23
+      trackCircuitIds:
+      - NT14_23T
+    - connectionId: NT14_25
+      trackCircuitIds:
+      - NT14_25T
+    - connectionId: NT14_24
+      trackCircuitIds:
+      - NT14_24T
+    - connectionId: NT14_26
+      trackCircuitIds:
+      - NT14_26T

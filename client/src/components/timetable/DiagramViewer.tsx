@@ -197,15 +197,15 @@ export function DiagramViewer({
                   if (points.length < 2) return null;
                   const color = train.trainType?.color || colors.trainLine;
                   const path = points.map(({ x, y }) => `${x},${y}`).join(" ");
-                  return <g key={train.trainNumber} role={onTrainClick ? "button" : "group"}
+                  return <g key={train.id ?? train.trainNumber} role={onTrainClick ? "button" : "group"}
                     aria-label={onTrainClick ? `${train.trainNumber}を編集` : `${train.trainNumber}のスジ`}
                     aria-haspopup={onTrainClick ? "dialog" : undefined} tabIndex={onTrainClick ? 0 : undefined}
                     className={onTrainClick ? "group/train cursor-pointer outline-none" : undefined}
-                    onClick={() => onTrainClick?.(train.trainNumber)}
+                    onClick={() => onTrainClick?.(train.id ?? train.trainNumber)}
                     onKeyDown={(event) => {
                       if (onTrainClick && (event.key === "Enter" || event.key === " ")) {
                         event.preventDefault();
-                        onTrainClick(train.trainNumber);
+                        onTrainClick(train.id ?? train.trainNumber);
                       }
                     }}>
                     <title>{train.trainNumber}</title>

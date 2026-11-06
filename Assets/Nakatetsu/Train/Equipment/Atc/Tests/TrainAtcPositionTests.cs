@@ -8,6 +8,76 @@ namespace Nakatetsu.Train.Equipment.Atc.Tests
 {
     public sealed class TrainAtcPositionTests
     {
+        [TestCase(false, 50f, 40f)]
+        [TestCase(false, 52.5f, 40f)]
+        [TestCase(false, 54.99f, 40f)]
+        [TestCase(false, 55f, 120f)]
+        [TestCase(true, 50f, 40f)]
+        [TestCase(true, 52.5f, 40f)]
+        [TestCase(true, 54.99f, 40f)]
+        [TestCase(true, 55f, 120f)]
+        public void RisingSpeedLimitHoldsLowerSpeedUntilSampleBoundary(
+            bool reverse, float distanceFromEntryM, float expectedSpeedKmh)
+        {
+            var graph = CreateLine();
+            graph.maximumOperatingSpeedKmh = 120f;
+            foreach (var edge in graph.atcEdge) edge.lengthM = 1000f;
+            var firstEdge = graph.atcEdge[reverse ? 1 : 0];
+            firstEdge.speedLimitSections.Add(new TrackAtcSpeedLimitSection
+            {
+                startDistanceOnAtcEdgeM = reverse ? 950f : 0f,
+                endDistanceOnAtcEdgeM = reverse ? 1000f : 50f,
+                speedLimitKmh = 40f
+            });
+            float position = reverse ? 1000f - distanceFromEntryM : distanceFromEntryM;
+            var context = CreateContext(graph, position, position, !reverse, firstEdge.atcEdgeId);
+            context.Input.deltaTimeSeconds = 0f;
+            context.Input.frontTelegram = reverse
+                ? Telegram("b", TrackAtcTravelDirection.BtoA, "b", "a")
+                : Telegram("a", TrackAtcTravelDirection.AtoB, "a", "b");
+
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.State.pattern.isValid, Is.True);
+            Assert.That(context.State.pattern.normalPattern.currentAllowSpeedMps,
+                Is.EqualTo(expectedSpeedKmh / 3.6f).Within(0.0001f));
+            Assert.That(context.State.pattern.normalPattern.currentTargetSpeedMps,
+                Is.EqualTo(expectedSpeedKmh / 3.6f).Within(0.0001f));
+            Assert.That(context.Output.pattern.indicatedSpeedKmh, Is.EqualTo(expectedSpeedKmh));
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void FallingSpeedLimitKeepsSquaredSpeedInterpolation(bool reverse)
+        {
+            var graph = CreateLine();
+            graph.maximumOperatingSpeedKmh = 120f;
+            foreach (var edge in graph.atcEdge) edge.lengthM = 1000f;
+            var firstEdge = graph.atcEdge[reverse ? 1 : 0];
+            firstEdge.speedLimitSections.Add(new TrackAtcSpeedLimitSection
+            {
+                startDistanceOnAtcEdgeM = reverse ? 0f : 500f,
+                endDistanceOnAtcEdgeM = reverse ? 500f : 1000f,
+                speedLimitKmh = 40f
+            });
+            float position = reverse ? 597.5f : 402.5f;
+            var context = CreateContext(graph, position, position, !reverse, firstEdge.atcEdgeId);
+            context.Input.deltaTimeSeconds = 0f;
+            context.Input.frontTelegram = reverse
+                ? Telegram("b", TrackAtcTravelDirection.BtoA, "b", "a")
+                : Telegram("a", TrackAtcTravelDirection.AtoB, "a", "b");
+
+            TrainAtcLogic.Calculate(context);
+
+            Assert.That(context.State.pattern.isValid, Is.True);
+            // 40km/h制限の97.5m手前、減速度0.5m/s²でのパターン速度。
+            Assert.That(context.State.pattern.normalPattern.currentAllowSpeedMps,
+                Is.EqualTo(14.864555f).Within(0.0001f));
+            Assert.That(context.State.pattern.normalPattern.currentTargetSpeedMps,
+                Is.EqualTo(40f / 3.6f).Within(0.0001f));
+            Assert.That(context.Output.pattern.indicatedSpeedKmh, Is.EqualTo(50f));
+        }
+
         [TestCase(10f, true, 20f, 55f, 25f)]
         [TestCase(-10f, true, 20f, 45f, 15f)]
         [TestCase(10f, false, 80f, 45f, 75f)]

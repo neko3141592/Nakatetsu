@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -23,17 +24,12 @@ const (
 	PointSectionDepotEntry PointSection = "depot_entry"
 )
 
+// Timetable owns its trains. Operation plans reference a timetable separately.
 type Timetable struct {
-	ID          string `gorm:"primaryKey;not null" json:"id"`
-	DisplayName string `gorm:"not null" json:"displayName"`
-	Revision    int64  `gorm:"not null;default:0;check:revision >= 0" json:"revision"`
-
-	// DBでは臨時列車の紐づけ。LoadTimetableでは運用の所属列車も含める。
-	Trains                []TimetableTrain `gorm:"many2many:timetable_train_links;foreignKey:ID;joinForeignKey:TimetableID;references:TrainNumber;joinReferences:TrainNumber;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"trains"`
-	TemporaryTrainNumbers []string         `gorm:"-" json:"temporaryTrainNumbers"`
-
-	// 平日・休日など、複数のダイヤから同じ運用定義を共有する。
-	Operations []TimetableOperation `gorm:"many2many:timetable_operation_links;foreignKey:ID;joinForeignKey:TimetableID;references:OperationNumber;joinReferences:OperationNumber;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"operations"`
+	ID          string           `gorm:"primaryKey;not null" json:"id"`
+	DisplayName string           `gorm:"not null" json:"displayName"`
+	Revision    int64            `gorm:"not null;default:0;check:revision >= 0" json:"revision"`
+	Trains      []TimetableTrain `gorm:"foreignKey:TimetableID;constraint:OnDelete:CASCADE" json:"trains"`
 }
 
 func (t *Timetable) BeforeCreate(_ *gorm.DB) error {
@@ -43,40 +39,73 @@ func (t *Timetable) BeforeCreate(_ *gorm.DB) error {
 	return nil
 }
 
-// TimetableOperationはダイヤ間で共有する所定の運用定義。
+type TimetableOperationPlan struct {
+	ID          string               `gorm:"primaryKey;not null;uniqueIndex:idx_plan_scope,priority:1" json:"id"`
+	TimetableID string               `gorm:"not null;index;uniqueIndex:idx_plan_scope,priority:2" json:"timetableId"`
+	DisplayName string               `gorm:"not null" json:"displayName"`
+	Timetable   Timetable            `gorm:"foreignKey:TimetableID;constraint:OnDelete:CASCADE" json:"-"`
+	Operations  []TimetableOperation `gorm:"foreignKey:OperationPlanID;constraint:OnDelete:CASCADE" json:"operations"`
+}
+
+func (p *TimetableOperationPlan) BeforeCreate(_ *gorm.DB) error {
+	if p.ID == "" {
+		p.ID = uuid.NewString()
+	}
+	return nil
+}
+
 type TimetableOperation struct {
-	OperationNumber string `gorm:"primaryKey;not null;check:trim(operation_number) <> ''" json:"operationNumber"`
-
-	Trains []TimetableOperationTrain `gorm:"foreignKey:OperationNumber;references:OperationNumber;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"trains"`
+	ID              string                    `gorm:"primaryKey;not null;uniqueIndex:idx_operation_scope,priority:1" json:"id"`
+	OperationPlanID string                    `gorm:"not null;uniqueIndex:idx_operation_number,priority:1;uniqueIndex:idx_operation_scope,priority:2" json:"operationPlanId"`
+	TimetableID     string                    `gorm:"not null;uniqueIndex:idx_operation_scope,priority:3" json:"timetableId"`
+	OperationNumber string                    `gorm:"not null;uniqueIndex:idx_operation_number,priority:2;check:trim(operation_number) <> ''" json:"operationNumber"`
+	Plan            TimetableOperationPlan    `gorm:"foreignKey:OperationPlanID,TimetableID;references:ID,TimetableID;constraint:OnDelete:CASCADE" json:"-"`
+	Trains          []TimetableOperationTrain `gorm:"foreignKey:OperationID;constraint:OnDelete:CASCADE" json:"trains"`
 }
 
-// TimetableOperationTrainは運用内の列車とその順序を保持する。
-// 同じ列車定義を別の運用へ組み込む場合も、順序はこの関連ごとに指定する。
+func (o *TimetableOperation) BeforeCreate(_ *gorm.DB) error {
+	if o.ID == "" {
+		o.ID = uuid.NewString()
+	}
+	return nil
+}
+
+// Scope columns enforce membership and prevent assigning a train twice in one plan.
 type TimetableOperationTrain struct {
-	OperationNumber string `gorm:"primaryKey;not null;uniqueIndex:idx_operation_train_sequence,priority:1;check:trim(operation_number) <> ''" json:"operationNumber"`
-	TrainNumber     string `gorm:"primaryKey;not null;check:trim(train_number) <> ''" json:"trainNumber"`
-	SequenceIndex   int    `gorm:"not null;uniqueIndex:idx_operation_train_sequence,priority:2;check:sequence_index >= 0" json:"sequenceIndex"`
-
-	// 関連行は列車を参照する。運用削除時も、共有する列車定義は削除しない。
-	Train TimetableTrain `gorm:"belongsTo:Train;foreignKey:TrainNumber;references:TrainNumber;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"train"`
+	OperationID     string             `gorm:"primaryKey;not null;uniqueIndex:idx_operation_train_sequence,priority:1" json:"operationId"`
+	TrainID         string             `gorm:"primaryKey;not null;uniqueIndex:idx_plan_train,priority:2" json:"trainId"`
+	OperationPlanID string             `gorm:"not null;uniqueIndex:idx_plan_train,priority:1" json:"operationPlanId"`
+	TimetableID     string             `gorm:"not null" json:"timetableId"`
+	SequenceIndex   int                `gorm:"not null;uniqueIndex:idx_operation_train_sequence,priority:2;check:sequence_index >= 0" json:"sequenceIndex"`
+	Operation       TimetableOperation `gorm:"foreignKey:OperationID,OperationPlanID,TimetableID;references:ID,OperationPlanID,TimetableID;constraint:OnDelete:CASCADE" json:"-"`
+	Train           TimetableTrain     `gorm:"foreignKey:TrainID,TimetableID;references:ID,TimetableID;constraint:OnDelete:CASCADE" json:"train"`
 }
 
-// TimetableTrainは列番で識別する共通の列車定義。時刻・経路も共有される。
+// Train numbers are labels; UUIDs identify trains even when numbers repeat.
 type TimetableTrain struct {
-	TrainNumber          string  `gorm:"primaryKey;not null;check:trim(train_number) <> ''" json:"trainNumber"`
-	TrainTypeID          string  `gorm:"default:null;index;check:trim(train_type_id) <> ''" json:"trainTypeId"`
-	OriginStationID      string  `gorm:"default:null;index;check:trim(origin_station_id) <> ''" json:"originStationId"`
-	DestinationStationID string  `gorm:"default:null;index;check:trim(destination_station_id) <> ''" json:"destinationStationId"`
-	OriginStation        Station `gorm:"belongsTo:OriginStation;foreignKey:OriginStationID;references:StationID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"-"`
-	DestinationStation   Station `gorm:"belongsTo:DestinationStation;foreignKey:DestinationStationID;references:StationID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"-"`
+	ID                   string           `gorm:"primaryKey;not null;uniqueIndex:idx_train_scope,priority:1" json:"id"`
+	TimetableID          string           `gorm:"not null;index;uniqueIndex:idx_train_scope,priority:2" json:"timetableId"`
+	TrainNumber          string           `gorm:"not null;index;check:trim(train_number) <> ''" json:"trainNumber"`
+	Timetable            Timetable        `gorm:"foreignKey:TimetableID;constraint:OnDelete:CASCADE" json:"-"`
+	TrainTypeID          string           `gorm:"default:null;index;check:trim(train_type_id) <> ''" json:"trainTypeId"`
+	OriginStationID      string           `gorm:"default:null;index;check:trim(origin_station_id) <> ''" json:"originStationId"`
+	DestinationStationID string           `gorm:"default:null;index;check:trim(destination_station_id) <> ''" json:"destinationStationId"`
+	OriginStation        Station          `gorm:"foreignKey:OriginStationID;references:StationID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"-"`
+	DestinationStation   Station          `gorm:"foreignKey:DestinationStationID;references:StationID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"-"`
+	TrainType            TrainType        `gorm:"belongsTo:TrainType;foreignKey:TrainTypeID;references:TrainTypeID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"trainType"`
+	Points               []TimetablePoint `gorm:"foreignKey:TrainID;references:ID;constraint:OnDelete:CASCADE" json:"points"`
+}
 
-	TrainType TrainType        `gorm:"belongsTo:TrainType;foreignKey:TrainTypeID;references:TrainTypeID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT" json:"trainType"`
-	Points    []TimetablePoint `gorm:"foreignKey:TrainNumber;references:TrainNumber;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"points"`
+func (t *TimetableTrain) BeforeCreate(_ *gorm.DB) error {
+	if t.ID == "" {
+		t.ID = uuid.NewString()
+	}
+	return nil
 }
 
 type TimetablePoint struct {
 	TimetablePointID int64         `gorm:"primaryKey" json:"timetablePointId"`
-	TrainNumber      string        `gorm:"not null;uniqueIndex:idx_train_point_sequence,priority:1;check:trim(train_number) <> ''" json:"trainNumber"`
+	TrainID          string        `gorm:"not null;uniqueIndex:idx_train_point_sequence,priority:1" json:"trainId"`
 	SequenceIndex    int           `gorm:"not null;uniqueIndex:idx_train_point_sequence,priority:2;check:sequence_index >= 0" json:"sequenceIndex"`
 	Section          PointSection  `gorm:"type:text;not null;default:'service';check:section IN ('service','depot_exit','depot_entry')" json:"section"`
 	StationID        *string       `gorm:"index;check:station_id IS NULL OR trim(station_id) <> ''" json:"stationId"`

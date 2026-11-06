@@ -1,0 +1,160 @@
+{
+  "stationId": "NT13",
+  "stationTracks": [
+    {
+      "trackId": "1",
+      "displayName": "1番線",
+      "trackCircuitId": "NT13_DT"
+    },
+    {
+      "trackId": "2",
+      "displayName": "2番線",
+      "trackCircuitId": "NT13_UT"
+    }
+  ],
+  "geometries": [],
+  "nodes": [
+    {
+      "nodeId": "NT13_entry1",
+      "connectedEdgeIds": [
+        "NT12_NT13_down",
+        "NT13_track1"
+      ]
+    },
+    {
+      "nodeId": "NT13_entry2",
+      "connectedEdgeIds": [
+        "NT12_NT13_up",
+        "NT13_track2"
+      ]
+    },
+    {
+      "nodeId": "NT13_exit1",
+      "connectedEdgeIds": [
+        "NT13_track1",
+        "NT13_NT14_down"
+      ]
+    },
+    {
+      "nodeId": "NT13_exit2",
+      "connectedEdgeIds": [
+        "NT13_track2",
+        "NT13_NT14_up"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "NT13_track1",
+      "nodeAId": "NT13_entry1",
+      "nodeBId": "NT13_exit1",
+      "travelDirection": 1,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 13930,
+      "endDistanceOnGeometryM": 14150,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 13930,
+          "endDistanceOnGeometryM": 14150,
+          "offsetM": 0
+        }
+      ]
+    },
+    {
+      "edgeId": "NT13_track2",
+      "nodeAId": "NT13_entry2",
+      "nodeBId": "NT13_exit2",
+      "travelDirection": 2,
+      "geometryId": "NT01_baseline",
+      "startDistanceOnGeometryM": 13930,
+      "endDistanceOnGeometryM": 14150,
+      "offsetSegments": [
+        {
+          "type": "Constant",
+          "startDistanceOnGeometryM": 13930,
+          "endDistanceOnGeometryM": 14150,
+          "offsetM": 4
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "connectionId": "NT13_entry1_connection",
+      "nodeId": "NT13_entry1",
+      "edgePairs": [
+        {
+          "pairId": "NT13_entry1_connection_fixed",
+          "edgeAId": "NT13_track1",
+          "edgeBId": "NT12_NT13_down",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT13_exit1_connection",
+      "nodeId": "NT13_exit1",
+      "edgePairs": [
+        {
+          "pairId": "NT13_exit1_connection_fixed",
+          "edgeAId": "NT13_track1",
+          "edgeBId": "NT13_NT14_down",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT13_entry2_connection",
+      "nodeId": "NT13_entry2",
+      "edgePairs": [
+        {
+          "pairId": "NT13_entry2_connection_fixed",
+          "edgeAId": "NT13_track2",
+          "edgeBId": "NT12_NT13_up",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT13_exit2_connection",
+      "nodeId": "NT13_exit2",
+      "edgePairs": [
+        {
+          "pairId": "NT13_exit2_connection_fixed",
+          "edgeAId": "NT13_track2",
+          "edgeBId": "NT13_NT14_up",
+          "condition": 1
+        }
+      ]
+    }
+  ],
+  "circuits": [
+    {
+      "circuitId": "NT13_DT",
+      "displayName": "1RT",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT13_track1",
+          "startDistanceOnGeometryM": 13930,
+          "endDistanceOnGeometryM": 14150
+        }
+      ],
+      "toCircuitId": "NT13_NT14_D1T"
+    },
+    {
+      "circuitId": "NT13_UT",
+      "displayName": "2LT",
+      "controlKind": "Block",
+      "sections": [
+        {
+          "edgeId": "NT13_track2",
+          "startDistanceOnGeometryM": 13930,
+          "endDistanceOnGeometryM": 14150
+        }
+      ],
+      "toCircuitId": "NT12_NT13_U4T"
+    }
+  ]
+}

@@ -22,6 +22,9 @@ func MigrateModels(db *gorm.DB) error {
 				}
 			}()
 		}
+		if err := resetLegacyTimetableSchema(tx); err != nil {
+			return err
+		}
 		return migrateModels(tx)
 	})
 }
@@ -30,7 +33,7 @@ func migrateModels(db *gorm.DB) error {
 	if err := db.AutoMigrate(
 		&TrainType{}, &Station{}, &TrackCircuit{}, &Route{}, &StationTrack{},
 		&TimetableTrain{}, &TimetablePoint{}, &TimetablePointRoute{},
-		&TimetableOperation{}, &TimetableOperationTrain{}, &Timetable{},
+		&Timetable{}, &TimetableOperationPlan{}, &TimetableOperation{}, &TimetableOperationTrain{},
 		&StationRunningTime{}, &TrainTypeStation{},
 		&RunningPattern{}, &RunningPatternPoint{},
 	); err != nil {

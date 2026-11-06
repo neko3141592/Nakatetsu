@@ -39,6 +39,14 @@ def export(station_id):
     graph_path = ROOT / "SourceAssets/Track/Network/NakatetsuTrackGraph" / graph_kind / f"{station_id}.json"
     graph = json.loads(graph_path.read_text())
     circuit_definitions = {circuit["circuitId"]: circuit for circuit in graph["circuits"]}
+    # A station's entry/exit buttons can refer to the adjoining block circuit.
+    network_dir = graph_path.parent.parent
+    manifest = json.loads((network_dir / "graph.json").read_text())
+    known_circuit_ids = {
+        circuit["circuitId"]
+        for file in manifest["files"]
+        for circuit in json.loads((network_dir / file).read_text()).get("circuits", [])
+    }
     turnout_connections = [
         connection for connection in graph["connections"]
         if any(pair["condition"] in (2, 3) for pair in connection["edgePairs"])
@@ -76,7 +84,7 @@ def export(station_id):
     def origin_target(cell):
         circuit_id = cell.get("id").removeprefix("Origin_")
         direction = None
-        if circuit_id not in circuit_definitions and circuit_id.endswith(("_R", "_L")):
+        if circuit_id not in known_circuit_ids and circuit_id.endswith(("_R", "_L")):
             circuit_id, direction = circuit_id.rsplit("_", 1)
         return circuit_id, direction
 
@@ -237,7 +245,7 @@ def export(station_id):
         destinations_by_circuit_id[circuit_id] = definition
     for destination in destinations:
         circuit_id = destination.get("id").removeprefix("Destination_")
-        if circuit_id not in circuit_definitions:
+        if circuit_id not in known_circuit_ids:
             raise ValueError(f"Unknown destination track circuit: {circuit_id}")
         if circuit_id not in destinations_by_circuit_id:
             raise ValueError(f"Track circuit is not registered as a destination: {circuit_id}")
@@ -246,7 +254,7 @@ def export(station_id):
     for cell in origins:
         marker_id = cell.get("id")
         circuit_id, direction = origin_target(cell)
-        if circuit_id not in circuit_definitions or circuit_id not in start_circuit_ids:
+        if circuit_id not in known_circuit_ids or circuit_id not in start_circuit_ids:
             raise ValueError(f"Unknown route start track circuit for origin {marker_id}: {circuit_id}")
         if direction and not any(route["startTrackCircuitId"] == circuit_id and re.match(fr"\d+{direction}", route["routeId"]) for route in interlocking["routes"]):
             raise ValueError(f"No route in direction {direction} for origin: {marker_id}")

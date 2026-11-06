@@ -1,0 +1,2404 @@
+{
+  "notes": [
+    "中鉄中央12時台発の下り各停8本。待避・折返し・入出庫は未設定。",
+    "小泉公園以遠の各停発車間隔を10分とした基準線。優等列車に合わせて後から待避を追加する。"
+  ],
+  "timetable": {
+    "id": "daytime-local-sketch-20261103",
+    "displayName": "昼間案：各停・下り（待避なし）",
+    "revision": 0,
+    "trains": [
+      {
+        "trainNumber": "5101",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT07",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1094,
+            "trainNumber": "5101",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 43380,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1094,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1095,
+            "trainNumber": "5101",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 43500,
+            "departureSeconds": 43530,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1096,
+            "trainNumber": "5101",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 43615,
+            "departureSeconds": 43645,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1097,
+            "trainNumber": "5101",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 43730,
+            "departureSeconds": 43760,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1097,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1098,
+            "trainNumber": "5101",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 43830,
+            "departureSeconds": 43860,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1098,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1099,
+            "trainNumber": "5101",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 43955,
+            "departureSeconds": 43985,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1099,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1099,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1100,
+            "trainNumber": "5101",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44090,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5103",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT14",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1101,
+            "trainNumber": "5103",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 43720,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1101,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1102,
+            "trainNumber": "5103",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 43840,
+            "departureSeconds": 43870,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1103,
+            "trainNumber": "5103",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 43955,
+            "departureSeconds": 43985,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1104,
+            "trainNumber": "5103",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 44070,
+            "departureSeconds": 44100,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1104,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1105,
+            "trainNumber": "5103",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44170,
+            "departureSeconds": 44200,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1105,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1106,
+            "trainNumber": "5103",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 44295,
+            "departureSeconds": 44325,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1106,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1106,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1107,
+            "trainNumber": "5103",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44430,
+            "departureSeconds": 44460,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1107,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "5RJ",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1108,
+            "trainNumber": "5103",
+            "sequenceIndex": 7,
+            "section": "service",
+            "stationId": "NT08",
+            "trackCircuitId": "NT08_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44565,
+            "departureSeconds": 44595,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1109,
+            "trainNumber": "5103",
+            "sequenceIndex": 8,
+            "section": "service",
+            "stationId": "NT09",
+            "trackCircuitId": "NT09_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44670,
+            "departureSeconds": 44700,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1110,
+            "trainNumber": "5103",
+            "sequenceIndex": 9,
+            "section": "service",
+            "stationId": "NT10",
+            "trackCircuitId": "NT10_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44785,
+            "departureSeconds": 44815,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1110,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "2RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1110,
+                "sequenceIndex": 1,
+                "controlStationId": "NT11",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1111,
+            "trainNumber": "5103",
+            "sequenceIndex": 10,
+            "section": "service",
+            "stationId": "NT11",
+            "trackCircuitId": "NT11_1RT",
+            "handling": "stop",
+            "arrivalSeconds": 44900,
+            "departureSeconds": 44930,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1111,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "5R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1112,
+            "trainNumber": "5103",
+            "sequenceIndex": 11,
+            "section": "service",
+            "stationId": "NT12",
+            "trackCircuitId": "NT12_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45050,
+            "departureSeconds": 45080,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1113,
+            "trainNumber": "5103",
+            "sequenceIndex": 12,
+            "section": "service",
+            "stationId": "NT13",
+            "trackCircuitId": "NT13_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45180,
+            "departureSeconds": 45210,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1113,
+                "sequenceIndex": 0,
+                "controlStationId": "NT14",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1114,
+            "trainNumber": "5103",
+            "sequenceIndex": 13,
+            "section": "service",
+            "stationId": "NT14",
+            "trackCircuitId": "NT14_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45340,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5105",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT11",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1115,
+            "trainNumber": "5105",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 44320,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1115,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1116,
+            "trainNumber": "5105",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 44440,
+            "departureSeconds": 44470,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1117,
+            "trainNumber": "5105",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 44555,
+            "departureSeconds": 44585,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1118,
+            "trainNumber": "5105",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 44670,
+            "departureSeconds": 44700,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1118,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1119,
+            "trainNumber": "5105",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 44770,
+            "departureSeconds": 44800,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1119,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1120,
+            "trainNumber": "5105",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 44895,
+            "departureSeconds": 44925,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1120,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1120,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1121,
+            "trainNumber": "5105",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45030,
+            "departureSeconds": 45060,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1121,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "5RJ",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1122,
+            "trainNumber": "5105",
+            "sequenceIndex": 7,
+            "section": "service",
+            "stationId": "NT08",
+            "trackCircuitId": "NT08_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45165,
+            "departureSeconds": 45195,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1123,
+            "trainNumber": "5105",
+            "sequenceIndex": 8,
+            "section": "service",
+            "stationId": "NT09",
+            "trackCircuitId": "NT09_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45270,
+            "departureSeconds": 45300,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1124,
+            "trainNumber": "5105",
+            "sequenceIndex": 9,
+            "section": "service",
+            "stationId": "NT10",
+            "trackCircuitId": "NT10_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45385,
+            "departureSeconds": 45415,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1124,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "2RF",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1124,
+                "sequenceIndex": 1,
+                "controlStationId": "NT11",
+                "routeId": "4R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1125,
+            "trainNumber": "5105",
+            "sequenceIndex": 10,
+            "section": "service",
+            "stationId": "NT11",
+            "trackCircuitId": "NT11_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45500,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5107",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT14",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1126,
+            "trainNumber": "5107",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 44920,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1126,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1127,
+            "trainNumber": "5107",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45040,
+            "departureSeconds": 45070,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1128,
+            "trainNumber": "5107",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45155,
+            "departureSeconds": 45185,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1129,
+            "trainNumber": "5107",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45270,
+            "departureSeconds": 45300,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1129,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1130,
+            "trainNumber": "5107",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45370,
+            "departureSeconds": 45400,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1130,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1131,
+            "trainNumber": "5107",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45495,
+            "departureSeconds": 45525,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1131,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1131,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1132,
+            "trainNumber": "5107",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45630,
+            "departureSeconds": 45660,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1132,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "5RJ",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1133,
+            "trainNumber": "5107",
+            "sequenceIndex": 7,
+            "section": "service",
+            "stationId": "NT08",
+            "trackCircuitId": "NT08_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45765,
+            "departureSeconds": 45795,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1134,
+            "trainNumber": "5107",
+            "sequenceIndex": 8,
+            "section": "service",
+            "stationId": "NT09",
+            "trackCircuitId": "NT09_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45870,
+            "departureSeconds": 45900,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1135,
+            "trainNumber": "5107",
+            "sequenceIndex": 9,
+            "section": "service",
+            "stationId": "NT10",
+            "trackCircuitId": "NT10_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45985,
+            "departureSeconds": 46015,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1135,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "2RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1135,
+                "sequenceIndex": 1,
+                "controlStationId": "NT11",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1136,
+            "trainNumber": "5107",
+            "sequenceIndex": 10,
+            "section": "service",
+            "stationId": "NT11",
+            "trackCircuitId": "NT11_1RT",
+            "handling": "stop",
+            "arrivalSeconds": 46100,
+            "departureSeconds": 46130,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1136,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "5R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1137,
+            "trainNumber": "5107",
+            "sequenceIndex": 11,
+            "section": "service",
+            "stationId": "NT12",
+            "trackCircuitId": "NT12_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46250,
+            "departureSeconds": 46280,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1138,
+            "trainNumber": "5107",
+            "sequenceIndex": 12,
+            "section": "service",
+            "stationId": "NT13",
+            "trackCircuitId": "NT13_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46380,
+            "departureSeconds": 46410,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1138,
+                "sequenceIndex": 0,
+                "controlStationId": "NT14",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1139,
+            "trainNumber": "5107",
+            "sequenceIndex": 13,
+            "section": "service",
+            "stationId": "NT14",
+            "trackCircuitId": "NT14_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46540,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5109",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT07",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1140,
+            "trainNumber": "5109",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 45180,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1140,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1141,
+            "trainNumber": "5109",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45300,
+            "departureSeconds": 45330,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1142,
+            "trainNumber": "5109",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45415,
+            "departureSeconds": 45445,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1143,
+            "trainNumber": "5109",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45530,
+            "departureSeconds": 45560,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1143,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1144,
+            "trainNumber": "5109",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45630,
+            "departureSeconds": 45660,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1144,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1145,
+            "trainNumber": "5109",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45755,
+            "departureSeconds": 45785,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1145,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1145,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1146,
+            "trainNumber": "5109",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45890,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5111",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT14",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1147,
+            "trainNumber": "5111",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 45520,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1147,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1148,
+            "trainNumber": "5111",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45640,
+            "departureSeconds": 45670,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1149,
+            "trainNumber": "5111",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45755,
+            "departureSeconds": 45785,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1150,
+            "trainNumber": "5111",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 45870,
+            "departureSeconds": 45900,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1150,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1151,
+            "trainNumber": "5111",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 45970,
+            "departureSeconds": 46000,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1151,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1152,
+            "trainNumber": "5111",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46095,
+            "departureSeconds": 46125,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1152,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1152,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1153,
+            "trainNumber": "5111",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46230,
+            "departureSeconds": 46260,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1153,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "5RJ",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1154,
+            "trainNumber": "5111",
+            "sequenceIndex": 7,
+            "section": "service",
+            "stationId": "NT08",
+            "trackCircuitId": "NT08_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46365,
+            "departureSeconds": 46395,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1155,
+            "trainNumber": "5111",
+            "sequenceIndex": 8,
+            "section": "service",
+            "stationId": "NT09",
+            "trackCircuitId": "NT09_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46470,
+            "departureSeconds": 46500,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1156,
+            "trainNumber": "5111",
+            "sequenceIndex": 9,
+            "section": "service",
+            "stationId": "NT10",
+            "trackCircuitId": "NT10_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46585,
+            "departureSeconds": 46615,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1156,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "2RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1156,
+                "sequenceIndex": 1,
+                "controlStationId": "NT11",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1157,
+            "trainNumber": "5111",
+            "sequenceIndex": 10,
+            "section": "service",
+            "stationId": "NT11",
+            "trackCircuitId": "NT11_1RT",
+            "handling": "stop",
+            "arrivalSeconds": 46700,
+            "departureSeconds": 46730,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1157,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "5R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1158,
+            "trainNumber": "5111",
+            "sequenceIndex": 11,
+            "section": "service",
+            "stationId": "NT12",
+            "trackCircuitId": "NT12_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46850,
+            "departureSeconds": 46880,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1159,
+            "trainNumber": "5111",
+            "sequenceIndex": 12,
+            "section": "service",
+            "stationId": "NT13",
+            "trackCircuitId": "NT13_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46980,
+            "departureSeconds": 47010,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1159,
+                "sequenceIndex": 0,
+                "controlStationId": "NT14",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1160,
+            "trainNumber": "5111",
+            "sequenceIndex": 13,
+            "section": "service",
+            "stationId": "NT14",
+            "trackCircuitId": "NT14_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47140,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5113",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT11",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1161,
+            "trainNumber": "5113",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 46120,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1161,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1162,
+            "trainNumber": "5113",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46240,
+            "departureSeconds": 46270,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1163,
+            "trainNumber": "5113",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46355,
+            "departureSeconds": 46385,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1164,
+            "trainNumber": "5113",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46470,
+            "departureSeconds": 46500,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1164,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1165,
+            "trainNumber": "5113",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46570,
+            "departureSeconds": 46600,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1165,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1166,
+            "trainNumber": "5113",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46695,
+            "departureSeconds": 46725,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1166,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1166,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1167,
+            "trainNumber": "5113",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46830,
+            "departureSeconds": 46860,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1167,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "5RJ",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1168,
+            "trainNumber": "5113",
+            "sequenceIndex": 7,
+            "section": "service",
+            "stationId": "NT08",
+            "trackCircuitId": "NT08_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 46965,
+            "departureSeconds": 46995,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1169,
+            "trainNumber": "5113",
+            "sequenceIndex": 8,
+            "section": "service",
+            "stationId": "NT09",
+            "trackCircuitId": "NT09_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47070,
+            "departureSeconds": 47100,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1170,
+            "trainNumber": "5113",
+            "sequenceIndex": 9,
+            "section": "service",
+            "stationId": "NT10",
+            "trackCircuitId": "NT10_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47185,
+            "departureSeconds": 47215,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1170,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "2RF",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1170,
+                "sequenceIndex": 1,
+                "controlStationId": "NT11",
+                "routeId": "4R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1171,
+            "trainNumber": "5113",
+            "sequenceIndex": 10,
+            "section": "service",
+            "stationId": "NT11",
+            "trackCircuitId": "NT11_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47300,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      },
+      {
+        "trainNumber": "5115",
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "originStationId": "NT01",
+        "destinationStationId": "NT14",
+        "trainType": {
+          "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+          "displayName": "各停",
+          "color": "#858585"
+        },
+        "points": [
+          {
+            "timetablePointId": 1172,
+            "trainNumber": "5115",
+            "sequenceIndex": 0,
+            "section": "service",
+            "stationId": "NT01",
+            "trackCircuitId": "NT01_1RT",
+            "handling": "stop",
+            "arrivalSeconds": null,
+            "departureSeconds": 46720,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1172,
+                "sequenceIndex": 0,
+                "controlStationId": "NT01",
+                "routeId": "1R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1173,
+            "trainNumber": "5115",
+            "sequenceIndex": 1,
+            "section": "service",
+            "stationId": "NT02",
+            "trackCircuitId": "NT02_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46840,
+            "departureSeconds": 46870,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1174,
+            "trainNumber": "5115",
+            "sequenceIndex": 2,
+            "section": "service",
+            "stationId": "NT03",
+            "trackCircuitId": "NT03_DT",
+            "handling": "stop",
+            "arrivalSeconds": 46955,
+            "departureSeconds": 46985,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1175,
+            "trainNumber": "5115",
+            "sequenceIndex": 3,
+            "section": "service",
+            "stationId": "NT04",
+            "trackCircuitId": "NT04_DT",
+            "handling": "stop",
+            "arrivalSeconds": 47070,
+            "departureSeconds": 47100,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1175,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1176,
+            "trainNumber": "5115",
+            "sequenceIndex": 4,
+            "section": "service",
+            "stationId": "NT05",
+            "trackCircuitId": "NT05_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47170,
+            "departureSeconds": 47200,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1176,
+                "sequenceIndex": 0,
+                "controlStationId": "NT05",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1177,
+            "trainNumber": "5115",
+            "sequenceIndex": 5,
+            "section": "service",
+            "stationId": "NT06",
+            "trackCircuitId": "NT06_DT",
+            "handling": "stop",
+            "arrivalSeconds": 47295,
+            "departureSeconds": 47325,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1177,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "1RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1177,
+                "sequenceIndex": 1,
+                "controlStationId": "NT07",
+                "routeId": "2RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1178,
+            "trainNumber": "5115",
+            "sequenceIndex": 6,
+            "section": "service",
+            "stationId": "NT07",
+            "trackCircuitId": "NT07_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47430,
+            "departureSeconds": 47460,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1178,
+                "sequenceIndex": 0,
+                "controlStationId": "NT07",
+                "routeId": "5RJ",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1179,
+            "trainNumber": "5115",
+            "sequenceIndex": 7,
+            "section": "service",
+            "stationId": "NT08",
+            "trackCircuitId": "NT08_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47565,
+            "departureSeconds": 47595,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1180,
+            "trainNumber": "5115",
+            "sequenceIndex": 8,
+            "section": "service",
+            "stationId": "NT09",
+            "trackCircuitId": "NT09_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47670,
+            "departureSeconds": 47700,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1181,
+            "trainNumber": "5115",
+            "sequenceIndex": 9,
+            "section": "service",
+            "stationId": "NT10",
+            "trackCircuitId": "NT10_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 47785,
+            "departureSeconds": 47815,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1181,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "2RE",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              },
+              {
+                "timetablePointId": 1181,
+                "sequenceIndex": 1,
+                "controlStationId": "NT11",
+                "routeId": "3R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1182,
+            "trainNumber": "5115",
+            "sequenceIndex": 10,
+            "section": "service",
+            "stationId": "NT11",
+            "trackCircuitId": "NT11_1RT",
+            "handling": "stop",
+            "arrivalSeconds": 47900,
+            "departureSeconds": 47930,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1182,
+                "sequenceIndex": 0,
+                "controlStationId": "NT11",
+                "routeId": "5R",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1183,
+            "trainNumber": "5115",
+            "sequenceIndex": 11,
+            "section": "service",
+            "stationId": "NT12",
+            "trackCircuitId": "NT12_DT",
+            "handling": "stop",
+            "arrivalSeconds": 48050,
+            "departureSeconds": 48080,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          },
+          {
+            "timetablePointId": 1184,
+            "trainNumber": "5115",
+            "sequenceIndex": 12,
+            "section": "service",
+            "stationId": "NT13",
+            "trackCircuitId": "NT13_DT",
+            "handling": "stop",
+            "arrivalSeconds": 48180,
+            "departureSeconds": 48210,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": [
+              {
+                "timetablePointId": 1184,
+                "sequenceIndex": 0,
+                "controlStationId": "NT14",
+                "routeId": "1RB",
+                "route": {
+                  "controlStationId": "",
+                  "routeId": ""
+                }
+              }
+            ]
+          },
+          {
+            "timetablePointId": 1185,
+            "trainNumber": "5115",
+            "sequenceIndex": 13,
+            "section": "service",
+            "stationId": "NT14",
+            "trackCircuitId": "NT14_2RT",
+            "handling": "stop",
+            "arrivalSeconds": 48340,
+            "departureSeconds": null,
+            "station": null,
+            "trackCircuit": {
+              "trackCircuitId": "",
+              "displayName": ""
+            },
+            "routes": []
+          }
+        ]
+      }
+    ],
+    "temporaryTrainNumbers": [
+      "5101",
+      "5103",
+      "5105",
+      "5107",
+      "5109",
+      "5111",
+      "5113",
+      "5115"
+    ],
+    "operations": []
+  }
+}

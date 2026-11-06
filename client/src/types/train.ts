@@ -13,7 +13,7 @@ export type TimetablePointRoute = {
 
 export type TimetablePoint = {
   timetablePointId: number;
-  trainNumber: string;
+  trainId: string;
   sequenceIndex: number;
   stationId: string | null;
   section: PointSection;
@@ -27,6 +27,8 @@ export type TimetablePoint = {
 };
 
 export type TimetableTrain = {
+  id: string;
+  timetableId: string;
   trainNumber: string;
   trainTypeId: string;
   originStationId: string;
@@ -35,11 +37,37 @@ export type TimetableTrain = {
   points: TimetablePoint[] | null;
 };
 
-export type TimetableTrainSummary = Pick<TimetableTrain, "trainNumber" | "trainTypeId">;
-export type TimetableTrainBasics = Pick<TimetableTrain, "trainNumber" | "trainTypeId" | "originStationId" | "destinationStationId">;
+export type TimetableTrainSummary = Pick<
+  TimetableTrain,
+  | "id"
+  | "timetableId"
+  | "trainNumber"
+  | "trainTypeId"
+  | "originStationId"
+  | "destinationStationId"
+> & { departureSeconds?: number | null };
+export type TimetableTrainBasics = Pick<
+  TimetableTrain,
+  "trainNumber" | "trainTypeId" | "originStationId" | "destinationStationId"
+>;
 
-export type TimetablePointInput = Pick<TimetablePoint, "sequenceIndex" | "section" | "stationId" | "trackCircuitId" | "handling" | "arrivalSeconds" | "departureSeconds"> & {
-  routes: Pick<TimetablePointRoute, "sequenceIndex" | "controlStationId" | "routeId">[];
+export type TimetablePointInput = Pick<
+  TimetablePoint,
+  | "sequenceIndex"
+  | "section"
+  | "stationId"
+  | "trackCircuitId"
+  | "handling"
+  | "arrivalSeconds"
+  | "departureSeconds"
+> & {
+  routes: Pick<
+    TimetablePointRoute,
+    "sequenceIndex" | "controlStationId" | "routeId"
+  >[];
 };
 
-export type TimetableTrainInput = TimetableTrainBasics & { points: TimetablePointInput[] };
+export type TimetableTrainInput = TimetableTrainBasics & {
+  timetableId: string;
+  points: TimetablePointInput[];
+};

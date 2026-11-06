@@ -54,24 +54,10 @@
       "endDistanceOnGeometryM": 5560,
       "offsetSegments": [
         {
-          "type": "Cubic",
-          "startDistanceOnGeometryM": 4920,
-          "endDistanceOnGeometryM": 5100,
-          "startOffsetM": 0,
-          "endOffsetM": -3
-        },
-        {
           "type": "Constant",
-          "startDistanceOnGeometryM": 5100,
-          "endDistanceOnGeometryM": 5380,
-          "offsetM": -3
-        },
-        {
-          "type": "Cubic",
-          "startDistanceOnGeometryM": 5380,
+          "startDistanceOnGeometryM": 4920,
           "endDistanceOnGeometryM": 5560,
-          "startOffsetM": -3,
-          "endOffsetM": 0
+          "offsetM": 0
         }
       ]
     },
@@ -85,24 +71,10 @@
       "endDistanceOnGeometryM": 5560,
       "offsetSegments": [
         {
-          "type": "Cubic",
-          "startDistanceOnGeometryM": 4920,
-          "endDistanceOnGeometryM": 5100,
-          "startOffsetM": 4,
-          "endOffsetM": 7
-        },
-        {
           "type": "Constant",
-          "startDistanceOnGeometryM": 5100,
-          "endDistanceOnGeometryM": 5380,
-          "offsetM": 7
-        },
-        {
-          "type": "Cubic",
-          "startDistanceOnGeometryM": 5380,
+          "startDistanceOnGeometryM": 4920,
           "endDistanceOnGeometryM": 5560,
-          "startOffsetM": 7,
-          "endOffsetM": 4
+          "offsetM": 4
         }
       ]
     }

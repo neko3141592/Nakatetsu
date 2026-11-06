@@ -80,7 +80,7 @@ func TestLoadPlanBuildsConflictUsages(t *testing.T) {
 	for i := range definitions {
 		definitions[i].RouteClearTrackCircuitIDs = []string{"X"}
 	}
-	if err := db.Model(&timetable.TimetablePoint{}).Where("train_number = ?", "1001").Updates(map[string]any{
+	if err := db.Model(&timetable.TimetablePoint{}).Where("train_id = ?", "1001").Updates(map[string]any{
 		"arrival_seconds":   gorm.Expr("sequence_index * 100"),
 		"departure_seconds": gorm.Expr("sequence_index * 100 + 50"),
 	}).Error; err != nil {
@@ -115,13 +115,13 @@ func TestLoadPlanRejectsUnassignableRoutes(t *testing.T) {
 			return routes
 		}},
 		{"no_departure_point", "no preceding station point", func(db *gorm.DB, routes []ctc.TrackRouteDefinition) []ctc.TrackRouteDefinition {
-			if err := db.Model(&timetable.TimetablePoint{}).Where("train_number = ? AND sequence_index = ?", "1001", 0).Update("station_id", nil).Error; err != nil {
+			if err := db.Model(&timetable.TimetablePoint{}).Where("train_id = ? AND sequence_index = ?", "1001", 0).Update("station_id", nil).Error; err != nil {
 				t.Fatal(err)
 			}
 			return routes
 		}},
 		{"no_arrival_point", "no following station point", func(db *gorm.DB, routes []ctc.TrackRouteDefinition) []ctc.TrackRouteDefinition {
-			if err := db.Model(&timetable.TimetablePoint{}).Where("train_number = ? AND sequence_index = ?", "1001", 2).Update("station_id", nil).Error; err != nil {
+			if err := db.Model(&timetable.TimetablePoint{}).Where("train_id = ? AND sequence_index = ?", "1001", 2).Update("station_id", nil).Error; err != nil {
 				t.Fatal(err)
 			}
 			return routes
@@ -175,7 +175,7 @@ func routeGroupingFixture(t *testing.T) (*gorm.DB, []ctc.TrackRouteDefinition) {
 	}
 	create(t, db, &timetable.Timetable{
 		ID:     "grouping",
-		Trains: []timetable.TimetableTrain{{TrainNumber: "1001", Points: points}},
+		Trains: []timetable.TimetableTrain{{ID: "1001", TrainNumber: "1001", Points: points}},
 	})
 	return db, definitions
 }

@@ -1,19 +1,28 @@
-import type { TimetableTrain } from "@/types/train";
-
+import type { TimetableTrainSummary } from "@/types/train";
 export type TimetableOperationTrain = {
-  operationNumber: string;
-  trainNumber: string;
+  operationId: string;
+  operationPlanId: string;
+  timetableId: string;
+  trainId: string;
   sequenceIndex: number;
-  train: TimetableTrain;
+  train: TimetableTrainSummary;
 };
-
 export type TimetableOperation = {
+  id: string;
+  operationPlanId: string;
+  timetableId: string;
   operationNumber: string;
-  trains: TimetableOperationTrain[] | null;
+  trains: TimetableOperationTrain[];
 };
-
-export type TimetableOperationSummary = Pick<TimetableOperation, "operationNumber">;
-
-export type TimetableOperationDetail = TimetableOperationSummary & {
-  trains: Pick<TimetableOperationTrain, "trainNumber" | "sequenceIndex">[];
+export type TimetableOperationSummary = Pick<
+  TimetableOperation,
+  "id" | "operationPlanId" | "timetableId" | "operationNumber"
+>;
+export type TimetableOperationDetail = TimetableOperation;
+export type OperationPlan = {
+  id: string;
+  timetableId: string;
+  displayName: string;
+  operations: TimetableOperation[];
 };
+export type OperationPlanSummary = Omit<OperationPlan, "operations">;

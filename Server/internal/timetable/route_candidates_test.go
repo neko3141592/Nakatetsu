@@ -110,3 +110,24 @@ func TestRouteKindsDoNotBypassExcludedRoutes(t *testing.T) {
 		}
 	}
 }
+
+func TestBlockCircuitHomeRoute(t *testing.T) {
+	circuits := map[string]ctc.TrackCircuitDefinition{
+		"approach": {ControlKind: ctc.TrackControlBlock, ToCircuitID: "entry"},
+		"entry":    {ControlKind: ctc.TrackControlInterlocking},
+		"platform": {ControlKind: ctc.TrackControlInterlocking},
+	}
+	routes := []ctc.TrackRouteDefinition{{
+		InterlockingStationID: "S", InterlockingRouteID: "1R", Kind: ctc.RouteKindHome,
+		TrackCircuitIDs: []string{"approach", "entry", "platform"},
+	}}
+	got, err := FindRouteCandidates("approach", "platform", circuits, routes, ctc.RouteKindHome)
+	want := [][]ctc.RouteKey{{{StationID: "S", RouteID: "1R"}}}
+	if err != nil || !reflect.DeepEqual(got, want) {
+		t.Fatalf("got=%v, err=%v, want=%v", got, err, want)
+	}
+	// 入換限定の探索では、場内進路や固定接続を経由して入場しない。
+	if _, err := FindRouteCandidates("approach", "entry", circuits, routes, ctc.RouteKindShunting); err == nil {
+		t.Fatal("excluded block-start home route was bypassed")
+	}
+}

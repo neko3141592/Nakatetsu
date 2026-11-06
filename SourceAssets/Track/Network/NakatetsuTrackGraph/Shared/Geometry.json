@@ -3,7 +3,7 @@
     {
       "displayName": "NT01 中鉄中央 車止め基準",
       "trackGeometryId": "NT01_baseline",
-      "lengthM": 16200,
+      "lengthM": 17320,
       "originPosition": {
         "x": 0,
         "y": -12,
@@ -65,159 +65,299 @@
         {
           "type": "Straight",
           "startDistanceM": 2023,
-          "lengthM": 756
+          "lengthM": 256
         },
         {
           "type": "TransitionIn",
-          "startDistanceM": 2779,
-          "lengthM": 50,
-          "radiusM": 1300
+          "startDistanceM": 2279,
+          "lengthM": 100,
+          "radiusM": -600
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 2379,
+          "lengthM": 350,
+          "radiusM": -600
         },
         {
           "type": "TransitionOut",
+          "startDistanceM": 2729,
+          "lengthM": 100,
+          "radiusM": -600
+        },
+        {
+          "type": "Straight",
           "startDistanceM": 2829,
-          "lengthM": 50,
-          "radiusM": 1300
+          "lengthM": 1550
         },
         {
           "type": "TransitionIn",
-          "startDistanceM": 2879,
-          "lengthM": 50,
-          "radiusM": -1300
-        },
-        {
-          "type": "TransitionOut",
-          "startDistanceM": 2929,
-          "lengthM": 50,
-          "radiusM": -1300
-        },
-        {
-          "type": "Straight",
-          "startDistanceM": 2979,
-          "lengthM": 392
-        },
-        {
-          "type": "TransitionIn",
-          "startDistanceM": 3371,
+          "startDistanceM": 4379,
           "lengthM": 100,
-          "radiusM": -550
+          "radiusM": 900
         },
         {
           "type": "Circular",
-          "startDistanceM": 3471,
-          "lengthM": 256,
-          "radiusM": -550
+          "startDistanceM": 4479,
+          "lengthM": 430,
+          "radiusM": 900
         },
         {
           "type": "TransitionOut",
-          "startDistanceM": 3727,
+          "startDistanceM": 4909,
           "lengthM": 100,
-          "radiusM": -550
+          "radiusM": 900
         },
         {
           "type": "Straight",
-          "startDistanceM": 3827,
-          "lengthM": 516
+          "startDistanceM": 5009,
+          "lengthM": 31
         },
         {
           "type": "TransitionIn",
-          "startDistanceM": 4343,
+          "startDistanceM": 5040,
           "lengthM": 100,
-          "radiusM": 550
+          "radiusM": -750
         },
         {
           "type": "Circular",
-          "startDistanceM": 4443,
-          "lengthM": 455,
-          "radiusM": 550
+          "startDistanceM": 5140,
+          "lengthM": 300,
+          "radiusM": -750
         },
         {
           "type": "TransitionOut",
-          "startDistanceM": 4898,
+          "startDistanceM": 5440,
           "lengthM": 100,
-          "radiusM": 550
+          "radiusM": -750
         },
         {
           "type": "Straight",
-          "startDistanceM": 4998,
-          "lengthM": 600
+          "startDistanceM": 5540,
+          "lengthM": 944
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 6484,
+          "lengthM": 100,
+          "radiusM": 650
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 6584,
+          "lengthM": 110,
+          "radiusM": 650
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 6694,
+          "lengthM": 100,
+          "radiusM": 650
         },
         {
           "type": "Straight",
-          "startDistanceM": 5598,
-          "lengthM": 2302
+          "startDistanceM": 6794,
+          "lengthM": 1360
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 8154,
+          "lengthM": 100,
+          "radiusM": 850
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 8254,
+          "lengthM": 526,
+          "radiusM": 850
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 8780,
+          "lengthM": 100,
+          "radiusM": 850
         },
         {
           "type": "Straight",
-          "startDistanceM": 7900,
-          "lengthM": 8300
+          "startDistanceM": 8880,
+          "lengthM": 280
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 9160,
+          "lengthM": 100,
+          "radiusM": -1200
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 9260,
+          "lengthM": 160,
+          "radiusM": -1200
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 9420,
+          "lengthM": 100,
+          "radiusM": -1200
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 9520,
+          "lengthM": 2680
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 12200,
+          "lengthM": 100,
+          "radiusM": 750
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 12300,
+          "lengthM": 110,
+          "radiusM": 750
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 12410,
+          "lengthM": 100,
+          "radiusM": 750
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 12510,
+          "lengthM": 420
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 12930,
+          "lengthM": 100,
+          "radiusM": -750
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 13030,
+          "lengthM": 230,
+          "radiusM": -750
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 13260,
+          "lengthM": 100,
+          "radiusM": -750
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 13360,
+          "lengthM": 870
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 14230,
+          "lengthM": 100,
+          "radiusM": 900
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 14330,
+          "lengthM": 450,
+          "radiusM": 900
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 14780,
+          "lengthM": 100,
+          "radiusM": 900
+        },
+        {
+          "type": "TransitionIn",
+          "startDistanceM": 14880,
+          "lengthM": 100,
+          "radiusM": -900
+        },
+        {
+          "type": "Circular",
+          "startDistanceM": 14980,
+          "lengthM": 330,
+          "radiusM": -900
+        },
+        {
+          "type": "TransitionOut",
+          "startDistanceM": 15310,
+          "lengthM": 100,
+          "radiusM": -900
+        },
+        {
+          "type": "Straight",
+          "startDistanceM": 15410,
+          "lengthM": 1910
         }
       ],
       "verticalSegments": [
         {
           "type": "ConstantGradient",
-          "startDistanceM": 0.0,
-          "lengthM": 620.0,
-          "gradientPermille": 0.0
+          "startDistanceM": 0,
+          "lengthM": 620,
+          "gradientPermille": 0
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 620.0,
-          "lengthM": 100.0,
-          "startGradientPermille": 0.0,
-          "endGradientPermille": -25.0
+          "startDistanceM": 620,
+          "lengthM": 100,
+          "startGradientPermille": 0,
+          "endGradientPermille": -25
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 720.0,
-          "lengthM": 200.0,
-          "gradientPermille": -25.0
+          "startDistanceM": 720,
+          "lengthM": 200,
+          "gradientPermille": -25
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 920.0,
-          "lengthM": 100.0,
-          "startGradientPermille": -25.0,
-          "endGradientPermille": 10.0
+          "startDistanceM": 920,
+          "lengthM": 100,
+          "startGradientPermille": -25,
+          "endGradientPermille": 10
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 1020.0,
-          "lengthM": 150.0,
-          "gradientPermille": 10.0
+          "startDistanceM": 1020,
+          "lengthM": 150,
+          "gradientPermille": 10
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 1170.0,
-          "lengthM": 50.0,
-          "startGradientPermille": 10.0,
-          "endGradientPermille": 0.0
+          "startDistanceM": 1170,
+          "lengthM": 50,
+          "startGradientPermille": 10,
+          "endGradientPermille": 0
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 1220.0,
-          "lengthM": 290.0,
-          "gradientPermille": 0.0
+          "startDistanceM": 1220,
+          "lengthM": 290,
+          "gradientPermille": 0
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 1510.0,
-          "lengthM": 20.0,
-          "startGradientPermille": 0.0,
-          "endGradientPermille": 5.0
+          "startDistanceM": 1510,
+          "lengthM": 20,
+          "startGradientPermille": 0,
+          "endGradientPermille": 5
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 1530.0,
-          "lengthM": 400.0,
-          "gradientPermille": 5.0
+          "startDistanceM": 1530,
+          "lengthM": 400,
+          "gradientPermille": 5
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 1930.0,
-          "lengthM": 20.0,
-          "startGradientPermille": 5.0,
-          "endGradientPermille": -1.0
+          "startDistanceM": 1930,
+          "lengthM": 20,
+          "startGradientPermille": 5,
+          "endGradientPermille": -1
         },
         {
           "type": "ConstantGradient",
@@ -254,33 +394,33 @@
         {
           "type": "LinearGradient",
           "startDistanceM": 2537.5,
-          "lengthM": 50.0,
+          "lengthM": 50,
           "startGradientPermille": -10,
           "endGradientPermille": 0
         },
         {
           "type": "ConstantGradient",
           "startDistanceM": 2587.5,
-          "lengthM": 870.0,
-          "gradientPermille": 0.0
+          "lengthM": 870,
+          "gradientPermille": 0
         },
         {
           "type": "LinearGradient",
           "startDistanceM": 3457.5,
-          "lengthM": 50.0,
-          "startGradientPermille": 0.0,
+          "lengthM": 50,
+          "startGradientPermille": 0,
           "endGradientPermille": 12.5
         },
         {
           "type": "ConstantGradient",
           "startDistanceM": 3507.5,
-          "lengthM": 170.0,
+          "lengthM": 170,
           "gradientPermille": 12.5
         },
         {
           "type": "LinearGradient",
           "startDistanceM": 3677.5,
-          "lengthM": 50.0,
+          "lengthM": 50,
           "startGradientPermille": 12.5,
           "endGradientPermille": 1.5
         },
@@ -319,21 +459,21 @@
         {
           "type": "LinearGradient",
           "startDistanceM": 4427.5,
-          "lengthM": 100.0,
+          "lengthM": 100,
           "startGradientPermille": 1.5,
-          "endGradientPermille": 10.0
+          "endGradientPermille": 10
         },
         {
           "type": "ConstantGradient",
           "startDistanceM": 4527.5,
           "lengthM": 252.75,
-          "gradientPermille": 10.0
+          "gradientPermille": 10
         },
         {
           "type": "LinearGradient",
           "startDistanceM": 4780.25,
-          "lengthM": 100.0,
-          "startGradientPermille": 10.0,
+          "lengthM": 100,
+          "startGradientPermille": 10,
           "endGradientPermille": 2.5
         },
         {
@@ -358,74 +498,74 @@
         {
           "type": "LinearGradient",
           "startDistanceM": 5360.25,
-          "lengthM": 150.0,
+          "lengthM": 150,
           "startGradientPermille": 0,
           "endGradientPermille": 28
         },
         {
           "type": "ConstantGradient",
           "startDistanceM": 5510.25,
-          "lengthM": 470.0,
-          "gradientPermille": 28.0
+          "lengthM": 470,
+          "gradientPermille": 28
         },
         {
           "type": "LinearGradient",
           "startDistanceM": 5980.25,
-          "lengthM": 150.0,
-          "startGradientPermille": 28.0,
-          "endGradientPermille": 0.0
+          "lengthM": 150,
+          "startGradientPermille": 28,
+          "endGradientPermille": 0
         },
         {
           "type": "ConstantGradient",
           "startDistanceM": 6130.25,
           "lengthM": 1124.75,
-          "gradientPermille": 0.0
+          "gradientPermille": 0
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 7255.0,
-          "lengthM": 75.0,
-          "startGradientPermille": 0.0,
-          "endGradientPermille": 17.0
+          "startDistanceM": 7255,
+          "lengthM": 75,
+          "startGradientPermille": 0,
+          "endGradientPermille": 17
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 7330.0,
-          "lengthM": 200.0,
-          "gradientPermille": 17.0
+          "startDistanceM": 7330,
+          "lengthM": 200,
+          "gradientPermille": 17
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 7530.0,
-          "lengthM": 75.0,
-          "startGradientPermille": 17.0,
-          "endGradientPermille": 0.0
+          "startDistanceM": 7530,
+          "lengthM": 75,
+          "startGradientPermille": 17,
+          "endGradientPermille": 0
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 7605.0,
-          "lengthM": 750.0,
-          "gradientPermille": 0.0
+          "startDistanceM": 7605,
+          "lengthM": 750,
+          "gradientPermille": 0
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 8355.0,
-          "lengthM": 50.0,
-          "startGradientPermille": 0.0,
-          "endGradientPermille": -10.0
+          "startDistanceM": 8355,
+          "lengthM": 50,
+          "startGradientPermille": 0,
+          "endGradientPermille": -10
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 8405.0,
-          "lengthM": 150.0,
-          "gradientPermille": -10.0
+          "startDistanceM": 8405,
+          "lengthM": 150,
+          "gradientPermille": -10
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 8555.0,
-          "lengthM": 50.0,
-          "startGradientPermille": -10.0,
-          "endGradientPermille": 0.0
+          "startDistanceM": 8555,
+          "lengthM": 50,
+          "startGradientPermille": -10,
+          "endGradientPermille": 0
         },
         {
           "type": "ConstantGradient",
@@ -449,7 +589,7 @@
         {
           "type": "LinearGradient",
           "startDistanceM": 9597.375,
-          "lengthM": 50.0,
+          "lengthM": 50,
           "startGradientPermille": -5,
           "endGradientPermille": 0
         },
@@ -464,25 +604,129 @@
           "startDistanceM": 11880,
           "lengthM": 100,
           "startGradientPermille": 0,
-          "endGradientPermille": -20
+          "endGradientPermille": -25
         },
         {
           "type": "ConstantGradient",
           "startDistanceM": 11980,
-          "lengthM": 300,
-          "gradientPermille": -20
+          "lengthM": 220,
+          "gradientPermille": -25
         },
         {
           "type": "LinearGradient",
-          "startDistanceM": 12280,
+          "startDistanceM": 12200,
           "lengthM": 100,
-          "startGradientPermille": -20,
+          "startGradientPermille": -25,
           "endGradientPermille": 0
         },
         {
           "type": "ConstantGradient",
-          "startDistanceM": 12380,
-          "lengthM": 3820,
+          "startDistanceM": 12300,
+          "lengthM": 480,
+          "gradientPermille": 0
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 12780,
+          "lengthM": 100,
+          "startGradientPermille": 0,
+          "endGradientPermille": 5
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 12880,
+          "lengthM": 300,
+          "gradientPermille": 5
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 13180,
+          "lengthM": 100,
+          "startGradientPermille": 5,
+          "endGradientPermille": 10
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 13280,
+          "lengthM": 100,
+          "gradientPermille": 10
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 13380,
+          "lengthM": 100,
+          "startGradientPermille": 10,
+          "endGradientPermille": 5
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 13480,
+          "lengthM": 100,
+          "gradientPermille": 5
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 13580,
+          "lengthM": 100,
+          "startGradientPermille": 5,
+          "endGradientPermille": 0
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 13680,
+          "lengthM": 520,
+          "gradientPermille": 0
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 14200,
+          "lengthM": 50,
+          "startGradientPermille": 0,
+          "endGradientPermille": 1.6
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 14250,
+          "lengthM": 100,
+          "gradientPermille": 1.6
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 14350,
+          "lengthM": 50,
+          "startGradientPermille": 1.6,
+          "endGradientPermille": -3.7
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 14400,
+          "lengthM": 800,
+          "gradientPermille": -3.7
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 15200,
+          "lengthM": 50,
+          "startGradientPermille": -3.7,
+          "endGradientPermille": -6
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 15250,
+          "lengthM": 100,
+          "gradientPermille": -6
+        },
+        {
+          "type": "LinearGradient",
+          "startDistanceM": 15350,
+          "lengthM": 50,
+          "startGradientPermille": -6,
+          "endGradientPermille": 0
+        },
+        {
+          "type": "ConstantGradient",
+          "startDistanceM": 15400,
+          "lengthM": 1920,
           "gradientPermille": 0
         }
       ]

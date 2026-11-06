@@ -1,0 +1,131 @@
+{
+  "id": "prc-test-0001",
+  "displayName": "PRC試験：0001レ（中鉄中央→東長野）",
+  "revision": 0,
+  "trains": [
+    {
+      "trainNumber": "0001",
+      "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+      "originStationId": "NT01",
+      "destinationStationId": "NT05",
+      "trainType": {
+        "trainTypeId": "4a8d8d40-05f5-45be-aa2f-fe3b9a28c6dd",
+        "displayName": "各停",
+        "color": "#858585"
+      },
+      "points": [
+        {
+          "timetablePointId": 1089,
+          "trainNumber": "0001",
+          "sequenceIndex": 0,
+          "section": "service",
+          "stationId": "NT01",
+          "trackCircuitId": "NT01_3RT",
+          "handling": "stop",
+          "arrivalSeconds": null,
+          "departureSeconds": 43260,
+          "station": null,
+          "trackCircuit": {
+            "trackCircuitId": "",
+            "displayName": ""
+          },
+          "routes": [
+            {
+              "timetablePointId": 1089,
+              "sequenceIndex": 0,
+              "controlStationId": "NT01",
+              "routeId": "3R",
+              "route": {
+                "controlStationId": "",
+                "routeId": ""
+              }
+            }
+          ]
+        },
+        {
+          "timetablePointId": 1090,
+          "trainNumber": "0001",
+          "sequenceIndex": 1,
+          "section": "service",
+          "stationId": "NT02",
+          "trackCircuitId": "NT02_DT",
+          "handling": "stop",
+          "arrivalSeconds": 43380,
+          "departureSeconds": 43410,
+          "station": null,
+          "trackCircuit": {
+            "trackCircuitId": "",
+            "displayName": ""
+          },
+          "routes": []
+        },
+        {
+          "timetablePointId": 1091,
+          "trainNumber": "0001",
+          "sequenceIndex": 2,
+          "section": "service",
+          "stationId": "NT03",
+          "trackCircuitId": "NT03_DT",
+          "handling": "stop",
+          "arrivalSeconds": 43500,
+          "departureSeconds": 43530,
+          "station": null,
+          "trackCircuit": {
+            "trackCircuitId": "",
+            "displayName": ""
+          },
+          "routes": []
+        },
+        {
+          "timetablePointId": 1092,
+          "trainNumber": "0001",
+          "sequenceIndex": 3,
+          "section": "service",
+          "stationId": "NT04",
+          "trackCircuitId": "NT04_DT",
+          "handling": "stop",
+          "arrivalSeconds": 43620,
+          "departureSeconds": 43650,
+          "station": null,
+          "trackCircuit": {
+            "trackCircuitId": "",
+            "displayName": ""
+          },
+          "routes": [
+            {
+              "timetablePointId": 1092,
+              "sequenceIndex": 0,
+              "controlStationId": "NT05",
+              "routeId": "1RA",
+              "route": {
+                "controlStationId": "",
+                "routeId": ""
+              }
+            }
+          ]
+        },
+        {
+          "timetablePointId": 1093,
+          "trainNumber": "0001",
+          "sequenceIndex": 4,
+          "section": "service",
+          "stationId": "NT05",
+          "trackCircuitId": "NT05_1RT",
+          "handling": "stop",
+          "arrivalSeconds": 43770,
+          "departureSeconds": null,
+          "station": null,
+          "trackCircuit": {
+            "trackCircuitId": "",
+            "displayName": ""
+          },
+          "routes": []
+        }
+      ]
+    }
+  ],
+  "temporaryTrainNumbers": [
+    "0001"
+  ],
+  "operations": []
+}
