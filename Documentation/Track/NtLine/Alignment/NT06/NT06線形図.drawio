@@ -8,10 +8,10 @@
         <mxCell id="c2" value="NT06 山田橋　線形提案" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=27;fontStyle=1;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="22" width="1660" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="c3" value="島式1面2線 ／ ホーム210m・回路220m ／ ホーム中央 s=5240m" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=19;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
+        <mxCell id="c3" value="相対式2面2線 ／ ホーム210m・回路220m ／ ホーム中央 s=5240m" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=19;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="78" width="1660" height="34" as="geometry" />
         </mxCell>
-        <mxCell id="c4" value="NT01車止めからの共通距離s（m）。距離方向2.188px/m、横方向22px/m。2026-10-13線形・回路反映済み／ホームは寸法資料。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=16;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
+        <mxCell id="c4" value="NT01車止めからの共通距離s（m）。距離方向2.188px/m、横方向22px/m。2026-10-27改訂／ホームは寸法資料。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=16;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="119" width="1660" height="32" as="geometry" />
         </mxCell>
         <mxCell id="c5" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#94a3b8;strokeWidth=1;startArrow=none;endArrow=none;" parent="1" edge="1">
@@ -74,547 +74,91 @@
             <mxPoint x="890" y="810" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="c18" value="島式ホーム&#10;210 × 6.6m" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=0;fillColor=#e7edf2;strokeColor=#a6b5c1;spacing=6;" parent="1" vertex="1">
-          <mxGeometry x="660.3125" y="487.4" width="459.375" height="145.2" as="geometry" />
+        <mxCell id="c18" value="1番線ホーム&#10;210 × 3.3m" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=0;fillColor=#e7edf2;strokeColor=#a6b5c1;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="660.3125" y="406" width="459.375" height="72.6" as="geometry" />
         </mxCell>
         <mxCell id="c19" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#007c9b;strokeWidth=3;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="190" y="516" as="sourcePoint" />
             <mxPoint x="1590" y="516" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="193.5" y="515.984448" />
-              <mxPoint x="197" y="515.938164" />
-              <mxPoint x="200.5" y="515.861703" />
-              <mxPoint x="204" y="515.755622" />
-              <mxPoint x="207.5" y="515.620477" />
-              <mxPoint x="211" y="515.456825" />
-              <mxPoint x="214.5" y="515.265221" />
-              <mxPoint x="218" y="515.046222" />
-              <mxPoint x="221.5" y="514.800384" />
-              <mxPoint x="225" y="514.528263" />
-              <mxPoint x="228.5" y="514.230416" />
-              <mxPoint x="232" y="513.907399" />
-              <mxPoint x="235.5" y="513.559768" />
-              <mxPoint x="239" y="513.188079" />
-              <mxPoint x="242.5" y="512.792889" />
-              <mxPoint x="246" y="512.374753" />
-              <mxPoint x="249.5" y="511.934229" />
-              <mxPoint x="253" y="511.471872" />
-              <mxPoint x="256.5" y="510.988238" />
-              <mxPoint x="260" y="510.483885" />
-              <mxPoint x="263.5" y="509.959367" />
-              <mxPoint x="267" y="509.415242" />
-              <mxPoint x="270.5" y="508.852065" />
-              <mxPoint x="274" y="508.270393" />
-              <mxPoint x="277.5" y="507.670782" />
-              <mxPoint x="281" y="507.053788" />
-              <mxPoint x="284.5" y="506.419968" />
-              <mxPoint x="288" y="505.769878" />
-              <mxPoint x="291.5" y="505.104073" />
-              <mxPoint x="295" y="504.423111" />
-              <mxPoint x="298.5" y="503.727548" />
-              <mxPoint x="302" y="503.017939" />
-              <mxPoint x="305.5" y="502.294841" />
-              <mxPoint x="309" y="501.55881" />
-              <mxPoint x="312.5" y="500.810403" />
-              <mxPoint x="316" y="500.050176" />
-              <mxPoint x="319.5" y="499.278685" />
-              <mxPoint x="323" y="498.496486" />
-              <mxPoint x="326.5" y="497.704135" />
-              <mxPoint x="330" y="496.902189" />
-              <mxPoint x="333.5" y="496.091204" />
-              <mxPoint x="337" y="495.271737" />
-              <mxPoint x="340.5" y="494.444343" />
-              <mxPoint x="344" y="493.609578" />
-              <mxPoint x="347.5" y="492.768" />
-              <mxPoint x="351" y="491.920164" />
-              <mxPoint x="354.5" y="491.066626" />
-              <mxPoint x="358" y="490.207943" />
-              <mxPoint x="361.5" y="489.344671" />
-              <mxPoint x="365" y="488.477366" />
-              <mxPoint x="368.5" y="487.606585" />
-              <mxPoint x="372" y="486.732883" />
-              <mxPoint x="375.5" y="485.856818" />
-              <mxPoint x="379" y="484.978944" />
-              <mxPoint x="382.5" y="484.099819" />
-              <mxPoint x="386" y="483.219999" />
-              <mxPoint x="389.5" y="482.340039" />
-              <mxPoint x="393" y="481.460497" />
-              <mxPoint x="396.5" y="480.581928" />
-              <mxPoint x="400" y="479.704889" />
-              <mxPoint x="403.5" y="478.829936" />
-              <mxPoint x="407" y="477.957625" />
-              <mxPoint x="410.5" y="477.088512" />
-              <mxPoint x="414" y="476.223154" />
-              <mxPoint x="417.5" y="475.362107" />
-              <mxPoint x="421" y="474.505927" />
-              <mxPoint x="424.5" y="473.655171" />
-              <mxPoint x="428" y="472.810394" />
-              <mxPoint x="431.5" y="471.972153" />
-              <mxPoint x="435" y="471.141004" />
-              <mxPoint x="438.5" y="470.317504" />
-              <mxPoint x="442" y="469.502208" />
-              <mxPoint x="445.5" y="468.695673" />
-              <mxPoint x="449" y="467.898455" />
-              <mxPoint x="452.5" y="467.111111" />
-              <mxPoint x="456" y="466.334196" />
-              <mxPoint x="459.5" y="465.568268" />
-              <mxPoint x="463" y="464.813881" />
-              <mxPoint x="466.5" y="464.071593" />
-              <mxPoint x="470" y="463.341959" />
-              <mxPoint x="473.5" y="462.625536" />
-              <mxPoint x="477" y="461.92288" />
-              <mxPoint x="480.5" y="461.234548" />
-              <mxPoint x="484" y="460.561095" />
-              <mxPoint x="487.5" y="459.903078" />
-              <mxPoint x="491" y="459.261053" />
-              <mxPoint x="494.5" y="458.635577" />
-              <mxPoint x="498" y="458.027205" />
-              <mxPoint x="501.5" y="457.436494" />
-              <mxPoint x="505" y="456.864" />
-              <mxPoint x="508.5" y="456.310279" />
-              <mxPoint x="512" y="455.775888" />
-              <mxPoint x="515.5" y="455.261383" />
-              <mxPoint x="519" y="454.76732" />
-              <mxPoint x="522.5" y="454.294255" />
-              <mxPoint x="526" y="453.842745" />
-              <mxPoint x="529.5" y="453.413345" />
-              <mxPoint x="533" y="453.006613" />
-              <mxPoint x="536.5" y="452.623104" />
-              <mxPoint x="540" y="452.263374" />
-              <mxPoint x="543.5" y="451.927981" />
-              <mxPoint x="547" y="451.617479" />
-              <mxPoint x="550.5" y="451.332426" />
-              <mxPoint x="554" y="451.073377" />
-              <mxPoint x="557.5" y="450.840889" />
-              <mxPoint x="561" y="450.635518" />
-              <mxPoint x="564.5" y="450.45782" />
-              <mxPoint x="568" y="450.308352" />
-              <mxPoint x="571.5" y="450.18767" />
-              <mxPoint x="575" y="450.096329" />
-              <mxPoint x="578.5" y="450.034887" />
-              <mxPoint x="582" y="450.0039" />
-              <mxPoint x="585.5" y="450" />
-              <mxPoint x="1194.5" y="450" />
-              <mxPoint x="1198" y="450.0039" />
-              <mxPoint x="1201.5" y="450.034887" />
-              <mxPoint x="1205" y="450.096329" />
-              <mxPoint x="1208.5" y="450.18767" />
-              <mxPoint x="1212" y="450.308352" />
-              <mxPoint x="1215.5" y="450.45782" />
-              <mxPoint x="1219" y="450.635518" />
-              <mxPoint x="1222.5" y="450.840889" />
-              <mxPoint x="1226" y="451.073377" />
-              <mxPoint x="1229.5" y="451.332426" />
-              <mxPoint x="1233" y="451.617479" />
-              <mxPoint x="1236.5" y="451.927981" />
-              <mxPoint x="1240" y="452.263374" />
-              <mxPoint x="1243.5" y="452.623104" />
-              <mxPoint x="1247" y="453.006613" />
-              <mxPoint x="1250.5" y="453.413345" />
-              <mxPoint x="1254" y="453.842745" />
-              <mxPoint x="1257.5" y="454.294255" />
-              <mxPoint x="1261" y="454.76732" />
-              <mxPoint x="1264.5" y="455.261383" />
-              <mxPoint x="1268" y="455.775888" />
-              <mxPoint x="1271.5" y="456.310279" />
-              <mxPoint x="1275" y="456.864" />
-              <mxPoint x="1278.5" y="457.436494" />
-              <mxPoint x="1282" y="458.027205" />
-              <mxPoint x="1285.5" y="458.635577" />
-              <mxPoint x="1289" y="459.261053" />
-              <mxPoint x="1292.5" y="459.903078" />
-              <mxPoint x="1296" y="460.561095" />
-              <mxPoint x="1299.5" y="461.234548" />
-              <mxPoint x="1303" y="461.92288" />
-              <mxPoint x="1306.5" y="462.625536" />
-              <mxPoint x="1310" y="463.341959" />
-              <mxPoint x="1313.5" y="464.071593" />
-              <mxPoint x="1317" y="464.813881" />
-              <mxPoint x="1320.5" y="465.568268" />
-              <mxPoint x="1324" y="466.334196" />
-              <mxPoint x="1327.5" y="467.111111" />
-              <mxPoint x="1331" y="467.898455" />
-              <mxPoint x="1334.5" y="468.695673" />
-              <mxPoint x="1338" y="469.502208" />
-              <mxPoint x="1341.5" y="470.317504" />
-              <mxPoint x="1345" y="471.141004" />
-              <mxPoint x="1348.5" y="471.972153" />
-              <mxPoint x="1352" y="472.810394" />
-              <mxPoint x="1355.5" y="473.655171" />
-              <mxPoint x="1359" y="474.505927" />
-              <mxPoint x="1362.5" y="475.362107" />
-              <mxPoint x="1366" y="476.223154" />
-              <mxPoint x="1369.5" y="477.088512" />
-              <mxPoint x="1373" y="477.957625" />
-              <mxPoint x="1376.5" y="478.829936" />
-              <mxPoint x="1380" y="479.704889" />
-              <mxPoint x="1383.5" y="480.581928" />
-              <mxPoint x="1387" y="481.460497" />
-              <mxPoint x="1390.5" y="482.340039" />
-              <mxPoint x="1394" y="483.219999" />
-              <mxPoint x="1397.5" y="484.099819" />
-              <mxPoint x="1401" y="484.978944" />
-              <mxPoint x="1404.5" y="485.856818" />
-              <mxPoint x="1408" y="486.732883" />
-              <mxPoint x="1411.5" y="487.606585" />
-              <mxPoint x="1415" y="488.477366" />
-              <mxPoint x="1418.5" y="489.344671" />
-              <mxPoint x="1422" y="490.207943" />
-              <mxPoint x="1425.5" y="491.066626" />
-              <mxPoint x="1429" y="491.920164" />
-              <mxPoint x="1432.5" y="492.768" />
-              <mxPoint x="1436" y="493.609578" />
-              <mxPoint x="1439.5" y="494.444343" />
-              <mxPoint x="1443" y="495.271737" />
-              <mxPoint x="1446.5" y="496.091204" />
-              <mxPoint x="1450" y="496.902189" />
-              <mxPoint x="1453.5" y="497.704135" />
-              <mxPoint x="1457" y="498.496486" />
-              <mxPoint x="1460.5" y="499.278685" />
-              <mxPoint x="1464" y="500.050176" />
-              <mxPoint x="1467.5" y="500.810403" />
-              <mxPoint x="1471" y="501.55881" />
-              <mxPoint x="1474.5" y="502.294841" />
-              <mxPoint x="1478" y="503.017939" />
-              <mxPoint x="1481.5" y="503.727548" />
-              <mxPoint x="1485" y="504.423111" />
-              <mxPoint x="1488.5" y="505.104073" />
-              <mxPoint x="1492" y="505.769878" />
-              <mxPoint x="1495.5" y="506.419968" />
-              <mxPoint x="1499" y="507.053788" />
-              <mxPoint x="1502.5" y="507.670782" />
-              <mxPoint x="1506" y="508.270393" />
-              <mxPoint x="1509.5" y="508.852065" />
-              <mxPoint x="1513" y="509.415242" />
-              <mxPoint x="1516.5" y="509.959367" />
-              <mxPoint x="1520" y="510.483885" />
-              <mxPoint x="1523.5" y="510.988238" />
-              <mxPoint x="1527" y="511.471872" />
-              <mxPoint x="1530.5" y="511.934229" />
-              <mxPoint x="1534" y="512.374753" />
-              <mxPoint x="1537.5" y="512.792889" />
-              <mxPoint x="1541" y="513.188079" />
-              <mxPoint x="1544.5" y="513.559768" />
-              <mxPoint x="1548" y="513.907399" />
-              <mxPoint x="1551.5" y="514.230416" />
-              <mxPoint x="1555" y="514.528263" />
-              <mxPoint x="1558.5" y="514.800384" />
-              <mxPoint x="1562" y="515.046222" />
-              <mxPoint x="1565.5" y="515.265221" />
-              <mxPoint x="1569" y="515.456825" />
-              <mxPoint x="1572.5" y="515.620477" />
-              <mxPoint x="1576" y="515.755622" />
-              <mxPoint x="1579.5" y="515.861703" />
-              <mxPoint x="1583" y="515.938164" />
-              <mxPoint x="1586.5" y="515.984448" />
-            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="c20" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#007c9b;strokeWidth=6;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="649.375" y="450" as="sourcePoint" />
-            <mxPoint x="1130.625" y="450" as="targetPoint" />
+            <mxPoint x="649.375" y="516.0" as="sourcePoint" />
+            <mxPoint x="1130.625" y="516.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c21" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#d34745;strokeWidth=2;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="643.375" y="436" as="sourcePoint" />
-            <mxPoint x="655.375" y="464" as="targetPoint" />
+            <mxPoint x="643.375" y="502.0" as="sourcePoint" />
+            <mxPoint x="655.375" y="530.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c22" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#d34745;strokeWidth=2;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1124.625" y="436" as="sourcePoint" />
-            <mxPoint x="1136.625" y="464" as="targetPoint" />
+            <mxPoint x="1124.625" y="502.0" as="sourcePoint" />
+            <mxPoint x="1136.625" y="530.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c23" value="DT（配線名1RT）" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#007c9b;fontSize=17;fontStyle=1;fillColor=#ffffff;strokeColor=none;spacing=6;" parent="1" vertex="1">
-          <mxGeometry x="735" y="415" width="310" height="32" as="geometry" />
+          <mxGeometry x="735" y="520" width="310" height="32" as="geometry" />
         </mxCell>
         <mxCell id="c24" value="1番線 下り →" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#007c9b;fontSize=15;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="35" y="470" width="320" height="30" as="geometry" />
         </mxCell>
         <mxCell id="c25" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#536878;strokeWidth=1;startArrow=none;endArrow=none;dashed=1;dashPattern=5 4;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="671.25" y="460" as="sourcePoint" />
-            <mxPoint x="1108.75" y="460" as="targetPoint" />
+            <mxPoint x="671.25" y="526.0" as="sourcePoint" />
+            <mxPoint x="1108.75" y="526.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c26" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#007c9b;strokeWidth=1.5;startArrow=none;endArrow=classic;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1502.5" y="495.670782" as="sourcePoint" />
-            <mxPoint x="1568.125" y="503.411523" as="targetPoint" />
+            <mxPoint x="1502.5" y="516" as="sourcePoint" />
+            <mxPoint x="1568.125" y="516" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c27" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#bc6a28;strokeWidth=3;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="190" y="604" as="sourcePoint" />
             <mxPoint x="1590" y="604" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="193.5" y="604.015552" />
-              <mxPoint x="197" y="604.061836" />
-              <mxPoint x="200.5" y="604.138297" />
-              <mxPoint x="204" y="604.244378" />
-              <mxPoint x="207.5" y="604.379523" />
-              <mxPoint x="211" y="604.543175" />
-              <mxPoint x="214.5" y="604.734779" />
-              <mxPoint x="218" y="604.953778" />
-              <mxPoint x="221.5" y="605.199616" />
-              <mxPoint x="225" y="605.471737" />
-              <mxPoint x="228.5" y="605.769584" />
-              <mxPoint x="232" y="606.092601" />
-              <mxPoint x="235.5" y="606.440232" />
-              <mxPoint x="239" y="606.811921" />
-              <mxPoint x="242.5" y="607.207111" />
-              <mxPoint x="246" y="607.625247" />
-              <mxPoint x="249.5" y="608.065771" />
-              <mxPoint x="253" y="608.528128" />
-              <mxPoint x="256.5" y="609.011762" />
-              <mxPoint x="260" y="609.516115" />
-              <mxPoint x="263.5" y="610.040633" />
-              <mxPoint x="267" y="610.584758" />
-              <mxPoint x="270.5" y="611.147935" />
-              <mxPoint x="274" y="611.729607" />
-              <mxPoint x="277.5" y="612.329218" />
-              <mxPoint x="281" y="612.946212" />
-              <mxPoint x="284.5" y="613.580032" />
-              <mxPoint x="288" y="614.230122" />
-              <mxPoint x="291.5" y="614.895927" />
-              <mxPoint x="295" y="615.576889" />
-              <mxPoint x="298.5" y="616.272452" />
-              <mxPoint x="302" y="616.982061" />
-              <mxPoint x="305.5" y="617.705159" />
-              <mxPoint x="309" y="618.44119" />
-              <mxPoint x="312.5" y="619.189597" />
-              <mxPoint x="316" y="619.949824" />
-              <mxPoint x="319.5" y="620.721315" />
-              <mxPoint x="323" y="621.503514" />
-              <mxPoint x="326.5" y="622.295865" />
-              <mxPoint x="330" y="623.097811" />
-              <mxPoint x="333.5" y="623.908796" />
-              <mxPoint x="337" y="624.728263" />
-              <mxPoint x="340.5" y="625.555657" />
-              <mxPoint x="344" y="626.390422" />
-              <mxPoint x="347.5" y="627.232" />
-              <mxPoint x="351" y="628.079836" />
-              <mxPoint x="354.5" y="628.933374" />
-              <mxPoint x="358" y="629.792057" />
-              <mxPoint x="361.5" y="630.655329" />
-              <mxPoint x="365" y="631.522634" />
-              <mxPoint x="368.5" y="632.393415" />
-              <mxPoint x="372" y="633.267117" />
-              <mxPoint x="375.5" y="634.143182" />
-              <mxPoint x="379" y="635.021056" />
-              <mxPoint x="382.5" y="635.900181" />
-              <mxPoint x="386" y="636.780001" />
-              <mxPoint x="389.5" y="637.659961" />
-              <mxPoint x="393" y="638.539503" />
-              <mxPoint x="396.5" y="639.418072" />
-              <mxPoint x="400" y="640.295111" />
-              <mxPoint x="403.5" y="641.170064" />
-              <mxPoint x="407" y="642.042375" />
-              <mxPoint x="410.5" y="642.911488" />
-              <mxPoint x="414" y="643.776846" />
-              <mxPoint x="417.5" y="644.637893" />
-              <mxPoint x="421" y="645.494073" />
-              <mxPoint x="424.5" y="646.344829" />
-              <mxPoint x="428" y="647.189606" />
-              <mxPoint x="431.5" y="648.027847" />
-              <mxPoint x="435" y="648.858996" />
-              <mxPoint x="438.5" y="649.682496" />
-              <mxPoint x="442" y="650.497792" />
-              <mxPoint x="445.5" y="651.304327" />
-              <mxPoint x="449" y="652.101545" />
-              <mxPoint x="452.5" y="652.888889" />
-              <mxPoint x="456" y="653.665804" />
-              <mxPoint x="459.5" y="654.431732" />
-              <mxPoint x="463" y="655.186119" />
-              <mxPoint x="466.5" y="655.928407" />
-              <mxPoint x="470" y="656.658041" />
-              <mxPoint x="473.5" y="657.374464" />
-              <mxPoint x="477" y="658.07712" />
-              <mxPoint x="480.5" y="658.765452" />
-              <mxPoint x="484" y="659.438905" />
-              <mxPoint x="487.5" y="660.096922" />
-              <mxPoint x="491" y="660.738947" />
-              <mxPoint x="494.5" y="661.364423" />
-              <mxPoint x="498" y="661.972795" />
-              <mxPoint x="501.5" y="662.563506" />
-              <mxPoint x="505" y="663.136" />
-              <mxPoint x="508.5" y="663.689721" />
-              <mxPoint x="512" y="664.224112" />
-              <mxPoint x="515.5" y="664.738617" />
-              <mxPoint x="519" y="665.23268" />
-              <mxPoint x="522.5" y="665.705745" />
-              <mxPoint x="526" y="666.157255" />
-              <mxPoint x="529.5" y="666.586655" />
-              <mxPoint x="533" y="666.993387" />
-              <mxPoint x="536.5" y="667.376896" />
-              <mxPoint x="540" y="667.736626" />
-              <mxPoint x="543.5" y="668.072019" />
-              <mxPoint x="547" y="668.382521" />
-              <mxPoint x="550.5" y="668.667574" />
-              <mxPoint x="554" y="668.926623" />
-              <mxPoint x="557.5" y="669.159111" />
-              <mxPoint x="561" y="669.364482" />
-              <mxPoint x="564.5" y="669.54218" />
-              <mxPoint x="568" y="669.691648" />
-              <mxPoint x="571.5" y="669.81233" />
-              <mxPoint x="575" y="669.903671" />
-              <mxPoint x="578.5" y="669.965113" />
-              <mxPoint x="582" y="669.9961" />
-              <mxPoint x="585.5" y="670" />
-              <mxPoint x="1194.5" y="670" />
-              <mxPoint x="1198" y="669.9961" />
-              <mxPoint x="1201.5" y="669.965113" />
-              <mxPoint x="1205" y="669.903671" />
-              <mxPoint x="1208.5" y="669.81233" />
-              <mxPoint x="1212" y="669.691648" />
-              <mxPoint x="1215.5" y="669.54218" />
-              <mxPoint x="1219" y="669.364482" />
-              <mxPoint x="1222.5" y="669.159111" />
-              <mxPoint x="1226" y="668.926623" />
-              <mxPoint x="1229.5" y="668.667574" />
-              <mxPoint x="1233" y="668.382521" />
-              <mxPoint x="1236.5" y="668.072019" />
-              <mxPoint x="1240" y="667.736626" />
-              <mxPoint x="1243.5" y="667.376896" />
-              <mxPoint x="1247" y="666.993387" />
-              <mxPoint x="1250.5" y="666.586655" />
-              <mxPoint x="1254" y="666.157255" />
-              <mxPoint x="1257.5" y="665.705745" />
-              <mxPoint x="1261" y="665.23268" />
-              <mxPoint x="1264.5" y="664.738617" />
-              <mxPoint x="1268" y="664.224112" />
-              <mxPoint x="1271.5" y="663.689721" />
-              <mxPoint x="1275" y="663.136" />
-              <mxPoint x="1278.5" y="662.563506" />
-              <mxPoint x="1282" y="661.972795" />
-              <mxPoint x="1285.5" y="661.364423" />
-              <mxPoint x="1289" y="660.738947" />
-              <mxPoint x="1292.5" y="660.096922" />
-              <mxPoint x="1296" y="659.438905" />
-              <mxPoint x="1299.5" y="658.765452" />
-              <mxPoint x="1303" y="658.07712" />
-              <mxPoint x="1306.5" y="657.374464" />
-              <mxPoint x="1310" y="656.658041" />
-              <mxPoint x="1313.5" y="655.928407" />
-              <mxPoint x="1317" y="655.186119" />
-              <mxPoint x="1320.5" y="654.431732" />
-              <mxPoint x="1324" y="653.665804" />
-              <mxPoint x="1327.5" y="652.888889" />
-              <mxPoint x="1331" y="652.101545" />
-              <mxPoint x="1334.5" y="651.304327" />
-              <mxPoint x="1338" y="650.497792" />
-              <mxPoint x="1341.5" y="649.682496" />
-              <mxPoint x="1345" y="648.858996" />
-              <mxPoint x="1348.5" y="648.027847" />
-              <mxPoint x="1352" y="647.189606" />
-              <mxPoint x="1355.5" y="646.344829" />
-              <mxPoint x="1359" y="645.494073" />
-              <mxPoint x="1362.5" y="644.637893" />
-              <mxPoint x="1366" y="643.776846" />
-              <mxPoint x="1369.5" y="642.911488" />
-              <mxPoint x="1373" y="642.042375" />
-              <mxPoint x="1376.5" y="641.170064" />
-              <mxPoint x="1380" y="640.295111" />
-              <mxPoint x="1383.5" y="639.418072" />
-              <mxPoint x="1387" y="638.539503" />
-              <mxPoint x="1390.5" y="637.659961" />
-              <mxPoint x="1394" y="636.780001" />
-              <mxPoint x="1397.5" y="635.900181" />
-              <mxPoint x="1401" y="635.021056" />
-              <mxPoint x="1404.5" y="634.143182" />
-              <mxPoint x="1408" y="633.267117" />
-              <mxPoint x="1411.5" y="632.393415" />
-              <mxPoint x="1415" y="631.522634" />
-              <mxPoint x="1418.5" y="630.655329" />
-              <mxPoint x="1422" y="629.792057" />
-              <mxPoint x="1425.5" y="628.933374" />
-              <mxPoint x="1429" y="628.079836" />
-              <mxPoint x="1432.5" y="627.232" />
-              <mxPoint x="1436" y="626.390422" />
-              <mxPoint x="1439.5" y="625.555657" />
-              <mxPoint x="1443" y="624.728263" />
-              <mxPoint x="1446.5" y="623.908796" />
-              <mxPoint x="1450" y="623.097811" />
-              <mxPoint x="1453.5" y="622.295865" />
-              <mxPoint x="1457" y="621.503514" />
-              <mxPoint x="1460.5" y="620.721315" />
-              <mxPoint x="1464" y="619.949824" />
-              <mxPoint x="1467.5" y="619.189597" />
-              <mxPoint x="1471" y="618.44119" />
-              <mxPoint x="1474.5" y="617.705159" />
-              <mxPoint x="1478" y="616.982061" />
-              <mxPoint x="1481.5" y="616.272452" />
-              <mxPoint x="1485" y="615.576889" />
-              <mxPoint x="1488.5" y="614.895927" />
-              <mxPoint x="1492" y="614.230122" />
-              <mxPoint x="1495.5" y="613.580032" />
-              <mxPoint x="1499" y="612.946212" />
-              <mxPoint x="1502.5" y="612.329218" />
-              <mxPoint x="1506" y="611.729607" />
-              <mxPoint x="1509.5" y="611.147935" />
-              <mxPoint x="1513" y="610.584758" />
-              <mxPoint x="1516.5" y="610.040633" />
-              <mxPoint x="1520" y="609.516115" />
-              <mxPoint x="1523.5" y="609.011762" />
-              <mxPoint x="1527" y="608.528128" />
-              <mxPoint x="1530.5" y="608.065771" />
-              <mxPoint x="1534" y="607.625247" />
-              <mxPoint x="1537.5" y="607.207111" />
-              <mxPoint x="1541" y="606.811921" />
-              <mxPoint x="1544.5" y="606.440232" />
-              <mxPoint x="1548" y="606.092601" />
-              <mxPoint x="1551.5" y="605.769584" />
-              <mxPoint x="1555" y="605.471737" />
-              <mxPoint x="1558.5" y="605.199616" />
-              <mxPoint x="1562" y="604.953778" />
-              <mxPoint x="1565.5" y="604.734779" />
-              <mxPoint x="1569" y="604.543175" />
-              <mxPoint x="1572.5" y="604.379523" />
-              <mxPoint x="1576" y="604.244378" />
-              <mxPoint x="1579.5" y="604.138297" />
-              <mxPoint x="1583" y="604.061836" />
-              <mxPoint x="1586.5" y="604.015552" />
-            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="c28" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#bc6a28;strokeWidth=6;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="649.375" y="670" as="sourcePoint" />
-            <mxPoint x="1130.625" y="670" as="targetPoint" />
+            <mxPoint x="649.375" y="604.0" as="sourcePoint" />
+            <mxPoint x="1130.625" y="604.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c29" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#d34745;strokeWidth=2;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="643.375" y="656" as="sourcePoint" />
-            <mxPoint x="655.375" y="684" as="targetPoint" />
+            <mxPoint x="643.375" y="590.0" as="sourcePoint" />
+            <mxPoint x="655.375" y="618.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c30" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#d34745;strokeWidth=2;startArrow=none;endArrow=none;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1124.625" y="656" as="sourcePoint" />
-            <mxPoint x="1136.625" y="684" as="targetPoint" />
+            <mxPoint x="1124.625" y="590.0" as="sourcePoint" />
+            <mxPoint x="1136.625" y="618.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c31" value="UT（配線名2LT）" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#bc6a28;fontSize=17;fontStyle=1;fillColor=#ffffff;strokeColor=none;spacing=6;" parent="1" vertex="1">
-          <mxGeometry x="735" y="673" width="310" height="32" as="geometry" />
+          <mxGeometry x="735" y="565" width="310" height="32" as="geometry" />
         </mxCell>
         <mxCell id="c32" value="2番線 上り ←" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#bc6a28;fontSize=15;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="35" y="558" width="320" height="30" as="geometry" />
         </mxCell>
         <mxCell id="c33" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#536878;strokeWidth=1;startArrow=none;endArrow=none;dashed=1;dashPattern=5 4;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="671.25" y="660" as="sourcePoint" />
-            <mxPoint x="1108.75" y="660" as="targetPoint" />
+            <mxPoint x="671.25" y="594.0" as="sourcePoint" />
+            <mxPoint x="1108.75" y="594.0" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c34" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#bc6a28;strokeWidth=1.5;startArrow=none;endArrow=classic;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1568.125" y="616.588477" as="sourcePoint" />
-            <mxPoint x="1502.5" y="624.329218" as="targetPoint" />
+            <mxPoint x="1568.125" y="604" as="sourcePoint" />
+            <mxPoint x="1502.5" y="604" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="c35" value="ホーム：5135〜5345m（210m）／ 停車車体：5140〜5340m（200m・20m×10両）" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
@@ -623,14 +167,17 @@
         <mxCell id="c36" value="駅回路：5130〜5350m（220m）／ 車体→ホーム端 各5m、ホーム端→回路境界 各5m" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=1;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="888" width="1660" height="34" as="geometry" />
         </mxCell>
-        <mxCell id="c37" value="線形の対象範囲4920〜5560mは維持。拡幅180m＋平行280m＋縮幅180m。ホームの外側は駅間回路に含む。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
+        <mxCell id="c37" value="線形の対象範囲4920〜5560mは維持。駅前後と同じ線路間隔4m、Unity offsetは0m／4mで一定。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="928" width="1660" height="34" as="geometry" />
         </mxCell>
-        <mxCell id="c38" value="島式幅6.6m、ホーム前後の直線余裕各35m。ホーム高さ1.1m。線形と回路の境界を分けて管理する。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=16;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
+        <mxCell id="c38" value="相対式2面2線。各ホーム幅3.3m、線路中心からホーム縁まで1.7m。ホーム高さ1.1m。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=16;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="967" width="1660" height="32" as="geometry" />
         </mxCell>
         <mxCell id="c39" value="全線の回路名・境界・隣接区間：Wiring/軌道回路区間一覧.drawio と 軌道回路区間一覧.md。距離は走行実距離と区別する。" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=left;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#54667a;fontSize=15;fontStyle=0;fillColor=none;strokeColor=none;spacing=6;" parent="1" vertex="1">
           <mxGeometry x="40" y="1017" width="1660" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="c18-up-platform" value="2番線ホーム&#10;210 × 3.3m" style="rounded=0;html=0;whiteSpace=wrap;overflow=hidden;align=center;verticalAlign=middle;fontFamily=Hiragino Sans;fontColor=#203247;fontSize=17;fontStyle=0;fillColor=#e7edf2;strokeColor=#a6b5c1;spacing=6;" parent="1" vertex="1">
+          <mxGeometry x="660.3125" y="641.4" width="459.375" height="72.6" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

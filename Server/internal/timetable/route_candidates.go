@@ -71,24 +71,9 @@ func search(
 	defer delete(visited, currentTrackCircuitId)
 
 	switch currentTrackCircuit.ControlKind {
-	case ctc.TrackControlBlock:
-		id := currentTrackCircuit.ToCircuitID
-		if id == "" {
-			return nil
-		}
-
-		return search(
-			currentTrackCircuit.ToCircuitID,
-			destinationTrackCircuitId,
-			visited,
-			usedRoutes,
-			candidates,
-			circuits,
-			routes,
-			kinds,
-		)
-
-	case ctc.TrackControlInterlocking:
+	case ctc.TrackControlBlock, ctc.TrackControlInterlocking:
+		// 場内進路は、駅手前の閉塞回路を発点にする場合もある。
+		// 定義済み進路を優先し、進路がない場所だけ固定接続で進む。
 		hasRoutes := false
 		for _, route := range routes {
 			ids := route.TrackCircuitIDs

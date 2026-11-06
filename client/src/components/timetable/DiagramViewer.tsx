@@ -7,6 +7,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 type DiagramViewerProps = {
   trains: readonly TimetableDiagramTrain[];
+  emphasizedTrainIds?: ReadonlySet<string>;
   stations: readonly TimetableDiagramStation[];
   defaultPixelsPerMinute: number;
   startSeconds: number;
@@ -38,6 +39,7 @@ const themeButtonClassName = "h-5 min-w-7 rounded-xs border border-zinc-400 bg-z
 
 export function DiagramViewer({
   trains,
+  emphasizedTrainIds,
   stations,
   defaultPixelsPerMinute,
   startSeconds,
@@ -68,6 +70,11 @@ export function DiagramViewer({
 
   const plotRight = getTimePosition(endSeconds, defaultPixelsPerMinute * horizontalScale, startSeconds, left);
   const svgWidth = Math.max(size.width - stationLabelWidth, plotRight + 24);
+  const isDimmed = (train: TimetableDiagramTrain) =>
+    emphasizedTrainIds !== undefined && !emphasizedTrainIds.has(train.id ?? train.trainNumber);
+  const trainsInPaintOrder = emphasizedTrainIds?.size
+    ? [...trains].sort((a, b) => Number(isDimmed(b)) - Number(isDimmed(a)))
+    : trains;
 
   const timeSeconds: number[] = [];
   for (let seconds = Math.ceil(startSeconds / 60) * 60; seconds <= endSeconds; seconds += 60) {
@@ -192,20 +199,20 @@ export function DiagramViewer({
                 );
               })}
               <g clipPath={`url(#${plotClipId})`}>
-                {trains.map((train) => {
+                {trainsInPaintOrder.map((train) => {
                   const points = getTrainDiagramPoints(train.points ?? [], stationPositions, defaultPixelsPerMinute * horizontalScale, startSeconds, left);
                   if (points.length < 2) return null;
                   const color = train.trainType?.color || colors.trainLine;
                   const path = points.map(({ x, y }) => `${x},${y}`).join(" ");
-                  return <g key={train.trainNumber} role={onTrainClick ? "button" : "group"}
+                  return <g key={train.id ?? train.trainNumber} opacity={isDimmed(train) ? 0.25 : undefined} role={onTrainClick ? "button" : "group"}
                     aria-label={onTrainClick ? `${train.trainNumber}を編集` : `${train.trainNumber}のスジ`}
                     aria-haspopup={onTrainClick ? "dialog" : undefined} tabIndex={onTrainClick ? 0 : undefined}
                     className={onTrainClick ? "group/train cursor-pointer outline-none" : undefined}
-                    onClick={() => onTrainClick?.(train.trainNumber)}
+                    onClick={() => onTrainClick?.(train.id ?? train.trainNumber)}
                     onKeyDown={(event) => {
                       if (onTrainClick && (event.key === "Enter" || event.key === " ")) {
                         event.preventDefault();
-                        onTrainClick(train.trainNumber);
+                        onTrainClick(train.id ?? train.trainNumber);
                       }
                     }}>
                     <title>{train.trainNumber}</title>

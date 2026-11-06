@@ -37,6 +37,7 @@ func SyncEquipmentMasters(ctx context.Context, db *gorm.DB, graphManifestPath st
 	}
 	var tracks []StationTrack
 	trackIDs := make(map[[2]string]bool)
+	stationTrackIDs := make(map[string][]string)
 	for _, file := range manifest.Files {
 		path := file
 		if !filepath.IsAbs(path) {
@@ -53,6 +54,11 @@ func SyncEquipmentMasters(ctx context.Context, db *gorm.DB, graphManifestPath st
 		if err := json.Unmarshal(data, &fragment); err != nil {
 			return fmt.Errorf("decode %s: %w", path, err)
 		}
+		if fragment.StationTracks != nil && stationIDs[fragment.StationID] {
+			if _, ok := stationTrackIDs[fragment.StationID]; !ok {
+				stationTrackIDs[fragment.StationID] = []string{}
+			}
+		}
 		for _, track := range fragment.StationTracks {
 			key := [2]string{fragment.StationID, track.TrackID}
 			if !stationIDs[fragment.StationID] || strings.TrimSpace(track.TrackID) == "" || strings.TrimSpace(track.DisplayName) == "" || trackIDs[key] {
@@ -63,6 +69,7 @@ func SyncEquipmentMasters(ctx context.Context, db *gorm.DB, graphManifestPath st
 			}
 			track.StationID = fragment.StationID
 			trackIDs[key] = true
+			stationTrackIDs[fragment.StationID] = append(stationTrackIDs[fragment.StationID], track.TrackID)
 			tracks = append(tracks, track)
 		}
 	}
@@ -87,6 +94,16 @@ func SyncEquipmentMasters(ctx context.Context, db *gorm.DB, graphManifestPath st
 		}
 		if len(tracks) > 0 {
 			if err := tx.Omit(clause.Associations).Clauses(upsert).Create(&tracks).Error; err != nil {
+				return err
+			}
+		}
+		// 番線の選択肢はJSONを正とし、廃止した番線を残さない。
+		for stationID, ids := range stationTrackIDs {
+			query := tx.Where("station_id = ?", stationID)
+			if len(ids) > 0 {
+				query = query.Where("track_id NOT IN ?", ids)
+			}
+			if err := query.Delete(&StationTrack{}).Error; err != nil {
 				return err
 			}
 		}

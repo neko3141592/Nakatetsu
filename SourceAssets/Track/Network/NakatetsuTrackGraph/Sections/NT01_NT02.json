@@ -8,12 +8,12 @@
       "nodeBId": "NT02_entry1",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 650,
+      "startDistanceOnGeometryM": 590,
       "endDistanceOnGeometryM": 1230,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 650,
+          "startDistanceOnGeometryM": 590,
           "endDistanceOnGeometryM": 1230,
           "offsetM": 0
         }
@@ -25,12 +25,12 @@
       "nodeBId": "NT02_entry2",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 650,
+      "startDistanceOnGeometryM": 590,
       "endDistanceOnGeometryM": 1230,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 650,
+          "startDistanceOnGeometryM": 590,
           "endDistanceOnGeometryM": 1230,
           "offsetM": 4
         }
@@ -46,7 +46,7 @@
       "sections": [
         {
           "edgeId": "NT01_NT02_down",
-          "startDistanceOnGeometryM": 650,
+          "startDistanceOnGeometryM": 590,
           "endDistanceOnGeometryM": 810
         }
       ]
@@ -82,7 +82,7 @@
       "sections": [
         {
           "edgeId": "NT01_NT02_up",
-          "startDistanceOnGeometryM": 650,
+          "startDistanceOnGeometryM": 590,
           "endDistanceOnGeometryM": 810
         }
       ]

@@ -1,19 +1,9 @@
 {
   "interlockingId": "NT11",
   "requestTriggerTrackCircuitIds": [
-    "NT10_NT11_DE3T",
-    "NT10_NT11_DL3T",
-    "NT11_21AT",
-    "NT11_22AT",
-    "NT11_22BT",
-    "NT11_21BT",
-    "NT11_1RT",
-    "NT11_2RT",
-    "NT11_4_STUB_T",
-    "NT11_3LT",
-    "NT11_4LT",
-    "NT11_1_STUB_T",
-    "NT11_DEPOT_T"
+    "NT09_1RT",
+    "NT09_2RT",
+    "NT12_UT"
   ],
   "memberTrackCircuitIds": [
     "NT11_21AT",
@@ -32,10 +22,10 @@
     "NT11_25BT",
     "NT11_26T",
     "NT11_DEPOT_T",
-    "NT11_1_STUB_T",
-    "NT11_4_STUB_T",
-    "NT10_NT11_DE3T",
-    "NT10_NT11_DL3T"
+    "NT11_NT12_D1T",
+    "NT11_NT12_U1T",
+    "NT10_NT11_DE1T",
+    "NT10_NT11_DL1T"
   ],
   "memberConnectionIds": [
     "NT11_21A",
@@ -83,13 +73,8 @@
     },
     {
       "code": "G",
-      "displayName": "引上1",
-      "trackCircuitId": "NT11_1_STUB_T"
-    },
-    {
-      "code": "H",
-      "displayName": "引上4",
-      "trackCircuitId": "NT11_4_STUB_T"
+      "displayName": "羽沢台方面",
+      "trackCircuitId": "NT11_NT12_D1T"
     },
     {
       "code": "I",
@@ -147,7 +132,7 @@
       ],
       "approachLock": {
         "trackCircuitIds": [
-          "NT10_NT11_DE3T"
+          "NT10_NT11_DE1T"
         ],
         "releaseSeconds": 60
       },
@@ -200,7 +185,7 @@
       ],
       "approachLock": {
         "trackCircuitIds": [
-          "NT10_NT11_DL3T"
+          "NT10_NT11_DL1T"
         ],
         "releaseSeconds": 60
       },
@@ -254,7 +239,7 @@
       ],
       "approachLock": {
         "trackCircuitIds": [
-          "NT10_NT11_DE3T"
+          "NT10_NT11_DE1T"
         ],
         "releaseSeconds": 60
       },
@@ -308,7 +293,7 @@
       ],
       "approachLock": {
         "trackCircuitIds": [
-          "NT10_NT11_DL3T"
+          "NT10_NT11_DL1T"
         ],
         "releaseSeconds": 60
       },
@@ -346,9 +331,7 @@
         ],
         "releaseSeconds": 60
       },
-      "conflictRouteIds": [
-        "10LA"
-      ],
+      "conflictRouteIds": [],
       "overrunProtection": {
         "isEnabled": false,
         "turnoutRequirements": [],
@@ -380,7 +363,6 @@
         "releaseSeconds": 60
       },
       "conflictRouteIds": [
-        "10LB",
         "11LB"
       ],
       "overrunProtection": {
@@ -395,11 +377,11 @@
       "kind": "Departure",
       "startTrackCircuitId": "NT11_1RT",
       "destinationCode": "G",
-      "destinationTrackCircuitId": "NT11_1_STUB_T",
+      "destinationTrackCircuitId": "NT11_NT12_D1T",
       "trackCircuitIds": [
         "NT11_1RT",
         "NT11_25BT",
-        "NT11_1_STUB_T"
+        "NT11_NT12_D1T"
       ],
       "requiredTurnouts": [
         {
@@ -413,7 +395,7 @@
       ],
       "routeClearTrackCircuitIds": [
         "NT11_25BT",
-        "NT11_1_STUB_T"
+        "NT11_NT12_D1T"
       ],
       "routeReleaseTrackCircuitIds": [
         "NT11_25BT"
@@ -425,9 +407,7 @@
         "releaseSeconds": 30
       },
       "conflictRouteIds": [
-        "6R",
-        "10LA",
-        "10LB"
+        "6R"
       ],
       "overrunProtection": {
         "isEnabled": false,
@@ -441,12 +421,12 @@
       "kind": "Departure",
       "startTrackCircuitId": "NT11_2RT",
       "destinationCode": "G",
-      "destinationTrackCircuitId": "NT11_1_STUB_T",
+      "destinationTrackCircuitId": "NT11_NT12_D1T",
       "trackCircuitIds": [
         "NT11_2RT",
         "NT11_25AT",
         "NT11_25BT",
-        "NT11_1_STUB_T"
+        "NT11_NT12_D1T"
       ],
       "requiredTurnouts": [
         {
@@ -461,7 +441,7 @@
       "routeClearTrackCircuitIds": [
         "NT11_25AT",
         "NT11_25BT",
-        "NT11_1_STUB_T"
+        "NT11_NT12_D1T"
       ],
       "routeReleaseTrackCircuitIds": [
         "NT11_25AT",
@@ -475,8 +455,6 @@
       },
       "conflictRouteIds": [
         "5R",
-        "10LA",
-        "10LB",
         "10R",
         "11LB"
       ],
@@ -490,11 +468,11 @@
       "routeId": "1L",
       "direction": "Up",
       "kind": "Home",
-      "startTrackCircuitId": "NT11_4_STUB_T",
+      "startTrackCircuitId": "NT11_NT12_U1T",
       "destinationCode": "D",
       "destinationTrackCircuitId": "NT11_4LT",
       "trackCircuitIds": [
-        "NT11_4_STUB_T",
+        "NT11_NT12_U1T",
         "NT11_4LT"
       ],
       "requiredTurnouts": [],
@@ -506,13 +484,11 @@
       ],
       "approachLock": {
         "trackCircuitIds": [
-          "NT11_4_STUB_T"
+          "NT11_NT12_U1T"
         ],
         "releaseSeconds": 60
       },
-      "conflictRouteIds": [
-        "12R"
-      ],
+      "conflictRouteIds": [],
       "overrunProtection": {
         "isEnabled": false,
         "turnoutRequirements": [],
@@ -621,8 +597,7 @@
       },
       "conflictRouteIds": [
         "2LJ",
-        "3LK",
-        "12R"
+        "3LK"
       ],
       "overrunProtection": {
         "isEnabled": false,
@@ -732,107 +707,7 @@
       "conflictRouteIds": [
         "2LJ",
         "3LJ",
-        "2LK",
-        "12R"
-      ],
-      "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
-        "releaseSeconds": 0
-      }
-    },
-    {
-      "routeId": "10LA",
-      "direction": "Up",
-      "kind": "Shunting",
-      "startTrackCircuitId": "NT11_1_STUB_T",
-      "destinationCode": "A",
-      "destinationTrackCircuitId": "NT11_1RT",
-      "trackCircuitIds": [
-        "NT11_1_STUB_T",
-        "NT11_25BT",
-        "NT11_1RT"
-      ],
-      "requiredTurnouts": [
-        {
-          "connectionId": "NT11_25A",
-          "requiredPosition": 1
-        },
-        {
-          "connectionId": "NT11_25B",
-          "requiredPosition": 1
-        }
-      ],
-      "routeClearTrackCircuitIds": [
-        "NT11_25BT",
-        "NT11_1RT"
-      ],
-      "routeReleaseTrackCircuitIds": [
-        "NT11_25BT"
-      ],
-      "approachLock": {
-        "trackCircuitIds": [
-          "NT11_1_STUB_T"
-        ],
-        "releaseSeconds": 30
-      },
-      "conflictRouteIds": [
-        "3R",
-        "5R",
-        "6R",
-        "10LB"
-      ],
-      "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
-        "releaseSeconds": 0
-      }
-    },
-    {
-      "routeId": "10LB",
-      "direction": "Up",
-      "kind": "Shunting",
-      "startTrackCircuitId": "NT11_1_STUB_T",
-      "destinationCode": "B",
-      "destinationTrackCircuitId": "NT11_2RT",
-      "trackCircuitIds": [
-        "NT11_1_STUB_T",
-        "NT11_25BT",
-        "NT11_25AT",
-        "NT11_2RT"
-      ],
-      "requiredTurnouts": [
-        {
-          "connectionId": "NT11_25A",
-          "requiredPosition": 2
-        },
-        {
-          "connectionId": "NT11_25B",
-          "requiredPosition": 2
-        }
-      ],
-      "routeClearTrackCircuitIds": [
-        "NT11_25BT",
-        "NT11_25AT",
-        "NT11_2RT"
-      ],
-      "routeReleaseTrackCircuitIds": [
-        "NT11_25BT",
-        "NT11_25AT"
-      ],
-      "approachLock": {
-        "trackCircuitIds": [
-          "NT11_1_STUB_T"
-        ],
-        "releaseSeconds": 30
-      },
-      "conflictRouteIds": [
-        "4R",
-        "5R",
-        "6R",
-        "10LA",
-        "10R",
-        "11LB"
+        "2LK"
       ],
       "overrunProtection": {
         "isEnabled": false,
@@ -884,7 +759,6 @@
       },
       "conflictRouteIds": [
         "6R",
-        "10LB",
         "11R",
         "11LB",
         "11LC"
@@ -984,7 +858,6 @@
       "conflictRouteIds": [
         "4R",
         "6R",
-        "10LB",
         "10R",
         "11R",
         "11LC"
@@ -1030,41 +903,6 @@
         "10R",
         "11R",
         "11LB"
-      ],
-      "overrunProtection": {
-        "isEnabled": false,
-        "turnoutRequirements": [],
-        "releaseSeconds": 0
-      }
-    },
-    {
-      "routeId": "12R",
-      "direction": "Down",
-      "kind": "Shunting",
-      "startTrackCircuitId": "NT11_4LT",
-      "destinationCode": "H",
-      "destinationTrackCircuitId": "NT11_4_STUB_T",
-      "trackCircuitIds": [
-        "NT11_4LT",
-        "NT11_4_STUB_T"
-      ],
-      "requiredTurnouts": [],
-      "routeClearTrackCircuitIds": [
-        "NT11_4_STUB_T"
-      ],
-      "routeReleaseTrackCircuitIds": [
-        "NT11_4_STUB_T"
-      ],
-      "approachLock": {
-        "trackCircuitIds": [
-          "NT11_4LT"
-        ],
-        "releaseSeconds": 30
-      },
-      "conflictRouteIds": [
-        "1L",
-        "3LJ",
-        "3LK"
       ],
       "overrunProtection": {
         "isEnabled": false,

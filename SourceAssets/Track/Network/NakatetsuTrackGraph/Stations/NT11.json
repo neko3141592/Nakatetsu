@@ -25,20 +25,104 @@
       "trackId": "DEPOT",
       "displayName": "電留1番",
       "trackCircuitId": "NT11_DEPOT_T"
-    },
-    {
-      "trackId": "1_STUB",
-      "displayName": "引上1",
-      "trackCircuitId": "NT11_1_STUB_T"
-    },
-    {
-      "trackId": "4_STUB",
-      "displayName": "引上4",
-      "trackCircuitId": "NT11_4_STUB_T"
     }
   ],
   "geometries": [],
   "nodes": [
+    {
+      "nodeId": "NT11_21A_node",
+      "connectedEdgeIds": [
+        "NT11_track1_approach",
+        "NT11_track1_scissors",
+        "NT11_crossover21"
+      ]
+    },
+    {
+      "nodeId": "NT11_21B_node",
+      "connectedEdgeIds": [
+        "NT11_track2_scissors",
+        "NT11_track2",
+        "NT11_crossover21"
+      ]
+    },
+    {
+      "nodeId": "NT11_22A_node",
+      "connectedEdgeIds": [
+        "NT11_track2_approach",
+        "NT11_track2_scissors",
+        "NT11_crossover22"
+      ]
+    },
+    {
+      "nodeId": "NT11_22B_node",
+      "connectedEdgeIds": [
+        "NT11_track1_scissors",
+        "NT11_track1",
+        "NT11_crossover22"
+      ]
+    },
+    {
+      "nodeId": "NT11_23A_node",
+      "connectedEdgeIds": [
+        "NT11_track3_approach",
+        "NT11_track3_scissors",
+        "NT11_crossover23"
+      ]
+    },
+    {
+      "nodeId": "NT11_23B_node",
+      "connectedEdgeIds": [
+        "NT11_track4_scissors",
+        "NT11_track4",
+        "NT11_crossover23"
+      ]
+    },
+    {
+      "nodeId": "NT11_24A_node",
+      "connectedEdgeIds": [
+        "NT11_track4_approach",
+        "NT11_track4_scissors",
+        "NT11_crossover24"
+      ]
+    },
+    {
+      "nodeId": "NT11_24B_node",
+      "connectedEdgeIds": [
+        "NT11_track3_scissors",
+        "NT11_track3",
+        "NT11_crossover24"
+      ]
+    },
+    {
+      "nodeId": "NT11_25A_node",
+      "connectedEdgeIds": [
+        "NT11_track2",
+        "NT11_track2_to26",
+        "NT11_crossover25"
+      ]
+    },
+    {
+      "nodeId": "NT11_25B_node",
+      "connectedEdgeIds": [
+        "NT11_track1",
+        "NT11_track1_stub",
+        "NT11_crossover25"
+      ]
+    },
+    {
+      "nodeId": "NT11_26_node",
+      "connectedEdgeIds": [
+        "NT11_track2_to26",
+        "NT11_track3",
+        "NT11_track3_stub"
+      ]
+    },
+    {
+      "nodeId": "NT11_buffer3",
+      "connectedEdgeIds": [
+        "NT11_track3_stub"
+      ]
+    },
     {
       "nodeId": "NT11_entry1",
       "connectedEdgeIds": [
@@ -68,109 +152,17 @@
       ]
     },
     {
-      "nodeId": "NT11_21A_node",
+      "nodeId": "NT11_exit1",
       "connectedEdgeIds": [
-        "NT11_track1_approach",
-        "NT11_track1_scissors",
-        "NT11_crossover21"
-      ]
-    },
-    {
-      "nodeId": "NT11_22B_node",
-      "connectedEdgeIds": [
-        "NT11_track1_scissors",
-        "NT11_track1",
-        "NT11_crossover22"
-      ]
-    },
-    {
-      "nodeId": "NT11_22A_node",
-      "connectedEdgeIds": [
-        "NT11_track2_approach",
-        "NT11_track2_scissors",
-        "NT11_crossover22"
-      ]
-    },
-    {
-      "nodeId": "NT11_21B_node",
-      "connectedEdgeIds": [
-        "NT11_track2_scissors",
-        "NT11_track2",
-        "NT11_crossover21"
-      ]
-    },
-    {
-      "nodeId": "NT11_23A_node",
-      "connectedEdgeIds": [
-        "NT11_track3_approach",
-        "NT11_track3_scissors",
-        "NT11_crossover23"
-      ]
-    },
-    {
-      "nodeId": "NT11_24B_node",
-      "connectedEdgeIds": [
-        "NT11_track3_scissors",
-        "NT11_track3",
-        "NT11_crossover24"
-      ]
-    },
-    {
-      "nodeId": "NT11_24A_node",
-      "connectedEdgeIds": [
-        "NT11_track4_approach",
-        "NT11_track4_scissors",
-        "NT11_crossover24"
-      ]
-    },
-    {
-      "nodeId": "NT11_23B_node",
-      "connectedEdgeIds": [
-        "NT11_track4_scissors",
-        "NT11_track4",
-        "NT11_crossover23"
-      ]
-    },
-    {
-      "nodeId": "NT11_25B_node",
-      "connectedEdgeIds": [
-        "NT11_track1",
         "NT11_track1_stub",
-        "NT11_crossover25"
+        "NT11_NT12_down"
       ]
     },
     {
-      "nodeId": "NT11_buffer1",
+      "nodeId": "NT11_exit4",
       "connectedEdgeIds": [
-        "NT11_track1_stub"
-      ]
-    },
-    {
-      "nodeId": "NT11_25A_node",
-      "connectedEdgeIds": [
-        "NT11_track2",
-        "NT11_track2_to26",
-        "NT11_crossover25"
-      ]
-    },
-    {
-      "nodeId": "NT11_26_node",
-      "connectedEdgeIds": [
-        "NT11_track2_to26",
-        "NT11_track3",
-        "NT11_track3_stub"
-      ]
-    },
-    {
-      "nodeId": "NT11_buffer3",
-      "connectedEdgeIds": [
-        "NT11_track3_stub"
-      ]
-    },
-    {
-      "nodeId": "NT11_buffer4",
-      "connectedEdgeIds": [
-        "NT11_track4"
+        "NT11_track4",
+        "NT11_NT12_up"
       ]
     }
   ],
@@ -181,13 +173,13 @@
       "nodeBId": "NT11_21A_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10140,
-      "endDistanceOnGeometryM": 10180,
+      "startDistanceOnGeometryM": 10400,
+      "endDistanceOnGeometryM": 10440,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180,
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440,
           "offsetM": -8
         }
       ]
@@ -198,14 +190,22 @@
       "nodeBId": "NT11_22B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10440.0,
+          "endDistanceOnGeometryM": 10512.096474130387,
           "offsetM": -8
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 10512.096474130387,
+          "endDistanceOnGeometryM": 10534.2548828125,
+          "startOffsetM": -8,
+          "radiusM": -400.0,
+          "startHeadingDeg": 0
         }
       ]
     },
@@ -215,13 +215,13 @@
       "nodeBId": "NT11_22A_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10140,
-      "endDistanceOnGeometryM": 10180,
+      "startDistanceOnGeometryM": 10400,
+      "endDistanceOnGeometryM": 10440,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180,
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440,
           "offsetM": -4
         }
       ]
@@ -232,13 +232,13 @@
       "nodeBId": "NT11_21B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10534.255,
           "offsetM": -4
         }
       ]
@@ -249,13 +249,13 @@
       "nodeBId": "NT11_23A_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10140,
-      "endDistanceOnGeometryM": 10180,
+      "startDistanceOnGeometryM": 10400,
+      "endDistanceOnGeometryM": 10440,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180,
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440,
           "offsetM": 8
         }
       ]
@@ -266,13 +266,13 @@
       "nodeBId": "NT11_24B_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10534.255,
           "offsetM": 8
         }
       ]
@@ -283,13 +283,13 @@
       "nodeBId": "NT11_24A_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10140,
-      "endDistanceOnGeometryM": 10180,
+      "startDistanceOnGeometryM": 10400,
+      "endDistanceOnGeometryM": 10440,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180,
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440,
           "offsetM": 12
         }
       ]
@@ -300,14 +300,22 @@
       "nodeBId": "NT11_23B_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10440.0,
+          "endDistanceOnGeometryM": 10512.096474130387,
           "offsetM": 12
+        },
+        {
+          "type": "Arc",
+          "startDistanceOnGeometryM": 10512.096474130387,
+          "endDistanceOnGeometryM": 10534.2548828125,
+          "startOffsetM": 12,
+          "radiusM": 400.0,
+          "startHeadingDeg": 0
         }
       ]
     },
@@ -317,25 +325,27 @@
       "nodeBId": "NT11_25B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10534.255,
       "endDistanceOnGeometryM": 11080,
       "offsetSegments": [
         {
-          "type": "Constant",
-          "startDistanceOnGeometryM": 10274.255,
-          "endDistanceOnGeometryM": 10320,
-          "offsetM": -8
+          "type": "Linear",
+          "startDistanceOnGeometryM": 10534.2548828125,
+          "endDistanceOnGeometryM": 10620.25821094308,
+          "startOffsetM": -8.614215419881914,
+          "endOffsetM": -13.385784580118086
         },
         {
-          "type": "Cubic",
-          "startDistanceOnGeometryM": 10320,
-          "endDistanceOnGeometryM": 10580,
-          "startOffsetM": -8,
-          "endOffsetM": -14
+          "type": "Arc",
+          "startDistanceOnGeometryM": 10620.25821094308,
+          "endDistanceOnGeometryM": 10642.416619625194,
+          "startOffsetM": -13.385784580118086,
+          "radiusM": 400.0,
+          "startHeadingDeg": -3.1755838224396498
         },
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10580,
+          "startDistanceOnGeometryM": 10642.416619625194,
           "endDistanceOnGeometryM": 11080,
           "offsetM": -14
         }
@@ -344,7 +354,7 @@
     {
       "edgeId": "NT11_track1_stub",
       "nodeAId": "NT11_25B_node",
-      "nodeBId": "NT11_buffer1",
+      "nodeBId": "NT11_exit1",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
       "startDistanceOnGeometryM": 11080,
@@ -377,12 +387,12 @@
       "nodeBId": "NT11_25A_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10534.255,
       "endDistanceOnGeometryM": 10900,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10534.255,
           "endDistanceOnGeometryM": 10900,
           "offsetM": -4
         }
@@ -434,12 +444,12 @@
       "nodeBId": "NT11_26_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10534.255,
       "endDistanceOnGeometryM": 11160,
       "offsetSegments": [
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10534.255,
           "endDistanceOnGeometryM": 11020.013,
           "offsetM": 8
         },
@@ -488,28 +498,30 @@
     {
       "edgeId": "NT11_track4",
       "nodeAId": "NT11_23B_node",
-      "nodeBId": "NT11_buffer4",
+      "nodeBId": "NT11_exit4",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10534.255,
       "endDistanceOnGeometryM": 11860,
       "offsetSegments": [
         {
-          "type": "Constant",
-          "startDistanceOnGeometryM": 10274.255,
-          "endDistanceOnGeometryM": 10320,
-          "offsetM": 12
+          "type": "Linear",
+          "startDistanceOnGeometryM": 10534.2548828125,
+          "endDistanceOnGeometryM": 10620.25821094308,
+          "startOffsetM": 12.614215419881914,
+          "endOffsetM": 17.385784580118084
         },
         {
-          "type": "Cubic",
-          "startDistanceOnGeometryM": 10320,
-          "endDistanceOnGeometryM": 10580,
-          "startOffsetM": 12,
-          "endOffsetM": 18
+          "type": "Arc",
+          "startDistanceOnGeometryM": 10620.25821094308,
+          "endDistanceOnGeometryM": 10642.416619625194,
+          "startOffsetM": 17.385784580118084,
+          "radiusM": -400.0,
+          "startHeadingDeg": 3.1755838224396498
         },
         {
           "type": "Constant",
-          "startDistanceOnGeometryM": 10580,
+          "startDistanceOnGeometryM": 10642.416619625194,
           "endDistanceOnGeometryM": 11360,
           "offsetM": 18
         },
@@ -534,28 +546,28 @@
       "nodeBId": "NT11_21B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10202.166,
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10462.166,
           "startOffsetM": -8,
           "radiusM": 400,
           "startHeadingDeg": 0
         },
         {
           "type": "Linear",
-          "startDistanceOnGeometryM": 10202.166,
-          "endDistanceOnGeometryM": 10252.089,
+          "startDistanceOnGeometryM": 10462.166,
+          "endDistanceOnGeometryM": 10512.089,
           "startOffsetM": -7.385369,
           "endOffsetM": -4.614631
         },
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 10252.089,
-          "endDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10512.089,
+          "endDistanceOnGeometryM": 10534.255,
           "startOffsetM": -4.614631,
           "radiusM": -400,
           "startHeadingDeg": 3.1766586
@@ -568,31 +580,23 @@
       "nodeBId": "NT11_22B_node",
       "travelDirection": 1,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10202.166,
+          "startDistanceOnGeometryM": 10440.0,
+          "endDistanceOnGeometryM": 10462.158408682113,
           "startOffsetM": -4,
-          "radiusM": -400,
+          "radiusM": -400.0,
           "startHeadingDeg": 0
         },
         {
           "type": "Linear",
-          "startDistanceOnGeometryM": 10202.166,
-          "endDistanceOnGeometryM": 10252.089,
-          "startOffsetM": -4.614631,
-          "endOffsetM": -7.385369
-        },
-        {
-          "type": "Arc",
-          "startDistanceOnGeometryM": 10252.089,
-          "endDistanceOnGeometryM": 10274.255,
-          "startOffsetM": -7.385369,
-          "radiusM": 400,
-          "startHeadingDeg": -3.1766586
+          "startDistanceOnGeometryM": 10462.158408682113,
+          "endDistanceOnGeometryM": 10534.2548828125,
+          "startOffsetM": -4.614215419881914,
+          "endOffsetM": -8.614215419881914
         }
       ]
     },
@@ -602,31 +606,23 @@
       "nodeBId": "NT11_23B_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10202.166,
+          "startDistanceOnGeometryM": 10440.0,
+          "endDistanceOnGeometryM": 10462.158408682113,
           "startOffsetM": 8,
-          "radiusM": 400,
+          "radiusM": 400.0,
           "startHeadingDeg": 0
         },
         {
           "type": "Linear",
-          "startDistanceOnGeometryM": 10202.166,
-          "endDistanceOnGeometryM": 10252.089,
-          "startOffsetM": 8.614632,
-          "endOffsetM": 11.385368
-        },
-        {
-          "type": "Arc",
-          "startDistanceOnGeometryM": 10252.089,
-          "endDistanceOnGeometryM": 10274.255,
-          "startOffsetM": 11.385368,
-          "radiusM": -400,
-          "startHeadingDeg": 3.1766586
+          "startDistanceOnGeometryM": 10462.158408682113,
+          "endDistanceOnGeometryM": 10534.2548828125,
+          "startOffsetM": 8.614215419881914,
+          "endOffsetM": 12.614215419881914
         }
       ]
     },
@@ -636,28 +632,28 @@
       "nodeBId": "NT11_24B_node",
       "travelDirection": 2,
       "geometryId": "NT01_baseline",
-      "startDistanceOnGeometryM": 10180,
-      "endDistanceOnGeometryM": 10274.255,
+      "startDistanceOnGeometryM": 10440,
+      "endDistanceOnGeometryM": 10534.255,
       "offsetSegments": [
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10202.166,
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10462.166,
           "startOffsetM": 12,
           "radiusM": -400,
           "startHeadingDeg": 0
         },
         {
           "type": "Linear",
-          "startDistanceOnGeometryM": 10202.166,
-          "endDistanceOnGeometryM": 10252.089,
+          "startDistanceOnGeometryM": 10462.166,
+          "endDistanceOnGeometryM": 10512.089,
           "startOffsetM": 11.385368,
           "endOffsetM": 8.614632
         },
         {
           "type": "Arc",
-          "startDistanceOnGeometryM": 10252.089,
-          "endDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10512.089,
+          "endDistanceOnGeometryM": 10534.255,
           "startOffsetM": 8.614632,
           "radiusM": 400,
           "startHeadingDeg": -3.1766586
@@ -929,6 +925,30 @@
           "condition": 3
         }
       ]
+    },
+    {
+      "connectionId": "NT11_exit1_connection",
+      "nodeId": "NT11_exit1",
+      "edgePairs": [
+        {
+          "pairId": "NT11_exit1_connection_fixed",
+          "edgeAId": "NT11_track1_stub",
+          "edgeBId": "NT11_NT12_down",
+          "condition": 1
+        }
+      ]
+    },
+    {
+      "connectionId": "NT11_exit4_connection",
+      "nodeId": "NT11_exit4",
+      "edgePairs": [
+        {
+          "pairId": "NT11_exit4_connection_fixed",
+          "edgeAId": "NT11_track4",
+          "edgeBId": "NT11_NT12_up",
+          "condition": 1
+        }
+      ]
     }
   ],
   "circuits": [
@@ -939,18 +959,18 @@
       "sections": [
         {
           "edgeId": "NT11_track1_approach",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440
         },
         {
           "edgeId": "NT11_track1_scissors",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         },
         {
           "edgeId": "NT11_crossover21",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         }
       ]
     },
@@ -961,18 +981,18 @@
       "sections": [
         {
           "edgeId": "NT11_track2_approach",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440
         },
         {
           "edgeId": "NT11_track2_scissors",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         },
         {
           "edgeId": "NT11_crossover22",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         }
       ]
     },
@@ -980,22 +1000,22 @@
       "circuitId": "NT11_23AT",
       "displayName": "上り緩行線",
       "controlKind": "Interlocking",
-      "toCircuitId": "NT10_NT11_UL3T",
+      "toCircuitId": "NT10_NT11_UL2T",
       "sections": [
         {
           "edgeId": "NT11_track3_approach",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440
         },
         {
           "edgeId": "NT11_track3_scissors",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         },
         {
           "edgeId": "NT11_crossover23",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         }
       ]
     },
@@ -1003,22 +1023,22 @@
       "circuitId": "NT11_24AT",
       "displayName": "上り急行線",
       "controlKind": "Interlocking",
-      "toCircuitId": "NT10_NT11_UE3T",
+      "toCircuitId": "NT10_NT11_UE2T",
       "sections": [
         {
           "edgeId": "NT11_track4_approach",
-          "startDistanceOnGeometryM": 10140,
-          "endDistanceOnGeometryM": 10180
+          "startDistanceOnGeometryM": 10400,
+          "endDistanceOnGeometryM": 10440
         },
         {
           "edgeId": "NT11_track4_scissors",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         },
         {
           "edgeId": "NT11_crossover24",
-          "startDistanceOnGeometryM": 10180,
-          "endDistanceOnGeometryM": 10227.128
+          "startDistanceOnGeometryM": 10440,
+          "endDistanceOnGeometryM": 10487.128
         }
       ]
     },
@@ -1029,18 +1049,18 @@
       "sections": [
         {
           "edgeId": "NT11_track2_scissors",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         },
         {
           "edgeId": "NT11_track2",
-          "startDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10534.255,
           "endDistanceOnGeometryM": 10590
         },
         {
           "edgeId": "NT11_crossover21",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         }
       ]
     },
@@ -1051,18 +1071,18 @@
       "sections": [
         {
           "edgeId": "NT11_track1_scissors",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         },
         {
           "edgeId": "NT11_track1",
-          "startDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10534.255,
           "endDistanceOnGeometryM": 10590
         },
         {
           "edgeId": "NT11_crossover22",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         }
       ]
     },
@@ -1073,18 +1093,18 @@
       "sections": [
         {
           "edgeId": "NT11_track4_scissors",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         },
         {
           "edgeId": "NT11_track4",
-          "startDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10534.255,
           "endDistanceOnGeometryM": 10590
         },
         {
           "edgeId": "NT11_crossover23",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         }
       ]
     },
@@ -1095,18 +1115,18 @@
       "sections": [
         {
           "edgeId": "NT11_track3_scissors",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         },
         {
           "edgeId": "NT11_track3",
-          "startDistanceOnGeometryM": 10274.255,
+          "startDistanceOnGeometryM": 10534.255,
           "endDistanceOnGeometryM": 10590
         },
         {
           "edgeId": "NT11_crossover24",
-          "startDistanceOnGeometryM": 10227.128,
-          "endDistanceOnGeometryM": 10274.255
+          "startDistanceOnGeometryM": 10487.128,
+          "endDistanceOnGeometryM": 10534.255
         }
       ]
     },
@@ -1200,7 +1220,8 @@
           "startDistanceOnGeometryM": 10990,
           "endDistanceOnGeometryM": 11080
         }
-      ]
+      ],
+      "toCircuitId": "NT11_NT12_D1T"
     },
     {
       "circuitId": "NT11_26T",
@@ -1233,30 +1254,6 @@
           "edgeId": "NT11_track3_stub",
           "startDistanceOnGeometryM": 11180,
           "endDistanceOnGeometryM": 11400
-        }
-      ]
-    },
-    {
-      "circuitId": "NT11_1_STUB_T",
-      "displayName": "引上1",
-      "controlKind": "Interlocking",
-      "sections": [
-        {
-          "edgeId": "NT11_track1_stub",
-          "startDistanceOnGeometryM": 11110,
-          "endDistanceOnGeometryM": 11860
-        }
-      ]
-    },
-    {
-      "circuitId": "NT11_4_STUB_T",
-      "displayName": "引上4",
-      "controlKind": "Interlocking",
-      "sections": [
-        {
-          "edgeId": "NT11_track4",
-          "startDistanceOnGeometryM": 10890,
-          "endDistanceOnGeometryM": 11860
         }
       ]
     }

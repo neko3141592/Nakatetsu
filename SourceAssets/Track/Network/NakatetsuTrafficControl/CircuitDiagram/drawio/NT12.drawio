@@ -1,0 +1,61 @@
+<mxfile host="Electron">
+  <diagram name="NT12" id="NT12_Diagram">
+    <mxGraphModel grid="1" gridSize="8" page="1" pageScale="1" pageWidth="138" pageHeight="768">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NT12_DT" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="320" as="sourcePoint" />
+            <mxPoint x="138" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT12_TrainLabel_DT" vertex="1" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="">
+          <mxGeometry x="65" y="336" width="8" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="NT12_Boundary_NT12_DT_Start" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;strokeColor=#EC4899;strokeWidth=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="314" as="sourcePoint" />
+            <mxPoint x="0" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT12_Boundary_NT12_DT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;strokeColor=#EC4899;strokeWidth=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="138" y="314" as="sourcePoint" />
+            <mxPoint x="138" y="326" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT12_UT" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;rounded=0;strokeWidth=1;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="448" as="sourcePoint" />
+            <mxPoint x="138" y="448" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT12_TrainLabel_UT" vertex="1" parent="1" style="ellipse;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="">
+          <mxGeometry x="65" y="424" width="8" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="NT12_Boundary_NT12_UT_Start" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;strokeColor=#EC4899;strokeWidth=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="442" as="sourcePoint" />
+            <mxPoint x="0" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT12_Boundary_NT12_UT_End" edge="1" parent="1" style="endArrow=none;startArrow=none;html=0;strokeColor=#EC4899;strokeWidth=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="138" y="442" as="sourcePoint" />
+            <mxPoint x="138" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NT12_Platform_1" vertex="1" parent="1" style="rounded=0;html=0;strokeColor=#3F3F46;fillColor=none;" value="">
+          <mxGeometry x="11.5" y="248" width="115" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT12_Platform_2" vertex="1" parent="1" style="rounded=0;html=0;strokeColor=#3F3F46;fillColor=none;" value="">
+          <mxGeometry x="11.5" y="464" width="115" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="NT12_Label_Station" vertex="1" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontSize=16;fontColor=#3F3F46;" value="羽沢台">
+          <mxGeometry x="11.5" y="260" width="115" height="32" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

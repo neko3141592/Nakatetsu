@@ -35,7 +35,7 @@
       "turnoutId": "NT11_22B",
       "label": "22B",
       "x": 128.8,
-      "y": 236.0
+      "y": 228.0
     },
     {
       "id": "NT11_TurnoutIndicator_21B",
@@ -56,7 +56,7 @@
       "turnoutId": "NT11_23B",
       "label": "23B",
       "x": 128.8,
-      "y": 532.0
+      "y": 540.0
     },
     {
       "id": "NT11_TurnoutIndicator_25A",
@@ -142,14 +142,14 @@
       "circuitId": "NT11_22BT",
       "svgId": "NT11_22BT_N",
       "x": 110.4,
-      "y": 216.0
+      "y": 194.0
     },
     {
       "id": "NT11_TrainLabel_22BT_R",
       "circuitId": "NT11_22BT",
       "svgId": "NT11_22BT_R",
       "x": 110.4,
-      "y": 216.0
+      "y": 194.0
     },
     {
       "id": "NT11_TrainLabel_21BT_N",
@@ -184,14 +184,14 @@
       "circuitId": "NT11_23BT",
       "svgId": "NT11_23BT_N",
       "x": 110.4,
-      "y": 552.0
+      "y": 574.0
     },
     {
       "id": "NT11_TrainLabel_23BT_R",
       "circuitId": "NT11_23BT",
       "svgId": "NT11_23BT_R",
       "x": 110.4,
-      "y": 552.0
+      "y": 574.0
     },
     {
       "id": "NT11_TrainLabel_1RT",
@@ -264,25 +264,11 @@
       "y": 348.0
     },
     {
-      "id": "NT11_TrainLabel_1_STUB_T",
-      "circuitId": "NT11_1_STUB_T",
-      "svgId": "NT11_1_STUB_T",
-      "x": 883.2,
-      "y": 300.0
-    },
-    {
       "id": "NT11_TrainLabel_DEPOT_T",
       "circuitId": "NT11_DEPOT_T",
       "svgId": "NT11_DEPOT_T",
       "x": 772.8,
       "y": 364.0
-    },
-    {
-      "id": "NT11_TrainLabel_4_STUB_T",
-      "circuitId": "NT11_4_STUB_T",
-      "svgId": "NT11_4_STUB_T",
-      "x": 883.2,
-      "y": 468.0
     }
   ]
 }

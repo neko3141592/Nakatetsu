@@ -1,0 +1,302 @@
+{
+  "width": 899.76,
+  "height": 768.0,
+  "turnoutIndicators": [
+    {
+      "id": "NT14_TurnoutIndicator_21A",
+      "turnoutId": "NT14_21A",
+      "label": "21A",
+      "x": 18.4,
+      "y": 292.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_22A",
+      "turnoutId": "NT14_22A",
+      "label": "22A",
+      "x": 18.4,
+      "y": 476.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_21B",
+      "turnoutId": "NT14_21B",
+      "label": "21B",
+      "x": 128.8,
+      "y": 476.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_22B",
+      "turnoutId": "NT14_22B",
+      "label": "22B",
+      "x": 128.8,
+      "y": 292.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_23",
+      "turnoutId": "NT14_23",
+      "label": "23",
+      "x": 156.4,
+      "y": 344.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_24",
+      "turnoutId": "NT14_24",
+      "label": "24",
+      "x": 156.4,
+      "y": 424.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_25",
+      "turnoutId": "NT14_25",
+      "label": "25",
+      "x": 561.2,
+      "y": 344.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_26",
+      "turnoutId": "NT14_26",
+      "label": "26",
+      "x": 561.2,
+      "y": 424.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_27A",
+      "turnoutId": "NT14_27A",
+      "label": "27A",
+      "x": 605.36,
+      "y": 292.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_28A",
+      "turnoutId": "NT14_28A",
+      "label": "28A",
+      "x": 605.36,
+      "y": 476.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_27B",
+      "turnoutId": "NT14_27B",
+      "label": "27B",
+      "x": 715.76,
+      "y": 476.0
+    },
+    {
+      "id": "NT14_TurnoutIndicator_28B",
+      "turnoutId": "NT14_28B",
+      "label": "28B",
+      "x": 715.76,
+      "y": 292.0
+    }
+  ],
+  "trainLabels": [
+    {
+      "id": "NT14_TrainLabel_21AT_N",
+      "circuitId": "NT14_21AT",
+      "svgId": "NT14_21AT_N",
+      "x": 9.2,
+      "y": 300.0
+    },
+    {
+      "id": "NT14_TrainLabel_21AT_R",
+      "circuitId": "NT14_21AT",
+      "svgId": "NT14_21AT_R",
+      "x": 46.0,
+      "y": 356.0
+    },
+    {
+      "id": "NT14_TrainLabel_22AT_N",
+      "circuitId": "NT14_22AT",
+      "svgId": "NT14_22AT_N",
+      "x": 9.2,
+      "y": 468.0
+    },
+    {
+      "id": "NT14_TrainLabel_22AT_R",
+      "circuitId": "NT14_22AT",
+      "svgId": "NT14_22AT_R",
+      "x": 46.0,
+      "y": 412.0
+    },
+    {
+      "id": "NT14_TrainLabel_21BT_N",
+      "circuitId": "NT14_21BT",
+      "svgId": "NT14_21BT_N",
+      "x": 139.84,
+      "y": 468.0
+    },
+    {
+      "id": "NT14_TrainLabel_21BT_R",
+      "circuitId": "NT14_21BT",
+      "svgId": "NT14_21BT_R",
+      "x": 101.2,
+      "y": 412.0
+    },
+    {
+      "id": "NT14_TrainLabel_22BT_N",
+      "circuitId": "NT14_22BT",
+      "svgId": "NT14_22BT_N",
+      "x": 139.84,
+      "y": 300.0
+    },
+    {
+      "id": "NT14_TrainLabel_22BT_R",
+      "circuitId": "NT14_22BT",
+      "svgId": "NT14_22BT_R",
+      "x": 101.2,
+      "y": 356.0
+    },
+    {
+      "id": "NT14_TrainLabel_23T_N",
+      "circuitId": "NT14_23T",
+      "svgId": "NT14_23T_N",
+      "x": 153.64,
+      "y": 300.0
+    },
+    {
+      "id": "NT14_TrainLabel_23T_R",
+      "circuitId": "NT14_23T",
+      "svgId": "NT14_23T_R",
+      "x": 216.209,
+      "y": 252.0
+    },
+    {
+      "id": "NT14_TrainLabel_24T_N",
+      "circuitId": "NT14_24T",
+      "svgId": "NT14_24T_N",
+      "x": 153.64,
+      "y": 468.0
+    },
+    {
+      "id": "NT14_TrainLabel_24T_R",
+      "circuitId": "NT14_24T",
+      "svgId": "NT14_24T_R",
+      "x": 216.209,
+      "y": 508.0
+    },
+    {
+      "id": "NT14_TrainLabel_1RT",
+      "circuitId": "NT14_1RT",
+      "svgId": "NT14_1RT",
+      "x": 358.8,
+      "y": 172.0
+    },
+    {
+      "id": "NT14_TrainLabel_2RT",
+      "circuitId": "NT14_2RT",
+      "svgId": "NT14_2RT",
+      "x": 358.8,
+      "y": 340.0
+    },
+    {
+      "id": "NT14_TrainLabel_3LT",
+      "circuitId": "NT14_3LT",
+      "svgId": "NT14_3LT",
+      "x": 358.8,
+      "y": 428.0
+    },
+    {
+      "id": "NT14_TrainLabel_4LT",
+      "circuitId": "NT14_4LT",
+      "svgId": "NT14_4LT",
+      "x": 358.8,
+      "y": 556.0
+    },
+    {
+      "id": "NT14_TrainLabel_25T_N",
+      "circuitId": "NT14_25T",
+      "svgId": "NT14_25T_N",
+      "x": 564.88,
+      "y": 300.0
+    },
+    {
+      "id": "NT14_TrainLabel_25T_R",
+      "circuitId": "NT14_25T",
+      "svgId": "NT14_25T_R",
+      "x": 501.391,
+      "y": 252.0
+    },
+    {
+      "id": "NT14_TrainLabel_26T_N",
+      "circuitId": "NT14_26T",
+      "svgId": "NT14_26T_N",
+      "x": 564.88,
+      "y": 468.0
+    },
+    {
+      "id": "NT14_TrainLabel_26T_R",
+      "circuitId": "NT14_26T",
+      "svgId": "NT14_26T_R",
+      "x": 501.391,
+      "y": 508.0
+    },
+    {
+      "id": "NT14_TrainLabel_27AT_N",
+      "circuitId": "NT14_27AT",
+      "svgId": "NT14_27AT_N",
+      "x": 586.96,
+      "y": 300.0
+    },
+    {
+      "id": "NT14_TrainLabel_27AT_R",
+      "circuitId": "NT14_27AT",
+      "svgId": "NT14_27AT_R",
+      "x": 632.96,
+      "y": 356.0
+    },
+    {
+      "id": "NT14_TrainLabel_28AT_N",
+      "circuitId": "NT14_28AT",
+      "svgId": "NT14_28AT_N",
+      "x": 586.96,
+      "y": 468.0
+    },
+    {
+      "id": "NT14_TrainLabel_28AT_R",
+      "circuitId": "NT14_28AT",
+      "svgId": "NT14_28AT_R",
+      "x": 632.96,
+      "y": 412.0
+    },
+    {
+      "id": "NT14_TrainLabel_27BT_N",
+      "circuitId": "NT14_27BT",
+      "svgId": "NT14_27BT_N",
+      "x": 734.16,
+      "y": 468.0
+    },
+    {
+      "id": "NT14_TrainLabel_27BT_R",
+      "circuitId": "NT14_27BT",
+      "svgId": "NT14_27BT_R",
+      "x": 688.16,
+      "y": 412.0
+    },
+    {
+      "id": "NT14_TrainLabel_28BT_N",
+      "circuitId": "NT14_28BT",
+      "svgId": "NT14_28BT_N",
+      "x": 734.16,
+      "y": 300.0
+    },
+    {
+      "id": "NT14_TrainLabel_28BT_R",
+      "circuitId": "NT14_28BT",
+      "svgId": "NT14_28BT_R",
+      "x": 688.16,
+      "y": 356.0
+    },
+    {
+      "id": "NT14_TrainLabel_DEPOT_1T",
+      "circuitId": "NT14_DEPOT_1T",
+      "svgId": "NT14_DEPOT_1T",
+      "x": 816.96,
+      "y": 428.0
+    },
+    {
+      "id": "NT14_TrainLabel_DEPOT_2T",
+      "circuitId": "NT14_DEPOT_2T",
+      "svgId": "NT14_DEPOT_2T",
+      "x": 816.96,
+      "y": 340.0
+    }
+  ]
+}

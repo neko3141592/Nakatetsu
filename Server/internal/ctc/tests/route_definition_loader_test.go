@@ -3,6 +3,7 @@ package tests
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -186,31 +187,24 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 		t.Fatalf("loaded request triggers for %d stations, want 5", len(definitions.RequestTriggersByStation))
 	}
 	for stationID, approaches := range map[string][]string{
-		"NT01": {"NT01_NT02_U1T"},
+		"NT01": {"NT02_UT"},
 		"NT05": {"NT03_DT", "NT06_UT"},
-		"NT07": {"NT06_NT07_D3T", "NT07_NT08_UE1T", "NT07_NT08_UL1T"},
-		"NT11": {"NT10_NT11_DE1T", "NT10_NT11_DL1T"},
-		"NT14": {"NT13_NT14_D4T", "NT14_27BT"},
+		"NT07": {"NT06_DT", "NT08_4LT", "NT08_3LT"},
+		"NT11": {"NT09_1RT", "NT09_2RT", "NT12_UT"},
+		"NT14": {"NT13_DT"},
 	} {
-		for _, circuitID := range approaches {
-			if !slices.Contains(definitions.RequestTriggersByStation[stationID], circuitID) {
-				t.Fatalf("station %s: approach %s is not a request trigger", stationID, circuitID)
-			}
+		if got := definitions.RequestTriggersByStation[stationID]; !reflect.DeepEqual(got, approaches) {
+			t.Fatalf("station %s: request triggers = %v, want %v", stationID, got, approaches)
 		}
 	}
-	for _, route := range routes {
-		if !slices.Contains(definitions.RequestTriggersByStation[route.InterlockingStationID], route.TrackCircuitIDs[0]) {
-			t.Fatalf("route %s/%s: start circuit is not a request trigger", route.InterlockingStationID, route.InterlockingRouteID)
-		}
-	}
-	if len(routes) != 74 {
-		t.Fatalf("loaded %d routes, want 74", len(routes))
+	if len(routes) != 91 {
+		t.Fatalf("loaded %d routes, want 91", len(routes))
 	}
 	counts := make(map[string]int)
 	for _, route := range routes {
 		counts[route.InterlockingStationID]++
 	}
-	if want := (map[string]int{"NT01": 6, "NT05": 8, "NT07": 24, "NT11": 20, "NT14": 16}); !reflect.DeepEqual(counts, want) {
+	if want := (map[string]int{"NT01": 6, "NT05": 8, "NT07": 24, "NT11": 17, "NT14": 36}); !reflect.DeepEqual(counts, want) {
 		t.Fatalf("route counts = %v, want %v", counts, want)
 	}
 	for _, tt := range []struct {
@@ -232,6 +226,34 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 			t.Fatalf("route NT07/%s: expected direction %s and kind %s", tt.id, tt.direction, tt.kind)
 		}
 	}
+	endpoints := []string{"NT14_1RT", "NT14_2RT", "NT14_3LT", "NT14_4LT"}
+	for i := 3; i <= 12; i++ {
+		endpoints = append(endpoints, fmt.Sprintf("NT14_DEPOT_%dT", i))
+	}
+	for _, endpoint := range endpoints {
+		for _, pair := range [][2]string{{endpoint, "NT14_31T"}, {"NT14_31T", endpoint}} {
+			index := slices.IndexFunc(routes, func(route ctc.TrackRouteDefinition) bool {
+				ids := route.TrackCircuitIDs
+				return route.InterlockingStationID == "NT14" && ids[0] == pair[0] && ids[len(ids)-1] == pair[1]
+			})
+			if index < 0 || routes[index].Kind != ctc.RouteKindShunting {
+				t.Fatalf("missing NT14 shunting route: %s -> %s", pair[0], pair[1])
+			}
+			clear := routes[index].RouteClearTrackCircuitIDs
+			if !slices.Contains(clear, pair[1]) || slices.Contains(clear, pair[0]) {
+				t.Fatalf("NT14 route %s must check the destination and allow occupancy at the start", routes[index].InterlockingRouteID)
+			}
+		}
+	}
+	for _, route := range routes {
+		if route.InterlockingStationID == "NT14" && (slices.Contains(route.TrackCircuitIDs, "NT14_DEPOT_1T") ||
+			slices.Contains(route.TrackCircuitIDs, "NT14_DEPOT_2T")) {
+			t.Fatalf("retired NT14 shunting route remains: %s", route.InterlockingRouteID)
+		}
+		if route.InterlockingStationID == "NT11" && slices.Contains([]string{"10LA", "10LB", "12R"}, route.InterlockingRouteID) {
+			t.Fatalf("obsolete Sarunuma shunting route remains: %s", route.InterlockingRouteID)
+		}
+	}
 	refs := ctc.BuildRouteCircuitRefs(routes)
 	for _, tt := range []struct{ station, route, from, to string }{
 		{"NT01", "1LA", "NT01_21BT", "NT01_21AT"},
@@ -241,6 +263,10 @@ func TestLoadNakatetsuTrackRouteDefinitions(t *testing.T) {
 		{"NT11", "11LB", "NT11_DEPOT_T", "NT11_26T"},
 		{"NT14", "1RA", "NT14_21AT", "NT14_22BT"},
 		{"NT14", "2L", "NT14_1RT", "NT14_23T"},
+		{"NT14", "16R", "NT14_27BT", "NT14_31T"},
+		{"NT14", "20LA", "NT14_31T", "NT14_27BT"},
+		{"NT14", "20RI", "NT14_31T", "NT14_32T"},
+		{"NT14", "30L", "NT14_DEPOT_12T", "NT14_40T"},
 	} {
 		t.Run(tt.station+"/"+tt.route, func(t *testing.T) {
 			state := ctc.TrackingState{}

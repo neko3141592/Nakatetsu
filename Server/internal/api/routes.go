@@ -34,16 +34,22 @@ func (s *ApiServer) Routes() http.Handler {
 	mux.HandleFunc("DELETE /api/running-patterns/{id}", s.HandleDeleteRunningPattern)
 
 	mux.HandleFunc("GET /api/trains", s.HandleListTrains)
-	mux.HandleFunc("GET /api/trains/{trainNumber}", s.HandleGetTrain)
+	mux.HandleFunc("GET /api/trains/{id}", s.HandleGetTrain)
 	mux.HandleFunc("POST /api/trains", s.HandlePostTrain)
-	mux.HandleFunc("PATCH /api/trains/{trainNumber}", s.HandlePatchTrain)
-	mux.HandleFunc("DELETE /api/trains/{trainNumber}", s.HandleDeleteTrain)
+	mux.HandleFunc("PATCH /api/trains/{id}", s.HandlePatchTrain)
+	mux.HandleFunc("DELETE /api/trains/{id}", s.HandleDeleteTrain)
+
+	mux.HandleFunc("GET /api/operation-plans", s.HandleListOperationPlans)
+	mux.HandleFunc("POST /api/operation-plans", s.HandlePostOperationPlan)
+	mux.HandleFunc("GET /api/operation-plans/{id}", s.HandleGetOperationPlan)
+	mux.HandleFunc("PATCH /api/operation-plans/{id}", s.HandlePatchOperationPlan)
+	mux.HandleFunc("DELETE /api/operation-plans/{id}", s.HandleDeleteOperationPlan)
 
 	mux.HandleFunc("GET /api/operations", s.HandleListOperations)
-	mux.HandleFunc("GET /api/operations/{operationNumber}", s.HandleGetOperation)
+	mux.HandleFunc("GET /api/operations/{id}", s.HandleGetOperation)
 	mux.HandleFunc("POST /api/operations", s.HandlePostOperation)
-	mux.HandleFunc("PATCH /api/operations/{operationNumber}", s.HandlePatchOperation)
-	mux.HandleFunc("DELETE /api/operations/{operationNumber}", s.HandleDeleteOperation)
+	mux.HandleFunc("PATCH /api/operations/{id}", s.HandlePatchOperation)
+	mux.HandleFunc("DELETE /api/operations/{id}", s.HandleDeleteOperation)
 
 	mux.HandleFunc("GET /api/stations", s.HandleListStations)
 	mux.HandleFunc("GET /api/stations/{stationId}", s.HandleGetStation)

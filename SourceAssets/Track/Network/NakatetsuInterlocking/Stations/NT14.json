@@ -1,0 +1,3404 @@
+{
+  "interlockingId": "NT14",
+  "requestTriggerTrackCircuitIds": [
+    "NT13_DT"
+  ],
+  "memberTrackCircuitIds": [
+    "NT14_21AT",
+    "NT14_22AT",
+    "NT14_21BT",
+    "NT14_22BT",
+    "NT14_23T",
+    "NT14_24T",
+    "NT14_1RT",
+    "NT14_2RT",
+    "NT14_3LT",
+    "NT14_4LT",
+    "NT14_25T",
+    "NT14_26T",
+    "NT14_27AT",
+    "NT14_28AT",
+    "NT14_27BT",
+    "NT14_28BT",
+    "NT13_NT14_D5T",
+    "NT13_NT14_U5T",
+    "NT14_DEPOT_1T",
+    "NT14_DEPOT_2T",
+    "NT14_D1T",
+    "NT14_U1T",
+    "NT14_31T",
+    "NT14_32T",
+    "NT14_33T",
+    "NT14_34T",
+    "NT14_35T",
+    "NT14_36T",
+    "NT14_37T",
+    "NT14_38T",
+    "NT14_39T",
+    "NT14_40T",
+    "NT14_41T",
+    "NT14_42T",
+    "NT14_43T",
+    "NT14_44T",
+    "NT14_DEPOT_3T",
+    "NT14_DEPOT_4T",
+    "NT14_DEPOT_5T",
+    "NT14_DEPOT_6T",
+    "NT14_DEPOT_7T",
+    "NT14_DEPOT_8T",
+    "NT14_DEPOT_9T",
+    "NT14_DEPOT_10T",
+    "NT14_DEPOT_11T",
+    "NT14_DEPOT_12T"
+  ],
+  "memberConnectionIds": [
+    "NT14_21A",
+    "NT14_22A",
+    "NT14_21B",
+    "NT14_22B",
+    "NT14_27A",
+    "NT14_28A",
+    "NT14_27B",
+    "NT14_28B",
+    "NT14_23",
+    "NT14_25",
+    "NT14_24",
+    "NT14_26",
+    "NT14_31",
+    "NT14_32",
+    "NT14_33",
+    "NT14_34",
+    "NT14_35",
+    "NT14_36",
+    "NT14_37",
+    "NT14_38",
+    "NT14_39",
+    "NT14_40",
+    "NT14_41",
+    "NT14_42",
+    "NT14_43",
+    "NT14_44"
+  ],
+  "destinations": [
+    {
+      "code": "A",
+      "displayName": "1番線",
+      "trackCircuitId": "NT14_1RT"
+    },
+    {
+      "code": "B",
+      "displayName": "2番線",
+      "trackCircuitId": "NT14_2RT"
+    },
+    {
+      "code": "C",
+      "displayName": "3番線",
+      "trackCircuitId": "NT14_3LT"
+    },
+    {
+      "code": "D",
+      "displayName": "4番線",
+      "trackCircuitId": "NT14_4LT"
+    },
+    {
+      "code": "E",
+      "displayName": "中央方面",
+      "trackCircuitId": "NT13_NT14_U5T"
+    },
+    {
+      "code": "F",
+      "displayName": "電留2T",
+      "trackCircuitId": "NT14_DEPOT_2T"
+    },
+    {
+      "code": "G",
+      "displayName": "電留1T",
+      "trackCircuitId": "NT14_DEPOT_1T"
+    },
+    {
+      "code": "H",
+      "displayName": "31T",
+      "trackCircuitId": "NT14_31T"
+    },
+    {
+      "code": "I",
+      "displayName": "電留3T",
+      "trackCircuitId": "NT14_DEPOT_3T"
+    },
+    {
+      "code": "J",
+      "displayName": "電留4T",
+      "trackCircuitId": "NT14_DEPOT_4T"
+    },
+    {
+      "code": "K",
+      "displayName": "電留5T",
+      "trackCircuitId": "NT14_DEPOT_5T"
+    },
+    {
+      "code": "L",
+      "displayName": "電留6T",
+      "trackCircuitId": "NT14_DEPOT_6T"
+    },
+    {
+      "code": "M",
+      "displayName": "電留7T",
+      "trackCircuitId": "NT14_DEPOT_7T"
+    },
+    {
+      "code": "N",
+      "displayName": "電留8T",
+      "trackCircuitId": "NT14_DEPOT_8T"
+    },
+    {
+      "code": "O",
+      "displayName": "電留9T",
+      "trackCircuitId": "NT14_DEPOT_9T"
+    },
+    {
+      "code": "P",
+      "displayName": "電留10T",
+      "trackCircuitId": "NT14_DEPOT_10T"
+    },
+    {
+      "code": "Q",
+      "displayName": "電留11T",
+      "trackCircuitId": "NT14_DEPOT_11T"
+    },
+    {
+      "code": "R",
+      "displayName": "電留12T",
+      "trackCircuitId": "NT14_DEPOT_12T"
+    }
+  ],
+  "routes": [
+    {
+      "routeId": "1RA",
+      "direction": "Down",
+      "kind": "Home",
+      "startTrackCircuitId": "NT13_NT14_D5T",
+      "destinationCode": "A",
+      "destinationTrackCircuitId": "NT14_1RT",
+      "trackCircuitIds": [
+        "NT13_NT14_D5T",
+        "NT14_21AT",
+        "NT14_22BT",
+        "NT14_23T",
+        "NT14_1RT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22BT",
+        "NT14_23T",
+        "NT14_1RT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22BT",
+        "NT14_23T",
+        "NT14_1RT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT13_NT14_D5T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "2L",
+        "1RB",
+        "3L",
+        "1RC",
+        "4L",
+        "1RD",
+        "5L",
+        "20LA"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "2L",
+      "direction": "Up",
+      "kind": "Departure",
+      "startTrackCircuitId": "NT14_1RT",
+      "destinationCode": "E",
+      "destinationTrackCircuitId": "NT13_NT14_U5T",
+      "trackCircuitIds": [
+        "NT14_1RT",
+        "NT14_23T",
+        "NT14_22BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_23T",
+        "NT14_22BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_23T",
+        "NT14_22BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_1RT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "1RB",
+        "3L",
+        "1RC",
+        "4L",
+        "1RD",
+        "5L",
+        "16R"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "1RB",
+      "direction": "Down",
+      "kind": "Home",
+      "startTrackCircuitId": "NT13_NT14_D5T",
+      "destinationCode": "B",
+      "destinationTrackCircuitId": "NT14_2RT",
+      "trackCircuitIds": [
+        "NT13_NT14_D5T",
+        "NT14_21AT",
+        "NT14_22BT",
+        "NT14_23T",
+        "NT14_2RT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22BT",
+        "NT14_23T",
+        "NT14_2RT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22BT",
+        "NT14_23T",
+        "NT14_2RT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT13_NT14_D5T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "2L",
+        "3L",
+        "1RC",
+        "1RD",
+        "5L",
+        "20LB"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "3L",
+      "direction": "Up",
+      "kind": "Departure",
+      "startTrackCircuitId": "NT14_2RT",
+      "destinationCode": "E",
+      "destinationTrackCircuitId": "NT13_NT14_U5T",
+      "trackCircuitIds": [
+        "NT14_2RT",
+        "NT14_23T",
+        "NT14_22BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_23T",
+        "NT14_22BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_23T",
+        "NT14_22BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_2RT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "2L",
+        "1RB",
+        "1RC",
+        "4L",
+        "1RD",
+        "5L",
+        "17R"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "1RC",
+      "direction": "Down",
+      "kind": "Home",
+      "startTrackCircuitId": "NT13_NT14_D5T",
+      "destinationCode": "C",
+      "destinationTrackCircuitId": "NT14_3LT",
+      "trackCircuitIds": [
+        "NT13_NT14_D5T",
+        "NT14_21AT",
+        "NT14_21BT",
+        "NT14_24T",
+        "NT14_3LT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_21BT",
+        "NT14_24T",
+        "NT14_3LT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_21BT",
+        "NT14_24T",
+        "NT14_3LT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT13_NT14_D5T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "2L",
+        "1RB",
+        "3L",
+        "4L",
+        "1RD",
+        "5L",
+        "20LC"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "4L",
+      "direction": "Up",
+      "kind": "Departure",
+      "startTrackCircuitId": "NT14_3LT",
+      "destinationCode": "E",
+      "destinationTrackCircuitId": "NT13_NT14_U5T",
+      "trackCircuitIds": [
+        "NT14_3LT",
+        "NT14_24T",
+        "NT14_21BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_24T",
+        "NT14_21BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_24T",
+        "NT14_21BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_3LT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "2L",
+        "3L",
+        "1RC",
+        "1RD",
+        "5L",
+        "18R"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "1RD",
+      "direction": "Down",
+      "kind": "Home",
+      "startTrackCircuitId": "NT13_NT14_D5T",
+      "destinationCode": "D",
+      "destinationTrackCircuitId": "NT14_4LT",
+      "trackCircuitIds": [
+        "NT13_NT14_D5T",
+        "NT14_21AT",
+        "NT14_21BT",
+        "NT14_24T",
+        "NT14_4LT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_21BT",
+        "NT14_24T",
+        "NT14_4LT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_21AT",
+        "NT14_21BT",
+        "NT14_24T",
+        "NT14_4LT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT13_NT14_D5T"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "2L",
+        "1RB",
+        "3L",
+        "1RC",
+        "4L",
+        "5L",
+        "20LD"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "5L",
+      "direction": "Up",
+      "kind": "Departure",
+      "startTrackCircuitId": "NT14_4LT",
+      "destinationCode": "E",
+      "destinationTrackCircuitId": "NT13_NT14_U5T",
+      "trackCircuitIds": [
+        "NT14_4LT",
+        "NT14_24T",
+        "NT14_21BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_21A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_21B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_22B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_23",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_24",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_24T",
+        "NT14_21BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_24T",
+        "NT14_21BT",
+        "NT14_22AT",
+        "NT13_NT14_U5T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_4LT"
+        ],
+        "releaseSeconds": 60
+      },
+      "conflictRouteIds": [
+        "1RA",
+        "2L",
+        "1RB",
+        "3L",
+        "1RC",
+        "4L",
+        "1RD",
+        "19R"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "16R",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_1RT",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_1RT",
+        "NT14_25T",
+        "NT14_27AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_25T",
+        "NT14_27AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_25T",
+        "NT14_27AT",
+        "NT14_27BT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_1RT"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "2L",
+        "20LA",
+        "17R",
+        "20LB",
+        "18R",
+        "20LC",
+        "19R",
+        "20LD",
+        "21L",
+        "22L",
+        "23L",
+        "24L",
+        "25L",
+        "26L",
+        "27L",
+        "28L",
+        "29L",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20LA",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "A",
+      "destinationTrackCircuitId": "NT14_1RT",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_27BT",
+        "NT14_27AT",
+        "NT14_25T",
+        "NT14_1RT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_27AT",
+        "NT14_25T",
+        "NT14_1RT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_27AT",
+        "NT14_25T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "1RA",
+        "17R",
+        "20LB",
+        "18R",
+        "20LC",
+        "19R",
+        "20LD",
+        "20RI",
+        "20RJ",
+        "20RK",
+        "20RL",
+        "20RM",
+        "20RN",
+        "20RO",
+        "20RP",
+        "20RQ",
+        "20RR"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "17R",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_2RT",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_2RT",
+        "NT14_25T",
+        "NT14_27AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_25T",
+        "NT14_27AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_25T",
+        "NT14_27AT",
+        "NT14_27BT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_2RT"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "20LA",
+        "3L",
+        "20LB",
+        "18R",
+        "20LC",
+        "19R",
+        "20LD",
+        "21L",
+        "22L",
+        "23L",
+        "24L",
+        "25L",
+        "26L",
+        "27L",
+        "28L",
+        "29L",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20LB",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "B",
+      "destinationTrackCircuitId": "NT14_2RT",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_27BT",
+        "NT14_27AT",
+        "NT14_25T",
+        "NT14_2RT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_27AT",
+        "NT14_25T",
+        "NT14_2RT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_27AT",
+        "NT14_25T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "20LA",
+        "17R",
+        "1RB",
+        "18R",
+        "20LC",
+        "19R",
+        "20LD",
+        "20RI",
+        "20RJ",
+        "20RK",
+        "20RL",
+        "20RM",
+        "20RN",
+        "20RO",
+        "20RP",
+        "20RQ",
+        "20RR"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "18R",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_3LT",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_3LT",
+        "NT14_26T",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_26T",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_26T",
+        "NT14_28AT",
+        "NT14_27BT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_3LT"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "20LA",
+        "17R",
+        "20LB",
+        "4L",
+        "20LC",
+        "19R",
+        "20LD",
+        "21L",
+        "22L",
+        "23L",
+        "24L",
+        "25L",
+        "26L",
+        "27L",
+        "28L",
+        "29L",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20LC",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "C",
+      "destinationTrackCircuitId": "NT14_3LT",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_27BT",
+        "NT14_28AT",
+        "NT14_26T",
+        "NT14_3LT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_28AT",
+        "NT14_26T",
+        "NT14_3LT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_28AT",
+        "NT14_26T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "20LA",
+        "17R",
+        "20LB",
+        "18R",
+        "1RC",
+        "19R",
+        "20LD",
+        "20RI",
+        "20RJ",
+        "20RK",
+        "20RL",
+        "20RM",
+        "20RN",
+        "20RO",
+        "20RP",
+        "20RQ",
+        "20RR"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "19R",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_4LT",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_4LT",
+        "NT14_26T",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_26T",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_26T",
+        "NT14_28AT",
+        "NT14_27BT"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_4LT"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "20LA",
+        "17R",
+        "20LB",
+        "18R",
+        "20LC",
+        "5L",
+        "20LD",
+        "21L",
+        "22L",
+        "23L",
+        "24L",
+        "25L",
+        "26L",
+        "27L",
+        "28L",
+        "29L",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20LD",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "D",
+      "destinationTrackCircuitId": "NT14_4LT",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_27BT",
+        "NT14_28AT",
+        "NT14_26T",
+        "NT14_4LT"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_27A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28A",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_27B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_28B",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_25",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_26",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_28AT",
+        "NT14_26T",
+        "NT14_4LT"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_27BT",
+        "NT14_28AT",
+        "NT14_26T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "20LA",
+        "17R",
+        "20LB",
+        "18R",
+        "20LC",
+        "19R",
+        "1RD",
+        "20RI",
+        "20RJ",
+        "20RK",
+        "20RL",
+        "20RM",
+        "20RN",
+        "20RO",
+        "20RP",
+        "20RQ",
+        "20RR"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RI",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "I",
+      "destinationTrackCircuitId": "NT14_DEPOT_3T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_DEPOT_3T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_DEPOT_3T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "21L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_3T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_3T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_3T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RJ",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "J",
+      "destinationTrackCircuitId": "NT14_DEPOT_4T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_DEPOT_4T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_34",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_DEPOT_4T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "22L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_4T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_4T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_34",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_4T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RK",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "K",
+      "destinationTrackCircuitId": "NT14_DEPOT_5T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_36T",
+        "NT14_41T",
+        "NT14_DEPOT_5T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_34",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_36",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_41",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_36T",
+        "NT14_41T",
+        "NT14_DEPOT_5T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_36T",
+        "NT14_41T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "23L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_5T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_5T",
+        "NT14_41T",
+        "NT14_36T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_41",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_36",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_34",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_41T",
+        "NT14_36T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_41T",
+        "NT14_36T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_5T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RL",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "L",
+      "destinationTrackCircuitId": "NT14_DEPOT_6T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_36T",
+        "NT14_DEPOT_6T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_34",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_36",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_36T",
+        "NT14_DEPOT_6T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_34T",
+        "NT14_36T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "24L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_6T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_6T",
+        "NT14_36T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_36",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_34",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_36T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_36T",
+        "NT14_34T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_6T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RM",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "M",
+      "destinationTrackCircuitId": "NT14_DEPOT_7T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_DEPOT_7T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_37",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_DEPOT_7T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "25L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_7T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_7T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_37",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_7T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RN",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "N",
+      "destinationTrackCircuitId": "NT14_DEPOT_8T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_39T",
+        "NT14_DEPOT_8T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_37",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_39",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_39T",
+        "NT14_DEPOT_8T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_39T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "26L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_8T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_8T",
+        "NT14_39T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_39",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_37",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_39T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_39T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_8T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RO",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "O",
+      "destinationTrackCircuitId": "NT14_DEPOT_9T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_39T",
+        "NT14_DEPOT_9T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_37",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_39",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_39T",
+        "NT14_DEPOT_9T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_37T",
+        "NT14_39T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "27L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_9T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_9T",
+        "NT14_39T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_39",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_37",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_39T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_39T",
+        "NT14_37T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_9T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RP",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "P",
+      "destinationTrackCircuitId": "NT14_DEPOT_10T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_DEPOT_10T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_38",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_DEPOT_10T",
+        "NT14_40T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "28L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_10T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_10T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_38",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T",
+        "NT14_40T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_10T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "20RQ",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RQ",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "Q",
+      "destinationTrackCircuitId": "NT14_DEPOT_11T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_40T",
+        "NT14_DEPOT_11T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_38",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_40",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_40T",
+        "NT14_DEPOT_11T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_40T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "29L",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "29L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_11T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_11T",
+        "NT14_40T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_40",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_38",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_40T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_40T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_11T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "20RR",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "20RR",
+      "direction": "Down",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_31T",
+      "destinationCode": "R",
+      "destinationTrackCircuitId": "NT14_DEPOT_12T",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_40T",
+        "NT14_DEPOT_12T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_38",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_40",
+          "requiredPosition": 1
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_40T",
+        "NT14_DEPOT_12T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_32T",
+        "NT14_33T",
+        "NT14_35T",
+        "NT14_38T",
+        "NT14_40T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_31T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "20LA",
+        "20LB",
+        "20LC",
+        "20LD",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "30L"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    },
+    {
+      "routeId": "30L",
+      "direction": "Up",
+      "kind": "Shunting",
+      "startTrackCircuitId": "NT14_DEPOT_12T",
+      "destinationCode": "H",
+      "destinationTrackCircuitId": "NT14_31T",
+      "trackCircuitIds": [
+        "NT14_DEPOT_12T",
+        "NT14_40T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "requiredTurnouts": [
+        {
+          "connectionId": "NT14_40",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_38",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_35",
+          "requiredPosition": 2
+        },
+        {
+          "connectionId": "NT14_33",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_32",
+          "requiredPosition": 1
+        },
+        {
+          "connectionId": "NT14_31",
+          "requiredPosition": 2
+        }
+      ],
+      "routeClearTrackCircuitIds": [
+        "NT14_40T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T",
+        "NT14_31T"
+      ],
+      "routeReleaseTrackCircuitIds": [
+        "NT14_40T",
+        "NT14_38T",
+        "NT14_35T",
+        "NT14_33T",
+        "NT14_32T"
+      ],
+      "approachLock": {
+        "trackCircuitIds": [
+          "NT14_DEPOT_12T"
+        ],
+        "releaseSeconds": 30
+      },
+      "conflictRouteIds": [
+        "16R",
+        "17R",
+        "18R",
+        "19R",
+        "20RI",
+        "21L",
+        "20RJ",
+        "22L",
+        "20RK",
+        "23L",
+        "20RL",
+        "24L",
+        "20RM",
+        "25L",
+        "20RN",
+        "26L",
+        "20RO",
+        "27L",
+        "20RP",
+        "28L",
+        "20RQ",
+        "29L",
+        "20RR"
+      ],
+      "overrunProtection": {
+        "isEnabled": false,
+        "turnoutRequirements": [],
+        "releaseSeconds": 0
+      }
+    }
+  ],
+  "turnoutLocks": [
+    {
+      "connectionId": "NT14_21A",
+      "trackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22AT",
+        "NT14_21BT",
+        "NT14_22BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_22A",
+      "trackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22AT",
+        "NT14_21BT",
+        "NT14_22BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_21B",
+      "trackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22AT",
+        "NT14_21BT",
+        "NT14_22BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_22B",
+      "trackCircuitIds": [
+        "NT14_21AT",
+        "NT14_22AT",
+        "NT14_21BT",
+        "NT14_22BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_27A",
+      "trackCircuitIds": [
+        "NT14_27AT",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_28BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_28A",
+      "trackCircuitIds": [
+        "NT14_27AT",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_28BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_27B",
+      "trackCircuitIds": [
+        "NT14_27AT",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_28BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_28B",
+      "trackCircuitIds": [
+        "NT14_27AT",
+        "NT14_28AT",
+        "NT14_27BT",
+        "NT14_28BT"
+      ]
+    },
+    {
+      "connectionId": "NT14_23",
+      "trackCircuitIds": [
+        "NT14_23T"
+      ]
+    },
+    {
+      "connectionId": "NT14_25",
+      "trackCircuitIds": [
+        "NT14_25T"
+      ]
+    },
+    {
+      "connectionId": "NT14_24",
+      "trackCircuitIds": [
+        "NT14_24T"
+      ]
+    },
+    {
+      "connectionId": "NT14_26",
+      "trackCircuitIds": [
+        "NT14_26T"
+      ]
+    },
+    {
+      "connectionId": "NT14_31",
+      "trackCircuitIds": [
+        "NT14_31T",
+        "NT14_32T"
+      ]
+    },
+    {
+      "connectionId": "NT14_32",
+      "trackCircuitIds": [
+        "NT14_32T"
+      ]
+    },
+    {
+      "connectionId": "NT14_33",
+      "trackCircuitIds": [
+        "NT14_33T"
+      ]
+    },
+    {
+      "connectionId": "NT14_34",
+      "trackCircuitIds": [
+        "NT14_34T"
+      ]
+    },
+    {
+      "connectionId": "NT14_35",
+      "trackCircuitIds": [
+        "NT14_35T"
+      ]
+    },
+    {
+      "connectionId": "NT14_36",
+      "trackCircuitIds": [
+        "NT14_36T"
+      ]
+    },
+    {
+      "connectionId": "NT14_37",
+      "trackCircuitIds": [
+        "NT14_37T"
+      ]
+    },
+    {
+      "connectionId": "NT14_38",
+      "trackCircuitIds": [
+        "NT14_38T",
+        "NT14_40T"
+      ]
+    },
+    {
+      "connectionId": "NT14_39",
+      "trackCircuitIds": [
+        "NT14_39T"
+      ]
+    },
+    {
+      "connectionId": "NT14_40",
+      "trackCircuitIds": [
+        "NT14_40T",
+        "NT14_38T"
+      ]
+    },
+    {
+      "connectionId": "NT14_41",
+      "trackCircuitIds": [
+        "NT14_41T"
+      ]
+    },
+    {
+      "connectionId": "NT14_42",
+      "trackCircuitIds": [
+        "NT14_42T"
+      ]
+    },
+    {
+      "connectionId": "NT14_43",
+      "trackCircuitIds": [
+        "NT14_43T"
+      ]
+    },
+    {
+      "connectionId": "NT14_44",
+      "trackCircuitIds": [
+        "NT14_44T",
+        "NT14_43T"
+      ]
+    }
+  ]
+}

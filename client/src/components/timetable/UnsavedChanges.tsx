@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/toast";
 
-type Scope = "timetable" | "operation" | "train" | "train-type" | "pattern";
+type Scope = "timetable" | "operation-plan" | "operation" | "train" | "train-type" | "pattern";
 type Entry = { scope: Scope; dirty: boolean; busy: boolean };
 type HistoryNavigation = EventTarget & { traverseTo: (key: string) => { finished: Promise<unknown> } };
 type HistoryNavigationEvent = Event & { navigationType: string; destination: { sameDocument: boolean; key: string } };

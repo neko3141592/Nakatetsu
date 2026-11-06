@@ -26,7 +26,7 @@ export async function loadTimetable(id: string): Promise<Result<Timetable>> {
   }
 }
 
-export async function saveTimetable(timetable: TimetableSummary & { operationNumbers: string[] }): Promise<Result<Timetable>> {
+export async function saveTimetable(timetable: TimetableSummary): Promise<Result<Timetable>> {
   const displayName = timetable.displayName.trim();
   if (!displayName) return { error: "ダイヤ名を入力してください" };
 
@@ -36,7 +36,7 @@ export async function saveTimetable(timetable: TimetableSummary & { operationNum
     const response = await fetch(`http://127.0.0.1:8080/api/timetable/${isNew ? "" : encodeURIComponent(data.id)}`, {
       method: isNew ? "POST" : "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(isNew ? { ...data, operationNumbers: timetable.operationNumbers } : { displayName, operationNumbers: timetable.operationNumbers }),
+      body: JSON.stringify(isNew ? data : { displayName }),
     });
     if (!response.ok) return { error: (await response.text()).trim() || "ダイヤの保存に失敗しました" };
     return isNew ? { data: await response.json() } : loadTimetable(data.id);

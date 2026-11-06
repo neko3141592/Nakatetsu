@@ -102,7 +102,10 @@ func TestDeleteTrainTypeCascadeAndRestriction(t *testing.T) {
 		t.Fatal(err)
 	}
 	trainTypeRequest(t, handler, http.MethodPost, "/api/train-types", `{"trainTypeId":"local","displayName":"普通","runningTimes":[{"fromStationId":"A","toStationId":"B","runningSeconds":60}]}`, http.StatusCreated)
-	reference := timetable.TimetableTrain{TrainNumber: "0001", TrainTypeID: "local"}
+	if err := db.Create(&timetable.Timetable{ID: "test", DisplayName: "test"}).Error; err != nil {
+		t.Fatal(err)
+	}
+	reference := timetable.TimetableTrain{TimetableID: "test", TrainNumber: "0001", TrainTypeID: "local"}
 	if err := db.Create(&reference).Error; err != nil {
 		t.Fatal(err)
 	}
@@ -218,7 +221,10 @@ func TestTrainTypeStationHandlings(t *testing.T) {
 	trainTypeRequest(t, handler, http.MethodPost, "/api/train-types", `{"trainTypeId":"bad","displayName":"失敗","stationHandlings":[{"stationId":"missing","handling":"stop"}]}`, http.StatusBadRequest)
 	trainTypeRequest(t, handler, http.MethodGet, "/api/train-types/bad", "", http.StatusNotFound)
 	trainTypeRequest(t, handler, http.MethodPatch, "/api/train-types/missing", `{"stationHandlings":[]}`, http.StatusNotFound)
-	reference := timetable.TimetableTrain{TrainNumber: "reference", TrainTypeID: "express"}
+	if err := db.Create(&timetable.Timetable{ID: "test", DisplayName: "test"}).Error; err != nil {
+		t.Fatal(err)
+	}
+	reference := timetable.TimetableTrain{TimetableID: "test", TrainNumber: "reference", TrainTypeID: "express"}
 	if err := db.Create(&reference).Error; err != nil {
 		t.Fatal(err)
 	}

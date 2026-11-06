@@ -35,13 +35,13 @@ func TestTrainGeneratedRoutes(t *testing.T) {
 		`[{"sequenceIndex":0,"trackCircuitId":"B1T"},{"sequenceIndex":1,"trackCircuitId":"A1T"}]`,
 		`[{"sequenceIndex":0,"trackCircuitId":"A1T"},{"sequenceIndex":1,"trackCircuitId":"B1T"},{"sequenceIndex":2,"trackCircuitId":"A1T"}]`,
 	} {
-		request := `{"trainNumber":"bad","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":` + points + `}`
+		request := `{"timetableId":"test","trainNumber":"bad","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":` + points + `}`
 		w := trainTypeRequest(t, handler, http.MethodPost, "/api/trains", request, http.StatusBadRequest)
 		if !strings.Contains(w.Body.String(), "B1T") || !strings.Contains(w.Body.String(), "A1T") {
 			t.Fatalf("missing failing section: %s", w.Body.String())
 		}
-		trainTypeRequest(t, handler, http.MethodGet, "/api/trains/bad", "", http.StatusNotFound)
-		trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/0001", `{"trainTypeId":"express","points":`+points+`}`, http.StatusBadRequest)
+		trainTypeRequest(t, handler, http.MethodGet, "/api/trains/"+trainID(t, handler, "bad"), "", http.StatusNotFound)
+		trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+trainID(t, handler, "0001"), `{"trainTypeId":"express","points":`+points+`}`, http.StatusBadRequest)
 		if after := getTrain(t, handler, "0001"); !reflect.DeepEqual(after, before) {
 			t.Fatal("failed route generation modified the saved train")
 		}
@@ -71,7 +71,7 @@ func TestTrainBlockOnlyAndAmbiguousRoutes(t *testing.T) {
 		{InterlockingStationID: "A", InterlockingRouteID: "R1", Kind: ctc.RouteKindDeparture, TrackCircuitIDs: []string{"A1T", "B1T"}},
 		{InterlockingStationID: "A", InterlockingRouteID: "R2", Kind: ctc.RouteKindHome, TrackCircuitIDs: []string{"A1T", "B1T"}},
 	}
-	w := trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/0001", `{"points":[{"sequenceIndex":0,"trackCircuitId":"A1T"},{"sequenceIndex":1,"trackCircuitId":"B1T"}]}`, http.StatusBadRequest)
+	w := trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+trainID(t, handler, "0001"), `{"points":[{"sequenceIndex":0,"trackCircuitId":"A1T"},{"sequenceIndex":1,"trackCircuitId":"B1T"}]}`, http.StatusBadRequest)
 	if !strings.Contains(w.Body.String(), "複数") {
 		t.Fatalf("unexpected ambiguity error: %s", w.Body.String())
 	}
@@ -82,7 +82,7 @@ func TestTrainBlockOnlyAndAmbiguousRoutes(t *testing.T) {
 
 func TestTrainPointSections(t *testing.T) {
 	_, handler := trainTestServer(t)
-	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"trainNumber":"sections","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":[
+	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"timetableId":"test","trainNumber":"sections","trainTypeId":"local","originStationId":"A","destinationStationId":"B","points":[
 		{"sequenceIndex":0,"section":"depot_exit","stationId":"A","trackCircuitId":"A1T"},
 		{"sequenceIndex":1,"section":"service","stationId":"A","trackCircuitId":"A1T"},
 		{"sequenceIndex":2,"section":"service","stationId":"B","trackCircuitId":"B1T"},
@@ -100,9 +100,19 @@ func TestTrainPointSections(t *testing.T) {
 	if len(before.Points[1].Routes) != 2 || len(before.Points[3].Routes) != 0 {
 		t.Fatal("missing generated routes across sections")
 	}
-	trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/sections", `{"points":[{"section":"invalid","trackCircuitId":"A1T"}]}`, http.StatusBadRequest)
+	if before.Points[0].Handling != timetable.HandlingStop || before.Points[3].Handling != timetable.HandlingUnspecified {
+		t.Fatalf("unexpected depot handling: %+v", before.Points)
+	}
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+trainID(t, handler, "sections"), `{"points":[{"section":"invalid","trackCircuitId":"A1T"}]}`, http.StatusBadRequest)
 	if after := getTrain(t, handler, "sections"); !reflect.DeepEqual(after, before) {
 		t.Fatal("invalid section modified the train")
+	}
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+before.ID, `{"points":[
+		{"sequenceIndex":0,"section":"depot_exit","stationId":"A","trackCircuitId":"A1T","handling":"unspecified"},
+		{"sequenceIndex":1,"section":"service","stationId":"A","trackCircuitId":"A1T","handling":"pass"}]}`, http.StatusNoContent)
+	after := getTrain(t, handler, "sections")
+	if len(after.Points) != 2 || after.Points[0].Handling != timetable.HandlingStop || after.Points[1].Handling != timetable.HandlingPass {
+		t.Fatalf("unexpected handling after update: %+v", after.Points)
 	}
 }
 
@@ -131,7 +141,7 @@ func TestTrainRouteKindsBySection(t *testing.T) {
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			server.RouteDefinitions = routes
-			input := timetable.TimetableTrain{TrainNumber: tt.name, TrainTypeID: "local", OriginStationID: "A", DestinationStationID: "B", Points: []timetable.TimetablePoint{
+			input := timetable.TimetableTrain{TimetableID: "test", TrainNumber: tt.name, TrainTypeID: "local", OriginStationID: "A", DestinationStationID: "B", Points: []timetable.TimetablePoint{
 				{SequenceIndex: 0, Section: tt.from, TrackCircuitID: "A1T"},
 				{SequenceIndex: 1, Section: tt.to, TrackCircuitID: "B1T"},
 			}}
@@ -145,7 +155,7 @@ func TestTrainRouteKindsBySection(t *testing.T) {
 				t.Fatalf("unexpected routes: %+v", before.Points)
 			}
 			server.RouteDefinitions = []ctc.TrackRouteDefinition{routes[1-tt.want]}
-			trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+tt.name, string(body), http.StatusBadRequest)
+			trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+trainID(t, handler, tt.name), string(body), http.StatusBadRequest)
 			if after := getTrain(t, handler, tt.name); !reflect.DeepEqual(after, before) {
 				t.Fatal("disallowed route modified the saved train")
 			}
@@ -178,31 +188,52 @@ func TestTrainRoutesNakatetsuNetwork(t *testing.T) {
 	if err := db.Create(&timetable.TrainType{TrainTypeID: "local", DisplayName: "各停"}).Error; err != nil {
 		t.Fatal(err)
 	}
+	if err := db.Create(&timetable.Timetable{ID: "test", DisplayName: "test"}).Error; err != nil {
+		t.Fatal(err)
+	}
 	server := &ApiServer{DB: db, CircuitDefinitions: circuits, RouteDefinitions: interlocking.Routes}
 	handler := server.Routes()
-	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"trainNumber":"real","trainTypeId":"local","originStationId":"NT07","destinationStationId":"NT08","points":[{"sequenceIndex":0,"stationId":"NT07","trackCircuitId":"NT07_1RT"},{"sequenceIndex":1,"stationId":"NT08","trackCircuitId":"NT08_1RT"}]}`, http.StatusCreated)
+	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"timetableId":"test","trainNumber":"real","trainTypeId":"local","originStationId":"NT07","destinationStationId":"NT08","points":[{"sequenceIndex":0,"stationId":"NT07","trackCircuitId":"NT07_1RT"},{"sequenceIndex":1,"stationId":"NT08","trackCircuitId":"NT08_1RT"}]}`, http.StatusCreated)
 	got := getTrain(t, handler, "real")
 	if len(got.Points[0].Routes) != 1 || got.Points[0].Routes[0].ControlStationID != "NT07" || got.Points[0].Routes[0].RouteID != "4RI" {
 		t.Fatalf("unexpected express line routes: %+v", got.Points)
 	}
-	trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/real", `{"points":[{"sequenceIndex":0,"stationId":"NT07","trackCircuitId":"NT07_1RT"},{"sequenceIndex":1,"stationId":"NT08","trackCircuitId":"NT08_2RT"}]}`, http.StatusNoContent)
+	trainTypeRequest(t, handler, http.MethodPatch, "/api/trains/"+trainID(t, handler, "real"), `{"points":[{"sequenceIndex":0,"stationId":"NT07","trackCircuitId":"NT07_1RT"},{"sequenceIndex":1,"stationId":"NT08","trackCircuitId":"NT08_2RT"}]}`, http.StatusNoContent)
 	got = getTrain(t, handler, "real")
 	if len(got.Points[0].Routes) != 1 || got.Points[0].Routes[0].RouteID != "4RJ" {
 		t.Fatalf("unexpected local line routes: %+v", got.Points)
 	}
-	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"trainNumber":"depot","trainTypeId":"local","originStationId":"NT11","destinationStationId":"NT11","points":[{"sequenceIndex":0,"section":"depot_exit","stationId":"NT11","trackCircuitId":"NT11_DEPOT_T"},{"sequenceIndex":1,"section":"service","stationId":"NT11","trackCircuitId":"NT11_3LT"}]}`, http.StatusCreated)
+	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"timetableId":"test","trainNumber":"depot","trainTypeId":"local","originStationId":"NT11","destinationStationId":"NT11","points":[{"sequenceIndex":0,"section":"depot_exit","stationId":"NT11","trackCircuitId":"NT11_DEPOT_T"},{"sequenceIndex":1,"section":"service","stationId":"NT11","trackCircuitId":"NT11_3LT"}]}`, http.StatusCreated)
 	depot := getTrain(t, handler, "depot")
 	if len(depot.Points[0].Routes) != 1 || depot.Points[0].Routes[0].RouteID != "11LC" || len(depot.Points[1].Routes) != 0 {
 		t.Fatalf("unexpected depot exit routes: %+v", depot.Points)
 	}
-	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"trainNumber":"entry","trainTypeId":"local","originStationId":"NT11","destinationStationId":"NT11","points":[{"sequenceIndex":0,"section":"service","stationId":"NT11","trackCircuitId":"NT11_2RT"},{"sequenceIndex":1,"section":"depot_entry","stationId":"NT11","trackCircuitId":"NT11_DEPOT_T"}]}`, http.StatusCreated)
+	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"timetableId":"test","trainNumber":"entry","trainTypeId":"local","originStationId":"NT11","destinationStationId":"NT11","points":[{"sequenceIndex":0,"section":"service","stationId":"NT11","trackCircuitId":"NT11_2RT"},{"sequenceIndex":1,"section":"depot_entry","stationId":"NT11","trackCircuitId":"NT11_DEPOT_T"}]}`, http.StatusCreated)
 	entry := getTrain(t, handler, "entry")
 	if len(entry.Points[0].Routes) != 1 || entry.Points[0].Routes[0].RouteID != "10R" || len(entry.Points[1].Routes) != 0 {
 		t.Fatalf("unexpected depot entry routes: %+v", entry.Points)
 	}
-	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"trainNumber":"up","trainTypeId":"local","originStationId":"NT11","destinationStationId":"NT10","points":[{"sequenceIndex":0,"stationId":"NT11","trackCircuitId":"NT11_3LT"},{"sequenceIndex":1,"stationId":"NT10","trackCircuitId":"NT10_4LT"}]}`, http.StatusCreated)
+	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"timetableId":"test","trainNumber":"up","trainTypeId":"local","originStationId":"NT11","destinationStationId":"NT10","points":[{"sequenceIndex":0,"stationId":"NT11","trackCircuitId":"NT11_3LT"},{"sequenceIndex":1,"stationId":"NT10","trackCircuitId":"NT10_4LT"}]}`, http.StatusCreated)
 	up := getTrain(t, handler, "up")
 	if len(up.Points[0].Routes) != 1 || up.Points[0].Routes[0].RouteID != "2LJ" {
 		t.Fatalf("unexpected up express line routes: %+v", up.Points)
+	}
+	trainTypeRequest(t, handler, http.MethodPost, "/api/trains", `{"timetableId":"test","trainNumber":"nakada","trainTypeId":"local","originStationId":"NT13","destinationStationId":"NT14","points":[{"sequenceIndex":0,"stationId":"NT13","trackCircuitId":"NT13_DT"},{"sequenceIndex":1,"stationId":"NT14","trackCircuitId":"NT14_2RT"}]}`, http.StatusCreated)
+	nakada := getTrain(t, handler, "nakada")
+	if len(nakada.Points[0].Routes) != 1 || nakada.Points[0].Routes[0].ControlStationID != "NT14" || nakada.Points[0].Routes[0].RouteID != "1RB" {
+		t.Fatalf("unexpected Nakada home route from block section: %+v", nakada.Points)
+	}
+	for _, tt := range []struct {
+		name, points, firstRoute, secondRoute string
+	}{
+		{"nakada-entry", `[{"sequenceIndex":0,"section":"service","stationId":"NT14","trackCircuitId":"NT14_1RT"},{"sequenceIndex":1,"section":"depot_entry","stationId":"NT14","trackCircuitId":"NT14_DEPOT_12T"}]`, "16R", "20RR"},
+		{"nakada-exit", `[{"sequenceIndex":0,"section":"depot_exit","stationId":"NT14","trackCircuitId":"NT14_DEPOT_12T"},{"sequenceIndex":1,"section":"service","stationId":"NT14","trackCircuitId":"NT14_4LT"}]`, "30L", "20LD"},
+	} {
+		body := `{"timetableId":"test","trainNumber":"` + tt.name + `","trainTypeId":"local","originStationId":"NT14","destinationStationId":"NT14","points":` + tt.points + `}`
+		trainTypeRequest(t, handler, http.MethodPost, "/api/trains", body, http.StatusCreated)
+		got := getTrain(t, handler, tt.name).Points[0].Routes
+		if len(got) != 2 || got[0].RouteID != tt.firstRoute || got[1].RouteID != tt.secondRoute {
+			t.Fatalf("%s: unexpected routes through 31T: %+v", tt.name, got)
+		}
 	}
 }
