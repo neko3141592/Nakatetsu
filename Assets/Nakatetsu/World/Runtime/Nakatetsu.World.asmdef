@@ -3,7 +3,9 @@
     "rootNamespace": "Nakatetsu.World",
     "references": [
         "Nakatetsu.Core",
-        "Nakatetsu.Track"
+        "Nakatetsu.Track",
+        "Nakatetsu.Track.Graph",
+        "Nakatetsu.Track.Shared"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
